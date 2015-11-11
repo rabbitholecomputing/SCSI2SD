@@ -179,11 +179,11 @@ endif
 
 $(BUILD)/scsi2sd-util$(EXE): $(OBJ) $(BUILD)/scsi2sd-util.o
 	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) $(LDFLAGS_WX) -o $@
+	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS_WX) $(LDFLAGS) -o $@
 
 $(BUILD)/scsi2sd-monitor$(EXE): $(OBJ) $(BUILD)/scsi2sd-monitor.o
 	mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) $(LDFLAGS_WX) -o $@
+	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS_WX) $(LDFLAGS) -o $@
 
 clean:
 	rm $(BUILD)/scsi2sd-util$(EXE) $(OBJ) $(BUILD)/libzipper/buildstamp

@@ -58,7 +58,7 @@ ifeq ($(TARGET),Win32)
 	WX_CONFIG+=--host=i686-w64-mingw32
 endif
 ifeq ($(TARGET),Win64)
-	VPATH += hidapi/windows
+	VPATH += hidapi-windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/64bit
 	CC=x86_64-w64-mingw32-gcc

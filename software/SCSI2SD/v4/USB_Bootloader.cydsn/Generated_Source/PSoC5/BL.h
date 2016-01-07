@@ -22,9 +22,9 @@
 
 #define BL_DUAL_APP_BOOTLOADER        (0u)
 #define BL_BOOTLOADER_APP_VERSION     (0u)
-#define BL_FAST_APP_VALIDATION        (0u)
+#define BL_FAST_APP_VALIDATION        (1u)
 #define BL_PACKET_CHECKSUM_CRC        (0u)
-#define BL_WAIT_FOR_COMMAND           (1u)
+#define BL_WAIT_FOR_COMMAND           (0u)
 #define BL_WAIT_FOR_COMMAND_TIME      (20u)
 #define BL_BOOTLOADER_APP_VALIDATION  (1u)
 

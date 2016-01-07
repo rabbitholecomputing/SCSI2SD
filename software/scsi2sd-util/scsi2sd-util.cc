@@ -181,6 +181,10 @@ public:
 			ID_Firmware,
 			_("&Upgrade Firmware..."),
 			_("Upgrade or inspect device firmware version."));
+		menuFile->Append(
+			ID_Bootloader,
+			_("&Upgrade Bootloader (ADVANCED) ..."),
+			_("Upgrade device bootloader."));
 		menuFile->AppendSeparator();
 		menuFile->Append(wxID_EXIT);
 
@@ -365,6 +369,7 @@ private:
 	{
 		ID_ConfigDefaults = wxID_HIGHEST + 1,
 		ID_Firmware,
+		ID_Bootloader,
 		ID_Timer,
 		ID_Notebook,
 		ID_BtnLoad,
@@ -469,6 +474,12 @@ private:
 	{
 		TimerLock lock(myTimer);
 		doFirmwareUpdate();
+	}
+
+	void OnID_Bootloader(wxCommandEvent& event)
+	{
+		TimerLock lock(myTimer);
+		doBootloaderUpdate();
 	}
 
 	void OnID_LogWindow(wxCommandEvent& event)
@@ -649,6 +660,129 @@ private:
 
 			wxRemoveFile(tmpFile);
 		}
+	}
+
+	void doBootloaderUpdate()
+	{
+		if (!myHID)
+		{
+			wxMessageBox(
+				"No device",
+				"No device",
+				wxOK | wxICON_ERROR);
+			return;
+		}
+
+		wxFileDialog dlg(
+			this,
+			"Load bootloader file",
+			"",
+			"",
+			"SCSI2SD Bootloader files (*.bin)|*.bin",
+			wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+		if (dlg.ShowModal() == wxID_CANCEL) return;
+
+		std::string filename(dlg.GetPath());
+
+		wxFile file(filename);
+		if (file.Length() != 0x2400)
+		{
+			wxMessageBox(
+				"Invalid file",
+				"Invalid file",
+				wxOK | wxICON_ERROR);
+			return;
+
+		}
+		uint8_t data[0x2400];
+		if (file.Read(data, sizeof(data)) != sizeof(data))
+		{
+			wxMessageBox(
+				"Couldn't read file",
+				"Couldn't read file",
+				wxOK | wxICON_ERROR);
+			return;
+		}
+
+		static char magic[] = {
+			'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
+			'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
+
+		uint8_t* dataEnd = data + sizeof(data);
+		if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
+		{
+			wxMessageBox(
+				"Bad file",
+				"Not a valid bootloader file.",
+				wxOK | wxICON_ERROR);
+			return;
+		}
+
+		std::stringstream msg;
+		msg << "Upgrading bootloader from file: " << filename;
+		mmLogStatus(msg.str());
+
+		wxWindowPtr<wxGenericProgressDialog> progress(
+			new wxGenericProgressDialog(
+				"Update bootloader",
+				"Update bootloader",
+				100,
+				this,
+				wxPD_REMAINING_TIME)
+				);
+
+
+		int currentProgress = 0;
+		int totalProgress = 36;
+
+		for (size_t flashRow = 0; flashRow < 36; ++flashRow)
+		{
+			std::stringstream ss;
+			ss << "Programming flash array 0 row " << (flashRow);
+			mmLogStatus(ss.str());
+			currentProgress += 1;
+
+			if (currentProgress == totalProgress)
+			{
+				ss.str("Save Complete.");
+				mmLogStatus("Save Complete.");
+			}
+			if (!progress->Update(
+					(100 * currentProgress) / totalProgress,
+					ss.str()
+					)
+				)
+			{
+				goto abort;
+			}
+
+			uint8_t* rowData = data + (flashRow * 256);
+			std::vector<uint8_t> flashData(rowData, rowData + 256);
+			try
+			{
+				myHID->writeFlashRow(0, flashRow, flashData);
+			}
+			catch (std::runtime_error& e)
+			{
+				mmLogStatus(e.what());
+				goto err;
+			}
+		}
+
+		goto out;
+
+	err:
+		mmLogStatus("Bootloader update failed");
+		progress->Update(100, "Bootloader update failed");
+		goto out;
+
+	abort:
+		mmLogStatus("Bootloader update aborted");
+
+	out:
+		return;
+
+
 	}
 
 	void dumpSCSICommand(std::vector<uint8_t> buf)
@@ -1046,10 +1180,7 @@ private:
 			}
 		}
 
-		// Reboot so new settings take effect.
-		myHID->enterBootloader();
 		myHID.reset();
-
 
 		goto out;
 
@@ -1098,6 +1229,7 @@ private:
 wxBEGIN_EVENT_TABLE(AppFrame, wxFrame)
 	EVT_MENU(AppFrame::ID_ConfigDefaults, AppFrame::OnID_ConfigDefaults)
 	EVT_MENU(AppFrame::ID_Firmware, AppFrame::OnID_Firmware)
+	EVT_MENU(AppFrame::ID_Bootloader, AppFrame::OnID_Bootloader)
 	EVT_MENU(AppFrame::ID_LogWindow, AppFrame::OnID_LogWindow)
 	EVT_MENU(AppFrame::ID_SaveFile, AppFrame::OnID_SaveFile)
 	EVT_MENU(AppFrame::ID_OpenFile, AppFrame::OnID_OpenFile)

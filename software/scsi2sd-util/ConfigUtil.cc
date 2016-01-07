@@ -316,6 +316,28 @@ ConfigUtil::toXML(const BoardConfig& config)
 		"	<enableDisconnect>" <<
 			(config.flags & CONFIG_ENABLE_DISCONNECT ? "true" : "false") <<
 			"</enableDisconnect>\n" <<
+
+		"	<!-- ********************************************************\n" <<
+		"   Respond to very short duration selection attempts. This supports\n" <<
+		"   non-standard hardware, but is generally safe to enable.\n" <<
+		"   Required for Philips P2000C.\n" <<
+		"	********************************************************* -->\n" <<
+		"	<selLatch>" <<
+			(config.flags & CONFIG_ENABLE_SEL_LATCH? "true" : "false") <<
+			"</selLatch>\n" <<
+
+
+		"	<!-- ********************************************************\n" <<
+		"   Convert luns to IDs. The unit must already be configured to respond\n" <<
+		"   on the ID. Allows dual drives to be accessed from a \n" <<
+		"   XEBEC S1410 SASI bridge.\n" <<
+		"   eg. Configured for dual drives as IDs 0 and 1, but the XEBEC will\n" <<
+		"   access the second disk as ID0, lun 1.\n" <<
+		"   See ttp://bitsavers.trailing-edge.com/pdf/xebec/104524C_S1410Man_Aug83.pdf\n" <<
+		"	********************************************************* -->\n" <<
+		"	<mapLunsToIds>" <<
+			(config.flags & CONFIG_MAP_LUNS_TO_IDS ? "true" : "false") <<
+			"</mapLunsToIds>\n" <<
 		"</BoardConfig>\n";
 
 	return s.str();
@@ -536,6 +558,30 @@ parseBoardConfig(wxXmlNode* node)
 			else
 			{
 				result.flags = result.flags & ~CONFIG_ENABLE_DISCONNECT;
+			}
+		}
+		else if (child->GetName() == "selLatch")
+		{
+			std::string s(child->GetNodeContent().mb_str());
+			if (s == "true")
+			{
+				result.flags |= CONFIG_ENABLE_SEL_LATCH;
+			}
+			else
+			{
+				result.flags = result.flags & ~CONFIG_ENABLE_SEL_LATCH;
+			}
+		}
+		else if (child->GetName() == "mapLunsToIds")
+		{
+			std::string s(child->GetNodeContent().mb_str());
+			if (s == "true")
+			{
+				result.flags |= CONFIG_MAP_LUNS_TO_IDS;
+			}
+			else
+			{
+				result.flags = result.flags & ~CONFIG_MAP_LUNS_TO_IDS;
 			}
 		}
 		child = child->GetNext();

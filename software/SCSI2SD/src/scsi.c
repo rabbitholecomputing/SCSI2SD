@@ -76,6 +76,7 @@ static void enter_BusFree()
 
 	ledOff();
 	scsiDev.phase = BUS_FREE;
+	scsiDev.selFlag = 0;
 }
 
 static void enter_MessageIn(uint8 message)
@@ -263,10 +264,27 @@ static void process_Command()
 		scsiDev.lun = scsiDev.cdb[1] >> 5;
 	}
 
+	// For Philips P2000C with Xebec S1410 SASI/MFM adapter
+	// http://bitsavers.trailing-edge.com/pdf/xebec/104524C_S1410Man_Aug83.pdf
+	if ((scsiDev.lun > 0) && (scsiDev.boardCfg.flags & CONFIG_MAP_LUNS_TO_IDS))
+	{
+		int tgtIndex;
+		for (tgtIndex = 0; tgtIndex < MAX_SCSI_TARGETS; ++tgtIndex)
+		{
+			if (scsiDev.targets[tgtIndex].targetId == scsiDev.lun)
+			{
+				scsiDev.target = &scsiDev.targets[tgtIndex];
+				scsiDev.lun = 0;
+				break;
+			}
+		}
+	}
+
+
 	control = scsiDev.cdb[scsiDev.cdbLen - 1];
 
 	scsiDev.cmdCount++;
-	TargetConfig* cfg = scsiDev.target->cfg;
+	const TargetConfig* cfg = scsiDev.target->cfg;
 
 	if (unlikely(scsiDev.resetFlag))
 	{
@@ -467,6 +485,7 @@ static void scsiReset()
 	scsiDev.phase = BUS_FREE;
 	scsiDev.atnFlag = 0;
 	scsiDev.resetFlag = 0;
+	scsiDev.selFlag = 0;
 	scsiDev.lun = -1;
 	scsiDev.compatMode = COMPAT_UNKNOWN;
 
@@ -539,7 +558,9 @@ static void process_SelectionPhase()
 		CyDelay(scsiDev.boardCfg.selectionDelay);
 	}
 
-	int sel = SCSI_ReadFilt(SCSI_Filt_SEL);
+	int selLatchCfg = scsiDev.boardCfg.flags & CONFIG_ENABLE_SEL_LATCH;
+	int sel = (selLatchCfg && scsiDev.selFlag) || SCSI_ReadFilt(SCSI_Filt_SEL);
+
 	int bsy = SCSI_ReadFilt(SCSI_Filt_BSY);
 	int io = SCSI_ReadPin(SCSI_In_IO);
 
@@ -560,7 +581,7 @@ static void process_SelectionPhase()
 			break;
 		}
 	}
-	sel &= SCSI_ReadFilt(SCSI_Filt_SEL);
+	sel &= (selLatchCfg && scsiDev.selFlag) || SCSI_ReadFilt(SCSI_Filt_SEL);
 	bsy |= SCSI_ReadFilt(SCSI_Filt_BSY);
 	io |= SCSI_ReadPin(SCSI_In_IO);
 	if (!bsy && !io && sel &&
@@ -638,6 +659,8 @@ static void process_SelectionPhase()
 	{
 		scsiDev.phase = BUS_BUSY;
 	}
+	
+	scsiDev.selFlag = 0;
 }
 
 static void process_MessageOut()
@@ -812,7 +835,7 @@ void scsiPoll(void)
 		// one initiator in the chain. Support this by moving
 		// straight to selection if SEL is asserted.
 		// ie. the initiator won't assert BSY and it's own ID before moving to selection.
-		else if (SCSI_ReadFilt(SCSI_Filt_SEL))
+		else if (SCSI_ReadFilt(SCSI_Filt_SEL) || scsiDev.selFlag)
 		{
 			enter_SelectionPhase();
 		}
@@ -821,7 +844,7 @@ void scsiPoll(void)
 	case BUS_BUSY:
 		// Someone is using the bus. Perhaps they are trying to
 		// select us.
-		if (SCSI_ReadFilt(SCSI_Filt_SEL))
+		if (SCSI_ReadFilt(SCSI_Filt_SEL) || scsiDev.selFlag)
 		{
 			enter_SelectionPhase();
 		}
@@ -916,6 +939,7 @@ void scsiInit()
 {
 	scsiDev.atnFlag = 0;
 	scsiDev.resetFlag = 1;
+	scsiDev.selFlag = 0;
 	scsiDev.phase = BUS_FREE;
 	scsiDev.target = NULL;
 	scsiDev.compatMode = COMPAT_UNKNOWN;

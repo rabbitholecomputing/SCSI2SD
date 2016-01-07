@@ -951,6 +951,7 @@ void sdPoll()
 
 void sdCheckPresent()
 {
+	static int firstCheck = 1;
 	// Check if there's an SD card present.
 	if ((scsiDev.phase == BUS_FREE) &&
 		(sdIOState == SD_IDLE) &&
@@ -973,8 +974,12 @@ void sdCheckPresent()
 		{
 			static int firstInit = 1;
 
-			// Debounce
-			CyDelay(250);
+			// Debounce, except on startup if the card is present at
+			// power on
+			if (!firstCheck)
+			{
+				CyDelay(250);
+			}
 
 			if (sdInit())
 			{
@@ -1010,6 +1015,7 @@ void sdCheckPresent()
 			}
 		}
 	}
+	firstCheck = 0;
 }
 
 #pragma GCC pop_options

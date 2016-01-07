@@ -53,7 +53,7 @@ BoardPanel::BoardPanel(wxWindow* parent, const BoardConfig& initialConfig) :
 	myParent(parent),
 	myDelayValidator(new wxIntegerValidator<uint8_t>)
 {
-	wxFlexGridSizer *fgs = new wxFlexGridSizer(8, 2, 9, 25);
+	wxFlexGridSizer *fgs = new wxFlexGridSizer(10, 2, 9, 25);
 
 	fgs->Add(new wxStaticText(this, wxID_ANY, _("Startup Delay (seconds)")));
 	myStartDelayCtrl =
@@ -136,6 +136,24 @@ BoardPanel::BoardPanel(wxWindow* parent, const BoardConfig& initialConfig) :
 	myDisconnectCtrl->SetToolTip(_("Release the SCSI bus while waiting for SD card writes to complete. Must also be enabled in host OS."));
 	fgs->Add(myDisconnectCtrl);
 
+	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
+	mySelLatchCtrl =
+		new wxCheckBox(
+			this,
+			ID_selLatchCtrl,
+			_("Respond to short SCSI selection pulses"));
+	mySelLatchCtrl->SetToolTip(_("Respond to very short duration selection attempts. This supports non-standard hardware, but is generally safe to enable.  Required for Philips P2000C."));
+	fgs->Add(mySelLatchCtrl);
+
+	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
+	myMapLunsCtrl =
+		new wxCheckBox(
+			this,
+			ID_mapLunsCtrl,
+			_("Map LUNS to SCSI IDs"));
+	myMapLunsCtrl->SetToolTip(_("Treat LUNS as IDs instead. Supports multiple drives on XEBEC S1410 SASI Bridge"));
+	fgs->Add(myMapLunsCtrl);
+
 	wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
 	hbox->Add(fgs, 1, wxALL | wxEXPAND, 15);
 	this->SetSizer(hbox);
@@ -160,7 +178,9 @@ BoardPanel::getConfig() const
 		(myScsi2Ctrl->IsChecked() ? CONFIG_ENABLE_SCSI2 : 0) |
 		(myGlitchCtrl->IsChecked() ? CONFIG_DISABLE_GLITCH : 0) |
 		(myCacheCtrl->IsChecked() ? CONFIG_ENABLE_CACHE: 0) |
-		(myDisconnectCtrl->IsChecked() ? CONFIG_ENABLE_DISCONNECT: 0);
+		(myDisconnectCtrl->IsChecked() ? CONFIG_ENABLE_DISCONNECT: 0) |
+		(mySelLatchCtrl->IsChecked() ? CONFIG_ENABLE_SEL_LATCH : 0) |
+		(myMapLunsCtrl->IsChecked() ? CONFIG_MAP_LUNS_TO_IDS : 0);
 
 	config.startupDelay = CtrlGetValue<unsigned int>(myStartDelayCtrl).first;
 	config.selectionDelay = CtrlGetValue<unsigned int>(mySelDelayCtrl).first;
@@ -178,6 +198,8 @@ BoardPanel::setConfig(const BoardConfig& config)
 	myGlitchCtrl->SetValue(config.flags & CONFIG_DISABLE_GLITCH);
 	myCacheCtrl->SetValue(config.flags & CONFIG_ENABLE_CACHE);
 	myDisconnectCtrl->SetValue(config.flags & CONFIG_ENABLE_DISCONNECT);
+	mySelLatchCtrl->SetValue(config.flags & CONFIG_ENABLE_SEL_LATCH);
+	myMapLunsCtrl->SetValue(config.flags & CONFIG_MAP_LUNS_TO_IDS);
 
 	{
 		std::stringstream conv;

@@ -33,7 +33,7 @@
 
 #include <string.h>
 
-static const uint16_t FIRMWARE_VERSION = 0x0450;
+static const uint16_t FIRMWARE_VERSION = 0x0460;
 
 // 1 flash row
 static const uint8_t DEFAULT_CONFIG[256] =
@@ -142,26 +142,14 @@ writeFlashCommand(const uint8_t* cmd, size_t cmdSize)
 	uint8_t flashArray = cmd[257];
 	uint8_t flashRow = cmd[258];
 
-	// Be very careful not to overwrite the bootloader or other
-	// code
-	if ((flashArray != SCSI_CONFIG_ARRAY) ||
-		(flashRow < SCSI_CONFIG_BOARD_ROW) ||
-		(flashRow >= SCSI_CONFIG_3_ROW + SCSI_CONFIG_ROWS))
-	{
-		uint8_t response[] = { CONFIG_STATUS_ERR};
-		hidPacket_send(response, sizeof(response));
-	}
-	else
-	{
-		CySetTemp();
-		int status = CyWriteRowData(flashArray, flashRow, cmd + 1);
+	CySetTemp();
+	int status = CyWriteRowData(flashArray, flashRow, cmd + 1);
 
-		uint8_t response[] =
-		{
-			status == CYRET_SUCCESS ? CONFIG_STATUS_GOOD : CONFIG_STATUS_ERR
-		};
-		hidPacket_send(response, sizeof(response));
-	}
+	uint8_t response[] =
+	{
+		status == CYRET_SUCCESS ? CONFIG_STATUS_GOOD : CONFIG_STATUS_ERR
+	};
+	hidPacket_send(response, sizeof(response));
 }
 
 static void

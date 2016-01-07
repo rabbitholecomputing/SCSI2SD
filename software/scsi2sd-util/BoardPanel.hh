@@ -58,6 +58,8 @@ private:
 		ID_glitchCtrl,
 		ID_cacheCtrl,
 		ID_disconnectCtrl,
+		ID_selLatchCtrl,
+		ID_mapLunsCtrl,
 		ID_startDelayCtrl,
 		ID_selDelayCtrl
 	};
@@ -72,6 +74,8 @@ private:
 	wxCheckBox* myGlitchCtrl;
 	wxCheckBox* myCacheCtrl;
 	wxCheckBox* myDisconnectCtrl;
+	wxCheckBox* mySelLatchCtrl;
+	wxCheckBox* myMapLunsCtrl;
 
 	wxIntegerValidator<uint8_t>* myDelayValidator;
 	wxTextCtrl* myStartDelayCtrl;

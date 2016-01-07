@@ -173,10 +173,10 @@ cy_psoc3_status #(.cy_force_order(1), .cy_md_select(8'h00)) StatusReg
 );
 
 // DMA outputs
-//assign tx_intr = f0_bus_stat;
-assign tx_intr = f0_blk_stat;
-//assign rx_intr = f1_bus_stat;
-assign rx_intr = f1_blk_stat;
+assign tx_intr = f0_bus_stat;
+//assign tx_intr = f0_blk_stat;
+assign rx_intr = f1_bus_stat;
+//assign rx_intr = f1_blk_stat;
 
 /////////////////////////////////////////////////////////////////////////////
 // State machine
@@ -207,11 +207,11 @@ always @(posedge op_clk) begin
 			else if (IO == IO_WRITE)
 				state <= STATE_TX;
 
-			// Check the output FIFO is not full.
-			else if (!f1_blk_stat) begin
-				state <= STATE_READY;
-				REQReg <= 1'b1;
-			end else begin
+			// Note: Cannot check whether the output FIFO is not full
+			// because we haven't finished writing to it yet.
+			// causes a rare race condition issue on fast SCSI hosts
+			
+			else begin
 				state <= STATE_WAIT_TIL_READY;
 			end
 		end
@@ -248,6 +248,7 @@ always @(posedge op_clk) begin
 		STATE_READY:
 			if (!nRST) state <= STATE_IDLE;
 			else if (~nACK) begin
+				REQReg <= 1'b0;
 				state <= STATE_RX;
 				dbxInReg[7:0] = ~nDBx_in[7:0]; // Invert active low scsi bus
 

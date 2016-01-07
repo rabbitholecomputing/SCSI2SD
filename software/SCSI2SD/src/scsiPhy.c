@@ -76,6 +76,10 @@ CY_ISR(scsiSelectionISR)
 	// The SEL signal ISR ensures we wake up from a _WFI() (wait-for-interrupt)
 	// call in the main loop without waiting for our 1ms timer to
 	// expire. This is done to meet the 250us selection abort time.
+	
+	// selFlag is required for Philips P2000C which releases it after 600ns
+	// without waiting for BSY.
+	scsiDev.selFlag = 1;
 }
 
 uint8_t
@@ -227,8 +231,7 @@ scsiRead(uint8_t* data, uint32_t count)
 	}
 	else
 	{
-		uint32_t alignedCount = count & 0xFFFFFFF8;
-		scsiReadDMA(data, alignedCount);
+		scsiReadDMA(data, count);
 
 		// Wait for the next DMA interrupt (or the 1ms systick)
 		// It's beneficial to halt the processor to
@@ -240,11 +243,6 @@ scsiRead(uint8_t* data, uint32_t count)
 		{
 			__WFI();
 		};
-
-		if (count > alignedCount)
-		{
-			scsiReadPIO(data + alignedCount, count - alignedCount);
-		}
 	}
 }
 
@@ -364,8 +362,7 @@ scsiWrite(const uint8_t* data, uint32_t count)
 	}
 	else
 	{
-		uint32_t alignedCount = count & 0xFFFFFFF8;
-		scsiWriteDMA(data, alignedCount);
+		scsiWriteDMA(data, count);
 
 		// Wait for the next DMA interrupt (or the 1ms systick)
 		// It's beneficial to halt the processor to
@@ -377,11 +374,6 @@ scsiWrite(const uint8_t* data, uint32_t count)
 		{
 			__WFI();
 		};
-
-		if (count > alignedCount)
-		{
-			scsiWritePIO(data + alignedCount, count - alignedCount);
-		}
 	}
 }
 
@@ -428,8 +420,19 @@ void scsiPhyReset()
 		// CyDmaChGetRequest returns 0 for the relevant bit once the
 		// request is completed.
 		trace(trace_spinDMAReset);
-		while (CyDmaChGetRequest(scsiDmaTxChan) & CY_DMA_CPU_TERM_CHAIN) {}
-		while (CyDmaChGetRequest(scsiDmaRxChan) & CY_DMA_CPU_TERM_CHAIN) {}
+		while (
+			(CyDmaChGetRequest(scsiDmaTxChan) & CY_DMA_CPU_TERM_CHAIN) &&
+			!scsiTxDMAComplete
+			)
+		{}
+
+		while ((
+			CyDmaChGetRequest(scsiDmaRxChan) & CY_DMA_CPU_TERM_CHAIN) &&
+			!scsiRxDMAComplete
+			)
+		{}
+
+		CyDelayUs(1);
 
 		CyDmaChDisable(scsiDmaTxChan);
 		CyDmaChDisable(scsiDmaRxChan);
@@ -468,7 +471,7 @@ static void scsiPhyInitDMA()
 	{
 		scsiDmaRxChan =
 			SCSI_RX_DMA_DmaInitialize(
-				4, // Bytes per burst
+				1, // Bytes per burst
 				1, // request per burst
 				HI16(CYDEV_PERIPH_BASE),
 				HI16(CYDEV_SRAM_BASE)
@@ -476,7 +479,7 @@ static void scsiPhyInitDMA()
 
 		scsiDmaTxChan =
 			SCSI_TX_DMA_DmaInitialize(
-				4, // Bytes per burst
+				1, // Bytes per burst
 				1, // request per burst
 				HI16(CYDEV_SRAM_BASE),
 				HI16(CYDEV_PERIPH_BASE)

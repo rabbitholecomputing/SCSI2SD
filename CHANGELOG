@@ -1,3 +1,14 @@
+201601XX		4.6
+	- Fixed bug when using sector size that isn't a multiple of 4
+	(eg. 522 bytes)
+	- Fixed a bug that caused hanging or scsi phase errors on
+	high speed scsi hosts.
+	- Fixed a hang when processing a SCSI RESET in a data phase.
+	- scsi2sd-util: Fixed USB connection problems under Windows 10.
+	- Added option to treat luns as separate devices
+	- Improved boot up time.
+
+
 20151105		4.5
 	- Fix bug in SCSI MODE SENSE that returned the wrong mode type
 		- Fixes CDROM emulation

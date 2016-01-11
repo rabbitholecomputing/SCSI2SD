@@ -1,4 +1,4 @@
-201601XX		4.6
+20160111		4.6
 	- Fixed bug when using sector size that isn't a multiple of 4
 	(eg. 522 bytes)
 	- Fixed a bug that caused hanging or scsi phase errors on

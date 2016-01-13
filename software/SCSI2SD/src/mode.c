@@ -197,6 +197,33 @@ static void pageIn(int pc, int dataIdx, const uint8* pageData, int pageLen)
 	}
 }
 
+static int useCustomPages(TargetConfig* cfg, int pc, int pageCode, int* idx)
+{
+	int found = 0;
+	int cfgIdx = 0;
+	while ((cfgIdx < sizeof(cfg->modePages) + 2) &&
+		(cfg->modePages[cfgIdx + 1] != 0)
+		)
+	{
+		int pageSize = cfg->modePages[cfgIdx + 1] + 2;
+		int dataPageCode = cfg->modePages[cfgIdx] & 0x3f;
+		if ((dataPageCode == pageCode) ||
+			(pageCode == 0x3f)
+			)
+		{
+			pageIn(pc, *idx, &cfg->modePages[cfgIdx], pageSize);
+			*idx += pageSize;
+			found = 1;
+			if (pageCode != 0x3f)
+			{
+				break;
+			}
+		}
+		cfgIdx += pageSize;
+	}
+	return found;
+}
+
 static void doModeSense(
 	int sixByteCmd, int dbd, int pc, int pageCode, int allocLength)
 {
@@ -304,6 +331,12 @@ static void doModeSense(
 	}
 
 	int pageFound = 0;
+
+	if (scsiDev.target->cfg->modePages[1] != 0)
+	{
+		pageFound = useCustomPages(scsiDev.target->cfg, pc, pageCode, &idx);
+		pageCode = 0xFF; // dodgy, skip rest of logic
+	}
 
 	if (pageCode == 0x01 || pageCode == 0x3F)
 	{

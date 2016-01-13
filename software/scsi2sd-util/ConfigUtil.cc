@@ -23,6 +23,12 @@
 
 #include <string.h>
 
+#include <wx/wxprec.h>
+#ifndef WX_PRECOMP
+#include <wx/wx.h>
+#endif
+#include <wx/base64.h>
+#include <wx/buffer.h>
 #include <wx/xml/xml.h>
 
 
@@ -80,6 +86,22 @@ namespace
 		return toLE32(in);
 	}
 
+	std::vector<uint8_t> getModePages(const TargetConfig& cfg)
+	{
+		std::vector<uint8_t> result;
+		int i = 0;
+		while (i < sizeof(cfg.modePages) + 2)
+		{
+			int pageLen = cfg.modePages[i+1];
+			if (pageLen == 0) break;
+			std::copy(
+				&cfg.modePages[i],
+				&cfg.modePages[i+pageLen+2],
+				std::back_inserter(result));
+			i += pageLen + 2;
+		}
+		return result;
+	}
 }
 
 BoardConfig
@@ -194,6 +216,7 @@ std::string
 ConfigUtil::toXML(const TargetConfig& config)
 {
 	std::stringstream s;
+	std::vector<uint8_t> modePages(getModePages(config));
 
 	s <<
 		"<SCSITarget id=\"" <<
@@ -269,6 +292,13 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"\n" <<
 		"	<!-- 16 character serial number -->\n" <<
 		"	<serial>" << std::string(config.serial, 16) << "</serial>\n" <<
+		"\n" <<
+		"	<!-- Custom mode pages, base64 encoded, up to 1024 bytes.-->\n" <<
+		"	<modePages>\n" <<
+			(modePages.size() == 0 ? "" :
+				wxBase64Encode(&modePages[0], modePages.size())) <<
+				"\n" <<
+		"	</modePages>\n" <<
 		"</SCSITarget>\n";
 
 	return s.str();
@@ -292,7 +322,7 @@ ConfigUtil::toXML(const BoardConfig& config)
 		"	<!-- ********************************************************\n" <<
 		"	Only set to true when using with a fast SCSI2 host\n " <<
 		"	controller. This can cause problems with older/slower\n" <<
-		"	 hardware.\n" <<
+		"	hardware.\n" <<
 		"	********************************************************* -->\n" <<
 		"	<enableScsi2>" <<
 			(config.flags & CONFIG_ENABLE_SCSI2 ? "true" : "false") <<
@@ -318,9 +348,9 @@ ConfigUtil::toXML(const BoardConfig& config)
 			"</enableDisconnect>\n" <<
 
 		"	<!-- ********************************************************\n" <<
-		"   Respond to very short duration selection attempts. This supports\n" <<
-		"   non-standard hardware, but is generally safe to enable.\n" <<
-		"   Required for Philips P2000C.\n" <<
+		"	Respond to very short duration selection attempts. This supports\n" <<
+		"	non-standard hardware, but is generally safe to enable.\n" <<
+		"	Required for Philips P2000C.\n" <<
 		"	********************************************************* -->\n" <<
 		"	<selLatch>" <<
 			(config.flags & CONFIG_ENABLE_SEL_LATCH? "true" : "false") <<
@@ -328,12 +358,12 @@ ConfigUtil::toXML(const BoardConfig& config)
 
 
 		"	<!-- ********************************************************\n" <<
-		"   Convert luns to IDs. The unit must already be configured to respond\n" <<
-		"   on the ID. Allows dual drives to be accessed from a \n" <<
-		"   XEBEC S1410 SASI bridge.\n" <<
-		"   eg. Configured for dual drives as IDs 0 and 1, but the XEBEC will\n" <<
-		"   access the second disk as ID0, lun 1.\n" <<
-		"   See ttp://bitsavers.trailing-edge.com/pdf/xebec/104524C_S1410Man_Aug83.pdf\n" <<
+		"	Convert luns to IDs. The unit must already be configured to respond\n" <<
+		"	on the ID. Allows dual drives to be accessed from a \n" <<
+		"	XEBEC S1410 SASI bridge.\n" <<
+		"	eg. Configured for dual drives as IDs 0 and 1, but the XEBEC will\n" <<
+		"	access the second disk as ID0, lun 1.\n" <<
+		"	See ttp://bitsavers.trailing-edge.com/pdf/xebec/104524C_S1410Man_Aug83.pdf\n" <<
 		"	********************************************************* -->\n" <<
 		"	<mapLunsToIds>" <<
 			(config.flags & CONFIG_MAP_LUNS_TO_IDS ? "true" : "false") <<
@@ -473,6 +503,13 @@ parseTarget(wxXmlNode* node)
 			s = s.substr(0, sizeof(result.serial));
 			memset(result.serial, ' ', sizeof(result.serial));
 			memcpy(result.serial, s.c_str(), s.size());
+		}
+		else if (child->GetName() == "modePages")
+		{
+			wxMemoryBuffer buf =
+				wxBase64Decode(child->GetNodeContent(), wxBase64DecodeMode_SkipWS);
+			size_t len = std::min(buf.GetDataLen(), sizeof(result.modePages));
+			memcpy(result.modePages, buf.GetData(), len);
 		}
 
 		child = child->GetNext();

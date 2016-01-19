@@ -154,7 +154,8 @@ typedef struct __attribute__((packed))
 	uint8_t reserved[960]; // Pad out to 1024 bytes for main section.
 
 	uint8_t modePages[1024];
-	uint8_t unused[2048]; // Total size is 4k.
+	uint8_t vpd[1024];
+	uint8_t unused[1024]; // Total size is 4k.
 } TargetConfig;
 
 typedef struct __attribute__((packed))

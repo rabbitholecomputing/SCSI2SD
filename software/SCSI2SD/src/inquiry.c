@@ -93,6 +93,37 @@ static const uint8 AscImpOperatingDefinition[] =
 'S','C','S','I','-','2'
 };
 
+static void useCustomVPD(const TargetConfig* cfg, int pageCode)
+{
+	int cfgIdx = 0;
+	int found = 0;
+	while ((cfgIdx < sizeof(cfg->vpd) - 4) &&
+		(cfg->vpd[cfgIdx + 3] != 0)
+		)
+	{
+		int pageSize = cfg->vpd[cfgIdx + 3] + 4;
+		int dataPageCode = cfg->vpd[cfgIdx + 1];
+		if (dataPageCode == pageCode)
+		{
+			memcpy(scsiDev.data, &(cfg->vpd[cfgIdx]), pageSize);
+			scsiDev.dataLen = pageSize;
+			scsiDev.phase = DATA_IN;
+			found = 1;
+			break;
+		}
+		cfgIdx += pageSize;
+	}
+
+	if (!found)
+	{
+		// error.
+		scsiDev.status = CHECK_CONDITION;
+		scsiDev.target->sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.phase = STATUS;
+	}
+}
+
 void scsiInquiry()
 {
 	uint8 evpd = scsiDev.cdb[1] & 1; // enable vital product data.
@@ -126,6 +157,10 @@ void scsiInquiry()
 				sizeof(config->revision);
 			scsiDev.phase = DATA_IN;
 		}
+	}
+	else if (scsiDev.target->cfg->vpd[3] != 0)
+	{
+		useCustomVPD(scsiDev.target->cfg, pageCode);
 	}
 	else if (pageCode == 0x00)
 	{

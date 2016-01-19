@@ -90,7 +90,7 @@ namespace
 	{
 		std::vector<uint8_t> result;
 		int i = 0;
-		while (i < sizeof(cfg.modePages) + 2)
+		while (i < sizeof(cfg.modePages) - 2)
 		{
 			int pageLen = cfg.modePages[i+1];
 			if (pageLen == 0) break;
@@ -99,6 +99,23 @@ namespace
 				&cfg.modePages[i+pageLen+2],
 				std::back_inserter(result));
 			i += pageLen + 2;
+		}
+		return result;
+	}
+
+	std::vector<uint8_t> getVPDPages(const TargetConfig& cfg)
+	{
+		std::vector<uint8_t> result;
+		int i = 0;
+		while (i < sizeof(cfg.vpd) - 4)
+		{
+			int pageLen = cfg.vpd[i+3];
+			if (pageLen == 0) break;
+			std::copy(
+				&cfg.vpd[i],
+				&cfg.vpd[i+pageLen+4],
+				std::back_inserter(result));
+			i += pageLen + 4;
 		}
 		return result;
 	}
@@ -217,6 +234,7 @@ ConfigUtil::toXML(const TargetConfig& config)
 {
 	std::stringstream s;
 	std::vector<uint8_t> modePages(getModePages(config));
+	std::vector<uint8_t> vpd(getVPDPages(config));
 
 	s <<
 		"<SCSITarget id=\"" <<
@@ -299,6 +317,13 @@ ConfigUtil::toXML(const TargetConfig& config)
 				wxBase64Encode(&modePages[0], modePages.size())) <<
 				"\n" <<
 		"	</modePages>\n" <<
+		"\n" <<
+		"	<!-- Custom inquiry VPD pages, base64 encoded, up to 1024 bytes.-->\n" <<
+		"	<vpd>\n" <<
+			(vpd.size() == 0 ? "" :
+				wxBase64Encode(&vpd[0], vpd.size())) <<
+				"\n" <<
+		"	</vpd>\n" <<
 		"</SCSITarget>\n";
 
 	return s.str();
@@ -511,6 +536,15 @@ parseTarget(wxXmlNode* node)
 			size_t len = std::min(buf.GetDataLen(), sizeof(result.modePages));
 			memcpy(result.modePages, buf.GetData(), len);
 		}
+		else if (child->GetName() == "vpd")
+		{
+			wxMemoryBuffer buf =
+				wxBase64Decode(child->GetNodeContent(), wxBase64DecodeMode_SkipWS);
+			size_t len = std::min(buf.GetDataLen(), sizeof(result.vpd));
+			memcpy(result.vpd, buf.GetData(), len);
+		}
+
+
 
 		child = child->GetNext();
 	}

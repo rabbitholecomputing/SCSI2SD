@@ -197,11 +197,11 @@ static void pageIn(int pc, int dataIdx, const uint8* pageData, int pageLen)
 	}
 }
 
-static int useCustomPages(TargetConfig* cfg, int pc, int pageCode, int* idx)
+static int useCustomPages(const TargetConfig* cfg, int pc, int pageCode, int* idx)
 {
 	int found = 0;
 	int cfgIdx = 0;
-	while ((cfgIdx < sizeof(cfg->modePages) + 2) &&
+	while ((cfgIdx < sizeof(cfg->modePages) - 2) &&
 		(cfg->modePages[cfgIdx + 1] != 0)
 		)
 	{

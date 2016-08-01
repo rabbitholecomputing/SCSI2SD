@@ -335,7 +335,7 @@ static void doModeSense(
 	if (scsiDev.target->cfg->modePages[1] != 0)
 	{
 		pageFound = useCustomPages(scsiDev.target->cfg, pc, pageCode, &idx);
-		pageCode = 0xFF; // dodgy, skip rest of logic
+		if (pageFound && pageCode != 0x3F) pageCode = 0xFF; // skip rest of logic
 	}
 
 	if (pageCode == 0x01 || pageCode == 0x3F)

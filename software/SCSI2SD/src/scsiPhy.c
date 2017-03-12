@@ -80,6 +80,9 @@ CY_ISR(scsiSelectionISR)
 	// selFlag is required for Philips P2000C which releases it after 600ns
 	// without waiting for BSY.
 	scsiDev.selFlag = 1;
+
+	// Required for some early Mac Plus roms
+	scsiDev.selDBX = scsiReadDBxPins();
 }
 
 uint8_t

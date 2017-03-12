@@ -46,8 +46,18 @@ extern "C" {
 			|Row 188 | Config target 0
 			---------------------------------
 			|Row 187 | Board Config
+			| ...    | Empty
+			|Row 172 | Empty
 			---------------------------------
-			|Row 186 |
+			|Row 171 |
+			| ...    |
+			|Row 156 | Config target 6
+			| ...    |
+			|Row 140 | Config target 5
+			| ...    |
+			|Row 124 | Config target 4
+			---------------------------------
+			|Row 123 |
 			| ...    |
 			|Row 0   |
 	--------|        |
@@ -65,6 +75,7 @@ extern "C" {
 
 #include "stdint.h"
 
+//#define MAX_SCSI_TARGETS 7
 #define MAX_SCSI_TARGETS 4
 #define SCSI_CONFIG_ARRAY 1
 #define SCSI_CONFIG_ROWS 16
@@ -77,6 +88,9 @@ extern "C" {
 #define SCSI_CONFIG_1_ROW 204
 #define SCSI_CONFIG_2_ROW 220
 #define SCSI_CONFIG_3_ROW 236
+#define SCSI_CONFIG_4_ROW 124
+#define SCSI_CONFIG_5_ROW 140
+#define SCSI_CONFIG_6_ROW 156
 
 typedef enum
 {
@@ -110,7 +124,8 @@ typedef enum
 typedef enum
 {
 	CONFIG_QUIRKS_NONE,
-	CONFIG_QUIRKS_APPLE
+	CONFIG_QUIRKS_APPLE,
+	CONFIG_QUIRKS_OMTI
 } CONFIG_QUIRKS;
 
 typedef struct __attribute__((packed))

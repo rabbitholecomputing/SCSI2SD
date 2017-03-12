@@ -33,7 +33,7 @@
 
 #include <string.h>
 
-static const uint16_t FIRMWARE_VERSION = 0x0460;
+static const uint16_t FIRMWARE_VERSION = 0x0470;
 
 // 1 flash row
 static const uint8_t DEFAULT_CONFIG[256] =
@@ -418,13 +418,24 @@ void configSave(int scsiId, uint16_t bytesPerSector)
 
 const TargetConfig* getConfigByIndex(int i)
 {
-	size_t row = SCSI_CONFIG_0_ROW + (i * SCSI_CONFIG_ROWS);
-	return (const TargetConfig*)
-		(
-			CY_FLASH_BASE +
-			(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
-			(CY_FLASH_SIZEOF_ROW * row)
-			);
+	if (i <= 3)
+	{
+		size_t row = SCSI_CONFIG_0_ROW + (i * SCSI_CONFIG_ROWS);
+		return (const TargetConfig*)
+			(
+				CY_FLASH_BASE +
+				(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
+				(CY_FLASH_SIZEOF_ROW * row)
+				);
+	} else {
+		size_t row = SCSI_CONFIG_4_ROW + ((i-4) * SCSI_CONFIG_ROWS);
+		return (const TargetConfig*)
+			(
+				CY_FLASH_BASE +
+				(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
+				(CY_FLASH_SIZEOF_ROW * row)
+				);
+	}
 }
 
 const TargetConfig* getConfigById(int scsiId)

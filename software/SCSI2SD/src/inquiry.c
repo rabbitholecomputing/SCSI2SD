@@ -131,7 +131,11 @@ void scsiInquiry()
 	uint32 allocationLength = scsiDev.cdb[4];
 
 	// SASI standard, X3T9.3_185_RevE  states that 0 == 256 bytes
-	if (allocationLength == 0) allocationLength = 256;
+	// BUT SCSI 2 standard says 0 == 0.
+	if (scsiDev.compatMode <= COMPAT_SCSI1) // excludes COMPAT_SCSI2_DISABLED
+	{
+		if (allocationLength == 0) allocationLength = 256;
+	}
 
 	if (!evpd)
 	{
@@ -148,6 +152,11 @@ void scsiInquiry()
 			const TargetConfig* config = scsiDev.target->cfg;
 			memcpy(scsiDev.data, StandardResponse, sizeof(StandardResponse));
 			scsiDev.data[1] = scsiDev.target->cfg->deviceTypeModifier;
+
+			if (scsiDev.compatMode >= COMPAT_SCSI2)
+			{
+				scsiDev.data[3] = 2; // SCSI 2 response format.
+			}
 			memcpy(&scsiDev.data[8], config->vendor, sizeof(config->vendor));
 			memcpy(&scsiDev.data[16], config->prodId, sizeof(config->prodId));
 			memcpy(&scsiDev.data[32], config->revision, sizeof(config->revision));

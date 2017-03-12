@@ -570,7 +570,7 @@ private:
 			std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
 			for (auto it(files.begin()); it != files.end(); it++)
 			{
-				if (myBootloader->isCorrectFirmware((*it)->getPath()))
+				if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
 				{
 					std::stringstream msg;
 					msg << "Found firmware entry " << (*it)->getPath() <<
@@ -1007,11 +1007,13 @@ private:
 			}
 		}
 
-		flashRow = SCSI_CONFIG_0_ROW;
 		for (size_t i = 0;
 			i < myTargets.size();
-			++i, flashRow += SCSI_CONFIG_ROWS)
+			++i)
 		{
+			flashRow = (i <= 3)
+				? SCSI_CONFIG_0_ROW + (i*SCSI_CONFIG_ROWS)
+				: SCSI_CONFIG_4_ROW + ((i-4)*SCSI_CONFIG_ROWS);
 			std::vector<uint8_t> raw(sizeof(TargetConfig));
 
 			for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
@@ -1135,8 +1137,12 @@ private:
 		flashRow = SCSI_CONFIG_0_ROW;
 		for (size_t i = 0;
 			i < myTargets.size();
-			++i, flashRow += SCSI_CONFIG_ROWS)
+			++i)
 		{
+			flashRow = (i <= 3)
+				? SCSI_CONFIG_0_ROW + (i*SCSI_CONFIG_ROWS)
+				: SCSI_CONFIG_4_ROW + ((i-4)*SCSI_CONFIG_ROWS);
+
 			TargetConfig config(myTargets[i]->getConfig());
 			std::vector<uint8_t> raw(ConfigUtil::toBytes(config));
 

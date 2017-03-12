@@ -248,9 +248,19 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	<!-- ********************************************************\n" <<
 		"	Space separated list. Available options:\n" <<
 		"	apple\t\tReturns Apple-specific mode pages\n" <<
+		"	omti\t\tOMTI host non-standard link control\n" <<
 		"	********************************************************* -->\n" <<
-		"	<quirks>" <<
-			(config.quirks & CONFIG_QUIRKS_APPLE ? "apple" : "") <<
+		"	<quirks>";
+	if (config.quirks == CONFIG_QUIRKS_APPLE)
+	{
+		s << "apple";
+	}
+	else if (config.quirks == CONFIG_QUIRKS_OMTI)
+	{
+		s << "omti";
+	}
+
+	s <<
 			"</quirks>\n" <<
 
 		"\n\n" <<
@@ -393,6 +403,19 @@ ConfigUtil::toXML(const BoardConfig& config)
 		"	<mapLunsToIds>" <<
 			(config.flags & CONFIG_MAP_LUNS_TO_IDS ? "true" : "false") <<
 			"</mapLunsToIds>\n" <<
+
+		"	<!-- ********************************************************\n" <<
+		"	Delay (in milliseconds) before responding to a SCSI selection.\n" <<
+		"	255 (auto) sets it to 0 for SCSI2 hosts and 1ms otherwise.\n" <<
+		"	Some samplers need this set to 1 manually.\n" <<
+		"	********************************************************* -->\n" <<
+		"	<selectionDelay>" << static_cast<int>(config.selectionDelay) << "</selectionDelay>\n" <<
+
+		"	<!-- ********************************************************\n" <<
+		"	Startup delay (in seconds) before responding to the SCSI bus \n" <<
+		"	after power on. Default = 0.\n" <<
+		"	********************************************************* -->\n" <<
+		"	<startupDelay>" << static_cast<int>(config.startupDelay) << "</startupDelay>\n" <<
 		"</BoardConfig>\n";
 
 	return s.str();
@@ -470,6 +493,10 @@ parseTarget(wxXmlNode* node)
 				if (quirk == "apple")
 				{
 					result.quirks |= CONFIG_QUIRKS_APPLE;
+				}
+				else if (quirk == "omti")
+				{
+					result.quirks |= CONFIG_QUIRKS_OMTI;
 				}
 			}
 		}
@@ -559,7 +586,15 @@ parseBoardConfig(wxXmlNode* node)
 	wxXmlNode *child = node->GetChildren();
 	while (child)
 	{
-		if (child->GetName() == "unitAttention")
+		if (child->GetName() == "selectionDelay")
+		{
+			result.selectionDelay = parseInt(child, 255);
+		}
+		else if (child->GetName() == "startupDelay")
+		{
+			result.startupDelay = parseInt(child, 255);
+		}
+		else if (child->GetName() == "unitAttention")
 		{
 			std::string s(child->GetNodeContent().mb_str());
 			if (s == "true")

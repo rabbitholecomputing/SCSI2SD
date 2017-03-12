@@ -1,5 +1,15 @@
-2016xxxx		4.x
+20170312		4.7
+	- Fix bug in SCSI Inquiry command for SCSI2 hosts
+	- Added OMTI host quirks mode
+	- Fix for booting from early Mac Plus ROMS
+	- Performance fix when SCSI2 mode is enabled. Some users may need
+	to disable SCSI2 mode if it was incorrectly enabled previously.
 	- Added support for configurable mode pages
+	- Fix for exporting selectionDelay/startupDelay parameters to XML
+	via scsi2sd-util
+	- scsi2sd-util is now built with libudev1 on Linux, as all distros have
+	moved to this version. Users on older Linux distributions will need to
+	compile from source.
 
 20160111		4.6
 	- Fixed bug when using sector size that isn't a multiple of 4

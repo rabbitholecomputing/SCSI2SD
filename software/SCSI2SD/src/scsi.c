@@ -33,6 +33,7 @@
 #include "debug.h"
 #include "tape.h"
 #include "mo.h"
+#include "vendor.h"
 
 #include <string.h>
 
@@ -138,6 +139,16 @@ void process_Status()
 	uint8 message;
 
 	uint8 control = scsiDev.cdb[scsiDev.cdbLen - 1];
+
+	if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_OMTI)
+	{
+		// OMTI non-standard LINK control
+		if (control & 0x01)
+		{
+			scsiDev.phase = COMMAND; return;
+		}
+	}
+
 	if ((scsiDev.status == GOOD) && (control & 0x01))
 	{
 		// Linked command.
@@ -155,6 +166,10 @@ void process_Status()
 	{
 		message = MSG_COMMAND_COMPLETE;
 	}
+
+// TODO OMTI ENABLE VIA CONFIG
+// scsiDev.status |=  (scsiDev.target->targetId & 0x03) << 5 ;
+
 	scsiWriteByte(scsiDev.status);
 
 	scsiDev.lastStatus = scsiDev.status;
@@ -403,7 +418,7 @@ static void process_Command()
 	{
 		scsiReadBuffer();
 	}
-	else if (!scsiModeCommand())
+	else if (!scsiModeCommand() && !scsiVendorCommand())
 	{
 		scsiDev.target->sense.code = ILLEGAL_REQUEST;
 		scsiDev.target->sense.asc = INVALID_COMMAND_OPERATION_CODE;
@@ -566,7 +581,7 @@ static void process_SelectionPhase()
 
 	// Only read these pins AFTER SEL and BSY - we don't want to catch them
 	// during a transition period.
-	uint8 mask = scsiReadDBxPins();
+	uint8 mask = (selLatchCfg && scsiDev.selFlag) ? scsiDev.selDBX : scsiReadDBxPins();
 	int maskBitCount = countBits(mask);
 	int goodParity = (Lookup_OddParity[mask] == SCSI_ReadPin(SCSI_In_DBP));
 	int atnFlag = SCSI_ReadFilt(SCSI_Filt_ATN);
@@ -617,9 +632,9 @@ static void process_SelectionPhase()
 		}
 		else if (!(scsiDev.boardCfg.flags & CONFIG_ENABLE_SCSI2))
 		{
-			scsiDev.compatMode = COMPAT_SCSI1;
+			scsiDev.compatMode = COMPAT_SCSI2_DISABLED;
 		}
-		else if (scsiDev.compatMode == COMPAT_UNKNOWN)
+		else
 		{
 			scsiDev.compatMode = COMPAT_SCSI2;
 		}

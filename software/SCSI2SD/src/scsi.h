@@ -61,6 +61,11 @@ typedef enum
 {
 	COMPAT_UNKNOWN,
 	COMPAT_SCSI1,
+
+	// Messages are being used, yet SCSI 2 mode is disabled.
+	// This impacts interpretation of INQUIRY commands.
+	COMPAT_SCSI2_DISABLED,
+
 	COMPAT_SCSI2
 } SCSI_COMPAT_MODE;
 
@@ -106,12 +111,14 @@ typedef struct
 
 	// Set to true (1) if the RST flag was set.
 	volatile int resetFlag;
-	
+
 	// Set to true (1) if the SEL flag was set.
 	volatile int selFlag;
-
+	
 	// Set to true (1) if a parity error was observed.
-	int parityError;
+    int parityError;
+
+	volatile int selDBX;
 
 	int phase;
 

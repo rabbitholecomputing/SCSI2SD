@@ -312,7 +312,7 @@ TargetPanel::evaluate()
 	{
 	case CONFIG_OPTICAL:
 		mySectorSizeCtrl->ChangeValue("2048");
-		mySectorSizeCtrl->Enable(false);
+		mySectorSizeCtrl->Enable(true); // Enable override
 		break;
 	case CONFIG_FLOPPY_14MB:
 		mySectorSizeCtrl->ChangeValue("512");

@@ -18,14 +18,6 @@
 #include "scsi2sd.h"
 #include "hidpacket.h"
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-
-#include <wx/utils.h>
-
 #include <cassert>
 #include <stdexcept>
 #include <sstream>

@@ -84,6 +84,7 @@ ifeq ($(TARGET),Darwin)
 all: $(BUILD)/scsi2sd-util.dmg
 
 $(BUILD)/scsi2sd-util.dmg: $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor
+	rm -rf $(dir $@)/dmg $@
 	mkdir -p $(dir $@)/dmg
 	cp $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor $(dir $@)/dmg
 	chmod a+rx $(dir $@)/dmg/*
@@ -92,7 +93,7 @@ endif
 
 export CC CXX
 
-all:  $(BUILD)/scsi2sd-util$(EXE) $(BUILD)/scsi2sd-monitor$(EXE)
+all:  $(BUILD)/scsi2sd-util$(EXE) $(BUILD)/scsi2sd-monitor$(EXE) $(BUILD)/scsi2sd-bulk$(EXE)
 
 CYAPI = \
 	$(BUILD)/cybtldr_api2.o \
@@ -107,14 +108,18 @@ HIDAPI = \
 endif
 
 
-OBJ = \
+CONSOLEOBJ = \
 	$(CYAPI) $(HIDAPI) \
-	$(BUILD)/ConfigUtil.o \
 	$(BUILD)/Firmware.o \
-	$(BUILD)/BoardPanel.o \
-	$(BUILD)/TargetPanel.o \
 	$(BUILD)/SCSI2SD_Bootloader.o \
 	$(BUILD)/SCSI2SD_HID.o \
+	$(BUILD)/hidpacket.o \
+
+OBJ = \
+	${CONSOLEOBJ} \
+	$(BUILD)/ConfigUtil.o \
+	$(BUILD)/BoardPanel.o \
+	$(BUILD)/TargetPanel.o \
 	$(BUILD)/hidpacket.o \
 
 EXEOBJ = \
@@ -192,6 +197,10 @@ $(BUILD)/scsi2sd-util$(EXE): $(OBJ) $(BUILD)/scsi2sd-util.o
 $(BUILD)/scsi2sd-monitor$(EXE): $(OBJ) $(BUILD)/scsi2sd-monitor.o
 	mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS_WX) $(LDFLAGS) -o $@
+
+$(BUILD)/scsi2sd-bulk$(EXE): $(CONSOLEOBJ) $(BUILD)/scsi2sd-bulk.o
+	mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) $^ $(LDFLAGS) -o $@
 
 clean:
 	rm $(BUILD)/scsi2sd-util$(EXE) $(OBJ) $(BUILD)/libzipper/buildstamp

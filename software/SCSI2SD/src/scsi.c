@@ -167,8 +167,11 @@ void process_Status()
 		message = MSG_COMMAND_COMPLETE;
 	}
 
-// TODO OMTI ENABLE VIA CONFIG
-// scsiDev.status |=  (scsiDev.target->targetId & 0x03) << 5 ;
+
+	if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_OMTI)
+	{
+		scsiDev.status |= (scsiDev.target->targetId & 0x03) << 5;
+	}
 
 	scsiWriteByte(scsiDev.status);
 

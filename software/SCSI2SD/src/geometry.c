@@ -28,7 +28,16 @@ uint32_t getScsiCapacity(
 	uint32_t capacity =
 		(sdDev.capacity - sdSectorStart) /
 			SDSectorsPerSCSISector(bytesPerSector);
-	if (scsiSectors && (capacity > scsiSectors))
+
+	if (sdDev.capacity == 0)
+	{
+		capacity = 0;
+	}
+	else if (sdSectorStart >= sdDev.capacity)
+	{
+		capacity = 0;
+	}
+	else if (scsiSectors && (capacity > scsiSectors))
 	{
 		capacity = scsiSectors;
 	}

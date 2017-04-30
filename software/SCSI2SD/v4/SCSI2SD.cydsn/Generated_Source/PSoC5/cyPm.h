@@ -1,16 +1,15 @@
-/*******************************************************************************
-* File Name: cyPm.h
-* Version 4.20
+/***************************************************************************//**
+* \file cyPm.h
+* \version 5.50
 *
-* Description:
-*  Provides the function definitions for the power management API.
+* \brief Provides the function definitions for the power management API.
 *
-* Note:
-*  Documentation of the API's in this file is located in the
+* \note Documentation of the API's in this file is located in the
 *  System Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -34,6 +33,7 @@ void CyPmRestoreClocks(void) ;
 void CyPmAltAct(uint16 wakeupTime, uint16 wakeupSource) ;
 void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource) ;
 void CyPmHibernate(void) ;
+void CyPmHibernateEx(uint16 wakeupSource) ;
 
 uint8 CyPmReadStatus(uint8 mask) ;
 
@@ -103,6 +103,13 @@ void CyPmOppsSet(void) ;
 #define PM_SLEEP_SRC_CTW                (0x0800u)
 #define PM_SLEEP_SRC_ONE_PPS            (0x0800u)
 #define PM_SLEEP_SRC_LCD                (0x1000u)
+
+/* Wake up sources for Hibernate mode */
+#define CY_PM_HIB_SRC_PICU              (0x0040u)
+#define CY_PM_HIB_SRC_COMPARATOR0       (0x0001u)
+#define CY_PM_HIB_SRC_COMPARATOR1       (0x0002u)
+#define CY_PM_HIB_SRC_COMPARATOR2       (0x0004u)
+#define CY_PM_HIB_SRC_COMPARATOR3       (0x0008u)
 
 /* Wake up sources for Alternate Active mode */
 #define PM_ALT_ACT_SRC_COMPARATOR0      (0x0001u)
@@ -195,7 +202,7 @@ void CyPmOppsSet(void) ;
     #if defined(__ARMCC_VERSION)    /* Instristic for Keil compilers */
         #define CY_PM_WFI       __wfi()
     #else   /* ASM for GCC & IAR */
-        #define CY_PM_WFI       asm volatile ("WFI \n")
+        #define CY_PM_WFI       __asm volatile ("WFI \n")
     #endif /* (__ARMCC_VERSION) */
 
 #else

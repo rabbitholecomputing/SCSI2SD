@@ -1,23 +1,22 @@
-/*******************************************************************************
-* FILENAME: cytypes.h
-* Version 4.20
+/***************************************************************************//**
+* \file cytypes.h
+* \version 5.50
 *
-*  Description:
-*  CyTypes provides register access macros and approved types for use in
-*  firmware.
+* \brief CyTypes provides register access macros and approved types for use in
+* firmware.
 *
-*  Note:
-*  Due to endiannesses of the hardware and some compilers, the register
-*  access macros for big endian compilers use some library calls to arrange
-*  data the correct way.
+* \note Due to endiannesses of the hardware and some compilers, the register
+* access macros for big endian compilers use some library calls to arrange
+* data the correct way.
 *
-*  Register Access macros and functions perform their operations on an
-*  input of the type pointer to void.  The arguments passed to it should be
-*  pointers to the type associated with the register size.
-*  (i.e. a "uint8 *" shouldn't be passed to obtain a 16-bit register value)
+* Register Access macros and functions perform their operations on an
+* input of the type pointer to void.  The arguments passed to it should be
+* pointers to the type associated with the register size.
+* (i.e. a "uint8 *" shouldn't be passed to obtain a 16-bit register value)
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -78,6 +77,47 @@
     #define CY_PSOC4_4200BL (0u != 0u)
 #endif  /* CYDEV_CHIP_MEMBER_4F */
 
+#ifdef CYDEV_CHIP_MEMBER_4M
+    #define CY_PSOC4_4100M (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4M)
+    #define CY_PSOC4_4200M (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4M)
+#else
+    #define CY_PSOC4_4100M (0u != 0u)
+    #define CY_PSOC4_4200M (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4M */
+
+#ifdef CYDEV_CHIP_MEMBER_4H
+    #define CY_PSOC4_4200D (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4H)
+#else
+    #define CY_PSOC4_4200D (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4H */
+
+#ifdef CYDEV_CHIP_MEMBER_4L
+    #define CY_PSOC4_4200L (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4L)
+#else
+    #define CY_PSOC4_4200L (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4L */
+
+#ifdef CYDEV_CHIP_MEMBER_4U
+    #define CY_PSOC4_4000U (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4U)
+#else
+    #define CY_PSOC4_4000U (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4U */
+
+#ifdef CYDEV_CHIP_MEMBER_4J
+    #define CY_PSOC4_4000S (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4J)
+#else
+    #define CY_PSOC4_4000S (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4J */
+
+#ifdef CYDEV_CHIP_MEMBER_4K
+    #define CY_PSOC4_4100S (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_4K)
+#else
+    #define CY_PSOC4_4100S (0u != 0u)
+#endif  /* CYDEV_CHIP_MEMBER_4K */
+
+
+#define CY_IP_HOBTO_DEVICE      (!(0 == 1))
+
 
 /*******************************************************************************
 * IP blocks
@@ -85,63 +125,259 @@
 #if (CY_PSOC4)
 
     /* Using SRSSv2 or SRS-Lite */
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_SRSSV2            (0u == 0u)
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_SRSSV2            (0 != 0)
         #define CY_IP_SRSSLT            (!CY_IP_SRSSV2)
     #else
-        #define CY_IP_SRSSV2            (0u != 0u)
+        #define CY_IP_SRSSV2            (0 == 0)
         #define CY_IP_SRSSLT            (!CY_IP_SRSSV2)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
 
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_CPUSSV2           (0u != 0u)
-        #define CY_IP_CPUSS             (0u == 0u)
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_CPUSSV3           (0 == 1)
+        #define CY_IP_CPUSSV2           (0 == 1)
+        #define CY_IP_CPUSS             (0 == 1)
     #else
-        #define CY_IP_CPUSSV2           (0u != 0u)
-        #define CY_IP_CPUSS             (!CY_IP_CPUSSV2)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+        #define CY_IP_CPUSSV3           (0 != 0)
+        #define CY_IP_CPUSSV2           (0 != 0)
+        #define CY_IP_CPUSS             (0 == 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+    /* CM0 present or CM0+ present (1=CM0, 0=CM0+) */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_CPUSS_CM0         (0 == 0)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_CPUSS_CM0         (-1 == 1)
+        #endif  /* (CY_IP_CPUSSV2) */
+        #define CY_IP_CPUSS_CM0PLUS         (!CY_IP_CPUSS_CM0)
+    #else
+        #define CY_IP_CPUSS_CM0             (0 == 0)
+        #define CY_IP_CPUSS_CM0PLUS         (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    /* Flash memory present or not (1=Flash present, 0=Flash not present) */
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_CPUSS_FLASHC_PRESENT      (0 == 0)
+    #else
+        #define CY_IP_CPUSS_FLASHC_PRESENT      (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
 
     /* Product uses FLASH-Lite or regular FLASH */
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_FMLT              (0u != 0u)          /* FLASH-Lite */
-        #define CY_IP_FM                (!CY_IP_FMLT)       /* Regular FLASH */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_FM                (-1 == 0)
+            #define CY_IP_FMLT              (-1 == 1)
+            #define CY_IP_FS                (-1 == 2)
+            #define CY_IP_FSLT              (-1 == 3)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_FM                (-1 == 0)
+            #define CY_IP_FMLT              (-1 == 1)
+            #define CY_IP_FS                (-1 == 2)
+            #define CY_IP_FSLT              (-1 == 3)
+        #endif  /* (CY_IP_CPUSSV2) */
     #else
-        #define CY_IP_FMLT              (-1u != 0u)
-        #define CY_IP_FM                (!CY_IP_FMLT)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+        #define CY_IP_FM                (!CY_IP_FMLT)       /* Regular FLASH */
+        #define CY_IP_FMLT              (0 != 0)            /* FLASH-Lite */
+        #define CY_IP_FS                (0 != 0)            /* FS */
+        #define CY_IP_FSLT              (0 != 0)            /* FSLT */
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    /* Enable simultaneous execution/programming in multi-macro devices */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_FLASH_PARALLEL_PGM_EN (-1 == 1)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_FLASH_PARALLEL_PGM_EN (-1 == 1)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_IP_FLASH_PARALLEL_PGM_EN     (0u != 0u)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    /* Number of Flash macros used in the device (0, 1 or 2) */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_FLASH_MACROS (-1u)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_FLASH_MACROS (-1u)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_IP_FLASH_MACROS     (1u)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
 
     /* Number of interrupt request inputs to CM0 */
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_INT_NR            (-1u)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_INT_NR            (-1u)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
         #define CY_IP_INT_NR            (32u)
-    #else
-        #define CY_IP_INT_NR            (-1u)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
-
-    /* Number of Flash macros used in the device (0, 1 or 2) */
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_FLASH_MACROS      (1u)
-    #else
-        #define CY_IP_FLASH_MACROS      (-1u)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
 
 
-    /* Number of Flash macros used in the device (0, 1 or 2) */
-    #if (CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_BLESS             (0u != 0u)
+    /* Presence of the BLESS IP block */
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_BLESS             (0 != 0)
     #else
-        #define CY_IP_BLESS             (0u != 0u)
-    #endif  /* (CY_PSOC4_4100 || CY_PSOC4_4200) */
+        #define CY_IP_BLESS             (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_USBDEV            (0 != 0)
+    #else
+        #define CY_IP_USBDEV            (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    /***************************************************************************
+    * Devices with the SPCIF_SYNCHRONOUS parameter set to one will not use
+    * the 36MHz Oscillator for Flash operation. Instead, flash write function
+    * ensures that the charge pump clock and the higher frequency clock (HFCLK)
+    * are set to the IMO at 48MHz prior to writing the flash.
+    ***************************************************************************/
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_SPCIF_SYNCHRONOUS     (-1 == 1)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_IP_SPCIF_SYNCHRONOUS     (-1 == 1)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_IP_SPCIF_SYNCHRONOUS     (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
 
     /* Watch Crystal Oscillator (WCO) is present (32kHz) */
-    #if (CY_PSOC4_4000 || CY_PSOC4_4100 || CY_PSOC4_4200)
-        #define CY_IP_WCO               (0u != 0u)
-    #elif CY_IP_BLESS || defined (CYIPBLOCK_s8swco_VERSION)
-        #define CY_IP_WCO               (0u == 0u)
-    #elif (CY_IP_SRSSV2)
-        #define CY_IP_WCO               (-1u)
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_BLESS)
+            #define CY_IP_WCO_BLESS         (0 == 0)
+            #define CY_IP_WCO_WCO           (0 != 0)
+            #define CY_IP_WCO_SRSSV2        (0 != 0)
+        #else
+            #define CY_IP_WCO_BLESS         (0 != 0)
+            #define CY_IP_WCO_WCO           (0 == 1)
+            #define CY_IP_WCO_SRSSV2        (-1 == 1)
+        #endif  /* (CY_IP_BLESS) */
     #else
-        #define CY_IP_WCO               (0u != 0u)
-    #endif  /* (CY_PSOC4_4000 || CY_PSOC4_4100 || CY_PSOC4_4200) */
+        #define CY_IP_WCO_BLESS             (0 != 0)
+        #define CY_IP_WCO_WCO               (0 != 0)
+        #define CY_IP_WCO_SRSSV2            (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+    #define CY_IP_WCO   (CY_IP_WCO_BLESS || CY_IP_WCO_WCO || CY_IP_WCO_SRSSV2)
+
+
+    /* PLL is present */
+     #if (CY_IP_HOBTO_DEVICE && CY_IP_SRSSV2)
+         #define CY_IP_PLL           ((-1 != 0) || \
+                                      (-1 != 0))
+
+         #define CY_IP_PLL_NR         (-1u + \
+                                      -1u)
+     #else
+         #define CY_IP_PLL           (0 != 0)
+         #define CY_IP_PLL_NR        (0)
+     #endif  /* (CY_IP_HOBTO_DEVICE && CY_IP_SRSSV2) */
+
+
+    /* External Crystal Oscillator is present (high frequency) */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_BLESS)
+            #define CY_IP_ECO_BLESS         (0 == 0)
+            #define CY_IP_ECO_SRSSV2        (0 != 0)
+        #else
+            #define CY_IP_ECO_BLESS         (0 != 0)
+            #define CY_IP_ECO_SRSSV2        (-1 == 1)
+        #endif  /* (CY_IP_BLESS) */
+    #else
+        #define CY_IP_ECO_BLESS             (0 != 0)
+        #define CY_IP_ECO_SRSSV2            (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+    #define CY_IP_ECO   (CY_IP_ECO_BLESS || CY_IP_ECO_SRSSV2)
+
+
+    /* Clock Source clk_lf implemented in SysTick Counter. When 0, not implemented, 1=implemented */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_SYSTICK_LFCLK_SOURCE     (-1 != 0)
+        #else   /* CY_IP_CPUSSV3 */
+            #define CY_SYSTICK_LFCLK_SOURCE     (-1 != 0)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_SYSTICK_LFCLK_SOURCE     (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    /* Flash Macro 0 has extra rows */
+    #if (CY_IP_HOBTO_DEVICE)
+        #ifdef CYREG_SFLASH_MACRO_0_FREE_SFLASH0
+            #define CY_SFLASH_XTRA_ROWS         (0 == 0)
+        #else
+            #define CY_SFLASH_XTRA_ROWS         (0 != 0)
+        #endif /* CYREG_SFLASH_MACRO_0_FREE_SFLASH0 */
+
+    #else
+        #define CY_SFLASH_XTRA_ROWS         (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+    #if (CY_IP_USBDEV)
+        #define CY_IP_IMO_TRIMMABLE_BY_USB  (0 == 0)
+    #else
+        #define CY_IP_IMO_TRIMMABLE_BY_USB  (0 != 0)
+    #endif  /* (CY_IP_USBDEV) */
+
+
+    #if (CY_IP_WCO_WCO || CY_IP_WCO_SRSSV2)
+        #define CY_IP_IMO_TRIMMABLE_BY_WCO  (0 == 0)
+    #else
+        #define CY_IP_IMO_TRIMMABLE_BY_WCO  (0 != 0)
+    #endif  /* (CY_IP_WCO_WCO || CY_IP_WCO_SRSSV2) */
+
+
+    /* DW/DMA Controller present (0=No, 1=Yes) */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_DMAC_PRESENT      (-1 == 1)
+        #else
+            #define CY_IP_DMAC_PRESENT      (-1 == 1)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_IP_DMAC_PRESENT          (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+    #if (CY_IP_HOBTO_DEVICE)
+        #define CY_IP_PASS                  (0 == 1)
+    #else
+        #define CY_IP_PASS                  (0 != 0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+
+
+	/* Number of external slave ports on System Interconnect */
+    #if (CY_IP_HOBTO_DEVICE)
+        #if (CY_IP_CPUSSV2)
+            #define CY_IP_SL_NR             (-1)
+        #else
+            #define CY_IP_SL_NR             (-1)
+        #endif  /* (CY_IP_CPUSSV2) */
+    #else
+        #define CY_IP_SL_NR                 (0)
+    #endif  /* (CY_IP_HOBTO_DEVICE) */
+
+#else
+
+    #if (CY_PSOC3)
+        #define CY_SYSTICK_LFCLK_SOURCE     (0 != 0)
+    #else /* PSoC 5LP */
+        #define CY_SYSTICK_LFCLK_SOURCE     (0 == 0)
+    #endif /* (CY_PSOC3) */
 
 #endif  /* (CY_PSOC4) */
 
@@ -152,7 +388,12 @@
 * (defined(CY_BOOT_VERSION) && CY_BOOT_VERSION >= CY_BOOT_4_20)
 *******************************************************************************/
 #define CY_BOOT_4_20            (420u)
-#define CY_BOOT_VERSION         (CY_BOOT_4_20)
+#define CY_BOOT_5_0             (500u)
+#define CY_BOOT_5_10            (510u)
+#define CY_BOOT_5_20            (520u)
+#define CY_BOOT_5_30            (530u)
+#define CY_BOOT_5_40            (540u)
+#define CY_BOOT_VERSION         (CY_BOOT_5_40)
 
 
 /*******************************************************************************
@@ -355,49 +596,278 @@ typedef volatile uint32 CYXDATA reg32;
 #endif  /* (CY_PSOC3) */
 
 
-/*******************************************************************************
-*  Register Access
-*******************************************************************************/
+#define CY_M_PI                         (3.14159265358979323846264338327)
+
+
+/**
+* \addtogroup group_register_access
+A library of macros provides read and write access to the registers of the device. These macros are used with the
+defined values made available in the generated cydevice_trm.h and cyfitter.h files. Access to registers should be made
+using these macros and not the functions that are used to implement the macros. This allows for device independent code
+generation.
+
+The PSoC 4 processor architecture use little endian ordering.
+
+SRAM and Flash storage in all architectures is done using the endianness of the architecture and compilers. However,
+the registers in all these chips are laid out in little endian order. These macros allow register accesses to match this
+little endian ordering. If you perform operations on multi-byte registers without using these macros, you must consider
+the byte ordering of the specific architecture. Examples include usage of DMA to transfer between memory and registers,
+as well as function calls that are passed an array of bytes in memory.
+
+The PSoC 4 requires these accesses to be aligned to the width of the transaction.
+
+The PSoC 4 requires peripheral register accesses to match the hardware register size. Otherwise, the peripheral might
+ignore the transfer and Hard Fault exception will be generated.
+
+*/
+
+/** @} group_register_access */
+
+
+/**
+* \addtogroup group_register_access_macros Register Access
+* \ingroup group_register_access
+* @{
+*/
+
 #if(CY_PSOC3)
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG8(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 8-bit value from the specified register.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
+    #define CY_GET_REG8(addr)               (*((const reg8 *)(addr)))
 
 
     /*******************************************************************************
-    * KEIL for the 8051 is a big endian compiler This causes problems as the on chip
-    * registers are little endian.  Byte swapping for two and four byte registers is
-    * implemented in the functions below.  This will require conditional compilation
-    * of function prototypes in the code.
+    * Macro Name: CY_SET_REG8(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 8-bit value to the specified register.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
     *******************************************************************************/
-
-    /* Access macros for 8, 16, 24 and 32-bit registers, IN THE FIRST 64K OF XDATA */
-
-    #define CY_GET_REG8(addr)               (*((const reg8 *)(addr)))
     #define CY_SET_REG8(addr, value)        (*((reg8 *)(addr))  = (uint8)(value))
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG16(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 16-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_REG16(addr)              cyread16_nodpx ((const volatile void far *)(const reg16 *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG16(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 16-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_REG16(addr, value)       cywrite16_nodpx((volatile void far *)(reg16 *)(addr), value)
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG24(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 24-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_REG24(addr)              cyread24_nodpx ((const volatile void far *)(const reg32 *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG24(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 24-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_REG24(addr, value)       cywrite24_nodpx((volatile void far *)(reg32 *)(addr),value)
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG32(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 32-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_REG32(addr)              cyread32_nodpx ((const volatile void far *)(const reg32 *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG32(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 32-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_REG32(addr, value)       cywrite32_nodpx((volatile void far *)(reg32 *)(addr), value)
 
-    /* Access 8, 16, 24 and 32-bit registers, ABOVE THE FIRST 64K OF XDATA */
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_XTND_REG8(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 8-bit value from the specified register.
+    * Identical to \ref CY_GET_REG8 for PSoC 4.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_XTND_REG8(addr)          cyread8((const volatile void far *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_XTND_REG8(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 8-bit value to the specified register.
+    * Identical to \ref CY_SET_REG8 for PSoC 4.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_XTND_REG8(addr, value)   cywrite8((volatile void far *)(addr), value)
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_XTND_REG16(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 16-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_GET_REG16
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_XTND_REG16(addr)         cyread16((const volatile void far *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_XTND_REG16(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 16-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_SET_REG16
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_XTND_REG16(addr, value)  cywrite16((volatile void far *)(addr), value)
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_XTND_REG24(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 24-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_GET_REG24
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_XTND_REG24(addr)         cyread24((const volatile void far *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_XTND_REG24(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 24-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_SET_REG24
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_XTND_REG24(addr, value)  cywrite24((volatile void far *)(addr), value)
 
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_XTND_REG32(addr)
+    ****************************************************************************//**
+    *
+    * Reads the 32-bit value from the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_GET_REG32
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    *
+    * \return Read value.
+    *
+    *******************************************************************************/
     #define CY_GET_XTND_REG32(addr)         cyread32((const volatile void far *)(addr))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_XTND_REG32(addr, value)
+    ****************************************************************************//**
+    *
+    * Writes the 32-bit value to the specified register. This macro implements the
+    * byte swapping required for proper operation. Identical to \ref CY_SET_REG32
+    * for PSoC 4.
+    *
+    * \param reg Register address.
+    * \param value Value to write.
+    *
+    *******************************************************************************/
     #define CY_SET_XTND_REG32(addr, value)  cywrite32((volatile void far *)(addr), value)
 
 #else
 
-    /* 8, 16, 24 and 32-bit register access macros */
     #define CY_GET_REG8(addr)               (*((const reg8 *)(addr)))
     #define CY_SET_REG8(addr, value)        (*((reg8 *)(addr))  = (uint8)(value))
 
@@ -416,7 +886,6 @@ typedef volatile uint32 CYXDATA reg32;
     #define CY_GET_REG32(addr)              (*((const reg32 *)(addr)))
     #define CY_SET_REG32(addr, value)       (*((reg32 *)(addr)) = (uint32)(value))
 
-
     /* To allow code to be 8051-ARM agnostic. */
     #define CY_GET_XTND_REG8(addr)          CY_GET_REG8(addr)
     #define CY_SET_XTND_REG8(addr, value)   CY_SET_REG8(addr, value)
@@ -431,7 +900,386 @@ typedef volatile uint32 CYXDATA reg32;
     #define CY_SET_XTND_REG32(addr, value)  CY_SET_REG32(addr, value)
 
 #endif  /* (CY_PSOC3) */
+/** @} group_register_access_macros */
 
+
+/**
+* \addtogroup group_register_access_bits Bit Manipulation
+* \ingroup group_register_access
+* @{
+*/
+
+#if(CY_PSOC4)
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_FIELD_MASK(regSize, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Returns the bit field mask for the specified register size and bit field
+    * name.
+    *
+    * \param regSize Size of the register in bits.
+    * \param bitFieldName Fully qualified name of the bit field. The biFieldName
+    *  is automatically appended with __OFFSET and __SIZE by the macro for usage.
+    *
+    * \return Returns the bit mask.
+    *
+    *******************************************************************************/
+    #define CY_GET_FIELD_MASK(regSize, bitFieldName) \
+        ((((uint ## regSize) 0xFFFFFFFFu << ((uint32)(regSize) - bitFieldName ## __SIZE - bitFieldName ## __OFFSET)) >>\
+         ((uint32)(regSize) - bitFieldName ## __SIZE)) << bitFieldName ## __OFFSET)
+
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG8_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Reads the specified bit field value from the specified 8-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register will remain uncorrupted during simultaneous read-modify-write
+    * operation performed by two threads (main and interrupt threads). To
+    * guarantee data integrity in such cases, the macro should be invoked while
+    * the specific interrupt is disabled or within a critical section (all
+    * interrupts are disabled).
+    *
+    * Using this macro on 32-bit and 16-bit width registers will generate a
+    * hard fault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerName: The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName: fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family
+    * register TRM.
+    *
+    * \return Zero if the specified bit field is zero, and a non-zero value,
+    * otherwise. The return value is of type uint32.
+    *
+    *******************************************************************************/
+    #define CY_GET_REG8_FIELD(registerName, bitFieldName) \
+         ((CY_GET_REG8((registerName)) >> bitFieldName ## __OFFSET) & (~(0xFFu << bitFieldName ## __SIZE)))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG8_FIELD(registerName, bitFieldName, value)
+    ****************************************************************************//**
+    *
+    * Sets the specified bit field value of the specified 8-bit register to the
+    * required value.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write
+    * operation performed by two threads (main and interrupt threads). To
+    * guarantee data integrity in such cases, the macro should be invoked while
+    * the specific interrupt is disabled or within a critical section (all
+    * interrupts are disabled).
+    *
+    * Using this macro on the 32-bit and 16-bit width registers, generates a
+    * hard fault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    * \param value The value that the field must be configured for.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family
+    * register TRM.
+    *
+    *******************************************************************************/
+    #define CY_SET_REG8_FIELD(registerName, bitFieldName, value) \
+        CY_SET_REG8((registerName), \
+        ((CY_GET_REG8((registerName))                 & ~CY_GET_FIELD_MASK(8, bitFieldName)) | \
+        (((uint8)(value) << bitFieldName ## __OFFSET) &  CY_GET_FIELD_MASK(8, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_CLEAR_REG8_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Clears the specified bit field of the specified 8-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write
+    * operation performed by two threads (main and interrupt threads). To
+    * guarantee data integrity in such cases, the macro should be invoked while
+    * the specific interrupt is disabled or within a critical section (all
+    * interrupts are disabled).
+    *
+    * Using this macro on the 32-bit and 16-bit width registers generates a
+    * hard fault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    *
+    * For fully qualified names of the register and bit fields and the
+    * possible values the field can take, please, refer to a respective PSoC
+    * family register TRM.
+    *
+    *******************************************************************************/
+    #define CY_CLEAR_REG8_FIELD(registerName, bitFieldName) \
+        (CY_SET_REG8((registerName), (CY_GET_REG8((registerName)) & ~CY_GET_FIELD_MASK(8, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG16_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Reads the specified bit field value from the specified 16-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write
+    * operation performed by two threads (main and interrupt threads). To
+    * guarantee data integrity in such cases, the macro should be invoked while
+    * the specific interrupt is disabled or within a critical section (all
+    * interrupts are disabled).
+    *
+    * Using this macro on the 32-bit and 16-bit width registers generates a
+    * hardfault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    *
+    * For fully qualified names of the register and bit fields and the
+    * possible values the field can take, please, refer to a respective PSoC
+    * family register TRM.
+    *
+    * \return Zero if the specified bit field is zero, and a non-zero value,
+    * otherwise. The return value is of type uint32.
+    *
+    *******************************************************************************/
+    #define CY_GET_REG16_FIELD(registerName, bitFieldName) \
+         ((CY_GET_REG16((registerName)) >> bitFieldName ## __OFFSET) & (~(0xFFFFu << bitFieldName ## __SIZE)))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG16_FIELD(registerName, bitFieldName, value)
+    ****************************************************************************//**
+    *
+    * Sets the specified bit field value of the specified 16-bit register to the
+    * required value.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * Using this macro on the 32-bit and 16-bit width registers generates a hard
+    * fault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerNam The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName: fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    * \param value The value that the field must be configured for.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family
+    * register TRM.
+    *
+    *******************************************************************************/
+    #define CY_SET_REG16_FIELD(registerName, bitFieldName, value) \
+        CY_SET_REG16((registerName), \
+        ((CY_GET_REG16((registerName))                 & ~CY_GET_FIELD_MASK(16, bitFieldName)) | \
+        (((uint16)(value) << bitFieldName ## __OFFSET) &  CY_GET_FIELD_MASK(16, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_CLEAR_REG16_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Clears the specified bit field of the specified 16-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * Using this macro on the 32-bit and 16-bit width registers generates a hard
+    * fault exception. Examples of 8-bit registers are the UDB registers.
+    *
+    * \param registerName: The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName: fully qualified name of the bit field. The biFieldName is
+    * automatically appended with __OFFSET and __SIZE by the macro for usage.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family register
+    * TRM.
+    *
+    *******************************************************************************/
+    #define CY_CLEAR_REG16_FIELD(registerName, bitFieldName)\
+        (CY_SET_REG16((registerName), (CY_GET_REG16((registerName)) & ~CY_GET_FIELD_MASK(16, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_REG32_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Reads the specified bit field value from the specified 32-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * Using this macro on the 16-bit and 8-bit width registers generates a hard
+    * fault exception.
+    *
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName The Fully qualified name of the bit field. The
+    * biFieldName is automatically appended with __OFFSET and __SIZE by the macro
+    * for usage.
+    *
+    * For fully qualified names of the register and bit fields, please, refer to
+    * a respective PSoC family register TRM.
+    *
+    * \return Zero if the specified bit field is zero, and a non-zero value, otherwise.
+    * The return value is of type uint32.
+    *
+    *******************************************************************************/
+    #define CY_GET_REG32_FIELD(registerName, bitFieldName) \
+          ((CY_GET_REG32((registerName)) >> bitFieldName ## __OFFSET) & (~(0xFFFFFFFFu << bitFieldName ## __SIZE)))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_REG32_FIELD(registerName, bitFieldName, value)
+    ****************************************************************************//**
+    *
+    * Sets the specified bit field value of the specified 32-bit register to the
+    * required value.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * Using this macro on the 16-bit and 8-bit width registers generates a hard
+    * fault exception.
+    *
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName The fully qualified name of the bit field. The
+    * biFieldName is automatically appended with __OFFSET and __SIZE by the macro
+    * for usage.
+    * \param value The value that the field must be configured for.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family register
+    * TRM.
+    *
+    *******************************************************************************/
+    #define CY_SET_REG32_FIELD(registerName, bitFieldName, value) \
+        CY_SET_REG32((registerName), \
+        ((CY_GET_REG32((registerName))                 & ~CY_GET_FIELD_MASK(32, bitFieldName)) | \
+        (((uint32)(value) << bitFieldName ## __OFFSET) &  CY_GET_FIELD_MASK(32, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_CLEAR_REG32_FIELD(registerName, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Clears the specified bit field of the specified 32-bit register.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * Using this macro on the 16-bit and 8-bit width registers generates a hard
+    * fault exception.
+	*
+    * \param registerName The fully qualified name of the PSoC 4 device register.
+    * \param bitFieldName The fully qualified name of the bit field. The
+    * biFieldName is automatically appended with __OFFSET and __SIZE by the macro
+    * for usage.
+    *
+    * For fully qualified names of the register and bit fields and the possible
+    * values the field can take, please, refer to a respective PSoC family register
+    * TRM.
+    *
+    *******************************************************************************/
+    #define CY_CLEAR_REG32_FIELD(registerName, bitFieldName) \
+        (CY_SET_REG32((registerName), (CY_GET_REG32((registerName)) & ~CY_GET_FIELD_MASK(32, bitFieldName))))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_GET_FIELD(regValue, bitFieldName)
+    ****************************************************************************//**
+    *
+    * Reads the specified bit field value from the given 32-bit value.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * This macro has to be used in conjunction with \ref CY_GET_REG32 for atomic
+    * reads.
+    *
+    * \param regValue The value as read by \ref CY_GET_REG32.
+    * \param bitFieldName The fully qualified name of the bit field. The
+    * biFieldName is automatically appended with __OFFSET and __SIZE by the macro
+    * for usage.
+    *
+    * For fully qualified names of the bit field and the possible values the field
+    * can take, please, refer to a respective PSoC family register TRM.
+    *
+    * \return Zero if the specified bit field is zero, and a non-zero value,
+    * otherwise. The return value is of type uint32.
+    *
+    *******************************************************************************/
+    #define CY_GET_FIELD(regValue, bitFieldName) \
+        (((regValue) >> bitFieldName ## __OFFSET) & (~(0xFFFFFFFFu << bitFieldName ## __SIZE)))
+
+
+    /*******************************************************************************
+    * Macro Name: CY_SET_FIELD(regValue, bitFieldName, value)
+    ****************************************************************************//**
+    *
+    * Sets the specified bit field value within a given 32-bit value.
+    *
+    * The macro operation is not atomic. It is not guaranteed that the shared
+    * register remains uncorrupted during simultaneous read-modify-write operation
+    * performed by two threads (main and interrupt threads). To guarantee data
+    * integrity in such cases, the macro should be invoked while the specific
+    * interrupt is disabled or within a critical section (all interrupts are
+    * disabled).
+    *
+    * This macro has to be used in conjunction with \ref CY_GET_REG32 for atomic
+    * reads and \ref CY_SET_REG32 for atomic writes.
+    *
+    * \param regValue The value as read by \ref CY_GET_REG32.
+    * \param bitFieldName The fully qualified name of the bit field. The
+    * biFieldName is automatically appended with __OFFSET and __SIZE by the macro
+    * for usage.
+    * \param value The value that the field must be configured for.
+    *
+    * For fully qualified names of the bit field and the possible values the field
+    * can take, please, refer to the respective PSoC family register TRM.
+    *
+    *******************************************************************************/
+    #define CY_SET_FIELD(regValue, bitFieldName, value) \
+        ((regValue) = \
+        ((((uint32)(value) & (~(0xFFFFFFu << bitFieldName ## __SIZE))) << bitFieldName ## __OFFSET)) | \
+        ((uint32)(regValue) & (((~(0xFFu << bitFieldName ## __SIZE))) << bitFieldName ## __OFFSET)))
+
+#endif  /* (CY_PSOC4) */
+
+/** @} group_register_access_bits */
 
 
 /*******************************************************************************
@@ -448,10 +1296,10 @@ typedef volatile uint32 CYXDATA reg32;
 
 /* Swap the byte ordering of 32 bit value */
 #define CYSWAP_ENDIAN32(x)  \
-        ((uint32)(((x) >> 24) | (((x) & 0x00FF0000u) >> 8) | (((x) & 0x0000FF00u) << 8) | ((x) << 24)))
+        ((uint32)((((x) >> 24) & 0x000000FFu) | (((x) & 0x00FF0000u) >> 8) | (((x) & 0x0000FF00u) << 8) | ((x) << 24)))
 
 /* Swap the byte ordering of 16 bit value */
-#define CYSWAP_ENDIAN16(x)      ((uint16)(((x) << 8) | ((x) >> 8)))
+#define CYSWAP_ENDIAN16(x)      ((uint16)(((x) << 8) | (((x) >> 8) & 0x00FFu)))
 
 
 /*******************************************************************************
@@ -504,7 +1352,7 @@ typedef volatile uint32 CYXDATA reg32;
 
 
 /*******************************************************************************
-* The following code is OBSOLETE and must not be used starting from cy_boot 3.10
+* The following code is OBSOLETE and must not be used starting from cy_boot 5.10
 *
 * If the obsoleted macro definitions intended for use in the application use the
 * following scheme, redefine your own versions of these definitions:
@@ -516,6 +1364,12 @@ typedef volatile uint32 CYXDATA reg32;
 * Note: Redefine obsoleted macro definitions with caution. They might still be
 *       used in the application and their modification might lead to unexpected
 *       consequences.
+*******************************************************************************/
+#define CY_IP_S8FS      CY_IP_FS
+
+
+/*******************************************************************************
+* The following code is OBSOLETE and must not be used starting from cy_boot 3.10
 *******************************************************************************/
 #define CY_UDB_V0           (CYDEV_CHIP_MEMBER_USED == CYDEV_CHIP_MEMBER_5A)
 #define CY_UDB_V1           (!CY_UDB_V0)

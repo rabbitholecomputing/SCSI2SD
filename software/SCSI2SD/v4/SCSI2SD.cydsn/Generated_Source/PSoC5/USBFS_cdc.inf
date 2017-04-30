@@ -1,12 +1,12 @@
 ;******************************************************************************
 ; File Name: USBFS_cdc.inf
-; Version 2.80
+; Version 3.10
 ;
 ; Description:
 ;  Windows USB CDC setup file for USBUART Device.
 ;
 ;******************************************************************************
-; Copyright 2007-2014, Cypress Semiconductor Corporation.  All rights reserved.
+; Copyright 2007-2016, Cypress Semiconductor Corporation.  All rights reserved.
 ; You may use this file only in accordance with the license, terms, conditions,
 ; disclaimers, and limitations in the end user license agreement accompanying
 ; the software package with which this file was provided.
@@ -32,12 +32,27 @@ DefaultDestDir=12
 
 [DeviceList.NTx86]
 %DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_00
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_01
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_02
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_03
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_04
 
 [DeviceList.NTia64]
 %DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_00
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_01
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_02
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_03
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_04
 
 [DeviceList.NTamd64]
 %DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_00
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_01
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_02
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_03
+%DESCRIPTION%=DriverInstall, USB\VID_04B4&PID_F232&MI_04
 
 
 ;------------------------------------------------------------------------------

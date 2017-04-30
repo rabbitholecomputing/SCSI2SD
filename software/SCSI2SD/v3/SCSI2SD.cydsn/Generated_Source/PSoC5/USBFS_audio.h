@@ -1,15 +1,17 @@
-/*******************************************************************************
-* File Name: USBFS_audio.h
-* Version 2.80
+/***************************************************************************//**
+* \file USBFS_audio.h
+* \version 3.10
 *
-* Description:
-*  Header File for the USBFS component. Contains prototypes and constant values.
+* \brief
+*  This file provides function prototypes and constants for the USBFS component 
+*  Audio class.
 *
 * Related Document:
 *  Universal Serial Bus Device Class Definition for Audio Devices Release 1.0
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -18,7 +20,7 @@
 #if !defined(CY_USBFS_USBFS_audio_H)
 #define CY_USBFS_USBFS_audio_H
 
-#include "cytypes.h"
+#include "USBFS.h"
 
 
 /***************************************
@@ -82,12 +84,16 @@
 /***************************************
 * External data references
 ***************************************/
-
-extern volatile uint8 USBFS_currentSampleFrequency[USBFS_MAX_EP]
-                                                             [USBFS_SAMPLE_FREQ_LEN];
+/**
+* \addtogroup group_audio
+* @{
+*/
+extern volatile uint8 USBFS_currentSampleFrequency[USBFS_MAX_EP][USBFS_SAMPLE_FREQ_LEN];
 extern volatile uint8 USBFS_frequencyChanged;
 extern volatile uint8 USBFS_currentMute;
 extern volatile uint8 USBFS_currentVolume[USBFS_VOLUME_LEN];
+/** @} audio */
+
 extern volatile uint8 USBFS_minimumVolume[USBFS_VOLUME_LEN];
 extern volatile uint8 USBFS_maximumVolume[USBFS_VOLUME_LEN];
 extern volatile uint8 USBFS_resolutionVolume[USBFS_VOLUME_LEN];

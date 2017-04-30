@@ -1,7 +1,8 @@
-20170429		4.7.1
+20170501		4.7.1
 	- Fix scsi2sd-util size and sector-size inputs
 	- Fix crash when configured scsi disk starting sector is less than
 	SD card size
+	- Update to PSoC Creator 4.0
 
 20170312		4.7
 	- Fix bug in SCSI Inquiry command for SCSI2 hosts

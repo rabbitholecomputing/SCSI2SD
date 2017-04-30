@@ -1,13 +1,14 @@
-/*******************************************************************************
-* File Name: Bootloadable_1.h
-* Version 1.30
+/****************************************************************************//**
+* \file Bootloadable_1.c
+* \version 1.50
 *
-*  Description:
+* \brief
 *   Provides an API for the Bootloadable application. The API includes a
-*   single function for starting bootloader.
+*   single function for starting the Bootloader.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -24,7 +25,7 @@
 /* Check to see if required defines such as CY_PSOC5LP are available */
 /* They are defined starting with cy_boot v3.0 */
 #if !defined (CY_PSOC5LP)
-    #error Component Bootloadable_v1_30 requires cy_boot v3.0 or later
+    #error Component Bootloadable_v1_50 requires cy_boot v3.0 or later
 #endif /* !defined (CY_PSOC5LP) */
 
 
@@ -41,8 +42,8 @@
 
 
 /*******************************************************************************
-* This variable is used by Bootloader/Bootloadable components to schedule what
-* application will be started after software reset.
+* This variable is used by the Bootloader/Bootloadable components to schedule which
+* application will be started after a software reset.
 *******************************************************************************/
 #if (CY_PSOC4)
     #if defined(__ARMCC_VERSION)
@@ -57,7 +58,7 @@
 
 
 /*******************************************************************************
-* Get the reason of the device reset
+* Gets the reason for a device reset
 *******************************************************************************/
 #if(CY_PSOC4)
     #define Bootloadable_1_RES_CAUSE_RESET_SOFT   (0x10u)
@@ -72,7 +73,7 @@
 
 
 /*******************************************************************************
-* Schedule Bootloader/Bootloadable to be run after software reset
+* Schedule the Bootloader/Bootloadable to be run after a software reset.
 *******************************************************************************/
 #if(CY_PSOC4)
     #define Bootloadable_1_SET_RUN_TYPE(x)        (cyBtldrRunType = (x))
@@ -89,10 +90,41 @@ extern void Bootloadable_1_Load(void) ;
 
 
 /*******************************************************************************
-* The following code is OBSOLETE and must not be used starting from version 1.10
+* The following code is OBSOLETE and must not be used starting from version 1.10.
 *******************************************************************************/
 #define CYBTDLR_SET_RUN_TYPE(x)     Bootloadable_1_SET_RUN_TYPE(x)
 
+/*******************************************************************************
+* Bootloadable's declarations for in-app bootloading.
+*******************************************************************************/
+#define Bootloadable_1_MD_BTLDB_ACTIVE_0          (0x00u)
+
+#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
+    #define Bootloadable_1_MAX_NUM_OF_BTLDB       (0x02u)
+    #define Bootloadable_1_MD_BTLDB_ACTIVE_1      (0x01u)
+    #define Bootloadable_1_MD_BTLDB_ACTIVE_NONE   (0x02u)
+    #define Bootloadable_1_MD_SIZEOF              (64u)
+    #define Bootloadable_1_MD_BASE_ADDR(appId)    (CYDEV_FLASH_BASE + (CYDEV_FLASH_SIZE - ((uint32)(appId) * CYDEV_FLS_ROW_SIZE) - \
+                                                                        Bootloadable_1_MD_SIZEOF))
+    #define Bootloadable_1_MD_BTLDB_ACTIVE_OFFSET(appId) (Bootloadable_1_MD_BASE_ADDR(appId) + 16u)
+    
+#else
+    #define Bootloadable_1_MAX_NUM_OF_BTLDB       (0x01u)
+#endif  /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
+
+/* Mask used to indicate starting application */
+#define Bootloadable_1_SCHEDULE_BTLDB             (0x80u)
+#define Bootloadable_1_SCHEDULE_BTLDR             (0x40u)
+#define Bootloadable_1_SCHEDULE_MASK              (0xC0u)
+/*******************************************************************************
+* API prototypes
+*******************************************************************************/
+#if (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)                
+    uint8 Bootloadable_1_GetActiveApplication(void) CYSMALL \
+          ;
+    cystatus Bootloadable_1_SetActiveApplication(uint8 appId) CYSMALL \
+             ;
+#endif  /* (CYDEV_PROJ_TYPE == CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)*/
 
 /*******************************************************************************
 * The following code is OBSOLETE and must not be used starting from version 1.20
@@ -107,7 +139,7 @@ extern void Bootloadable_1_Load(void) ;
     #define Bootloadable_1_APP_ADDRESS                    uint16
     #define Bootloadable_1_GET_CODE_WORD(idx)             (*((uint32 CYCODE *) (idx)))
 
-    /* Offset by 2 from 32 bit start because only need 16 bits */
+    /* Offset by 2 from 32 bit start because only 16 bits are needed */
     #define Bootloadable_1_META_APP_ADDR_OFFSET           (3u)
     #define Bootloadable_1_META_APP_BL_LAST_ROW_OFFSET    (7u)
     #define Bootloadable_1_META_APP_BYTE_LEN_OFFSET       (11u)
@@ -136,18 +168,17 @@ extern void Bootloadable_1_Load(void) ;
 #define Bootloadable_1_SetFlashRunType(runType)           \
                         Bootloadable_1_SetFlashByte(Bootloadable_1_MD_APP_RUN_ADDR(0), (runType))
 
-
 /*******************************************************************************
 * The following code is OBSOLETE and must not be used.
 *
-* If the obsoleted macro definitions intended for use in the application use the
+* If the obsoleted macro definitions are intended for the application, use the
 * following scheme, redefine your own versions of these definitions:
 *    #ifdef <OBSOLETED_DEFINE>
 *        #undef  <OBSOLETED_DEFINE>
 *        #define <OBSOLETED_DEFINE>      (<New Value>)
 *    #endif
 *
-* Note: Redefine obsoleted macro definitions with caution. They might still be
+* NOTE Redefine obsoleted macro definitions with caution. They might still be
 *       used in the application and their modification might lead to unexpected
 *       consequences.
 *******************************************************************************/

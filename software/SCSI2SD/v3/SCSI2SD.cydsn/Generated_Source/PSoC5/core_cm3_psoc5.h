@@ -1,17 +1,15 @@
 /*******************************************************************************
-* File Name: core_cm3_psoc5.h
-* Version 4.20
+* \file core_cm3_psoc5.h
+* \version 5.50
 *
-*  Description:
-*   Provides important type information for the PSoC5.  This includes types
-*   necessary for core_cm3.h.
+* \brief Provides important type information for the PSoC5.  This includes types
+* necessary for core_cm3.h.
 *
-*  Note:
-*   Documentation of the API's in this file is located in the
-*   System Reference Guide provided with PSoC Creator.
+* \note Documentation of the API's in this file is located in the
+* System Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.

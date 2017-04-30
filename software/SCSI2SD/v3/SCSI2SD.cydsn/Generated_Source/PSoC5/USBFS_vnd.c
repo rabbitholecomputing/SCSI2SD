@@ -1,25 +1,22 @@
-/*******************************************************************************
-* File Name: USBFS_vnd.c
-* Version 2.80
+/***************************************************************************//**
+* \file USBFS_vnd.c
+* \version 3.10
 *
-* Description:
-*  USB vendor request handler.
-*
-* Note:
+* \brief
+*  This file contains the  USB vendor request handler.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "USBFS.h"
 #include "USBFS_pvt.h"
 
 
 #if(USBFS_EXTERN_VND == USBFS_FALSE)
-
 
 /***************************************
 * Vendor Specific Declarations
@@ -32,9 +29,8 @@
 
 /*******************************************************************************
 * Function Name: USBFS_HandleVendorRqst
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine provide users with a method to implement vendor specific
 *  requests.
 *
@@ -43,13 +39,10 @@
 *  must set the variable "requestHandled" to TRUE, indicating that the
 *  request has been handled.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  requestHandled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
@@ -57,18 +50,21 @@ uint8 USBFS_HandleVendorRqst(void)
 {
     uint8 requestHandled = USBFS_FALSE;
 
-    if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+    /* Check request direction: D2H or H2D. */
+    if (0u != (USBFS_bmRequestTypeReg & USBFS_RQST_DIR_D2H))
     {
-        /* Control Read */
-        switch (CY_GET_REG8(USBFS_bRequest))
+        /* Handle direction from device to host. */
+        
+        switch (USBFS_bRequestReg)
         {
             case USBFS_GET_EXTENDED_CONFIG_DESCRIPTOR:
-                #if defined(USBFS_ENABLE_MSOS_STRING)
-                    USBFS_currentTD.pData = (volatile uint8 *)&USBFS_MSOS_CONFIGURATION_DESCR[0u];
-                    USBFS_currentTD.count = USBFS_MSOS_CONFIGURATION_DESCR[0u];
-                    requestHandled  = USBFS_InitControlRead();
-                #endif /*  USBFS_ENABLE_MSOS_STRING */
+            #if defined(USBFS_ENABLE_MSOS_STRING)
+                USBFS_currentTD.pData = (volatile uint8 *) &USBFS_MSOS_CONFIGURATION_DESCR[0u];
+                USBFS_currentTD.count = USBFS_MSOS_CONFIGURATION_DESCR[0u];
+                requestHandled  = USBFS_InitControlRead();
+            #endif /* (USBFS_ENABLE_MSOS_STRING) */
                 break;
+            
             default:
                 break;
         }
@@ -78,11 +74,14 @@ uint8 USBFS_HandleVendorRqst(void)
 
     /* `#END` */
 
-    #ifdef USBFS_HANDLE_VENDOR_RQST_CALLBACK
-        USBFS_HandleVendorRqst_Callback();
-    #endif /* USBFS_HANDLE_VENDOR_RQST_CALLBACK */
+#ifdef USBFS_HANDLE_VENDOR_RQST_CALLBACK
+    if (USBFS_FALSE == requestHandled)
+    {
+        requestHandled = USBFS_HandleVendorRqst_Callback();
+    }
+#endif /* (USBFS_HANDLE_VENDOR_RQST_CALLBACK) */
 
-    return(requestHandled);
+    return (requestHandled);
 }
 
 
@@ -93,6 +92,7 @@ uint8 USBFS_HandleVendorRqst(void)
 /* `#START VENDOR_SPECIFIC_FUNCTIONS` Place any additional functions here */
 
 /* `#END` */
+
 
 #endif /* USBFS_EXTERN_VND */
 

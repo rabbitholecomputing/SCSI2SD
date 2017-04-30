@@ -1,12 +1,13 @@
-/*******************************************************************************
-* File Name: CyBootAsmGnu.s
-* Version 4.20
+/***************************************************************************//**
+* \file CyBootAsmGnu.s
+* \version 5.50
 *
-*  Description:
+*  \brief
 *   Assembly routines for GNU as.
 *
 ********************************************************************************
-* Copyright 2010-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2010-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -21,16 +22,11 @@
 
 /*******************************************************************************
 * Function Name: CyDelayCycles
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Delays for the specified number of cycles.
 *
-* Parameters:
-*  uint32 cycles: number of cycles to delay.
-*
-* Return:
-*  None
+*  \param uint32 cycles: number of cycles to delay.
 *
 *******************************************************************************/
 /* void CyDelayCycles(uint32 cycles) */
@@ -107,9 +103,8 @@ cy_flash_cycles:
 
 /*******************************************************************************
 * Function Name: CyEnterCriticalSection
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  CyEnterCriticalSection disables interrupts and returns a value indicating
 *  whether interrupts were previously enabled (the actual value depends on
 *  whether the device is PSoC 3 or PSoC 5).
@@ -120,10 +115,7 @@ cy_flash_cycles:
 *  corrupting processor state, it must be the policy that all interrupt routines
 *  restore the interrupt enable bits as they were found on entry.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  uint8
 *   Returns 0 if interrupts were previously enabled or 1 if interrupts
 *   were previously disabled.
@@ -143,19 +135,14 @@ CyEnterCriticalSection:
 
 /*******************************************************************************
 * Function Name: CyExitCriticalSection
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  CyExitCriticalSection re-enables interrupts if they were enabled before
 *  CyEnterCriticalSection was called. The argument should be the value returned
 *  from CyEnterCriticalSection.
 *
-* Parameters:
-*  uint8 savedIntrStatus:
+*  \param uint8 savedIntrStatus:
 *   Saved interrupt status returned by the CyEnterCriticalSection function.
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 /* void CyExitCriticalSection(uint8 savedIntrStatus) */

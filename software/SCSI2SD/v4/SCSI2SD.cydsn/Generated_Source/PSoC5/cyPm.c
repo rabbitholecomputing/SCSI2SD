@@ -1,22 +1,22 @@
-/*******************************************************************************
-* File Name: cyPm.c
-* Version 4.20
+/***************************************************************************//**
+* \file cyPm.c
+* \version 5.50
 *
-* Description:
-*  Provides an API for the power management.
+* \brief Provides an API for the power management.
 *
-* Note:
-*  Documentation of the API's in this file is located in the
+* \note Documentation of the API's in this file is located in the
 *  System Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
 #include "cyPm.h"
+
 
 
 /*******************************************************************
@@ -47,9 +47,8 @@ static void CyPmHviLviRestore(void) ;
 
 /*******************************************************************************
 * Function Name: CyPmSaveClocks
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function is called in preparation for entering sleep or hibernate low
 *  power modes. Saves all the states of the clocking system that do not persist
 *  during sleep/hibernate or that need to be altered in preparation for
@@ -67,13 +66,7 @@ static void CyPmHviLviRestore(void) ;
 *  must be set manually to another source before using the
 *  CyPmSaveClocks()/CyPmRestoreClocks() functions.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  All peripheral clocks are going to be off after this API method call.
 *
 *******************************************************************************/
@@ -254,9 +247,8 @@ void CyPmSaveClocks(void)
 
 /*******************************************************************************
 * Function Name: CyPmRestoreClocks
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Restores any state that was preserved by the last call to CyPmSaveClocks().
 *  The Flash wait state setting is also restored.
 *
@@ -271,12 +263,6 @@ void CyPmSaveClocks(void)
 *  PSoC 5:
 *  The 130 ms is given for the megahertz crystal to stabilize. Its readiness is
 *  not verified after a hold-off timeout.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyPmRestoreClocks(void) 
@@ -340,11 +326,15 @@ void CyPmRestoreClocks(void)
            /* `#START_MHZ_ECO_TIMEOUT` */
 
            /* `#END` */
+
+        #ifdef CY_BOOT_CY_PM_RESTORE_CLOCKS_ECO_TIMEOUT_CALLBACK
+            CyBoot_CyPmRestoreClocks_EcoTimeout_Callback();
+        #endif /* CY_BOOT_CY_PM_RESTORE_CLOCKS_ECO_TIMEOUT_CALLBACK */
         }
     }   /* (CY_PM_ENABLED == cyPmClockBackup.xmhzEnableState) */
 
 
-    /* Temprorary set maximum flash wait cycles */
+    /* Temporary set maximum flash wait cycles */
     CyFlash_SetWaitCycles(CY_PM_MAX_FLASH_WAIT_CYCLES);
 
     /* XTAL and DSI clocks are ready to be source for Master clock. */
@@ -449,6 +439,10 @@ void CyPmRestoreClocks(void)
            /* `#START_PLL_TIMEOUT` */
 
            /* `#END` */
+
+        #ifdef CY_BOOT_CY_PM_RESTORE_CLOCKS_PLL_TIMEOUT_CALLBACK
+            CyBoot_CyPmRestoreClocks_PllTimeout_Callback();
+        #endif /* CY_BOOT_CY_PM_RESTORE_CLOCKS_PLL_TIMEOUT_CALLBACK */
         }
     }   /* (CY_PM_ENABLED == cyPmClockBackup.pllEnableState) */
 
@@ -494,9 +488,8 @@ void CyPmRestoreClocks(void)
 
 /*******************************************************************************
 * Function Name: CyPmAltAct
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Puts the part into the Alternate Active (Standby) state. The Alternate Active
 *  state can allow for any of the capabilities of the device to be active, but
 *  the operation of this function is dependent on the CPU being disabled during
@@ -561,34 +554,33 @@ void CyPmRestoreClocks(void)
 *  PM_ALT_ACT_SRC_NONE) is called and PICU interrupt occurs, the CPU will be
 *  started while device remains in Alternate Active mode.
 *
-* Parameters:
-*  wakeupTime: Specifies a timer wakeup source and the frequency of that
+*  \param wakeupTime: Specifies a timer wakeup source and the frequency of that
 *              source. For PSoC 5LP this parameter is ignored.
 *
 *           Define                      Time
 *  PM_ALT_ACT_TIME_NONE             None
-*  PM_ALT_ACT_TIME_ONE_PPS          One PPS: 1 second
-*  PM_ALT_ACT_TIME_CTW_2MS          CTW: 2 ms
-*  PM_ALT_ACT_TIME_CTW_4MS          CTW: 4 ms
-*  PM_ALT_ACT_TIME_CTW_8MS          CTW: 8 ms
-*  PM_ALT_ACT_TIME_CTW_16MS         CTW: 16 ms
-*  PM_ALT_ACT_TIME_CTW_32MS         CTW: 32 ms
-*  PM_ALT_ACT_TIME_CTW_64MS         CTW: 64 ms
-*  PM_ALT_ACT_TIME_CTW_128MS        CTW: 128 ms
-*  PM_ALT_ACT_TIME_CTW_256MS        CTW: 256 ms
-*  PM_ALT_ACT_TIME_CTW_512MS        CTW: 512 ms
-*  PM_ALT_ACT_TIME_CTW_1024MS       CTW: 1024 ms
-*  PM_ALT_ACT_TIME_CTW_2048MS       CTW: 2048 ms
-*  PM_ALT_ACT_TIME_CTW_4096MS       CTW: 4096 ms
+*  \param PM_ALT_ACT_TIME_ONE_PPS          One PPS: 1 second
+*  \param PM_ALT_ACT_TIME_CTW_2MS          CTW: 2 ms
+*  \param PM_ALT_ACT_TIME_CTW_4MS          CTW: 4 ms
+*  \param PM_ALT_ACT_TIME_CTW_8MS          CTW: 8 ms
+*  \param PM_ALT_ACT_TIME_CTW_16MS         CTW: 16 ms
+*  \param PM_ALT_ACT_TIME_CTW_32MS         CTW: 32 ms
+*  \param PM_ALT_ACT_TIME_CTW_64MS         CTW: 64 ms
+*  \param PM_ALT_ACT_TIME_CTW_128MS        CTW: 128 ms
+*  \param PM_ALT_ACT_TIME_CTW_256MS        CTW: 256 ms
+*  \param PM_ALT_ACT_TIME_CTW_512MS        CTW: 512 ms
+*  \param PM_ALT_ACT_TIME_CTW_1024MS       CTW: 1024 ms
+*  \param PM_ALT_ACT_TIME_CTW_2048MS       CTW: 2048 ms
+*  \param PM_ALT_ACT_TIME_CTW_4096MS       CTW: 4096 ms
 *  PM_ALT_ACT_TIME_FTW(1-256)*       FTW: 10us to 2.56 ms
 *
-*  *Note:   PM_ALT_ACT_TIME_FTW() is a macro that takes an argument that
+*  \param *Note:   PM_ALT_ACT_TIME_FTW() is a macro that takes an argument that
 *           specifies how many increments of 10 us to delay.
             For PSoC 3 silicon the valid range of  values is 1 to 256.
 *
-*  wakeUpSource:    Specifies a bitwise mask of wakeup sources. In addition, if
-*                   a wakeupTime has been specified, the associated timer will be
-*                   included as a wakeup source.
+*  \param wakeUpSource:    Specifies a bitwise mask of wakeup sources. In addition, if
+*                   a wakeupTime has been specified, the associated timer will
+*                   be included as a wakeup source.
 *
 *           Define                      Source
 *  PM_ALT_ACT_SRC_NONE              None
@@ -606,26 +598,23 @@ void CyPmRestoreClocks(void)
 *  PM_ALT_ACT_SRC_ONE_PPS           One PPS**
 *  PM_ALT_ACT_SRC_LCD               LCD
 *
-*  *Note : FTW and HVI/LVI wakeup signals are in the same mask bit.
-*  **Note: CTW and One PPS wakeup signals are in the same mask bit.
+*  \param *Note : FTW and HVI/LVI wakeup signals are in the same mask bit.
+*  \param **Note: CTW and One PPS wakeup signals are in the same mask bit.
 *
 *  When specifying a Comparator as the wakeupSource, an instance specific define
 *  that will track with the specific comparator that the instance
-*  is placed into should be used. As an example, for a Comparator instance named MyComp the
-*  value to OR into the mask is: MyComp_ctComp__CMP_MASK.
+*  is placed into should be used. As an example, for a Comparator instance named
+*  \param MyComp the value to OR into the mask is: MyComp_ctComp__CMP_MASK.
 *
 *  When CTW, FTW or One PPS is used as a wakeup source, the CyPmReadStatus()
 *  function must be called upon wakeup with a corresponding parameter. Please
 *  refer to the CyPmReadStatus() API in the System Reference Guide for more
 *  information.
 *
-* Return:
-*  None
-*
 * Reentrant:
 *  No
 *
-* Side Effects:
+* \sideeffect
 *  If a wakeupTime other than NONE is specified, then upon exit the state of the
 *  specified timer will be left as specified by wakeupTime with the timer
 *  enabled and the interrupt disabled.  Also, the ILO 1 KHz (if CTW timer is
@@ -721,9 +710,8 @@ void CyPmAltAct(uint16 wakeupTime, uint16 wakeupSource)
 
 /*******************************************************************************
 * Function Name: CyPmSleep
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Puts the part into the Sleep state.
 *
 *  Note Before calling this function, you must manually configure the power
@@ -761,27 +749,26 @@ void CyPmAltAct(uint16 wakeupTime, uint16 wakeupSource)
 *  intervals and RTC for 1PPS interval. The component must be configured to
 *  generate interrupt.
 *
-* Parameters:
-*  wakeupTime:      Specifies a timer wakeup source and the frequency of that
+*  \param wakeupTime:      Specifies a timer wakeup source and the frequency of that
 *                   source. For PSoC 5LP, this parameter is ignored.
 *
 *           Define                      Time
 *  PM_SLEEP_TIME_NONE               None
-*  PM_SLEEP_TIME_ONE_PPS            One PPS: 1 second
-*  PM_SLEEP_TIME_CTW_2MS            CTW: 2 ms
-*  PM_SLEEP_TIME_CTW_4MS            CTW: 4 ms
-*  PM_SLEEP_TIME_CTW_8MS            CTW: 8 ms
-*  PM_SLEEP_TIME_CTW_16MS           CTW: 16 ms
-*  PM_SLEEP_TIME_CTW_32MS           CTW: 32 ms
-*  PM_SLEEP_TIME_CTW_64MS           CTW: 64 ms
-*  PM_SLEEP_TIME_CTW_128MS          CTW: 128 ms
-*  PM_SLEEP_TIME_CTW_256MS          CTW: 256 ms
-*  PM_SLEEP_TIME_CTW_512MS          CTW: 512 ms
-*  PM_SLEEP_TIME_CTW_1024MS         CTW: 1024 ms
-*  PM_SLEEP_TIME_CTW_2048MS         CTW: 2048 ms
-*  PM_SLEEP_TIME_CTW_4096MS         CTW: 4096 ms
+*  \param PM_SLEEP_TIME_ONE_PPS            One PPS: 1 second
+*  \param PM_SLEEP_TIME_CTW_2MS            CTW: 2 ms
+*  \param PM_SLEEP_TIME_CTW_4MS            CTW: 4 ms
+*  \param PM_SLEEP_TIME_CTW_8MS            CTW: 8 ms
+*  \param PM_SLEEP_TIME_CTW_16MS           CTW: 16 ms
+*  \param PM_SLEEP_TIME_CTW_32MS           CTW: 32 ms
+*  \param PM_SLEEP_TIME_CTW_64MS           CTW: 64 ms
+*  \param PM_SLEEP_TIME_CTW_128MS          CTW: 128 ms
+*  \param PM_SLEEP_TIME_CTW_256MS          CTW: 256 ms
+*  \param PM_SLEEP_TIME_CTW_512MS          CTW: 512 ms
+*  \param PM_SLEEP_TIME_CTW_1024MS         CTW: 1024 ms
+*  \param PM_SLEEP_TIME_CTW_2048MS         CTW: 2048 ms
+*  \param PM_SLEEP_TIME_CTW_4096MS         CTW: 4096 ms
 *
-*  wakeUpSource:    Specifies a bitwise mask of wakeup sources. In addition, if
+*  \param wakeUpSource:    Specifies a bitwise mask of wakeup sources. In addition, if
 *                   a wakeupTime has been specified the associated timer will be
 *                   included as a wakeup source.
 *
@@ -799,20 +786,17 @@ void CyPmAltAct(uint16 wakeupTime, uint16 wakeupSource)
 *  PM_SLEEP_SRC_ONE_PPS             One PPS*
 *  PM_SLEEP_SRC_LCD                 LCD
 *
-*  *Note:   CTW and One PPS wakeup signals are in the same mask bit.
+*  \param *Note:   CTW and One PPS wakeup signals are in the same mask bit.
 *
 *  When specifying a Comparator as the wakeupSource an instance specific define
 *  should be used that will track with the specific comparator that the instance
 *  is placed into. As an example for a Comparator instance named MyComp the
-*  value to OR into the mask is: MyComp_ctComp__CMP_MASK.
+*  \param value to OR into the mask is: MyComp_ctComp__CMP_MASK.
 *
 *  When CTW or One PPS is used as a wakeup source, the CyPmReadStatus()
 *  function must be called upon wakeup with corresponding parameter. Please
 *  refer to the CyPmReadStatus() API in the System Reference Guide for more
 *  information.
-*
-* Return:
-*  None
 *
 * Reentrant:
 *  No
@@ -984,6 +968,9 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
 
     /* `#END` */
 
+    #ifdef CY_BOOT_CY_PM_SLEEP_BEFORE_SLEEP_CALLBACK
+        CyBoot_CyPmSleep_BeforeSleep_Callback();
+    #endif /* CY_BOOT_CY_PM_SLEEP_BEFORE_SLEEP_CALLBACK */
 
     /* Last moment IMO frequency change */
     if(0u == (CY_PM_FASTCLK_IMO_CR_REG & CY_PM_FASTCLK_IMO_CR_FREQ_MASK))
@@ -1034,6 +1021,9 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
 
     /* `#END` */
 
+    #ifdef CY_BOOT_CY_PM_SLEEP_AFTER_SLEEP_CALLBACK
+        CyBoot_CyPmSleep_AfterSleep_Callback();
+    #endif /* CY_BOOT_CY_PM_SLEEP_AFTER_SLEEP_CALLBACK */
 
     /* Restore hardware configuration */
     CyPmHibSlpRestore();
@@ -1069,12 +1059,10 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
 
 /*******************************************************************************
 * Function Name: CyPmHibernate
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Puts the part into the Hibernate state.
 *
-*  PSoC 3 and PSoC 5LP:
 *  Before switching to Hibernate, the current status of the PICU wakeup source
 *  bit is saved and then set. This configures the device to wake up from the
 *  PICU. Make sure you have at least one pin configured to generate PICU
@@ -1084,24 +1072,18 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
 *  option. Once the wakeup occurs, the PICU wakeup source bit is restored and
 *  the PSoC returns to the Active state.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
 * Reentrant:
 *  No
 *
-* Side Effects:
+* \sideeffect
 *  Applications must wait 20 us before re-entering hibernate or sleep after
 *  waking up from hibernate. The 20 us allows the sleep regulator time to
 *  stabilize before the next hibernate / sleep event occurs. The 20 us
 *  requirement begins when the device wakes up. There is no hardware check that
 *  this requirement is met. The specified delay should be done on ISR entry.
 *
-*  After the wakeup PICU interrupt occurs, the Pin_ClearInterrupt() (where Pin is
-*  instance name of the Pins component) function must be called to clear the
+*  After the wakeup PICU interrupt occurs, the Pin_ClearInterrupt() (where Pin
+*  is instance name of the Pins component) function must be called to clear the
 *  latched pin events to allow the proper Hibernate mode entry and to enable
 *  detection of future events.
 *
@@ -1111,6 +1093,67 @@ void CyPmSleep(uint8 wakeupTime, uint16 wakeupSource)
 *
 *******************************************************************************/
 void CyPmHibernate(void) 
+{
+    CyPmHibernateEx(CY_PM_HIB_SRC_PICU);
+}
+
+
+/*******************************************************************************
+* Function Name: CyPmHibernateEx
+****************************************************************************//**
+*
+*  Puts the part into the Hibernate state.
+*
+*  The following wake up sources can be configured: PICU interrupt, Comparator0,
+*  Comparator1, Comparator2, and Comparator3 output.
+*
+*  Before switching to Hibernate, the current status of the PICU wakeup source
+*  bit is saved and then set.
+*
+*  If using PICU as the wake up source, make sure you have at least one pin
+*  configured to generate a PICU interrupt. For pin Px.y, the register
+*  "PICU_INTTYPE_PICUx_INTTYPEy" controls  the PICU behavior. In the TRM, this
+*  register is "PICU[0..15]_INTTYPE[0..7]." In the Pins component datasheet,
+*  this register is referred to as the IRQ option. Once the wakeup occurs, the
+*  PICU wakeup source bit is restored and the PSoC returns to the Active state.
+*
+*  If using a comparator as the wake up source, make sure you call this function
+*  with the 'wakeupSource' parameter set to the appropriate comparator. The part
+*  is configured for the requested wakeup source by setting the corresponding
+*  bits in PM_WAKEUP_CFG1 register.
+*
+*  Function call CyPmHibernateEx(CY_PM_HIB_SRC_PICU) will act in the same way as
+*  CyPmHibernate().
+*
+*  \param wakeupSource:
+*           Parameter Value             Description
+*       CY_PM_HIB_SRC_PICU          PICU interrupt is set as the wake up source.
+*       CY_PM_HIB_SRC_COMPARATOR0   Comparator 0 is set as the wake up source.
+*       CY_PM_HIB_SRC_COMPARATOR1   Comparator 1 is set as the wake up source.
+*       CY_PM_HIB_SRC_COMPARATOR2   Comparator 2 is set as the wake up source.
+*       CY_PM_HIB_SRC_COMPARATOR3   Comparator 3 is set as the wake up source.
+*
+* Reentrant:
+*  No
+*
+* \sideeffect
+*  Applications must wait 20 us before re-entering hibernate or sleep after
+*  waking up from hibernate. The 20 us allows the sleep regulator time to
+*  stabilize before the next hibernate / sleep event occurs. The 20 us
+*  requirement begins when the device wakes up. There is no hardware check that
+*  this requirement is met. The specified delay should be done on ISR entry.
+*
+*  After the wakeup PICU interrupt occurs, the Pin_ClearInterrupt() (where Pin
+*  is instance name of the Pins component) function must be called to clear the
+*  latched pin events to allow the proper Hibernate mode entry and to enable
+*  detection of future events.
+*
+*  The 1 kHz ILO clock is expected to be enabled for PSoC 3 and PSoC 5LP to
+*  measure Hibernate/Sleep regulator settling time after a reset. The holdoff
+*  delay is measured using the rising edges of the 1 kHz ILO.
+*
+*******************************************************************************/
+void CyPmHibernateEx(uint16 wakeupSource) 
 {
     uint8 interruptState;
 
@@ -1141,12 +1184,15 @@ void CyPmHibernate(void)
     CyPmHibSaveSet();
 
 
+    /* Save and set new wake up configuration */
+
     /* Save and enable only wakeup on PICU */
     cyPmBackup.wakeupCfg0 = CY_PM_WAKEUP_CFG0_REG;
-    CY_PM_WAKEUP_CFG0_REG = CY_PM_WAKEUP_PICU;
+    CY_PM_WAKEUP_CFG0_REG = ((uint8) (wakeupSource >> 4u) & CY_PM_WAKEUP_PICU);
 
+    /* Comparators */
     cyPmBackup.wakeupCfg1 = CY_PM_WAKEUP_CFG1_REG;
-    CY_PM_WAKEUP_CFG1_REG = 0x00u;
+    CY_PM_WAKEUP_CFG1_REG = (((uint8) wakeupSource) & CY_PM_WAKEUP_SRC_CMPS_MASK);
 
     cyPmBackup.wakeupCfg2 = CY_PM_WAKEUP_CFG2_REG;
     CY_PM_WAKEUP_CFG2_REG = 0x00u;
@@ -1211,9 +1257,8 @@ void CyPmHibernate(void)
 
 /*******************************************************************************
 * Function Name: CyPmReadStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Manages the Power Manager Interrupt Status Register.  This register has the
 *  interrupt status for the one pulse per second, central timewheel and fast
 *  timewheel timers.  This hardware register clears on read.  To allow for only
@@ -1226,15 +1271,14 @@ void CyPmHibernate(void)
 *  Note You must call this function within 1 ms (1 clock cycle of the ILO)
 *  after a CTW event has occurred.
 *
-* Parameters:
-*  mask: Bits in the shadow register to clear.
+*  \param mask: Bits in the shadow register to clear.
 *
 *       Define                      Source
 *  CY_PM_FTW_INT                Fast Timewheel
 *  CY_PM_CTW_INT                Central Timewheel
 *  CY_PM_ONEPPS_INT             One Pulse Per Second
 *
-* Return:
+* \return
 *  Status.  Same bits values as the mask parameter.
 *
 *******************************************************************************/
@@ -1249,7 +1293,7 @@ uint8 CyPmReadStatus(uint8 mask)
 
     /* Save value of register, copy it and clear desired bit */
     interruptStatus |= CY_PM_INT_SR_REG;
-    tmpStatus = interruptStatus;
+    tmpStatus = interruptStatus & (CY_PM_FTW_INT | CY_PM_CTW_INT | CY_PM_ONEPPS_INT);
     interruptStatus &= ((uint8)(~mask));
 
     /* Exit critical section */
@@ -1261,9 +1305,8 @@ uint8 CyPmReadStatus(uint8 mask)
 
 /*******************************************************************************
 * Function Name: CyPmHibSaveSet
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Prepare device for proper Hibernate low power mode entry:
 *  - Disables I2C backup regulator
 *  - Saves ILO power down mode state and enable it
@@ -1271,12 +1314,6 @@ uint8 CyPmReadStatus(uint8 mask)
 *  - Disables sleep regulator and shorts vccd to vpwrsleep
 *  - Save LVI/HVI configuration and disable them - CyPmHviLviSaveDisable()
 *  - CyPmHibSlpSaveSet() function is called
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 * Reentrant:
 *  No
@@ -1355,21 +1392,14 @@ static void CyPmHibSaveSet(void)
 
 /*******************************************************************************
 * Function Name: CyPmHibRestore
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Restores the device for the proper Hibernate mode exit:
 *  - Restores LVI/HVI configuration - calsl CyPmHviLviRestore()
 *  - CyPmHibSlpSaveRestore() function is called
 *  - Restores ILO power down mode state and enables it
 *  - Restores the state of 1 kHz and 100 kHz ILO and disables them
 *  - Restores the sleep regulator settings
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 static void CyPmHibRestore(void) 
@@ -1415,21 +1445,16 @@ static void CyPmHibRestore(void)
 
 /*******************************************************************************
 * Function Name: CyPmCtwSetInterval
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Performs the CTW configuration:
 *  - Disables the CTW interrupt
 *  - Enables 1 kHz ILO
 *  - Sets a new CTW interval
 *
-* Parameters:
-*  ctwInterval: the CTW interval to be set.
+*  \param ctwInterval: the CTW interval to be set.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  Enables ILO 1 KHz clock and leaves it enabled.
 *
 *******************************************************************************/
@@ -1470,19 +1495,12 @@ void CyPmCtwSetInterval(uint8 ctwInterval)
 
 /*******************************************************************************
 * Function Name: CyPmOppsSet
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Performs 1PPS configuration:
 *  - Starts 32 KHz XTAL
 *  - Disables 1PPS interrupts
 *  - Enables 1PPS
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyPmOppsSet(void) 
@@ -1504,21 +1522,16 @@ void CyPmOppsSet(void)
 
 /*******************************************************************************
 * Function Name: CyPmFtwSetInterval
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Performs the FTW configuration:
 *  - Disables the FTW interrupt
 *  - Enables 100 kHz ILO
 *  - Sets a new FTW interval.
 *
-* Parameters:
-*  ftwInterval - FTW counter interval.
+*  \param ftwInterval The FTW counter interval.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  Enables the ILO 100 KHz clock and leaves it enabled.
 *
 *******************************************************************************/
@@ -1559,21 +1572,14 @@ void CyPmFtwSetInterval(uint8 ftwInterval)
 
 /*******************************************************************************
 * Function Name: CyPmHibSlpSaveSet
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  This API is used for preparing the device for the Sleep and Hibernate low power
-*  modes entry:
+*  This API is used for preparing the device for the Sleep and Hibernate low
+*  power modes entry:
 *  - Saves the COMP, VIDAC, DSM, and SAR routing connections (PSoC 5)
 *  - Saves the SC/CT routing connections (PSoC 3/5/5LP)
 *  - Disables the Serial Wire Viewer (SWV) (PSoC 3)
 *  - Saves the boost reference selection and sets it to internal
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 * Reentrant:
 *  No
@@ -1694,20 +1700,13 @@ static void CyPmHibSlpSaveSet(void)
 
 /*******************************************************************************
 * Function Name: CyPmHibSlpRestore
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  This API is used for restoring the device configurations after wakeup from the Sleep
-*  and Hibernate low power modes:
+*  This API is used for restoring the device configurations after wakeup from
+*  the Sleep and Hibernate low power modes:
 *  - Restores the SC/CT routing connections
 *  - Restores the enable state of the Serial Wire Viewer (SWV) (PSoC 3)
 *  - Restores the  boost reference selection
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 static void CyPmHibSlpRestore(void) 
@@ -1772,16 +1771,9 @@ static void CyPmHibSlpRestore(void)
 
 /*******************************************************************************
 * Function Name: CyPmHviLviSaveDisable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Saves analog and digital LVI and HVI configuration and disables them.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 * Reentrant:
 *  No
@@ -1835,16 +1827,9 @@ static void CyPmHviLviSaveDisable(void)
 
 /*******************************************************************************
 * Function Name: CyPmHviLviRestore
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Restores the analog and digital LVI and HVI configuration.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 * Reentrant:
 *  No

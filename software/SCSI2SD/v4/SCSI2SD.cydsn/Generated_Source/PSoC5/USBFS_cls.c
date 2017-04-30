@@ -1,26 +1,22 @@
-/*******************************************************************************
-* File Name: USBFS_cls.c
-* Version 2.80
+/***************************************************************************//**
+* \file USBFS_cls.c
+* \version 3.10
 *
-* Description:
-*  USB Class request handler.
-*
-* Note:
+* \brief
+*  This file contains the USB Class request handler.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "USBFS.h"
-
-#if(USBFS_EXTERN_CLS == USBFS_FALSE)
-
 #include "USBFS_pvt.h"
 
 
+#if(USBFS_EXTERN_CLS == USBFS_FALSE)
 
 /***************************************
 * User Implemented Class Driver Declarations.
@@ -32,69 +28,110 @@
 
 /*******************************************************************************
 * Function Name: USBFS_DispatchClassRqst
-********************************************************************************
-* Summary:
+****************************************************************************//**
 *  This routine dispatches class specific requests depend on interface class.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  requestHandled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 uint8 USBFS_DispatchClassRqst(void) 
 {
-    uint8 requestHandled = USBFS_FALSE;
-    uint8 interfaceNumber = 0u;
+    uint8 requestHandled;
+    uint8 interfaceNumber;
 
-    switch(CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_RCPT_MASK)
+    /* Get interface to which request is intended. */
+    switch (USBFS_bmRequestTypeReg & USBFS_RQST_RCPT_MASK)
     {
-        case USBFS_RQST_RCPT_IFC:        /* Class-specific request directed to an interface */
-            interfaceNumber = CY_GET_REG8(USBFS_wIndexLo); /* wIndexLo contain Interface number */
+        case USBFS_RQST_RCPT_IFC:
+            /* Class-specific request directed to interface: wIndexLoReg 
+            * contains interface number.
+            */
+            interfaceNumber = (uint8) USBFS_wIndexLoReg;
             break;
-        case USBFS_RQST_RCPT_EP:         /* Class-specific request directed to the endpoint */
-            /* Find related interface to the endpoint, wIndexLo contain EP number */
-            interfaceNumber = USBFS_EP[CY_GET_REG8(USBFS_wIndexLo) &
-                              USBFS_DIR_UNUSED].interface;
+        
+        case USBFS_RQST_RCPT_EP:
+            /* Class-specific request directed to endpoint: wIndexLoReg contains 
+            * endpoint number. Find interface related to endpoint, 
+            */
+            interfaceNumber = USBFS_EP[USBFS_wIndexLoReg & USBFS_DIR_UNUSED].interface;
             break;
-        default:    /* RequestHandled is initialized as FALSE by default */
+            
+        default:
+            /* Default interface is zero. */
+            interfaceNumber = 0u;
             break;
     }
-    /* Handle Class request depend on interface type */
-    switch(USBFS_interfaceClass[interfaceNumber])
+
+#if (defined(USBFS_ENABLE_HID_CLASS) ||\
+            defined(USBFS_ENABLE_AUDIO_CLASS) ||\
+            defined(USBFS_ENABLE_CDC_CLASS) ||\
+            USBFS_ENABLE_MSC_CLASS)
+
+    /* Handle class request depends on interface type. */
+    switch (USBFS_interfaceClass[interfaceNumber])
     {
+    #if defined(USBFS_ENABLE_HID_CLASS)
         case USBFS_CLASS_HID:
-            #if defined(USBFS_ENABLE_HID_CLASS)
-                requestHandled = USBFS_DispatchHIDClassRqst();
-            #endif /* USBFS_ENABLE_HID_CLASS */
+            requestHandled = USBFS_DispatchHIDClassRqst();
             break;
+    #endif /* (USBFS_ENABLE_HID_CLASS) */
+            
+    #if defined(USBFS_ENABLE_AUDIO_CLASS)
         case USBFS_CLASS_AUDIO:
-            #if defined(USBFS_ENABLE_AUDIO_CLASS)
-                requestHandled = USBFS_DispatchAUDIOClassRqst();
-            #endif /* USBFS_CLASS_AUDIO */
+            requestHandled = USBFS_DispatchAUDIOClassRqst();
             break;
+    #endif /* (USBFS_CLASS_AUDIO) */
+            
+    #if defined(USBFS_ENABLE_CDC_CLASS)
         case USBFS_CLASS_CDC:
-            #if defined(USBFS_ENABLE_CDC_CLASS)
-                requestHandled = USBFS_DispatchCDCClassRqst();
-            #endif /* USBFS_ENABLE_CDC_CLASS */
+            requestHandled = USBFS_DispatchCDCClassRqst();
             break;
-        default:    /* requestHandled is initialized as FALSE by default */
+    #endif /* (USBFS_ENABLE_CDC_CLASS) */
+        
+    #if (USBFS_ENABLE_MSC_CLASS)
+        case USBFS_CLASS_MSD:
+        #if (USBFS_HANDLE_MSC_REQUESTS)
+            /* MSC requests are handled by the component. */
+            requestHandled = USBFS_DispatchMSCClassRqst();
+        #elif defined(USBFS_DISPATCH_MSC_CLASS_RQST_CALLBACK)
+            /* MSC requests are handled by user defined callbcak. */
+            requestHandled = USBFS_DispatchMSCClassRqst_Callback();
+        #else
+            /* MSC requests are not handled. */
+            requestHandled = USBFS_FALSE;
+        #endif /* (USBFS_HANDLE_MSC_REQUESTS) */
+            break;
+    #endif /* (USBFS_ENABLE_MSC_CLASS) */
+        
+        default:
+            /* Request is not handled: unknown class request type. */
+            requestHandled = USBFS_FALSE;
             break;
     }
+#else /*No class is defined*/
+    if (0u != interfaceNumber)
+    {
+        /* Suppress warning message */
+    }
+    requestHandled = USBFS_FALSE;
+#endif /*HID or AUDIO or MSC or CDC class enabled*/
 
     /* `#START USER_DEFINED_CLASS_CODE` Place your Class request here */
 
     /* `#END` */
 
-    #ifdef USBFS_DISPATCH_CLASS_RQST_CALLBACK
-        USBFS_DispatchClassRqst_Callback();
-    #endif /* USBFS_DISPATCH_CLASS_RQST_CALLBACK */
+#ifdef USBFS_DISPATCH_CLASS_RQST_CALLBACK
+    if (USBFS_FALSE == requestHandled)
+    {
+        requestHandled = USBFS_DispatchClassRqst_Callback(interfaceNumber);
+    }
+#endif /* (USBFS_DISPATCH_CLASS_RQST_CALLBACK) */
 
-    return(requestHandled);
+    return (requestHandled);
 }
 
 

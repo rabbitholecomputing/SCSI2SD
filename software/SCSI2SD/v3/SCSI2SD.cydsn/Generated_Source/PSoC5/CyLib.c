@@ -1,16 +1,15 @@
-/*******************************************************************************
-* File Name: CyLib.c
-* Version 4.20
+/***************************************************************************//**
+* \file CyLib.c
+* \version 5.50
 *
-*  Description:
-*   Provides a system API for the clocking, interrupts and watchdog timer.
+* \brief Provides a system API for the clocking, interrupts and watchdog timer.
 *
-*  Note:
-*   Documentation of the API's in this file is located in the
-*   System Reference Guide provided with PSoC Creator.
+* \note Documentation of the API's in this file is located in the System
+* Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -50,26 +49,29 @@ static void CyIMO_SetTrimValue(uint8 freq) ;
 static void CyBusClk_Internal_SetDivider(uint16 divider);
 
 #if(CY_PSOC5)
-	static cySysTickCallback CySysTickCallbacks[CY_SYS_SYST_NUM_OF_CALLBACKS];
+    static cySysTickCallback CySysTickCallbacks[CY_SYS_SYST_NUM_OF_CALLBACKS];
     static void CySysTickServiceCallbacks(void);
     uint32 CySysTickInitVar = 0u;
 #endif  /* (CY_PSOC5) */
 
 
+#if(CY_PSOC3)
+    CY_ISR_PROTO(IntDefaultHandler);
+#endif /* (CY_PSOC3) */
+
+
 /*******************************************************************************
 * Function Name: CyPLL_OUT_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *   Enables the PLL.  Optionally waits for it to become stable.
 *   Waits at least 250 us or until it is detected that the PLL is stable.
 *
-* Parameters:
-*   wait:
-*    0: Return immediately after configuration
-*    1: Wait for PLL lock or timeout.
+*   \param wait:
+*    \param 0: Return immediately after configuration
+*    \param 1: Wait for PLL lock or timeout.
 *
-* Return:
+* \return
 *   Status
 *    CYRET_SUCCESS - Completed successfully
 *    CYRET_TIMEOUT - Timeout occurred without detecting a stable clock.
@@ -77,7 +79,7 @@ static void CyBusClk_Internal_SetDivider(uint16 divider);
 *     may not occur.  However, after the timeout has expired the generated PLL
 *     clock can still be used.
 *
-* Side Effects:
+* \sideeffect
 *  If wait is enabled: This function uses the Fast Time Wheel to time the wait.
 *  Any other use of the Fast Time Wheel will be stopped during the period of
 *  this function and then restored. This function also uses the 100 KHz ILO.
@@ -144,16 +146,9 @@ cystatus CyPLL_OUT_Start(uint8 wait)
 
 /*******************************************************************************
 * Function Name: CyPLL_OUT_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the PLL.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyPLL_OUT_Stop(void) 
@@ -164,34 +159,29 @@ void CyPLL_OUT_Stop(void)
 
 /*******************************************************************************
 * Function Name: CyPLL_OUT_SetPQ
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the P and Q dividers and the charge pump current.
 *  The Frequency Out will be P/Q * Frequency In.
 *  The PLL must be disabled before calling this function.
 *
-* Parameters:
-*  uint8 pDiv:
+*  \param uint8 pDiv:
 *   Valid range [8 - 255].
 *
-*  uint8 qDiv:
+*  \param uint8 qDiv:
 *   Valid range [1 - 16]. Input Frequency / Q must be in range of 1 to 3 MHz.
 
-*  uint8 current:
+*  \param uint8 current:
 *   Valid range [1 - 7]. Charge pump current in uA. Refer to the device TRM and
 *   datasheet for more information.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution results in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *******************************************************************************/
 void CyPLL_OUT_SetPQ(uint8 pDiv, uint8 qDiv, uint8 current) 
@@ -225,28 +215,23 @@ void CyPLL_OUT_SetPQ(uint8 pDiv, uint8 qDiv, uint8 current)
 
 /*******************************************************************************
 * Function Name: CyPLL_OUT_SetSource
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the input clock source to the PLL. The PLL must be disabled before
 *  calling this function.
 *
-* Parameters:
-*   source: One of the three available PLL clock sources
-*    CY_PLL_SOURCE_IMO  :   IMO
-*    CY_PLL_SOURCE_XTAL :   MHz Crystal
-*    CY_PLL_SOURCE_DSI  :   DSI
+*   \param source: One of the three available PLL clock sources
+*    \param CY_PLL_SOURCE_IMO  :   IMO
+*    \param CY_PLL_SOURCE_XTAL :   MHz Crystal
+*    \param CY_PLL_SOURCE_DSI  :   DSI
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution results in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the3 Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the3 Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *******************************************************************************/
 void CyPLL_OUT_SetSource(uint8 source) 
@@ -271,20 +256,15 @@ void CyPLL_OUT_SetSource(uint8 source)
 
 /*******************************************************************************
 * Function Name: CyIMO_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the IMO. Optionally waits at least 6 us for it to settle.
 *
-* Parameters:
-*  uint8 wait:
-*   0: Return immediately after configuration
-*   1: Wait for at least 6 us for the IMO to settle.
+*  \param uint8 wait:
+*   \param 0: Return immediately after configuration
+*   \param 1: Wait for at least 6 us for the IMO to settle.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If wait is enabled: This function uses the Fast Time Wheel to time the wait.
 *  Any other use of the Fast Time Wheel will be stopped during the period of
 *  this function and then restored. This function also uses the 100 KHz ILO.
@@ -336,16 +316,9 @@ void CyIMO_Start(uint8 wait)
 
 /*******************************************************************************
 * Function Name: CyIMO_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *   Disables the IMO.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyIMO_Stop(void) 
@@ -357,15 +330,11 @@ void CyIMO_Stop(void)
 
 /*******************************************************************************
 * Function Name: CyUSB_PowerOnCheck
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Returns the USB power status value. A private function to cy_boot.
 *
-* Parameters:
-*   None
-*
-* Return:
+* \return
 *   uint8: one if the USB is enabled, 0 if not enabled.
 *
 *******************************************************************************/
@@ -373,7 +342,7 @@ static uint8 CyUSB_PowerOnCheck(void)
 {
     uint8 poweredOn = 0u;
 
-    /* Check whether device is in Active or AltActiv and if USB is powered on */
+    /* Check whether device is in Active or AltActive and if USB is powered on */
     if((((CY_PM_MODE_CSR_REG & CY_PM_MODE_CSR_MASK) == CY_PM_MODE_CSR_ACTIVE ) &&
        (0u != (CY_LIB_PM_ACT_CFG5_REG & CY_ACT_USB_ENABLED     )))  ||
        (((CY_PM_MODE_CSR_REG & CY_PM_MODE_CSR_MASK) == CY_PM_MODE_CSR_ALT_ACT) &&
@@ -388,16 +357,11 @@ static uint8 CyUSB_PowerOnCheck(void)
 
 /*******************************************************************************
 * Function Name: CyIMO_SetTrimValue
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the IMO factory trim values.
 *
-* Parameters:
 *  uint8 freq - frequency for which trims must be set
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 static void CyIMO_SetTrimValue(uint8 freq) 
@@ -463,13 +427,11 @@ static void CyIMO_SetTrimValue(uint8 freq)
 
 /*******************************************************************************
 * Function Name: CyIMO_SetFreq
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the frequency of the IMO. Changes may be made while the IMO is running.
 *
-* Parameters:
-*  freq: Frequency of IMO operation
+*  \param freq: Frequency of IMO operation
 *       CY_IMO_FREQ_3MHZ  to set  3   MHz
 *       CY_IMO_FREQ_6MHZ  to set  6   MHz
 *       CY_IMO_FREQ_12MHZ to set 12   MHz
@@ -479,16 +441,13 @@ static void CyIMO_SetTrimValue(uint8 freq)
 *       CY_IMO_FREQ_74MHZ to set 74.7 MHz (not applicable for PSoC 3)
 *       CY_IMO_FREQ_USB   to set 24   MHz (Trimmed for USB operation)
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution results in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *  When the USB setting is chosen, the USB clock locking circuit is enabled.
 *  Otherwise this circuit is disabled. The USB block must be powered before
@@ -625,29 +584,24 @@ void CyIMO_SetFreq(uint8 freq)
 
 /*******************************************************************************
 * Function Name: CyIMO_SetSource
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the source of the clock output from the IMO block.
 *
 *  The output from the IMO is by default the IMO itself. Optionally the MHz
 *  Crystal or DSI input can be the source of the IMO output instead.
 *
-* Parameters:
-*   source: CY_IMO_SOURCE_DSI to set the DSI as source.
+*   \param source: CY_IMO_SOURCE_DSI to set the DSI as source.
 *           CY_IMO_SOURCE_XTAL to set the MHz as source.
 *           CY_IMO_SOURCE_IMO to set the IMO itself.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution resulted in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *******************************************************************************/
 void CyIMO_SetSource(uint8 source) 
@@ -678,17 +632,10 @@ void CyIMO_SetSource(uint8 source)
 
 /*******************************************************************************
 * Function Name: CyIMO_EnableDoubler
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the IMO doubler.  The 2x frequency clock is used to convert a 24 MHz
 *  input to a 48 MHz output for use by the USB block.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyIMO_EnableDoubler(void) 
@@ -700,16 +647,9 @@ void CyIMO_EnableDoubler(void)
 
 /*******************************************************************************
 * Function Name: CyIMO_DisableDoubler
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *   Disables the IMO doubler.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyIMO_DisableDoubler(void) 
@@ -720,31 +660,26 @@ void CyIMO_DisableDoubler(void)
 
 /*******************************************************************************
 * Function Name: CyMasterClk_SetSource
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the source of the master clock.
 *
-* Parameters:
-*   source: One of the four available Master clock sources.
+*   \param source: One of the four available Master clock sources.
 *     CY_MASTER_SOURCE_IMO
 *     CY_MASTER_SOURCE_PLL
 *     CY_MASTER_SOURCE_XTAL
 *     CY_MASTER_SOURCE_DSI
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  The current source and the new source must both be running and stable before
 *  calling this function.
 *
 *  If this function execution resulted in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *******************************************************************************/
 void CyMasterClk_SetSource(uint8 source) 
@@ -756,26 +691,21 @@ void CyMasterClk_SetSource(uint8 source)
 
 /*******************************************************************************
 * Function Name: CyMasterClk_SetDivider
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the divider value used to generate Master Clock.
 *
-* Parameters:
-*  uint8 divider:
+*  \param uint8 divider:
 *   The valid range is [0-255]. The clock will be divided by this value + 1.
 *   For example to divide this parameter by two should be set to 1.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution resulted in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *  When changing the Master or Bus clock divider value from div-by-n to div-by-1
 *  the first clock cycle output after the div-by-1 can be up to 4 ns shorter
@@ -790,18 +720,13 @@ void CyMasterClk_SetDivider(uint8 divider)
 
 /*******************************************************************************
 * Function Name: CyBusClk_Internal_SetDivider
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  The function used by CyBusClk_SetDivider(). For internal use only.
 *
-* Parameters:
-*   divider: Valid range [0-65535].
+*   \param divider: Valid range [0-65535].
 *   The clock will be divided by this value + 1.
 *   For example, to divide this parameter by two should be set to 1.
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 static void CyBusClk_Internal_SetDivider(uint16 divider)
@@ -830,25 +755,20 @@ static void CyBusClk_Internal_SetDivider(uint16 divider)
 
 /*******************************************************************************
 * Function Name: CyBusClk_SetDivider
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the divider value used to generate the Bus Clock.
 *
-* Parameters:
-*  divider: Valid range [0-65535]. The clock will be divided by this value + 1.
+*  \param divider: Valid range [0-65535]. The clock will be divided by this value + 1.
 *  For example, to divide this parameter by two should be set to 1.
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  If this function execution resulted in the CPU clock frequency increasing,
 *  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-*  See CyFlash_SetWaitCycles() description for more information.
+*  coming back from the Flash must be adjusted by calling
+*  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+*  called if the CPU clock frequency is lowered in order to improve the CPU
+*  performance. See CyFlash_SetWaitCycles() description for more information.
 *
 *******************************************************************************/
 void CyBusClk_SetDivider(uint16 divider) 
@@ -902,26 +822,21 @@ void CyBusClk_SetDivider(uint16 divider)
 
     /*******************************************************************************
     * Function Name: CyCpuClk_SetDivider
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the divider value used to generate the CPU Clock. Only applicable for
     *  PSoC 3 parts.
     *
-    * Parameters:
-    *  divider: Valid range [0-15]. The clock will be divided by this value + 1.
+    *  \param divider: Valid range [0-15]. The clock will be divided by this value + 1.
     *  For example, to divide this parameter by two should be set to 1.
     *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  If this function execution resulted in the CPU clock frequency increasing,
-*  then the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash must be adjusted by calling CyFlash_SetWaitCycles()
-*  with an appropriate parameter. It can be optionally called if the CPU clock
-*  frequency is lowered in order to improve the CPU performance.
-    *  See CyFlash_SetWaitCycles() description for more information.
+    *  then the number of clock cycles the cache will wait before it samples data
+    *  coming back from the Flash must be adjusted by calling
+    *  CyFlash_SetWaitCycles() with an appropriate parameter. It can be optionally
+    *  called if the CPU clock frequency is lowered in order to improve the CPU
+    *  performance. See CyFlash_SetWaitCycles() description for more information.
     *
     *******************************************************************************/
     void CyCpuClk_SetDivider(uint8 divider) 
@@ -935,20 +850,15 @@ void CyBusClk_SetDivider(uint16 divider)
 
 /*******************************************************************************
 * Function Name: CyUsbClk_SetSource
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the source of the USB clock.
 *
-* Parameters:
-*  source: One of the four available USB clock sources
+*  \param source: One of the four available USB clock sources
 *    CY_LIB_USB_CLK_IMO2X     - IMO 2x
 *    CY_LIB_USB_CLK_IMO       - IMO
 *    CY_LIB_USB_CLK_PLL       - PLL
 *    CY_LIB_USB_CLK_DSI       - DSI
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyUsbClk_SetSource(uint8 source) 
@@ -960,20 +870,13 @@ void CyUsbClk_SetSource(uint8 source)
 
 /*******************************************************************************
 * Function Name: CyILO_Start1K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the ILO 1 KHz oscillator.
 *
 *  Note The ILO 1 KHz oscillator is always enabled by default, regardless of the
 *  selection in the Clock Editor. Therefore, this API is only needed if the
 *  oscillator was turned off manually.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_Start1K(void) 
@@ -985,22 +888,15 @@ void CyILO_Start1K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_Stop1K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the ILO 1 KHz oscillator.
 *
-*  Note The ILO 1 KHz oscillator must be enabled if the Sleep or Hibernate low power
-*  mode APIs are expected to be used. For more information, refer to the Power
-*  Management section of this document.
+*  Note The ILO 1 KHz oscillator must be enabled if the Sleep or Hibernate low
+*  power mode APIs are expected to be used. For more information, refer to the
+*  Power Management section of this document.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  PSoC5: Stopping the ILO 1 kHz could break the active WDT functionality.
 *
 *******************************************************************************/
@@ -1013,16 +909,9 @@ void CyILO_Stop1K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_Start100K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the ILO 100 KHz oscillator.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_Start100K(void) 
@@ -1033,16 +922,9 @@ void CyILO_Start100K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_Stop100K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the ILO 100 KHz oscillator.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_Stop100K(void) 
@@ -1053,19 +935,12 @@ void CyILO_Stop100K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_Enable33K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the ILO 33 KHz divider.
 *
 *  Note that the 33 KHz clock is generated from the 100 KHz oscillator,
 *  so it must also be running in order to generate the 33 KHz output.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_Enable33K(void) 
@@ -1077,19 +952,12 @@ void CyILO_Enable33K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_Disable33K
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the ILO 33 KHz divider.
 *
 *  Note that the 33 KHz clock is generated from the 100 KHz oscillator, but this
 *  API does not disable the 100 KHz clock.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_Disable33K(void) 
@@ -1100,20 +968,15 @@ void CyILO_Disable33K(void)
 
 /*******************************************************************************
 * Function Name: CyILO_SetSource
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the source of the clock output from the ILO block.
 *
-* Parameters:
-*  source: One of the three available ILO output sources
+*  \param source: One of the three available ILO output sources
 *       Value        Define                Source
 *       0            CY_ILO_SOURCE_100K    ILO 100 KHz
 *       1            CY_ILO_SOURCE_33K     ILO 33 KHz
 *       2            CY_ILO_SOURCE_1K      ILO 1 KHz
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyILO_SetSource(uint8 source) 
@@ -1125,19 +988,16 @@ void CyILO_SetSource(uint8 source)
 
 /*******************************************************************************
 * Function Name: CyILO_SetPowerMode
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Sets the power mode used by the ILO during power down. Allows for lower power
-*  down power usage resulting in a slower startup time.
+* Sets the power mode used by the ILO during power down. Allows for lower power
+* down power usage resulting in a slower startup time.
 *
-* Parameters:
-*  uint8 mode
-*   CY_ILO_FAST_START - Faster start-up, internal bias left on when powered down
-*   CY_ILO_SLOW_START - Slower start-up, internal bias off when powered down
+* \param mode
+* CY_ILO_FAST_START - Faster start-up, internal bias left on when powered down
+* CY_ILO_SLOW_START - Slower start-up, internal bias off when powered down
 *
-* Return:
-*   Prevous power mode state.
+* \return Prevous power mode state.
 *
 *******************************************************************************/
 uint8 CyILO_SetPowerMode(uint8 mode) 
@@ -1164,16 +1024,9 @@ uint8 CyILO_SetPowerMode(uint8 mode)
 
 /*******************************************************************************
 * Function Name: CyXTAL_32KHZ_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the 32 KHz Crystal Oscillator.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_32KHZ_Start(void) 
@@ -1208,16 +1061,9 @@ void CyXTAL_32KHZ_Start(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_32KHZ_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the 32KHz Crystal Oscillator.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_32KHZ_Stop(void) 
@@ -1236,15 +1082,11 @@ void CyXTAL_32KHZ_Stop(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_32KHZ_ReadStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Returns status of the 32 KHz oscillator.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  Value     Define                    Source
 *  20        CY_XTAL32K_ANA_STAT       Analog measurement
 *                                       1: Stable
@@ -1259,19 +1101,17 @@ uint8 CyXTAL_32KHZ_ReadStatus(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_32KHZ_SetPowerMode
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the power mode for the 32 KHz oscillator used during the sleep mode.
 *  Allows for lower power during sleep when there are fewer sources of noise.
 *  During the active mode the oscillator is always run in the high power mode.
 *
-* Parameters:
 *  uint8 mode
-*       0: High power mode
-*       1: Low power mode during sleep
+*       \param 0: High power mode
+*       \param 1: Low power mode during sleep
 *
-* Return:
+* \return
 *  Previous power mode.
 *
 *******************************************************************************/
@@ -1307,21 +1147,19 @@ uint8 CyXTAL_32KHZ_SetPowerMode(uint8 mode)
 
 /*******************************************************************************
 * Function Name: CyXTAL_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the megahertz crystal.
 *
 *  PSoC 3:
 *  Waits until the XERR bit is low (no error) for a millisecond or until the
 *  number of milliseconds specified by the wait parameter has expired.
 *
-* Parameters:
-*   wait: Valid range [0-255].
+*   \param wait: Valid range [0-255].
 *   This is the timeout value in milliseconds.
 *   The appropriate value is crystal specific.
 *
-* Return:
+* \return
 *   CYRET_SUCCESS - Completed successfully
 *   CYRET_TIMEOUT - Timeout occurred without detecting a low value on XERR.
 *
@@ -1409,16 +1247,9 @@ cystatus CyXTAL_Start(uint8 wait)
 
 /*******************************************************************************
 * Function Name: CyXTAL_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the megahertz crystal oscillator.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_Stop(void) 
@@ -1430,17 +1261,10 @@ void CyXTAL_Stop(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_EnableErrStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the generation of the XERR status bit for the megahertz crystal.
 *  This function is not available for PSoC5.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_EnableErrStatus(void) 
@@ -1452,17 +1276,10 @@ void CyXTAL_EnableErrStatus(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_DisableErrStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the generation of the XERR status bit for the megahertz crystal.
 *  This function is not available for PSoC5.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_DisableErrStatus(void) 
@@ -1474,16 +1291,12 @@ void CyXTAL_DisableErrStatus(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_ReadStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Reads the XERR status bit for the megahertz crystal. This status bit is a
 *  sticky, clear on read. This function is not available for PSoC5.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *   Status
 *    0: No error
 *    1: Error
@@ -1501,19 +1314,12 @@ uint8 CyXTAL_ReadStatus(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_EnableFaultRecovery
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the fault recovery circuit which will switch to the IMO in the case
 *  of a fault in the megahertz crystal circuit. The crystal must be up and
 *  running with the XERR bit at 0, before calling this function to prevent
 *  an immediate fault switchover. This function is not available for PSoC5.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_EnableFaultRecovery(void) 
@@ -1524,18 +1330,11 @@ void CyXTAL_EnableFaultRecovery(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_DisableFaultRecovery
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the fault recovery circuit which will switch to the IMO in the case
 *  of a fault in the megahertz crystal circuit. This function is not available
 *  for PSoC5.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_DisableFaultRecovery(void) 
@@ -1546,22 +1345,17 @@ void CyXTAL_DisableFaultRecovery(void)
 
 /*******************************************************************************
 * Function Name: CyXTAL_SetStartup
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Sets the startup settings for the crystal. The logic model outputs a frequency
-*  (setting + 4) MHz when enabled.
+*  Sets the startup settings for the crystal. The logic model outputs a
+*  frequency (setting + 4) MHz when enabled.
 *
 *  This is artificial as the actual frequency is determined by an attached
 *  external crystal.
 *
-* Parameters:
-*  setting: Valid range [0-31].
-*   The value is dependent on the frequency and quality of the crystal being used.
-*   Refer to the device TRM and datasheet for more information.
-*
-* Return:
-*  None
+*  \param setting: Valid range [0-31].
+*   The value is dependent on the frequency and quality of the crystal being
+*   used. Refer to the device TRM and datasheet for more information.
 *
 *******************************************************************************/
 void CyXTAL_SetStartup(uint8 setting) 
@@ -1574,18 +1368,13 @@ void CyXTAL_SetStartup(uint8 setting)
 
 /*******************************************************************************
 * Function Name: CyXTAL_SetFbVoltage
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the feedback reference voltage to use for the crystal circuit.
 *  This function is only available for PSoC3 and PSoC 5LP.
 *
-* Parameters:
-*  setting: Valid range [0-15].
+*  \param setting: Valid range [0-15].
 *  Refer to the device TRM and datasheet for more information.
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_SetFbVoltage(uint8 setting) 
@@ -1597,18 +1386,13 @@ void CyXTAL_SetFbVoltage(uint8 setting)
 
 /*******************************************************************************
 * Function Name: CyXTAL_SetWdVoltage
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the reference voltage used by the watchdog to detect a failure in the
 *  crystal circuit. This function is only available for PSoC3 and PSoC 5LP.
 *
-* Parameters:
-*  setting: Valid range [0-7].
+*  \param setting: Valid range [0-7].
 *  Refer to the device TRM and datasheet for more information.
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyXTAL_SetWdVoltage(uint8 setting) 
@@ -1620,16 +1404,11 @@ void CyXTAL_SetWdVoltage(uint8 setting)
 
 /*******************************************************************************
 * Function Name: CyHalt
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Halts the CPU.
 *
-* Parameters:
-*  uint8 reason: Value to be used during debugging.
-*
-* Return:
-*  None
+*  \param uint8 reason: Value to be used during debugging.
 *
 *******************************************************************************/
 void CyHalt(uint8 reason) CYREENTRANT
@@ -1651,16 +1430,9 @@ void CyHalt(uint8 reason) CYREENTRANT
 
 /*******************************************************************************
 * Function Name: CySoftwareReset
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Forces a device software reset.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CySoftwareReset(void) 
@@ -1671,9 +1443,8 @@ void CySoftwareReset(void)
 
 /*******************************************************************************
 * Function Name: CyDelay
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Blocks for milliseconds.
 *
 *  Note:
@@ -1682,11 +1453,7 @@ void CySoftwareReset(void)
 *  For example, with instruction cache disabled CyDelay(100) would result in
 *  about 200 ms delay instead of 100 ms.
 *
-* Parameters:
-*  milliseconds: number of milliseconds to delay.
-*
-* Return:
-*   None
+*  \param milliseconds: number of milliseconds to delay.
 *
 *******************************************************************************/
 void CyDelay(uint32 milliseconds) CYREENTRANT
@@ -1711,9 +1478,8 @@ void CyDelay(uint32 milliseconds) CYREENTRANT
 
     /*******************************************************************************
     * Function Name: CyDelayUs
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Blocks for microseconds.
     *
     *  Note:
@@ -1722,13 +1488,9 @@ void CyDelay(uint32 milliseconds) CYREENTRANT
     *   larger. Ex: With instruction cache disabled CyDelayUs(100) would result
     *   in about 200us delay instead of 100us.
     *
-    * Parameters:
-    *  uint16 microseconds: number of microseconds to delay.
+    *  \param uint16 microseconds: number of microseconds to delay.
     *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  CyDelayUS has been implemented with the instruction cache assumed enabled.
     *  When the instruction cache is disabled on PSoC 5, CyDelayUs will be two times
     *  larger. For example, with the instruction cache disabled CyDelayUs(100) would
@@ -1748,16 +1510,11 @@ void CyDelay(uint32 milliseconds) CYREENTRANT
 
 /*******************************************************************************
 * Function Name: CyDelayFreq
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the clock frequency for CyDelay.
 *
-* Parameters:
-*  freq: The frequency of the bus clock in Hertz.
-*
-* Return:
-*  None
+*  \param freq: The frequency of the bus clock in Hertz.
 *
 *******************************************************************************/
 void CyDelayFreq(uint32 freq) CYREENTRANT
@@ -1779,14 +1536,13 @@ void CyDelayFreq(uint32 freq) CYREENTRANT
 
 /*******************************************************************************
 * Function Name: CyWdtStart
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables the watchdog timer.
 *
 *  The timer is configured for the specified count interval, the central
-*  timewheel is cleared, the setting for the low power mode is configured and the
-*  watchdog timer is enabled.
+*  timewheel is cleared, the setting for the low power mode is configured and
+*  the watchdog timer is enabled.
 *
 *  Once enabled the watchdog cannot be disabled. The watchdog counts each time
 *  the Central Time Wheel (CTW) reaches the period specified. The watchdog must
@@ -1799,15 +1555,14 @@ void CyDelayFreq(uint32 freq) CYREENTRANT
 *  set to be greater than the sleep wakeup period, then feed the dog on each
 *  wakeup from Sleep.
 *
-* Parameters:
-*  ticks: One of the four available timer periods. Once WDT enabled, the
+*  \param ticks: One of the four available timer periods. Once WDT enabled, the
    interval cannot be changed.
 *         CYWDT_2_TICKS     -     4 - 6     ms
 *         CYWDT_16_TICKS    -    32 - 48    ms
 *         CYWDT_128_TICKS   -   256 - 384   ms
 *         CYWDT_1024_TICKS  - 2.048 - 3.072 s
 *
-*  lpMode: Low power mode configuration. This parameter is ignored for PSoC 5.
+*  \param lpMode: Low power mode configuration. This parameter is ignored for PSoC 5.
 *          The WDT always acts as if CYWDT_LPMODE_NOCHANGE is passed.
 *
 *          CYWDT_LPMODE_NOCHANGE - No Change
@@ -1815,10 +1570,7 @@ void CyDelayFreq(uint32 freq) CYREENTRANT
 *                                 mode
 *          CYWDT_LPMODE_DISABLED - Disable WDT during low power mode
 *
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  PSoC5: The ILO 1 KHz must be enabled for proper WDT operation. Stopping the
 *  ILO 1 kHz could break the active WDT functionality.
 *
@@ -1843,16 +1595,9 @@ void CyWdtStart(uint8 ticks, uint8 lpMode)
 
 /*******************************************************************************
 * Function Name: CyWdtClear
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Clears (feeds) the watchdog timer.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyWdtClear(void) 
@@ -1864,28 +1609,53 @@ void CyWdtClear(void)
 
 /*******************************************************************************
 * Function Name: CyVdLvDigitEnable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Enables the digital low voltage monitors to generate interrupt on Vddd
-*   archives specified threshold and optionally resets the device.
+*  Sets the voltage trip level, enables the output of the digital low-voltage
+*  monitor, and optionally configures voltage monitor to reset device upon the
+*  low-voltage event instead of generating an interrupt.
 *
-* Parameters:
-*  reset: The option to reset the device at a specified Vddd threshold:
-*           0 - Device is not reset.
-*           1 - Device is reset.
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The Interrupt component API should be used to register the
+*  interrupt service routine and to enable/disable associated interrupt.
 *
-*  threshold: Sets the trip level for the voltage monitor.
-*  Values from 1.70 V to 5.45 V are accepted with an interval  of approximately
-*  250 mV.
+*  \param reset: Enables device reset on digital low-voltage event:
+*   Zero - Interrupt on digital low-voltage event
+*   Non-zero - Reset on digital low-voltage event
 *
-* Return:
-*  None
+*  \param threshold: Sets the trip point of the digital low-voltage monitoring circuit
+*   in steps of approximately 250 mV in range from 1.70 V (0x00) to 5.45 V
+*   (0x0F). For example, the trip point is set to 1.80 V when the threshold
+*   parameter value is 0x04. Refer to the device TRM for the exact trip voltage
+*   values.
+*
+* Side Effects and Restrictions:
+*  The voltage resets are momentary. When a voltage reset (analog/digital
+*  low-voltage and analog high-voltage) occurs, the RESET_CR1 and RESET_CR3
+*  registers are restored to their default values. This means that the voltage
+*  monitor circuit is no longer enabled and the device exits reset. If the
+*  supply is below the trip level and firmware enables the voltage reset
+*  functionality, the device will reset again. This will continue as long as the
+*  supply is below the trip level or as long as the user enables the reset
+*  functionality of the voltage monitor functionality.
+*
+*  When any voltage reset occurs, the RESET_SR0 and RESET_SR2 status registers
+*  are cleared. This means that analog low-voltage, digital low-voltage and
+*  analog high-voltage status bits are not persistent across any voltage reset.
 *
 *******************************************************************************/
 void CyVdLvDigitEnable(uint8 reset, uint8 threshold) 
 {
-    *CY_INT_CLEAR_PTR = 0x01u;
+    uint32 intRegTmp;
+    uint8 interruptState;
+
+    interruptState = CyEnterCriticalSection();
+
+    /* Store interrupt enable state */
+    intRegTmp = CY_INT_ENABLE_REG & CY_VD_INT_MASK;
+
+    /* Disable VD interrupt (write 1) to protect against glitches */
+    CY_INT_CLEAR_REG = CY_VD_INT_MASK;
 
     CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESD_EN));
 
@@ -1893,10 +1663,10 @@ void CyVdLvDigitEnable(uint8 reset, uint8 threshold)
                             (CY_VD_LVI_TRIP_REG & ((uint8)(~CY_VD_LVI_TRIP_LVID_MASK)));
     CY_VD_LVI_HVI_CONTROL_REG |= CY_VD_LVID_EN;
 
-    /* Timeout to eliminate glitches on LVI/HVI when enabling */
+    /* Timeout to eliminate glitches on LVI/HVI when enabling (ID # 127412) */
     CyDelayUs(1u);
 
-    (void)CY_VD_PERSISTENT_STATUS_REG;
+    (void) CyVdStickyStatus(CY_VD_LVID);
 
     if(0u != reset)
     {
@@ -1907,45 +1677,75 @@ void CyVdLvDigitEnable(uint8 reset, uint8 threshold)
         CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESD_EN));
     }
 
-    *CY_INT_CLR_PEND_PTR = 0x01u;
-    *CY_INT_ENABLE_PTR   = 0x01u;
+    /* Clear pending interrupt */
+    CY_INT_CLR_PEND_REG = CY_VD_INT_MASK;
+
+    /* Restore interrupt enable state */
+    CY_INT_ENABLE_REG = intRegTmp;
+
+    CyExitCriticalSection(interruptState);
 }
 
 
 /*******************************************************************************
 * Function Name: CyVdLvAnalogEnable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Enables the analog low voltage monitors to generate interrupt on Vdda
-*   archives specified threshold and optionally resets the device.
+*  Sets the voltage trip level, enables the output of the analog low-voltage
+*  monitor, and optionally configures voltage monitor to reset device upon the
+*  low-voltage event instead of generating an interrupt.
 *
-* Parameters:
-*  reset: The option to reset the device at a specified Vdda threshold:
-*           0 - Device is not reset.
-*           1 - Device is reset.
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The Interrupt component API should be used to register the
+*  interrupt service routine and to enable/disable associated interrupt.
 *
-*  threshold: Sets the trip level for the voltage monitor.
-*  Values from 1.70 V to 5.45 V are accepted with the approximately 250 mV
-*  interval.
+*  \param reset: Enables device reset on analog low-voltage event:
+*  Zero - Interrupt on analog low-voltage event
+*  Non-zero - Reset on analog low-voltage event
 *
-* Return:
-*  None
+*  \param threshold: Sets the trip point of the analog low-voltage monitoring circuit
+*  in steps of approximately 250 mV in range from 1.70 V (0x00) to 5.45 V
+*  (0x0F). For example, the trip point is set to 1.80 V when value of the
+*  threshold parameter is 0x04. Please refer to the device TRM for the exact
+*  trip voltage values.
+*
+* Side Effects and Restrictions:
+*  The voltage resets are momentary. When a voltage reset (analog/digital
+*  low-voltage and analog high-voltage) occurs, the RESET_CR1 and RESET_CR3
+*  registers are restored to their default values. This means that the voltage
+*  monitor circuit is no longer enabled and the device exits reset. If the
+*  supply is below the trip level and firmware enables the voltage reset
+*  functionality, the device will reset again. This will continue as long as
+*  the supply is below the trip level or as long as the user enables the reset
+*  functionality of the voltage monitor functionality.
+*
+*  When any voltage reset occurs, the RESET_SR0 and RESET_SR2 status registers
+*  are cleared. This means that analog low-voltage, digital low-voltage and
+*  analog high-voltage status bits are not persistent across any voltage reset.
 *
 *******************************************************************************/
 void CyVdLvAnalogEnable(uint8 reset, uint8 threshold) 
 {
-    *CY_INT_CLEAR_PTR = 0x01u;
+    uint32 intRegTmp;
+    uint8 interruptState;
+
+    interruptState = CyEnterCriticalSection();
+
+    /* Store interrupt enable state */
+    intRegTmp = CY_INT_ENABLE_REG & CY_VD_INT_MASK;
+
+    /* Disable VD interrupt (write 1) to protect against glitches */
+    CY_INT_CLEAR_REG = CY_VD_INT_MASK;
 
     CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESA_EN));
 
     CY_VD_LVI_TRIP_REG = ((uint8)(threshold << 4u)) | (CY_VD_LVI_TRIP_REG & 0x0Fu);
     CY_VD_LVI_HVI_CONTROL_REG |= CY_VD_LVIA_EN;
 
-    /* Timeout to eliminate glitches on LVI/HVI when enabling */
+    /* Timeout to eliminate glitches on LVI/HVI when enabling (ID # 127412) */
     CyDelayUs(1u);
 
-    (void)CY_VD_PERSISTENT_STATUS_REG;
+    (void) CyVdStickyStatus(CY_VD_LVIA);
 
     if(0u != reset)
     {
@@ -1956,33 +1756,35 @@ void CyVdLvAnalogEnable(uint8 reset, uint8 threshold)
         CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESA_EN));
     }
 
-    *CY_INT_CLR_PEND_PTR = 0x01u;
-    *CY_INT_ENABLE_PTR   = 0x01u;
+    /* Clear pending interrupt */
+    CY_INT_CLR_PEND_REG = CY_VD_INT_MASK;
+
+    /* Restore interrupt enable state */
+    CY_INT_ENABLE_REG = intRegTmp;
+
+    CyExitCriticalSection(interruptState);
 }
 
 
 /*******************************************************************************
 * Function Name: CyVdLvDigitDisable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Disables the digital low voltage monitor (interrupt and device reset are
-*  disabled).
+*  Disables the digital low-voltage monitor, turns off device reset upon the
+*  digital low-voltage event, and clears the associated persistent status bit.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The pending interrupt status is not cleared. The Interrupt
+*  component API should be used to manipulate with the associated interrupts.
 *
 *******************************************************************************/
 void CyVdLvDigitDisable(void) 
 {
     CY_VD_LVI_HVI_CONTROL_REG &= ((uint8)(~CY_VD_LVID_EN));
-
     CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESD_EN));
+    (void) CyVdStickyStatus(CY_VD_LVID);
 
-    while(0u != (CY_VD_PERSISTENT_STATUS_REG & 0x07u))
+    while(0u != (CyVdStickyStatus(CY_VD_LVID) & CY_VD_LVID))
     {
 
     }
@@ -1991,26 +1793,21 @@ void CyVdLvDigitDisable(void)
 
 /*******************************************************************************
 * Function Name: CyVdLvAnalogDisable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Disables the analog low voltage monitor (interrupt and device reset are
-*  disabled).
+*  Disables the analog low-voltage monitor, turns off device reset upon the
+*  analog low-voltage event, and clears the associated persistent status bit.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The pending interrupt status is not cleared. The Interrupt
+*  component API should be used to manipulate with the associated interrupts.
 *
 *******************************************************************************/
 void CyVdLvAnalogDisable(void) 
 {
     CY_VD_LVI_HVI_CONTROL_REG &= ((uint8)(~CY_VD_LVIA_EN));
-
     CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESA_EN));
-
-    while(0u != (CY_VD_PERSISTENT_STATUS_REG & 0x07u))
+    while(0u != (CyVdStickyStatus(CY_VD_LVIA) & CY_VD_LVIA))
     {
 
     }
@@ -2019,105 +1816,134 @@ void CyVdLvAnalogDisable(void)
 
 /*******************************************************************************
 * Function Name: CyVdHvAnalogEnable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Enables the analog high voltage monitors to generate interrupt on
-*  Vdda archives 5.75 V threshold and optionally resets device.
+*  Enables the output of the analog high-voltage monitor and sets 5.75 V
+*  threshold detection for Vdda.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The Interrupt component API should be used to register the
+*  interrupt service routine and to enable/disable associated interrupt.
 *
 *******************************************************************************/
 void CyVdHvAnalogEnable(void) 
 {
-    *CY_INT_CLEAR_PTR = 0x01u;
+    uint32 intRegTmp;
+    uint8 interruptState;
+
+    interruptState = CyEnterCriticalSection();
+
+    /* Store interrupt enable state */
+    intRegTmp = CY_INT_ENABLE_REG & CY_VD_INT_MASK;
+
+    /* Disable VD interrupt (write 1) to protect against glitches */
+    CY_INT_CLEAR_REG = CY_VD_INT_MASK;
 
     CY_VD_PRES_CONTROL_REG &= ((uint8)(~CY_VD_PRESA_EN));
 
     CY_VD_LVI_HVI_CONTROL_REG |= CY_VD_HVIA_EN;
 
-    /* Timeout to eliminate glitches on the LVI/HVI when enabling */
+    /* Timeout to eliminate glitches on the LVI/HVI when enabling (ID # 127412)  */
     CyDelayUs(1u);
 
-    (void) CY_VD_PERSISTENT_STATUS_REG;
+    (void) CyVdStickyStatus(CY_VD_HVIA);
 
-    *CY_INT_CLR_PEND_PTR = 0x01u;
-    *CY_INT_ENABLE_PTR   = 0x01u;
+    /* Clear pending interrupt */
+    CY_INT_CLR_PEND_REG = CY_VD_INT_MASK;
+
+    /* Restore interrupt enable state */
+    CY_INT_ENABLE_REG = intRegTmp;
+
+    CyExitCriticalSection(interruptState);
 }
 
 
 /*******************************************************************************
 * Function Name: CyVdHvAnalogDisable
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Disables the analog low voltage monitor
-*  (interrupt and device reset are disabled).
+*  Disables the analog high-voltage monitor and clears the associated persistent
+*  status bit.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
+*  Note The associated interrupt enable/disable state is not changed by the
+*  function. The pending interrupt status is not cleared. The Interrupt
+*  component API should be used to manipulate with the associated interrupts.
 *
 *******************************************************************************/
 void CyVdHvAnalogDisable(void) 
 {
     CY_VD_LVI_HVI_CONTROL_REG &= ((uint8)(~CY_VD_HVIA_EN));
+    while(0u != (CyVdStickyStatus(CY_VD_HVIA) & CY_VD_HVIA))
+    {
+
+    }
 }
 
 
 /*******************************************************************************
 * Function Name: CyVdStickyStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Manages the Reset and Voltage Detection Status Register 0.
-*  This register has the interrupt status for the HVIA, LVID and LVIA.
-*  This hardware register clears on read.
+*  Reads and clears the voltage detection status bits in the RESET_SR0 register.
+*  The bits are set to 1 by the voltage monitor circuit when the supply is
+*  outside the detector trip point. They stay set to 1 until they are read or
+*  a POR / LVI / PRES reset occurs. This function uses a shadow register, so
+*  only the bits passed in the parameter will be cleared in the shadow register.
 *
-* Parameters:
-*  mask: Bits in the shadow register to clear.
+*  \param mask: Bits in the RESET_SR0 shadow register to clear and return.
 *   Define                  Definition
 *   CY_VD_LVID            Persistent status of digital LVI.
 *   CY_VD_LVIA            Persistent status of analog LVI.
 *   CY_VD_HVIA            Persistent status of analog HVI.
 *
-* Return:
-*  Status.  Same enumerated bit values as used for the mask parameter.
+* \return
+*  Status. Same enumerated bit values as used for the mask parameter. A zero is
+*  returned for bits not used in the mask parameter.
+*
+* Side Effects and Restrictions:
+*  When an LVI reset occurs, the RESET_SR0 status registers are cleared. This
+*  means that the voltage detection status bits are not persistent across an LVI
+*  reset and cannot be used to determine a reset source.
 *
 *******************************************************************************/
 uint8 CyVdStickyStatus(uint8 mask) 
 {
-    uint8 status;
+    static uint8 interruptStatus;
+    uint8 interruptState;
+    uint8 tmpStatus;
 
-    status = CY_VD_PERSISTENT_STATUS_REG;
-    CY_VD_PERSISTENT_STATUS_REG &= ((uint8)(~mask));
+    interruptState = CyEnterCriticalSection();
 
-    return(status);
+    interruptStatus |= CY_VD_PERSISTENT_STATUS_REG;
+    tmpStatus = interruptStatus & (uint8)(CY_VD_LVID | CY_VD_LVIA | CY_VD_HVIA);
+    interruptStatus &= ((uint8)(~mask));
+
+    CyExitCriticalSection(interruptState);
+
+    return(tmpStatus);
 }
 
 
 /*******************************************************************************
 * Function Name: CyVdRealTimeStatus
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
-*  Returns the real time voltage detection status.
+*  Reads the real-time voltage detection status bits in the RESET_SR2 register.
+*  The bits are set to 1 by the voltage monitor circuit when the supply is
+*  outside the detector’s trip point, and set to 0 when the supply is inside the
+*  trip point.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  Status:
+* \return
+*  Status of the LVID, LVIA, and HVIA bits in the RESET_SR2 register.
 *   Define                  Definition
-*   CY_VD_LVID            Persistent status of digital LVI.
-*   CY_VD_LVIA            Persistent status of analog LVI.
-*   CY_VD_HVIA            Persistent status of analog HVI.
+*   CY_VD_LVID            Real-time status of digital LVI.
+*   CY_VD_LVIA            Real-time status of analog LVI.
+*   CY_VD_HVIA            Real-time status of analog HVI.
+*
+* Side Effects and Restrictions:
+*  When an LVI reset occurs, the RESET_SR2 status registers are cleared. This
+*  means that the voltage detection status bits are not persistent across an LVI
+*  reset and cannot be used to determine a reset source.
 *
 *******************************************************************************/
 uint8 CyVdRealTimeStatus(void) 
@@ -2126,7 +1952,7 @@ uint8 CyVdRealTimeStatus(void)
     uint8 vdFlagsState;
 
     interruptState = CyEnterCriticalSection();
-    vdFlagsState = CY_VD_RT_STATUS_REG;
+    vdFlagsState = CY_VD_RT_STATUS_REG & (CY_VD_LVID | CY_VD_LVIA | CY_VD_HVIA);
     CyExitCriticalSection(interruptState);
 
     return(vdFlagsState);
@@ -2135,15 +1961,11 @@ uint8 CyVdRealTimeStatus(void)
 
 /*******************************************************************************
 * Function Name: CyDisableInts
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disables the interrupt enable for each interrupt.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  32 bit mask of previously enabled interrupts.
 *
 *******************************************************************************/
@@ -2187,16 +2009,11 @@ uint32 CyDisableInts(void)
 
 /*******************************************************************************
 * Function Name: CyEnableInts
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enables interrupts to a given state.
 *
-* Parameters:
-*  uint32 mask: 32 bit mask of interrupts to enable.
-*
-* Return:
-*  None
+*  \param uint32 mask: 32 bit mask of interrupts to enable.
 *
 *******************************************************************************/
 void CyEnableInts(uint32 mask) 
@@ -2228,15 +2045,16 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyFlushCache
-    ********************************************************************************
-    * Summary:
-    *  Flushes the PSoC 5/5LP cache by invalidating all entries.
-    *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
+    ****************************************************************************//**
+    *  Call this API after a flash row erase/write operation to invalidate or flush
+    *  any of that particular flash region content already present in the cache.
+    *  After a cache flush operation, any access to that flash region after the
+    *  erase/write operation would reload the cache with the modified data from the
+    *  flash region. If the flash region update involves multiple flash row write
+    *  operations, then the flushing of the cache can be done once at the end of
+    *  the operation as long as the flash data would not be accessed in the middle
+    *  of the multiple row update process. Else, flush the cache after every flash
+    *  row write.
     *
     *******************************************************************************/
     void CyFlushCache(void)
@@ -2280,14 +2098,12 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntSetSysVector
-    ********************************************************************************
-    * Summary:
+    ****************************************************************************//**
     *  Sets the interrupt vector of the specified system interrupt number. System
     *  interrupts are present only for the ARM platform. These interrupts are for
     *  SysTick, PendSV and others.
     *
-    * Parameters:
-    *  number: System interrupt number:
+    *  \param number: System interrupt number:
     *    CY_INT_NMI_IRQN                - Non Maskable Interrupt
     *    CY_INT_HARD_FAULT_IRQN         - Hard Fault Interrupt
     *    CY_INT_MEM_MANAGE_IRQN         - Memory Management Interrupt
@@ -2298,9 +2114,9 @@ void CyEnableInts(uint32 mask)
     *    CY_INT_PEND_SV_IRQN            - Pend SV Interrupt
     *    CY_INT_SYSTICK_IRQN            - System Tick Interrupt
     *
-    *  address: Pointer to an interrupt service routine.
+    *  \param address: Pointer to an interrupt service routine.
     *
-    * Return:
+    * \return
     *   The old ISR vector at this location.
     *
     *******************************************************************************/
@@ -2323,15 +2139,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetSysVector
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets the interrupt vector of the specified system interrupt number. System
     *  interrupts are present only for the ARM platform. These interrupts are for
     *  SysTick, PendSV and others.
     *
-    * Parameters:
-    *  number: System interrupt number:
+    *  \param number: System interrupt number:
     *    CY_INT_NMI_IRQN                - Non Maskable Interrupt
     *    CY_INT_HARD_FAULT_IRQN         - Hard Fault Interrupt
     *    CY_INT_MEMORY_MANAGEMENT_IRQN  - Memory Management Interrupt
@@ -2342,7 +2156,7 @@ void CyEnableInts(uint32 mask)
     *    CY_INT_PEND_SV_IRQN            - Pend SV Interrupt
     *    CY_INT_SYSTICK_IRQN            - System Tick Interrupt
     *
-    * Return:
+    * \return
     *   Address of the ISR in the interrupt vector table.
     *
     *******************************************************************************/
@@ -2357,16 +2171,14 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntSetVector
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the interrupt vector of the specified interrupt number.
     *
-    * Parameters:
-    *  number: Valid range [0-31].  Interrupt number
-    *  address: Pointer to an interrupt service routine
+    *  \param number: Valid range [0-31].  Interrupt number
+    *  \param address: Pointer to an interrupt service routine
     *
-    * Return:
+    * \return
     *   Previous interrupt vector value.
     *
     *******************************************************************************/
@@ -2389,15 +2201,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetVector
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets the interrupt vector of the specified interrupt number.
     *
-    * Parameters:
-    *  number: Valid range [0-31].  Interrupt number
+    *  \param number: Valid range [0-31].  Interrupt number
     *
-    * Return:
+    * \return
     *  The address of the ISR in the interrupt vector table.
     *
     *******************************************************************************/
@@ -2412,17 +2222,12 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntSetPriority
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the Priority of the Interrupt.
     *
-    * Parameters:
-    *  priority: Priority of the interrupt. 0 - 7, 0 being the highest.
-    *  number: The number of the interrupt, 0 - 31.
-    *
-    * Return:
-    *  None
+    *  \param priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+    *  \param number: The number of the interrupt, 0 - 31.
     *
     *******************************************************************************/
     void CyIntSetPriority(uint8 number, uint8 priority)
@@ -2435,15 +2240,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetPriority
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets the Priority of the Interrupt.
     *
-    * Parameters:
-    *  number: The number of the interrupt, 0 - 31.
+    *  \param number: The number of the interrupt, 0 - 31.
     *
-    * Return:
+    * \return
     *  Priority of the interrupt. 0 - 7, 0 being the highest.
     *
     *******************************************************************************/
@@ -2461,15 +2264,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetState
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *   Gets the enable state of the specified interrupt number.
     *
-    * Parameters:
-    *   number: Valid range [0-31].  Interrupt number.
+    *   \param number: Valid range [0-31].  Interrupt number.
     *
-    * Return:
+    * \return
     *   Enable status: 1 if enabled, 0 if disabled
     *
     *******************************************************************************/
@@ -2489,19 +2290,62 @@ void CyEnableInts(uint32 mask)
 
 #else   /* PSoC3 */
 
+    /*******************************************************************************
+    * Function Name: IntDefaultHandler
+    ****************************************************************************//**
+    *
+    *  This function is called for all interrupts, other than a reset that gets
+    *  called before the system is setup.
+    *
+    * Theory:
+    *  Any value other than zero is acceptable.
+    *
+    *******************************************************************************/
+    CY_ISR(IntDefaultHandler)
+    {
+        #ifdef CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK
+            CyBoot_IntDefaultHandler_Exception_EntryCallback();
+        #endif /* CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK */
+
+        while(1)
+        {
+            /***********************************************************************
+            * We must not get here. If we do, a serious problem occurs, so go
+            * into an infinite loop.
+            ***********************************************************************/
+        }
+    }
+
+
+    /*******************************************************************************
+    * Function Name: IntDefaultHandler
+    ****************************************************************************//**
+    *
+    *  This function is called during startup to initialize interrupt address vector
+    *  registers with the address of the IntDefaultHandler().
+    *
+    *******************************************************************************/
+    void CyIntInitVectors(void) 
+    {
+        uint8 i;
+
+        for (i = 0; i <= CY_INT_NUMBER_MAX; i++)
+        {
+            CY_SET_REG16(&CY_INT_VECT_TABLE[i], (uint16) &IntDefaultHandler);
+        }
+    }
+
 
     /*******************************************************************************
     * Function Name: CyIntSetVector
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the interrupt vector of the specified interrupt number.
     *
-    * Parameters:
-    *  number:  Valid range [0-31].  Interrupt number
-    *  address: Pointer to an interrupt service routine
+    *  \param number:  Valid range [0-31].  Interrupt number
+    *  \param address: Pointer to an interrupt service routine
     *
-    * Return:
+    * \return
     *  Previous interrupt vector value.
     *
     *******************************************************************************/
@@ -2524,15 +2368,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetVector
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets the interrupt vector of the specified interrupt number.
     *
-    * Parameters:
-    *  number: Valid range [0-31].  Interrupt number
+    *  \param number: Valid range [0-31].  Interrupt number
     *
-    * Return:
+    * \return
     *  Address of the ISR in the interrupt vector table.
     *
     *******************************************************************************/
@@ -2547,17 +2389,12 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntSetPriority
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the Priority of the Interrupt.
     *
-    * Parameters:
-    *  priority: Priority of the interrupt. 0 - 7, 0 being the highest.
-    *  number:   The number of the interrupt, 0 - 31.
-    *
-    * Return:
-    *  None
+    *  \param priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+    *  \param number:   The number of the interrupt, 0 - 31.
     *
     *******************************************************************************/
     void CyIntSetPriority(uint8 number, uint8 priority) 
@@ -2573,15 +2410,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetPriority
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets the Priority of the Interrupt.
     *
-    * Parameters:
-    *  number: The number of the interrupt, 0 - 31.
+    *  \param number: The number of the interrupt, 0 - 31.
     *
-    * Return:
+    * \return
     *  Priority of the interrupt. 0 - 7, 0 being the highest.
     *
     *******************************************************************************/
@@ -2599,15 +2434,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CyIntGetState
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *   Gets the enable state of the specified interrupt number.
     *
-    * Parameters:
-    *   number: Valid range [0-31].  Interrupt number.
+    *   \param number: Valid range [0-31].  Interrupt number.
     *
-    * Return:
+    * \return
     *   Enable status: 1 if enabled, 0 if disabled
     *
     *******************************************************************************/
@@ -2624,7 +2457,6 @@ void CyEnableInts(uint32 mask)
         return ((0u != (*stateReg & ((uint8)(1u << (0x07u & number))))) ? ((uint8)(1u)) : ((uint8)(0u)));
     }
 
-
 #endif  /* (CY_PSOC5) */
 
 
@@ -2632,9 +2464,8 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySetScPumps
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  If 1 is passed as a parameter:
     *   - if any of the SC blocks are used - enable pumps for the SC blocks and
     *     start boost clock.
@@ -2644,19 +2475,16 @@ void CyEnableInts(uint32 mask)
     *  If non-1 value is passed as a parameter:
     *   - If all SC blocks are not used - disable pumps for the SC blocks and
     *     stop the boost clock.
-    *   - For each enabled SC block clear the boost clock index and disable the  boost
-    *     clock.
+    *   - For each enabled SC block clear the boost clock index and disable the
+    *     boost clock.
     *
     *  The global variable CyScPumpEnabled is updated to be equal to passed the
     *  parameter.
     *
-    * Parameters:
-    *   uint8 enable: Enable/disable SC pumps and the boost clock for the enabled SC block.
+    *   \param uint8 enable: Enable/disable SC pumps and the boost clock for the enabled
+    *                 \param SC block:
     *                 1 - Enable
     *                 0 - Disable
-    *
-    * Return:
-    *   None
     *
     *******************************************************************************/
     void CySetScPumps(uint8 enable) 
@@ -2718,20 +2546,13 @@ void CyEnableInts(uint32 mask)
 #if(CY_PSOC5)
     /*******************************************************************************
     * Function Name: CySysTickStart
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Configures the SysTick timer to generate interrupt every 1 ms by call to the
     *  CySysTickInit() function and starts it by calling CySysTickEnable() function.
     *  Refer to the corresponding function description for the details.
 
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set
     *
     *******************************************************************************/
@@ -2749,21 +2570,14 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickInit
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Initializes the callback addresses with pointers to NULL, associates the
     *  SysTick system vector with the function that is responsible for calling
     *  registered callback functions, configures SysTick timer to generate interrupt
     * every 1 ms.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set.
     *
     *  The 1 ms interrupt interval is configured based on the frequency determined
@@ -2780,7 +2594,7 @@ void CyEnableInts(uint32 mask)
             CySysTickCallbacks[i] = (void *) 0;
         }
 
-    	(void) CyIntSetSysVector(CY_INT_SYSTICK_IRQN, &CySysTickServiceCallbacks);
+        (void) CyIntSetSysVector(CY_INT_SYSTICK_IRQN, &CySysTickServiceCallbacks);
         CySysTickSetClockSource(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK);
         CySysTickSetReload(cydelay_freq_hz/1000u);
         CySysTickClear();
@@ -2790,18 +2604,11 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickEnable
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Enables the SysTick timer and its interrupt.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set
     *
     *******************************************************************************/
@@ -2814,18 +2621,11 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickStop
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Stops the system timer (SysTick).
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set
     *
     *******************************************************************************/
@@ -2837,18 +2637,11 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickEnableInterrupt
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Enables the SysTick interrupt.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set
     *
     *******************************************************************************/
@@ -2860,18 +2653,11 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickDisableInterrupt
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Disables the SysTick interrupt.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set
     *
     *******************************************************************************/
@@ -2883,18 +2669,13 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickSetReload
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets value the counter is set to on startup and after it reaches zero. This
     *  function do not change or reset current sysTick counter value, so it should
     *  be cleared using CySysTickClear() API.
     *
-    * Parameters:
-    *  value: Valid range [0x0-0x00FFFFFF]. Counter reset value.
-    *
-    * Return:
-    *  None
+    *  \param value: Valid range [0x0-0x00FFFFFF]. Counter reset value.
     *
     *******************************************************************************/
     void CySysTickSetReload(uint32 value)
@@ -2905,15 +2686,11 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickGetReload
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets value the counter is set to on startup and after it reaches zero.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
+    * \return
     *  Counter reset value
     *
     *******************************************************************************/
@@ -2925,46 +2702,38 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickGetValue
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Gets current SysTick counter value.
     *
-    * Parameters:
-    *  None
-    *
-    * Return:
+    * \return
     *  Current SysTick counter value
     *
     *******************************************************************************/
     uint32 CySysTickGetValue(void)
     {
-        return(CY_SYS_SYST_RVR_REG & CY_SYS_SYST_CVR_REG);
+        return(CY_SYS_SYST_CVR_REG & CY_SYS_SYST_CVR_CNT_MASK);
     }
 
 
     /*******************************************************************************
     * Function Name: CySysTickSetClockSource
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Sets the clock source for the SysTick counter.
     *
-    * Parameters:
-    *  clockSource: Clock source for SysTick counter
+    *  \param clockSource: Clock source for SysTick counter
     *         Define                     Clock Source
     *   CY_SYS_SYST_CSR_CLK_SRC_SYSCLK     SysTick is clocked by CPU clock.
     *   CY_SYS_SYST_CSR_CLK_SRC_LFCLK      SysTick is clocked by the low frequency
-    *                              clock (ILO 100 KHz for PSoC 5LP, LFCLK for PSoC 4).
+    *                                      clock (ILO 100 KHz for PSoC 5LP, and
+    *                                      LFCLK for PSoC 4).
     *
-    * Return:
-    *  None
-    *
-    * Side Effects:
+    * \sideeffect
     *  Clears SysTick count flag if it was set. If clock source is not ready this
-    *  function call will have no effect. After changing clock source to the low frequency
-    *  clock the counter and reload register values will remain unchanged so time to
-    *  the interrupt will be significantly bigger and vice versa.
+    *  function call will have no effect. After changing clock source to the low
+    *  frequency clock the counter and reload register values will remain unchanged
+    *  so time to the interrupt will be significantly bigger and vice versa.
     *
     *******************************************************************************/
     void CySysTickSetClockSource(uint32 clockSource)
@@ -2975,44 +2744,55 @@ void CyEnableInts(uint32 mask)
         }
         else
         {
-            CY_SYS_SYST_CSR_REG &= ((uint32) ~(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK << CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT));
+            CY_SYS_SYST_CSR_REG &= ((uint32) ~((uint32)(CY_SYS_SYST_CSR_CLK_SRC_SYSCLK << CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT)));
         }
     }
 
+    
+    /*******************************************************************************
+    * Function Name: CySysTickGetClockSource
+    ****************************************************************************//**
+    *
+    *  Returns the current clock source of the SysTick counter.
+    *
+    *  \return 
+    *   CY_SYS_SYST_CSR_CLK_SRC_SYSCLK     SysTick is clocked by CPU clock.
+    *   CY_SYS_SYST_CSR_CLK_SRC_LFCLK      SysTick is clocked by the low frequency
+    *                                      clock. (ILO 100 KHz for PSoC 5LP, and
+    *                                      LFCLK for PSoC 4).
+    *******************************************************************************/
+    uint32 CySysTickGetClockSource(void)
+    {
+        return ((CY_SYS_SYST_CSR_REG >> CY_SYS_SYST_CSR_CLK_SOURCE_SHIFT) & CY_SYS_SYST_CSR_CLK_SRC_SYSCLK );
+    }
 
+    
     /*******************************************************************************
     * Function Name: CySysTickGetCountFlag
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  The count flag is set once SysTick counter reaches zero.
     *   The flag cleared on read.
     *
-    * Parameters:
-    *  None
+    * \return
+    *  Returns non-zero value if flag is set, otherwise zero is returned.
     *
-    * Return:
-    *  Returns non-zero value if counter is set, otherwise zero is returned.
+    *
+    * \sideeffect
+    *  Clears SysTick count flag if it was set.
     *
     *******************************************************************************/
     uint32 CySysTickGetCountFlag(void)
     {
-        return ((CY_SYS_SYST_CSR_REG>>CY_SYS_SYST_CSR_COUNTFLAG_SHIFT) & 0x01u);
+        return ((CY_SYS_SYST_CSR_REG >> CY_SYS_SYST_CSR_COUNTFLAG_SHIFT) & 0x01u);
     }
 
 
     /*******************************************************************************
     * Function Name: CySysTickClear
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  Clears the SysTick counter for well-defined startup.
-    *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
     *
     *******************************************************************************/
     void CySysTickClear(void)
@@ -3023,20 +2803,31 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickSetCallback
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
-    *  The function set the pointers to the functions that will be called on
-    *  SysTick interrupt.
+    *  This function allows up to five user-defined interrupt service routine
+    *  functions to be associated with the SysTick interrupt. These are specified
+    *  through the use of pointers to the function.
     *
-    * Parameters:
-    *  number:  The number of callback function address to be set.
-    *           The valid range is from 0 to 4.
-    *  CallbackFunction: Function address.
+    *  To set a custom callback function without the overhead of the system provided
+    *  one, use CyIntSetSysVector(CY_INT_SYSTICK_IRQN, cyisraddress <address>),
+    *  where <address> is address of the custom defined interrupt service routine.
+    *  Note: a custom callback function overrides the system defined callback
+    *  functions.
     *
-    * Return:
+    *  \param number: The number of the callback function addresses to be set. The valid
+    *          range is from 0 to 4.
+    *
+    *  void(*CallbackFunction(void): A pointer to the function that will be
+    *                                associated with the SysTick ISR for the
+    *                                specified number.
+    *
+    * \return
     *  Returns the address of the previous callback function.
     *  The NULL is returned if the specified address in not set.
+    *
+    * \sideeffect
+    *  The registered callback functions will be executed in the interrupt.
     *
     *******************************************************************************/
     cySysTickCallback CySysTickSetCallback(uint32 number, cySysTickCallback function)
@@ -3051,16 +2842,16 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickGetCallback
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  The function get the specified callback pointer.
     *
-    * Parameters:
-    *  None
+    *  \param number: The number of callback function address to get. The valid
+    *          range is from 0 to 4.
     *
-    * Return:
-    *  None
+    * \return
+    *  Returns the address of the specified callback function.
+    *  The NULL is returned if the specified address in not initialized.
     *
     *******************************************************************************/
     cySysTickCallback CySysTickGetCallback(uint32 number)
@@ -3071,16 +2862,9 @@ void CyEnableInts(uint32 mask)
 
     /*******************************************************************************
     * Function Name: CySysTickServiceCallbacks
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
     *  System Tick timer interrupt routine
-    *
-    * Parameters:
-    *  None
-    *
-    * Return:
-    *  None
     *
     *******************************************************************************/
     static void CySysTickServiceCallbacks(void)
@@ -3101,5 +2885,44 @@ void CyEnableInts(uint32 mask)
     }
 #endif /* (CY_PSOC5) */
 
+
+/*******************************************************************************
+* Function Name: CyGetUniqueId
+****************************************************************************//**
+*
+*  Returns the 64-bit unique ID of the device. The uniqueness of the number is
+*  guaranteed for 10 years due to the die lot number having a cycle life of 10
+*  years and even after 10 years, the probability of getting two identical
+*  numbers is very small.
+*
+*  \param uniqueId: The pointer to a two element 32-bit unsigned integer array. Returns
+*  the 64-bit unique ID of the device by loading them into the integer array
+*  pointed to by uniqueId.
+*
+*******************************************************************************/
+void CyGetUniqueId(uint32* uniqueId)
+{
+#if(CY_PSOC4)
+    uniqueId[0u]  =  (uint32)(* (reg8 *) CYREG_SFLASH_DIE_LOT0  );
+    uniqueId[0u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_LOT1  ) <<  8u);
+    uniqueId[0u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_LOT2  ) << 16u);
+    uniqueId[0u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_WAFER ) << 24u);
+
+    uniqueId[1u]  =  (uint32)(* (reg8 *) CYREG_SFLASH_DIE_X     );
+    uniqueId[1u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_Y     ) <<  8u);
+    uniqueId[1u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_SORT  ) << 16u);
+    uniqueId[1u] |= ((uint32)(* (reg8 *) CYREG_SFLASH_DIE_MINOR ) << 24u);
+#else
+    uniqueId[0u]  =  (uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_LOT_LSB   ));
+    uniqueId[0u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_LOT_MSB   )) <<  8u);
+    uniqueId[0u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_MLOGIC_REV_ID                )) << 16u);
+    uniqueId[0u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_WAFER_NUM )) << 24u);
+
+    uniqueId[1u]  =  (uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_X_LOC     ));
+    uniqueId[1u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_Y_LOC     )) <<  8u);
+    uniqueId[1u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_WRK_WK    )) << 16u);
+    uniqueId[1u] |= ((uint32) CY_GET_XTND_REG8((void CYFAR *) (CYREG_FLSHID_CUST_TABLES_FAB_YR    )) << 24u);
+#endif  /* (CY_PSOC4) */
+}
 
 /* [] END OF FILE */

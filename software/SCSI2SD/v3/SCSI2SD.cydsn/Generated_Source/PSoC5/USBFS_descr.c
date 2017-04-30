@@ -1,20 +1,18 @@
-/*******************************************************************************
-* File Name: USBFS_descr.c
-* Version 2.80
+/***************************************************************************//**
+* \file USBFS_descr.c
+* \version 3.10
 *
-* Description:
-*  USB descriptors and storage.
-*
-*  Note:
+* \brief
+*  This file contains the USB descriptors and storage.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "USBFS.h"
 #include "USBFS_pvt.h"
 
 
@@ -384,8 +382,9 @@ const T_USBFS_LUT CYCODE USBFS_DEVICE0_CONFIGURATION0_TABLE[5u] = {
 * Device Dispatch Table -- Points to the Device Descriptor and each of
 *                          and Configuration Tables for this Device 
 *********************************************************************/
-const T_USBFS_LUT CYCODE USBFS_DEVICE0_TABLE[2u] = {
+const T_USBFS_LUT CYCODE USBFS_DEVICE0_TABLE[3u] = {
     {0x01u,     &USBFS_DEVICE0_DESCR},
+    {0x00u,    NULL},
     {0x01u,     &USBFS_DEVICE0_CONFIGURATION0_TABLE}
 };
 /*********************************************************************

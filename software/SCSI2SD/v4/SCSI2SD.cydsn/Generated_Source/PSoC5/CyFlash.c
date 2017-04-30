@@ -1,19 +1,17 @@
-/*******************************************************************************
-* File Name: CyFlash.c
-* Version 4.20
+/***************************************************************************//**
+* \file CyFlash.c
+* \version 5.50
 *
-*  Description:
-*   Provides an API for the FLASH/EEPROM.
+* \brief Provides an API for the FLASH/EEPROM.
 *
-*  Note:
-*   This code is endian agnostic.
+* \note This code is endian agnostic.
 *
-*  Note:
-*   Documentation of the API's in this file is located in the
-*   System Reference Guide provided with PSoC Creator.
+* \note Documentation of the API's in this file is located in the System
+* Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation. All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -43,16 +41,9 @@ static cystatus CyFlashGetSpcAlgorithm(void);
 
 /*******************************************************************************
 * Function Name: CyFlash_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enable the Flash.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyFlash_Start(void) 
@@ -104,18 +95,11 @@ void CyFlash_Start(void)
 
 /*******************************************************************************
 * Function Name: CyFlash_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disable the Flash.
 *
-* Parameters:
-*  None
-*
-* Return:
-*  None
-*
-* Side Effects:
+* \sideeffect
 *  This setting is ignored as long as the CPU is currently running.  This will
 *  only take effect when the CPU is later disabled.
 *
@@ -135,17 +119,13 @@ void CyFlash_Stop(void)
 
 /*******************************************************************************
 * Function Name: CySetTempInt
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sends a command to the SPC to read the die temperature. Sets a global value
 *  used by the Write function. This function must be called once before
 *  executing a series of Flash writing functions.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  status:
 *   CYRET_SUCCESS - if successful
 *   CYRET_LOCKED  - if Flash writing already in use
@@ -197,15 +177,11 @@ static cystatus CySetTempInt(void)
 
 /*******************************************************************************
 * Function Name: CyFlashGetSpcAlgorithm
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sends a command to the SPC to download code into RAM.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  status:
 *   CYRET_SUCCESS - if successful
 *   CYRET_LOCKED  - if Flash writing already in use
@@ -249,16 +225,12 @@ static cystatus CyFlashGetSpcAlgorithm(void)
 
 /*******************************************************************************
 * Function Name: CySetTemp
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This is a wraparound for CySetTempInt(). It is used to return the second
 *  successful read of the temperature value.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  status:
 *   CYRET_SUCCESS if successful.
 *   CYRET_LOCKED  if Flash writing already in use
@@ -285,19 +257,17 @@ cystatus CySetTemp(void)
 
 /*******************************************************************************
 * Function Name: CySetFlashEEBuffer
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the user supplied temporary buffer to store SPC data while performing
-*  Flash and EEPROM commands. This buffer is only necessary when the Flash ECC is
-*  disabled.
+*  Flash and EEPROM commands. This buffer is only necessary when the Flash ECC
+*  is disabled.
 *
-* Parameters:
-*  buffer:
-*   The address of a block of memory to store temporary memory. The size of the block
-*   of memory is CYDEV_FLS_ROW_SIZE + CYDEV_ECC_ROW_SIZE.
+*  \param buffer:
+*   The address of a block of memory to store temporary memory. The size of the
+*   block of memory is CYDEV_FLS_ROW_SIZE + CYDEV_ECC_ROW_SIZE.
 *
-* Return:
+* \return
 *  status:
 *   CYRET_SUCCESS if successful.
 *   CYRET_BAD_PARAM if the buffer is NULL
@@ -340,22 +310,20 @@ cystatus CySetFlashEEBuffer(uint8 * buffer)
 
 /*******************************************************************************
 * Function Name: CyWriteRowData
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sends a command to the SPC to load and program a row of data in
 *  Flash or EEPROM.
 *
-* Parameters:
-*  arrayID:    ID of the array to write.
+*  \param arrayID:    ID of the array to write.
 *   The type of write, Flash or EEPROM, is determined from the array ID.
 *   The arrays in the part are sequential starting at the first ID for the
 *   specific memory type. The array ID for the Flash memory lasts from 0x00 to
 *   0x3F and for the EEPROM memory it lasts from 0x40 to 0x7F.
-*  rowAddress: rowAddress of flash row to program.
-*  rowData:    Array of bytes to write.
+*  \param rowAddress: rowAddress of flash row to program.
+*  \param rowData:    Array of bytes to write.
 *
-* Return:
+* \return
 *  status:
 *   CYRET_SUCCESS if successful.
 *   CYRET_LOCKED if the SPC is already in use.
@@ -384,21 +352,19 @@ cystatus CyWriteRowData(uint8 arrayId, uint16 rowAddress, const uint8 * rowData)
 
     /*******************************************************************************
     * Function Name: CyWriteRowConfig
-    ********************************************************************************
+    ****************************************************************************//**
     *
-    * Summary:
-    *  Sends a command to the SPC to load and program a row of config data in the Flash.
-    *  This function is only valid for Flash array IDs (not for EEPROM).
+    *  Sends a command to the SPC to load and program a row of config data in the
+    *  Flash. This function is only valid for Flash array IDs (not for EEPROM).
     *
-    * Parameters:
-    *  arrayId:      ID of the array to write
+    *  \param arrayId:      ID of the array to write
     *   The arrays in the part are sequential starting at the first ID for the
     *   specific memory type. The array ID for the Flash memory lasts
     *   from 0x00 to 0x3F.
-    *  rowAddress:   The address of the sector to erase.
-    *  rowECC:       The array of bytes to write.
+    *  \param rowAddress:   The address of the sector to erase.
+    *  \param rowECC:       The array of bytes to write.
     *
-    * Return:
+    * \return
     *  status:
     *   CYRET_SUCCESS if successful.
     *   CYRET_LOCKED if the SPC is already in use.
@@ -422,18 +388,16 @@ cystatus CyWriteRowData(uint8 arrayId, uint16 rowAddress, const uint8 * rowData)
 
 /*******************************************************************************
 * Function Name: CyWriteRowFull
-********************************************************************************
-* Summary:
+****************************************************************************//**
 *  Sends a command to the SPC to load and program a row of data in the Flash.
 *  rowData array is expected to contain Flash and ECC data if needed.
 *
-* Parameters:
-*  arrayId:    FLASH or EEPROM array id.
-*  rowData:    Pointer to a row of data to write.
-*  rowNumber:  Zero based number of the row.
-*  rowSize:    Size of the row.
+*  \param arrayId:    FLASH or EEPROM array id.
+*  \param rowData:    Pointer to a row of data to write.
+*  \param rowNumber:  Zero based number of the row.
+*  \param rowSize:    Size of the row.
 *
-* Return:
+* \return
 *  CYRET_SUCCESS if successful.
 *  CYRET_LOCKED if the SPC is already in use.
 *  CYRET_CANCELED if command not accepted
@@ -552,20 +516,15 @@ cystatus CyWriteRowFull(uint8 arrayId, uint16 rowNumber, const uint8* rowData, u
 
 /*******************************************************************************
 * Function Name: CyFlash_SetWaitCycles
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the number of clock cycles the cache will wait before it samples data
-*  coming back from the Flash. This function must be called before increasing the CPU
-*  clock frequency. It can optionally be called after lowering the CPU clock
-*  frequency in order to improve the CPU performance.
+*  coming back from the Flash. This function must be called before increasing
+*  the CPU clock frequency. It can optionally be called after lowering the CPU
+*  clock frequency in order to improve the CPU performance.
 *
-* Parameters:
-*  uint8 freq:
+*  \param uint8 freq:
 *   Frequency of operation in Megahertz.
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyFlash_SetWaitCycles(uint8 freq) 
@@ -621,16 +580,9 @@ void CyFlash_SetWaitCycles(uint8 freq)
 
 /*******************************************************************************
 * Function Name: CyEEPROM_Start
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Enable the EEPROM.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyEEPROM_Start(void) 
@@ -679,16 +631,9 @@ void CyEEPROM_Start(void)
 
 /*******************************************************************************
 * Function Name: CyEEPROM_Stop
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Disable the EEPROM.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyEEPROM_Stop (void) 
@@ -706,16 +651,9 @@ void CyEEPROM_Stop (void)
 
 /*******************************************************************************
 * Function Name: CyEEPROM_ReadReserve
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Request access to the EEPROM for reading and wait until access is available.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyEEPROM_ReadReserve(void) 
@@ -732,16 +670,9 @@ void CyEEPROM_ReadReserve(void)
 
 /*******************************************************************************
 * Function Name: CyEEPROM_ReadRelease
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Release the read reservation of the EEPROM.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void CyEEPROM_ReadRelease(void) 

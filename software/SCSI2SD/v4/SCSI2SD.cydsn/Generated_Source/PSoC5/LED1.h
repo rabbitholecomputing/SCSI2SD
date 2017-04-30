@@ -1,14 +1,14 @@
 /*******************************************************************************
 * File Name: LED1.h  
-* Version 2.10
+* Version 2.20
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains Pin function prototypes and register defines
 *
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
@@ -22,12 +22,6 @@
 #include "cypins.h"
 #include "LED1_aliases.h"
 
-/* Check to see if required defines such as CY_PSOC5A are available */
-/* They are defined starting with cy_boot v3.0 */
-#if !defined (CY_PSOC5A)
-    #error Component cy_pins_v2_10 requires cy_boot v3.0 or later
-#endif /* (CY_PSOC5A) */
-
 /* APIs are not generated for P15[7:6] */
 #if !(CY_PSOC5A &&\
 	 LED1__PORT == 15 && ((LED1__MASK & 0xC0) != 0))
@@ -37,31 +31,64 @@
 *        Function Prototypes             
 ***************************************/    
 
-void    LED1_Write(uint8 value) ;
-void    LED1_SetDriveMode(uint8 mode) ;
-uint8   LED1_ReadDataReg(void) ;
-uint8   LED1_Read(void) ;
-uint8   LED1_ClearInterrupt(void) ;
-
+/**
+* \addtogroup group_general
+* @{
+*/
+void    LED1_Write(uint8 value);
+void    LED1_SetDriveMode(uint8 mode);
+uint8   LED1_ReadDataReg(void);
+uint8   LED1_Read(void);
+void    LED1_SetInterruptMode(uint16 position, uint16 mode);
+uint8   LED1_ClearInterrupt(void);
+/** @} general */
 
 /***************************************
 *           API Constants        
 ***************************************/
-
-/* Drive Modes */
-#define LED1_DM_ALG_HIZ         PIN_DM_ALG_HIZ
-#define LED1_DM_DIG_HIZ         PIN_DM_DIG_HIZ
-#define LED1_DM_RES_UP          PIN_DM_RES_UP
-#define LED1_DM_RES_DWN         PIN_DM_RES_DWN
-#define LED1_DM_OD_LO           PIN_DM_OD_LO
-#define LED1_DM_OD_HI           PIN_DM_OD_HI
-#define LED1_DM_STRONG          PIN_DM_STRONG
-#define LED1_DM_RES_UPDWN       PIN_DM_RES_UPDWN
-
+/**
+* \addtogroup group_constants
+* @{
+*/
+    /** \addtogroup driveMode Drive mode constants
+     * \brief Constants to be passed as "mode" parameter in the LED1_SetDriveMode() function.
+     *  @{
+     */
+        #define LED1_DM_ALG_HIZ         PIN_DM_ALG_HIZ
+        #define LED1_DM_DIG_HIZ         PIN_DM_DIG_HIZ
+        #define LED1_DM_RES_UP          PIN_DM_RES_UP
+        #define LED1_DM_RES_DWN         PIN_DM_RES_DWN
+        #define LED1_DM_OD_LO           PIN_DM_OD_LO
+        #define LED1_DM_OD_HI           PIN_DM_OD_HI
+        #define LED1_DM_STRONG          PIN_DM_STRONG
+        #define LED1_DM_RES_UPDWN       PIN_DM_RES_UPDWN
+    /** @} driveMode */
+/** @} group_constants */
+    
 /* Digital Port Constants */
 #define LED1_MASK               LED1__MASK
 #define LED1_SHIFT              LED1__SHIFT
 #define LED1_WIDTH              1u
+
+/* Interrupt constants */
+#if defined(LED1__INTSTAT)
+/**
+* \addtogroup group_constants
+* @{
+*/
+    /** \addtogroup intrMode Interrupt constants
+     * \brief Constants to be passed as "mode" parameter in LED1_SetInterruptMode() function.
+     *  @{
+     */
+        #define LED1_INTR_NONE      (uint16)(0x0000u)
+        #define LED1_INTR_RISING    (uint16)(0x0001u)
+        #define LED1_INTR_FALLING   (uint16)(0x0002u)
+        #define LED1_INTR_BOTH      (uint16)(0x0003u) 
+    /** @} intrMode */
+/** @} group_constants */
+
+    #define LED1_INTR_MASK      (0x01u) 
+#endif /* (LED1__INTSTAT) */
 
 
 /***************************************
@@ -114,13 +141,21 @@ uint8   LED1_ClearInterrupt(void) ;
 /* Sync Output Enable Registers */
 #define LED1_PRTDSI__SYNC_OUT       (* (reg8 *) LED1__PRTDSI__SYNC_OUT) 
 
+/* SIO registers */
+#if defined(LED1__SIO_CFG)
+    #define LED1_SIO_HYST_EN        (* (reg8 *) LED1__SIO_HYST_EN)
+    #define LED1_SIO_REG_HIFREQ     (* (reg8 *) LED1__SIO_REG_HIFREQ)
+    #define LED1_SIO_CFG            (* (reg8 *) LED1__SIO_CFG)
+    #define LED1_SIO_DIFF           (* (reg8 *) LED1__SIO_DIFF)
+#endif /* (LED1__SIO_CFG) */
 
-#if defined(LED1__INTSTAT)  /* Interrupt Registers */
-
-    #define LED1_INTSTAT                (* (reg8 *) LED1__INTSTAT)
-    #define LED1_SNAP                   (* (reg8 *) LED1__SNAP)
-
-#endif /* Interrupt Registers */
+/* Interrupt Registers */
+#if defined(LED1__INTSTAT)
+    #define LED1_INTSTAT            (* (reg8 *) LED1__INTSTAT)
+    #define LED1_SNAP               (* (reg8 *) LED1__SNAP)
+    
+	#define LED1_0_INTTYPE_REG 		(* (reg8 *) LED1__0__INTTYPE)
+#endif /* (LED1__INTSTAT) */
 
 #endif /* CY_PSOC5A... */
 

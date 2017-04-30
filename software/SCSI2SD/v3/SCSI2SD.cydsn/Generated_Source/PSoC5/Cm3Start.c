@@ -1,12 +1,13 @@
-/*******************************************************************************
-* File Name: Cm3Start.c
-* Version 4.20
+/***************************************************************************//**
+* \file Cm3Start.c
+* \version 5.50
 *
-*  Description:
+*  \brief
 *  Startup code for the ARM CM3.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation. All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -20,6 +21,7 @@
 #include "CyDmac.h"
 #include "cyfitter.h"
 
+
 #define CY_NUM_INTERRUPTS           (32u)
 #define CY_NUM_VECTORS              (CYINT_IRQ_BASE + CY_NUM_INTERRUPTS)
 #define CY_NUM_ROM_VECTORS          (4u)
@@ -28,16 +30,6 @@
 #define CY_NVIC_APINT_PRIGROUP_3_5  (0x00000400u)  /* Priority group 3.5 split */
 #define CY_NVIC_APINT_VECTKEY       (0x05FA0000u)  /* This key is required in order to write the NVIC_APINT register */
 #define CY_NVIC_CFG_STACKALIGN      (0x00000200u)  /* This specifies that the exception stack must be 8 byte aligned */
-
-
-/* Extern functions */
-extern void CyBtldr_CheckLaunch(void);
-
-/* Function prototypes */
-void initialize_psoc(void);
-CY_ISR(IntDefaultHandler);
-void Reset(void);
-CY_ISR(IntDefaultHandler);
 
 #if defined(__ARMCC_VERSION)
     #define INITIAL_STACK_POINTER ((cyisraddress)(uint32)&Image$$ARM_LIB_STACK$$ZI$$Limit)
@@ -57,6 +49,14 @@ CY_ISR(IntDefaultHandler);
     extern int  errno;
     extern int  end;
 #endif  /* defined(__GNUC__) */
+
+/* Extern functions */
+extern void CyBtldr_CheckLaunch(void);
+
+/* Function prototypes */
+void initialize_psoc(void);
+CY_ISR(IntDefaultHandler);
+void Reset(void);
 
 /* Global variables */
 #if !defined (__ICCARM__)
@@ -79,17 +79,10 @@ cyisraddress CyRamVectors[CY_NUM_VECTORS];
 
 /*******************************************************************************
 * Function Name: IntDefaultHandler
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function is called for all interrupts, other than a reset that gets
 *  called before the system is setup.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 * Theory:
 *  Any value other than zero is acceptable.
@@ -97,14 +90,37 @@ cyisraddress CyRamVectors[CY_NUM_VECTORS];
 *******************************************************************************/
 CY_ISR(IntDefaultHandler)
 {
+    /***************************************************************************
+    * We must not get here. If we do, a serious problem occurs, so go into
+    * an infinite loop.
+    ***************************************************************************/
 
-    while(1)
-    {
-        /***********************************************************************
-        * We must not get here. If we do, a serious problem occurs, so go
-        * into an infinite loop.
-        ***********************************************************************/
-    }
+    #if defined(__GNUC__)
+        if (errno == ENOMEM)
+        {
+            #ifdef CY_BOOT_INT_DEFAULT_HANDLER_ENOMEM_EXCEPTION_CALLBACK
+                CyBoot_IntDefaultHandler_Enomem_Exception_Callback();
+            #endif /* CY_BOOT_INT_DEFAULT_HANDLER_ENOMEM_EXCEPTION_CALLBACK */
+            
+            while(1)
+            {
+                /* Out Of Heap Space
+                 * This can be increased in the System tab of the Design Wide Resources.
+                 */
+            }
+        }
+        else
+    #endif
+        {
+            #ifdef CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK
+                CyBoot_IntDefaultHandler_Exception_EntryCallback();
+            #endif /* CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK */
+
+            while(1)
+            {
+
+            }
+        }
 }
 
 
@@ -125,22 +141,15 @@ extern int __main(void);
 
 /*******************************************************************************
 * Function Name: Reset
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function handles the reset interrupt for the RVDS/MDK toolchains.
 *  This is the first bit of code that is executed at startup.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void Reset(void)
 {
-    #if(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE)
+    #if(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
 
         /* For PSoC 5LP, debugging is enabled by default */
         #if(CYDEV_DEBUGGING_ENABLE == 0)
@@ -152,11 +161,11 @@ void Reset(void)
         */
         *(reg32 *)(CYREG_PHUB_CFGMEM23_CFG1) = *(reg32 *)(CYREG_RESET_SR0);
 
-    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE) */
+    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 
-    #if(CYDEV_BOOTLOADER_ENABLE)
+    #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
         CyBtldr_CheckLaunch();
-    #endif /* (CYDEV_BOOTLOADER_ENABLE) */
+    #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)) */
 
     __main();
 }
@@ -164,16 +173,9 @@ void Reset(void)
 
 /*******************************************************************************
 * Function Name: $Sub$$main
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function is called immediately before the users main
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void $Sub$$main(void)
@@ -224,27 +226,19 @@ extern const char __cy_region_num __attribute__((weak));
 
 /*******************************************************************************
 * Function Name: _exit
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Exit a program without cleaning up files. If your system doesn't provide
 *  this, it is best to avoid linking with subroutines that require it (exit,
 *  system).
 *
-* Parameters:
-*  status: Status caused program exit.
-*
-* Return:
-*  None
+*  \param status: Status caused program exit.
 *
 *******************************************************************************/
 __attribute__((weak))
 void _exit(int status)
 {
-    /* Cause divide by 0 exception */
-    int x = status / (int) INT_MAX;
-    x = 4 / x;
-
+    CyHalt((uint8) status);
     while(1)
     {
 
@@ -254,21 +248,16 @@ void _exit(int status)
 
 /*******************************************************************************
 * Function Name: _sbrk
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Increase program data space. As malloc and related functions depend on this,
 *  it is useful to have a working implementation. The following suffices for a
 *  standalone system; it exploits the symbol end automatically defined by the
 *  GNU linker.
 *
-* Parameters:
-*  nbytes: The number of bytes requested (if the parameter value is positive)
+*  \param nbytes: The number of bytes requested (if the parameter value is positive)
 *  from the heap or returned back to the heap (if the parameter value is
 *  negative).
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 __attribute__((weak))
@@ -297,22 +286,15 @@ void * _sbrk (int nbytes)
 
 /*******************************************************************************
 * Function Name: Reset
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function handles the reset interrupt for the GCC toolchain. This is the
 *  first bit of code that is executed at startup.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void Reset(void)
 {
-    #if(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE)
+    #if(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
 
         /* For PSoC 5LP, debugging is enabled by default */
         #if(CYDEV_DEBUGGING_ENABLE == 0)
@@ -324,11 +306,11 @@ void Reset(void)
         */
         *(reg32 *)(CYREG_PHUB_CFGMEM23_CFG1) = *(reg32 *)(CYREG_RESET_SR0);
 
-    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE) */
+    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 
-    #if(CYDEV_BOOTLOADER_ENABLE)
+    #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
         CyBtldr_CheckLaunch();
-    #endif /* (CYDEV_BOOTLOADER_ENABLE) */
+    #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)) */
 
     Start_c();
 }
@@ -336,18 +318,11 @@ void Reset(void)
 
 /*******************************************************************************
 * Function Name: Start_c
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function handles initializing the .data and .bss sections in
 *  preparation for running the standard C code.  Once initialization is complete
 *  it will call main(). This function will never return.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 void Start_c(void)  __attribute__ ((noreturn));
@@ -395,17 +370,13 @@ void Start_c(void)
 
 /*******************************************************************************
 * Function Name: __low_level_init
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function performs early initializations for the IAR Embedded
 *  Workbench IDE. It is executed in the context of a reset interrupt handler
 *  before the data sections are initialized.
 *
-* Parameters:
-*  None
-*
-* Return:
+* \return
 *  The value that determines whether or not data sections should be initialized
 *  by the system startup code:
 *    0 - skip data sections initialization;
@@ -414,7 +385,7 @@ void Start_c(void)
 *******************************************************************************/
 int __low_level_init(void)
 {
-    #if(CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE)
+    #if (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)
 
         /* For PSoC 5LP, debugging is enabled by default */
         #if(CYDEV_DEBUGGING_ENABLE == 0)
@@ -426,11 +397,11 @@ int __low_level_init(void)
         */
         *(reg32 *)(CYREG_PHUB_CFGMEM23_CFG1) = *(reg32 *)(CYREG_RESET_SR0);
 
-    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE) */
+    #endif  /* (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLE && CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER) */
 
-    #if (CYDEV_BOOTLOADER_ENABLE)
+    #if ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER))
         CyBtldr_CheckLaunch();
-    #endif /* CYDEV_BOOTLOADER_ENABLE */
+    #endif /* ((CYDEV_BOOTLOADER_ENABLE) && (CYDEV_PROJ_TYPE != CYDEV_PROJ_TYPE_LOADABLEANDBOOTLOADER)) */
 
     /* Initialize data sections */
     __iar_data_init3();
@@ -478,16 +449,9 @@ int __low_level_init(void)
 
 /*******************************************************************************
 * Function Name: initialize_psoc
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function used to initialize the PSoC chip before calling main.
-*
-* Parameters:
-*  None
-*
-* Return:
-*  None
 *
 *******************************************************************************/
 #if (defined(__GNUC__) && !defined(__ARMCC_VERSION))

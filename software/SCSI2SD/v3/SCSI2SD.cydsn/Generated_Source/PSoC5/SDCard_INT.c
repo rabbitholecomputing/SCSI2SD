@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: SDCard_INT.c
-* Version 2.40
+* Version 2.50
 *
 * Description:
 *  This file provides all Interrupt Service Routine (ISR) for the SPI Master
@@ -10,13 +10,14 @@
 *  None.
 *
 ********************************************************************************
-* Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
 #include "SDCard_PVT.h"
+
 
 /* User code required at start of ISR */
 /* `#START SDCard_ISR_START_DEF` */
@@ -54,11 +55,15 @@ CY_ISR(SDCard_TX_ISR)
         uint8 tmpStatus;
     #endif /* (SDCard_TX_SOFTWARE_BUF_ENABLED) */
 
+    #ifdef SDCard_TX_ISR_ENTRY_CALLBACK
+        SDCard_TX_ISR_EntryCallback();
+    #endif /* SDCard_TX_ISR_ENTRY_CALLBACK */
+
     /* User code required at start of ISR */
     /* `#START SDCard_TX_ISR_START` */
 
     /* `#END` */
-
+    
     #if(SDCard_TX_SOFTWARE_BUF_ENABLED)
         /* Check if TX data buffer is not empty and there is space in TX FIFO */
         while(SDCard_txBufferRead != SDCard_txBufferWrite)
@@ -82,9 +87,9 @@ CY_ISR(SDCard_TX_ISR)
                     SDCard_txBufferFull = 0u;
                 }
 
-                /* Move data from the Buffer to the FIFO */
-                CY_SET_REG8(SDCard_TXDATA_PTR,
-                    SDCard_txBuffer[SDCard_txBufferRead]);
+                /* Put data element into the TX FIFO */
+                CY_SET_REG8(SDCard_TXDATA_PTR, 
+                                             SDCard_txBuffer[SDCard_txBufferRead]);
             }
             else
             {
@@ -104,6 +109,10 @@ CY_ISR(SDCard_TX_ISR)
     /* `#START SDCard_TX_ISR_END` */
 
     /* `#END` */
+    
+    #ifdef SDCard_TX_ISR_EXIT_CALLBACK
+        SDCard_TX_ISR_ExitCallback();
+    #endif /* SDCard_TX_ISR_EXIT_CALLBACK */
 }
 
 
@@ -138,11 +147,15 @@ CY_ISR(SDCard_RX_ISR)
         uint8 rxData;
     #endif /* (SDCard_RX_SOFTWARE_BUF_ENABLED) */
 
+    #ifdef SDCard_RX_ISR_ENTRY_CALLBACK
+        SDCard_RX_ISR_EntryCallback();
+    #endif /* SDCard_RX_ISR_ENTRY_CALLBACK */
+
     /* User code required at start of ISR */
     /* `#START SDCard_RX_ISR_START` */
 
     /* `#END` */
-
+    
     #if(SDCard_RX_SOFTWARE_BUF_ENABLED)
 
         tmpStatus = SDCard_GET_STATUS_RX(SDCard_swStatusRx);
@@ -184,6 +197,10 @@ CY_ISR(SDCard_RX_ISR)
     /* `#START SDCard_RX_ISR_END` */
 
     /* `#END` */
+    
+    #ifdef SDCard_RX_ISR_EXIT_CALLBACK
+        SDCard_RX_ISR_ExitCallback();
+    #endif /* SDCard_RX_ISR_EXIT_CALLBACK */
 }
 
 /* [] END OF FILE */

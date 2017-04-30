@@ -1,17 +1,16 @@
-/*******************************************************************************
-* File Name: cypins.h
-* Version 4.20
+/***************************************************************************//**
+* \file cypins.h
+* \version 5.50
 *
-*  Description:
-*   This file contains the function prototypes and constants used for a port/pin
-*   in access and control.
+* \brief This file contains the function prototypes and constants used for a
+* port/pin in access and control.
 *
-*  Note:
-*   Documentation of the API's in this file is located in the
-*   System Reference Guide provided with PSoC Creator.
+* \note Documentation of the API's in this file is located in the
+* System Reference Guide provided with PSoC Creator.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -71,20 +70,18 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_ReadPin
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Reads the current value on the pin (pin state, PS).
 *
-* Parameters:
-*   pinPC: Port pin configuration register (uint16).
+*   \param pinPC: Port pin configuration register (uint16).
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
 *
-* Return:
+* \return
 *   Pin state
 *    0: Logic low value
 *    Non-0: Logic high value
@@ -95,9 +92,8 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_SetPin
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Set the output value for the pin (data register, DR) to a logic high.
 *
 *  Note that this only has an effect for pins configured as software pins that
@@ -110,16 +106,12 @@
 *  interrupt is disabled or within critical section (all interrupts are
 *  disabled).
 *
-* Parameters:
-*   pinPC: Port pin configuration register (uint16).
+*   \param pinPC: Port pin configuration register (uint16).
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
-*
-* Return:
-*   None
 *
 *******************************************************************************/
 #define CyPins_SetPin(pinPC)     ( *(reg8 *)(pinPC) |= CY_PINS_PC_DATAOUT)
@@ -127,9 +119,8 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_ClearPin
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This macro sets the state of the specified pin to 0.
 *
 *  The macro operation is not atomic. It is not guaranteed that shared register
@@ -139,16 +130,12 @@
 *  interrupt is disabled or within critical section (all interrupts are
 *  disabled).
 *
-* Parameters:
-*   pinPC: address of a Pin Configuration register.
+*   \param pinPC: address of a Pin Configuration register.
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
-*
-* Return:
-*   None
 *
 *******************************************************************************/
 #define CyPins_ClearPin(pinPC)   ( *(reg8 *)(pinPC) &= ((uint8)(~CY_PINS_PC_DATAOUT)))
@@ -156,9 +143,8 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_SetPinDriveMode
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Sets the drive mode for the pin (DM).
 *
 *  The macro operation is not atomic. It is not guaranteed that shared register
@@ -168,15 +154,14 @@
 *  interrupt is disabled or within critical section (all interrupts are
 *  disabled).
 *
-* Parameters:
-*   pinPC: Port pin configuration register (uint16)
+*   \param pinPC: Port pin configuration register (uint16)
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
 *
-*   mode: Desired drive mode
+*   \param mode: Desired drive mode
 *
 *   Define                Source
 *   PIN_DM_ALG_HIZ        Analog HiZ
@@ -188,9 +173,6 @@
 *   PIN_DM_STRONG        Strong CMOS Output
 *   PIN_DM_RES_UPDWN    Resistive pull up/down
 *
-* Return:
-*   None
-*
 *******************************************************************************/
 #define CyPins_SetPinDriveMode(pinPC, mode) \
             ( *(reg8 *)(pinPC) = (*(reg8 *)(pinPC) & ((uint8)(~CY_PINS_PC_DRIVE_MODE_MASK))) | \
@@ -199,21 +181,19 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_ReadPinDriveMode
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Reads the drive mode for the pin (DM).
 *
-* Parameters:
-*   pinPC: Port pin configuration register (uint16)
+*   \param pinPC: Port pin configuration register (uint16)
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
 *
 *
-* Return:
+* \return
 *   mode:  The current drive mode for the pin
 *
 *   Define                Source
@@ -232,9 +212,8 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_FastSlew
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Set the slew rate for the pin to fast the edge rate.
 *  Note that this only applies for pins in strong output drive modes,
 *  not to resistive drive modes.
@@ -246,17 +225,13 @@
 *  interrupt is disabled or within critical section (all interrupts are
 *  disabled).
 *
-* Parameters:
-*   pinPC: address of a Pin Configuration register.
+*   \param pinPC: address of a Pin Configuration register.
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
 *
-*
-* Return:
-*   None
 *
 *******************************************************************************/
 #define CyPins_FastSlew(pinPC)      (*(reg8 *)(pinPC) = (*(reg8 *)(pinPC) & CY_PINS_PC_PIN_FASTSLEW))
@@ -264,9 +239,8 @@
 
 /*******************************************************************************
 * Macro Name: CyPins_SlowSlew
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Set the slew rate for the pin to slow the edge rate.
 *  Note that this only applies for pins in strong output drive modes,
 *  not to resistive drive modes.
@@ -278,16 +252,12 @@
 *  interrupt is disabled or within critical section (all interrupts are
 *  disabled).
 *
-* Parameters:
-*   pinPC: address of a Pin Configuration register.
+*   \param pinPC: address of a Pin Configuration register.
 *   #defines for each pin on a chip are provided in the cydevice_trm.h file
-*   in the form:
+*   \param in the form:
 *       CYREG_PRTx_PCy
 *
 *   where x is a port number 0 - 15 and y is a pin number 0 - 7
-*
-* Return:
-*   None
 *
 *******************************************************************************/
 #define CyPins_SlowSlew(pinPC)      (*(reg8 *)(pinPC) = (*(reg8 *)(pinPC) | CY_PINS_PC_PIN_SLOWSLEW))

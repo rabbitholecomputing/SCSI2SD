@@ -1,87 +1,83 @@
-/*******************************************************************************
-* File Name: USBFS_std.c
-* Version 2.80
+/***************************************************************************//**
+* \file USBFS_std.c
+* \version 3.10
 *
-* Description:
-*  USB Standard request handler.
-*
-* Note:
+* \brief
+*  This file contains the USB Standard request handler.
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* \copyright
+* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "USBFS.h"
-#include "USBFS_cdc.h"
 #include "USBFS_pvt.h"
-#if defined(USBFS_ENABLE_MIDI_STREAMING)
-    #include "USBFS_midi.h"
-#endif /*  USBFS_ENABLE_MIDI_STREAMING*/
-
 
 /***************************************
 *   Static data allocation
 ***************************************/
 
 #if defined(USBFS_ENABLE_FWSN_STRING)
-    static volatile uint8 *USBFS_fwSerialNumberStringDescriptor;
-    static volatile uint8 USBFS_snStringConfirm = USBFS_FALSE;
-#endif  /* USBFS_ENABLE_FWSN_STRING */
+    static volatile uint8* USBFS_fwSerialNumberStringDescriptor;
+    static volatile uint8  USBFS_snStringConfirm = USBFS_FALSE;
+#endif  /* (USBFS_ENABLE_FWSN_STRING) */
 
 #if defined(USBFS_ENABLE_FWSN_STRING)
-
-    /*******************************************************************************
+    /***************************************************************************
     * Function Name: USBFS_SerialNumString
-    ********************************************************************************
+    ************************************************************************//**
     *
-    * Summary:
-    *  Application firmware may supply the source of the USB device descriptors
-    *  serial number string during runtime.
+    *  This function is available only when the User Call Back option in the 
+    *  Serial Number String descriptor properties is selected. Application 
+    *  firmware can provide the source of the USB device serial number string 
+    *  descriptor during run time. The default string is used if the application 
+    *  firmware does not use this function or sets the wrong string descriptor.
     *
-    * Parameters:
-    *  snString:  pointer to string.
+    *  \param snString:  Pointer to the user-defined string descriptor. The 
+    *  string descriptor should meet the Universal Serial Bus Specification 
+    *  revision 2.0 chapter 9.6.7
+    *  Offset|Size|Value|Description
+    *  ------|----|------|---------------------------------
+    *  0     |1   |N     |Size of this descriptor in bytes
+    *  1     |1   |0x03  |STRING Descriptor Type
+    *  2     |N-2 |Number|UNICODE encoded string
+    *  
+    * *For example:* uint8 snString[16]={0x0E,0x03,'F',0,'W',0,'S',0,'N',0,'0',0,'1',0};
     *
-    * Return:
-    *  None.
-    *
-    * Reentrant:
+    * \reentrant
     *  No.
     *
-    *******************************************************************************/
+    ***************************************************************************/
     void  USBFS_SerialNumString(uint8 snString[]) 
     {
         USBFS_snStringConfirm = USBFS_FALSE;
-        if(snString != NULL)
+        
+        if (snString != NULL)
         {
             /* Check descriptor validation */
-            if( (snString[0u] > 1u ) && (snString[1u] == USBFS_DESCR_STRING) )
+            if ((snString[0u] > 1u) && (snString[1u] == USBFS_DESCR_STRING))
             {
                 USBFS_fwSerialNumberStringDescriptor = snString;
                 USBFS_snStringConfirm = USBFS_TRUE;
             }
         }
     }
-
 #endif  /* USBFS_ENABLE_FWSN_STRING */
 
 
 /*******************************************************************************
 * Function Name: USBFS_HandleStandardRqst
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This Routine dispatches standard requests
 *
-* Parameters:
-*  None.
 *
-* Return:
+* \return
 *  TRUE if request handled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
@@ -90,90 +86,116 @@ uint8 USBFS_HandleStandardRqst(void)
     uint8 requestHandled = USBFS_FALSE;
     uint8 interfaceNumber;
     uint8 configurationN;
-    #if defined(USBFS_ENABLE_STRINGS)
-        volatile uint8 *pStr = 0u;
-        #if defined(USBFS_ENABLE_DESCRIPTOR_STRINGS)
-            uint8 nStr;
-            uint8 descrLength;
-        #endif /* USBFS_ENABLE_DESCRIPTOR_STRINGS */
-    #endif /* USBFS_ENABLE_STRINGS */
+    uint8 bmRequestType = USBFS_bmRequestTypeReg;
+
+#if defined(USBFS_ENABLE_STRINGS)
+    volatile uint8 *pStr = 0u;
+    #if defined(USBFS_ENABLE_DESCRIPTOR_STRINGS)
+        uint8 nStr;
+        uint8 descrLength;
+    #endif /* (USBFS_ENABLE_DESCRIPTOR_STRINGS) */
+#endif /* (USBFS_ENABLE_STRINGS) */
+    
     static volatile uint8 USBFS_tBuffer[USBFS_STATUS_LENGTH_MAX];
     const T_USBFS_LUT CYCODE *pTmp;
+
     USBFS_currentTD.count = 0u;
 
-    if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+    if (USBFS_RQST_DIR_D2H == (bmRequestType & USBFS_RQST_DIR_MASK))
     {
         /* Control Read */
-        switch (CY_GET_REG8(USBFS_bRequest))
+        switch (USBFS_bRequestReg)
         {
             case USBFS_GET_DESCRIPTOR:
-                if (CY_GET_REG8(USBFS_wValueHi) == USBFS_DESCR_DEVICE)
+                if (USBFS_DESCR_DEVICE ==USBFS_wValueHiReg)
                 {
                     pTmp = USBFS_GetDeviceTablePtr();
                     USBFS_currentTD.pData = (volatile uint8 *)pTmp->p_list;
                     USBFS_currentTD.count = USBFS_DEVICE_DESCR_LENGTH;
+                    
                     requestHandled  = USBFS_InitControlRead();
                 }
-                else if (CY_GET_REG8(USBFS_wValueHi) == USBFS_DESCR_CONFIG)
+                else if (USBFS_DESCR_CONFIG == USBFS_wValueHiReg)
                 {
-                    pTmp = USBFS_GetConfigTablePtr(CY_GET_REG8(USBFS_wValueLo));
-                    if( pTmp != NULL )  /* Verify that requested descriptor exists */
+                    pTmp = USBFS_GetConfigTablePtr((uint8) USBFS_wValueLoReg);
+                    
+                    /* Verify that requested descriptor exists */
+                    if (pTmp != NULL)
                     {
                         USBFS_currentTD.pData = (volatile uint8 *)pTmp->p_list;
-                        USBFS_currentTD.count = ((uint16)(USBFS_currentTD.pData)[ \
-                                          USBFS_CONFIG_DESCR_TOTAL_LENGTH_HI] << 8u) | \
-                                         (USBFS_currentTD.pData)[USBFS_CONFIG_DESCR_TOTAL_LENGTH_LOW];
+                        USBFS_currentTD.count = (uint16)((uint16)(USBFS_currentTD.pData)[USBFS_CONFIG_DESCR_TOTAL_LENGTH_HI] << 8u) | \
+                                                                            (USBFS_currentTD.pData)[USBFS_CONFIG_DESCR_TOTAL_LENGTH_LOW];
                         requestHandled  = USBFS_InitControlRead();
                     }
                 }
-                #if defined(USBFS_ENABLE_STRINGS)
-                else if (CY_GET_REG8(USBFS_wValueHi) == USBFS_DESCR_STRING)
+                
+            #if(USBFS_BOS_ENABLE)
+                else if (USBFS_DESCR_BOS == USBFS_wValueHiReg)
                 {
-                    /* Descriptor Strings*/
-                    #if defined(USBFS_ENABLE_DESCRIPTOR_STRINGS)
-                        nStr = 0u;
-                        pStr = (volatile uint8 *)&USBFS_STRING_DESCRIPTORS[0u];
-                        while ( (CY_GET_REG8(USBFS_wValueLo) > nStr) && (*pStr != 0u) )
+                    pTmp = USBFS_GetBOSPtr();
+                    
+                    /* Verify that requested descriptor exists */
+                    if (pTmp != NULL)
+                    {
+                        USBFS_currentTD.pData = (volatile uint8 *)pTmp;
+                        USBFS_currentTD.count = ((uint16)((uint16)(USBFS_currentTD.pData)[USBFS_BOS_DESCR_TOTAL_LENGTH_HI] << 8u)) | \
+                                                                             (USBFS_currentTD.pData)[USBFS_BOS_DESCR_TOTAL_LENGTH_LOW];
+                        requestHandled  = USBFS_InitControlRead();
+                    }
+                }
+            #endif /*(USBFS_BOS_ENABLE)*/
+            
+            #if defined(USBFS_ENABLE_STRINGS)
+                else if (USBFS_DESCR_STRING == USBFS_wValueHiReg)
+                {
+                /* Descriptor Strings */
+                #if defined(USBFS_ENABLE_DESCRIPTOR_STRINGS)
+                    nStr = 0u;
+                    pStr = (volatile uint8 *) &USBFS_STRING_DESCRIPTORS[0u];
+                    
+                    while ((USBFS_wValueLoReg > nStr) && (*pStr != 0u))
+                    {
+                        /* Read descriptor length from 1st byte */
+                        descrLength = *pStr;
+                        /* Move to next string descriptor */
+                        pStr = &pStr[descrLength];
+                        nStr++;
+                    }
+                #endif /* (USBFS_ENABLE_DESCRIPTOR_STRINGS) */
+                
+                /* Microsoft OS String */
+                #if defined(USBFS_ENABLE_MSOS_STRING)
+                    if (USBFS_STRING_MSOS == USBFS_wValueLoReg)
+                    {
+                        pStr = (volatile uint8 *)& USBFS_MSOS_DESCRIPTOR[0u];
+                    }
+                #endif /* (USBFS_ENABLE_MSOS_STRING) */
+                
+                /* SN string */
+                #if defined(USBFS_ENABLE_SN_STRING)
+                    if ((USBFS_wValueLoReg != 0u) && 
+                        (USBFS_wValueLoReg == USBFS_DEVICE0_DESCR[USBFS_DEVICE_DESCR_SN_SHIFT]))
+                    {
+                    #if defined(USBFS_ENABLE_IDSN_STRING)
+                        /* Read DIE ID and generate string descriptor in RAM */
+                        USBFS_ReadDieID(USBFS_idSerialNumberStringDescriptor);
+                        pStr = USBFS_idSerialNumberStringDescriptor;
+                    #elif defined(USBFS_ENABLE_FWSN_STRING)
+                        
+                        if(USBFS_snStringConfirm != USBFS_FALSE)
                         {
-                            /* Read descriptor length from 1st byte */
-                            descrLength = *pStr;
-                            /* Move to next string descriptor */
-                            pStr = &pStr[descrLength];
-                            nStr++;
+                            pStr = USBFS_fwSerialNumberStringDescriptor;
                         }
-                    #endif /*  USBFS_ENABLE_DESCRIPTOR_STRINGS */
-                    /* Microsoft OS String*/
-                    #if defined(USBFS_ENABLE_MSOS_STRING)
-                        if( CY_GET_REG8(USBFS_wValueLo) == USBFS_STRING_MSOS )
+                        else
                         {
-                            pStr = (volatile uint8 *)&USBFS_MSOS_DESCRIPTOR[0u];
+                            pStr = (volatile uint8 *)&USBFS_SN_STRING_DESCRIPTOR[0u];
                         }
-                    #endif /*  USBFS_ENABLE_MSOS_STRING*/
-                    /* SN string */
-                    #if defined(USBFS_ENABLE_SN_STRING)
-                        if( (CY_GET_REG8(USBFS_wValueLo) != 0u) &&
-                            (CY_GET_REG8(USBFS_wValueLo) ==
-                            USBFS_DEVICE0_DESCR[USBFS_DEVICE_DESCR_SN_SHIFT]) )
-                        {
-
-                            #if defined(USBFS_ENABLE_IDSN_STRING)
-                                /* Read DIE ID and generate string descriptor in RAM */
-                                USBFS_ReadDieID(USBFS_idSerialNumberStringDescriptor);
-                                pStr = USBFS_idSerialNumberStringDescriptor;
-                            #elif defined(USBFS_ENABLE_FWSN_STRING)
-                                if(USBFS_snStringConfirm != USBFS_FALSE)
-                                {
-                                    pStr = USBFS_fwSerialNumberStringDescriptor;
-                                }
-                                else
-                                {
-                                    pStr = (volatile uint8 *)&USBFS_SN_STRING_DESCRIPTOR[0u];
-                                }
-                            #else
-                                pStr = (volatile uint8 *)&USBFS_SN_STRING_DESCRIPTOR[0u];
-                            #endif  /* defined(USBFS_ENABLE_IDSN_STRING) */
-                        }
-                    #endif    /*  USBFS_ENABLE_SN_STRING */
+                    #else
+                        pStr = (volatile uint8 *)&USBFS_SN_STRING_DESCRIPTOR[0u];
+                    #endif  /* (USBFS_ENABLE_IDSN_STRING) */
+                    }
+                #endif /* (USBFS_ENABLE_SN_STRING) */
+                
                     if (*pStr != 0u)
                     {
                         USBFS_currentTD.count = *pStr;
@@ -181,106 +203,123 @@ uint8 USBFS_HandleStandardRqst(void)
                         requestHandled  = USBFS_InitControlRead();
                     }
                 }
-                #endif /*  USBFS_ENABLE_STRINGS */
+            #endif /*  USBFS_ENABLE_STRINGS */
                 else
                 {
                     requestHandled = USBFS_DispatchClassRqst();
                 }
                 break;
+                
             case USBFS_GET_STATUS:
-                switch ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_RCPT_MASK))
+                switch (bmRequestType & USBFS_RQST_RCPT_MASK)
                 {
                     case USBFS_RQST_RCPT_EP:
                         USBFS_currentTD.count = USBFS_EP_STATUS_LENGTH;
-                        USBFS_tBuffer[0u] = USBFS_EP[ \
-                                        CY_GET_REG8(USBFS_wIndexLo) & USBFS_DIR_UNUSED].hwEpState;
-                        USBFS_tBuffer[1u] = 0u;
+                        USBFS_tBuffer[0u]     = USBFS_EP[USBFS_wIndexLoReg & USBFS_DIR_UNUSED].hwEpState;
+                        USBFS_tBuffer[1u]     = 0u;
                         USBFS_currentTD.pData = &USBFS_tBuffer[0u];
+                        
                         requestHandled  = USBFS_InitControlRead();
                         break;
                     case USBFS_RQST_RCPT_DEV:
                         USBFS_currentTD.count = USBFS_DEVICE_STATUS_LENGTH;
-                        USBFS_tBuffer[0u] = USBFS_deviceStatus;
-                        USBFS_tBuffer[1u] = 0u;
+                        USBFS_tBuffer[0u]     = USBFS_deviceStatus;
+                        USBFS_tBuffer[1u]     = 0u;
                         USBFS_currentTD.pData = &USBFS_tBuffer[0u];
+                        
                         requestHandled  = USBFS_InitControlRead();
                         break;
                     default:    /* requestHandled is initialized as FALSE by default */
                         break;
                 }
                 break;
+                
             case USBFS_GET_CONFIGURATION:
                 USBFS_currentTD.count = 1u;
-                USBFS_currentTD.pData = (volatile uint8 *)&USBFS_configuration;
+                USBFS_currentTD.pData = (volatile uint8 *) &USBFS_configuration;
                 requestHandled  = USBFS_InitControlRead();
                 break;
+                
             case USBFS_GET_INTERFACE:
                 USBFS_currentTD.count = 1u;
-                USBFS_currentTD.pData = (volatile uint8 *)&USBFS_interfaceSetting[ \
-                                                                            CY_GET_REG8(USBFS_wIndexLo)];
+                USBFS_currentTD.pData = (volatile uint8 *) &USBFS_interfaceSetting[USBFS_wIndexLoReg];
                 requestHandled  = USBFS_InitControlRead();
                 break;
+                
             default: /* requestHandled is initialized as FALSE by default */
                 break;
         }
     }
-    else {
+    else
+    {
         /* Control Write */
-        switch (CY_GET_REG8(USBFS_bRequest))
+        switch (USBFS_bRequestReg)
         {
             case USBFS_SET_ADDRESS:
-                USBFS_deviceAddress = CY_GET_REG8(USBFS_wValueLo);
+                /* Store address to be set in USBFS_NoDataControlStatusStage(). */
+                USBFS_deviceAddress = (uint8) USBFS_wValueLoReg;
                 requestHandled = USBFS_InitNoDataControlTransfer();
                 break;
+                
             case USBFS_SET_CONFIGURATION:
-                configurationN = CY_GET_REG8(USBFS_wValueLo);
+                configurationN = USBFS_wValueLoReg;
+                
+                /* Verify that configuration descriptor exists */
                 if(configurationN > 0u)
-                {   /* Verify that configuration descriptor exists */
-                    pTmp = USBFS_GetConfigTablePtr(configurationN - 1u);
+                {
+                    pTmp = USBFS_GetConfigTablePtr((uint8) configurationN - 1u);
                 }
+                
                 /* Responds with a Request Error when configuration number is invalid */
                 if (((configurationN > 0u) && (pTmp != NULL)) || (configurationN == 0u))
                 {
                     /* Set new configuration if it has been changed */
                     if(configurationN != USBFS_configuration)
                     {
-                        USBFS_configuration = configurationN;
+                        USBFS_configuration = (uint8) configurationN;
                         USBFS_configurationChanged = USBFS_TRUE;
                         USBFS_Config(USBFS_TRUE);
                     }
                     requestHandled = USBFS_InitNoDataControlTransfer();
                 }
                 break;
+                
             case USBFS_SET_INTERFACE:
-                if (USBFS_ValidateAlternateSetting() != 0u)
+                if (0u != USBFS_ValidateAlternateSetting())
                 {
-                    interfaceNumber = CY_GET_REG8(USBFS_wIndexLo);
-                    USBFS_interfaceNumber = interfaceNumber;
-                    USBFS_configurationChanged = USBFS_TRUE;
-                    #if ((USBFS_EP_MA == USBFS__MA_DYNAMIC) && \
-                         (USBFS_EP_MM == USBFS__EP_MANUAL) )
+                    /* Get interface number from the request. */
+                    interfaceNumber = USBFS_wIndexLoReg;
+                    USBFS_interfaceNumber = (uint8) USBFS_wIndexLoReg;
+                     
+                    /* Check if alternate settings is changed for interface. */
+                    if (USBFS_interfaceSettingLast[interfaceNumber] != USBFS_interfaceSetting[interfaceNumber])
+                    {
+                        USBFS_configurationChanged = USBFS_TRUE;
+                    
+                        /* Change alternate setting for the endpoints. */
+                    #if (USBFS_EP_MANAGEMENT_MANUAL && USBFS_EP_ALLOC_DYNAMIC)
                         USBFS_Config(USBFS_FALSE);
                     #else
                         USBFS_ConfigAltChanged();
-                    #endif /*  (USBFS_EP_MA == USBFS__MA_DYNAMIC) */
-                    /* Update handled Alt setting changes status */
-                    USBFS_interfaceSetting_last[interfaceNumber] =
-                         USBFS_interfaceSetting[interfaceNumber];
+                    #endif /* (USBFS_EP_MANAGEMENT_MANUAL && USBFS_EP_ALLOC_DYNAMIC) */
+                    }
+                    
                     requestHandled = USBFS_InitNoDataControlTransfer();
                 }
                 break;
+                
             case USBFS_CLEAR_FEATURE:
-                switch (CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_RCPT_MASK)
+                switch (bmRequestType & USBFS_RQST_RCPT_MASK)
                 {
                     case USBFS_RQST_RCPT_EP:
-                        if (CY_GET_REG8(USBFS_wValueLo) == USBFS_ENDPOINT_HALT)
+                        if (USBFS_wValueLoReg == USBFS_ENDPOINT_HALT)
                         {
                             requestHandled = USBFS_ClearEndpointHalt();
                         }
                         break;
                     case USBFS_RQST_RCPT_DEV:
                         /* Clear device REMOTE_WAKEUP */
-                        if (CY_GET_REG8(USBFS_wValueLo) == USBFS_DEVICE_REMOTE_WAKEUP)
+                        if (USBFS_wValueLoReg == USBFS_DEVICE_REMOTE_WAKEUP)
                         {
                             USBFS_deviceStatus &= (uint8)~USBFS_DEVICE_STATUS_REMOTE_WAKEUP;
                             requestHandled = USBFS_InitNoDataControlTransfer();
@@ -288,10 +327,9 @@ uint8 USBFS_HandleStandardRqst(void)
                         break;
                     case USBFS_RQST_RCPT_IFC:
                         /* Validate interfaceNumber */
-                        if (CY_GET_REG8(USBFS_wIndexLo) < USBFS_MAX_INTERFACES_NUMBER)
+                        if (USBFS_wIndexLoReg < USBFS_MAX_INTERFACES_NUMBER)
                         {
-                            USBFS_interfaceStatus[CY_GET_REG8(USBFS_wIndexLo)] &=
-                                                                (uint8)~(CY_GET_REG8(USBFS_wValueLo));
+                            USBFS_interfaceStatus[USBFS_wIndexLoReg] &= (uint8) ~USBFS_wValueLoReg;
                             requestHandled = USBFS_InitNoDataControlTransfer();
                         }
                         break;
@@ -299,396 +337,422 @@ uint8 USBFS_HandleStandardRqst(void)
                         break;
                 }
                 break;
+                
             case USBFS_SET_FEATURE:
-                switch (CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_RCPT_MASK)
+                switch (bmRequestType & USBFS_RQST_RCPT_MASK)
                 {
                     case USBFS_RQST_RCPT_EP:
-                        if (CY_GET_REG8(USBFS_wValueLo) == USBFS_ENDPOINT_HALT)
+                        if (USBFS_wValueLoReg == USBFS_ENDPOINT_HALT)
                         {
                             requestHandled = USBFS_SetEndpointHalt();
                         }
                         break;
+                        
                     case USBFS_RQST_RCPT_DEV:
                         /* Set device REMOTE_WAKEUP */
-                        if (CY_GET_REG8(USBFS_wValueLo) == USBFS_DEVICE_REMOTE_WAKEUP)
+                        if (USBFS_wValueLoReg == USBFS_DEVICE_REMOTE_WAKEUP)
                         {
                             USBFS_deviceStatus |= USBFS_DEVICE_STATUS_REMOTE_WAKEUP;
                             requestHandled = USBFS_InitNoDataControlTransfer();
                         }
                         break;
+                        
                     case USBFS_RQST_RCPT_IFC:
                         /* Validate interfaceNumber */
-                        if (CY_GET_REG8(USBFS_wIndexLo) < USBFS_MAX_INTERFACES_NUMBER)
+                        if (USBFS_wIndexLoReg < USBFS_MAX_INTERFACES_NUMBER)
                         {
-                            USBFS_interfaceStatus[CY_GET_REG8(USBFS_wIndexLo)] &=
-                                                                (uint8)~(CY_GET_REG8(USBFS_wValueLo));
+                            USBFS_interfaceStatus[USBFS_wIndexLoReg] &= (uint8) ~USBFS_wValueLoReg;
                             requestHandled = USBFS_InitNoDataControlTransfer();
                         }
                         break;
+                    
                     default:    /* requestHandled is initialized as FALSE by default */
                         break;
                 }
                 break;
+                
             default:    /* requestHandled is initialized as FALSE by default */
                 break;
         }
     }
-    return(requestHandled);
+    
+    return (requestHandled);
 }
 
 
 #if defined(USBFS_ENABLE_IDSN_STRING)
-
     /***************************************************************************
     * Function Name: USBFS_ReadDieID
-    ****************************************************************************
+    ************************************************************************//**
     *
-    * Summary:
     *  This routine read Die ID and generate Serial Number string descriptor.
     *
-    * Parameters:
-    *  descr:  pointer on string descriptor.
+    *  \param descr:  pointer on string descriptor. This string size has to be equal or
+    *          greater than USBFS_IDSN_DESCR_LENGTH.
     *
-    * Return:
-    *  None.
     *
-    * Reentrant:
+    * \reentrant
     *  No.
     *
     ***************************************************************************/
     void USBFS_ReadDieID(uint8 descr[]) 
     {
+        const char8 CYCODE hex[] = "0123456789ABCDEF";
         uint8 i;
         uint8 j = 0u;
-        uint8 value;
-        const char8 CYCODE hex[16u] = "0123456789ABCDEF";
+        uint8 uniqueId[8u];
 
-        /* Check descriptor validation */
-        if( descr != NULL)
+        if (NULL != descr)
         {
+            /* Initialize descriptor header. */
             descr[0u] = USBFS_IDSN_DESCR_LENGTH;
             descr[1u] = USBFS_DESCR_STRING;
+            
+            /* Unique ID size is 8 bytes. */
+            CyGetUniqueId((uint32 *) uniqueId);
 
-            /* fill descriptor */
-            for(i = 2u; i < USBFS_IDSN_DESCR_LENGTH; i += 4u)
+            /* Fill descriptor with unique device ID. */
+            for (i = 2u; i < USBFS_IDSN_DESCR_LENGTH; i += 4u)
             {
-                value = CY_GET_XTND_REG8((void CYFAR *)(USBFS_DIE_ID + j));
-                j++;
-                descr[i] = (uint8)hex[value >> 4u];
-                descr[i + 2u] = (uint8)hex[value & 0x0Fu];
+                descr[i]      = (uint8) hex[(uniqueId[j] >> 4u)];
+                descr[i + 1u] = 0u;
+                descr[i + 2u] = (uint8) hex[(uniqueId[j] & 0x0Fu)];
+                descr[i + 3u] = 0u;
+                ++j;
             }
         }
     }
-
-#endif /*  USBFS_ENABLE_IDSN_STRING */
+#endif /* (USBFS_ENABLE_IDSN_STRING) */
 
 
 /*******************************************************************************
 * Function Name: USBFS_ConfigReg
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine configures hardware registers from the variables.
 *  It is called from USBFS_Config() function and from RestoreConfig
 *  after Wakeup.
-*
-* Parameters:
-*  None.
-*
-* Return:
-*  None.
 *
 *******************************************************************************/
 void USBFS_ConfigReg(void) 
 {
     uint8 ep;
-    uint8 i;
-    #if(USBFS_EP_MM == USBFS__EP_DMAAUTO)
-        uint8 epType = 0u;
-    #endif /*  USBFS_EP_MM == USBFS__EP_DMAAUTO */
 
-    /* Set the endpoint buffer addresses */
-    ep = USBFS_EP1;
-    for (i = 0u; i < 0x80u; i+= 0x10u)
+#if (USBFS_EP_MANAGEMENT_DMA_AUTO)
+    uint8 epType = 0u;
+#endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO) */
+
+    /* Go thought all endpoints and set hardware configuration */
+    for (ep = USBFS_EP1; ep < USBFS_MAX_EP; ++ep)
     {
-        CY_SET_REG8((reg8 *)(USBFS_ARB_EP1_CFG_IND + i), USBFS_ARB_EPX_CFG_DEFAULT);
-        #if(USBFS_EP_MM != USBFS__EP_MANUAL)
-            /* Enable all Arbiter EP Interrupts : err, buf under, buf over, dma gnt(mode2 only), in buf full */
-            CY_SET_REG8((reg8 *)(USBFS_ARB_EP1_INT_EN_IND + i), USBFS_ARB_EPX_INT_MASK);
-        #endif   /*  USBFS_EP_MM != USBFS__EP_MANUAL */
-
-        if(USBFS_EP[ep].epMode != USBFS_MODE_DISABLE)
+        USBFS_ARB_EP_BASE.arbEp[ep].epCfg = USBFS_ARB_EPX_CFG_DEFAULT;
+        
+    #if (USBFS_EP_MANAGEMENT_DMA)
+        /* Enable arbiter endpoint interrupt sources */
+        USBFS_ARB_EP_BASE.arbEp[ep].epIntEn = USBFS_ARB_EPX_INT_MASK;
+    #endif /* (USBFS_EP_MANAGEMENT_DMA) */
+    
+        if (USBFS_EP[ep].epMode != USBFS_MODE_DISABLE)
         {
-            if((USBFS_EP[ep].addr & USBFS_DIR_IN) != 0u )
+            if (0u != (USBFS_EP[ep].addr & USBFS_DIR_IN))
             {
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + i), USBFS_MODE_NAK_IN);
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_NAK_IN;
+                
+            #if (USBFS_EP_MANAGEMENT_DMA_AUTO && CY_PSOC4)
+                /* Clear DMA_TERMIN for IN endpoint. */
+                USBFS_ARB_EP_BASE.arbEp[ep].epIntEn &= (uint32) ~USBFS_ARB_EPX_INT_DMA_TERMIN;
+            #endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO && CY_PSOC4) */
             }
             else
             {
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + i), USBFS_MODE_NAK_OUT);
-                /* Prepare EP type mask for automatic memory allocation */
-                #if(USBFS_EP_MM == USBFS__EP_DMAAUTO)
-                    epType |= (uint8)(0x01u << (ep - USBFS_EP1));
-                #endif /*  USBFS_EP_MM == USBFS__EP_DMAAUTO */
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_NAK_OUT;
+
+            #if (USBFS_EP_MANAGEMENT_DMA_AUTO)
+                /* (CY_PSOC4): DMA_TERMIN for OUT endpoint is set above. */
+                
+                /* Prepare endpoint type mask. */
+                epType |= (uint8) (0x01u << (ep - USBFS_EP1));
+            #endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO) */
             }
         }
         else
         {
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + i), USBFS_MODE_STALL_DATA_EP);
+            USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_STALL_DATA_EP;
         }
-
-        #if(USBFS_EP_MM != USBFS__EP_DMAAUTO)
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CNT0_IND + i),   USBFS_EP[ep].bufferSize >> 8u);
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CNT1_IND + i),   USBFS_EP[ep].bufferSize & 0xFFu);
-
-            CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_RA_IND + i),     USBFS_EP[ep].buffOffset & 0xFFu);
-            CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_RA_MSB_IND + i), USBFS_EP[ep].buffOffset >> 8u);
-            CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_WA_IND + i),     USBFS_EP[ep].buffOffset & 0xFFu);
-            CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_WA_MSB_IND + i), USBFS_EP[ep].buffOffset >> 8u);
-        #endif /*  USBFS_EP_MM != USBFS__EP_DMAAUTO */
-
-        ep++;
+        
+    #if (!USBFS_EP_MANAGEMENT_DMA_AUTO)
+        #if (CY_PSOC4)
+            USBFS_ARB_EP16_BASE.arbEp[ep].rwRa16  = (uint32) USBFS_EP[ep].buffOffset;
+            USBFS_ARB_EP16_BASE.arbEp[ep].rwWa16  = (uint32) USBFS_EP[ep].buffOffset;
+        #else
+            USBFS_ARB_EP_BASE.arbEp[ep].rwRa    = LO8(USBFS_EP[ep].buffOffset);
+            USBFS_ARB_EP_BASE.arbEp[ep].rwRaMsb = HI8(USBFS_EP[ep].buffOffset);
+            USBFS_ARB_EP_BASE.arbEp[ep].rwWa    = LO8(USBFS_EP[ep].buffOffset);
+            USBFS_ARB_EP_BASE.arbEp[ep].rwWaMsb = HI8(USBFS_EP[ep].buffOffset);
+        #endif /* (CY_PSOC4) */
+    #endif /* (!USBFS_EP_MANAGEMENT_DMA_AUTO) */
     }
 
-    #if(USBFS_EP_MM == USBFS__EP_DMAAUTO)
-         /* BUF_SIZE depend on DMA_THRESS value: 55-32 bytes  44-16 bytes 33-8 bytes 22-4 bytes 11-2 bytes */
-        USBFS_BUF_SIZE_REG = USBFS_DMA_BUF_SIZE;
-        USBFS_DMA_THRES_REG = USBFS_DMA_BYTES_PER_BURST;   /* DMA burst threshold */
-        USBFS_DMA_THRES_MSB_REG = 0u;
-        USBFS_EP_ACTIVE_REG = USBFS_ARB_INT_MASK;
-        USBFS_EP_TYPE_REG = epType;
-        /* Cfg_cmp bit set to 1 once configuration is complete. */
-        USBFS_ARB_CFG_REG = USBFS_ARB_CFG_AUTO_DMA | USBFS_ARB_CFG_AUTO_MEM |
-                                       USBFS_ARB_CFG_CFG_CPM;
-        /* Cfg_cmp bit set to 0 during configuration of PFSUSB Registers. */
-        USBFS_ARB_CFG_REG = USBFS_ARB_CFG_AUTO_DMA | USBFS_ARB_CFG_AUTO_MEM;
-    #endif /*  USBFS_EP_MM == USBFS__EP_DMAAUTO */
+#if (USBFS_EP_MANAGEMENT_DMA_AUTO)
+     /* BUF_SIZE depend on DMA_THRESS value:0x55-32 bytes  0x44-16 bytes 0x33-8 bytes 0x22-4 bytes 0x11-2 bytes */
+    USBFS_BUF_SIZE_REG = USBFS_DMA_BUF_SIZE;
 
-    CY_SET_REG8(USBFS_SIE_EP_INT_EN_PTR, 0xFFu);
+    /* Configure DMA burst threshold */
+#if (CY_PSOC4)
+    USBFS_DMA_THRES16_REG   = USBFS_DMA_BYTES_PER_BURST;
+#else
+    USBFS_DMA_THRES_REG     = USBFS_DMA_BYTES_PER_BURST;
+    USBFS_DMA_THRES_MSB_REG = 0u;
+#endif /* (CY_PSOC4) */
+    USBFS_EP_ACTIVE_REG = USBFS_DEFAULT_ARB_INT_EN;
+    USBFS_EP_TYPE_REG   = epType;
+    
+    /* Cfg_cmp bit set to 1 once configuration is complete. */
+    /* Lock arbiter configtuation */
+    USBFS_ARB_CFG_REG |= (uint8)  USBFS_ARB_CFG_CFG_CMP;
+    /* Cfg_cmp bit set to 0 during configuration of PFSUSB Registers. */
+    USBFS_ARB_CFG_REG &= (uint8) ~USBFS_ARB_CFG_CFG_CMP;
+
+#endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO) */
+
+    /* Enable interrupt SIE interurpt source from EP0-EP1 */
+    USBFS_SIE_EP_INT_EN_REG = (uint8) USBFS_DEFAULT_SIE_EP_INT_EN;
+}
+
+
+/*******************************************************************************
+* Function Name: USBFS_EpStateInit
+****************************************************************************//**
+*
+*  This routine initialize state of Data end points based of its type: 
+*   IN  - USBFS_IN_BUFFER_EMPTY (USBFS_EVENT_PENDING)
+*   OUT - USBFS_OUT_BUFFER_EMPTY (USBFS_NO_EVENT_PENDING)
+*
+*******************************************************************************/
+void USBFS_EpStateInit(void) 
+{
+    uint8 i;
+
+    for (i = USBFS_EP1; i < USBFS_MAX_EP; i++)
+    { 
+        if (0u != (USBFS_EP[i].addr & USBFS_DIR_IN))
+        {
+            /* IN Endpoint */
+            USBFS_EP[i].apiEpState = USBFS_EVENT_PENDING;
+        }
+        else
+        {
+            /* OUT Endpoint */
+            USBFS_EP[i].apiEpState = USBFS_NO_EVENT_PENDING;
+        }
+    }
+                    
 }
 
 
 /*******************************************************************************
 * Function Name: USBFS_Config
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine configures endpoints for the entire configuration by scanning
 *  the configuration descriptor.
 *
-* Parameters:
-*  clearAltSetting: It configures the bAlternateSetting 0 for each interface.
-*
-* Return:
-*  None.
+*  \param clearAltSetting: It configures the bAlternateSetting 0 for each interface.
 *
 * USBFS_interfaceClass - Initialized class array for each interface.
 *   It is used for handling Class specific requests depend on interface class.
 *   Different classes in multiple Alternate settings does not supported.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 void USBFS_Config(uint8 clearAltSetting) 
 {
     uint8 ep;
-    uint8 cur_ep;
+    uint8 curEp;
     uint8 i;
     uint8 epType;
     const uint8 *pDescr;
-    #if(USBFS_EP_MM != USBFS__EP_DMAAUTO)
+    
+    #if (!USBFS_EP_MANAGEMENT_DMA_AUTO)
         uint16 buffCount = 0u;
-    #endif /*  USBFS_EP_MM != USBFS__EP_DMAAUTO */
+    #endif /* (!USBFS_EP_MANAGEMENT_DMA_AUTO) */
 
     const T_USBFS_LUT CYCODE *pTmp;
     const T_USBFS_EP_SETTINGS_BLOCK CYCODE *pEP;
 
-    /* Clear all of the endpoints */
-    for (ep = 0u; ep < USBFS_MAX_EP; ep++)
+    /* Clear endpoints settings */
+    for (ep = 0u; ep < USBFS_MAX_EP; ++ep)
     {
-        USBFS_EP[ep].attrib = 0u;
-        USBFS_EP[ep].hwEpState = 0u;
-        USBFS_EP[ep].apiEpState = USBFS_NO_EVENT_PENDING;
-        USBFS_EP[ep].epToggle = 0u;
-        USBFS_EP[ep].epMode = USBFS_MODE_DISABLE;
+        USBFS_EP[ep].attrib     = 0u;
+        USBFS_EP[ep].hwEpState  = 0u;
+        USBFS_EP[ep].epToggle   = 0u;
         USBFS_EP[ep].bufferSize = 0u;
-        USBFS_EP[ep].interface = 0u;
-
+        USBFS_EP[ep].interface  = 0u;
+        USBFS_EP[ep].apiEpState = USBFS_NO_EVENT_PENDING;
+        USBFS_EP[ep].epMode     = USBFS_MODE_DISABLE;   
     }
 
-    /* Clear Alternate settings for all interfaces */
-    if(clearAltSetting != 0u)
+    /* Clear Alternate settings for all interfaces. */
+    if (0u != clearAltSetting)
     {
-        for (i = 0u; i < USBFS_MAX_INTERFACES_NUMBER; i++)
+        for (i = 0u; i < USBFS_MAX_INTERFACES_NUMBER; ++i)
         {
-            USBFS_interfaceSetting[i] = 0x00u;
-            USBFS_interfaceSetting_last[i] = 0x00u;
+            USBFS_interfaceSetting[i]     = 0u;
+            USBFS_interfaceSettingLast[i] = 0u;
         }
     }
 
     /* Init Endpoints and Device Status if configured */
-    if(USBFS_configuration > 0u)
+    if (USBFS_configuration > 0u)
     {
+        #if defined(USBFS_ENABLE_CDC_CLASS)
+            uint8 cdcComNums = 0u;
+        #endif  /* (USBFS_ENABLE_CDC_CLASS) */  
+
         pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
+        
         /* Set Power status for current configuration */
         pDescr = (const uint8 *)pTmp->p_list;
-        if((pDescr[USBFS_CONFIG_DESCR_ATTRIB] & USBFS_CONFIG_DESCR_ATTRIB_SELF_POWERED) != 0u)
+        if ((pDescr[USBFS_CONFIG_DESCR_ATTRIB] & USBFS_CONFIG_DESCR_ATTRIB_SELF_POWERED) != 0u)
         {
-            USBFS_deviceStatus |=  USBFS_DEVICE_STATUS_SELF_POWERED;
+            USBFS_deviceStatus |= (uint8)  USBFS_DEVICE_STATUS_SELF_POWERED;
         }
         else
         {
-            USBFS_deviceStatus &=  (uint8)~USBFS_DEVICE_STATUS_SELF_POWERED;
+            USBFS_deviceStatus &= (uint8) ~USBFS_DEVICE_STATUS_SELF_POWERED;
         }
+        
         /* Move to next element */
         pTmp = &pTmp[1u];
         ep = pTmp->c;  /* For this table, c is the number of endpoints configurations  */
 
-        #if ((USBFS_EP_MA == USBFS__MA_DYNAMIC) && \
-             (USBFS_EP_MM == USBFS__EP_MANUAL) )
+        #if (USBFS_EP_MANAGEMENT_MANUAL && USBFS_EP_ALLOC_DYNAMIC)
             /* Configure for dynamic EP memory allocation */
             /* p_list points the endpoint setting table. */
             pEP = (T_USBFS_EP_SETTINGS_BLOCK *) pTmp->p_list;
+            
             for (i = 0u; i < ep; i++)
-            {
+            {     
                 /* Compare current Alternate setting with EP Alt */
-                if(USBFS_interfaceSetting[pEP->interface] == pEP->altSetting)
-                {
-                    cur_ep = pEP->addr & USBFS_DIR_UNUSED;
+                if (USBFS_interfaceSetting[pEP->interface] == pEP->altSetting)
+                {                                                          
+                    curEp  = pEP->addr & USBFS_DIR_UNUSED;
                     epType = pEP->attributes & USBFS_EP_TYPE_MASK;
-                    if (pEP->addr & USBFS_DIR_IN)
+                    
+                    USBFS_EP[curEp].addr       = pEP->addr;
+                    USBFS_EP[curEp].attrib     = pEP->attributes;
+                    USBFS_EP[curEp].bufferSize = pEP->bufferSize;
+
+                    if (0u != (pEP->addr & USBFS_DIR_IN))
                     {
                         /* IN Endpoint */
-                        USBFS_EP[cur_ep].apiEpState = USBFS_EVENT_PENDING;
-                        USBFS_EP[cur_ep].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                        USBFS_MODE_ISO_IN : USBFS_MODE_ACK_IN;
-                        #if defined(USBFS_ENABLE_CDC_CLASS)
-                            if(((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||
-                                (pEP->bMisc == USBFS_CLASS_CDC)) &&
-                                (epType != USBFS_EP_TYPE_INT))
-                            {
-                                USBFS_cdc_data_in_ep = cur_ep;
-                            }
-                        #endif  /*  USBFS_ENABLE_CDC_CLASS*/
-                        #if ( defined(USBFS_ENABLE_MIDI_STREAMING) && \
-                                             (USBFS_MIDI_IN_BUFF_SIZE > 0) )
-                            if((pEP->bMisc == USBFS_CLASS_AUDIO) &&
-                               (epType == USBFS_EP_TYPE_BULK))
-                            {
-                                USBFS_midi_in_ep = cur_ep;
-                            }
-                        #endif  /*  USBFS_ENABLE_MIDI_STREAMING*/
+                        USBFS_EP[curEp].epMode     = USBFS_GET_ACTIVE_IN_EP_CR0_MODE(epType);
+                        USBFS_EP[curEp].apiEpState = USBFS_EVENT_PENDING;
+                    
+                    #if (defined(USBFS_ENABLE_MIDI_STREAMING) && (USBFS_MIDI_IN_BUFF_SIZE > 0))
+                        if ((pEP->bMisc == USBFS_CLASS_AUDIO) && (epType == USBFS_EP_TYPE_BULK))
+                        {
+                            USBFS_midi_in_ep = curEp;
+                        }
+                    #endif  /* (USBFS_ENABLE_MIDI_STREAMING) */
                     }
                     else
                     {
                         /* OUT Endpoint */
-                        USBFS_EP[cur_ep].apiEpState = USBFS_NO_EVENT_PENDING;
-                        USBFS_EP[cur_ep].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                    USBFS_MODE_ISO_OUT : USBFS_MODE_ACK_OUT;
-                        #if defined(USBFS_ENABLE_CDC_CLASS)
-                            if(((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||
-                                (pEP->bMisc == USBFS_CLASS_CDC)) &&
-                                (epType != USBFS_EP_TYPE_INT))
-                            {
-                                USBFS_cdc_data_out_ep = cur_ep;
-                            }
-                        #endif  /*  USBFS_ENABLE_CDC_CLASS*/
-                        #if ( defined(USBFS_ENABLE_MIDI_STREAMING) && \
-                                     (USBFS_MIDI_OUT_BUFF_SIZE > 0) )
-                            if((pEP->bMisc == USBFS_CLASS_AUDIO) &&
-                               (epType == USBFS_EP_TYPE_BULK))
-                            {
-                                USBFS_midi_out_ep = cur_ep;
-                            }
-                        #endif  /*  USBFS_ENABLE_MIDI_STREAMING*/
+                        USBFS_EP[curEp].epMode     = USBFS_GET_ACTIVE_OUT_EP_CR0_MODE(epType);
+                        USBFS_EP[curEp].apiEpState = USBFS_NO_EVENT_PENDING;
+                        
+                    #if (defined(USBFS_ENABLE_MIDI_STREAMING) && (USBFS_MIDI_OUT_BUFF_SIZE > 0))
+                        if ((pEP->bMisc == USBFS_CLASS_AUDIO) && (epType == USBFS_EP_TYPE_BULK))
+                        {
+                            USBFS_midi_out_ep = curEp;
+                        }
+                    #endif  /* (USBFS_ENABLE_MIDI_STREAMING) */
                     }
-                    USBFS_EP[cur_ep].bufferSize = pEP->bufferSize;
-                    USBFS_EP[cur_ep].addr = pEP->addr;
-                    USBFS_EP[cur_ep].attrib = pEP->attributes;
+
+                #if(defined (USBFS_ENABLE_CDC_CLASS))
+                    if((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||(pEP->bMisc == USBFS_CLASS_CDC))
+                    {
+                        cdcComNums = USBFS_Cdc_EpInit(pEP, curEp, cdcComNums);
+                    }
+                #endif  /* (USBFS_ENABLE_CDC_CLASS) */
                 }
+                
                 pEP = &pEP[1u];
             }
-        #else /* Configure for static EP memory allocation  */
-            for (i = USBFS_EP1; i < USBFS_MAX_EP; i++)
+            
+        #else
+            for (i = USBFS_EP1; i < USBFS_MAX_EP; ++i)
             {
                 /* p_list points the endpoint setting table. */
                 pEP = (const T_USBFS_EP_SETTINGS_BLOCK CYCODE *) pTmp->p_list;
                 /* Find max length for each EP and select it (length could be different in different Alt settings) */
                 /* but other settings should be correct with regards to Interface alt Setting */
-                for (cur_ep = 0u; cur_ep < ep; cur_ep++)
+                
+                for (curEp = 0u; curEp < ep; ++curEp)
                 {
-                    /* EP count is equal to EP # in table and we found larger EP length than have before*/
-                    if(i == (pEP->addr & USBFS_DIR_UNUSED))
+                    if (i == (pEP->addr & USBFS_DIR_UNUSED))
                     {
-                        if(USBFS_EP[i].bufferSize < pEP->bufferSize)
+                        /* Compare endpoint buffers size with current size to find greater. */
+                        if (USBFS_EP[i].bufferSize < pEP->bufferSize)
                         {
                             USBFS_EP[i].bufferSize = pEP->bufferSize;
                         }
-                        /* Compare current Alternate setting with EP Alt*/
-                        if(USBFS_interfaceSetting[pEP->interface] == pEP->altSetting)
-                        {
+                        
+                        /* Compare current Alternate setting with EP Alt */
+                        if (USBFS_interfaceSetting[pEP->interface] == pEP->altSetting)
+                        {                            
+                            USBFS_EP[i].addr = pEP->addr;
+                            USBFS_EP[i].attrib = pEP->attributes;
+                            
                             epType = pEP->attributes & USBFS_EP_TYPE_MASK;
-                            if ((pEP->addr & USBFS_DIR_IN) != 0u)
+                            
+                            if (0u != (pEP->addr & USBFS_DIR_IN))
                             {
                                 /* IN Endpoint */
+                                USBFS_EP[i].epMode     = USBFS_GET_ACTIVE_IN_EP_CR0_MODE(epType);
                                 USBFS_EP[i].apiEpState = USBFS_EVENT_PENDING;
-                                USBFS_EP[i].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                        USBFS_MODE_ISO_IN : USBFS_MODE_ACK_IN;
-                                /* Find and initialize CDC IN endpoint number */
-                                #if defined(USBFS_ENABLE_CDC_CLASS)
-                                    if(((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||
-                                        (pEP->bMisc == USBFS_CLASS_CDC)) &&
-                                        (epType != USBFS_EP_TYPE_INT))
-                                    {
-                                        USBFS_cdc_data_in_ep = i;
-                                    }
-                                #endif  /*  USBFS_ENABLE_CDC_CLASS*/
-                                #if ( defined(USBFS_ENABLE_MIDI_STREAMING) && \
-                                             (USBFS_MIDI_IN_BUFF_SIZE > 0) )
-                                    if((pEP->bMisc == USBFS_CLASS_AUDIO) &&
-                                       (epType == USBFS_EP_TYPE_BULK))
-                                    {
-                                        USBFS_midi_in_ep = i;
-                                    }
-                                #endif  /*  USBFS_ENABLE_MIDI_STREAMING*/
+                                
+                            #if (defined(USBFS_ENABLE_MIDI_STREAMING) && (USBFS_MIDI_IN_BUFF_SIZE > 0))
+                                if ((pEP->bMisc == USBFS_CLASS_AUDIO) && (epType == USBFS_EP_TYPE_BULK))
+                                {
+                                    USBFS_midi_in_ep = i;
+                                }
+                            #endif  /* (USBFS_ENABLE_MIDI_STREAMING) */
                             }
                             else
                             {
                                 /* OUT Endpoint */
+                                USBFS_EP[i].epMode     = USBFS_GET_ACTIVE_OUT_EP_CR0_MODE(epType);
                                 USBFS_EP[i].apiEpState = USBFS_NO_EVENT_PENDING;
-                                USBFS_EP[i].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                    USBFS_MODE_ISO_OUT : USBFS_MODE_ACK_OUT;
-                                /* Find and initialize CDC IN endpoint number */
-                                #if defined(USBFS_ENABLE_CDC_CLASS)
-                                    if(((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||
-                                        (pEP->bMisc == USBFS_CLASS_CDC)) &&
-                                        (epType != USBFS_EP_TYPE_INT))
-                                    {
-                                        USBFS_cdc_data_out_ep = i;
-                                    }
-                                #endif  /*  USBFS_ENABLE_CDC_CLASS*/
-                                #if ( defined(USBFS_ENABLE_MIDI_STREAMING) && \
-                                             (USBFS_MIDI_OUT_BUFF_SIZE > 0) )
-                                    if((pEP->bMisc == USBFS_CLASS_AUDIO) &&
-                                       (epType == USBFS_EP_TYPE_BULK))
-                                    {
-                                        USBFS_midi_out_ep = i;
-                                    }
-                                #endif  /*  USBFS_ENABLE_MIDI_STREAMING*/
+                                
+                            #if (defined(USBFS_ENABLE_MIDI_STREAMING) && (USBFS_MIDI_OUT_BUFF_SIZE > 0))
+                                if ((pEP->bMisc == USBFS_CLASS_AUDIO) && (epType == USBFS_EP_TYPE_BULK))
+                                {
+                                    USBFS_midi_out_ep = i;
+                                }
+                            #endif  /* (USBFS_ENABLE_MIDI_STREAMING) */
                             }
-                            USBFS_EP[i].addr = pEP->addr;
-                            USBFS_EP[i].attrib = pEP->attributes;
 
-                            #if(USBFS_EP_MM == USBFS__EP_DMAAUTO)
-                                break;      /* use first EP setting in Auto memory managment */
-                            #endif /*  USBFS_EP_MM == USBFS__EP_DMAAUTO */
+                        #if (defined(USBFS_ENABLE_CDC_CLASS))
+                            if((pEP->bMisc == USBFS_CLASS_CDC_DATA) ||(pEP->bMisc == USBFS_CLASS_CDC))
+                            {
+                                cdcComNums = USBFS_Cdc_EpInit(pEP, i, cdcComNums);
+                            }
+                        #endif  /* (USBFS_ENABLE_CDC_CLASS) */
+
+                            #if (USBFS_EP_MANAGEMENT_DMA_AUTO)
+                                break;  /* Use first EP setting in Auto memory management */
+                            #endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO) */
                         }
                     }
+                    
                     pEP = &pEP[1u];
                 }
             }
-        #endif /*  (USBFS_EP_MA == USBFS__MA_DYNAMIC) */
+        #endif /*  (USBFS_EP_MANAGEMENT_MANUAL && USBFS_EP_ALLOC_DYNAMIC) */
 
         /* Init class array for each interface and interface number for each EP.
         *  It is used for handling Class specific requests directed to either an
@@ -698,170 +762,181 @@ void USBFS_Config(uint8 clearAltSetting)
         pEP = (const T_USBFS_EP_SETTINGS_BLOCK CYCODE *) pTmp->p_list;
         for (i = 0u; i < ep; i++)
         {
-            /* Configure interface number for each EP*/
+            /* Configure interface number for each EP */
             USBFS_EP[pEP->addr & USBFS_DIR_UNUSED].interface = pEP->interface;
             pEP = &pEP[1u];
         }
-        /* Init pointer on interface class table*/
+        
+        /* Init pointer on interface class table */
         USBFS_interfaceClass = USBFS_GetInterfaceClassTablePtr();
-        /* Set the endpoint buffer addresses */
-
-        #if(USBFS_EP_MM != USBFS__EP_DMAAUTO)
-            for (ep = USBFS_EP1; ep < USBFS_MAX_EP; ep++)
-            {
-                USBFS_EP[ep].buffOffset = buffCount;
-                 buffCount += USBFS_EP[ep].bufferSize;
-            }
-        #endif /*  USBFS_EP_MM != USBFS__EP_DMAAUTO */
+        
+    /* Set the endpoint buffer addresses */
+    #if (!USBFS_EP_MANAGEMENT_DMA_AUTO)
+        buffCount = 0u;
+        for (ep = USBFS_EP1; ep < USBFS_MAX_EP; ++ep)
+        {
+            USBFS_EP[ep].buffOffset = buffCount;        
+            buffCount += USBFS_EP[ep].bufferSize;
+            
+        #if (USBFS_GEN_16BITS_EP_ACCESS)
+            /* Align EP buffers to be event size to access 16-bits DR register. */
+            buffCount += (0u != (buffCount & 0x01u)) ? 1u : 0u;
+        #endif /* (USBFS_GEN_16BITS_EP_ACCESS) */            
+        }
+    #endif /* (!USBFS_EP_MANAGEMENT_DMA_AUTO) */
 
         /* Configure hardware registers */
         USBFS_ConfigReg();
-    } /* USBFS_configuration > 0 */
+    }
 }
 
 
 /*******************************************************************************
 * Function Name: USBFS_ConfigAltChanged
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine update configuration for the required endpoints only.
 *  It is called after SET_INTERFACE request when Static memory allocation used.
 *
-* Parameters:
-*  None.
-*
-* Return:
-*  None.
-*
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 void USBFS_ConfigAltChanged(void) 
 {
     uint8 ep;
-    uint8 cur_ep;
-    uint8 i;
+    uint8 curEp;
     uint8 epType;
-    uint8 ri;
+    uint8 i;
+    uint8 interfaceNum;
 
     const T_USBFS_LUT CYCODE *pTmp;
     const T_USBFS_EP_SETTINGS_BLOCK CYCODE *pEP;
 
-
     /* Init Endpoints and Device Status if configured */
-    if(USBFS_configuration > 0u)
+    if (USBFS_configuration > 0u)
     {
+        /* Get number of endpoints configurations (ep). */
         pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
         pTmp = &pTmp[1u];
-        ep = pTmp->c;  /* For this table, c is the number of endpoints configurations  */
+        ep = pTmp->c;
 
-        /* Do not touch EP which doesn't need reconfiguration */
-        /* When Alt setting changed, the only required endpoints need to be reconfigured */
-        /* p_list points the endpoint setting table. */
+        /* Get pointer to endpoints setting table (pEP). */
         pEP = (const T_USBFS_EP_SETTINGS_BLOCK CYCODE *) pTmp->p_list;
+        
+        /* Look through all possible endpoint configurations. Find endpoints 
+        * which belong to current interface and alternate settings for 
+        * re-configuration.
+        */
+        interfaceNum = USBFS_interfaceNumber;
         for (i = 0u; i < ep; i++)
         {
-            /*If Alt setting changed and new is same with EP Alt */
-            if((USBFS_interfaceSetting[pEP->interface] !=
-                USBFS_interfaceSetting_last[pEP->interface] ) &&
-               (USBFS_interfaceSetting[pEP->interface] == pEP->altSetting) &&
-               (pEP->interface == CY_GET_REG8(USBFS_wIndexLo)))
+            /* Find endpoints which belong to current interface and alternate settings. */
+            if ((interfaceNum == pEP->interface) && 
+                (USBFS_interfaceSetting[interfaceNum] == pEP->altSetting))
             {
-                cur_ep = pEP->addr & USBFS_DIR_UNUSED;
-                ri = ((cur_ep - USBFS_EP1) << USBFS_EPX_CNTX_ADDR_SHIFT);
-                epType = pEP->attributes & USBFS_EP_TYPE_MASK;
-                if ((pEP->addr & USBFS_DIR_IN) != 0u)
+                curEp  = ((uint8) pEP->addr & USBFS_DIR_UNUSED);
+                epType = ((uint8) pEP->attributes & USBFS_EP_TYPE_MASK);
+                
+                /* Change the SIE mode for the selected EP to NAK ALL */
+                USBFS_EP[curEp].epToggle   = 0u;
+                USBFS_EP[curEp].addr       = pEP->addr;
+                USBFS_EP[curEp].attrib     = pEP->attributes;
+                USBFS_EP[curEp].bufferSize = pEP->bufferSize;
+
+                if (0u != (pEP->addr & USBFS_DIR_IN))
                 {
                     /* IN Endpoint */
-                    USBFS_EP[cur_ep].apiEpState = USBFS_EVENT_PENDING;
-                    USBFS_EP[cur_ep].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                USBFS_MODE_ISO_IN : USBFS_MODE_ACK_IN;
+                    USBFS_EP[curEp].epMode     = USBFS_GET_ACTIVE_IN_EP_CR0_MODE(epType);
+                    USBFS_EP[curEp].apiEpState = USBFS_EVENT_PENDING;
                 }
                 else
                 {
                     /* OUT Endpoint */
-                    USBFS_EP[cur_ep].apiEpState = USBFS_NO_EVENT_PENDING;
-                    USBFS_EP[cur_ep].epMode = (epType == USBFS_EP_TYPE_ISOC) ?
-                                                USBFS_MODE_ISO_OUT : USBFS_MODE_ACK_OUT;
+                    USBFS_EP[curEp].epMode     = USBFS_GET_ACTIVE_OUT_EP_CR0_MODE(epType);
+                    USBFS_EP[curEp].apiEpState = USBFS_NO_EVENT_PENDING;
                 }
-                 /* Change the SIE mode for the selected EP to NAK ALL */
-                 CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_NAK_IN_OUT);
-                USBFS_EP[cur_ep].bufferSize = pEP->bufferSize;
-                USBFS_EP[cur_ep].addr = pEP->addr;
-                USBFS_EP[cur_ep].attrib = pEP->attributes;
+                
+                /* Make SIE to NAK any endpoint requests */
+                USBFS_SIE_EP_BASE.sieEp[curEp].epCr0 = USBFS_MODE_NAK_IN_OUT;
 
-                /* Clear the data toggle */
-                USBFS_EP[cur_ep].epToggle = 0u;
+            #if (USBFS_EP_MANAGEMENT_DMA_AUTO)
+                /* Clear IN data ready. */
+                USBFS_ARB_EP_BASE.arbEp[curEp].epCfg &= (uint8) ~USBFS_ARB_EPX_CFG_IN_DATA_RDY;
 
-                /* Dynamic reconfiguration for mode 3 transfer */
-            #if(USBFS_EP_MM == USBFS__EP_DMAAUTO)
-                /* In_data_rdy for selected EP should be set to 0 */
-                * (reg8 *)(USBFS_ARB_EP1_CFG_IND + ri) &= (uint8)~USBFS_ARB_EPX_CFG_IN_DATA_RDY;
-
-                /* write the EP number for which reconfiguration is required */
-                USBFS_DYN_RECONFIG_REG = (cur_ep - USBFS_EP1) <<
-                                                    USBFS_DYN_RECONFIG_EP_SHIFT;
-                /* Set the dyn_config_en bit in dynamic reconfiguration register */
+                /* Select endpoint number of reconfiguration */
+                USBFS_DYN_RECONFIG_REG = (uint8) ((curEp - 1u) << USBFS_DYN_RECONFIG_EP_SHIFT);
+                
+                /* Request for dynamic re-configuration of endpoint. */
                 USBFS_DYN_RECONFIG_REG |= USBFS_DYN_RECONFIG_ENABLE;
-                /* wait for the dyn_config_rdy bit to set by the block,
-                *  this bit will be set to 1 when block is ready for reconfiguration.
-                */
-                while((USBFS_DYN_RECONFIG_REG & USBFS_DYN_RECONFIG_RDY_STS) == 0u)
+                
+                /* Wait until block is ready for re-configuration */
+                while (0u == (USBFS_DYN_RECONFIG_REG & USBFS_DYN_RECONFIG_RDY_STS))
                 {
-                    ;
                 }
-                /* Once dyn_config_rdy bit is set, FW can change the EP configuration. */
+                
+                /* Once DYN_RECONFIG_RDY_STS bit is set, FW can change the EP configuration. */
                 /* Change EP Type with new direction */
-                if((pEP->addr & USBFS_DIR_IN) == 0u)
+                if (0u != (pEP->addr & USBFS_DIR_IN))
                 {
-                    USBFS_EP_TYPE_REG |= (uint8)(0x01u << (cur_ep - USBFS_EP1));
+                    /* Set endpoint type: 0 - IN and 1 - OUT. */
+                    USBFS_EP_TYPE_REG &= (uint8) ~(uint8)((uint8) 0x01u << (curEp - 1u));
+                    
+                #if (CY_PSOC4)
+                    /* Clear DMA_TERMIN for IN endpoint */
+                    USBFS_ARB_EP_BASE.arbEp[curEp].epIntEn &= (uint32) ~USBFS_ARB_EPX_INT_DMA_TERMIN;
+                #endif /* (CY_PSOC4) */
                 }
                 else
                 {
-                    USBFS_EP_TYPE_REG &= (uint8)~(uint8)(0x01u << (cur_ep - USBFS_EP1));
+                    /* Set endpoint type: 0 - IN and 1- OUT. */
+                    USBFS_EP_TYPE_REG |= (uint8) ((uint8) 0x01u << (curEp - 1u));
+                    
+                #if (CY_PSOC4)
+                    /* Set DMA_TERMIN for OUT endpoint */
+                    USBFS_ARB_EP_BASE.arbEp[curEp].epIntEn |= (uint32) USBFS_ARB_EPX_INT_DMA_TERMIN;
+                #endif /* (CY_PSOC4) */
                 }
-                /* dynamic reconfiguration enable bit cleared, pointers and control/status
-                *  signals for the selected EP is cleared/re-initialized on negative edge
-                *  of dynamic reconfiguration enable bit).
+                
+                /* Complete dynamic re-configuration: all endpoint related status and signals 
+                * are set into the default state.
                 */
-                USBFS_DYN_RECONFIG_REG &= (uint8)~USBFS_DYN_RECONFIG_ENABLE;
-                /* The main loop has to re-enable DMA and OUT endpoint*/
+                USBFS_DYN_RECONFIG_REG &= (uint8) ~USBFS_DYN_RECONFIG_ENABLE;
+
             #else
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CNT0_IND + ri),
-                                                                USBFS_EP[cur_ep].bufferSize >> 8u);
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CNT1_IND + ri),
-                                                                USBFS_EP[cur_ep].bufferSize & 0xFFu);
-                CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_RA_IND + ri),
-                                                                USBFS_EP[cur_ep].buffOffset & 0xFFu);
-                CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_RA_MSB_IND + ri),
-                                                                USBFS_EP[cur_ep].buffOffset >> 8u);
-                CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_WA_IND + ri),
-                                                                USBFS_EP[cur_ep].buffOffset & 0xFFu);
-                CY_SET_REG8((reg8 *)(USBFS_ARB_RW1_WA_MSB_IND + ri),
-                                                                USBFS_EP[cur_ep].buffOffset >> 8u);
-            #endif /*  USBFS_EP_MM == USBFS__EP_DMAAUTO */
+                USBFS_SIE_EP_BASE.sieEp[curEp].epCnt0 = HI8(USBFS_EP[curEp].bufferSize);
+                USBFS_SIE_EP_BASE.sieEp[curEp].epCnt1 = LO8(USBFS_EP[curEp].bufferSize);
+                
+                #if (CY_PSOC4)
+                    USBFS_ARB_EP16_BASE.arbEp[curEp].rwRa16  = (uint32) USBFS_EP[curEp].buffOffset;
+                    USBFS_ARB_EP16_BASE.arbEp[curEp].rwWa16  = (uint32) USBFS_EP[curEp].buffOffset;
+                #else
+                    USBFS_ARB_EP_BASE.arbEp[curEp].rwRa    = LO8(USBFS_EP[curEp].buffOffset);
+                    USBFS_ARB_EP_BASE.arbEp[curEp].rwRaMsb = HI8(USBFS_EP[curEp].buffOffset);
+                    USBFS_ARB_EP_BASE.arbEp[curEp].rwWa    = LO8(USBFS_EP[curEp].buffOffset);
+                    USBFS_ARB_EP_BASE.arbEp[curEp].rwWaMsb = HI8(USBFS_EP[curEp].buffOffset);
+                #endif /* (CY_PSOC4) */                
+            #endif /* (USBFS_EP_MANAGEMENT_DMA_AUTO) */
             }
-            /* Get next EP element */
-            pEP = &pEP[1u];
+            
+            pEP = &pEP[1u]; /* Get next EP element */
         }
-    }   /* USBFS_configuration > 0 */
+        
+        /* The main loop has to re-enable DMA and OUT endpoint */
+    }
 }
 
 
 /*******************************************************************************
 * Function Name: USBFS_GetConfigTablePtr
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine returns a pointer a configuration table entry
 *
-* Parameters:
-*  confIndex:  Configuration Index
+*  \param confIndex:  Configuration Index
 *
-* Return:
-*  Device Descriptor pointer or NULL when descriptor isn't exists.
+* \return
+*  Device Descriptor pointer or NULL when descriptor does not exist.
 *
 *******************************************************************************/
 const T_USBFS_LUT CYCODE *USBFS_GetConfigTablePtr(uint8 confIndex)
@@ -873,10 +948,11 @@ const T_USBFS_LUT CYCODE *USBFS_GetConfigTablePtr(uint8 confIndex)
     pTmp = (const T_USBFS_LUT CYCODE *) USBFS_TABLE[USBFS_device].p_list;
 
     /* The first entry points to the Device Descriptor,
+    *  the second entry point to the BOS Descriptor
     *  the rest configuration entries.
     *  Set pointer to the first Configuration Descriptor
     */
-    pTmp = &pTmp[1u];
+    pTmp = &pTmp[2u];
     /* For this table, c is the number of configuration descriptors  */
     if(confIndex >= pTmp->c)   /* Verify that required configuration descriptor exists */
     {
@@ -887,21 +963,48 @@ const T_USBFS_LUT CYCODE *USBFS_GetConfigTablePtr(uint8 confIndex)
         pTmp = (const T_USBFS_LUT CYCODE *) pTmp[confIndex].p_list;
     }
 
-    return( pTmp );
+    return (pTmp);
 }
+
+
+#if (USBFS_BOS_ENABLE)
+    /*******************************************************************************
+    * Function Name: USBFS_GetBOSPtr
+    ****************************************************************************//**
+    *
+    *  This routine returns a pointer a BOS table entry
+    *
+    *  
+    *
+    * \return
+    *  BOS Descriptor pointer or NULL when descriptor does not exist.
+    *
+    *******************************************************************************/
+    const T_USBFS_LUT CYCODE *USBFS_GetBOSPtr(void)
+                                                            
+    {
+        /* Device Table */
+        const T_USBFS_LUT CYCODE *pTmp;
+
+        pTmp = (const T_USBFS_LUT CYCODE *) USBFS_TABLE[USBFS_device].p_list;
+
+        /* The first entry points to the Device Descriptor,
+        *  the second entry points to the BOS Descriptor
+        */
+        pTmp = &pTmp[1u];
+        pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+        return (pTmp);
+    }
+#endif /* (USBFS_BOS_ENABLE) */
 
 
 /*******************************************************************************
 * Function Name: USBFS_GetDeviceTablePtr
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine returns a pointer to the Device table
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  Device Table pointer
 *
 *******************************************************************************/
@@ -915,16 +1018,12 @@ const T_USBFS_LUT CYCODE *USBFS_GetDeviceTablePtr(void)
 
 /*******************************************************************************
 * Function Name: USB_GetInterfaceClassTablePtr
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine returns Interface Class table pointer, which contains
 *  the relation between interface number and interface class.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  Interface Class table pointer.
 *
 *******************************************************************************/
@@ -936,7 +1035,7 @@ const uint8 CYCODE *USBFS_GetInterfaceClassTablePtr(void)
     uint8 currentInterfacesNum;
 
     pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
-    if( pTmp != NULL )
+    if (pTmp != NULL)
     {
         currentInterfacesNum  = ((const uint8 *) pTmp->p_list)[USBFS_CONFIG_DESCR_NUM_INTERFACES];
         /* Third entry in the LUT starts the Interface Table pointers */
@@ -949,53 +1048,50 @@ const uint8 CYCODE *USBFS_GetInterfaceClassTablePtr(void)
         pInterfaceClass = (const uint8 CYCODE *) NULL;
     }
 
-    return( pInterfaceClass );
+    return (pInterfaceClass);
 }
 
 
 /*******************************************************************************
 * Function Name: USBFS_TerminateEP
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This function terminates the specified USBFS endpoint.
 *  This function should be used before endpoint reconfiguration.
 *
-* Parameters:
-*  Endpoint number.
+*  \param ep Contains the data endpoint number.
 *
-* Return:
-*  None.
-*
-* Reentrant:
+*  \reentrant
 *  No.
 *
+* \sideeffect
+* 
+* The device responds with a NAK for any transactions on the selected endpoint.
+*   
 *******************************************************************************/
-void USBFS_TerminateEP(uint8 ep) 
+void USBFS_TerminateEP(uint8 epNumber) 
 {
-    uint8 ri;
+    /* Get endpoint number */
+    epNumber &= USBFS_DIR_UNUSED;
 
-    ep &= USBFS_DIR_UNUSED;
-    ri = ((ep - USBFS_EP1) << USBFS_EPX_CNTX_ADDR_SHIFT);
-
-    if ((ep > USBFS_EP0) && (ep < USBFS_MAX_EP))
+    if ((epNumber > USBFS_EP0) && (epNumber < USBFS_MAX_EP))
     {
         /* Set the endpoint Halt */
-        USBFS_EP[ep].hwEpState |= (USBFS_ENDPOINT_STATUS_HALT);
+        USBFS_EP[epNumber].hwEpState |= USBFS_ENDPOINT_STATUS_HALT;
 
         /* Clear the data toggle */
-        USBFS_EP[ep].epToggle = 0u;
-        USBFS_EP[ep].apiEpState = USBFS_NO_EVENT_ALLOWED;
+        USBFS_EP[epNumber].epToggle = 0u;
+        USBFS_EP[epNumber].apiEpState = USBFS_NO_EVENT_ALLOWED;
 
-        if ((USBFS_EP[ep].addr & USBFS_DIR_IN) != 0u)
-        {
+        if ((USBFS_EP[epNumber].addr & USBFS_DIR_IN) != 0u)
+        {   
             /* IN Endpoint */
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_NAK_IN);
+            USBFS_SIE_EP_BASE.sieEp[epNumber].epCr0 = USBFS_MODE_NAK_IN;
         }
         else
         {
             /* OUT Endpoint */
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_NAK_OUT);
+            USBFS_SIE_EP_BASE.sieEp[epNumber].epCr0 = USBFS_MODE_NAK_OUT;
         }
     }
 }
@@ -1003,30 +1099,24 @@ void USBFS_TerminateEP(uint8 ep)
 
 /*******************************************************************************
 * Function Name: USBFS_SetEndpointHalt
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine handles set endpoint halt.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  requestHandled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 uint8 USBFS_SetEndpointHalt(void) 
 {
-    uint8 ep;
-    uint8 ri;
     uint8 requestHandled = USBFS_FALSE;
-
+    uint8 ep;
+    
     /* Set endpoint halt */
-    ep = CY_GET_REG8(USBFS_wIndexLo) & USBFS_DIR_UNUSED;
-    ri = ((ep - USBFS_EP1) << USBFS_EPX_CNTX_ADDR_SHIFT);
+    ep = USBFS_wIndexLoReg & USBFS_DIR_UNUSED;
 
     if ((ep > USBFS_EP0) && (ep < USBFS_MAX_EP))
     {
@@ -1040,86 +1130,84 @@ uint8 USBFS_SetEndpointHalt(void)
         if ((USBFS_EP[ep].addr & USBFS_DIR_IN) != 0u)
         {
             /* IN Endpoint */
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_STALL_DATA_EP |
-                                                               USBFS_MODE_ACK_IN);
+            USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = (USBFS_MODE_STALL_DATA_EP | 
+                                                            USBFS_MODE_ACK_IN);
         }
         else
         {
             /* OUT Endpoint */
-            CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_STALL_DATA_EP |
-                                                               USBFS_MODE_ACK_OUT);
+            USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = (USBFS_MODE_STALL_DATA_EP | 
+                                                            USBFS_MODE_ACK_OUT);
         }
         requestHandled = USBFS_InitNoDataControlTransfer();
     }
 
-    return(requestHandled);
+    return (requestHandled);
 }
 
 
 /*******************************************************************************
 * Function Name: USBFS_ClearEndpointHalt
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  This routine handles clear endpoint halt.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  requestHandled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 uint8 USBFS_ClearEndpointHalt(void) 
 {
-    uint8 ep;
-    uint8 ri;
     uint8 requestHandled = USBFS_FALSE;
+    uint8 ep;
 
     /* Clear endpoint halt */
-    ep = CY_GET_REG8(USBFS_wIndexLo) & USBFS_DIR_UNUSED;
-    ri = ((ep - USBFS_EP1) << USBFS_EPX_CNTX_ADDR_SHIFT);
+    ep = USBFS_wIndexLoReg & USBFS_DIR_UNUSED;
 
     if ((ep > USBFS_EP0) && (ep < USBFS_MAX_EP))
     {
         /* Clear the endpoint Halt */
-        USBFS_EP[ep].hwEpState &= (uint8)~(USBFS_ENDPOINT_STATUS_HALT);
+        USBFS_EP[ep].hwEpState &= (uint8) ~USBFS_ENDPOINT_STATUS_HALT;
 
         /* Clear the data toggle */
         USBFS_EP[ep].epToggle = 0u;
+        
         /* Clear toggle bit for already armed packet */
-        CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CNT0_IND + ri), CY_GET_REG8(
-                    (reg8 *)(USBFS_SIE_EP1_CNT0_IND + ri)) & (uint8)~USBFS_EPX_CNT_DATA_TOGGLE);
+        USBFS_SIE_EP_BASE.sieEp[ep].epCnt0 = (uint8) ~(uint8)USBFS_EPX_CNT_DATA_TOGGLE;
+        
         /* Return API State as it was defined before */
-        USBFS_EP[ep].apiEpState &= (uint8)~USBFS_NO_EVENT_ALLOWED;
+        USBFS_EP[ep].apiEpState &= (uint8) ~USBFS_NO_EVENT_ALLOWED;
 
         if ((USBFS_EP[ep].addr & USBFS_DIR_IN) != 0u)
         {
             /* IN Endpoint */
             if(USBFS_EP[ep].apiEpState == USBFS_IN_BUFFER_EMPTY)
-            {       /* Wait for next packet from application */
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_NAK_IN);
+            {       
+                /* Wait for next packet from application */
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_NAK_IN;
             }
             else    /* Continue armed transfer */
             {
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_ACK_IN);
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_ACK_IN;
             }
         }
         else
         {
             /* OUT Endpoint */
-            if(USBFS_EP[ep].apiEpState == USBFS_OUT_BUFFER_FULL)
-            {       /* Allow application to read full buffer */
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_NAK_OUT);
+            if (USBFS_EP[ep].apiEpState == USBFS_OUT_BUFFER_FULL)
+            {       
+                /* Allow application to read full buffer */
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_NAK_OUT;
             }
             else    /* Mark endpoint as empty, so it will be reloaded */
             {
-                CY_SET_REG8((reg8 *)(USBFS_SIE_EP1_CR0_IND + ri), USBFS_MODE_ACK_OUT);
+                USBFS_SIE_EP_BASE.sieEp[ep].epCr0 = USBFS_MODE_ACK_OUT;
             }
         }
+        
         requestHandled = USBFS_InitNoDataControlTransfer();
     }
 
@@ -1129,42 +1217,42 @@ uint8 USBFS_ClearEndpointHalt(void)
 
 /*******************************************************************************
 * Function Name: USBFS_ValidateAlternateSetting
-********************************************************************************
+****************************************************************************//**
 *
-* Summary:
 *  Validates (and records) a SET INTERFACE request.
 *
-* Parameters:
-*  None.
-*
-* Return:
+* \return
 *  requestHandled.
 *
-* Reentrant:
+* \reentrant
 *  No.
 *
 *******************************************************************************/
 uint8 USBFS_ValidateAlternateSetting(void) 
 {
-    uint8 requestHandled = USBFS_TRUE;
+    uint8 requestHandled = USBFS_FALSE;
+    
     uint8 interfaceNum;
+    uint8 curInterfacesNum;
     const T_USBFS_LUT CYCODE *pTmp;
-    uint8 currentInterfacesNum;
-
-    interfaceNum = CY_GET_REG8(USBFS_wIndexLo);
-    /* Validate interface setting, stall if invalid. */
+    
+    /* Get interface number from the request. */
+    interfaceNum = (uint8) USBFS_wIndexLoReg;
+    
+    /* Get number of interfaces for current configuration. */
     pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
-    currentInterfacesNum  = ((const uint8 *) pTmp->p_list)[USBFS_CONFIG_DESCR_NUM_INTERFACES];
+    curInterfacesNum  = ((const uint8 *) pTmp->p_list)[USBFS_CONFIG_DESCR_NUM_INTERFACES];
 
-    if((interfaceNum >= currentInterfacesNum) || (interfaceNum >= USBFS_MAX_INTERFACES_NUMBER))
-    {   /* Wrong interface number */
-        requestHandled = USBFS_FALSE;
-    }
-    else
+    /* Validate that interface number is within range. */
+    if ((interfaceNum <= curInterfacesNum) || (interfaceNum <= USBFS_MAX_INTERFACES_NUMBER))
     {
-        /* Save current Alt setting to find out the difference in Config() function */
-        USBFS_interfaceSetting_last[interfaceNum] = USBFS_interfaceSetting[interfaceNum];
-        USBFS_interfaceSetting[interfaceNum] = CY_GET_REG8(USBFS_wValueLo);
+        /* Save current and new alternate settings (come with request) to make 
+        * desicion about following endpoint re-configuration.
+        */
+        USBFS_interfaceSettingLast[interfaceNum] = USBFS_interfaceSetting[interfaceNum];
+        USBFS_interfaceSetting[interfaceNum]     = (uint8) USBFS_wValueLoReg;
+        
+        requestHandled = USBFS_TRUE;
     }
 
     return (requestHandled);

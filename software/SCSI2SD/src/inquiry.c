@@ -181,6 +181,7 @@ void scsiInquiry()
 	{
 		memcpy(scsiDev.data, UnitSerialNumber, sizeof(UnitSerialNumber));
 		scsiDev.dataLen = sizeof(UnitSerialNumber);
+		memcpy(&scsiDev.data[4], config->serial, sizeof(config->serial));
 		scsiDev.phase = DATA_IN;
 	}
 	else if (pageCode == 0x81)

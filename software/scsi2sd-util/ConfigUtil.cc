@@ -89,7 +89,7 @@ namespace
 	std::vector<uint8_t> getModePages(const TargetConfig& cfg)
 	{
 		std::vector<uint8_t> result;
-		int i = 0;
+		unsigned i = 0;
 		while (i < sizeof(cfg.modePages) - 2)
 		{
 			int pageLen = cfg.modePages[i+1];
@@ -106,7 +106,7 @@ namespace
 	std::vector<uint8_t> getVPDPages(const TargetConfig& cfg)
 	{
 		std::vector<uint8_t> result;
-		int i = 0;
+		unsigned i = 0;
 		while (i < sizeof(cfg.vpd) - 4)
 		{
 			int pageLen = cfg.vpd[i+3];
@@ -132,6 +132,7 @@ ConfigUtil::DefaultBoardConfig()
 
 	// Default to maximum fail-safe options.
 	config.flags = 0;
+	config.flags6 = S2S_CFG_ENABLE_TERMINATOR;
 	config.selectionDelay = 255; // auto
 
 	return config;
@@ -249,6 +250,7 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	Space separated list. Available options:\n" <<
 		"	apple\t\tReturns Apple-specific mode pages\n" <<
 		"	omti\t\tOMTI host non-standard link control\n" <<
+		"	xebec\t\tXEBEC ignore step options in control byte\n" <<
 		"	********************************************************* -->\n" <<
 		"	<quirks>";
 	if (config.quirks == CONFIG_QUIRKS_APPLE)
@@ -258,6 +260,10 @@ ConfigUtil::toXML(const TargetConfig& config)
 	else if (config.quirks == CONFIG_QUIRKS_OMTI)
 	{
 		s << "omti";
+	}
+	else if (config.quirks == CONFIG_QUIRKS_XEBEC)
+	{
+		s << "xebec";
 	}
 
 	s <<
@@ -346,6 +352,16 @@ ConfigUtil::toXML(const BoardConfig& config)
 
 	s << "<BoardConfig>\n" <<
 
+		"	<!-- ********************************************************\n" <<
+		"	Enable the onboard active terminator (v5.1 or greater).\n"
+		"	Both ends of the SCSI chain should be terminated. Disable\n" <<
+		"	only if the SCSI2SD is in the middle of a chain with other\n" <<
+		"	devices.\n" <<
+		"	********************************************************* -->\n" <<
+		"	<enableTerminator>" <<
+			(config.flags6 & S2S_CFG_ENABLE_TERMINATOR ? "true" : "false") <<
+			"</enableTerminator>\n" <<
+
 		"	<unitAttention>" <<
 			(config.flags & CONFIG_ENABLE_UNIT_ATTENTION ? "true" : "false") <<
 			"</unitAttention>\n" <<
@@ -416,6 +432,15 @@ ConfigUtil::toXML(const BoardConfig& config)
 		"	after power on. Default = 0.\n" <<
 		"	********************************************************* -->\n" <<
 		"	<startupDelay>" << static_cast<int>(config.startupDelay) << "</startupDelay>\n" <<
+
+		"	<!-- ********************************************************\n" <<
+		"	Speed limit the SCSI interface. This is the -max- speed the \n" <<
+		"	device will run at. The actual spee depends on the capability\n" <<
+		"	of the host controller.\n" <<
+		"	0	No limit\n" <<
+		"	1	Async 1.5MB/s\n" <<
+		"	********************************************************* -->\n" <<
+		"	<scsiSpeed>" << static_cast<int>(config.scsiSpeed) << "</scsiSpeed>\n" <<
 		"</BoardConfig>\n";
 
 	return s.str();
@@ -497,6 +522,10 @@ parseTarget(wxXmlNode* node)
 				else if (quirk == "omti")
 				{
 					result.quirks |= CONFIG_QUIRKS_OMTI;
+				}
+				else if (quirk == "xebec")
+				{
+					result.quirks |= CONFIG_QUIRKS_XEBEC;
 				}
 			}
 		}
@@ -666,6 +695,18 @@ parseBoardConfig(wxXmlNode* node)
 				result.flags = result.flags & ~CONFIG_ENABLE_DISCONNECT;
 			}
 		}
+		else if (child->GetName() == "enableTerminator")
+		{
+			std::string s(child->GetNodeContent().mb_str());
+			if (s == "true")
+			{
+				result.flags6 |= S2S_CFG_ENABLE_TERMINATOR;
+			}
+			else
+			{
+				result.flags6 = result.flags & ~S2S_CFG_ENABLE_TERMINATOR;
+			}
+		}
 		else if (child->GetName() == "selLatch")
 		{
 			std::string s(child->GetNodeContent().mb_str());
@@ -689,6 +730,10 @@ parseBoardConfig(wxXmlNode* node)
 			{
 				result.flags = result.flags & ~CONFIG_MAP_LUNS_TO_IDS;
 			}
+		}
+		else if (child->GetName() == "scsiSpeed")
+		{
+			result.scsiSpeed = parseInt(child, CONFIG_SPEED_ASYNC_15);
 		}
 		child = child->GetNext();
 	}

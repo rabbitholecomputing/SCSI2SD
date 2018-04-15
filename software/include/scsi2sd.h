@@ -112,6 +112,11 @@ typedef enum
 
 typedef enum
 {
+	S2S_CFG_ENABLE_TERMINATOR = 1
+} CONFIG_FLAGS6;
+
+typedef enum
+{
 	CONFIG_FIXED,
 	CONFIG_REMOVEABLE,
 	CONFIG_OPTICAL,
@@ -123,10 +128,17 @@ typedef enum
 
 typedef enum
 {
-	CONFIG_QUIRKS_NONE,
-	CONFIG_QUIRKS_APPLE,
-	CONFIG_QUIRKS_OMTI
+	CONFIG_QUIRKS_NONE = 0,
+	CONFIG_QUIRKS_APPLE = 1,
+	CONFIG_QUIRKS_OMTI = 2,
+	CONFIG_QUIRKS_XEBEC = 4
 } CONFIG_QUIRKS;
+
+typedef enum
+{
+	CONFIG_SPEED_NoLimit,
+	CONFIG_SPEED_ASYNC_15
+} CONFIG_SPEED;
 
 typedef struct __attribute__((packed))
 {
@@ -179,8 +191,12 @@ typedef struct __attribute__((packed))
 	uint8_t flags; // CONFIG_FLAGS
 	uint8_t startupDelay; // Seconds.
 	uint8_t selectionDelay; // milliseconds. 255 = auto
+	uint8_t flags6; // CONFIG_FLAGS6
 
-	uint8_t reserved[249]; // Pad out to 256 bytes
+	uint8_t scsiSpeed;
+
+
+	uint8_t reserved[247]; // Pad out to 256 bytes
 } BoardConfig;
 
 typedef enum

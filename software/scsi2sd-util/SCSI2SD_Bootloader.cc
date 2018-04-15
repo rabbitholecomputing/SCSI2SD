@@ -172,6 +172,11 @@ Bootloader::getHWInfo() const
 		info.version = "V4.1/V4.2/V5.0";
 		info.firmwareName = "SCSI2SD-V4.cyacd";
 		break;
+	case 0x3003:
+		info.desc = "3.5\" SCSI2SD";
+		info.version = "V5.1";
+		info.firmwareName = "SCSI2SD-V51.cyacd";
+		break;
 	}
 	return info;
 }

@@ -14,8 +14,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
 
 #include "device.h"
 #include "config.h"
@@ -33,7 +31,7 @@
 
 #include <string.h>
 
-static const uint16_t FIRMWARE_VERSION = 0x0471;
+static const uint16_t FIRMWARE_VERSION = 0x0480;
 
 // 1 flash row
 static const uint8_t DEFAULT_CONFIG[256] =
@@ -141,6 +139,17 @@ writeFlashCommand(const uint8_t* cmd, size_t cmdSize)
 	}
 	uint8_t flashArray = cmd[257];
 	uint8_t flashRow = cmd[258];
+
+	// Be very careful not to overwrite the bootloader or other\r
+	// code. Bootloader updates no longer supported. Use v5.1 board
+	// instead.
+	if ((flashArray != SCSI_CONFIG_ARRAY) ||
+		(flashRow < SCSI_CONFIG_4_ROW) ||
+		(flashRow >= SCSI_CONFIG_3_ROW + SCSI_CONFIG_ROWS))
+    {
+		uint8_t response[] = { CONFIG_STATUS_ERR };
+		hidPacket_send(response, sizeof(response));
+	}
 
 	CySetTemp();
 	int status = CyWriteRowData(flashArray, flashRow, cmd + 1);
@@ -452,5 +461,3 @@ const TargetConfig* getConfigById(int scsiId)
 	return NULL;
 
 }
-
-#pragma GCC pop_options

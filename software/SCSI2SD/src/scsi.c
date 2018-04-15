@@ -14,8 +14,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
 
 #include "device.h"
 #include "scsi.h"
@@ -145,11 +143,13 @@ void process_Status()
 		// OMTI non-standard LINK control
 		if (control & 0x01)
 		{
-			scsiDev.phase = COMMAND; return;
+			scsiDev.phase = COMMAND;
+			return;
 		}
 	}
 
-	if ((scsiDev.status == GOOD) && (control & 0x01))
+	if ((scsiDev.status == GOOD) && (control & 0x01) &&
+		scsiDev.target->cfg->quirks != CONFIG_QUIRKS_XEBEC)
 	{
 		// Linked command.
 		scsiDev.status = INTERMEDIATE;
@@ -168,12 +168,31 @@ void process_Status()
 	}
 
 
-	if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_OMTI)
+	if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC)
+	{
+		// More non-standardness. Expects 2 status bytes (really status + msg)
+		// 00 d 000 err 0
+		// d == disk number
+		// ERR = 1 if error.
+		if (scsiDev.status == GOOD)
+		{
+			scsiWriteByte(scsiDev.cdb[1] & 0x20);
+		}
+		else
+		{
+			scsiWriteByte((scsiDev.cdb[1] & 0x20) | 0x2);
+		}
+		CyDelayUs(10); // Seems to need a delay before changing phase bits.
+	}
+	else if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_OMTI)
 	{
 		scsiDev.status |= (scsiDev.target->targetId & 0x03) << 5;
+		scsiWriteByte(scsiDev.status);
 	}
-
-	scsiWriteByte(scsiDev.status);
+	else
+	{
+		scsiWriteByte(scsiDev.status);
+	}
 
 	scsiDev.lastStatus = scsiDev.status;
 	scsiDev.lastSense = scsiDev.target->sense.code;
@@ -279,7 +298,14 @@ static void process_Command()
 	// Prefer LUN's set by IDENTIFY messages for newer hosts.
 	if (scsiDev.lun < 0)
 	{
-		scsiDev.lun = scsiDev.cdb[1] >> 5;
+		if (command == 0xE0 || command == 0xE4) // XEBEC s1410
+		{
+			scsiDev.lun = 0;
+		}
+		else
+		{
+			scsiDev.lun = scsiDev.cdb[1] >> 5;
+		}
 	}
 
 	// For Philips P2000C with Xebec S1410 SASI/MFM adapter
@@ -319,7 +345,9 @@ static void process_Command()
 		scsiDev.target->sense.asc = SCSI_PARITY_ERROR;
 		enter_Status(CHECK_CONDITION);
 	}
-	else if ((control & 0x02) && ((control & 0x01) == 0))
+	else if ((control & 0x02) && ((control & 0x01) == 0) &&
+		// used for head step options on xebec.
+		likely(scsiDev.target->cfg->quirks != CONFIG_QUIRKS_XEBEC))
 	{
 		// FLAG set without LINK flag.
 		scsiDev.target->sense.code = ILLEGAL_REQUEST;
@@ -335,6 +363,26 @@ static void process_Command()
 		// REQUEST SENSE
 		uint32 allocLength = scsiDev.cdb[4];
 
+		if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC)
+		{
+			// Completely non-standard
+			allocLength = 4;
+			if (scsiDev.target->sense.code == NO_SENSE)
+				scsiDev.data[0] = 0;
+			else if (scsiDev.target->sense.code == ILLEGAL_REQUEST)
+				scsiDev.data[0] = 0x20; // Illegal command
+			else if (scsiDev.target->sense.code == NOT_READY)
+				scsiDev.data[0] = 0x04; // Drive not ready
+			else
+				scsiDev.data[0] = 0x11;  // Uncorrectable data error
+
+			scsiDev.data[1] = (scsiDev.cdb[1] & 0x20) | ((transfer.lba >> 16) & 0x1F);
+			scsiDev.data[2] = transfer.lba >> 8;
+			scsiDev.data[3] = transfer.lba;
+
+		}
+		else
+		{
 		// As specified by the SASI and SCSI1 standard.
 		// Newer initiators won't be specifying 0 anyway.
 		if (allocLength == 0) allocLength = 4;
@@ -352,6 +400,7 @@ static void process_Command()
 		scsiDev.data[7] = 10; // additional length
 		scsiDev.data[12] = scsiDev.target->sense.asc >> 8;
 		scsiDev.data[13] = scsiDev.target->sense.asc;
+		}
 
 		// Silently truncate results. SCSI-2 spec 8.2.14.
 		enter_DataIn(allocLength);
@@ -564,7 +613,11 @@ static void process_SelectionPhase()
 	// The Mac Plus boot-time (ie. rom code) selection abort time
 	// is < 1ms and must have no delay (standard suggests 250ms abort time)
 	// Most newer SCSI2 hosts don't care either way.
-	if (scsiDev.boardCfg.selectionDelay == 255) // auto
+	if (scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC)
+	{
+		CyDelay(1); // Simply won't work if set to 0.
+	}
+	else if (scsiDev.boardCfg.selectionDelay == 255) // auto
 	{
 		if (scsiDev.compatMode < COMPAT_SCSI2)
 		{
@@ -580,7 +633,11 @@ static void process_SelectionPhase()
 	int sel = (selLatchCfg && scsiDev.selFlag) || SCSI_ReadFilt(SCSI_Filt_SEL);
 
 	int bsy = SCSI_ReadFilt(SCSI_Filt_BSY);
+#ifdef SCSI_In_IO
 	int io = SCSI_ReadPin(SCSI_In_IO);
+#else
+	int io = 0;
+#endif
 
 	// Only read these pins AFTER SEL and BSY - we don't want to catch them
 	// during a transition period.
@@ -601,7 +658,9 @@ static void process_SelectionPhase()
 	}
 	sel &= (selLatchCfg && scsiDev.selFlag) || SCSI_ReadFilt(SCSI_Filt_SEL);
 	bsy |= SCSI_ReadFilt(SCSI_Filt_BSY);
+#ifdef SCSI_In_IO
 	io |= SCSI_ReadPin(SCSI_In_IO);
+#endif
 	if (!bsy && !io && sel &&
 		target &&
 		(goodParity || !(scsiDev.boardCfg.flags & CONFIG_ENABLE_PARITY) || !atnFlag) &&
@@ -663,10 +722,17 @@ static void process_SelectionPhase()
 		}
 
 		// Wait until the end of the selection phase.
+		uint32_t selTimerBegin = getTime_ms();
 		while (likely(!scsiDev.resetFlag))
 		{
 			if (!SCSI_ReadFilt(SCSI_Filt_SEL))
 			{
+				break;
+			}
+			else if (elapsedTime_ms(selTimerBegin) >= 250)
+			{
+				SCSI_ClearPin(SCSI_Out_BSY);
+				scsiDev.resetFlag = 1;
 				break;
 			}
 		}
@@ -677,7 +743,7 @@ static void process_SelectionPhase()
 	{
 		scsiDev.phase = BUS_BUSY;
 	}
-	
+
 	scsiDev.selFlag = 0;
 }
 
@@ -1089,4 +1155,3 @@ int scsiReconnect()
 	return reconnected;
 }
 
-#pragma GCC pop_options

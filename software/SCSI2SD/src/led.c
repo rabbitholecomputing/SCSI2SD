@@ -14,8 +14,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
 
 #include "led.h"
 
@@ -70,11 +68,10 @@ void ledOn()
 
 void ledOff()
 {
-	LED1_Write(1);
+	LED1_Write(0xff);
 
 #ifdef HAVE_EXTLED
 	EXTLED_Write(0);
 #endif
 }
 
-#pragma GCC pop_options

@@ -53,7 +53,35 @@ BoardPanel::BoardPanel(wxWindow* parent, const BoardConfig& initialConfig) :
 	myParent(parent),
 	myDelayValidator(new wxIntegerValidator<uint8_t>)
 {
-	wxFlexGridSizer *fgs = new wxFlexGridSizer(10, 2, 9, 25);
+	wxFlexGridSizer *fgs = new wxFlexGridSizer(12, 2, 9, 25);
+
+	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
+	myTermCtrl =
+		new wxCheckBox(
+			this,
+			ID_termCtrl,
+			_("Enable SCSI terminator (V5.1 only)"));
+	myTermCtrl->SetToolTip(_("Enable active terminator. Both ends of the SCSI chain must be terminated."));
+	fgs->Add(myTermCtrl);
+
+	fgs->Add(new wxStaticText(this, wxID_ANY, _("SCSI Host Speed")));
+	wxString speeds[] = {
+		wxT("Normal"),
+		wxT("Slow"),
+		};
+
+	myScsiSpeedCtrl =
+		new wxChoice(
+			this,
+			ID_scsiSpeedCtrl,
+			wxDefaultPosition,
+			wxDefaultSize,
+			sizeof(speeds) / sizeof(wxString),
+			speeds
+			);
+	myScsiSpeedCtrl->SetToolTip(_("Limit SCSI interface speed"));
+	fgs->Add(myScsiSpeedCtrl);
+
 
 	fgs->Add(new wxStaticText(this, wxID_ANY, _("Startup Delay (seconds)")));
 	myStartDelayCtrl =
@@ -182,8 +210,12 @@ BoardPanel::getConfig() const
 		(mySelLatchCtrl->IsChecked() ? CONFIG_ENABLE_SEL_LATCH : 0) |
 		(myMapLunsCtrl->IsChecked() ? CONFIG_MAP_LUNS_TO_IDS : 0);
 
+	config.flags6 = (myTermCtrl->IsChecked() ? S2S_CFG_ENABLE_TERMINATOR : 0);
+
 	config.startupDelay = CtrlGetValue<unsigned int>(myStartDelayCtrl).first;
 	config.selectionDelay = CtrlGetValue<unsigned int>(mySelDelayCtrl).first;
+	config.scsiSpeed = myScsiSpeedCtrl->GetSelection();
+
 	return config;
 }
 
@@ -195,6 +227,7 @@ BoardPanel::setConfig(const BoardConfig& config)
 	myParityCtrl->SetValue(config.flags & CONFIG_ENABLE_PARITY);
 	myUnitAttCtrl->SetValue(config.flags & CONFIG_ENABLE_UNIT_ATTENTION);
 	myScsi2Ctrl->SetValue(config.flags & CONFIG_ENABLE_SCSI2);
+	myTermCtrl->SetValue(config.flags6 & S2S_CFG_ENABLE_TERMINATOR);
 	myGlitchCtrl->SetValue(config.flags & CONFIG_DISABLE_GLITCH);
 	myCacheCtrl->SetValue(config.flags & CONFIG_ENABLE_CACHE);
 	myDisconnectCtrl->SetValue(config.flags & CONFIG_ENABLE_DISCONNECT);
@@ -211,6 +244,13 @@ BoardPanel::setConfig(const BoardConfig& config)
 		conv << static_cast<unsigned int>(config.selectionDelay);
 		mySelDelayCtrl->ChangeValue(conv.str());
 	}
+
+	int speed = config.scsiSpeed;
+	if (speed > CONFIG_SPEED_ASYNC_15) // newer V6 config
+	{
+		speed = CONFIG_SPEED_NoLimit;
+	}
+	myScsiSpeedCtrl->SetSelection(speed);
 }
 
 

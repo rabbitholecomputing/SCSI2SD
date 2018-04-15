@@ -31,6 +31,7 @@
 
 #include <math.h>
 #include <string.h>
+#include <strings.h> // for ffs
 
 using namespace SCSI2SD;
 
@@ -72,7 +73,7 @@ TargetPanel::TargetPanel(wxWindow* parent, const TargetConfig& initialConfig) :
 	myNumSectorValidator(new wxIntegerValidator<uint32_t>),
 	mySizeValidator(new wxFloatingPointValidator<float>(2))
 {
-	wxFlexGridSizer *fgs = new wxFlexGridSizer(11, 3, 9, 25);
+	wxFlexGridSizer *fgs = new wxFlexGridSizer(12, 3, 9, 25);
 
 	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
 	myEnableCtrl =
@@ -125,6 +126,28 @@ TargetPanel::TargetPanel(wxWindow* parent, const TargetConfig& initialConfig) :
 	fgs->Add(myDeviceTypeCtrl);
 	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
 	Bind(wxEVT_CHOICE, &TargetPanel::onInput<wxCommandEvent>, this, ID_deviceTypeCtrl);
+
+	fgs->Add(new wxStaticText(this, wxID_ANY, _("Quirks Mode")));
+	wxString quirks[] =
+	{
+		_("None"),
+		_("Apple"),
+		_("OMTI"),
+		_("XEBEC")
+	};
+	myQuirksCtrl =
+		new wxChoice(
+			this,
+			ID_quirksCtrl,
+			wxDefaultPosition,
+			wxDefaultSize,
+			sizeof(quirks) / sizeof(wxString),
+			quirks
+			);
+	myQuirksCtrl->SetSelection(0);
+	fgs->Add(myQuirksCtrl);
+	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("")));
+	Bind(wxEVT_CHOICE, &TargetPanel::onInput<wxCommandEvent>, this, ID_quirksCtrl);
 
 	fgs->Add(new wxStaticText(this, wxID_ANY, wxT("SD card start sector")));
 	wxWrapSizer* startContainer = new wxWrapSizer();
@@ -296,6 +319,7 @@ TargetPanel::evaluate()
 	{
 		myScsiIdCtrl->Enable(enabled);
 		myDeviceTypeCtrl->Enable(enabled);
+		myQuirksCtrl->Enable(enabled);
 		myStartSDSectorCtrl->Enable(enabled && !myAutoStartSectorCtrl->IsChecked());
 		myAutoStartSectorCtrl->Enable(enabled);
 		mySectorSizeCtrl->Enable(enabled);
@@ -538,6 +562,13 @@ TargetPanel::getConfig() const
 	}
 
 	config.deviceType = myDeviceTypeCtrl->GetSelection();
+	switch (myQuirksCtrl->GetSelection())
+	{
+		case 0: config.quirks = 0; break;
+		case 1: config.quirks = CONFIG_QUIRKS_APPLE; break;
+		case 2: config.quirks = CONFIG_QUIRKS_OMTI; break;
+		case 3: config.quirks = CONFIG_QUIRKS_XEBEC; break;
+	}
 
 	auto startSDSector = CtrlGetValue<uint32_t>(myStartSDSectorCtrl);
 	config.sdSectorStart = startSDSector.first;
@@ -568,6 +599,7 @@ TargetPanel::setConfig(const TargetConfig& config)
 	myEnableCtrl->SetValue(config.scsiId & CONFIG_TARGET_ENABLED);
 
 	myDeviceTypeCtrl->SetSelection(config.deviceType);
+	myQuirksCtrl->SetSelection(ffs(config.quirks));
 
 	{
 		std::stringstream ss; ss << config.sdSectorStart;

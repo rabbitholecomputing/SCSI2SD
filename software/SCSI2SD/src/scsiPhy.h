@@ -37,11 +37,21 @@ typedef enum
 #define scsiPhyTx(val) CY_SET_REG8(scsiTarget_datapath__F0_REG, (val))
 #define scsiPhyRx() CY_GET_REG8(scsiTarget_datapath__F1_REG)
 
+#ifdef TERM_EN_0
+	// V5.1 is active-low
+#define SCSI_SetPin(pin) \
+	CyPins_ClearPin((pin));
+
+#define SCSI_ClearPin(pin) \
+	CyPins_SetPin((pin));
+#else
+	// <= V5.0 is active-high
 #define SCSI_SetPin(pin) \
 	CyPins_SetPin((pin));
 
 #define SCSI_ClearPin(pin) \
-	CyPins_ClearPin((pin));
+	CyPins_ClearPin((pin));	
+#endif
 
 // Active low: we interpret a 0 as "true", and non-zero as "false"
 #define SCSI_ReadPin(pin) \

@@ -276,9 +276,7 @@ always @(posedge op_clk) begin
 			else
 				state <= STATE_RX;
 
-			REQReg <= 1'b0;
 			parityErrReg <= 1'b0;
-			data <= 8'b0;
 			if (IO == IO_READ) begin
 				parityErrReg <= ^genParity[2:0];
 			end

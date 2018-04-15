@@ -14,9 +14,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
-
 #include "device.h"
 #include "scsi.h"
 #include "scsiPhy.h"
@@ -391,9 +388,8 @@ void scsiEnterPhase(int phase)
 {
 	// ANSI INCITS 362-2002 SPI-3 10.7.1:
 	// Phase changes are not allowed while REQ or ACK is asserted.
-	while (likely(!scsiDev.resetFlag) &&
-		(SCSI_ReadPin(SCSI_In_REQ) || SCSI_ReadFilt(SCSI_Filt_ACK))
-		) {}
+	while (likely(!scsiDev.resetFlag) && SCSI_ReadFilt(SCSI_Filt_ACK))
+	{}
 
 	int newPhase = phase > 0 ? phase : 0;
 	if (newPhase != SCSI_CTL_PHASE_Read())
@@ -403,7 +399,9 @@ void scsiEnterPhase(int phase)
 
 		if (scsiDev.compatMode < COMPAT_SCSI2)
 		{
-			CyDelayUs(100);
+			// XEBEC S1410 manual (old SASI controller) gives 10uSec delay
+			// between phase bits and REQ.
+			CyDelayUs(10);
 		}
 	}
 }
@@ -452,9 +450,13 @@ void scsiPhyReset()
 	SCSI_SetPin(SCSI_Out_RST);
 
 	SCSI_CTL_PHASE_Write(0);
+	#ifdef SCSI_Out_ATN
 	SCSI_ClearPin(SCSI_Out_ATN);
+	#endif
 	SCSI_ClearPin(SCSI_Out_BSY);
+	#ifdef SCSI_Out_ACK
 	SCSI_ClearPin(SCSI_Out_ACK);
+	#endif
 	SCSI_ClearPin(SCSI_Out_RST);
 	SCSI_ClearPin(SCSI_Out_SEL);
 	SCSI_ClearPin(SCSI_Out_REQ);
@@ -512,8 +514,34 @@ void scsiPhyInit()
 	if (scsiDev.boardCfg.flags & CONFIG_DISABLE_GLITCH)
 	{
 		SCSI_Glitch_Ctl_Write(1);
+
+		// Reduce deskew time to 1. (deskew init + 0)
 		CY_SET_REG8(scsiTarget_datapath__D0_REG, 0);
 	}
+	if ((scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC) ||
+		(scsiDev.boardCfg.scsiSpeed == CONFIG_SPEED_ASYNC_15))
+	{
+		// 125ns to 250ns deskew time = 3.125 clocks
+		// - 1 (valid during DESKEW INIT)
+		// = 2.125. Default is 1.
+		// Round down because it's going to be doubled anyway due to clock
+		// divider change below.
+		CY_SET_REG8(scsiTarget_datapath__D0_REG, 2);
+
+		// Half the SCSI clock as a way to extend the glitch filter.
+		// This also helps meet the 250ns delays between ACK and reading
+		// data, or release ack and reassert req.
+
+		// The register contains (divider - 1)
+		uint16_t clkDiv25MHz =  SCSI_CLK_GetDividerRegister();
+		SCSI_CLK_SetDivider(((clkDiv25MHz + 1) * 2) - 1);
+		// Wait for the clock to settle.
+		CyDelayUs(1);
+	}
+
+	#ifdef TERM_EN_0
+	TERM_EN_Write((scsiDev.boardCfg.flags6 & S2S_CFG_ENABLE_TERMINATOR) ? 0 : 1);
+	#endif
 }
 
 // 1 = DBx error
@@ -546,6 +574,7 @@ int scsiSelfTest()
 	SCSI_Out_Ctl_Write(0); // Write bits normally.
 
 	// TEST MSG, CD, IO
+	#ifdef SCSI_In_MSG
 	for (i = 0; i < 8; ++i)
 	{
 		SCSI_CTL_PHASE_Write(i);
@@ -564,18 +593,19 @@ int scsiSelfTest()
 			result |= 16;
 		}
 	}
+	#endif
 	SCSI_CTL_PHASE_Write(0);
 
-	uint32_t signalsOut[] = { SCSI_Out_ATN, SCSI_Out_BSY, SCSI_Out_RST, SCSI_Out_SEL };
-	uint32_t signalsIn[] = { SCSI_Filt_ATN, SCSI_Filt_BSY, SCSI_Filt_RST, SCSI_Filt_SEL };
+	uint32_t signalsOut[] = { SCSI_Out_BSY, SCSI_Out_RST, SCSI_Out_SEL };
+	uint32_t signalsIn[] = { SCSI_Filt_BSY, SCSI_Filt_RST, SCSI_Filt_SEL };
 
-	for (i = 0; i < 4; ++i)
+	for (i = 0; i < 3; ++i)
 	{
 		SCSI_SetPin(signalsOut[i]);
 		scsiDeskewDelay();
 
 		int j;
-		for (j = 0; j < 4; ++j)
+		for (j = 0; j < 3; ++j)
 		{
 			if (i == j)
 			{
@@ -598,4 +628,3 @@ int scsiSelfTest()
 }
 
 
-#pragma GCC pop_options

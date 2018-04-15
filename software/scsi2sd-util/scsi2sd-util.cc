@@ -181,10 +181,10 @@ public:
 			ID_Firmware,
 			_("&Upgrade Firmware..."),
 			_("Upgrade or inspect device firmware version."));
-		menuFile->Append(
+		/*menuFile->Append(
 			ID_Bootloader,
 			_("&Upgrade Bootloader (ADVANCED) ..."),
-			_("Upgrade device bootloader."));
+			_("Upgrade device bootloader."));*/
 		menuFile->AppendSeparator();
 		menuFile->Append(wxID_EXIT);
 

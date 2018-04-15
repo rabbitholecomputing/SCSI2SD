@@ -1,3 +1,13 @@
+2018XXXX		4.8
+	- Fix Unit Serial Number inquiry page to use return configured serial number
+	- Apple mode pages now only sent when in Apple mode.
+	- Added quirks selection to scsi2sd-util. Apple users should manually fix
+	their settings to use the Apple mode.
+	- Added specific support for XEBEC controllers.
+	- Added a speed selection to scsi2sd-util. Users with older SASI or SCSI1
+	controllers should select the lower speed for stability.
+	- Support for v5.1 hardware boards.
+
 20170501		4.7.1
 	- Fix scsi2sd-util size and sector-size inputs
 	- Fix crash when configured scsi disk starting sector is less than

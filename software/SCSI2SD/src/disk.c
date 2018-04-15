@@ -15,9 +15,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
-
 #include "device.h"
 #include "scsi.h"
 #include "scsiPhy.h"
@@ -837,4 +834,4 @@ void scsiDiskInit()
 	#endif
 }
 
-#pragma GCC pop_options
+

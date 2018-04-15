@@ -14,9 +14,6 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#pragma GCC push_options
-#pragma GCC optimize("-flto")
-
 #include "device.h"
 #include "scsi.h"
 #include "scsiPhy.h"
@@ -26,7 +23,7 @@
 #include "time.h"
 #include "trace.h"
 
-const char* Notice = "Copyright (C) 2015 Michael McMaster <michael@codesrc.com>";
+const char* Notice = "Copyright (C) 2015-2018 Michael McMaster <michael@codesrc.com>";
 
 int main()
 {
@@ -104,4 +101,3 @@ int main()
 	return 0;
 }
 
-#pragma GCC pop_options

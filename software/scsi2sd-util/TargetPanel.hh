@@ -86,7 +86,8 @@ private:
 		ID_vendorCtrl,
 		ID_productCtrl,
 		ID_revisionCtrl,
-		ID_serialCtrl
+		ID_serialCtrl,
+		ID_quirksCtrl
 	};
 
 	enum // Must match the order given to the mySizeUnitCtrl ctor.
@@ -107,6 +108,7 @@ private:
 	wxStaticText* myScsiIdMsg;
 
 	wxChoice* myDeviceTypeCtrl;
+	wxChoice* myQuirksCtrl;
 
 	wxIntegerValidator<uint32_t>* myStartSDSectorValidator;
 	wxTextCtrl* myStartSDSectorCtrl;

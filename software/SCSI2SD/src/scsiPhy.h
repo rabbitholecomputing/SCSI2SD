@@ -50,7 +50,7 @@ typedef enum
 	CyPins_SetPin((pin));
 
 #define SCSI_ClearPin(pin) \
-	CyPins_ClearPin((pin));	
+	CyPins_ClearPin((pin));
 #endif
 
 // Active low: we interpret a 0 as "true", and non-zero as "false"
@@ -83,6 +83,7 @@ extern volatile uint8_t scsiTxDMAComplete;
 
 void scsiPhyReset(void);
 void scsiPhyInit(void);
+void scsiPhyConfig(void);
 
 uint8_t scsiReadByte(void);
 void scsiRead(uint8_t* data, uint32_t count);

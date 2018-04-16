@@ -509,7 +509,10 @@ void scsiPhyInit()
 	SCSI_RST_ISR_StartEx(scsiResetISR);
 
 	SCSI_SEL_ISR_StartEx(scsiSelectionISR);
+}
 
+void scsiPhyConfig()
+{
 	// Disable the glitch filter for ACK to improve performance.
 	if (scsiDev.boardCfg.flags & CONFIG_DISABLE_GLITCH)
 	{
@@ -518,7 +521,7 @@ void scsiPhyInit()
 		// Reduce deskew time to 1. (deskew init + 0)
 		CY_SET_REG8(scsiTarget_datapath__D0_REG, 0);
 	}
-	if ((scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC) ||
+	if ((scsiDev.target->cfg->quirks & CONFIG_QUIRKS_XEBEC) ||
 		(scsiDev.boardCfg.scsiSpeed == CONFIG_SPEED_ASYNC_15))
 	{
 		// 125ns to 250ns deskew time = 3.125 clocks

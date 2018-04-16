@@ -79,6 +79,7 @@ static void initBoardConfig(BoardConfig* config) {
 		config->flags = getConfigByIndex(0)->flagsDEPRECATED;
 
 		config->selectionDelay = 255; // auto
+		config->flags6 = S2S_CFG_ENABLE_TERMINATOR;
 	}
 }
 
@@ -146,7 +147,7 @@ writeFlashCommand(const uint8_t* cmd, size_t cmdSize)
 	if ((flashArray != SCSI_CONFIG_ARRAY) ||
 		(flashRow < SCSI_CONFIG_4_ROW) ||
 		(flashRow >= SCSI_CONFIG_3_ROW + SCSI_CONFIG_ROWS))
-    {
+	{
 		uint8_t response[] = { CONFIG_STATUS_ERR };
 		hidPacket_send(response, sizeof(response));
 	}

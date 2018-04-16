@@ -1,4 +1,4 @@
-2018XXXX		4.8
+20180416		4.8
 	- Fix Unit Serial Number inquiry page to use return configured serial number
 	- Apple mode pages now only sent when in Apple mode.
 	- Added quirks selection to scsi2sd-util. Apple users should manually fix

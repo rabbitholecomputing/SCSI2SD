@@ -41,6 +41,8 @@ int main()
 	configInit(&scsiDev.boardCfg);
 	debugInit();
 
+	scsiPhyConfig();
+
 	scsiInit();
 	scsiDiskInit();
 

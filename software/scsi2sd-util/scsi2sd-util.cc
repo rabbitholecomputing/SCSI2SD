@@ -177,6 +177,18 @@ public:
 			ID_ConfigDefaults,
 			_("Load &Defaults"),
 			_("Load default configuration options."));
+
+		menuFile->AppendSeparator();
+		myLoadButton = menuFile->Append(
+			ID_BtnLoad,
+			_("Load from device"),
+			_("Load configuration from hardware device"));
+		mySaveButton = menuFile->Append(
+			ID_BtnSave,
+			_("Save to device"),
+			_("Save configuration to hardware device"));
+
+		menuFile->AppendSeparator();
 		menuFile->Append(
 			ID_Firmware,
 			_("&Upgrade Firmware..."),
@@ -241,23 +253,13 @@ public:
 			tabs->Fit();
 			fgs->Add(tabs);
 
-
-			wxPanel* btnPanel = new wxPanel(cfgPanel);
-			wxFlexGridSizer *btnFgs = new wxFlexGridSizer(1, 2, 5, 5);
-			btnPanel->SetSizer(btnFgs);
-			myLoadButton =
-				new wxButton(btnPanel, ID_BtnLoad, _("Load from device"));
-			btnFgs->Add(myLoadButton);
-			mySaveButton =
-				new wxButton(btnPanel, ID_BtnSave, _("Save to device"));
-			btnFgs->Add(mySaveButton);
-			fgs->Add(btnPanel);
-
-			btnPanel->Fit();
 			cfgPanel->Fit();
 		}
-		//Fit(); // Needed to reduce window size on Windows
+#ifdef __WINDOWS__
+		Fit(); // Needed to reduce window size on Windows
+#else
 		FitInside(); // Needed on Linux to prevent status bar overlap
+#endif
 
 		myLogWindow = new wxLogWindow(this, _("scsi2sd-util debug log"), true);
 		myLogWindow->PassMessages(false); // Prevent messagebox popups
@@ -270,8 +272,8 @@ private:
 	wxLogWindow* myLogWindow;
 	BoardPanel* myBoardPanel;
 	std::vector<TargetPanel*> myTargets;
-	wxButton* myLoadButton;
-	wxButton* mySaveButton;
+	wxMenuItem* myLoadButton;
+	wxMenuItem* mySaveButton;
 	wxMenuItem* mySCSILogChk;
 	wxMenuItem* mySelfTestChk;
 	wxTimer* myTimer;
@@ -1211,7 +1213,7 @@ private:
 	{
 		wxMessageBox(
 			"SCSI2SD (scsi2sd-util)\n"
-			"Copyright (C) 2014 Michael McMaster <michael@codesrc.com>\n"
+			"Copyright (C) 2014-2018 Michael McMaster <michael@codesrc.com>\n"
 			"\n"
 "This program is free software: you can redistribute it and/or modify\n"
 "it under the terms of the GNU General Public License as published by\n"
@@ -1246,8 +1248,8 @@ wxBEGIN_EVENT_TABLE(AppFrame, wxFrame)
 
 	EVT_COMMAND(wxID_ANY, ConfigChangedEvent, AppFrame::onConfigChanged)
 
-	EVT_BUTTON(ID_BtnSave, AppFrame::doSave)
-	EVT_BUTTON(ID_BtnLoad, AppFrame::doLoad)
+	EVT_MENU(ID_BtnSave, AppFrame::doSave)
+	EVT_MENU(ID_BtnLoad, AppFrame::doLoad)
 
 	EVT_CLOSE(AppFrame::OnCloseEvt)
 

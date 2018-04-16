@@ -57,6 +57,7 @@ ifeq ($(TARGET),Win32)
 	LIBZIPPER_CONFIG+=--host=i686-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=i686-w64-mingw32
+	TARGETOBJ = $(BUILD)/gnulib_ffs.o
 endif
 ifeq ($(TARGET),Win64)
 	VPATH += hidapi-windows
@@ -67,6 +68,7 @@ ifeq ($(TARGET),Win64)
 	LIBZIPPER_CONFIG+=--host=x86_64-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=x86_64-w64-mingw32
+	TARGETOBJ = $(BUILD)/gnulib_ffs.o
 endif
 ifeq ($(TARGET),Linux)
 	VPATH += hidapi/linux
@@ -114,6 +116,7 @@ CONSOLEOBJ = \
 	$(BUILD)/SCSI2SD_Bootloader.o \
 	$(BUILD)/SCSI2SD_HID.o \
 	$(BUILD)/hidpacket.o \
+	$(TARGETOBJ)
 
 OBJ = \
 	${CONSOLEOBJ} \

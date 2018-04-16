@@ -32,6 +32,9 @@
 #include <math.h>
 #include <string.h>
 #include <strings.h> // for ffs
+#ifdef __MINGW32__
+extern "C" int ffs(int);
+#endif
 
 using namespace SCSI2SD;
 

@@ -19,15 +19,9 @@
 #if !defined(CY_SPIM_SDCard_H)
 #define CY_SPIM_SDCard_H
 
-#include "cytypes.h"
 #include "cyfitter.h"
-#include "CyLib.h"
-
-/* Check to see if required defines such as CY_PSOC5A are available */
-/* They are defined starting with cy_boot v3.0 */
-#if !defined (CY_PSOC5A)
-    #error Component SPI_Master_v2_50 requires cy_boot v3.0 or later
-#endif /* (CY_PSOC5A) */
+#include "cytypes.h"
+#include "CyLib.h" /* For CyEnterCriticalSection() and CyExitCriticalSection() functions */
 
 
 /***************************************

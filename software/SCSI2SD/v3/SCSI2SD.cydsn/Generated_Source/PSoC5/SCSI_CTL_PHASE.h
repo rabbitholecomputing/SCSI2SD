@@ -17,7 +17,15 @@
 #if !defined(CY_CONTROL_REG_SCSI_CTL_PHASE_H) /* CY_CONTROL_REG_SCSI_CTL_PHASE_H */
 #define CY_CONTROL_REG_SCSI_CTL_PHASE_H
 
-#include "cytypes.h"
+#include "cyfitter.h"
+
+#if ((CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC3) || \
+     (CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC4) || \
+     (CYDEV_CHIP_FAMILY_USED == CYDEV_CHIP_FAMILY_PSOC5))
+    #include "cytypes.h"
+#else
+    #include "syslib/cy_syslib.h"
+#endif
 
     
 /***************************************

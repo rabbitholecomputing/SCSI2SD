@@ -40,7 +40,6 @@ ScsiDevice scsiDev;
 
 static void enter_SelectionPhase(void);
 static void process_SelectionPhase(void);
-static void enter_BusFree(void);
 static void enter_MessageIn(uint8 message);
 static void enter_Status(uint8 status);
 static void enter_DataIn(int len);
@@ -50,7 +49,7 @@ static void process_Command(void);
 
 static void doReserveRelease(void);
 
-static void enter_BusFree()
+void enter_BusFree()
 {
 	// This delay probably isn't needed for most SCSI hosts, but it won't
 	// hurt either. It's possible some of the samplers needed this delay.
@@ -84,7 +83,7 @@ static void enter_MessageIn(uint8 message)
 	scsiDev.phase = MESSAGE_IN;
 }
 
-void process_MessageIn()
+int process_MessageIn(int releaseBusFree)
 {
 	scsiEnterPhase(MESSAGE_IN);
 	scsiWriteByte(scsiDev.msgIn);
@@ -94,6 +93,7 @@ void process_MessageIn()
 		// If there was a parity error, we go
 		// back to MESSAGE_OUT first, get out parity error message, then come
 		// back here.
+		return 0;
 	}
 	else if ((scsiDev.msgIn == MSG_LINKED_COMMAND_COMPLETE) ||
 		(scsiDev.msgIn == MSG_LINKED_COMMAND_COMPLETE_WITH_FLAG))
@@ -107,10 +107,16 @@ void process_MessageIn()
 		scsiDev.status = GOOD;
 		transfer.blocks = 0;
 		transfer.currentBlock = 0;
+		return 0;
 	}
-	else /*if (scsiDev.msgIn == MSG_COMMAND_COMPLETE)*/
+	else if (releaseBusFree) /*if (scsiDev.msgIn == MSG_COMMAND_COMPLETE)*/
 	{
 		enter_BusFree();
+		return 1;
+	}
+	else
+	{
+		return 1;
 	}
 }
 
@@ -1008,7 +1014,7 @@ void scsiPoll(void)
 		}
 		else
 		{
-			process_MessageIn();
+			process_MessageIn(1);
 		}
 
 	break;

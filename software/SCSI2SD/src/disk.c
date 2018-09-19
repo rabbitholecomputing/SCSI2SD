@@ -637,6 +637,7 @@ void scsiDiskPoll()
 		int i = 0;
 		int scsiDisconnected = 0;
 		int scsiComplete = 0;
+		int clearBSY = 0;
 		uint32_t lastActivityTime = getTime_ms();
 		int scsiActive = 0;
 		int sdActive = 0;
@@ -757,16 +758,13 @@ void scsiDiskPoll()
 				scsiComplete = 1;
 
 				process_Status();
-				process_MessageIn(); // Will go to BUS_FREE state
-
-				// Try and prevent anyone else using the SCSI bus while we're not ready.
-				SCSI_SetPin(SCSI_Out_BSY); 
+				clearBSY = process_MessageIn(0); // Will go to BUS_FREE state but keeps BSY asserted
 			}
 		}
 
-		if (scsiComplete)
+		if (clearBSY)
 		{
-			SCSI_ClearPin(SCSI_Out_BSY);
+			enter_BusFree();
 		}
 		while (
 			!scsiDev.resetFlag &&

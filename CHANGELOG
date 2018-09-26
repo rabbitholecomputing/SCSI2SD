@@ -1,4 +1,4 @@
-2018XXXX		4.8.1
+20180926		4.8.1
 	- Fix bug when writing with multiple SCSI devices on the chain
 
 20180416		4.8

@@ -37,8 +37,8 @@ typedef enum
 #define scsiPhyTx(val) CY_SET_REG8(scsiTarget_datapath__F0_REG, (val))
 #define scsiPhyRx() CY_GET_REG8(scsiTarget_datapath__F1_REG)
 
-#ifdef TERM_EN_0
-	// V5.1 is active-low
+#if defined(TERM_EN_0) || defined(BOOTLDR_0)
+	// V5.1 and v5.5 is active-low
 #define SCSI_SetPin(pin) \
 	CyPins_ClearPin((pin));
 

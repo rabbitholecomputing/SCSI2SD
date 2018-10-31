@@ -177,6 +177,11 @@ Bootloader::getHWInfo() const
 		info.version = "V5.1";
 		info.firmwareName = "SCSI2SD-V51.cyacd";
 		break;
+	case 0x0055:
+		info.desc = "External DB25 SCSI2SD";
+		info.version = "V5.5";
+		info.firmwareName = "SCSI2SD-V55.cyacd";
+		break;
 	}
 	return info;
 }

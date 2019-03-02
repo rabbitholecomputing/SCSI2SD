@@ -1,3 +1,7 @@
+2019XXXX		4.9.X
+	- Improve XEBEC controller support
+	- Add Flexible Disk Drive Geometry SCSI MODE page
+
 20180926		4.8.1
 	- Fix bug when writing with multiple SCSI devices on the chain
 

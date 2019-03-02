@@ -457,7 +457,6 @@ void scsiPhyReset()
 	#ifdef SCSI_Out_ACK
 	SCSI_ClearPin(SCSI_Out_ACK);
 	#endif
-	SCSI_ClearPin(SCSI_Out_RST);
 	SCSI_ClearPin(SCSI_Out_SEL);
 	SCSI_ClearPin(SCSI_Out_REQ);
 

@@ -472,6 +472,11 @@ static void process_Command()
 	{
 		scsiWriteBuffer();
 	}
+	else if (command == 0x0f &&
+		scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC)
+	{
+		scsiWriteSectorBuffer();
+	}
 	else if (command == 0x3C)
 	{
 		scsiReadBuffer();
@@ -586,7 +591,16 @@ static void scsiReset()
 	// in which case TERMPWR cannot be supplied, and reset will ALWAYS
 	// be true. Therefore, the sleep here must be slow to avoid slowing
 	// USB comms
-	CyDelay(1); // 1ms.
+	// Also, need to exit quickly for XEBEC controllers which may
+	// assert RST immediately before pulsing a SEL.
+	uint32_t rstTimerBegin = getTime_ms();
+	while (SCSI_ReadFilt(SCSI_Filt_RST))
+	{
+		if (elapsedTime_ms(rstTimerBegin) >= 1)
+		{
+			break;
+		}
+	}
 }
 
 static void enter_SelectionPhase()
@@ -733,6 +747,13 @@ static void process_SelectionPhase()
 		{
 			if (!SCSI_ReadFilt(SCSI_Filt_SEL))
 			{
+				break;
+			}
+			else if (elapsedTime_ms(selTimerBegin) >= 10 &&
+				scsiDev.target->cfg->quirks == CONFIG_QUIRKS_XEBEC)
+			{
+				// XEBEC hosts may not bother releasing SEL at all until
+				// just before the command ends.
 				break;
 			}
 			else if (elapsedTime_ms(selTimerBegin) >= 250)

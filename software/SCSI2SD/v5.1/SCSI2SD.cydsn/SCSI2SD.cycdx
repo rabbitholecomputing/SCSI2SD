@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
+  <block name="GlitchFilter_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_Filtered" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <register name="SCSI_Filtered_STATUS_REG" address="0x4000646B" bitWidth="8" desc="" hidden="false" />
     <register name="SCSI_Filtered_MASK_REG" address="0x4000648B" bitWidth="8" desc="" hidden="false" />
@@ -60,34 +61,34 @@
       </field>
     </register>
   </block>
-  <block name="SCSI_RX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="GlitchFilter_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Clock_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cy_constant_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SD_TX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SD_RX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_TX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="SCSI_TX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="SD_TX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SD_RX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SCSI_RX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_RX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SD_TX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="SD_RX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="not_8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="not_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="not_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="not_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="not_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="not_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SCSI_SEL_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Clock_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="not_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="SCSI_SEL_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="mux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="TERM_EN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_Glitch_Ctl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <register name="SCSI_Glitch_Ctl_CONTROL_REG" address="0x40006475" bitWidth="8" desc="" hidden="false" />
   </block>
-  <block name="mux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="SCSI_TX_DMA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SD_SCK" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SD_CS" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="CFG_EEPROM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />

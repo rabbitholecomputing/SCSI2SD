@@ -401,7 +401,8 @@ void scsiEnterPhase(int phase)
 		{
 			// XEBEC S1410 manual (old SASI controller) gives 10uSec delay
 			// between phase bits and REQ.
-			CyDelayUs(10);
+			// EMU EMAX needs 100uS ! 10uS is not enough.
+			CyDelayUs(100);
 		}
 	}
 }

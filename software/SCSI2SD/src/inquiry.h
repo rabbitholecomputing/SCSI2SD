@@ -19,4 +19,6 @@
 
 void scsiInquiry(void);
 
+uint8_t getDeviceTypeQualifier(void);
+
 #endif

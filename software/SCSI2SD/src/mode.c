@@ -19,8 +19,25 @@
 #include "scsi.h"
 #include "mode.h"
 #include "disk.h"
+#include "inquiry.h"
 
 #include <string.h>
+
+// "Vendor" defined page which was included by Seagate, and required for
+// Amiga 500 using DKB SpitFire controller.
+static const uint8 OperatingPage[] =
+{
+0x00, // Page code
+0x02, // Page length
+
+// Bit 4 = unit attension (0 = on, 1 = off).
+// Bit 7 = usage bit, EEPROM life exceeded warning = 1.
+0x80, 
+
+// Bit 7 = reserved.
+// Bits 0:6: Device type qualifier, as per Inquiry data
+0x00
+};
 
 static const uint8 ReadWriteErrorRecoveryPage[] =
 {
@@ -516,6 +533,21 @@ static void doModeSense(
 		pageFound = 1;
 		pageIn(pc, idx, AppleVendorPage, sizeof(AppleVendorPage));
 		idx += sizeof(AppleVendorPage);
+	}
+
+	// SCSI 2 standard says page 0 is always last.
+	if (pageCode == 0x00 || pageCode == 0x3F)
+	{
+		pageFound = 1;
+		pageIn(pc, idx, OperatingPage, sizeof(OperatingPage));
+
+		// Note inverted logic for the flag.
+		scsiDev.data[idx+2] =
+			(scsiDev.boardCfg.flags & CONFIG_ENABLE_UNIT_ATTENTION) ? 0x80 : 0x90;
+
+		scsiDev.data[idx+3] = getDeviceTypeQualifier();
+
+		idx += sizeof(OperatingPage);
 	}
 
 	if (!pageFound)

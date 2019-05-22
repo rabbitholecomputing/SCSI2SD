@@ -157,6 +157,7 @@ void scsiInquiry()
 			memcpy(&scsiDev.data[8], config->vendor, sizeof(config->vendor));
 			memcpy(&scsiDev.data[16], config->prodId, sizeof(config->prodId));
 			memcpy(&scsiDev.data[32], config->revision, sizeof(config->revision));
+
 			scsiDev.dataLen = sizeof(StandardResponse) +
 				sizeof(config->vendor) +
 				sizeof(config->prodId) +
@@ -229,20 +230,19 @@ void scsiInquiry()
 		scsiDev.dataLen = allocationLength;
 
 		// Set the device type as needed.
+		scsiDev.data[0] = getDeviceTypeQualifier();
+
 		switch (scsiDev.target->cfg->deviceType)
 		{
 		case CONFIG_OPTICAL:
-			scsiDev.data[0] = 0x05; // device type
 			scsiDev.data[1] |= 0x80; // Removable bit.
 			break;
 
 		case CONFIG_SEQUENTIAL:
-			scsiDev.data[0] = 0x01; // device type
 			scsiDev.data[1] |= 0x80; // Removable bit.
 			break;
 			
 		case CONFIG_MO:
-			scsiDev.data[0] = 0x07; // device type
 			scsiDev.data[1] |= 0x80; // Removable bit.
 			break;
 
@@ -254,12 +254,41 @@ void scsiInquiry()
 			// Accept defaults for a fixed disk.
 			break;
 		}
+
 	}
 
 	// Set the first byte to indicate LUN presence.
 	if (scsiDev.lun) // We only support lun 0
 	{
 		scsiDev.data[0] = 0x7F;
+	}
+}
+
+uint8_t getDeviceTypeQualifier()
+{
+	// Set the device type as needed.
+	switch (scsiDev.target->cfg->deviceType)
+	{
+	case CONFIG_OPTICAL:
+		return 0x05;
+		break;
+
+	case CONFIG_SEQUENTIAL:
+		return 0x01;
+		break;
+
+	case CONFIG_MO:
+		return 0x07;
+		break;
+
+	case CONFIG_FLOPPY_14MB:
+	case CONFIG_REMOVEABLE:
+		return 0;
+		break;
+
+	default:
+		// Accept defaults for a fixed disk.
+		return 0;
 	}
 }
 

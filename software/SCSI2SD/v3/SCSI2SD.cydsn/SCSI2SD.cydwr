@@ -450,6 +450,7 @@
   <Group key="Component">
     <Group key="v1">
       <Data key="cy_boot" value="cy_boot_v5_50" />
+      <Data key="Em_EEPROM_Dynamic" value="Em_EEPROM_Dynamic_v2_0" />
       <Data key="LIN_Dynamic" value="LIN_Dynamic_v3_40" />
     </Group>
   </Group>
@@ -3603,8 +3604,20 @@
     </Group>
   </Group>
   <Group key="Interrupt">
-    <Data key="4abaf846-60a1-4cfc-b1e0-6eb532fa6a05" value="0" />
-    <Data key="791071b3-a348-49c4-b578-64e66d701d0f/d91ea660-bc91-4817-b29b-2fe86c305500" value="6" />
+    <Group key="4abaf846-60a1-4cfc-b1e0-6eb532fa6a05">
+      <Group key="CortexM3">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="0" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
+    <Group key="791071b3-a348-49c4-b578-64e66d701d0f/d91ea660-bc91-4817-b29b-2fe86c305500">
+      <Group key="CortexM3">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="6" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
   </Group>
   <Group key="Pin2">
     <Group key="1bd12db2-da87-4f00-90d1-0a734e846c58">

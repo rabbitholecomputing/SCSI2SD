@@ -1,6 +1,9 @@
-2019XXXX		4.9.X
+20190610		4.8.3
 	- Improve XEBEC controller support
 	- Add Flexible Disk Drive Geometry SCSI MODE page
+	- Fix SD card hotswap bug
+	- Add scsi mode page 0 support
+	- Fix regression for EMU EMAX
 
 20180926		4.8.1
 	- Fix bug when writing with multiple SCSI devices on the chain

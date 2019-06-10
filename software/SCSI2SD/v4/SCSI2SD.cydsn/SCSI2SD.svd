@@ -19,7 +19,7 @@
         <register>
           <name>SCSI_Filtered_STATUS_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000646D</addressOffset>
+          <addressOffset>0x4000646B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -28,7 +28,7 @@
         <register>
           <name>SCSI_Filtered_MASK_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000648D</addressOffset>
+          <addressOffset>0x4000648B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -37,7 +37,7 @@
         <register>
           <name>SCSI_Filtered_STATUS_AUX_CTL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000649D</addressOffset>
+          <addressOffset>0x4000649B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -174,7 +174,7 @@
         <register>
           <name>SCSI_Parity_Error_STATUS_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000646B</addressOffset>
+          <addressOffset>0x40006465</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -183,7 +183,7 @@
         <register>
           <name>SCSI_Parity_Error_MASK_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000648B</addressOffset>
+          <addressOffset>0x40006485</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -192,7 +192,7 @@
         <register>
           <name>SCSI_Parity_Error_STATUS_AUX_CTL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000649B</addressOffset>
+          <addressOffset>0x40006495</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -329,7 +329,7 @@
         <register>
           <name>SCSI_Glitch_Ctl_CONTROL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x40006473</addressOffset>
+          <addressOffset>0x40006474</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -350,7 +350,7 @@
         <register>
           <name>SCSI_CTL_PHASE_CONTROL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x40006472</addressOffset>
+          <addressOffset>0x40006476</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2901,7 +2901,7 @@
         <register>
           <name>SCSI_Out_Ctl_CONTROL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x40006477</addressOffset>
+          <addressOffset>0x4000647C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2922,7 +2922,7 @@
         <register>
           <name>SCSI_Out_Bits_CONTROL_REG</name>
           <description>No description available</description>
-          <addressOffset>0x4000647A</addressOffset>
+          <addressOffset>0x4000647E</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>

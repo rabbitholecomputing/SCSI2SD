@@ -4,9 +4,9 @@
   <block name="SD_TX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SD_RX_DMA_COMPLETE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_Filtered" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_Filtered_STATUS_REG" address="0x4000646D" bitWidth="8" desc="" hidden="false" />
-    <register name="SCSI_Filtered_MASK_REG" address="0x4000648D" bitWidth="8" desc="" hidden="false" />
-    <register name="SCSI_Filtered_STATUS_AUX_CTL_REG" address="0x4000649D" bitWidth="8" desc="" hidden="false">
+    <register name="SCSI_Filtered_STATUS_REG" address="0x4000646B" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Filtered_MASK_REG" address="0x4000648B" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Filtered_STATUS_AUX_CTL_REG" address="0x4000649B" bitWidth="8" desc="" hidden="false">
       <field name="FIFO0" from="5" to="5" access="RW" resetVal="" desc="FIFO0 clear" hidden="false">
         <value name="ENABLED" value="1" desc="Enable counter" />
         <value name="DISABLED" value="0" desc="Disable counter" />
@@ -34,9 +34,9 @@
     </register>
   </block>
   <block name="SCSI_Parity_Error" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_Parity_Error_STATUS_REG" address="0x4000646B" bitWidth="8" desc="" hidden="false" />
-    <register name="SCSI_Parity_Error_MASK_REG" address="0x4000648B" bitWidth="8" desc="" hidden="false" />
-    <register name="SCSI_Parity_Error_STATUS_AUX_CTL_REG" address="0x4000649B" bitWidth="8" desc="" hidden="false">
+    <register name="SCSI_Parity_Error_STATUS_REG" address="0x40006465" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Parity_Error_MASK_REG" address="0x40006485" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Parity_Error_STATUS_AUX_CTL_REG" address="0x40006495" bitWidth="8" desc="" hidden="false">
       <field name="FIFO0" from="5" to="5" access="RW" resetVal="" desc="FIFO0 clear" hidden="false">
         <value name="ENABLED" value="1" desc="Enable counter" />
         <value name="DISABLED" value="0" desc="Disable counter" />
@@ -77,7 +77,7 @@
   <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_Glitch_Ctl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_Glitch_Ctl_CONTROL_REG" address="0x40006473" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Glitch_Ctl_CONTROL_REG" address="0x40006474" bitWidth="8" desc="" hidden="false" />
   </block>
   <block name="Clock_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -98,7 +98,7 @@
   <block name="SCSI_In_DBx" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="OddParityGen_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_CTL_PHASE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_CTL_PHASE_CONTROL_REG" address="0x40006472" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_CTL_PHASE_CONTROL_REG" address="0x40006476" bitWidth="8" desc="" hidden="false" />
   </block>
   <block name="SD_CD" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_Out_Mux" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -1019,10 +1019,10 @@
     <register name="Debug_Timer_COUNTER" address="0x40004F06" bitWidth="16" desc="TMRx.CNT_CMP0 - Current Down Counter Value" hidden="false" />
   </block>
   <block name="SCSI_Out_Ctl" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_Out_Ctl_CONTROL_REG" address="0x40006477" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Out_Ctl_CONTROL_REG" address="0x4000647C" bitWidth="8" desc="" hidden="false" />
   </block>
   <block name="SCSI_Out_Bits" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
-    <register name="SCSI_Out_Bits_CONTROL_REG" address="0x4000647A" bitWidth="8" desc="" hidden="false" />
+    <register name="SCSI_Out_Bits_CONTROL_REG" address="0x4000647E" bitWidth="8" desc="" hidden="false" />
   </block>
   <block name="SD_MISO" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SCSI_RST_ISR" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />

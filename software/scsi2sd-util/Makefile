@@ -52,8 +52,8 @@ ifeq ($(TARGET),MINGW32_NT-6.2)
 	VPATH += hidapi/windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/32bit
-	CC=i686-w64-mingw32-gcc
-	CXX=i686-w64-mingw32-g++
+	CC=gcc
+	CXX=g++
 	LIBZIPPER_CONFIG+=--host=i686-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=i686-w64-mingw32

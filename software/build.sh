@@ -25,8 +25,15 @@ Darwin)
 
 	if [ $? -eq 0 ]; then
 		mkdir -p build/mac
-
 		cp scsi2sd-util/build/mac/scsi2sd-util build/mac
 	fi
+;;
 
+MINGW32_NT-6.2)
+	make -C scsi2sd-util
+	if [ $? -eq 0]; then
+		mkdir -p build/win
+		cp scsi2sd-util/build/win/scsi2sd-util build/win
+	fi
+;;
 esac

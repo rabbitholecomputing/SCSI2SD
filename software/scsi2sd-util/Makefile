@@ -48,7 +48,7 @@ WX_CONFIG=--disable-webkit --disable-webviewwebkit  --disable-mediactrl \
 	--without-libtiff --without-libjbig --without-liblzma --without-opengl \
 	--enable-monolithic --enable-stl --disable-shared
 
-ifeq ($(TARGET),Win32)
+ifeq ($(TARGET),MINGW32_NT-6.2)
 	VPATH += hidapi/windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/32bit
@@ -130,7 +130,7 @@ EXEOBJ = \
 	$(BUILD)/scsi2sd-monitor.o \
 
 
-
+ifeq ($(TARGET),MINGW32_NT-6.2)
 ifneq ($(USE_SYSTEM_ZLIB),Yes)
 $(OBJ): $(BUILD)/zlib/buildstamp
 $(EXEOBJ): $(BUILD)/zlib/buildstamp
@@ -143,6 +143,21 @@ $(BUILD)/zlib/buildstamp:
 		$(MAKE) \
 	) && \
 	touch $@
+endif
+else
+ifneq ($(USE_SYSTEM_ZLIB),Yes)
+$(OBJ): $(BUILD)/zlib/buildstamp
+$(EXEOBJ): $(BUILD)/zlib/buildstamp
+$(BUILD)/zlib/buildstamp:
+	mkdir -p $(dir $@)
+	( \
+		cd $(dir $@) && \
+		cp -a $(CURDIR)/zlib-1.2.8/* . && \
+		./configure --static && \
+		$(MAKE) \
+	) && \
+	touch $@
+endif
 endif
 
 ifneq ($(USE_SYSTEM_WX),Yes)

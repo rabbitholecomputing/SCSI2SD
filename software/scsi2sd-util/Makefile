@@ -2,6 +2,7 @@ VPATH=cybootloaderutils ../SCSI2SD/src
 
 VERSION=4.4.0
 NAME=scsi2sd-util
+TARGET ?= $(shell uname -s)
 
 ifeq ($(USE_SYSTEM), Yes)
 USE_SYSTEM_HIDAPI = Yes
@@ -34,8 +35,8 @@ LDFLAGS_WX=$(shell $(BUILD)/wx/wx-config --libs)
 endif
 
 CPPFLAGS = -I cybootloaderutils $(CPPFLAGS_HIDAPI) -I. -I ../include -Ilibzipper-1.0.4 $(CPPFLAGS_ZLIB)
-CFLAGS += -Wall -Wno-pointer-sign -O2 -g
-CXXFLAGS += -Wall -O2 -g -std=c++0x
+CFLAGS += -Wno-pointer-sign -O2 -g
+CXXFLAGS += -O2 -g -std=c++0x
 
 LDFLAGS += -L$(BUILD)/libzipper/.libs -lzipper $(LDFLAGS_ZLIB) $(LDFLAGS_HIDAPI)
 
@@ -47,7 +48,6 @@ WX_CONFIG=--disable-webkit --disable-webviewwebkit  --disable-mediactrl \
 	--without-libtiff --without-libjbig --without-liblzma --without-opengl \
 	--enable-monolithic --enable-stl --disable-shared
 
-TARGET ?= $(shell uname -s)
 ifeq ($(TARGET),Win32)
 	VPATH += hidapi/windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
@@ -139,7 +139,7 @@ $(BUILD)/zlib/buildstamp:
 	( \
 		cd $(dir $@) && \
 		cp -a $(CURDIR)/zlib-1.2.8/* . && \
-		./configure --static && \
+		make win32/Makefile.gcc && \
 		$(MAKE) \
 	) && \
 	touch $@

@@ -76,7 +76,7 @@ ifeq ($(TARGET),Linux)
 	BUILD := $(PWD)/build/linux
 endif
 ifeq ($(TARGET),Darwin)
-	# Should match OSX
+# Should match OSX
 	VPATH += hidapi-mac
 	LDFLAGS += -framework IOKit -framework CoreFoundation -lexpat
 	CC=clang -mmacosx-version-min=10.7

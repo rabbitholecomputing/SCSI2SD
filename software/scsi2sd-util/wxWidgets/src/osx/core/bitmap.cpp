@@ -1064,7 +1064,8 @@ IconRef wxBitmap::GetIconRef() const
 IconRef wxBitmap::CreateIconRef() const
 {
     IconRef icon = GetIconRef();
-    verify_noerr( AcquireIconRef(icon) );
+    // verify_noerr( AcquireIconRef(icon) );
+    AcquireIconRef(icon);
     return icon;
 }
 #endif

@@ -62,7 +62,8 @@ long UMAGetSystemVersion()
     static SInt32 sUMASystemVersion = 0 ;
     if ( sUMASystemVersion == 0 )
     {
-        verify_noerr(Gestalt(gestaltSystemVersion, &sUMASystemVersion));
+      // verify_noerr(Gestalt(gestaltSystemVersion, &sUMASystemVersion));
+      Gestalt(gestaltSystemVersion, &sUMASystemVersion);
     }
     return sUMASystemVersion ;
 }

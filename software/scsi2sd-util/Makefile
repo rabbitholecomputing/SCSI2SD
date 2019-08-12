@@ -63,8 +63,8 @@ ifeq ($(TARGET),Win64)
 	VPATH += hidapi-windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/64bit
-	CC=x86_64-w64-mingw32-gcc
-	CXX=x86_64-w64-mingw32-g++
+	CC=gcc
+	CXX=g++
 	LIBZIPPER_CONFIG+=--host=x86_64-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=x86_64-w64-mingw32
@@ -79,8 +79,8 @@ ifeq ($(TARGET),Darwin)
 # Should match OSX
 	VPATH += hidapi-mac
 	LDFLAGS += -framework IOKit -framework CoreFoundation -lexpat
-	CC=clang -mmacosx-version-min=10.7
-	CXX=clang++ -stdlib=libc++ -mmacosx-version-min=10.7
+	CC=gcc -mmacosx-version-min=10.7 
+	CXX=g++ -stdlib=libc++ -mmacosx-version-min=10.7 
 	WX_CONFIG += --with-macosx-version-min=10.7
 	BUILD := $(PWD)/build/mac
 all: $(BUILD)/scsi2sd-util.dmg

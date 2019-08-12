@@ -1021,7 +1021,8 @@ bool wxRegion::DoOffset(wxCoord x, wxCoord y)
 
     AllocExclusive();
 
-    verify_noerr( HIShapeOffset( M_REGION , x , y ) ) ;
+    // verify_noerr( HIShapeOffset( M_REGION , x , y ) ) ;
+    HIShapeOffset( M_REGION , x , y );
 
     return true ;
 }
@@ -1076,11 +1077,13 @@ bool wxRegion::DoCombine(const wxRegion& region, wxRegionOp op)
     switch (op)
     {
         case wxRGN_AND:
-            verify_noerr( HIShapeIntersect( M_REGION , OTHER_M_REGION(region) , M_REGION ) );
+	  // verify_noerr( HIShapeIntersect( M_REGION , OTHER_M_REGION(region) , M_REGION ) );
+	  HIShapeIntersect( M_REGION , OTHER_M_REGION(region) , M_REGION );
             break ;
 
         case wxRGN_OR:
-            verify_noerr( HIShapeUnion( M_REGION , OTHER_M_REGION(region) , M_REGION ) );
+	  // verify_noerr( HIShapeUnion( M_REGION , OTHER_M_REGION(region) , M_REGION ) );
+	  HIShapeUnion( M_REGION , OTHER_M_REGION(region) , M_REGION );
             break ;
 
         case wxRGN_XOR:
@@ -1088,12 +1091,14 @@ bool wxRegion::DoCombine(const wxRegion& region, wxRegionOp op)
                 // XOR is defined as the difference between union and intersection
                 wxCFRef< HIShapeRef > unionshape( HIShapeCreateUnion( M_REGION , OTHER_M_REGION(region) ) );
                 wxCFRef< HIShapeRef > intersectionshape( HIShapeCreateIntersection( M_REGION , OTHER_M_REGION(region) ) );
-                verify_noerr( HIShapeDifference( unionshape, intersectionshape, M_REGION ) );
+                // verify_noerr( HIShapeDifference( unionshape, intersectionshape, M_REGION ) );
+		HIShapeDifference( unionshape, intersectionshape, M_REGION );
             }
             break ;
 
         case wxRGN_DIFF:
-            verify_noerr( HIShapeDifference( M_REGION , OTHER_M_REGION(region) , M_REGION ) ) ;
+	  // verify_noerr( HIShapeDifference( M_REGION , OTHER_M_REGION(region) , M_REGION ) ) ;
+	  HIShapeDifference( M_REGION , OTHER_M_REGION(region) , M_REGION );
             break ;
 
         case wxRGN_COPY:

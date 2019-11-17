@@ -90,7 +90,8 @@ typedef char ICHAR;
 #ifdef HAVE_BCOPY
 #define memmove(d,s,l) bcopy((s),(d),(l))
 #else
-#error memmove does not exist on this platform, nor is a substitute available
+#define memmove(d,s,a) memcpy((d),(s),(a))
+// #error memmove does not exist on this platform, nor is a substitute available
 #endif /* HAVE_BCOPY */
 #endif /* HAVE_MEMMOVE */
 

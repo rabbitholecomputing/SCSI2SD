@@ -39,7 +39,7 @@ cat << !EOF! > Info.plist
         <key>LSApplicationCategoryType</key>
         <string>public.app-category.utilities</string>
         <key>LSMinimumSystemVersion</key>
-        <string>10.11</string>
+        <string>10.7</string>
         <key>NSHighResolutionCapable</key>
         <true/>
         <key>NSRequiresAquaSystemAppearance</key>

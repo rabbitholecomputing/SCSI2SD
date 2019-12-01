@@ -90,7 +90,6 @@ $(BUILD)/scsi2sd-util.dmg: $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor
 	mkdir -p $(dir $@)/dmg
 	cp $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor $(dir $@)/dmg
 	chmod a+rx $(dir $@)/dmg/*
-	hdiutil create -srcfolder $(dir $@)/dmg $@
 endif
 
 export CC CXX

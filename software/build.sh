@@ -25,6 +25,9 @@ Darwin)
 	fi
 	cd ${CURRENTDIR}
 	./create-wrapper.sh
+	cp -r *.app ./build/mac/dmg
+	rm -rf *.dmg
+	hdiutil create -srcfolder ./build/mac/dmg ./scsi2sd-util.dmg
 ;;
 
 MINGW32_NT-6.2)

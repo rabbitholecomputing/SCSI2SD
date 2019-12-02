@@ -2,10 +2,10 @@
 
 echo "******** Creating application wrapper...."
 
-rm -rf SCSI2SD.app
-mkdir -p SCSI2SD.app/Contents/MacOS
-mkdir -p SCSI2SD.app/Contents/Resources
-cd SCSI2SD.app/Contents
+rm -rf SCSI2SD-util.app
+mkdir -p SCSI2SD-util.app/Contents/MacOS
+mkdir -p SCSI2SD-util.app/Contents/Resources
+cd SCSI2SD-util.app/Contents
 cp ../../build/mac/scsi2sd-util ./MacOS
 cp ../../images/*.icns ./Resources
 
@@ -23,7 +23,7 @@ cat << !EOF! > Info.plist
         <key>CFBundleIconFile</key>
         <string>SCSI2SD.icns</string>
         <key>CFBundleIdentifier</key>
-        <string>com.rabbitholecomputing.SCSI2SD</string>
+        <string>com.rabbitholecomputing.SCSI2SD-util</string>
         <key>CFBundleInfoDictionaryVersion</key>
         <string>6.0</string>
         <key>CFBundleName</key>

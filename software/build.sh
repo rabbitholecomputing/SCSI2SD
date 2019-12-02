@@ -25,6 +25,7 @@ Darwin)
 	fi
 	cd ${CURRENTDIR}
 	./create-wrapper.sh
+	rm -rf ./build/mac/SCSI2SD
 	mv ./build/mac/dmg ./build/mac/SCSI2SD
 	cp -r *.app ./build/mac/SCSI2SD
 	rm -rf *.dmg

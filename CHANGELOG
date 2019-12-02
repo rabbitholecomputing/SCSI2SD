@@ -1,3 +1,9 @@
+20191202		4.x.x
+	- Fix to prevent sending floppy geometry mode page when not configured as
+	a floppy (Thanks Landon Rodgers)
+	- Fix for VMS 5.5-2 Inquiry allocation lengths. Requires setting "vms" quirk
+	mode in the XML config (Thanks Landon Rodgers)
+
 20190610		4.8.3
 	- Improve XEBEC controller support
 	- Add Flexible Disk Drive Geometry SCSI MODE page

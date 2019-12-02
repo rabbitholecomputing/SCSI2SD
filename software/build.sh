@@ -1,5 +1,7 @@
 #!/bin/sh
 
+CURRENTDIR=`pwd`
+
 case `uname -s` in
 Linux)
 	# Builds all of the utilities (not firmware) under Linux.
@@ -21,6 +23,12 @@ Darwin)
 		mkdir -p build/mac
 		cp scsi2sd-util/build/mac/scsi2sd-util build/mac
 	fi
+	cd ${CURRENTDIR}
+	./create-wrapper.sh
+	mv ./build/mac/dmg ./build/mac/SCSI2SD
+	cp -r *.app ./build/mac/SCSI2SD
+	rm -rf *.dmg
+	hdiutil create -srcfolder ./build/mac/SCSI2SD ./scsi2sd-util.dmg
 ;;
 
 MINGW32_NT-6.2)

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		142E9448239863910064C4E5 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 142E9444239863910064C4E5 /* SCSI2SD_HID.cc */; };
+		142E9449239863910064C4E5 /* SCSI2SD_Bootloader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 142E9446239863910064C4E5 /* SCSI2SD_Bootloader.cc */; };
+		142E9453239865BA0064C4E5 /* cybtldr_command.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E944B239865B90064C4E5 /* cybtldr_command.c */; };
+		142E9454239865BA0064C4E5 /* cybtldr_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E944D239865BA0064C4E5 /* cybtldr_parse.c */; };
+		142E9455239865BA0064C4E5 /* cybtldr_api2.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E944E239865BA0064C4E5 /* cybtldr_api2.c */; };
+		142E9456239865BA0064C4E5 /* cybtldr_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E944F239865BA0064C4E5 /* cybtldr_api.c */; };
+		142E945A2398664F0064C4E5 /* Firmware.cc in Sources */ = {isa = PBXBuildFile; fileRef = 142E94582398664F0064C4E5 /* Firmware.cc */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.m */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
@@ -20,9 +27,27 @@
 		1482B211239748DB001BA513 /* Device1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B206239748DB001BA513 /* Device1Controller.m */; };
 		1482B212239748DB001BA513 /* Device2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B207239748DB001BA513 /* Device2Controller.m */; };
 		1482B213239748DB001BA513 /* Device7Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B20A239748DB001BA513 /* Device7Controller.m */; };
+		90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		142E94422398632B0064C4E5 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hidpacket.h; path = ../../../software/include/hidpacket.h; sourceTree = "<group>"; };
+		142E94432398632B0064C4E5 /* scsi2sd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scsi2sd.h; path = ../../../software/include/scsi2sd.h; sourceTree = "<group>"; };
+		142E9444239863910064C4E5 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_HID.cc; path = "../../../software/scsi2sd-util/SCSI2SD_HID.cc"; sourceTree = "<group>"; };
+		142E9445239863910064C4E5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SCSI2SD_HID.hh; path = "../../../software/scsi2sd-util/SCSI2SD_HID.hh"; sourceTree = "<group>"; };
+		142E9446239863910064C4E5 /* SCSI2SD_Bootloader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_Bootloader.cc; path = "../../../software/scsi2sd-util/SCSI2SD_Bootloader.cc"; sourceTree = "<group>"; };
+		142E9447239863910064C4E5 /* SCSI2SD_Bootloader.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SCSI2SD_Bootloader.hh; path = "../../../software/scsi2sd-util/SCSI2SD_Bootloader.hh"; sourceTree = "<group>"; };
+		142E944A239865B90064C4E5 /* cybtldr_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_parse.h; sourceTree = "<group>"; };
+		142E944B239865B90064C4E5 /* cybtldr_command.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_command.c; sourceTree = "<group>"; };
+		142E944C239865B90064C4E5 /* cybtldr_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_utils.h; sourceTree = "<group>"; };
+		142E944D239865BA0064C4E5 /* cybtldr_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_parse.c; sourceTree = "<group>"; };
+		142E944E239865BA0064C4E5 /* cybtldr_api2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_api2.c; sourceTree = "<group>"; };
+		142E944F239865BA0064C4E5 /* cybtldr_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_api.c; sourceTree = "<group>"; };
+		142E9450239865BA0064C4E5 /* cybtldr_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api.h; sourceTree = "<group>"; };
+		142E9451239865BA0064C4E5 /* cybtldr_api2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api2.h; sourceTree = "<group>"; };
+		142E9452239865BA0064C4E5 /* cybtldr_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_command.h; sourceTree = "<group>"; };
+		142E94582398664F0064C4E5 /* Firmware.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Firmware.cc; path = "../../../software/scsi2sd-util/Firmware.cc"; sourceTree = "<group>"; };
+		142E94592398664F0064C4E5 /* Firmware.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Firmware.hh; path = "../../../software/scsi2sd-util/Firmware.hh"; sourceTree = "<group>"; };
 		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1482B1E723973F3E001BA513 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1482B1E823973F3E001BA513 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -49,6 +74,9 @@
 		1482B208239748DB001BA513 /* Device6Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device6Controller.h; sourceTree = "<group>"; };
 		1482B209239748DB001BA513 /* Device3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device3Controller.h; sourceTree = "<group>"; };
 		1482B20A239748DB001BA513 /* Device7Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device7Controller.m; sourceTree = "<group>"; };
+		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
+		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,17 +84,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		142E9457239865C00064C4E5 /* cybbootloaderutils */ = {
+			isa = PBXGroup;
+			children = (
+				142E944F239865BA0064C4E5 /* cybtldr_api.c */,
+				142E9450239865BA0064C4E5 /* cybtldr_api.h */,
+				142E944E239865BA0064C4E5 /* cybtldr_api2.c */,
+				142E9451239865BA0064C4E5 /* cybtldr_api2.h */,
+				142E944B239865B90064C4E5 /* cybtldr_command.c */,
+				142E9452239865BA0064C4E5 /* cybtldr_command.h */,
+				142E944D239865BA0064C4E5 /* cybtldr_parse.c */,
+				142E944A239865B90064C4E5 /* cybtldr_parse.h */,
+				142E944C239865B90064C4E5 /* cybtldr_utils.h */,
+			);
+			path = cybbootloaderutils;
+			sourceTree = "<group>";
+		};
 		1482B1DB23973F3E001BA513 = {
 			isa = PBXGroup;
 			children = (
 				1482B1E623973F3E001BA513 /* SCSI2SD-util */,
 				1482B1E523973F3E001BA513 /* Products */,
+				31BC21F99112F28CA817EF9E /* Pods */,
+				CA52CD68CFE882DFB0712F77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,8 +169,34 @@
 		1482B21423975B9E001BA513 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				142E9457239865C00064C4E5 /* cybbootloaderutils */,
+				142E94582398664F0064C4E5 /* Firmware.cc */,
+				142E94592398664F0064C4E5 /* Firmware.hh */,
+				142E9446239863910064C4E5 /* SCSI2SD_Bootloader.cc */,
+				142E9447239863910064C4E5 /* SCSI2SD_Bootloader.hh */,
+				142E9444239863910064C4E5 /* SCSI2SD_HID.cc */,
+				142E9445239863910064C4E5 /* SCSI2SD_HID.hh */,
+				142E94422398632B0064C4E5 /* hidpacket.h */,
+				142E94432398632B0064C4E5 /* scsi2sd.h */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		31BC21F99112F28CA817EF9E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */,
+				C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		CA52CD68CFE882DFB0712F77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,6 +206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1482B1F523973F42001BA513 /* Build configuration list for PBXNativeTarget "SCSI2SD-util" */;
 			buildPhases = (
+				11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */,
 				1482B1E023973F3E001BA513 /* Sources */,
 				1482B1E123973F3E001BA513 /* Frameworks */,
 				1482B1E223973F3E001BA513 /* Resources */,
@@ -190,22 +264,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SCSI2SD-util-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1482B1E023973F3E001BA513 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				1482B20C239748DB001BA513 /* Device6Controller.m in Sources */,
+				142E9448239863910064C4E5 /* SCSI2SD_HID.cc in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.m in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				1482B20E239748DB001BA513 /* Device4Controller.m in Sources */,
 				1482B210239748DB001BA513 /* SettingsController.m in Sources */,
+				142E9453239865BA0064C4E5 /* cybtldr_command.c in Sources */,
+				142E9449239863910064C4E5 /* SCSI2SD_Bootloader.cc in Sources */,
 				1482B213239748DB001BA513 /* Device7Controller.m in Sources */,
 				1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */,
 				1482B212239748DB001BA513 /* Device2Controller.m in Sources */,
 				1482B20B239748DB001BA513 /* Device5Controller.m in Sources */,
+				142E9456239865BA0064C4E5 /* cybtldr_api.c in Sources */,
 				1482B20D239748DB001BA513 /* Device3Controller.m in Sources */,
+				142E945A2398664F0064C4E5 /* Firmware.cc in Sources */,
 				1482B211239748DB001BA513 /* Device1Controller.m in Sources */,
+				142E9455239865BA0064C4E5 /* cybtldr_api2.c in Sources */,
+				142E9454239865BA0064C4E5 /* cybtldr_parse.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +440,7 @@
 		};
 		1482B1F623973F42001BA513 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
@@ -354,6 +461,7 @@
 		};
 		1482B1F723973F42001BA513 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";

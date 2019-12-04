@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  SCSI2SD-util
+//  scsi2sd
 //
-//  Created by Gregory Casamento on 12/3/19.
-//  Copyright © 2019 RabbitHole Computing, LLC. All rights reserved.
+//  Created by Gregory Casamento on 7/23/18.
+//  Copyright © 2018 Open Logic. All rights reserved.
 //
 
 #import "AppDelegate.h"

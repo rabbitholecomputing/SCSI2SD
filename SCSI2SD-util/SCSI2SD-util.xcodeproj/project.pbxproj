@@ -11,6 +11,15 @@
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
 		1482B1F123973F42001BA513 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1F023973F42001BA513 /* main.m */; };
+		1482B20B239748DB001BA513 /* Device5Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1FD239748DB001BA513 /* Device5Controller.m */; };
+		1482B20C239748DB001BA513 /* Device6Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1FE239748DB001BA513 /* Device6Controller.m */; };
+		1482B20D239748DB001BA513 /* Device3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B201239748DB001BA513 /* Device3Controller.m */; };
+		1482B20E239748DB001BA513 /* Device4Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B202239748DB001BA513 /* Device4Controller.m */; };
+		1482B20F239748DB001BA513 /* DeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B203239748DB001BA513 /* DeviceController.m */; };
+		1482B210239748DB001BA513 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.m */; };
+		1482B211239748DB001BA513 /* Device1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B206239748DB001BA513 /* Device1Controller.m */; };
+		1482B212239748DB001BA513 /* Device2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B207239748DB001BA513 /* Device2Controller.m */; };
+		1482B213239748DB001BA513 /* Device7Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B20A239748DB001BA513 /* Device7Controller.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +31,24 @@
 		1482B1EF23973F42001BA513 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1482B1F023973F42001BA513 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCSI2SD_util.entitlements; sourceTree = "<group>"; };
+		1482B1F9239748DB001BA513 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		1482B1FA239748DB001BA513 /* DeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceController.h; sourceTree = "<group>"; };
+		1482B1FB239748DB001BA513 /* Device4Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device4Controller.h; sourceTree = "<group>"; };
+		1482B1FC239748DB001BA513 /* Device1Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device1Controller.h; sourceTree = "<group>"; };
+		1482B1FD239748DB001BA513 /* Device5Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device5Controller.m; sourceTree = "<group>"; };
+		1482B1FE239748DB001BA513 /* Device6Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device6Controller.m; sourceTree = "<group>"; };
+		1482B1FF239748DB001BA513 /* Device2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device2Controller.h; sourceTree = "<group>"; };
+		1482B200239748DB001BA513 /* Device7Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device7Controller.h; sourceTree = "<group>"; };
+		1482B201239748DB001BA513 /* Device3Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device3Controller.m; sourceTree = "<group>"; };
+		1482B202239748DB001BA513 /* Device4Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device4Controller.m; sourceTree = "<group>"; };
+		1482B203239748DB001BA513 /* DeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceController.m; sourceTree = "<group>"; };
+		1482B204239748DB001BA513 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		1482B205239748DB001BA513 /* Device5Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device5Controller.h; sourceTree = "<group>"; };
+		1482B206239748DB001BA513 /* Device1Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device1Controller.m; sourceTree = "<group>"; };
+		1482B207239748DB001BA513 /* Device2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device2Controller.m; sourceTree = "<group>"; };
+		1482B208239748DB001BA513 /* Device6Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device6Controller.h; sourceTree = "<group>"; };
+		1482B209239748DB001BA513 /* Device3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device3Controller.h; sourceTree = "<group>"; };
+		1482B20A239748DB001BA513 /* Device7Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device7Controller.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +81,8 @@
 		1482B1E623973F3E001BA513 /* SCSI2SD-util */ = {
 			isa = PBXGroup;
 			children = (
+				1482B21423975B9E001BA513 /* Library */,
+				1482B1F8239748DB001BA513 /* ViewControllers */,
 				1482B1E723973F3E001BA513 /* AppDelegate.h */,
 				1482B1E823973F3E001BA513 /* AppDelegate.m */,
 				1482B1EA23973F42001BA513 /* Assets.xcassets */,
@@ -63,6 +92,38 @@
 				1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */,
 			);
 			path = "SCSI2SD-util";
+			sourceTree = "<group>";
+		};
+		1482B1F8239748DB001BA513 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1482B1F9239748DB001BA513 /* SettingsController.h */,
+				1482B1FA239748DB001BA513 /* DeviceController.h */,
+				1482B1FB239748DB001BA513 /* Device4Controller.h */,
+				1482B1FC239748DB001BA513 /* Device1Controller.h */,
+				1482B1FD239748DB001BA513 /* Device5Controller.m */,
+				1482B1FE239748DB001BA513 /* Device6Controller.m */,
+				1482B1FF239748DB001BA513 /* Device2Controller.h */,
+				1482B200239748DB001BA513 /* Device7Controller.h */,
+				1482B201239748DB001BA513 /* Device3Controller.m */,
+				1482B202239748DB001BA513 /* Device4Controller.m */,
+				1482B203239748DB001BA513 /* DeviceController.m */,
+				1482B204239748DB001BA513 /* SettingsController.m */,
+				1482B205239748DB001BA513 /* Device5Controller.h */,
+				1482B206239748DB001BA513 /* Device1Controller.m */,
+				1482B207239748DB001BA513 /* Device2Controller.m */,
+				1482B208239748DB001BA513 /* Device6Controller.h */,
+				1482B209239748DB001BA513 /* Device3Controller.h */,
+				1482B20A239748DB001BA513 /* Device7Controller.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1482B21423975B9E001BA513 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Library;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +195,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1482B20C239748DB001BA513 /* Device6Controller.m in Sources */,
+				1482B20F239748DB001BA513 /* DeviceController.m in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
+				1482B20E239748DB001BA513 /* Device4Controller.m in Sources */,
+				1482B210239748DB001BA513 /* SettingsController.m in Sources */,
+				1482B213239748DB001BA513 /* Device7Controller.m in Sources */,
 				1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */,
+				1482B212239748DB001BA513 /* Device2Controller.m in Sources */,
+				1482B20B239748DB001BA513 /* Device5Controller.m in Sources */,
+				1482B20D239748DB001BA513 /* Device3Controller.m in Sources */,
+				1482B211239748DB001BA513 /* Device1Controller.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +337,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X34KG7M8TP;
@@ -286,6 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X34KG7M8TP;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1474C0972399677F003C67D5 /* libscsi2sd-util.a */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.m */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
@@ -25,6 +26,18 @@
 
 /* Begin PBXFileReference section */
 		03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
+		1474BFE52399677E003C67D5 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hidpacket.h; sourceTree = "<group>"; };
+		1474BFE62399677E003C67D5 /* scsi2sd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scsi2sd.h; sourceTree = "<group>"; };
+		1474BFEB2399677E003C67D5 /* cybtldr_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api.h; sourceTree = "<group>"; };
+		1474BFEC2399677E003C67D5 /* cybtldr_api2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api2.h; sourceTree = "<group>"; };
+		1474BFED2399677E003C67D5 /* cybtldr_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_parse.h; sourceTree = "<group>"; };
+		1474BFEE2399677E003C67D5 /* cybtldr_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_command.h; sourceTree = "<group>"; };
+		1474BFEF2399677E003C67D5 /* cybtldr_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_utils.h; sourceTree = "<group>"; };
+		1474BFF02399677E003C67D5 /* ConfigUtil.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConfigUtil.hh; sourceTree = "<group>"; };
+		1474BFFB2399677E003C67D5 /* Firmware.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Firmware.hh; sourceTree = "<group>"; };
+		1474C0972399677F003C67D5 /* libscsi2sd-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libscsi2sd-util.a"; sourceTree = "<group>"; };
+		1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
+		1474C0F723996A15003C67D5 /* SCSI2SD_Bootloader.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_Bootloader.hh; sourceTree = "<group>"; };
 		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1482B1E723973F3E001BA513 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1482B1E823973F3E001BA513 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */,
 				90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,8 +86,60 @@
 		1474BFE223996564003C67D5 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				1474BFE32399677E003C67D5 /* include */,
+				1474C0952399677F003C67D5 /* lib */,
 			);
 			path = libs;
+			sourceTree = "<group>";
+		};
+		1474BFE32399677E003C67D5 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				1474BFE42399677E003C67D5 /* include */,
+				1474BFE72399677E003C67D5 /* scsi2sd-util */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		1474BFE42399677E003C67D5 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				1474BFE52399677E003C67D5 /* hidpacket.h */,
+				1474BFE62399677E003C67D5 /* scsi2sd.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		1474BFE72399677E003C67D5 /* scsi2sd-util */ = {
+			isa = PBXGroup;
+			children = (
+				1474C0F723996A15003C67D5 /* SCSI2SD_Bootloader.hh */,
+				1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */,
+				1474BFEA2399677E003C67D5 /* cybootloaderutils */,
+				1474BFF02399677E003C67D5 /* ConfigUtil.hh */,
+				1474BFFB2399677E003C67D5 /* Firmware.hh */,
+			);
+			path = "scsi2sd-util";
+			sourceTree = "<group>";
+		};
+		1474BFEA2399677E003C67D5 /* cybootloaderutils */ = {
+			isa = PBXGroup;
+			children = (
+				1474BFEB2399677E003C67D5 /* cybtldr_api.h */,
+				1474BFEC2399677E003C67D5 /* cybtldr_api2.h */,
+				1474BFED2399677E003C67D5 /* cybtldr_parse.h */,
+				1474BFEE2399677E003C67D5 /* cybtldr_command.h */,
+				1474BFEF2399677E003C67D5 /* cybtldr_utils.h */,
+			);
+			path = cybootloaderutils;
+			sourceTree = "<group>";
+		};
+		1474C0952399677F003C67D5 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				1474C0972399677F003C67D5 /* libscsi2sd-util.a */,
+			);
+			path = lib;
 			sourceTree = "<group>";
 		};
 		1482B1DB23973F3E001BA513 = {
@@ -196,6 +262,7 @@
 			knownRegions = (
 				en,
 				Base,
+				English,
 			);
 			mainGroup = 1482B1DB23973F3E001BA513;
 			productRefGroup = 1482B1E523973F3E001BA513 /* Products */;
@@ -398,6 +465,10 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/lib",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -418,6 +489,10 @@
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libs/lib",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";

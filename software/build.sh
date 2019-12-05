@@ -32,7 +32,7 @@ Darwin)
 	hdiutil create -srcfolder ./build/mac/SCSI2SD ./scsi2sd-util.dmg
 	mkdir -p Products/WXMacApp
 	mv *.app *.dmg Products/WXMacApp
-	./create-library.sh
+	./create_library.sh
 	# build xcode proj based on library...
 ;;
 

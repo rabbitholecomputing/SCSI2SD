@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#include "SCSI2SD_Bootloader.hh"
+#include "SCSI2SD_HID.hh"
+#include "Firmware.hh"
 
 @interface AppDelegate ()
 

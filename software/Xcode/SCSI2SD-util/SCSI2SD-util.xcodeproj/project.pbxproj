@@ -1,0 +1,451 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.m */; };
+		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
+		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
+		1482B1F123973F42001BA513 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1F023973F42001BA513 /* main.m */; };
+		1482B20B239748DB001BA513 /* Device5Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1FD239748DB001BA513 /* Device5Controller.m */; };
+		1482B20C239748DB001BA513 /* Device6Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1FE239748DB001BA513 /* Device6Controller.m */; };
+		1482B20D239748DB001BA513 /* Device3Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B201239748DB001BA513 /* Device3Controller.m */; };
+		1482B20E239748DB001BA513 /* Device4Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B202239748DB001BA513 /* Device4Controller.m */; };
+		1482B20F239748DB001BA513 /* DeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B203239748DB001BA513 /* DeviceController.m */; };
+		1482B210239748DB001BA513 /* SettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.m */; };
+		1482B211239748DB001BA513 /* Device1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B206239748DB001BA513 /* Device1Controller.m */; };
+		1482B212239748DB001BA513 /* Device2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B207239748DB001BA513 /* Device2Controller.m */; };
+		1482B213239748DB001BA513 /* Device7Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B20A239748DB001BA513 /* Device7Controller.m */; };
+		90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
+		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1482B1E723973F3E001BA513 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1482B1E823973F3E001BA513 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1482B1EA23973F42001BA513 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1482B1ED23973F42001BA513 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1482B1EF23973F42001BA513 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1482B1F023973F42001BA513 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SCSI2SD_util.entitlements; sourceTree = "<group>"; };
+		1482B1F9239748DB001BA513 /* SettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsController.h; sourceTree = "<group>"; };
+		1482B1FA239748DB001BA513 /* DeviceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceController.h; sourceTree = "<group>"; };
+		1482B1FB239748DB001BA513 /* Device4Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device4Controller.h; sourceTree = "<group>"; };
+		1482B1FC239748DB001BA513 /* Device1Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device1Controller.h; sourceTree = "<group>"; };
+		1482B1FD239748DB001BA513 /* Device5Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device5Controller.m; sourceTree = "<group>"; };
+		1482B1FE239748DB001BA513 /* Device6Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device6Controller.m; sourceTree = "<group>"; };
+		1482B1FF239748DB001BA513 /* Device2Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device2Controller.h; sourceTree = "<group>"; };
+		1482B200239748DB001BA513 /* Device7Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device7Controller.h; sourceTree = "<group>"; };
+		1482B201239748DB001BA513 /* Device3Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device3Controller.m; sourceTree = "<group>"; };
+		1482B202239748DB001BA513 /* Device4Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device4Controller.m; sourceTree = "<group>"; };
+		1482B203239748DB001BA513 /* DeviceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceController.m; sourceTree = "<group>"; };
+		1482B204239748DB001BA513 /* SettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsController.m; sourceTree = "<group>"; };
+		1482B205239748DB001BA513 /* Device5Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device5Controller.h; sourceTree = "<group>"; };
+		1482B206239748DB001BA513 /* Device1Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device1Controller.m; sourceTree = "<group>"; };
+		1482B207239748DB001BA513 /* Device2Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device2Controller.m; sourceTree = "<group>"; };
+		1482B208239748DB001BA513 /* Device6Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device6Controller.h; sourceTree = "<group>"; };
+		1482B209239748DB001BA513 /* Device3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device3Controller.h; sourceTree = "<group>"; };
+		1482B20A239748DB001BA513 /* Device7Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device7Controller.m; sourceTree = "<group>"; };
+		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
+		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
+		FD4F7093A175B9A00AB5ACC0 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1482B1E123973F3E001BA513 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1474BFE223996564003C67D5 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		1482B1DB23973F3E001BA513 = {
+			isa = PBXGroup;
+			children = (
+				1482B1E623973F3E001BA513 /* SCSI2SD-util */,
+				1482B1E523973F3E001BA513 /* Products */,
+				31BC21F99112F28CA817EF9E /* Pods */,
+				1474BFE223996564003C67D5 /* libs */,
+				CA52CD68CFE882DFB0712F77 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		1482B1E523973F3E001BA513 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1482B1E423973F3E001BA513 /* SCSI2SD-util.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1482B1E623973F3E001BA513 /* SCSI2SD-util */ = {
+			isa = PBXGroup;
+			children = (
+				1482B1F8239748DB001BA513 /* ViewControllers */,
+				1482B1E723973F3E001BA513 /* AppDelegate.h */,
+				1482B1E823973F3E001BA513 /* AppDelegate.m */,
+				1482B1EA23973F42001BA513 /* Assets.xcassets */,
+				1482B1EC23973F42001BA513 /* MainMenu.xib */,
+				1482B1EF23973F42001BA513 /* Info.plist */,
+				1482B1F023973F42001BA513 /* main.m */,
+				1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */,
+			);
+			path = "SCSI2SD-util";
+			sourceTree = "<group>";
+		};
+		1482B1F8239748DB001BA513 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1482B1F9239748DB001BA513 /* SettingsController.h */,
+				1482B1FA239748DB001BA513 /* DeviceController.h */,
+				1482B1FB239748DB001BA513 /* Device4Controller.h */,
+				1482B1FC239748DB001BA513 /* Device1Controller.h */,
+				1482B1FD239748DB001BA513 /* Device5Controller.m */,
+				1482B1FE239748DB001BA513 /* Device6Controller.m */,
+				1482B1FF239748DB001BA513 /* Device2Controller.h */,
+				1482B200239748DB001BA513 /* Device7Controller.h */,
+				1482B201239748DB001BA513 /* Device3Controller.m */,
+				1482B202239748DB001BA513 /* Device4Controller.m */,
+				1482B203239748DB001BA513 /* DeviceController.m */,
+				1482B204239748DB001BA513 /* SettingsController.m */,
+				1482B205239748DB001BA513 /* Device5Controller.h */,
+				1482B206239748DB001BA513 /* Device1Controller.m */,
+				1482B207239748DB001BA513 /* Device2Controller.m */,
+				1482B208239748DB001BA513 /* Device6Controller.h */,
+				1482B209239748DB001BA513 /* Device3Controller.h */,
+				1482B20A239748DB001BA513 /* Device7Controller.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		31BC21F99112F28CA817EF9E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */,
+				C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */,
+				03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */,
+				FD4F7093A175B9A00AB5ACC0 /* Pods-SCSI2SD-util.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		CA52CD68CFE882DFB0712F77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1482B1E323973F3E001BA513 /* SCSI2SD-util */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1482B1F523973F42001BA513 /* Build configuration list for PBXNativeTarget "SCSI2SD-util" */;
+			buildPhases = (
+				11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */,
+				1482B1E023973F3E001BA513 /* Sources */,
+				1482B1E123973F3E001BA513 /* Frameworks */,
+				1482B1E223973F3E001BA513 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SCSI2SD-util";
+			productName = "SCSI2SD-util";
+			productReference = 1482B1E423973F3E001BA513 /* SCSI2SD-util.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1482B1DC23973F3E001BA513 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "RabbitHole Computing, LLC";
+				TargetAttributes = {
+					1482B1E323973F3E001BA513 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 1482B1DF23973F3E001BA513 /* Build configuration list for PBXProject "SCSI2SD-util" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1482B1DB23973F3E001BA513;
+			productRefGroup = 1482B1E523973F3E001BA513 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1482B1E323973F3E001BA513 /* SCSI2SD-util */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1482B1E223973F3E001BA513 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */,
+				1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SCSI2SD-util-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1482B1E023973F3E001BA513 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1482B20C239748DB001BA513 /* Device6Controller.m in Sources */,
+				1482B20F239748DB001BA513 /* DeviceController.m in Sources */,
+				1482B1F123973F42001BA513 /* main.m in Sources */,
+				1482B20E239748DB001BA513 /* Device4Controller.m in Sources */,
+				1482B210239748DB001BA513 /* SettingsController.m in Sources */,
+				1482B213239748DB001BA513 /* Device7Controller.m in Sources */,
+				1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */,
+				1482B212239748DB001BA513 /* Device2Controller.m in Sources */,
+				1482B20B239748DB001BA513 /* Device5Controller.m in Sources */,
+				1482B20D239748DB001BA513 /* Device3Controller.m in Sources */,
+				1482B211239748DB001BA513 /* Device1Controller.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1482B1EC23973F42001BA513 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1482B1ED23973F42001BA513 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1482B1F323973F42001BA513 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1482B1F423973F42001BA513 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1482B1F623973F42001BA513 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = X34KG7M8TP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1482B1F723973F42001BA513 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = X34KG7M8TP;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1482B1DF23973F3E001BA513 /* Build configuration list for PBXProject "SCSI2SD-util" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1482B1F323973F42001BA513 /* Debug */,
+				1482B1F423973F42001BA513 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1482B1F523973F42001BA513 /* Build configuration list for PBXNativeTarget "SCSI2SD-util" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1482B1F623973F42001BA513 /* Debug */,
+				1482B1F723973F42001BA513 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1482B1DC23973F3E001BA513 /* Project object */;
+}

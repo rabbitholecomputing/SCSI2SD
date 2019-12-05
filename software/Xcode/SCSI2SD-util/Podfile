@@ -1,0 +1,7 @@
+platform :macos
+inhibit_all_warnings!
+
+target 'SCSI2SD-util' do
+  pod 'hidapi', '~> 1.0'
+  pod 'objective-zip'
+end

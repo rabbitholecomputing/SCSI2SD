@@ -29,11 +29,15 @@ Darwin)
 	mv ./build/mac/dmg ./build/mac/SCSI2SD
 	cp -r *.app ./build/mac/SCSI2SD
 	rm -rf *.dmg
+	echo "Making DMG"
 	hdiutil create -srcfolder ./build/mac/SCSI2SD ./scsi2sd-util.dmg
+	rm -rf Products
 	mkdir -p Products/WXMacApp
 	mv *.app *.dmg Products/WXMacApp
+	rm -rf *.app *.dmg
 	./create_library.sh
 	# build xcode proj based on library...
+	./build_xcode.sh
 ;;
 
 MINGW32_NT-6.2)

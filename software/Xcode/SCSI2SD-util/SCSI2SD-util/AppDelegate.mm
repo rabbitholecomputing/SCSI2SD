@@ -6,10 +6,7 @@
 //  Copyright © 2018 Open Logic. All rights reserved.
 //
 
-#import "AppDelegate.h"
-#include "SCSI2SD_Bootloader.hh"
-#include "SCSI2SD_HID.hh"
-#include "Firmware.hh"
+#import "AppDelegate.hh"
 
 @interface AppDelegate ()
 
@@ -20,6 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    myHID = SCSI2SD::HID::Open();
 }
 
 

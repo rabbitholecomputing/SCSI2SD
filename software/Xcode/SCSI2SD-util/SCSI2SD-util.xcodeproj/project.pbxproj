@@ -460,6 +460,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X34KG7M8TP;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
+					"\"${PODS_ROOT}/Headers/Public/objective-zip\"",
+					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
+				);
 				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,6 +475,18 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/lib",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"hidapi\"",
+					"-l\"objective-zip\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"IOKit\"",
+					"-l\"scsi2sd-util\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -485,6 +504,13 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = X34KG7M8TP;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
+					"\"${PODS_ROOT}/Headers/Public/objective-zip\"",
+					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
+				);
 				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -493,6 +519,18 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/libs/lib",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"hidapi\"",
+					"-l\"objective-zip\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"IOKit\"",
+					"-l\"scsi2sd-util\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -35,7 +35,6 @@
 		1474BFED2399677E003C67D5 /* cybtldr_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_parse.h; sourceTree = "<group>"; };
 		1474BFEE2399677E003C67D5 /* cybtldr_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_command.h; sourceTree = "<group>"; };
 		1474BFEF2399677E003C67D5 /* cybtldr_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_utils.h; sourceTree = "<group>"; };
-		1474BFF02399677E003C67D5 /* ConfigUtil.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConfigUtil.hh; sourceTree = "<group>"; };
 		1474BFFB2399677E003C67D5 /* Firmware.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Firmware.hh; sourceTree = "<group>"; };
 		1474C0972399677F003C67D5 /* libscsi2sd-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libscsi2sd-util.a"; sourceTree = "<group>"; };
 		1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
@@ -119,10 +118,9 @@
 		1474BFE72399677E003C67D5 /* scsi2sd-util */ = {
 			isa = PBXGroup;
 			children = (
+				1474BFEA2399677E003C67D5 /* cybootloaderutils */,
 				1474C0F723996A15003C67D5 /* SCSI2SD_Bootloader.hh */,
 				1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */,
-				1474BFEA2399677E003C67D5 /* cybootloaderutils */,
-				1474BFF02399677E003C67D5 /* ConfigUtil.hh */,
 				1474BFFB2399677E003C67D5 /* Firmware.hh */,
 			);
 			path = "scsi2sd-util";

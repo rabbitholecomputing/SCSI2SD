@@ -3,3 +3,4 @@ software/scsi2sd-util/build
 software/build
 *~
 *.log
+*.xcuserstate

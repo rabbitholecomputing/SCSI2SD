@@ -14,6 +14,174 @@
 		142E9456239865BA0064C4E5 /* cybtldr_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E944F239865BA0064C4E5 /* cybtldr_api.c */; };
 		142E945A2398664F0064C4E5 /* Firmware.cc in Sources */ = {isa = PBXBuildFile; fileRef = 142E94582398664F0064C4E5 /* Firmware.cc */; };
 		142E945D23987B8B0064C4E5 /* gnulib_ffs.c in Sources */ = {isa = PBXBuildFile; fileRef = 142E945C23987B8B0064C4E5 /* gnulib_ffs.c */; };
+		1474BCE423988550003C67D5 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCE223988550003C67D5 /* SCSI2SD_HID.cc */; };
+		1474BD0C23988853003C67D5 /* mo.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCE623988851003C67D5 /* mo.c */; };
+		1474BD0D23988853003C67D5 /* cdrom.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCEB23988851003C67D5 /* cdrom.c */; };
+		1474BD0E23988853003C67D5 /* hidpacket.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCEE23988852003C67D5 /* hidpacket.c */; };
+		1474BD0F23988853003C67D5 /* diagnostic.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCF223988852003C67D5 /* diagnostic.c */; };
+		1474BD1023988853003C67D5 /* config.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCF423988852003C67D5 /* config.c */; };
+		1474BD1123988853003C67D5 /* trace.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCF823988852003C67D5 /* trace.c */; };
+		1474BD1223988853003C67D5 /* geometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCFA23988852003C67D5 /* geometry.c */; };
+		1474BD1323988853003C67D5 /* mode.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCFC23988852003C67D5 /* mode.c */; };
+		1474BD1423988853003C67D5 /* scsi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCFD23988852003C67D5 /* scsi.c */; };
+		1474BD1523988853003C67D5 /* scsiPhy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCFE23988852003C67D5 /* scsiPhy.c */; };
+		1474BD1623988853003C67D5 /* disk.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BCFF23988852003C67D5 /* disk.c */; };
+		1474BD1723988853003C67D5 /* sd.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0023988852003C67D5 /* sd.c */; };
+		1474BD1823988853003C67D5 /* led.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0123988853003C67D5 /* led.c */; };
+		1474BD1923988853003C67D5 /* bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0523988853003C67D5 /* bits.c */; };
+		1474BD1A23988853003C67D5 /* inquiry.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0623988853003C67D5 /* inquiry.c */; };
+		1474BD1B23988853003C67D5 /* tape.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0723988853003C67D5 /* tape.c */; };
+		1474BD1C23988853003C67D5 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0823988853003C67D5 /* main.c */; };
+		1474BD1D23988853003C67D5 /* time.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0A23988853003C67D5 /* time.c */; };
+		1474BD1E23988853003C67D5 /* vendor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BD0B23988853003C67D5 /* vendor.c */; };
+		1474BE98239897C2003C67D5 /* CyBootAsmGnu.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE3F239897BC003C67D5 /* CyBootAsmGnu.s */; };
+		1474BE99239897C2003C67D5 /* exported_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE41239897BC003C67D5 /* exported_symbols.txt */; };
+		1474BE9A239897C2003C67D5 /* USBFS_Dm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE42239897BC003C67D5 /* USBFS_Dm.c */; };
+		1474BE9B239897C2003C67D5 /* USBFS_episr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE43239897BC003C67D5 /* USBFS_episr.c */; };
+		1474BE9C239897C2003C67D5 /* USBFS_pm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE45239897BC003C67D5 /* USBFS_pm.c */; };
+		1474BE9D239897C2003C67D5 /* USBFS_boot.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE46239897BC003C67D5 /* USBFS_boot.c */; };
+		1474BE9E239897C2003C67D5 /* cymetadata.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE47239897BC003C67D5 /* cymetadata.c */; };
+		1474BE9F239897C2003C67D5 /* cydevicerv.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE49239897BC003C67D5 /* cydevicerv.inc */; };
+		1474BEA0239897C2003C67D5 /* Cm3Iar.icf in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE4A239897BC003C67D5 /* Cm3Iar.icf */; };
+		1474BEA1239897C2003C67D5 /* cydevicerv_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE4C239897BC003C67D5 /* cydevicerv_trm.inc */; };
+		1474BEA2239897C2003C67D5 /* cydeviceiar_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE4D239897BC003C67D5 /* cydeviceiar_trm.inc */; };
+		1474BEA3239897C2003C67D5 /* cycodeshareexport.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE4E239897BC003C67D5 /* cycodeshareexport.ld */; };
+		1474BEA4239897C2003C67D5 /* TERM_EN.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE52239897BD003C67D5 /* TERM_EN.c */; };
+		1474BEA5239897C2003C67D5 /* CyFlash.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE55239897BD003C67D5 /* CyFlash.c */; };
+		1474BEA6239897C2003C67D5 /* cyPm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE56239897BD003C67D5 /* cyPm.c */; };
+		1474BEA7239897C2003C67D5 /* cydevicegnu_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE59239897BD003C67D5 /* cydevicegnu_trm.inc */; };
+		1474BEA8239897C2003C67D5 /* cyutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE5F239897BD003C67D5 /* cyutils.c */; };
+		1474BEA9239897C2003C67D5 /* USBFS_cls.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE63239897BE003C67D5 /* USBFS_cls.c */; };
+		1474BEAA239897C2003C67D5 /* USBFS_std.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE64239897BE003C67D5 /* USBFS_std.c */; };
+		1474BEAB239897C2003C67D5 /* eeprom.hex in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE65239897BE003C67D5 /* eeprom.hex */; };
+		1474BEAC239897C2003C67D5 /* USBFS.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE66239897BE003C67D5 /* USBFS.c */; };
+		1474BEAD239897C2003C67D5 /* Cm3RealView.scat in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE67239897BE003C67D5 /* Cm3RealView.scat */; };
+		1474BEAE239897C2003C67D5 /* BL.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE69239897BE003C67D5 /* BL.c */; };
+		1474BEAF239897C2003C67D5 /* CyDmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE6A239897BE003C67D5 /* CyDmac.c */; };
+		1474BEB0239897C2003C67D5 /* SD_PULLUP.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE6B239897BE003C67D5 /* SD_PULLUP.c */; };
+		1474BEB1239897C2003C67D5 /* CySpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE6C239897BE003C67D5 /* CySpc.c */; };
+		1474BEB2239897C2003C67D5 /* cyfitteriar.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE6E239897BF003C67D5 /* cyfitteriar.inc */; };
+		1474BEB3239897C2003C67D5 /* cyfittergnu.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE6F239897BF003C67D5 /* cyfittergnu.inc */; };
+		1474BEB4239897C2003C67D5 /* renamed_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE70239897BF003C67D5 /* renamed_symbols.txt */; };
+		1474BEB5239897C2003C67D5 /* USBFS_descr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE71239897BF003C67D5 /* USBFS_descr.c */; };
+		1474BEB6239897C2003C67D5 /* USBFS_drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE73239897BF003C67D5 /* USBFS_drv.c */; };
+		1474BEB7239897C2003C67D5 /* USBFS_vnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE74239897BF003C67D5 /* USBFS_vnd.c */; };
+		1474BEB8239897C2003C67D5 /* CyLib.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE75239897BF003C67D5 /* CyLib.c */; };
+		1474BEB9239897C2003C67D5 /* cydeviceiar.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE76239897BF003C67D5 /* cydeviceiar.inc */; };
+		1474BEBA239897C2003C67D5 /* LED.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE78239897BF003C67D5 /* LED.c */; };
+		1474BEBB239897C2003C67D5 /* cm3gcc.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE79239897BF003C67D5 /* cm3gcc.ld */; };
+		1474BEBC239897C2003C67D5 /* cycodeshareimport.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE7A239897BF003C67D5 /* cycodeshareimport.ld */; };
+		1474BEBD239897C2003C67D5 /* USBFS_cdc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE7D239897C0003C67D5 /* USBFS_cdc.c */; };
+		1474BEBE239897C2003C67D5 /* USBFS_hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE80239897C0003C67D5 /* USBFS_hid.c */; };
+		1474BEBF239897C2003C67D5 /* USBFS_midi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE83239897C0003C67D5 /* USBFS_midi.c */; };
+		1474BEC0239897C2003C67D5 /* cyfitter_cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE86239897C0003C67D5 /* cyfitter_cfg.c */; };
+		1474BEC1239897C2003C67D5 /* USBFS_audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE87239897C0003C67D5 /* USBFS_audio.c */; };
+		1474BEC2239897C2003C67D5 /* protect.hex in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE88239897C0003C67D5 /* protect.hex */; };
+		1474BEC3239897C2003C67D5 /* cydevicegnu.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE89239897C1003C67D5 /* cydevicegnu.inc */; };
+		1474BEC4239897C2003C67D5 /* cycodeshareimport.scat in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE8C239897C1003C67D5 /* cycodeshareimport.scat */; };
+		1474BEC5239897C2003C67D5 /* USBFS_cdc.inf in Resources */ = {isa = PBXBuildFile; fileRef = 1474BE8E239897C1003C67D5 /* USBFS_cdc.inf */; };
+		1474BEC6239897C2003C67D5 /* Cm3Start.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE8F239897C1003C67D5 /* Cm3Start.c */; };
+		1474BEC7239897C2003C67D5 /* BOOTLDR.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE90239897C1003C67D5 /* BOOTLDR.c */; };
+		1474BEC8239897C2003C67D5 /* CyBootAsmIar.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE92239897C1003C67D5 /* CyBootAsmIar.s */; };
+		1474BEC9239897C2003C67D5 /* cyfitterrv.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE95239897C1003C67D5 /* cyfitterrv.inc */; };
+		1474BECA239897C2003C67D5 /* CyBootAsmRv.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE96239897C2003C67D5 /* CyBootAsmRv.s */; };
+		1474BECB239897C2003C67D5 /* USBFS_Dp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BE97239897C2003C67D5 /* USBFS_Dp.c */; };
+		1474BF82239897F0003C67D5 /* SCSI_RST_ISR.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BECD239897E7003C67D5 /* SCSI_RST_ISR.c */; };
+		1474BF83239897F0003C67D5 /* USBFS_Dm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BECF239897E7003C67D5 /* USBFS_Dm.c */; };
+		1474BF84239897F0003C67D5 /* SCSI_Out_Bits.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BED2239897E7003C67D5 /* SCSI_Out_Bits.c */; };
+		1474BF85239897F0003C67D5 /* cyfitteriar.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BED3239897E7003C67D5 /* cyfitteriar.inc */; };
+		1474BF86239897F0003C67D5 /* protect.hex in Resources */ = {isa = PBXBuildFile; fileRef = 1474BED4239897E7003C67D5 /* protect.hex */; };
+		1474BF87239897F0003C67D5 /* SD_MOSI.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEDA239897E8003C67D5 /* SD_MOSI.c */; };
+		1474BF88239897F0003C67D5 /* USBFS_drv.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEDB239897E8003C67D5 /* USBFS_drv.c */; };
+		1474BF89239897F0003C67D5 /* SCSI_In.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEDC239897E8003C67D5 /* SCSI_In.c */; };
+		1474BF8A239897F0003C67D5 /* eeprom.hex in Resources */ = {isa = PBXBuildFile; fileRef = 1474BEDD239897E8003C67D5 /* eeprom.hex */; };
+		1474BF8B239897F0003C67D5 /* cyfittergnu.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEE0239897E8003C67D5 /* cyfittergnu.inc */; };
+		1474BF8C239897F0003C67D5 /* SD_CD.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEE3239897E8003C67D5 /* SD_CD.c */; };
+		1474BF8D239897F0003C67D5 /* USBFS_hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEE4239897E8003C67D5 /* USBFS_hid.c */; };
+		1474BF8E239897F0003C67D5 /* USBFS_midi.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEE6239897E8003C67D5 /* USBFS_midi.c */; };
+		1474BF8F239897F0003C67D5 /* SCSI_Out_Bits_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEE8239897E9003C67D5 /* SCSI_Out_Bits_PM.c */; };
+		1474BF90239897F0003C67D5 /* cm3gcc.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BEEA239897E9003C67D5 /* cm3gcc.ld */; };
+		1474BF91239897F0003C67D5 /* cycodeshareimport.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BEEB239897E9003C67D5 /* cycodeshareimport.ld */; };
+		1474BF92239897F0003C67D5 /* SDCard_INT.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEEC239897E9003C67D5 /* SDCard_INT.c */; };
+		1474BF93239897F0003C67D5 /* USBFS_Dp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEED239897E9003C67D5 /* USBFS_Dp.c */; };
+		1474BF94239897F0003C67D5 /* SD_Init_Clk.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEEF239897E9003C67D5 /* SD_Init_Clk.c */; };
+		1474BF95239897F0003C67D5 /* timer_clock.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEF0239897E9003C67D5 /* timer_clock.c */; };
+		1474BF96239897F0003C67D5 /* Debug_Timer_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEF1239897E9003C67D5 /* Debug_Timer_PM.c */; };
+		1474BF97239897F0003C67D5 /* TERM_EN.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEF5239897E9003C67D5 /* TERM_EN.c */; };
+		1474BF98239897F0003C67D5 /* SCSI_RX_DMA_COMPLETE.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEF7239897EA003C67D5 /* SCSI_RX_DMA_COMPLETE.c */; };
+		1474BF99239897F0003C67D5 /* Cm3Start.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEF8239897EA003C67D5 /* Cm3Start.c */; };
+		1474BF9A239897F0003C67D5 /* SCSI_CLK.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEFB239897EA003C67D5 /* SCSI_CLK.c */; };
+		1474BF9B239897F0003C67D5 /* SCSI_Glitch_Ctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEFD239897EA003C67D5 /* SCSI_Glitch_Ctl.c */; };
+		1474BF9C239897F0003C67D5 /* SD_TX_DMA_dma.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BEFF239897EA003C67D5 /* SD_TX_DMA_dma.c */; };
+		1474BF9D239897F0003C67D5 /* cydevicegnu_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF00239897EA003C67D5 /* cydevicegnu_trm.inc */; };
+		1474BF9E239897F0003C67D5 /* SCSI_TX_DMA_COMPLETE.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF01239897EA003C67D5 /* SCSI_TX_DMA_COMPLETE.c */; };
+		1474BF9F239897F0003C67D5 /* SD_TX_DMA_COMPLETE.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF04239897EA003C67D5 /* SD_TX_DMA_COMPLETE.c */; };
+		1474BFA0239897F0003C67D5 /* SD_CS.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF0A239897EB003C67D5 /* SD_CS.c */; };
+		1474BFA1239897F0003C67D5 /* cy_em_eeprom.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF0C239897EB003C67D5 /* cy_em_eeprom.c */; };
+		1474BFA2239897F0003C67D5 /* SDCard.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF0E239897EB003C67D5 /* SDCard.c */; };
+		1474BFA3239897F0003C67D5 /* SCSI_RST.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF0F239897EB003C67D5 /* SCSI_RST.c */; };
+		1474BFA4239897F0003C67D5 /* USBFS_pm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF10239897EB003C67D5 /* USBFS_pm.c */; };
+		1474BFA5239897F0003C67D5 /* EXTLED.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF11239897EB003C67D5 /* EXTLED.c */; };
+		1474BFA6239897F0003C67D5 /* Debug_Timer_Interrupt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF13239897EB003C67D5 /* Debug_Timer_Interrupt.c */; };
+		1474BFA7239897F0003C67D5 /* USBFS_cdc.inf in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF14239897EB003C67D5 /* USBFS_cdc.inf */; };
+		1474BFA8239897F0003C67D5 /* cydevicerv_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF15239897EB003C67D5 /* cydevicerv_trm.inc */; };
+		1474BFA9239897F0003C67D5 /* SCSI_CTL_PHASE.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF17239897EB003C67D5 /* SCSI_CTL_PHASE.c */; };
+		1474BFAA239897F0003C67D5 /* exported_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF19239897EB003C67D5 /* exported_symbols.txt */; };
+		1474BFAB239897F0003C67D5 /* USBFS_vnd.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF1A239897EB003C67D5 /* USBFS_vnd.c */; };
+		1474BFAC239897F0003C67D5 /* cymetadata.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF1D239897EC003C67D5 /* cymetadata.c */; };
+		1474BFAD239897F0003C67D5 /* USBFS_boot.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF1E239897EC003C67D5 /* USBFS_boot.c */; };
+		1474BFAE239897F0003C67D5 /* CyBootAsmIar.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF21239897EC003C67D5 /* CyBootAsmIar.s */; };
+		1474BFAF239897F0003C67D5 /* cycodeshareexport.ld in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF23239897EC003C67D5 /* cycodeshareexport.ld */; };
+		1474BFB0239897F0003C67D5 /* SCSI_Filtered.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF24239897EC003C67D5 /* SCSI_Filtered.c */; };
+		1474BFB1239897F0003C67D5 /* USBFS_episr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF25239897EC003C67D5 /* USBFS_episr.c */; };
+		1474BFB2239897F0003C67D5 /* SDCard_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF27239897EC003C67D5 /* SDCard_PM.c */; };
+		1474BFB3239897F0003C67D5 /* SD_Clk_Ctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF29239897EC003C67D5 /* SD_Clk_Ctl.c */; };
+		1474BFB4239897F0003C67D5 /* SD_SCK.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF2A239897EC003C67D5 /* SD_SCK.c */; };
+		1474BFB5239897F0003C67D5 /* cybootloader.icf in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF2B239897EC003C67D5 /* cybootloader.icf */; };
+		1474BFB6239897F0003C67D5 /* SCSI_Out_Ctl.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF2C239897EC003C67D5 /* SCSI_Out_Ctl.c */; };
+		1474BFB7239897F0003C67D5 /* cydeviceiar.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF2D239897EC003C67D5 /* cydeviceiar.inc */; };
+		1474BFB8239897F0003C67D5 /* CyDmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF2E239897EC003C67D5 /* CyDmac.c */; };
+		1474BFB9239897F0003C67D5 /* cyPm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF32239897EC003C67D5 /* cyPm.c */; };
+		1474BFBA239897F0003C67D5 /* Cm3Iar.icf in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF35239897ED003C67D5 /* Cm3Iar.icf */; };
+		1474BFBB239897F0003C67D5 /* Bootloadable_1.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF37239897ED003C67D5 /* Bootloadable_1.c */; };
+		1474BFBC239897F0003C67D5 /* SCSI_Parity_Error.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF39239897ED003C67D5 /* SCSI_Parity_Error.c */; };
+		1474BFBD239897F0003C67D5 /* SD_RX_DMA_COMPLETE.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF3A239897ED003C67D5 /* SD_RX_DMA_COMPLETE.c */; };
+		1474BFBE239897F0003C67D5 /* SCSI_ATN.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF3B239897ED003C67D5 /* SCSI_ATN.c */; };
+		1474BFBF239897F0003C67D5 /* Cm3RealView.scat in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF3E239897ED003C67D5 /* Cm3RealView.scat */; };
+		1474BFC0239897F0003C67D5 /* SD_RX_DMA_dma.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF3F239897ED003C67D5 /* SD_RX_DMA_dma.c */; };
+		1474BFC1239897F0003C67D5 /* CyLib.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF40239897ED003C67D5 /* CyLib.c */; };
+		1474BFC2239897F0003C67D5 /* SD_MISO.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF44239897ED003C67D5 /* SD_MISO.c */; };
+		1474BFC3239897F0003C67D5 /* USBFS_cdc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF46239897ED003C67D5 /* USBFS_cdc.c */; };
+		1474BFC4239897F0003C67D5 /* USBFS_cls.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF47239897ED003C67D5 /* USBFS_cls.c */; };
+		1474BFC5239897F0003C67D5 /* SD_Data_Clk.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF48239897ED003C67D5 /* SD_Data_Clk.c */; };
+		1474BFC6239897F0003C67D5 /* SCSI_Glitch_Ctl_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF49239897ED003C67D5 /* SCSI_Glitch_Ctl_PM.c */; };
+		1474BFC7239897F0003C67D5 /* USBFS_std.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF4B239897ED003C67D5 /* USBFS_std.c */; };
+		1474BFC8239897F0003C67D5 /* renamed_symbols.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF4C239897ED003C67D5 /* renamed_symbols.txt */; };
+		1474BFC9239897F0003C67D5 /* CyFlash.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF50239897EE003C67D5 /* CyFlash.c */; };
+		1474BFCA239897F0003C67D5 /* cycodeshareimport.scat in Resources */ = {isa = PBXBuildFile; fileRef = 1474BF52239897EE003C67D5 /* cycodeshareimport.scat */; };
+		1474BFCB239897F0003C67D5 /* USBFS.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF53239897EE003C67D5 /* USBFS.c */; };
+		1474BFCC239897F0003C67D5 /* CySpc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF55239897EE003C67D5 /* CySpc.c */; };
+		1474BFCD239897F0003C67D5 /* CyBootAsmRv.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF56239897EE003C67D5 /* CyBootAsmRv.s */; };
+		1474BFCE239897F0003C67D5 /* SCSI_CTL_IO.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF57239897EE003C67D5 /* SCSI_CTL_IO.c */; };
+		1474BFCF239897F0003C67D5 /* cybootloader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF58239897EE003C67D5 /* cybootloader.c */; };
+		1474BFD0239897F0003C67D5 /* LED1.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF59239897EE003C67D5 /* LED1.c */; };
+		1474BFD1239897F0003C67D5 /* Debug_Timer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF5B239897EE003C67D5 /* Debug_Timer.c */; };
+		1474BFD2239897F0003C67D5 /* USBFS_audio.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF5C239897EE003C67D5 /* USBFS_audio.c */; };
+		1474BFD3239897F0003C67D5 /* SCSI_Out_Ctl_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF5E239897EE003C67D5 /* SCSI_Out_Ctl_PM.c */; };
+		1474BFD4239897F0003C67D5 /* CFG_EEPROM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF63239897EE003C67D5 /* CFG_EEPROM.c */; };
+		1474BFD5239897F0003C67D5 /* SCSI_TX_DMA_dma.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF67239897EF003C67D5 /* SCSI_TX_DMA_dma.c */; };
+		1474BFD6239897F0003C67D5 /* SCSI_RX_DMA_dma.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF68239897EF003C67D5 /* SCSI_RX_DMA_dma.c */; };
+		1474BFD7239897F0003C67D5 /* cydevicerv.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF69239897EF003C67D5 /* cydevicerv.inc */; };
+		1474BFD8239897F0003C67D5 /* SCSI_SEL_ISR.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF6A239897EF003C67D5 /* SCSI_SEL_ISR.c */; };
+		1474BFD9239897F0003C67D5 /* cydeviceiar_trm.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF6D239897EF003C67D5 /* cydeviceiar_trm.inc */; };
+		1474BFDA239897F0003C67D5 /* CyBootAsmGnu.s in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF6F239897EF003C67D5 /* CyBootAsmGnu.s */; };
+		1474BFDB239897F0003C67D5 /* cyfitter_cfg.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF73239897EF003C67D5 /* cyfitter_cfg.c */; };
+		1474BFDC239897F0003C67D5 /* USBFS_msc.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF76239897EF003C67D5 /* USBFS_msc.c */; };
+		1474BFDD239897F0003C67D5 /* USBFS_descr.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF77239897EF003C67D5 /* USBFS_descr.c */; };
+		1474BFDE239897F0003C67D5 /* cyutils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF7A239897EF003C67D5 /* cyutils.c */; };
+		1474BFDF239897F0003C67D5 /* cydevicegnu.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF7D239897F0003C67D5 /* cydevicegnu.inc */; };
+		1474BFE0239897F0003C67D5 /* SCSI_CTL_PHASE_PM.c in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF7F239897F0003C67D5 /* SCSI_CTL_PHASE_PM.c */; };
+		1474BFE1239897F0003C67D5 /* cyfitterrv.inc in Sources */ = {isa = PBXBuildFile; fileRef = 1474BF80239897F0003C67D5 /* cyfitterrv.inc */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.m */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
@@ -47,6 +215,319 @@
 		142E94582398664F0064C4E5 /* Firmware.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Firmware.cc; sourceTree = "<group>"; };
 		142E94592398664F0064C4E5 /* Firmware.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Firmware.hh; sourceTree = "<group>"; };
 		142E945C23987B8B0064C4E5 /* gnulib_ffs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = gnulib_ffs.c; path = "../../../../software/scsi2sd-util/gnulib_ffs.c"; sourceTree = "<group>"; };
+		1474BCE223988550003C67D5 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SCSI2SD_HID.cc; sourceTree = "<group>"; };
+		1474BCE323988550003C67D5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
+		1474BCE623988851003C67D5 /* mo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mo.c; path = ../../../../../software/SCSI2SD/src/mo.c; sourceTree = "<group>"; };
+		1474BCE723988851003C67D5 /* mo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mo.h; path = ../../../../../software/SCSI2SD/src/mo.h; sourceTree = "<group>"; };
+		1474BCE823988851003C67D5 /* tape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tape.h; path = ../../../../../software/SCSI2SD/src/tape.h; sourceTree = "<group>"; };
+		1474BCE923988851003C67D5 /* disk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = disk.h; path = ../../../../../software/SCSI2SD/src/disk.h; sourceTree = "<group>"; };
+		1474BCEA23988851003C67D5 /* scsiPhy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scsiPhy.h; path = ../../../../../software/SCSI2SD/src/scsiPhy.h; sourceTree = "<group>"; };
+		1474BCEB23988851003C67D5 /* cdrom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cdrom.c; path = ../../../../../software/SCSI2SD/src/cdrom.c; sourceTree = "<group>"; };
+		1474BCEC23988851003C67D5 /* vendor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vendor.h; path = ../../../../../software/SCSI2SD/src/vendor.h; sourceTree = "<group>"; };
+		1474BCED23988851003C67D5 /* sd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sd.h; path = ../../../../../software/SCSI2SD/src/sd.h; sourceTree = "<group>"; };
+		1474BCEE23988852003C67D5 /* hidpacket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hidpacket.c; path = ../../../../../software/SCSI2SD/src/hidpacket.c; sourceTree = "<group>"; };
+		1474BCEF23988852003C67D5 /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geometry.h; path = ../../../../../software/SCSI2SD/src/geometry.h; sourceTree = "<group>"; };
+		1474BCF023988852003C67D5 /* scsi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scsi.h; path = ../../../../../software/SCSI2SD/src/scsi.h; sourceTree = "<group>"; };
+		1474BCF123988852003C67D5 /* trace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = trace.h; path = ../../../../../software/SCSI2SD/src/trace.h; sourceTree = "<group>"; };
+		1474BCF223988852003C67D5 /* diagnostic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = diagnostic.c; path = ../../../../../software/SCSI2SD/src/diagnostic.c; sourceTree = "<group>"; };
+		1474BCF323988852003C67D5 /* sense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sense.h; path = ../../../../../software/SCSI2SD/src/sense.h; sourceTree = "<group>"; };
+		1474BCF423988852003C67D5 /* config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = config.c; path = ../../../../../software/SCSI2SD/src/config.c; sourceTree = "<group>"; };
+		1474BCF523988852003C67D5 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = ../../../../../software/SCSI2SD/src/debug.h; sourceTree = "<group>"; };
+		1474BCF623988852003C67D5 /* diagnostic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = diagnostic.h; path = ../../../../../software/SCSI2SD/src/diagnostic.h; sourceTree = "<group>"; };
+		1474BCF723988852003C67D5 /* bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bits.h; path = ../../../../../software/SCSI2SD/src/bits.h; sourceTree = "<group>"; };
+		1474BCF823988852003C67D5 /* trace.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = trace.c; path = ../../../../../software/SCSI2SD/src/trace.c; sourceTree = "<group>"; };
+		1474BCF923988852003C67D5 /* mode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mode.h; path = ../../../../../software/SCSI2SD/src/mode.h; sourceTree = "<group>"; };
+		1474BCFA23988852003C67D5 /* geometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = geometry.c; path = ../../../../../software/SCSI2SD/src/geometry.c; sourceTree = "<group>"; };
+		1474BCFB23988852003C67D5 /* inquiry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inquiry.h; path = ../../../../../software/SCSI2SD/src/inquiry.h; sourceTree = "<group>"; };
+		1474BCFC23988852003C67D5 /* mode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = mode.c; path = ../../../../../software/SCSI2SD/src/mode.c; sourceTree = "<group>"; };
+		1474BCFD23988852003C67D5 /* scsi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = scsi.c; path = ../../../../../software/SCSI2SD/src/scsi.c; sourceTree = "<group>"; };
+		1474BCFE23988852003C67D5 /* scsiPhy.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = scsiPhy.c; path = ../../../../../software/SCSI2SD/src/scsiPhy.c; sourceTree = "<group>"; };
+		1474BCFF23988852003C67D5 /* disk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = disk.c; path = ../../../../../software/SCSI2SD/src/disk.c; sourceTree = "<group>"; };
+		1474BD0023988852003C67D5 /* sd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = sd.c; path = ../../../../../software/SCSI2SD/src/sd.c; sourceTree = "<group>"; };
+		1474BD0123988853003C67D5 /* led.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = led.c; path = ../../../../../software/SCSI2SD/src/led.c; sourceTree = "<group>"; };
+		1474BD0223988853003C67D5 /* time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = time.h; path = ../../../../../software/SCSI2SD/src/time.h; sourceTree = "<group>"; };
+		1474BD0323988853003C67D5 /* led.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = led.h; path = ../../../../../software/SCSI2SD/src/led.h; sourceTree = "<group>"; };
+		1474BD0423988853003C67D5 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../../../../../software/SCSI2SD/src/config.h; sourceTree = "<group>"; };
+		1474BD0523988853003C67D5 /* bits.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bits.c; path = ../../../../../software/SCSI2SD/src/bits.c; sourceTree = "<group>"; };
+		1474BD0623988853003C67D5 /* inquiry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = inquiry.c; path = ../../../../../software/SCSI2SD/src/inquiry.c; sourceTree = "<group>"; };
+		1474BD0723988853003C67D5 /* tape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = tape.c; path = ../../../../../software/SCSI2SD/src/tape.c; sourceTree = "<group>"; };
+		1474BD0823988853003C67D5 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../../../../software/SCSI2SD/src/main.c; sourceTree = "<group>"; };
+		1474BD0923988853003C67D5 /* cdrom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cdrom.h; path = ../../../../../software/SCSI2SD/src/cdrom.h; sourceTree = "<group>"; };
+		1474BD0A23988853003C67D5 /* time.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = time.c; path = ../../../../../software/SCSI2SD/src/time.c; sourceTree = "<group>"; };
+		1474BD0B23988853003C67D5 /* vendor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = vendor.c; path = ../../../../../software/SCSI2SD/src/vendor.c; sourceTree = "<group>"; };
+		1474BE3D239897BC003C67D5 /* USBFS_hid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_hid.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_hid.h; sourceTree = "<group>"; };
+		1474BE3E239897BC003C67D5 /* core_cm3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cm3.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/core_cm3.h; sourceTree = "<group>"; };
+		1474BE3F239897BC003C67D5 /* CyBootAsmGnu.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmGnu.s; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s; sourceTree = "<group>"; };
+		1474BE40239897BC003C67D5 /* CyLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyLib.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyLib.h; sourceTree = "<group>"; };
+		1474BE41239897BC003C67D5 /* exported_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = exported_symbols.txt; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/exported_symbols.txt; sourceTree = "<group>"; };
+		1474BE42239897BC003C67D5 /* USBFS_Dm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_Dm.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dm.c; sourceTree = "<group>"; };
+		1474BE43239897BC003C67D5 /* USBFS_episr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_episr.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_episr.c; sourceTree = "<group>"; };
+		1474BE44239897BC003C67D5 /* cyPm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyPm.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyPm.h; sourceTree = "<group>"; };
+		1474BE45239897BC003C67D5 /* USBFS_pm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_pm.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_pm.c; sourceTree = "<group>"; };
+		1474BE46239897BC003C67D5 /* USBFS_boot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_boot.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_boot.c; sourceTree = "<group>"; };
+		1474BE47239897BC003C67D5 /* cymetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cymetadata.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cymetadata.c; sourceTree = "<group>"; };
+		1474BE48239897BC003C67D5 /* SD_PULLUP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_PULLUP.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/SD_PULLUP.h; sourceTree = "<group>"; };
+		1474BE49239897BC003C67D5 /* cydevicerv.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicerv.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicerv.inc; sourceTree = "<group>"; };
+		1474BE4A239897BC003C67D5 /* Cm3Iar.icf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cm3Iar.icf; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/Cm3Iar.icf; sourceTree = "<group>"; };
+		1474BE4B239897BC003C67D5 /* TERM_EN_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERM_EN_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/TERM_EN_aliases.h; sourceTree = "<group>"; };
+		1474BE4C239897BC003C67D5 /* cydevicerv_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicerv_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicerv_trm.inc; sourceTree = "<group>"; };
+		1474BE4D239897BC003C67D5 /* cydeviceiar_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydeviceiar_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydeviceiar_trm.inc; sourceTree = "<group>"; };
+		1474BE4E239897BC003C67D5 /* cycodeshareexport.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareexport.ld; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cycodeshareexport.ld; sourceTree = "<group>"; };
+		1474BE4F239897BC003C67D5 /* cypins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cypins.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cypins.h; sourceTree = "<group>"; };
+		1474BE50239897BC003C67D5 /* USBFS_cdc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_cdc.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_cdc.h; sourceTree = "<group>"; };
+		1474BE51239897BD003C67D5 /* BL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BL.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BL.h; sourceTree = "<group>"; };
+		1474BE52239897BD003C67D5 /* TERM_EN.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TERM_EN.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/TERM_EN.c; sourceTree = "<group>"; };
+		1474BE53239897BD003C67D5 /* USBFS_pvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_pvt.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_pvt.h; sourceTree = "<group>"; };
+		1474BE54239897BD003C67D5 /* USBFS_Dm_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dm_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dm_aliases.h; sourceTree = "<group>"; };
+		1474BE55239897BD003C67D5 /* CyFlash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyFlash.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyFlash.c; sourceTree = "<group>"; };
+		1474BE56239897BD003C67D5 /* cyPm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyPm.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyPm.c; sourceTree = "<group>"; };
+		1474BE57239897BD003C67D5 /* CyFlash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyFlash.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyFlash.h; sourceTree = "<group>"; };
+		1474BE58239897BD003C67D5 /* cyfitter_cfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyfitter_cfg.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h; sourceTree = "<group>"; };
+		1474BE59239897BD003C67D5 /* cydevicegnu_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicegnu_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc; sourceTree = "<group>"; };
+		1474BE5A239897BD003C67D5 /* BOOTLDR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOOTLDR.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BOOTLDR.h; sourceTree = "<group>"; };
+		1474BE5B239897BD003C67D5 /* CySpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CySpc.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CySpc.h; sourceTree = "<group>"; };
+		1474BE5C239897BD003C67D5 /* core_cm3_psoc5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cm3_psoc5.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h; sourceTree = "<group>"; };
+		1474BE5D239897BD003C67D5 /* CyDmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyDmac.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyDmac.h; sourceTree = "<group>"; };
+		1474BE5E239897BD003C67D5 /* SCSI_Out_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/SCSI_Out_aliases.h; sourceTree = "<group>"; };
+		1474BE5F239897BD003C67D5 /* cyutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyutils.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyutils.c; sourceTree = "<group>"; };
+		1474BE60239897BE003C67D5 /* SCSI_Out_DBx_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_DBx_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/SCSI_Out_DBx_aliases.h; sourceTree = "<group>"; };
+		1474BE61239897BE003C67D5 /* LED_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LED_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/LED_aliases.h; sourceTree = "<group>"; };
+		1474BE62239897BE003C67D5 /* cydevice_trm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydevice_trm.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevice_trm.h; sourceTree = "<group>"; };
+		1474BE63239897BE003C67D5 /* USBFS_cls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_cls.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_cls.c; sourceTree = "<group>"; };
+		1474BE64239897BE003C67D5 /* USBFS_std.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_std.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_std.c; sourceTree = "<group>"; };
+		1474BE65239897BE003C67D5 /* eeprom.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = eeprom.hex; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/eeprom.hex; sourceTree = "<group>"; };
+		1474BE66239897BE003C67D5 /* USBFS.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS.c; sourceTree = "<group>"; };
+		1474BE67239897BE003C67D5 /* Cm3RealView.scat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cm3RealView.scat; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/Cm3RealView.scat; sourceTree = "<group>"; };
+		1474BE68239897BE003C67D5 /* project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = project.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/project.h; sourceTree = "<group>"; };
+		1474BE69239897BE003C67D5 /* BL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = BL.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BL.c; sourceTree = "<group>"; };
+		1474BE6A239897BE003C67D5 /* CyDmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyDmac.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyDmac.c; sourceTree = "<group>"; };
+		1474BE6B239897BE003C67D5 /* SD_PULLUP.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_PULLUP.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/SD_PULLUP.c; sourceTree = "<group>"; };
+		1474BE6C239897BE003C67D5 /* CySpc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CySpc.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CySpc.c; sourceTree = "<group>"; };
+		1474BE6D239897BF003C67D5 /* BL_PVT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BL_PVT.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BL_PVT.h; sourceTree = "<group>"; };
+		1474BE6E239897BF003C67D5 /* cyfitteriar.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfitteriar.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfitteriar.inc; sourceTree = "<group>"; };
+		1474BE6F239897BF003C67D5 /* cyfittergnu.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfittergnu.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfittergnu.inc; sourceTree = "<group>"; };
+		1474BE70239897BF003C67D5 /* renamed_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = renamed_symbols.txt; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/renamed_symbols.txt; sourceTree = "<group>"; };
+		1474BE71239897BF003C67D5 /* USBFS_descr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_descr.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_descr.c; sourceTree = "<group>"; };
+		1474BE72239897BF003C67D5 /* USBFS_Dm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dm.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dm.h; sourceTree = "<group>"; };
+		1474BE73239897BF003C67D5 /* USBFS_drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_drv.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_drv.c; sourceTree = "<group>"; };
+		1474BE74239897BF003C67D5 /* USBFS_vnd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_vnd.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_vnd.c; sourceTree = "<group>"; };
+		1474BE75239897BF003C67D5 /* CyLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyLib.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyLib.c; sourceTree = "<group>"; };
+		1474BE76239897BF003C67D5 /* cydeviceiar.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydeviceiar.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydeviceiar.inc; sourceTree = "<group>"; };
+		1474BE77239897BF003C67D5 /* core_cmInstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cmInstr.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/core_cmInstr.h; sourceTree = "<group>"; };
+		1474BE78239897BF003C67D5 /* LED.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LED.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/LED.c; sourceTree = "<group>"; };
+		1474BE79239897BF003C67D5 /* cm3gcc.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cm3gcc.ld; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cm3gcc.ld; sourceTree = "<group>"; };
+		1474BE7A239897BF003C67D5 /* cycodeshareimport.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareimport.ld; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cycodeshareimport.ld; sourceTree = "<group>"; };
+		1474BE7B239897C0003C67D5 /* cytypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cytypes.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cytypes.h; sourceTree = "<group>"; };
+		1474BE7C239897C0003C67D5 /* TERM_EN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERM_EN.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/TERM_EN.h; sourceTree = "<group>"; };
+		1474BE7D239897C0003C67D5 /* USBFS_cdc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_cdc.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_cdc.c; sourceTree = "<group>"; };
+		1474BE7E239897C0003C67D5 /* cyfitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyfitter.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfitter.h; sourceTree = "<group>"; };
+		1474BE7F239897C0003C67D5 /* LED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LED.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/LED.h; sourceTree = "<group>"; };
+		1474BE80239897C0003C67D5 /* USBFS_hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_hid.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_hid.c; sourceTree = "<group>"; };
+		1474BE81239897C0003C67D5 /* core_cmFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cmFunc.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/core_cmFunc.h; sourceTree = "<group>"; };
+		1474BE82239897C0003C67D5 /* cydisabledsheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydisabledsheets.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydisabledsheets.h; sourceTree = "<group>"; };
+		1474BE83239897C0003C67D5 /* USBFS_midi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_midi.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_midi.c; sourceTree = "<group>"; };
+		1474BE84239897C0003C67D5 /* USBFS_midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_midi.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_midi.h; sourceTree = "<group>"; };
+		1474BE85239897C0003C67D5 /* BOOTLDR_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BOOTLDR_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BOOTLDR_aliases.h; sourceTree = "<group>"; };
+		1474BE86239897C0003C67D5 /* cyfitter_cfg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyfitter_cfg.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfitter_cfg.c; sourceTree = "<group>"; };
+		1474BE87239897C0003C67D5 /* USBFS_audio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_audio.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_audio.c; sourceTree = "<group>"; };
+		1474BE88239897C0003C67D5 /* protect.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = protect.hex; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/protect.hex; sourceTree = "<group>"; };
+		1474BE89239897C1003C67D5 /* cydevicegnu.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicegnu.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu.inc; sourceTree = "<group>"; };
+		1474BE8A239897C1003C67D5 /* USBFS_Dp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dp.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dp.h; sourceTree = "<group>"; };
+		1474BE8B239897C1003C67D5 /* USBFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS.h; sourceTree = "<group>"; };
+		1474BE8C239897C1003C67D5 /* cycodeshareimport.scat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareimport.scat; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cycodeshareimport.scat; sourceTree = "<group>"; };
+		1474BE8D239897C1003C67D5 /* USBFS_Dp_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dp_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dp_aliases.h; sourceTree = "<group>"; };
+		1474BE8E239897C1003C67D5 /* USBFS_cdc.inf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = USBFS_cdc.inf; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_cdc.inf; sourceTree = "<group>"; };
+		1474BE8F239897C1003C67D5 /* Cm3Start.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Cm3Start.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/Cm3Start.c; sourceTree = "<group>"; };
+		1474BE90239897C1003C67D5 /* BOOTLDR.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = BOOTLDR.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/BOOTLDR.c; sourceTree = "<group>"; };
+		1474BE91239897C1003C67D5 /* cydevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydevice.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevice.h; sourceTree = "<group>"; };
+		1474BE92239897C1003C67D5 /* CyBootAsmIar.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmIar.s; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyBootAsmIar.s; sourceTree = "<group>"; };
+		1474BE93239897C1003C67D5 /* SD_PULLUP_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_PULLUP_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/SD_PULLUP_aliases.h; sourceTree = "<group>"; };
+		1474BE94239897C1003C67D5 /* USBFS_audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_audio.h; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_audio.h; sourceTree = "<group>"; };
+		1474BE95239897C1003C67D5 /* cyfitterrv.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfitterrv.inc; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfitterrv.inc; sourceTree = "<group>"; };
+		1474BE96239897C2003C67D5 /* CyBootAsmRv.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmRv.s; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyBootAsmRv.s; sourceTree = "<group>"; };
+		1474BE97239897C2003C67D5 /* USBFS_Dp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_Dp.c; path = ../../../../../../software/SCSI2SD/v5.1/USB_Bootloader.cydsn/Generated_Source/PSoC5/USBFS_Dp.c; sourceTree = "<group>"; };
+		1474BECC239897E7003C67D5 /* SCSI_ATN_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_ATN_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_ATN_aliases.h; sourceTree = "<group>"; };
+		1474BECD239897E7003C67D5 /* SCSI_RST_ISR.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_RST_ISR.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RST_ISR.c; sourceTree = "<group>"; };
+		1474BECE239897E7003C67D5 /* USBFS_Dp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dp.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dp.h; sourceTree = "<group>"; };
+		1474BECF239897E7003C67D5 /* USBFS_Dm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_Dm.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dm.c; sourceTree = "<group>"; };
+		1474BED0239897E7003C67D5 /* cyfitter_cfg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyfitter_cfg.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h; sourceTree = "<group>"; };
+		1474BED1239897E7003C67D5 /* SCSI_In_DBx_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_In_DBx_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_In_DBx_aliases.h; sourceTree = "<group>"; };
+		1474BED2239897E7003C67D5 /* SCSI_Out_Bits.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Out_Bits.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Bits.c; sourceTree = "<group>"; };
+		1474BED3239897E7003C67D5 /* cyfitteriar.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfitteriar.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfitteriar.inc; sourceTree = "<group>"; };
+		1474BED4239897E7003C67D5 /* protect.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = protect.hex; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/protect.hex; sourceTree = "<group>"; };
+		1474BED5239897E7003C67D5 /* cydevice_trm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydevice_trm.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevice_trm.h; sourceTree = "<group>"; };
+		1474BED6239897E7003C67D5 /* SCSI_CLK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_CLK.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CLK.h; sourceTree = "<group>"; };
+		1474BED7239897E7003C67D5 /* SCSI_TX_DMA_dma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_TX_DMA_dma.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_TX_DMA_dma.h; sourceTree = "<group>"; };
+		1474BED8239897E7003C67D5 /* cyfitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyfitter.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfitter.h; sourceTree = "<group>"; };
+		1474BED9239897E7003C67D5 /* SCSI_RX_DMA_COMPLETE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_RX_DMA_COMPLETE.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RX_DMA_COMPLETE.h; sourceTree = "<group>"; };
+		1474BEDA239897E8003C67D5 /* SD_MOSI.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_MOSI.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MOSI.c; sourceTree = "<group>"; };
+		1474BEDB239897E8003C67D5 /* USBFS_drv.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_drv.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_drv.c; sourceTree = "<group>"; };
+		1474BEDC239897E8003C67D5 /* SCSI_In.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_In.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_In.c; sourceTree = "<group>"; };
+		1474BEDD239897E8003C67D5 /* eeprom.hex */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = eeprom.hex; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/eeprom.hex; sourceTree = "<group>"; };
+		1474BEDE239897E8003C67D5 /* SD_Init_Clk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_Init_Clk.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Init_Clk.h; sourceTree = "<group>"; };
+		1474BEDF239897E8003C67D5 /* project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = project.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/project.h; sourceTree = "<group>"; };
+		1474BEE0239897E8003C67D5 /* cyfittergnu.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfittergnu.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfittergnu.inc; sourceTree = "<group>"; };
+		1474BEE1239897E8003C67D5 /* SD_MOSI_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_MOSI_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MOSI_aliases.h; sourceTree = "<group>"; };
+		1474BEE2239897E8003C67D5 /* cmsis_armcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmsis_armcc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cmsis_armcc.h; sourceTree = "<group>"; };
+		1474BEE3239897E8003C67D5 /* SD_CD.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_CD.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CD.c; sourceTree = "<group>"; };
+		1474BEE4239897E8003C67D5 /* USBFS_hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_hid.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_hid.c; sourceTree = "<group>"; };
+		1474BEE5239897E8003C67D5 /* SCSI_CTL_IO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_CTL_IO.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CTL_IO.h; sourceTree = "<group>"; };
+		1474BEE6239897E8003C67D5 /* USBFS_midi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_midi.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_midi.c; sourceTree = "<group>"; };
+		1474BEE7239897E8003C67D5 /* cypins.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cypins.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cypins.h; sourceTree = "<group>"; };
+		1474BEE8239897E9003C67D5 /* SCSI_Out_Bits_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Out_Bits_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Bits_PM.c; sourceTree = "<group>"; };
+		1474BEE9239897E9003C67D5 /* USBFS_cdc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_cdc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_cdc.h; sourceTree = "<group>"; };
+		1474BEEA239897E9003C67D5 /* cm3gcc.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cm3gcc.ld; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cm3gcc.ld; sourceTree = "<group>"; };
+		1474BEEB239897E9003C67D5 /* cycodeshareimport.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareimport.ld; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cycodeshareimport.ld; sourceTree = "<group>"; };
+		1474BEEC239897E9003C67D5 /* SDCard_INT.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SDCard_INT.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SDCard_INT.c; sourceTree = "<group>"; };
+		1474BEED239897E9003C67D5 /* USBFS_Dp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_Dp.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dp.c; sourceTree = "<group>"; };
+		1474BEEE239897E9003C67D5 /* LED1_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LED1_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/LED1_aliases.h; sourceTree = "<group>"; };
+		1474BEEF239897E9003C67D5 /* SD_Init_Clk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_Init_Clk.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Init_Clk.c; sourceTree = "<group>"; };
+		1474BEF0239897E9003C67D5 /* timer_clock.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = timer_clock.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/timer_clock.c; sourceTree = "<group>"; };
+		1474BEF1239897E9003C67D5 /* Debug_Timer_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Debug_Timer_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Debug_Timer_PM.c; sourceTree = "<group>"; };
+		1474BEF2239897E9003C67D5 /* USBFS_Dp_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dp_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dp_aliases.h; sourceTree = "<group>"; };
+		1474BEF3239897E9003C67D5 /* SDCard_PVT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCard_PVT.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SDCard_PVT.h; sourceTree = "<group>"; };
+		1474BEF4239897E9003C67D5 /* cmsis_gcc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmsis_gcc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cmsis_gcc.h; sourceTree = "<group>"; };
+		1474BEF5239897E9003C67D5 /* TERM_EN.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = TERM_EN.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/TERM_EN.c; sourceTree = "<group>"; };
+		1474BEF6239897E9003C67D5 /* Bootloadable_1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bootloadable_1.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Bootloadable_1.h; sourceTree = "<group>"; };
+		1474BEF7239897EA003C67D5 /* SCSI_RX_DMA_COMPLETE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_RX_DMA_COMPLETE.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RX_DMA_COMPLETE.c; sourceTree = "<group>"; };
+		1474BEF8239897EA003C67D5 /* Cm3Start.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Cm3Start.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Cm3Start.c; sourceTree = "<group>"; };
+		1474BEF9239897EA003C67D5 /* SCSI_In.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_In.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_In.h; sourceTree = "<group>"; };
+		1474BEFA239897EA003C67D5 /* Debug_Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Debug_Timer.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Debug_Timer.h; sourceTree = "<group>"; };
+		1474BEFB239897EA003C67D5 /* SCSI_CLK.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_CLK.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CLK.c; sourceTree = "<group>"; };
+		1474BEFC239897EA003C67D5 /* SCSI_CTL_PHASE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_CTL_PHASE.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CTL_PHASE.h; sourceTree = "<group>"; };
+		1474BEFD239897EA003C67D5 /* SCSI_Glitch_Ctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Glitch_Ctl.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Glitch_Ctl.c; sourceTree = "<group>"; };
+		1474BEFE239897EA003C67D5 /* USBFS_midi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_midi.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_midi.h; sourceTree = "<group>"; };
+		1474BEFF239897EA003C67D5 /* SD_TX_DMA_dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_TX_DMA_dma.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_TX_DMA_dma.c; sourceTree = "<group>"; };
+		1474BF00239897EA003C67D5 /* cydevicegnu_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicegnu_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc; sourceTree = "<group>"; };
+		1474BF01239897EA003C67D5 /* SCSI_TX_DMA_COMPLETE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_TX_DMA_COMPLETE.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_TX_DMA_COMPLETE.c; sourceTree = "<group>"; };
+		1474BF02239897EA003C67D5 /* SD_Clk_Ctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_Clk_Ctl.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Clk_Ctl.h; sourceTree = "<group>"; };
+		1474BF03239897EA003C67D5 /* SD_SCK_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_SCK_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_SCK_aliases.h; sourceTree = "<group>"; };
+		1474BF04239897EA003C67D5 /* SD_TX_DMA_COMPLETE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_TX_DMA_COMPLETE.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_TX_DMA_COMPLETE.c; sourceTree = "<group>"; };
+		1474BF05239897EA003C67D5 /* TERM_EN_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERM_EN_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/TERM_EN_aliases.h; sourceTree = "<group>"; };
+		1474BF06239897EA003C67D5 /* USBFS_cydmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_cydmac.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_cydmac.h; sourceTree = "<group>"; };
+		1474BF07239897EA003C67D5 /* TERM_EN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TERM_EN.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/TERM_EN.h; sourceTree = "<group>"; };
+		1474BF08239897EA003C67D5 /* SD_CS_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_CS_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CS_aliases.h; sourceTree = "<group>"; };
+		1474BF09239897EB003C67D5 /* SCSI_Filtered.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Filtered.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Filtered.h; sourceTree = "<group>"; };
+		1474BF0A239897EB003C67D5 /* SD_CS.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_CS.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CS.c; sourceTree = "<group>"; };
+		1474BF0B239897EB003C67D5 /* SCSI_In_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_In_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_In_aliases.h; sourceTree = "<group>"; };
+		1474BF0C239897EB003C67D5 /* cy_em_eeprom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cy_em_eeprom.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cy_em_eeprom.c; sourceTree = "<group>"; };
+		1474BF0D239897EB003C67D5 /* SCSI_RST.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_RST.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RST.h; sourceTree = "<group>"; };
+		1474BF0E239897EB003C67D5 /* SDCard.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SDCard.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SDCard.c; sourceTree = "<group>"; };
+		1474BF0F239897EB003C67D5 /* SCSI_RST.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_RST.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RST.c; sourceTree = "<group>"; };
+		1474BF10239897EB003C67D5 /* USBFS_pm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_pm.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_pm.c; sourceTree = "<group>"; };
+		1474BF11239897EB003C67D5 /* EXTLED.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = EXTLED.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/EXTLED.c; sourceTree = "<group>"; };
+		1474BF12239897EB003C67D5 /* SD_TX_DMA_dma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_TX_DMA_dma.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_TX_DMA_dma.h; sourceTree = "<group>"; };
+		1474BF13239897EB003C67D5 /* Debug_Timer_Interrupt.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Debug_Timer_Interrupt.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Debug_Timer_Interrupt.c; sourceTree = "<group>"; };
+		1474BF14239897EB003C67D5 /* USBFS_cdc.inf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = USBFS_cdc.inf; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_cdc.inf; sourceTree = "<group>"; };
+		1474BF15239897EB003C67D5 /* cydevicerv_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicerv_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevicerv_trm.inc; sourceTree = "<group>"; };
+		1474BF16239897EB003C67D5 /* cytypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cytypes.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cytypes.h; sourceTree = "<group>"; };
+		1474BF17239897EB003C67D5 /* SCSI_CTL_PHASE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_CTL_PHASE.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CTL_PHASE.c; sourceTree = "<group>"; };
+		1474BF18239897EB003C67D5 /* SD_RX_DMA_COMPLETE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_RX_DMA_COMPLETE.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_RX_DMA_COMPLETE.h; sourceTree = "<group>"; };
+		1474BF19239897EB003C67D5 /* exported_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = exported_symbols.txt; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/exported_symbols.txt; sourceTree = "<group>"; };
+		1474BF1A239897EB003C67D5 /* USBFS_vnd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_vnd.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_vnd.c; sourceTree = "<group>"; };
+		1474BF1B239897EB003C67D5 /* CyDmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyDmac.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyDmac.h; sourceTree = "<group>"; };
+		1474BF1C239897EC003C67D5 /* CFG_EEPROM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CFG_EEPROM.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CFG_EEPROM.h; sourceTree = "<group>"; };
+		1474BF1D239897EC003C67D5 /* cymetadata.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cymetadata.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cymetadata.c; sourceTree = "<group>"; };
+		1474BF1E239897EC003C67D5 /* USBFS_boot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_boot.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_boot.c; sourceTree = "<group>"; };
+		1474BF1F239897EC003C67D5 /* USBFS_Dm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dm.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dm.h; sourceTree = "<group>"; };
+		1474BF20239897EC003C67D5 /* cyPm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cyPm.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyPm.h; sourceTree = "<group>"; };
+		1474BF21239897EC003C67D5 /* CyBootAsmIar.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmIar.s; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyBootAsmIar.s; sourceTree = "<group>"; };
+		1474BF22239897EC003C67D5 /* USBFS_pvt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_pvt.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_pvt.h; sourceTree = "<group>"; };
+		1474BF23239897EC003C67D5 /* cycodeshareexport.ld */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareexport.ld; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cycodeshareexport.ld; sourceTree = "<group>"; };
+		1474BF24239897EC003C67D5 /* SCSI_Filtered.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Filtered.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Filtered.c; sourceTree = "<group>"; };
+		1474BF25239897EC003C67D5 /* USBFS_episr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_episr.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_episr.c; sourceTree = "<group>"; };
+		1474BF26239897EC003C67D5 /* USBFS_Dm_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_Dm_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_Dm_aliases.h; sourceTree = "<group>"; };
+		1474BF27239897EC003C67D5 /* SDCard_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SDCard_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SDCard_PM.c; sourceTree = "<group>"; };
+		1474BF28239897EC003C67D5 /* USBFS_msc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_msc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_msc.h; sourceTree = "<group>"; };
+		1474BF29239897EC003C67D5 /* SD_Clk_Ctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_Clk_Ctl.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Clk_Ctl.c; sourceTree = "<group>"; };
+		1474BF2A239897EC003C67D5 /* SD_SCK.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_SCK.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_SCK.c; sourceTree = "<group>"; };
+		1474BF2B239897EC003C67D5 /* cybootloader.icf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cybootloader.icf; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cybootloader.icf; sourceTree = "<group>"; };
+		1474BF2C239897EC003C67D5 /* SCSI_Out_Ctl.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Out_Ctl.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Ctl.c; sourceTree = "<group>"; };
+		1474BF2D239897EC003C67D5 /* cydeviceiar.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydeviceiar.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydeviceiar.inc; sourceTree = "<group>"; };
+		1474BF2E239897EC003C67D5 /* CyDmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyDmac.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyDmac.c; sourceTree = "<group>"; };
+		1474BF2F239897EC003C67D5 /* core_cmInstr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cmInstr.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/core_cmInstr.h; sourceTree = "<group>"; };
+		1474BF30239897EC003C67D5 /* timer_clock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer_clock.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/timer_clock.h; sourceTree = "<group>"; };
+		1474BF31239897EC003C67D5 /* SD_CS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_CS.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CS.h; sourceTree = "<group>"; };
+		1474BF32239897EC003C67D5 /* cyPm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyPm.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyPm.c; sourceTree = "<group>"; };
+		1474BF33239897EC003C67D5 /* SCSI_Out_DBx_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_DBx_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_DBx_aliases.h; sourceTree = "<group>"; };
+		1474BF34239897ED003C67D5 /* SCSI_RST_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_RST_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RST_aliases.h; sourceTree = "<group>"; };
+		1474BF35239897ED003C67D5 /* Cm3Iar.icf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cm3Iar.icf; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Cm3Iar.icf; sourceTree = "<group>"; };
+		1474BF36239897ED003C67D5 /* SD_MISO_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_MISO_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MISO_aliases.h; sourceTree = "<group>"; };
+		1474BF37239897ED003C67D5 /* Bootloadable_1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Bootloadable_1.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Bootloadable_1.c; sourceTree = "<group>"; };
+		1474BF38239897ED003C67D5 /* SD_SCK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_SCK.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_SCK.h; sourceTree = "<group>"; };
+		1474BF39239897ED003C67D5 /* SCSI_Parity_Error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Parity_Error.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Parity_Error.c; sourceTree = "<group>"; };
+		1474BF3A239897ED003C67D5 /* SD_RX_DMA_COMPLETE.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_RX_DMA_COMPLETE.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_RX_DMA_COMPLETE.c; sourceTree = "<group>"; };
+		1474BF3B239897ED003C67D5 /* SCSI_ATN.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_ATN.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_ATN.c; sourceTree = "<group>"; };
+		1474BF3C239897ED003C67D5 /* CyFlash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyFlash.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyFlash.h; sourceTree = "<group>"; };
+		1474BF3D239897ED003C67D5 /* core_cm3_psoc5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cm3_psoc5.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h; sourceTree = "<group>"; };
+		1474BF3E239897ED003C67D5 /* Cm3RealView.scat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cm3RealView.scat; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Cm3RealView.scat; sourceTree = "<group>"; };
+		1474BF3F239897ED003C67D5 /* SD_RX_DMA_dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_RX_DMA_dma.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_RX_DMA_dma.c; sourceTree = "<group>"; };
+		1474BF40239897ED003C67D5 /* CyLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyLib.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyLib.c; sourceTree = "<group>"; };
+		1474BF41239897ED003C67D5 /* SCSI_Out_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_aliases.h; sourceTree = "<group>"; };
+		1474BF42239897ED003C67D5 /* SD_CD_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_CD_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CD_aliases.h; sourceTree = "<group>"; };
+		1474BF43239897ED003C67D5 /* EXTLED.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTLED.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/EXTLED.h; sourceTree = "<group>"; };
+		1474BF44239897ED003C67D5 /* SD_MISO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_MISO.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MISO.c; sourceTree = "<group>"; };
+		1474BF45239897ED003C67D5 /* SDCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDCard.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SDCard.h; sourceTree = "<group>"; };
+		1474BF46239897ED003C67D5 /* USBFS_cdc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_cdc.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_cdc.c; sourceTree = "<group>"; };
+		1474BF47239897ED003C67D5 /* USBFS_cls.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_cls.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_cls.c; sourceTree = "<group>"; };
+		1474BF48239897ED003C67D5 /* SD_Data_Clk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SD_Data_Clk.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Data_Clk.c; sourceTree = "<group>"; };
+		1474BF49239897ED003C67D5 /* SCSI_Glitch_Ctl_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Glitch_Ctl_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Glitch_Ctl_PM.c; sourceTree = "<group>"; };
+		1474BF4A239897ED003C67D5 /* SD_RX_DMA_dma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_RX_DMA_dma.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_RX_DMA_dma.h; sourceTree = "<group>"; };
+		1474BF4B239897ED003C67D5 /* USBFS_std.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_std.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_std.c; sourceTree = "<group>"; };
+		1474BF4C239897ED003C67D5 /* renamed_symbols.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = renamed_symbols.txt; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/renamed_symbols.txt; sourceTree = "<group>"; };
+		1474BF4D239897ED003C67D5 /* SCSI_TX_DMA_COMPLETE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_TX_DMA_COMPLETE.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_TX_DMA_COMPLETE.h; sourceTree = "<group>"; };
+		1474BF4E239897EE003C67D5 /* SD_TX_DMA_COMPLETE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_TX_DMA_COMPLETE.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_TX_DMA_COMPLETE.h; sourceTree = "<group>"; };
+		1474BF4F239897EE003C67D5 /* core_cmFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cmFunc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/core_cmFunc.h; sourceTree = "<group>"; };
+		1474BF50239897EE003C67D5 /* CyFlash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CyFlash.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyFlash.c; sourceTree = "<group>"; };
+		1474BF51239897EE003C67D5 /* SCSI_ATN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_ATN.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_ATN.h; sourceTree = "<group>"; };
+		1474BF52239897EE003C67D5 /* cycodeshareimport.scat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = cycodeshareimport.scat; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cycodeshareimport.scat; sourceTree = "<group>"; };
+		1474BF53239897EE003C67D5 /* USBFS.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS.c; sourceTree = "<group>"; };
+		1474BF54239897EE003C67D5 /* USBFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS.h; sourceTree = "<group>"; };
+		1474BF55239897EE003C67D5 /* CySpc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CySpc.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CySpc.c; sourceTree = "<group>"; };
+		1474BF56239897EE003C67D5 /* CyBootAsmRv.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmRv.s; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyBootAsmRv.s; sourceTree = "<group>"; };
+		1474BF57239897EE003C67D5 /* SCSI_CTL_IO.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_CTL_IO.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CTL_IO.c; sourceTree = "<group>"; };
+		1474BF58239897EE003C67D5 /* cybootloader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cybootloader.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cybootloader.c; sourceTree = "<group>"; };
+		1474BF59239897EE003C67D5 /* LED1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = LED1.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/LED1.c; sourceTree = "<group>"; };
+		1474BF5A239897EE003C67D5 /* SCSI_RX_DMA_dma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_RX_DMA_dma.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RX_DMA_dma.h; sourceTree = "<group>"; };
+		1474BF5B239897EE003C67D5 /* Debug_Timer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = Debug_Timer.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Debug_Timer.c; sourceTree = "<group>"; };
+		1474BF5C239897EE003C67D5 /* USBFS_audio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_audio.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_audio.c; sourceTree = "<group>"; };
+		1474BF5D239897EE003C67D5 /* LED1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LED1.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/LED1.h; sourceTree = "<group>"; };
+		1474BF5E239897EE003C67D5 /* SCSI_Out_Ctl_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_Out_Ctl_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Ctl_PM.c; sourceTree = "<group>"; };
+		1474BF5F239897EE003C67D5 /* CySpc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CySpc.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CySpc.h; sourceTree = "<group>"; };
+		1474BF60239897EE003C67D5 /* cy_em_eeprom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cy_em_eeprom.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h; sourceTree = "<group>"; };
+		1474BF61239897EE003C67D5 /* EXTLED_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EXTLED_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/EXTLED_aliases.h; sourceTree = "<group>"; };
+		1474BF62239897EE003C67D5 /* CyLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CyLib.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyLib.h; sourceTree = "<group>"; };
+		1474BF63239897EE003C67D5 /* CFG_EEPROM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = CFG_EEPROM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CFG_EEPROM.c; sourceTree = "<group>"; };
+		1474BF64239897EE003C67D5 /* cydevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydevice.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevice.h; sourceTree = "<group>"; };
+		1474BF65239897EE003C67D5 /* USBFS_audio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_audio.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_audio.h; sourceTree = "<group>"; };
+		1474BF66239897EF003C67D5 /* SCSI_Glitch_Ctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Glitch_Ctl.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Glitch_Ctl.h; sourceTree = "<group>"; };
+		1474BF67239897EF003C67D5 /* SCSI_TX_DMA_dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_TX_DMA_dma.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_TX_DMA_dma.c; sourceTree = "<group>"; };
+		1474BF68239897EF003C67D5 /* SCSI_RX_DMA_dma.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_RX_DMA_dma.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RX_DMA_dma.c; sourceTree = "<group>"; };
+		1474BF69239897EF003C67D5 /* cydevicerv.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicerv.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevicerv.inc; sourceTree = "<group>"; };
+		1474BF6A239897EF003C67D5 /* SCSI_SEL_ISR.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_SEL_ISR.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_SEL_ISR.c; sourceTree = "<group>"; };
+		1474BF6B239897EF003C67D5 /* SD_CD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_CD.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_CD.h; sourceTree = "<group>"; };
+		1474BF6C239897EF003C67D5 /* SD_Data_Clk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_Data_Clk.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_Data_Clk.h; sourceTree = "<group>"; };
+		1474BF6D239897EF003C67D5 /* cydeviceiar_trm.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydeviceiar_trm.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydeviceiar_trm.inc; sourceTree = "<group>"; };
+		1474BF6E239897EF003C67D5 /* SCSI_Noise_aliases.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Noise_aliases.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Noise_aliases.h; sourceTree = "<group>"; };
+		1474BF6F239897EF003C67D5 /* CyBootAsmGnu.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; name = CyBootAsmGnu.s; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s; sourceTree = "<group>"; };
+		1474BF70239897EF003C67D5 /* SCSI_Out_Ctl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_Ctl.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Ctl.h; sourceTree = "<group>"; };
+		1474BF71239897EF003C67D5 /* SCSI_Parity_Error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Parity_Error.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Parity_Error.h; sourceTree = "<group>"; };
+		1474BF72239897EF003C67D5 /* SCSI_RST_ISR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_RST_ISR.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_RST_ISR.h; sourceTree = "<group>"; };
+		1474BF73239897EF003C67D5 /* cyfitter_cfg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyfitter_cfg.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfitter_cfg.c; sourceTree = "<group>"; };
+		1474BF74239897EF003C67D5 /* Debug_Timer_Interrupt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Debug_Timer_Interrupt.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/Debug_Timer_Interrupt.h; sourceTree = "<group>"; };
+		1474BF75239897EF003C67D5 /* SCSI_SEL_ISR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_SEL_ISR.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_SEL_ISR.h; sourceTree = "<group>"; };
+		1474BF76239897EF003C67D5 /* USBFS_msc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_msc.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_msc.c; sourceTree = "<group>"; };
+		1474BF77239897EF003C67D5 /* USBFS_descr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = USBFS_descr.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_descr.c; sourceTree = "<group>"; };
+		1474BF78239897EF003C67D5 /* cydisabledsheets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cydisabledsheets.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydisabledsheets.h; sourceTree = "<group>"; };
+		1474BF79239897EF003C67D5 /* USBFS_hid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBFS_hid.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/USBFS_hid.h; sourceTree = "<group>"; };
+		1474BF7A239897EF003C67D5 /* cyutils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = cyutils.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyutils.c; sourceTree = "<group>"; };
+		1474BF7B239897F0003C67D5 /* core_cm3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = core_cm3.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/core_cm3.h; sourceTree = "<group>"; };
+		1474BF7C239897F0003C67D5 /* SCSI_Out_Bits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SCSI_Out_Bits.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_Out_Bits.h; sourceTree = "<group>"; };
+		1474BF7D239897F0003C67D5 /* cydevicegnu.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cydevicegnu.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cydevicegnu.inc; sourceTree = "<group>"; };
+		1474BF7E239897F0003C67D5 /* SD_MOSI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_MOSI.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MOSI.h; sourceTree = "<group>"; };
+		1474BF7F239897F0003C67D5 /* SCSI_CTL_PHASE_PM.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SCSI_CTL_PHASE_PM.c; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SCSI_CTL_PHASE_PM.c; sourceTree = "<group>"; };
+		1474BF80239897F0003C67D5 /* cyfitterrv.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; name = cyfitterrv.inc; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/cyfitterrv.inc; sourceTree = "<group>"; };
+		1474BF81239897F0003C67D5 /* SD_MISO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SD_MISO.h; path = ../../../../../../software/SCSI2SD/v5.1/SCSI2SD.cydsn/Generated_Source/PSoC5/SD_MISO.h; sourceTree = "<group>"; };
 		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1482B1E723973F3E001BA513 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1482B1E823973F3E001BA513 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -110,6 +591,10 @@
 		142E945B23987A4B0064C4E5 /* scsi2sd-util-lib */ = {
 			isa = PBXGroup;
 			children = (
+				1474BD1F239894DC003C67D5 /* v5.1 */,
+				1474BCE523988828003C67D5 /* src */,
+				1474BCE223988550003C67D5 /* SCSI2SD_HID.cc */,
+				1474BCE323988550003C67D5 /* SCSI2SD_HID.hh */,
 				142E945C23987B8B0064C4E5 /* gnulib_ffs.c */,
 				142E94582398664F0064C4E5 /* Firmware.cc */,
 				142E94592398664F0064C4E5 /* Firmware.hh */,
@@ -118,6 +603,347 @@
 				142E94432398632B0064C4E5 /* scsi2sd.h */,
 			);
 			path = "scsi2sd-util-lib";
+			sourceTree = "<group>";
+		};
+		1474BCE523988828003C67D5 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1474BD0523988853003C67D5 /* bits.c */,
+				1474BCF723988852003C67D5 /* bits.h */,
+				1474BCEB23988851003C67D5 /* cdrom.c */,
+				1474BD0923988853003C67D5 /* cdrom.h */,
+				1474BCF423988852003C67D5 /* config.c */,
+				1474BD0423988853003C67D5 /* config.h */,
+				1474BCF523988852003C67D5 /* debug.h */,
+				1474BCF223988852003C67D5 /* diagnostic.c */,
+				1474BCF623988852003C67D5 /* diagnostic.h */,
+				1474BCFF23988852003C67D5 /* disk.c */,
+				1474BCE923988851003C67D5 /* disk.h */,
+				1474BCFA23988852003C67D5 /* geometry.c */,
+				1474BCEF23988852003C67D5 /* geometry.h */,
+				1474BCEE23988852003C67D5 /* hidpacket.c */,
+				1474BD0623988853003C67D5 /* inquiry.c */,
+				1474BCFB23988852003C67D5 /* inquiry.h */,
+				1474BD0123988853003C67D5 /* led.c */,
+				1474BD0323988853003C67D5 /* led.h */,
+				1474BD0823988853003C67D5 /* main.c */,
+				1474BCE623988851003C67D5 /* mo.c */,
+				1474BCE723988851003C67D5 /* mo.h */,
+				1474BCFC23988852003C67D5 /* mode.c */,
+				1474BCF923988852003C67D5 /* mode.h */,
+				1474BCFD23988852003C67D5 /* scsi.c */,
+				1474BCF023988852003C67D5 /* scsi.h */,
+				1474BCFE23988852003C67D5 /* scsiPhy.c */,
+				1474BCEA23988851003C67D5 /* scsiPhy.h */,
+				1474BD0023988852003C67D5 /* sd.c */,
+				1474BCED23988851003C67D5 /* sd.h */,
+				1474BCF323988852003C67D5 /* sense.h */,
+				1474BD0723988853003C67D5 /* tape.c */,
+				1474BCE823988851003C67D5 /* tape.h */,
+				1474BD0A23988853003C67D5 /* time.c */,
+				1474BD0223988853003C67D5 /* time.h */,
+				1474BCF823988852003C67D5 /* trace.c */,
+				1474BCF123988852003C67D5 /* trace.h */,
+				1474BD0B23988853003C67D5 /* vendor.c */,
+				1474BCEC23988851003C67D5 /* vendor.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1474BD1F239894DC003C67D5 /* v5.1 */ = {
+			isa = PBXGroup;
+			children = (
+				1474BE3C2398977A003C67D5 /* Bootloader */,
+				1474BE3B23989770003C67D5 /* SCSI2SD */,
+			);
+			path = v5.1;
+			sourceTree = "<group>";
+		};
+		1474BE3B23989770003C67D5 /* SCSI2SD */ = {
+			isa = PBXGroup;
+			children = (
+				1474BF37239897ED003C67D5 /* Bootloadable_1.c */,
+				1474BEF6239897E9003C67D5 /* Bootloadable_1.h */,
+				1474BF63239897EE003C67D5 /* CFG_EEPROM.c */,
+				1474BF1C239897EC003C67D5 /* CFG_EEPROM.h */,
+				1474BEEA239897E9003C67D5 /* cm3gcc.ld */,
+				1474BF35239897ED003C67D5 /* Cm3Iar.icf */,
+				1474BF3E239897ED003C67D5 /* Cm3RealView.scat */,
+				1474BEF8239897EA003C67D5 /* Cm3Start.c */,
+				1474BEE2239897E8003C67D5 /* cmsis_armcc.h */,
+				1474BEF4239897E9003C67D5 /* cmsis_gcc.h */,
+				1474BF3D239897ED003C67D5 /* core_cm3_psoc5.h */,
+				1474BF7B239897F0003C67D5 /* core_cm3.h */,
+				1474BF4F239897EE003C67D5 /* core_cmFunc.h */,
+				1474BF2F239897EC003C67D5 /* core_cmInstr.h */,
+				1474BF0C239897EB003C67D5 /* cy_em_eeprom.c */,
+				1474BF60239897EE003C67D5 /* cy_em_eeprom.h */,
+				1474BF6F239897EF003C67D5 /* CyBootAsmGnu.s */,
+				1474BF21239897EC003C67D5 /* CyBootAsmIar.s */,
+				1474BF56239897EE003C67D5 /* CyBootAsmRv.s */,
+				1474BF58239897EE003C67D5 /* cybootloader.c */,
+				1474BF2B239897EC003C67D5 /* cybootloader.icf */,
+				1474BF23239897EC003C67D5 /* cycodeshareexport.ld */,
+				1474BEEB239897E9003C67D5 /* cycodeshareimport.ld */,
+				1474BF52239897EE003C67D5 /* cycodeshareimport.scat */,
+				1474BED5239897E7003C67D5 /* cydevice_trm.h */,
+				1474BF64239897EE003C67D5 /* cydevice.h */,
+				1474BF00239897EA003C67D5 /* cydevicegnu_trm.inc */,
+				1474BF7D239897F0003C67D5 /* cydevicegnu.inc */,
+				1474BF6D239897EF003C67D5 /* cydeviceiar_trm.inc */,
+				1474BF2D239897EC003C67D5 /* cydeviceiar.inc */,
+				1474BF15239897EB003C67D5 /* cydevicerv_trm.inc */,
+				1474BF69239897EF003C67D5 /* cydevicerv.inc */,
+				1474BF78239897EF003C67D5 /* cydisabledsheets.h */,
+				1474BF2E239897EC003C67D5 /* CyDmac.c */,
+				1474BF1B239897EB003C67D5 /* CyDmac.h */,
+				1474BF73239897EF003C67D5 /* cyfitter_cfg.c */,
+				1474BED0239897E7003C67D5 /* cyfitter_cfg.h */,
+				1474BED8239897E7003C67D5 /* cyfitter.h */,
+				1474BEE0239897E8003C67D5 /* cyfittergnu.inc */,
+				1474BED3239897E7003C67D5 /* cyfitteriar.inc */,
+				1474BF80239897F0003C67D5 /* cyfitterrv.inc */,
+				1474BF50239897EE003C67D5 /* CyFlash.c */,
+				1474BF3C239897ED003C67D5 /* CyFlash.h */,
+				1474BF40239897ED003C67D5 /* CyLib.c */,
+				1474BF62239897EE003C67D5 /* CyLib.h */,
+				1474BF1D239897EC003C67D5 /* cymetadata.c */,
+				1474BEE7239897E8003C67D5 /* cypins.h */,
+				1474BF32239897EC003C67D5 /* cyPm.c */,
+				1474BF20239897EC003C67D5 /* cyPm.h */,
+				1474BF55239897EE003C67D5 /* CySpc.c */,
+				1474BF5F239897EE003C67D5 /* CySpc.h */,
+				1474BF16239897EB003C67D5 /* cytypes.h */,
+				1474BF7A239897EF003C67D5 /* cyutils.c */,
+				1474BF13239897EB003C67D5 /* Debug_Timer_Interrupt.c */,
+				1474BF74239897EF003C67D5 /* Debug_Timer_Interrupt.h */,
+				1474BEF1239897E9003C67D5 /* Debug_Timer_PM.c */,
+				1474BF5B239897EE003C67D5 /* Debug_Timer.c */,
+				1474BEFA239897EA003C67D5 /* Debug_Timer.h */,
+				1474BEDD239897E8003C67D5 /* eeprom.hex */,
+				1474BF19239897EB003C67D5 /* exported_symbols.txt */,
+				1474BF61239897EE003C67D5 /* EXTLED_aliases.h */,
+				1474BF11239897EB003C67D5 /* EXTLED.c */,
+				1474BF43239897ED003C67D5 /* EXTLED.h */,
+				1474BEEE239897E9003C67D5 /* LED1_aliases.h */,
+				1474BF59239897EE003C67D5 /* LED1.c */,
+				1474BF5D239897EE003C67D5 /* LED1.h */,
+				1474BEDF239897E8003C67D5 /* project.h */,
+				1474BED4239897E7003C67D5 /* protect.hex */,
+				1474BF4C239897ED003C67D5 /* renamed_symbols.txt */,
+				1474BECC239897E7003C67D5 /* SCSI_ATN_aliases.h */,
+				1474BF3B239897ED003C67D5 /* SCSI_ATN.c */,
+				1474BF51239897EE003C67D5 /* SCSI_ATN.h */,
+				1474BEFB239897EA003C67D5 /* SCSI_CLK.c */,
+				1474BED6239897E7003C67D5 /* SCSI_CLK.h */,
+				1474BF57239897EE003C67D5 /* SCSI_CTL_IO.c */,
+				1474BEE5239897E8003C67D5 /* SCSI_CTL_IO.h */,
+				1474BF7F239897F0003C67D5 /* SCSI_CTL_PHASE_PM.c */,
+				1474BF17239897EB003C67D5 /* SCSI_CTL_PHASE.c */,
+				1474BEFC239897EA003C67D5 /* SCSI_CTL_PHASE.h */,
+				1474BF24239897EC003C67D5 /* SCSI_Filtered.c */,
+				1474BF09239897EB003C67D5 /* SCSI_Filtered.h */,
+				1474BF49239897ED003C67D5 /* SCSI_Glitch_Ctl_PM.c */,
+				1474BEFD239897EA003C67D5 /* SCSI_Glitch_Ctl.c */,
+				1474BF66239897EF003C67D5 /* SCSI_Glitch_Ctl.h */,
+				1474BF0B239897EB003C67D5 /* SCSI_In_aliases.h */,
+				1474BED1239897E7003C67D5 /* SCSI_In_DBx_aliases.h */,
+				1474BEDC239897E8003C67D5 /* SCSI_In.c */,
+				1474BEF9239897EA003C67D5 /* SCSI_In.h */,
+				1474BF6E239897EF003C67D5 /* SCSI_Noise_aliases.h */,
+				1474BF41239897ED003C67D5 /* SCSI_Out_aliases.h */,
+				1474BEE8239897E9003C67D5 /* SCSI_Out_Bits_PM.c */,
+				1474BED2239897E7003C67D5 /* SCSI_Out_Bits.c */,
+				1474BF7C239897F0003C67D5 /* SCSI_Out_Bits.h */,
+				1474BF5E239897EE003C67D5 /* SCSI_Out_Ctl_PM.c */,
+				1474BF2C239897EC003C67D5 /* SCSI_Out_Ctl.c */,
+				1474BF70239897EF003C67D5 /* SCSI_Out_Ctl.h */,
+				1474BF33239897EC003C67D5 /* SCSI_Out_DBx_aliases.h */,
+				1474BF39239897ED003C67D5 /* SCSI_Parity_Error.c */,
+				1474BF71239897EF003C67D5 /* SCSI_Parity_Error.h */,
+				1474BF34239897ED003C67D5 /* SCSI_RST_aliases.h */,
+				1474BECD239897E7003C67D5 /* SCSI_RST_ISR.c */,
+				1474BF72239897EF003C67D5 /* SCSI_RST_ISR.h */,
+				1474BF0F239897EB003C67D5 /* SCSI_RST.c */,
+				1474BF0D239897EB003C67D5 /* SCSI_RST.h */,
+				1474BEF7239897EA003C67D5 /* SCSI_RX_DMA_COMPLETE.c */,
+				1474BED9239897E7003C67D5 /* SCSI_RX_DMA_COMPLETE.h */,
+				1474BF68239897EF003C67D5 /* SCSI_RX_DMA_dma.c */,
+				1474BF5A239897EE003C67D5 /* SCSI_RX_DMA_dma.h */,
+				1474BF6A239897EF003C67D5 /* SCSI_SEL_ISR.c */,
+				1474BF75239897EF003C67D5 /* SCSI_SEL_ISR.h */,
+				1474BF01239897EA003C67D5 /* SCSI_TX_DMA_COMPLETE.c */,
+				1474BF4D239897ED003C67D5 /* SCSI_TX_DMA_COMPLETE.h */,
+				1474BF67239897EF003C67D5 /* SCSI_TX_DMA_dma.c */,
+				1474BED7239897E7003C67D5 /* SCSI_TX_DMA_dma.h */,
+				1474BF42239897ED003C67D5 /* SD_CD_aliases.h */,
+				1474BEE3239897E8003C67D5 /* SD_CD.c */,
+				1474BF6B239897EF003C67D5 /* SD_CD.h */,
+				1474BF29239897EC003C67D5 /* SD_Clk_Ctl.c */,
+				1474BF02239897EA003C67D5 /* SD_Clk_Ctl.h */,
+				1474BF08239897EA003C67D5 /* SD_CS_aliases.h */,
+				1474BF0A239897EB003C67D5 /* SD_CS.c */,
+				1474BF31239897EC003C67D5 /* SD_CS.h */,
+				1474BF48239897ED003C67D5 /* SD_Data_Clk.c */,
+				1474BF6C239897EF003C67D5 /* SD_Data_Clk.h */,
+				1474BEEF239897E9003C67D5 /* SD_Init_Clk.c */,
+				1474BEDE239897E8003C67D5 /* SD_Init_Clk.h */,
+				1474BF36239897ED003C67D5 /* SD_MISO_aliases.h */,
+				1474BF44239897ED003C67D5 /* SD_MISO.c */,
+				1474BF81239897F0003C67D5 /* SD_MISO.h */,
+				1474BEE1239897E8003C67D5 /* SD_MOSI_aliases.h */,
+				1474BEDA239897E8003C67D5 /* SD_MOSI.c */,
+				1474BF7E239897F0003C67D5 /* SD_MOSI.h */,
+				1474BF3A239897ED003C67D5 /* SD_RX_DMA_COMPLETE.c */,
+				1474BF18239897EB003C67D5 /* SD_RX_DMA_COMPLETE.h */,
+				1474BF3F239897ED003C67D5 /* SD_RX_DMA_dma.c */,
+				1474BF4A239897ED003C67D5 /* SD_RX_DMA_dma.h */,
+				1474BF03239897EA003C67D5 /* SD_SCK_aliases.h */,
+				1474BF2A239897EC003C67D5 /* SD_SCK.c */,
+				1474BF38239897ED003C67D5 /* SD_SCK.h */,
+				1474BF04239897EA003C67D5 /* SD_TX_DMA_COMPLETE.c */,
+				1474BF4E239897EE003C67D5 /* SD_TX_DMA_COMPLETE.h */,
+				1474BEFF239897EA003C67D5 /* SD_TX_DMA_dma.c */,
+				1474BF12239897EB003C67D5 /* SD_TX_DMA_dma.h */,
+				1474BEEC239897E9003C67D5 /* SDCard_INT.c */,
+				1474BF27239897EC003C67D5 /* SDCard_PM.c */,
+				1474BEF3239897E9003C67D5 /* SDCard_PVT.h */,
+				1474BF0E239897EB003C67D5 /* SDCard.c */,
+				1474BF45239897ED003C67D5 /* SDCard.h */,
+				1474BF05239897EA003C67D5 /* TERM_EN_aliases.h */,
+				1474BEF5239897E9003C67D5 /* TERM_EN.c */,
+				1474BF07239897EA003C67D5 /* TERM_EN.h */,
+				1474BEF0239897E9003C67D5 /* timer_clock.c */,
+				1474BF30239897EC003C67D5 /* timer_clock.h */,
+				1474BF5C239897EE003C67D5 /* USBFS_audio.c */,
+				1474BF65239897EE003C67D5 /* USBFS_audio.h */,
+				1474BF1E239897EC003C67D5 /* USBFS_boot.c */,
+				1474BF46239897ED003C67D5 /* USBFS_cdc.c */,
+				1474BEE9239897E9003C67D5 /* USBFS_cdc.h */,
+				1474BF14239897EB003C67D5 /* USBFS_cdc.inf */,
+				1474BF47239897ED003C67D5 /* USBFS_cls.c */,
+				1474BF06239897EA003C67D5 /* USBFS_cydmac.h */,
+				1474BF77239897EF003C67D5 /* USBFS_descr.c */,
+				1474BF26239897EC003C67D5 /* USBFS_Dm_aliases.h */,
+				1474BECF239897E7003C67D5 /* USBFS_Dm.c */,
+				1474BF1F239897EC003C67D5 /* USBFS_Dm.h */,
+				1474BEF2239897E9003C67D5 /* USBFS_Dp_aliases.h */,
+				1474BEED239897E9003C67D5 /* USBFS_Dp.c */,
+				1474BECE239897E7003C67D5 /* USBFS_Dp.h */,
+				1474BEDB239897E8003C67D5 /* USBFS_drv.c */,
+				1474BF25239897EC003C67D5 /* USBFS_episr.c */,
+				1474BEE4239897E8003C67D5 /* USBFS_hid.c */,
+				1474BF79239897EF003C67D5 /* USBFS_hid.h */,
+				1474BEE6239897E8003C67D5 /* USBFS_midi.c */,
+				1474BEFE239897EA003C67D5 /* USBFS_midi.h */,
+				1474BF76239897EF003C67D5 /* USBFS_msc.c */,
+				1474BF28239897EC003C67D5 /* USBFS_msc.h */,
+				1474BF10239897EB003C67D5 /* USBFS_pm.c */,
+				1474BF22239897EC003C67D5 /* USBFS_pvt.h */,
+				1474BF4B239897ED003C67D5 /* USBFS_std.c */,
+				1474BF1A239897EB003C67D5 /* USBFS_vnd.c */,
+				1474BF53239897EE003C67D5 /* USBFS.c */,
+				1474BF54239897EE003C67D5 /* USBFS.h */,
+			);
+			path = SCSI2SD;
+			sourceTree = "<group>";
+		};
+		1474BE3C2398977A003C67D5 /* Bootloader */ = {
+			isa = PBXGroup;
+			children = (
+				1474BE6D239897BF003C67D5 /* BL_PVT.h */,
+				1474BE69239897BE003C67D5 /* BL.c */,
+				1474BE51239897BD003C67D5 /* BL.h */,
+				1474BE85239897C0003C67D5 /* BOOTLDR_aliases.h */,
+				1474BE90239897C1003C67D5 /* BOOTLDR.c */,
+				1474BE5A239897BD003C67D5 /* BOOTLDR.h */,
+				1474BE79239897BF003C67D5 /* cm3gcc.ld */,
+				1474BE4A239897BC003C67D5 /* Cm3Iar.icf */,
+				1474BE67239897BE003C67D5 /* Cm3RealView.scat */,
+				1474BE8F239897C1003C67D5 /* Cm3Start.c */,
+				1474BE5C239897BD003C67D5 /* core_cm3_psoc5.h */,
+				1474BE3E239897BC003C67D5 /* core_cm3.h */,
+				1474BE81239897C0003C67D5 /* core_cmFunc.h */,
+				1474BE77239897BF003C67D5 /* core_cmInstr.h */,
+				1474BE3F239897BC003C67D5 /* CyBootAsmGnu.s */,
+				1474BE92239897C1003C67D5 /* CyBootAsmIar.s */,
+				1474BE96239897C2003C67D5 /* CyBootAsmRv.s */,
+				1474BE4E239897BC003C67D5 /* cycodeshareexport.ld */,
+				1474BE7A239897BF003C67D5 /* cycodeshareimport.ld */,
+				1474BE8C239897C1003C67D5 /* cycodeshareimport.scat */,
+				1474BE62239897BE003C67D5 /* cydevice_trm.h */,
+				1474BE91239897C1003C67D5 /* cydevice.h */,
+				1474BE59239897BD003C67D5 /* cydevicegnu_trm.inc */,
+				1474BE89239897C1003C67D5 /* cydevicegnu.inc */,
+				1474BE4D239897BC003C67D5 /* cydeviceiar_trm.inc */,
+				1474BE76239897BF003C67D5 /* cydeviceiar.inc */,
+				1474BE4C239897BC003C67D5 /* cydevicerv_trm.inc */,
+				1474BE49239897BC003C67D5 /* cydevicerv.inc */,
+				1474BE82239897C0003C67D5 /* cydisabledsheets.h */,
+				1474BE6A239897BE003C67D5 /* CyDmac.c */,
+				1474BE5D239897BD003C67D5 /* CyDmac.h */,
+				1474BE86239897C0003C67D5 /* cyfitter_cfg.c */,
+				1474BE58239897BD003C67D5 /* cyfitter_cfg.h */,
+				1474BE7E239897C0003C67D5 /* cyfitter.h */,
+				1474BE6F239897BF003C67D5 /* cyfittergnu.inc */,
+				1474BE6E239897BF003C67D5 /* cyfitteriar.inc */,
+				1474BE95239897C1003C67D5 /* cyfitterrv.inc */,
+				1474BE55239897BD003C67D5 /* CyFlash.c */,
+				1474BE57239897BD003C67D5 /* CyFlash.h */,
+				1474BE75239897BF003C67D5 /* CyLib.c */,
+				1474BE40239897BC003C67D5 /* CyLib.h */,
+				1474BE47239897BC003C67D5 /* cymetadata.c */,
+				1474BE4F239897BC003C67D5 /* cypins.h */,
+				1474BE56239897BD003C67D5 /* cyPm.c */,
+				1474BE44239897BC003C67D5 /* cyPm.h */,
+				1474BE6C239897BE003C67D5 /* CySpc.c */,
+				1474BE5B239897BD003C67D5 /* CySpc.h */,
+				1474BE7B239897C0003C67D5 /* cytypes.h */,
+				1474BE5F239897BD003C67D5 /* cyutils.c */,
+				1474BE65239897BE003C67D5 /* eeprom.hex */,
+				1474BE41239897BC003C67D5 /* exported_symbols.txt */,
+				1474BE61239897BE003C67D5 /* LED_aliases.h */,
+				1474BE78239897BF003C67D5 /* LED.c */,
+				1474BE7F239897C0003C67D5 /* LED.h */,
+				1474BE68239897BE003C67D5 /* project.h */,
+				1474BE88239897C0003C67D5 /* protect.hex */,
+				1474BE70239897BF003C67D5 /* renamed_symbols.txt */,
+				1474BE5E239897BD003C67D5 /* SCSI_Out_aliases.h */,
+				1474BE60239897BE003C67D5 /* SCSI_Out_DBx_aliases.h */,
+				1474BE93239897C1003C67D5 /* SD_PULLUP_aliases.h */,
+				1474BE6B239897BE003C67D5 /* SD_PULLUP.c */,
+				1474BE48239897BC003C67D5 /* SD_PULLUP.h */,
+				1474BE4B239897BC003C67D5 /* TERM_EN_aliases.h */,
+				1474BE52239897BD003C67D5 /* TERM_EN.c */,
+				1474BE7C239897C0003C67D5 /* TERM_EN.h */,
+				1474BE87239897C0003C67D5 /* USBFS_audio.c */,
+				1474BE94239897C1003C67D5 /* USBFS_audio.h */,
+				1474BE46239897BC003C67D5 /* USBFS_boot.c */,
+				1474BE7D239897C0003C67D5 /* USBFS_cdc.c */,
+				1474BE50239897BC003C67D5 /* USBFS_cdc.h */,
+				1474BE8E239897C1003C67D5 /* USBFS_cdc.inf */,
+				1474BE63239897BE003C67D5 /* USBFS_cls.c */,
+				1474BE71239897BF003C67D5 /* USBFS_descr.c */,
+				1474BE54239897BD003C67D5 /* USBFS_Dm_aliases.h */,
+				1474BE42239897BC003C67D5 /* USBFS_Dm.c */,
+				1474BE72239897BF003C67D5 /* USBFS_Dm.h */,
+				1474BE8D239897C1003C67D5 /* USBFS_Dp_aliases.h */,
+				1474BE97239897C2003C67D5 /* USBFS_Dp.c */,
+				1474BE8A239897C1003C67D5 /* USBFS_Dp.h */,
+				1474BE73239897BF003C67D5 /* USBFS_drv.c */,
+				1474BE43239897BC003C67D5 /* USBFS_episr.c */,
+				1474BE80239897C0003C67D5 /* USBFS_hid.c */,
+				1474BE3D239897BC003C67D5 /* USBFS_hid.h */,
+				1474BE83239897C0003C67D5 /* USBFS_midi.c */,
+				1474BE84239897C0003C67D5 /* USBFS_midi.h */,
+				1474BE45239897BC003C67D5 /* USBFS_pm.c */,
+				1474BE53239897BD003C67D5 /* USBFS_pvt.h */,
+				1474BE64239897BE003C67D5 /* USBFS_std.c */,
+				1474BE74239897BF003C67D5 /* USBFS_vnd.c */,
+				1474BE66239897BE003C67D5 /* USBFS.c */,
+				1474BE8B239897C1003C67D5 /* USBFS.h */,
+			);
+			path = Bootloader;
 			sourceTree = "<group>";
 		};
 		1482B1DB23973F3E001BA513 = {
@@ -265,8 +1091,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1474BFCA239897F0003C67D5 /* cycodeshareimport.scat in Resources */,
+				1474BEBB239897C2003C67D5 /* cm3gcc.ld in Resources */,
+				1474BFAA239897F0003C67D5 /* exported_symbols.txt in Resources */,
+				1474BF91239897F0003C67D5 /* cycodeshareimport.ld in Resources */,
+				1474BFA7239897F0003C67D5 /* USBFS_cdc.inf in Resources */,
+				1474BFBF239897F0003C67D5 /* Cm3RealView.scat in Resources */,
+				1474BEBC239897C2003C67D5 /* cycodeshareimport.ld in Resources */,
+				1474BF8A239897F0003C67D5 /* eeprom.hex in Resources */,
+				1474BEA3239897C2003C67D5 /* cycodeshareexport.ld in Resources */,
 				1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */,
+				1474BEA0239897C2003C67D5 /* Cm3Iar.icf in Resources */,
+				1474BFBA239897F0003C67D5 /* Cm3Iar.icf in Resources */,
+				1474BF86239897F0003C67D5 /* protect.hex in Resources */,
+				1474BFAF239897F0003C67D5 /* cycodeshareexport.ld in Resources */,
+				1474BFC8239897F0003C67D5 /* renamed_symbols.txt in Resources */,
+				1474BF90239897F0003C67D5 /* cm3gcc.ld in Resources */,
+				1474BE99239897C2003C67D5 /* exported_symbols.txt in Resources */,
 				1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */,
+				1474BEB4239897C2003C67D5 /* renamed_symbols.txt in Resources */,
+				1474BEC4239897C2003C67D5 /* cycodeshareimport.scat in Resources */,
+				1474BEC5239897C2003C67D5 /* USBFS_cdc.inf in Resources */,
+				1474BFB5239897F0003C67D5 /* cybootloader.icf in Resources */,
+				1474BEAD239897C2003C67D5 /* Cm3RealView.scat in Resources */,
+				1474BEC2239897C2003C67D5 /* protect.hex in Resources */,
+				1474BEAB239897C2003C67D5 /* eeprom.hex in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,23 +1147,168 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1474BD0D23988853003C67D5 /* cdrom.c in Sources */,
+				1474BEB8239897C2003C67D5 /* CyLib.c in Sources */,
+				1474BEC9239897C2003C67D5 /* cyfitterrv.inc in Sources */,
+				1474BEC1239897C2003C67D5 /* USBFS_audio.c in Sources */,
+				1474BF96239897F0003C67D5 /* Debug_Timer_PM.c in Sources */,
+				1474BFA9239897F0003C67D5 /* SCSI_CTL_PHASE.c in Sources */,
+				1474BEBE239897C2003C67D5 /* USBFS_hid.c in Sources */,
+				1474BF83239897F0003C67D5 /* USBFS_Dm.c in Sources */,
 				1482B20C239748DB001BA513 /* Device6Controller.m in Sources */,
+				1474BEA1239897C2003C67D5 /* cydevicerv_trm.inc in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.m in Sources */,
+				1474BFDD239897F0003C67D5 /* USBFS_descr.c in Sources */,
+				1474BEB1239897C2003C67D5 /* CySpc.c in Sources */,
+				1474BEA4239897C2003C67D5 /* TERM_EN.c in Sources */,
+				1474BFDC239897F0003C67D5 /* USBFS_msc.c in Sources */,
+				1474BF9D239897F0003C67D5 /* cydevicegnu_trm.inc in Sources */,
+				1474BFDA239897F0003C67D5 /* CyBootAsmGnu.s in Sources */,
+				1474BFA1239897F0003C67D5 /* cy_em_eeprom.c in Sources */,
+				1474BF99239897F0003C67D5 /* Cm3Start.c in Sources */,
+				1474BEB7239897C2003C67D5 /* USBFS_vnd.c in Sources */,
+				1474BD1223988853003C67D5 /* geometry.c in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
+				1474BFB3239897F0003C67D5 /* SD_Clk_Ctl.c in Sources */,
+				1474BFB0239897F0003C67D5 /* SCSI_Filtered.c in Sources */,
 				1482B20E239748DB001BA513 /* Device4Controller.m in Sources */,
+				1474BFB4239897F0003C67D5 /* SD_SCK.c in Sources */,
 				1482B210239748DB001BA513 /* SettingsController.m in Sources */,
+				1474BECA239897C2003C67D5 /* CyBootAsmRv.s in Sources */,
+				1474BF85239897F0003C67D5 /* cyfitteriar.inc in Sources */,
 				142E945D23987B8B0064C4E5 /* gnulib_ffs.c in Sources */,
+				1474BD1023988853003C67D5 /* config.c in Sources */,
+				1474BFB8239897F0003C67D5 /* CyDmac.c in Sources */,
+				1474BF92239897F0003C67D5 /* SDCard_INT.c in Sources */,
+				1474BFD3239897F0003C67D5 /* SCSI_Out_Ctl_PM.c in Sources */,
+				1474BFB2239897F0003C67D5 /* SDCard_PM.c in Sources */,
+				1474BF94239897F0003C67D5 /* SD_Init_Clk.c in Sources */,
+				1474BFB9239897F0003C67D5 /* cyPm.c in Sources */,
+				1474BEAE239897C2003C67D5 /* BL.c in Sources */,
+				1474BFA6239897F0003C67D5 /* Debug_Timer_Interrupt.c in Sources */,
+				1474BF95239897F0003C67D5 /* timer_clock.c in Sources */,
+				1474BFD7239897F0003C67D5 /* cydevicerv.inc in Sources */,
+				1474BD1E23988853003C67D5 /* vendor.c in Sources */,
 				142E9453239865BA0064C4E5 /* cybtldr_command.c in Sources */,
+				1474BEA2239897C2003C67D5 /* cydeviceiar_trm.inc in Sources */,
+				1474BF82239897F0003C67D5 /* SCSI_RST_ISR.c in Sources */,
+				1474BFB6239897F0003C67D5 /* SCSI_Out_Ctl.c in Sources */,
+				1474BFE0239897F0003C67D5 /* SCSI_CTL_PHASE_PM.c in Sources */,
+				1474BFB1239897F0003C67D5 /* USBFS_episr.c in Sources */,
+				1474BF9A239897F0003C67D5 /* SCSI_CLK.c in Sources */,
+				1474BF9F239897F0003C67D5 /* SD_TX_DMA_COMPLETE.c in Sources */,
+				1474BD1623988853003C67D5 /* disk.c in Sources */,
+				1474BD1823988853003C67D5 /* led.c in Sources */,
+				1474BFBD239897F0003C67D5 /* SD_RX_DMA_COMPLETE.c in Sources */,
+				1474BFDF239897F0003C67D5 /* cydevicegnu.inc in Sources */,
 				142E9449239863910064C4E5 /* SCSI2SD_Bootloader.cc in Sources */,
+				1474BEA5239897C2003C67D5 /* CyFlash.c in Sources */,
+				1474BF98239897F0003C67D5 /* SCSI_RX_DMA_COMPLETE.c in Sources */,
+				1474BEC6239897C2003C67D5 /* Cm3Start.c in Sources */,
+				1474BE9A239897C2003C67D5 /* USBFS_Dm.c in Sources */,
+				1474BFC9239897F0003C67D5 /* CyFlash.c in Sources */,
+				1474BEA8239897C2003C67D5 /* cyutils.c in Sources */,
+				1474BFCD239897F0003C67D5 /* CyBootAsmRv.s in Sources */,
+				1474BFAE239897F0003C67D5 /* CyBootAsmIar.s in Sources */,
+				1474BE98239897C2003C67D5 /* CyBootAsmGnu.s in Sources */,
+				1474BD1723988853003C67D5 /* sd.c in Sources */,
+				1474BF93239897F0003C67D5 /* USBFS_Dp.c in Sources */,
 				1482B213239748DB001BA513 /* Device7Controller.m in Sources */,
+				1474BD0C23988853003C67D5 /* mo.c in Sources */,
+				1474BFA0239897F0003C67D5 /* SD_CS.c in Sources */,
 				1482B1E923973F3E001BA513 /* AppDelegate.m in Sources */,
+				1474BFE1239897F0003C67D5 /* cyfitterrv.inc in Sources */,
+				1474BFCC239897F0003C67D5 /* CySpc.c in Sources */,
+				1474BFC5239897F0003C67D5 /* SD_Data_Clk.c in Sources */,
+				1474BEB9239897C2003C67D5 /* cydeviceiar.inc in Sources */,
+				1474BFD2239897F0003C67D5 /* USBFS_audio.c in Sources */,
+				1474BFD4239897F0003C67D5 /* CFG_EEPROM.c in Sources */,
+				1474BF89239897F0003C67D5 /* SCSI_In.c in Sources */,
+				1474BEB0239897C2003C67D5 /* SD_PULLUP.c in Sources */,
 				1482B212239748DB001BA513 /* Device2Controller.m in Sources */,
+				1474BFC3239897F0003C67D5 /* USBFS_cdc.c in Sources */,
+				1474BEBD239897C2003C67D5 /* USBFS_cdc.c in Sources */,
+				1474BFA4239897F0003C67D5 /* USBFS_pm.c in Sources */,
+				1474BEB6239897C2003C67D5 /* USBFS_drv.c in Sources */,
+				1474BFD1239897F0003C67D5 /* Debug_Timer.c in Sources */,
 				1482B20B239748DB001BA513 /* Device5Controller.m in Sources */,
+				1474BEB3239897C2003C67D5 /* cyfittergnu.inc in Sources */,
+				1474BEAF239897C2003C67D5 /* CyDmac.c in Sources */,
+				1474BEBF239897C2003C67D5 /* USBFS_midi.c in Sources */,
+				1474BFC2239897F0003C67D5 /* SD_MISO.c in Sources */,
 				142E9456239865BA0064C4E5 /* cybtldr_api.c in Sources */,
+				1474BEA7239897C2003C67D5 /* cydevicegnu_trm.inc in Sources */,
+				1474BF97239897F0003C67D5 /* TERM_EN.c in Sources */,
 				1482B20D239748DB001BA513 /* Device3Controller.m in Sources */,
+				1474BFAD239897F0003C67D5 /* USBFS_boot.c in Sources */,
 				142E945A2398664F0064C4E5 /* Firmware.cc in Sources */,
+				1474BD1523988853003C67D5 /* scsiPhy.c in Sources */,
+				1474BD1323988853003C67D5 /* mode.c in Sources */,
+				1474BEC0239897C2003C67D5 /* cyfitter_cfg.c in Sources */,
+				1474BEA9239897C2003C67D5 /* USBFS_cls.c in Sources */,
+				1474BECB239897C2003C67D5 /* USBFS_Dp.c in Sources */,
+				1474BFCE239897F0003C67D5 /* SCSI_CTL_IO.c in Sources */,
+				1474BFA8239897F0003C67D5 /* cydevicerv_trm.inc in Sources */,
+				1474BFBC239897F0003C67D5 /* SCSI_Parity_Error.c in Sources */,
+				1474BCE423988550003C67D5 /* SCSI2SD_HID.cc in Sources */,
+				1474BEAA239897C2003C67D5 /* USBFS_std.c in Sources */,
+				1474BE9F239897C2003C67D5 /* cydevicerv.inc in Sources */,
+				1474BFDE239897F0003C67D5 /* cyutils.c in Sources */,
+				1474BFDB239897F0003C67D5 /* cyfitter_cfg.c in Sources */,
+				1474BF8D239897F0003C67D5 /* USBFS_hid.c in Sources */,
+				1474BF9B239897F0003C67D5 /* SCSI_Glitch_Ctl.c in Sources */,
+				1474BEB2239897C2003C67D5 /* cyfitteriar.inc in Sources */,
+				1474BD1B23988853003C67D5 /* tape.c in Sources */,
+				1474BF87239897F0003C67D5 /* SD_MOSI.c in Sources */,
+				1474BD1923988853003C67D5 /* bits.c in Sources */,
+				1474BFD5239897F0003C67D5 /* SCSI_TX_DMA_dma.c in Sources */,
+				1474BFC4239897F0003C67D5 /* USBFS_cls.c in Sources */,
+				1474BFAB239897F0003C67D5 /* USBFS_vnd.c in Sources */,
+				1474BF8B239897F0003C67D5 /* cyfittergnu.inc in Sources */,
+				1474BD1123988853003C67D5 /* trace.c in Sources */,
+				1474BFD8239897F0003C67D5 /* SCSI_SEL_ISR.c in Sources */,
+				1474BEAC239897C2003C67D5 /* USBFS.c in Sources */,
+				1474BD1A23988853003C67D5 /* inquiry.c in Sources */,
+				1474BFA3239897F0003C67D5 /* SCSI_RST.c in Sources */,
+				1474BE9B239897C2003C67D5 /* USBFS_episr.c in Sources */,
+				1474BFC1239897F0003C67D5 /* CyLib.c in Sources */,
+				1474BF88239897F0003C67D5 /* USBFS_drv.c in Sources */,
+				1474BEC3239897C2003C67D5 /* cydevicegnu.inc in Sources */,
 				1482B211239748DB001BA513 /* Device1Controller.m in Sources */,
+				1474BFA2239897F0003C67D5 /* SDCard.c in Sources */,
+				1474BEC7239897C2003C67D5 /* BOOTLDR.c in Sources */,
+				1474BE9E239897C2003C67D5 /* cymetadata.c in Sources */,
+				1474BFA5239897F0003C67D5 /* EXTLED.c in Sources */,
+				1474BF9E239897F0003C67D5 /* SCSI_TX_DMA_COMPLETE.c in Sources */,
+				1474BEB5239897C2003C67D5 /* USBFS_descr.c in Sources */,
+				1474BEA6239897C2003C67D5 /* cyPm.c in Sources */,
+				1474BE9C239897C2003C67D5 /* USBFS_pm.c in Sources */,
+				1474BD0E23988853003C67D5 /* hidpacket.c in Sources */,
+				1474BFD6239897F0003C67D5 /* SCSI_RX_DMA_dma.c in Sources */,
+				1474BF8E239897F0003C67D5 /* USBFS_midi.c in Sources */,
+				1474BF8C239897F0003C67D5 /* SD_CD.c in Sources */,
+				1474BF84239897F0003C67D5 /* SCSI_Out_Bits.c in Sources */,
 				142E9455239865BA0064C4E5 /* cybtldr_api2.c in Sources */,
+				1474BEC8239897C2003C67D5 /* CyBootAsmIar.s in Sources */,
+				1474BFAC239897F0003C67D5 /* cymetadata.c in Sources */,
+				1474BD1D23988853003C67D5 /* time.c in Sources */,
+				1474BFC7239897F0003C67D5 /* USBFS_std.c in Sources */,
+				1474BE9D239897C2003C67D5 /* USBFS_boot.c in Sources */,
+				1474BF8F239897F0003C67D5 /* SCSI_Out_Bits_PM.c in Sources */,
+				1474BFCB239897F0003C67D5 /* USBFS.c in Sources */,
+				1474BFCF239897F0003C67D5 /* cybootloader.c in Sources */,
+				1474BFC0239897F0003C67D5 /* SD_RX_DMA_dma.c in Sources */,
+				1474BD1C23988853003C67D5 /* main.c in Sources */,
+				1474BFBB239897F0003C67D5 /* Bootloadable_1.c in Sources */,
+				1474BD1423988853003C67D5 /* scsi.c in Sources */,
+				1474BFD9239897F0003C67D5 /* cydeviceiar_trm.inc in Sources */,
+				1474BF9C239897F0003C67D5 /* SD_TX_DMA_dma.c in Sources */,
+				1474BD0F23988853003C67D5 /* diagnostic.c in Sources */,
+				1474BFC6239897F0003C67D5 /* SCSI_Glitch_Ctl_PM.c in Sources */,
+				1474BFD0239897F0003C67D5 /* LED1.c in Sources */,
+				1474BFBE239897F0003C67D5 /* SCSI_ATN.c in Sources */,
+				1474BEBA239897C2003C67D5 /* LED.c in Sources */,
+				1474BFB7239897F0003C67D5 /* cydeviceiar.inc in Sources */,
 				142E9454239865BA0064C4E5 /* cybtldr_parse.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

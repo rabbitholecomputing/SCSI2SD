@@ -30,6 +30,10 @@ Darwin)
 	cp -r *.app ./build/mac/SCSI2SD
 	rm -rf *.dmg
 	hdiutil create -srcfolder ./build/mac/SCSI2SD ./scsi2sd-util.dmg
+	mkdir -p Products/WXMacApp
+	mv *.app *.dmg Products/WXMacApp
+	./create-library.sh
+	# build xcode proj based on library...
 ;;
 
 MINGW32_NT-6.2)

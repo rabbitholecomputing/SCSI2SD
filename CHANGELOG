@@ -1,4 +1,4 @@
-20191202		4.x.x
+20191202		4.8.4
 	- Fix to prevent sending floppy geometry mode page when not configured as
 	a floppy (Thanks Landon Rodgers)
 	- Fix for VMS 5.5-2 Inquiry allocation lengths. Requires setting "vms" quirk

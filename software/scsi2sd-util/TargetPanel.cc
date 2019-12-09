@@ -15,14 +15,6 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 
-// For compilers that support precompilation, includes "wx/wx.h".
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-
-#include <wx/wrapsizer.h>
-
 #include "ConfigUtil.hh"
 #include "TargetPanel.hh"
 
@@ -38,7 +30,7 @@ extern "C" int ffs(int);
 
 using namespace SCSI2SD;
 
-wxDEFINE_EVENT(SCSI2SD::ConfigChangedEvent, wxCommandEvent);
+// wxDEFINE_EVENT(SCSI2SD::ConfigChangedEvent, wxCommandEvent);
 
 namespace
 {

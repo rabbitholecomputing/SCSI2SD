@@ -19,15 +19,6 @@
 
 #include "scsi2sd.h"
 
-
-#include <wx/wx.h>
-#include <wx/valnum.h>
-
-#include <wx/checkbox.h>
-#include <wx/choice.h>
-#include <wx/spinctrl.h>
-#include <wx/textctrl.h>
-
 #if __cplusplus >= 201103L
 #include <cstdint>
 #else
@@ -42,12 +33,12 @@ namespace SCSI2SD
 // A parent class needs to call evaluate on all SCSI targets to sort
 // out conflicting SCSI IDs and overlapping memory card use.
 // Our custom event is fired whenever a new evaluation is required.
-wxDECLARE_EVENT(ConfigChangedEvent, wxCommandEvent);
+// wxDECLARE_EVENT(ConfigChangedEvent, wxCommandEvent);
 
-class TargetPanel : public wxPanel
+class TargetPanel // : public wxPanel
 {
 public:
-	TargetPanel(wxWindow* parent, const TargetConfig& initialConfig);
+	TargetPanel(const TargetConfig& initialConfig);
 
 	TargetConfig getConfig() const;
 	void setConfig(const TargetConfig& config);
@@ -64,8 +55,8 @@ public:
 	void setAutoStartSector(uint32_t start);
 
 private:
-	template<typename EvtType> void onInput(EvtType& event);
-	void onSizeInput(wxCommandEvent& event);
+	// template<typename EvtType> void onInput();
+	void onSizeInput();
 	void evaluateSize();
 
 	std::pair<uint32_t, bool> convertUnitsToSectors() const;
@@ -74,7 +65,7 @@ private:
 
 	enum
 	{
-		ID_enableCtrl = wxID_HIGHEST + 1,
+        ID_enableCtrl = 0,  // = wxID_HIGHEST + 1,
 		ID_scsiIdCtrl,
 		ID_deviceTypeCtrl,
 		ID_startSDSectorCtrl,
@@ -97,44 +88,44 @@ private:
 		UNIT_GB
 	};
 
-	wxWindow* myParent;
-	wxWindow* myChangedEventHandler;
+	//wxWindow* myParent;
+	//wxWindow* myChangedEventHandler;
 
 	TargetConfig myConfig;
 	uint32_t myAutoStartSector;
 
-	wxCheckBox* myEnableCtrl;
-	wxSpinCtrl* myScsiIdCtrl;
-	wxStaticText* myScsiIdMsg;
+	//wxCheckBox* myEnableCtrl;
+	//wxSpinCtrl* myScsiIdCtrl;
+	//wxStaticText* myScsiIdMsg;
 
-	wxChoice* myDeviceTypeCtrl;
-	wxChoice* myQuirksCtrl;
+	//wxChoice* myDeviceTypeCtrl;
+	//wxChoice* myQuirksCtrl;
 
-	wxIntegerValidator<uint32_t>* myStartSDSectorValidator;
-	wxTextCtrl* myStartSDSectorCtrl;
-	wxCheckBox* myAutoStartSectorCtrl;
-	wxStaticText* myStartSDSectorMsg;
+	//wxIntegerValidator<uint32_t>* myStartSDSectorValidator;
+	//wxTextCtrl* myStartSDSectorCtrl;
+	//wxCheckBox* myAutoStartSectorCtrl;
+	//wxStaticText* myStartSDSectorMsg;
 
-	wxIntegerValidator<uint16_t>* mySectorSizeValidator;
-	wxTextCtrl* mySectorSizeCtrl;
-	wxStaticText* mySectorSizeMsg;
+	//wxIntegerValidator<uint16_t>* mySectorSizeValidator;
+	//wxTextCtrl* mySectorSizeCtrl;
+	//wxStaticText* mySectorSizeMsg;
 
-	wxIntegerValidator<uint32_t>* myNumSectorValidator;
-	wxTextCtrl* myNumSectorCtrl;
-	wxStaticText* myNumSectorMsg;
+	//wxIntegerValidator<uint32_t>* myNumSectorValidator;
+	//wxTextCtrl* myNumSectorCtrl;
+	//wxStaticText* myNumSectorMsg;
 
-	wxFloatingPointValidator<float>* mySizeValidator;
-	wxTextCtrl* mySizeCtrl;
-	wxChoice* mySizeUnitCtrl;
+	//wxFloatingPointValidator<float>* mySizeValidator;
+	//wxTextCtrl* mySizeCtrl;
+	//wxChoice* mySizeUnitCtrl;
 
-	wxTextCtrl* myVendorCtrl;
-	wxStaticText* myVendorMsg;
-	wxTextCtrl* myProductCtrl;
-	wxStaticText* myProductMsg;
-	wxTextCtrl* myRevisionCtrl;
-	wxStaticText* myRevisionMsg;
-	wxTextCtrl* mySerialCtrl;
-	wxStaticText* mySerialMsg;
+	//wxTextCtrl* myVendorCtrl;
+	//wxStaticText* myVendorMsg;
+	//wxTextCtrl* myProductCtrl;
+	//wxStaticText* myProductMsg;
+	//wxTextCtrl* myRevisionCtrl;
+	//wxStaticText* myRevisionMsg;
+	//wxTextCtrl* mySerialCtrl;
+	//wxStaticText* mySerialMsg;
 };
 
 } // namespace SCSI2SD

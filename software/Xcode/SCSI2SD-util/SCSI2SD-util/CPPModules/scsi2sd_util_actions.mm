@@ -7,7 +7,24 @@
 //
 
 #include "scsi2sd_util_actions.hh"
+
 #import <Foundation/NSDistributedNotificationCenter.h>
+#import <Foundation/NSString.h>
+#import <Foundation/NSData.h>
+
+void LogMessage(char *message)
+{
+    NSString *str = [NSString stringWithCString:message encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",str);
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"SCSI2SDLogNotification" object:str];
+}
+
+void SetStatusText(char *message)
+{
+    NSString *str = [NSString stringWithCString:message encoding:NSUTF8StringEncoding];
+    NSLog(@"%@",str);
+    [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"SCSI2SDStatusNotification" object:str];
+}
 
 using namespace SCSI2SD;
 
@@ -21,6 +38,7 @@ public:
 
     void update(unsigned char arrayId, unsigned short rowNum)
     {
+        // [[NSDistributedNotificationCenter defaultCenter] postNotificationName:@"SCSI2SDUpdateNotification" object:str];
     }
 
 private:
@@ -58,146 +76,26 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     return crc & 0x7F;
 }
 
-class AppFrame : public wxFrame
+class AppFrame
 {
 public:
-    AppFrame() :
-        wxFrame(NULL, wxID_ANY, "scsi2sd-util", wxPoint(50, 50), wxSize(600, 650)),
-        myInitialConfig(false),
-        myTickCounter(0),
-        myLastPollTime(0)
-    {
-        wxMenu *menuFile = new wxMenu();
-        menuFile->Append(
-            ID_SaveFile,
-            _("&Save to file..."),
-            _("Save settings to local file."));
-        menuFile->Append(
-            ID_OpenFile,
-            _("&Open file..."),
-            _("Load settings from local file."));
-        menuFile->AppendSeparator();
-        menuFile->Append(
-            ID_ConfigDefaults,
-            _("Load &Defaults"),
-            _("Load default configuration options."));
-
-        menuFile->AppendSeparator();
-        myLoadButton = menuFile->Append(
-            ID_BtnLoad,
-            _("Load from device"),
-            _("Load configuration from hardware device"));
-        mySaveButton = menuFile->Append(
-            ID_BtnSave,
-            _("Save to device"),
-            _("Save configuration to hardware device"));
-
-        menuFile->AppendSeparator();
-        menuFile->Append(
-            ID_Firmware,
-            _("&Upgrade Firmware..."),
-            _("Upgrade or inspect device firmware version."));
-        /*menuFile->Append(
-            ID_Bootloader,
-            _("&Upgrade Bootloader (ADVANCED) ..."),
-            _("Upgrade device bootloader."));*/
-        menuFile->AppendSeparator();
-        menuFile->Append(wxID_EXIT);
-
-        wxMenu *menuWindow= new wxMenu();
-        menuWindow->Append(
-            ID_LogWindow,
-            _("Show &Log"),
-            _("Show debug log window"));
-
-        wxMenu *menuDebug = new wxMenu();
-        mySCSILogChk = menuDebug->AppendCheckItem(
-            ID_SCSILog,
-            _("Log SCSI data"),
-            _("Log SCSI commands"));
-
-        mySelfTestChk = menuDebug->AppendCheckItem(
-            ID_SelfTest,
-            _("SCSI Standalone Self-Test"),
-            _("SCSI Standalone Self-Test"));
-
-        wxMenu *menuHelp = new wxMenu();
-        menuHelp->Append(wxID_ABOUT);
-
-        wxMenuBar *menuBar = new wxMenuBar();
-        menuBar->Append( menuFile, _("&File") );
-        menuBar->Append( menuDebug, _("&Debug") );
-        menuBar->Append( menuWindow, _("&Window") );
-        menuBar->Append( menuHelp, _("&Help") );
-        SetMenuBar( menuBar );
-
-        CreateStatusBar();
-
-        {
-            wxPanel* cfgPanel = new wxPanel(this);
-            wxFlexGridSizer *fgs = new wxFlexGridSizer(3, 1, 15, 15);
-            cfgPanel->SetSizer(fgs);
-
-            // Empty space below menu bar.
-            fgs->Add(5, 5, wxALL);
-
-            wxNotebook* tabs = new wxNotebook(cfgPanel, ID_Notebook);
-            myBoardPanel = new BoardPanel(tabs, ConfigUtil::DefaultBoardConfig());
-            tabs->AddPage(myBoardPanel, _("General Settings"));
-            for (int i = 0; i < MAX_SCSI_TARGETS; ++i)
-            {
-                TargetPanel* target =
-                    new TargetPanel(tabs, ConfigUtil::Default(i));
-                myTargets.push_back(target);
-                std::stringstream ss;
-                ss << "Device " << (i + 1);
-                tabs->AddPage(target, ss.str());
-                target->Fit();
-            }
-            tabs->Fit();
-            fgs->Add(tabs);
-
-            cfgPanel->Fit();
-        }
-#ifdef __WINDOWS__
-        Fit(); // Needed to reduce window size on Windows
-#else
-        FitInside(); // Needed on Linux to prevent status bar overlap
-#endif
-
-        myLogWindow = new wxLogWindow(this, _("scsi2sd-util debug log"), true);
-        myLogWindow->PassMessages(false); // Prevent messagebox popups
-
-        myTimer = new wxTimer(this, ID_Timer);
-        myTimer->Start(16); //ms, suitable for scsi debug logging
-    }
-
-private:
-    wxLogWindow* myLogWindow;
-    BoardPanel* myBoardPanel;
-    std::vector<TargetPanel*> myTargets;
-    wxMenuItem* myLoadButton;
-    wxMenuItem* mySaveButton;
-    wxMenuItem* mySCSILogChk;
-    wxMenuItem* mySelfTestChk;
-    wxTimer* myTimer;
-    shared_ptr<HID> myHID;
-    shared_ptr<Bootloader> myBootloader;
+    HID *myHID;
+    Bootloader *myBootloader;
     bool myInitialConfig;
-
+    std::vector<TargetPanel*> myTargets;
+    
     uint8_t myTickCounter;
-
     time_t myLastPollTime;
 
     void mmLogStatus(const std::string& msg)
     {
         // We set PassMessages to false on our log window to prevent popups, but
-        // this also prevents wxLogStatus from updating the status bar.
-        SetStatusText(msg);
-        wxLogMessage(this, "%s", msg.c_str());
+        // this also prevents LogStatus from updating the status bar.
+        //SetStatusText(msg.c_str());
+        //LogMessage(msg.c_str());
     }
 
-    void onConfigChanged(wxCommandEvent& event)
+    void onConfigChanged()
     {
         evaluate();
     }
@@ -207,7 +105,7 @@ private:
         bool valid = true;
 
         // Check for duplicate SCSI IDs
-        std::set<uint8_t> enabledID;
+        std::vector<uint8_t> enabledID;
 
         // Check for overlapping SD sectors.
         std::vector<std::pair<uint32_t, uint64_t> > sdSectors;
@@ -273,7 +171,7 @@ private:
 
     enum
     {
-        ID_ConfigDefaults = wxID_HIGHEST + 1,
+        ID_ConfigDefaults = 0, // wxID_HIGHEST + 1,
         ID_Firmware,
         ID_Bootloader,
         ID_Timer,
@@ -287,7 +185,7 @@ private:
         ID_OpenFile
     };
 
-    void OnID_ConfigDefaults(wxCommandEvent& event)
+    void OnID_ConfigDefaults()
     {
         myBoardPanel->setConfig(ConfigUtil::DefaultBoardConfig());
         for (size_t i = 0; i < myTargets.size(); ++i)
@@ -296,7 +194,7 @@ private:
         }
     }
 
-    void OnID_SaveFile(wxCommandEvent& event)
+    void OnID_SaveFile()
     {
         TimerLock lock(myTimer);
 
@@ -314,7 +212,7 @@ private:
         wxFileOutputStream file(dlg.GetPath());
         if (!file.IsOk())
         {
-            wxLogError("Cannot save settings to file '%s'.", dlg.GetPath());
+            LogError("Cannot save settings to file '%s'.", dlg.GetPath());
             return;
         }
 
@@ -364,7 +262,7 @@ private:
         }
         catch (std::exception& e)
         {
-            wxLogError(
+            LogError(
                 "Cannot load settings from file '%s'.\n%s",
                 dlg.GetPath(),
                 e.what());
@@ -382,39 +280,19 @@ private:
         doFirmwareUpdate();
     }
 
-    void OnID_Bootloader(wxCommandEvent& event)
+    void OnID_Bootloader()
     {
         TimerLock lock(myTimer);
         doBootloaderUpdate();
     }
 
-    void OnID_LogWindow(wxCommandEvent& event)
+    void OnID_LogWindow()
     {
-        myLogWindow->Show();
+        // myLogWindow->Show();
     }
 
     void doFirmwareUpdate()
     {
-        wxFileDialog dlg(
-            this,
-            "Load firmware file",
-            "",
-            "",
-            "SCSI2SD Firmware files (*.scsi2sd;*.cyacd)|*.cyacd;*.scsi2sd",
-            wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-        if (dlg.ShowModal() == wxID_CANCEL) return;
-
-        std::string filename(dlg.GetPath());
-
-        wxWindowPtr<wxGenericProgressDialog> progress(
-            new wxGenericProgressDialog(
-                "Searching for bootloader",
-                "Searching for bootloader",
-                100,
-                this,
-                wxPD_AUTO_HIDE | wxPD_CAN_ABORT)
-                );
-        mmLogStatus("Searching for bootloader");
         while (true)
         {
             try
@@ -567,49 +445,21 @@ private:
             wxRemoveFile(tmpFile);
         }
     }
-
-    void doBootloaderUpdate()
+    
+    void doBootloaderUpdate(char *path)
     {
-        if (!myHID)
+        NSString *filename = [NSString stringWithCString: path
+                                                encoding: NSUTF8StringEncoding];
+
+        NSData *fileData = [NSData dataWithContentsOfFile:filename];
+        NSUInteger len = [fileData length];
+        if (len != 0x2400)
         {
-            wxMessageBox(
-                "No device",
-                "No device",
-                wxOK | wxICON_ERROR);
+            NSLog(@"Incorrect size, invalid boodloader");
             return;
         }
-
-        wxFileDialog dlg(
-            this,
-            "Load bootloader file",
-            "",
-            "",
-            "SCSI2SD Bootloader files (*.bin)|*.bin",
-            wxFD_OPEN | wxFD_FILE_MUST_EXIST);
-        if (dlg.ShowModal() == wxID_CANCEL) return;
-
-        std::string filename(dlg.GetPath());
-
-        wxFile file(filename);
-        if (file.Length() != 0x2400)
-        {
-            wxMessageBox(
-                "Invalid file",
-                "Invalid file",
-                wxOK | wxICON_ERROR);
-            return;
-
-        }
-        uint8_t data[0x2400];
-        if (file.Read(data, sizeof(data)) != sizeof(data))
-        {
-            wxMessageBox(
-                "Couldn't read file",
-                "Couldn't read file",
-                wxOK | wxICON_ERROR);
-            return;
-        }
-
+        
+        uint8_t *data = (uint8_t *)[fileData bytes];
         static char magic[] = {
             'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
             'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
@@ -617,41 +467,26 @@ private:
         uint8_t* dataEnd = data + sizeof(data);
         if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
         {
-            wxMessageBox(
-                "Bad file",
-                "Not a valid bootloader file.",
-                wxOK | wxICON_ERROR);
+            NSLog(@"Not a valid boot loader file");
             return;
         }
 
-        std::stringstream msg;
-        msg << "Upgrading bootloader from file: " << filename;
-        mmLogStatus(msg.str());
-
-        wxWindowPtr<wxGenericProgressDialog> progress(
-            new wxGenericProgressDialog(
-                "Update bootloader",
-                "Update bootloader",
-                100,
-                this,
-                wxPD_REMAINING_TIME)
-                );
-
+        NSLog(@"Upgrading bootloader from file: %@", filename);
 
         int currentProgress = 0;
         int totalProgress = 36;
 
         for (size_t flashRow = 0; flashRow < 36; ++flashRow)
         {
-            std::stringstream ss;
-            ss << "Programming flash array 0 row " << (flashRow);
-            mmLogStatus(ss.str());
+            // std::stringstream ss;
+            // ss << "Programming flash array 0 row " << (flashRow);
+            // mmLogStatus(ss.str());
             currentProgress += 1;
 
             if (currentProgress == totalProgress)
             {
-                ss.str("Save Complete.");
-                mmLogStatus("Save Complete.");
+                // ss.str("Save Complete.");
+                // mmLogStatus("Save Complete.");
             }
             if (!progress->Update(
                     (100 * currentProgress) / totalProgress,
@@ -662,7 +497,7 @@ private:
                 goto abort;
             }
 
-            uint8_t* rowData = data + (flashRow * 256);
+            uint8_t rowData = data + (flashRow * 256);
             std::vector<uint8_t> flashData(rowData, rowData + 256);
             try
             {
@@ -700,7 +535,7 @@ private:
             msg << std::setfill('0') << std::setw(2) <<
             static_cast<int>(buf[i]) << ' ';
         }
-        wxLogMessage(this, msg.str().c_str());
+        LogMessage(this, msg.str().c_str());
         }
 
     void logSCSI()
@@ -720,12 +555,12 @@ private:
         }
         catch (std::exception& e)
         {
-            wxLogWarning(this, e.what());
+            LogWarning(this, e.what());
             myHID.reset();
         }
     }
 
-    void OnID_Timer(wxTimerEvent& event)
+    void OnID_Timer()
     {
         logSCSI();
         time_t now = time(NULL);
@@ -822,14 +657,14 @@ private:
                                 static_cast<int>(cid[i]);
                         }
 
-                        wxLogMessage(this, "%s", sdinfo.str());
+                        LogMessage(this, "%s", sdinfo.str());
 
                         if (mySelfTestChk->IsChecked())
                         {
                             std::stringstream scsiInfo;
                             scsiInfo << "SCSI Self-Test: " <<
                                 (myHID->scsiSelfTest() ? "Passed" : "FAIL");
-                            wxLogMessage(this, "%s", scsiInfo.str());
+                            LogMessage(this, "%s", scsiInfo.str());
                         }
 
                         if (!myInitialConfig)
@@ -861,7 +696,7 @@ private:
         evaluate();
     }
 
-    void doLoad(wxCommandEvent& event)
+    void doLoad()
     {
         TimerLock lock(myTimer);
         if (!myHID) return;
@@ -988,7 +823,7 @@ private:
         return;
     }
 
-    void doSave(wxCommandEvent& event)
+    void doSave()
     {
         TimerLock lock(myTimer);
         if (!myHID) return;
@@ -1109,11 +944,11 @@ private:
     }
 
     // Note: Don't confuse this with the wxApp::OnExit virtual method
-    void OnExitEvt(wxCommandEvent& event);
+    void OnExitEvt();
 
-    void OnCloseEvt(wxCloseEvent& event);
+    void OnCloseEvt();
 
-    void OnAbout(wxCommandEvent& event)
+    void OnAbout()
     {
     }
 };

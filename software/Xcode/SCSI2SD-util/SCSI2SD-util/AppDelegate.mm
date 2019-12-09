@@ -11,6 +11,11 @@
 @interface AppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+@property (weak, nonatomic) IBOutlet NSWindow *mainWindow;
+@property (weak, nonatomic) IBOutlet NSTextField *infoLabel;
+@property (weak, nonatomic) IBOutlet NSPanel *logPanel;
+@property (weak, nonatomic) IBOutlet NSTextView *logTextView;
+
 @end
 
 @implementation AppDelegate

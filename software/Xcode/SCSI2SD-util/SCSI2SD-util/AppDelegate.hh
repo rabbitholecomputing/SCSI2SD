@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
 #include "SCSI2SD_Bootloader.hh"
 #include "SCSI2SD_HID.hh"
 #include "Firmware.hh"
@@ -16,8 +17,6 @@
     SCSI2SD::HID *myHID;
     SCSI2SD::Bootloader *myBootloader;
 }
-@property (weak, nonatomic) IBOutlet NSWindow *mainWindow;
-@property (weak, nonatomic) IBOutlet NSTextField *infoLabel;
 
 @end
 

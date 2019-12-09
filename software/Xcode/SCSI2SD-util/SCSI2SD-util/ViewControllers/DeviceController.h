@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
+#import "TargetConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,6 +27,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSTextField *revsion;
 @property (weak, nonatomic) IBOutlet NSTextField *serialNumber;
 @property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
+
+- (TargetConfig *) generateTargetConfig;
 
 @end
 

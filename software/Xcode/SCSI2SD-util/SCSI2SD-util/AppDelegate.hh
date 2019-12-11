@@ -16,6 +16,12 @@
 {
     SCSI2SD::HID *myHID;
     SCSI2SD::Bootloader *myBootloader;
+    
+    bool myInitialConfig;
+    std::vector<TargetConfig *> myTargets;
+    
+    uint8_t myTickCounter;
+    time_t myLastPollTime;
 }
 
 @end

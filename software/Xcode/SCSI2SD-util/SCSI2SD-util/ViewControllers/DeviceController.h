@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
-#import "TargetConfig.h"
+// #import "TargetConfig.h"
+#include "scsi2sd.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

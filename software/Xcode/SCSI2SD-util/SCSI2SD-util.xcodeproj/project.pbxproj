@@ -23,7 +23,7 @@
 		1482B211239748DB001BA513 /* Device1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B206239748DB001BA513 /* Device1Controller.m */; };
 		1482B212239748DB001BA513 /* Device2Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B207239748DB001BA513 /* Device2Controller.m */; };
 		1482B213239748DB001BA513 /* Device7Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B20A239748DB001BA513 /* Device7Controller.m */; };
-		14DEC5E5239EE90800ECD04A /* TargetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E4239EE90800ECD04A /* TargetConfig.m */; };
+		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14E4DA08239D5C5400C3B3DC /* TargetPanel.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14E4DA07239D5C5400C3B3DC /* TargetPanel.cc */; };
 		90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */; };
 /* End PBXBuildFile section */
@@ -71,8 +71,8 @@
 		1482B208239748DB001BA513 /* Device6Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device6Controller.h; sourceTree = "<group>"; };
 		1482B209239748DB001BA513 /* Device3Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device3Controller.h; sourceTree = "<group>"; };
 		1482B20A239748DB001BA513 /* Device7Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device7Controller.m; sourceTree = "<group>"; };
-		14DEC5E3239EE90800ECD04A /* TargetConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TargetConfig.h; sourceTree = "<group>"; };
-		14DEC5E4239EE90800ECD04A /* TargetConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TargetConfig.m; sourceTree = "<group>"; };
+		14DEC5E6239F456800ECD04A /* Functions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Functions.mm; sourceTree = "<group>"; };
+		14DEC5E7239F456800ECD04A /* Functions.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Functions.hh; sourceTree = "<group>"; };
 		14E4DA06239D5C5400C3B3DC /* TargetPanel.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TargetPanel.hh; path = "../../../../scsi2sd-util/TargetPanel.hh"; sourceTree = "<group>"; };
 		14E4DA07239D5C5400C3B3DC /* TargetPanel.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TargetPanel.cc; path = "../../../../scsi2sd-util/TargetPanel.cc"; sourceTree = "<group>"; };
 		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,6 +161,8 @@
 				1474C0FD23998F27003C67D5 /* ConfigUtil.hh */,
 				1474C0F823998938003C67D5 /* scsi2sd_util_actions.mm */,
 				1474C0F923998938003C67D5 /* scsi2sd_util_actions.hh */,
+				14DEC5E6239F456800ECD04A /* Functions.mm */,
+				14DEC5E7239F456800ECD04A /* Functions.hh */,
 			);
 			path = CPPModules;
 			sourceTree = "<group>";
@@ -229,8 +231,6 @@
 		14DEC5E0239EE72D00ECD04A /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				14DEC5E3239EE90800ECD04A /* TargetConfig.h */,
-				14DEC5E4239EE90800ECD04A /* TargetConfig.m */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -349,10 +349,10 @@
 				14E4DA08239D5C5400C3B3DC /* TargetPanel.cc in Sources */,
 				1482B20C239748DB001BA513 /* Device6Controller.m in Sources */,
 				1474C0FA23998938003C67D5 /* scsi2sd_util_actions.mm in Sources */,
-				14DEC5E5239EE90800ECD04A /* TargetConfig.m in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.m in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				1482B20E239748DB001BA513 /* Device4Controller.m in Sources */,
+				14DEC5E8239F456800ECD04A /* Functions.mm in Sources */,
 				1482B210239748DB001BA513 /* SettingsController.m in Sources */,
 				1482B213239748DB001BA513 /* Device7Controller.m in Sources */,
 				1482B1E923973F3E001BA513 /* AppDelegate.mm in Sources */,

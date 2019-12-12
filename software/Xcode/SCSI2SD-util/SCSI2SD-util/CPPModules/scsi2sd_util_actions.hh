@@ -12,7 +12,7 @@
 #include "SCSI2SD_Bootloader.hh"
 #include "SCSI2SD_HID.hh"
 #include "Firmware.hh"
-#include "TargetPanel.hh"
+// #include "TargetPanel.hh"
 #include <stdio.h>
 
 #endif /* scsi2sd_util_actions_hpp */

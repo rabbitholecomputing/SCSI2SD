@@ -7,8 +7,8 @@
 //
 
 #import "AppDelegate.hh"
-#import "DeviceController.h"
-#import "SettingsController.h"
+#import "DeviceController.hh"
+#import "SettingsController.hh"
 
 #include <vector>
 #include <string>

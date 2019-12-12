@@ -91,6 +91,27 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
 @implementation AppDelegate
 
+- (void) logStringToPanel: (NSString *)logString
+{
+    NSString *string = [self.logTextView string];
+    string = [string stringByAppendingString: logString];
+    [self.logTextView setString: string];
+}
+
+- (void) startTimer
+{
+    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.5
+                                                      repeats:YES
+                                                        block:^(NSTimer * _Nonnull timer) {
+        [self doTimer];
+    }];
+}
+
+- (void) stopTimer
+{
+    [pollDeviceTimer invalidate];
+}
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     myHID = SCSI2SD::HID::Open();
@@ -105,13 +126,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device6];
     [deviceControllers addObject: _device7];
     
-    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.5
-                                                      repeats:YES
-                                                        block:^(NSTimer * _Nonnull timer) {
-        [self doTimer];
-    }];
+    [self startTimer];
 }
-
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
@@ -147,7 +163,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
             if (myBootloader)
             {
-                NSLog(@"SCSI2SD Bootloader Ready");
+                [self logStringToPanel:@"SCSI2SD Bootloader Ready"];
             }
         }
 
@@ -182,7 +198,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                         msg << "Firmware update required. Version " <<
                             myHID->getFirmwareVersionStr();
                         mmLogStatus(msg.str());*/
-                        NSLog(@"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str());
+                        NSString *log = [NSString stringWithFormat: @"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str()];
+                        [self logStringToPanel: log];
                     }
                 }
                 else
@@ -870,6 +887,7 @@ out:
         LogWarning(this, e.what());
         myHID.reset();
     } */
+    [self logStringToPanel:@"Logging SCSI info \n"];
 }
 
 - (void) evaluate

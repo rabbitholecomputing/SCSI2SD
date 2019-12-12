@@ -19,7 +19,8 @@
 
 #include <limits>
 #include <sstream>
-#include <stdexcept> 
+#include <stdexcept>
+#include <string.h>
 
 #import <Foundation/NSXMLNode.h>
 #import <Foundation/NSXMLDocument.h>
@@ -27,7 +28,6 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSXMLElement.h>
 
-#include <string.h>
 
 /*
 #include <wx/wxprec.h>
@@ -493,16 +493,15 @@ static uint64_t parseInt(NSXMLNode* node, uint64_t limit)
 }
 
 static TargetConfig
-parseTarget(NSXMLNode* node)
+parseTarget(NSXMLElement* node)
 {
 	int id;
-    /*
 	{
 		std::stringstream s;
-		s << [node attribute    node->GetAttribute("id", "7");
+        s << [node attributeForName:@"id"]; //    node->GetAttribute("id", "7");
 		s >> id;
 		if (!s) throw std::runtime_error("Could not parse SCSITarget id attr");
-	}*/
+	}
 	TargetConfig result = ConfigUtil::Default(id & 0x7);
 
 	NSArray *children = [node children];
@@ -600,17 +599,17 @@ parseTarget(NSXMLNode* node)
 		}
 		else if ([[child name] isEqualToString: @"modePages"])
 		{
-			wxMemoryBuffer buf =
-				wxBase64Decode(child->GetNodeContent(), wxBase64DecodeMode_SkipWS);
-			size_t len = std::min(buf.GetDataLen(), sizeof(result.modePages));
-			memcpy(result.modePages, buf.GetData(), len);
+            NSString *content = [child stringValue];
+            NSData *buf = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64Encoding64CharacterLineLength];
+			size_t len = std::min([buf length], sizeof(result.modePages));
+			memcpy(result.modePages, [buf bytes], len);
 		}
 		else if ([[child name] isEqualToString: @"vpd"])
 		{
-			wxMemoryBuffer buf =
-				wxBase64Decode(child->GetNodeContent(), wxBase64DecodeMode_SkipWS);
-			size_t len = std::min(buf.GetDataLen(), sizeof(result.vpd));
-			memcpy(result.vpd, buf.GetData(), len);
+            NSString *content = [child stringValue];
+            NSData *buf = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64Encoding64CharacterLineLength];
+            size_t len = std::min([buf length], sizeof(result.vpd));
+            memcpy(result.vpd, [buf bytes], len);
 		}
         
         child = [en nextObject];
@@ -619,7 +618,7 @@ parseTarget(NSXMLNode* node)
 }
 
 static BoardConfig
-parseBoardConfig(NSXMLNode* node)
+parseBoardConfig(NSXMLElement* node)
 {
 	BoardConfig result = ConfigUtil::DefaultBoardConfig();
 
@@ -778,7 +777,7 @@ ConfigUtil::fromXML(const std::string& filename)
 	std::vector<TargetConfig> targets;
     NSArray *children = [[doc rootElement] children]; // doc.GetRoot()->GetChildren();
     NSEnumerator *en = [children objectEnumerator];
-    NSXMLNode *child = [en nextObject];
+    NSXMLElement *child = [en nextObject];
 	while (child)
 	{
 		if ([[child name] isEqualToString: @"SCSITarget"])

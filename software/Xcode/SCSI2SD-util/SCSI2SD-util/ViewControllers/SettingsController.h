@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSButton *respondToShortSCSISelection;
 @property (weak, nonatomic) IBOutlet NSButton *mapLUNStoSCSIIDs;
 
+- (NSString *) toXml;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -29,6 +29,9 @@ enum
 };
 
 @interface AppDelegate ()
+{
+    NSMutableArray *deviceControllers;
+}
 
 @property (weak) IBOutlet NSWindow *window;
 @property (weak, nonatomic) IBOutlet NSWindow *mainWindow;
@@ -45,7 +48,6 @@ enum
 @property (weak, nonatomic) IBOutlet DeviceController *device7;
 
 @property (weak, nonatomic) IBOutlet SettingsController *settings;
-
 @end
 
 @implementation AppDelegate
@@ -54,11 +56,50 @@ enum
     // Insert code here to initialize your application
     myHID = SCSI2SD::HID::Open();
     myBootloader = SCSI2SD::Bootloader::Open();
+    
+    deviceControllers = [[NSMutableArray alloc] initWithCapacity: 7];
+    [deviceControllers addObject: _device1];
+    [deviceControllers addObject: _device2];
+    [deviceControllers addObject: _device3];
+    [deviceControllers addObject: _device4];
+    [deviceControllers addObject: _device5];
+    [deviceControllers addObject: _device6];
+    [deviceControllers addObject: _device7];
 }
 
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+}
+
+- (IBAction)saveFile:(id)sender
+{
+    NSString *outputString = @"";
+    outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
+
+    outputString = [outputString stringByAppendingString: [_settings toXml]];
+    DeviceController *dc = nil;
+    NSEnumerator *en = [deviceControllers objectEnumerator];
+    while((dc = [en nextObject]) != nil)
+    {
+        outputString = [outputString stringByAppendingString: [dc toXml]];
+    }
+    outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
+}
+
+- (IBAction)openFile:(id)sender
+{
+    NSString *outputString = @"";
+    outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
+
+    outputString = [outputString stringByAppendingString: [_settings toXml]];
+    DeviceController *dc = nil;
+    NSEnumerator *en = [deviceControllers objectEnumerator];
+    while((dc = [en nextObject]) != nil)
+    {
+        outputString = [outputString stringByAppendingString: [dc toXml]];
+    }
+    outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
 }
 
 - (void) evaluate

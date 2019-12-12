@@ -87,41 +87,6 @@ public:
         }
     }
 
-    void OnID_SaveFile()
-    {
-        TimerLock lock(myTimer);
-
-
-
-        wxFileDialog dlg(
-            this,
-            "Save config settings",
-            "",
-            "",
-            "XML files (*.xml)|*.xml",
-            wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-        if (dlg.ShowModal() == wxID_CANCEL) return;
-
-        wxFileOutputStream file(dlg.GetPath());
-        if (!file.IsOk())
-        {
-            LogError("Cannot save settings to file '%s'.", dlg.GetPath());
-            return;
-        }
-
-        wxTextOutputStream s(file);
-
-        s << "<SCSI2SD>\n";
-
-        s << ConfigUtil::toXML(myBoardPanel->getConfig());
-        for (size_t i = 0; i < myTargets.size(); ++i)
-        {
-            s << ConfigUtil::toXML(myTargets[i]->getConfig());
-        }
-
-        s << "</SCSI2SD>\n";
-    }
-
     void OnID_OpenFile(wxCommandEvent& event)
     {
         TimerLock lock(myTimer);

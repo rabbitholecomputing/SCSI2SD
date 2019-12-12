@@ -226,24 +226,7 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
-                            <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
-                                <connections>
-                                    <action selector="openDocument:" target="-1" id="bVn-NM-KNZ"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Open Recent" id="tXI-mr-wws">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Open Recent" systemMenu="recentDocuments" id="oas-Oc-fiZ">
-                                    <items>
-                                        <menuItem title="Clear Menu" id="vNY-rz-j42">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="clearRecentDocuments:" target="-1" id="Daa-9d-B3U"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
+                            <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9"/>
                             <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
@@ -252,7 +235,7 @@
                             </menuItem>
                             <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                 <connections>
-                                    <action selector="saveDocument:" target="-1" id="teZ-XB-qJY"/>
+                                    <action selector="saveFile:" target="Voe-Tx-rLC" id="r2G-Wt-bvb"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -323,7 +306,7 @@
                     <tabView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pmn-E4-Otb">
                         <rect key="frame" x="13" y="20" width="697" height="414"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="label" size="13"/>
                         <tabViewItems>
                             <tabViewItem label="General Settings" identifier="" id="WrU-eM-PTx">
                                 <view key="view" id="MTa-GI-ipO">
@@ -353,7 +336,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI terminator" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ixw-Kg-1ib">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ael-0l-G7C">
@@ -361,7 +344,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable Parity" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="79N-mG-1HY">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gH7-9Y-z4m">
@@ -369,7 +352,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable Unit Attention" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eRX-6G-UaF">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Kk-W6-IiR">
@@ -377,7 +360,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI2 Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yPU-O5-Fio">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWm-ur-sda">
@@ -385,7 +368,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Respond to short SCSI selection pulses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bYO-xf-T2V">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L86-uX-2AA">
@@ -393,14 +376,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Map LUNS to SCSI IDs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Cc-mB-FAO">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udt-SV-7Gs">
                                             <rect key="frame" x="267" y="291" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="iaz-sZ-XKj">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -409,7 +392,7 @@
                                             <rect key="frame" x="267" y="259" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="255" drawsBackground="YES" id="CWl-Al-s7c">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -428,7 +411,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="No Limit" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LeL-rm-YSp" id="QTo-ub-H5S">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="lg0-gW-kcG">
                                                     <items>
                                                         <menuItem title="No Limit" state="on" id="LeL-rm-YSp"/>
@@ -463,14 +446,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qdT-X0-TWP">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzS-wo-qLR">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="dqt-t4-S2e">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -479,7 +462,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="SEW-mO-ptt">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -488,7 +471,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="CUR-dd-Z3C">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -497,7 +480,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="SDh-53-RRs">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -506,7 +489,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="abM-7T-GhS">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -515,7 +498,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="pLz-6g-Ge3">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -524,7 +507,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="tbV-G8-ell">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -533,7 +516,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="Vya-OS-9gO">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -542,7 +525,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="Sxf-To-lis">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -551,7 +534,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="AgV-PW-5mP">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -560,7 +543,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="xgX-Y1-Bu1">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -575,7 +558,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="T9u-RL-aZx" id="tp1-qk-w5s">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="PAX-aA-R96">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="T9u-RL-aZx"/>
@@ -595,7 +578,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="oag-wT-iMA">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -604,7 +587,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="Eua-Uf-44c">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -613,7 +596,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="aCZ-bU-I5u">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -622,7 +605,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="40y-Uu-I4R">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -631,7 +614,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="tlr-jR-dzX">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -640,7 +623,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="1Uc-nV-d3j">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -649,7 +632,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="Pi3-iw-zdL">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -659,7 +642,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="l4b-q5-LbI">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WuS-Tz-H4h">
@@ -667,7 +650,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="JWR-tm-nNV" id="aAg-f0-0ce">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="vCO-wV-EVm">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="JWR-tm-nNV"/>
@@ -681,7 +664,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="y0b-JG-Sm7">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -699,14 +682,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dsp-Oo-0Gg">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h2J-LY-UdT">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="xxI-tA-dE1">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -715,7 +698,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="HjU-s2-eT6">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -724,7 +707,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="eZH-nZ-9Ki">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -733,7 +716,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="xUt-tS-3SI">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -742,7 +725,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="MfD-KE-wXl">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -751,7 +734,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="vM1-DO-0uE">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -760,7 +743,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="7UC-DC-ijW">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -769,7 +752,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="Msk-VW-FWc">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -778,7 +761,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="6jD-fZ-sPk">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -787,7 +770,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="MBc-Ks-Tan">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -796,7 +779,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="XCs-G3-fuf">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -811,7 +794,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="824-vI-Xw2" id="NNU-YT-brJ">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="TYb-Bb-18v">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="824-vI-Xw2"/>
@@ -831,7 +814,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="Gv9-ck-LR6">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -840,7 +823,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="WoQ-38-Zah">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -849,7 +832,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="rtu-Jv-3Dt">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -858,7 +841,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="EdE-cI-0wc">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -867,7 +850,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="idV-KX-Lxo">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -876,7 +859,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="cfR-Rr-3Iw">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -885,7 +868,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="LL8-68-sq7">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -895,14 +878,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Bz5-uo-o1h">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hTP-Ic-caa">
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="ORO-h4-dvX">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -912,7 +895,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ww4-wL-l3T" id="4jm-M0-Ckn">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="kFe-WX-qAX">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="ww4-wL-l3T"/>
@@ -935,14 +918,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IDE-Qa-9wl">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gfn-1u-W7H">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="kb4-B8-wdg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -951,7 +934,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="ahY-nF-RHv">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -960,7 +943,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="ATl-06-Pp5">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -969,7 +952,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="SUB-4E-t0w">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -978,7 +961,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="BV6-fk-Yrf">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -987,7 +970,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="WCT-gK-VRg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -996,7 +979,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="YED-O8-451">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1005,7 +988,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="O09-6D-BkW">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1014,7 +997,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="ELK-Gy-6kS">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1023,7 +1006,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="eD4-kN-QT5">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1032,7 +1015,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Qfd-Pt-hkV">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -1047,7 +1030,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="c5S-Lh-GAB" id="d2F-q7-yUl">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="VnH-6q-AXt">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="c5S-Lh-GAB"/>
@@ -1067,7 +1050,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="Lbj-5e-DjV">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1076,7 +1059,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="fa9-Yo-aVL">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1085,7 +1068,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="4sc-cg-ZgI">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1094,7 +1077,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="PFH-HD-tR7">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1103,7 +1086,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="EOO-Gn-EVY">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1112,7 +1095,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="MHm-Ox-GKb">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1121,7 +1104,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="nPK-ul-qPI">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1131,7 +1114,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="bls-yf-BaG">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JdM-JS-vrO">
@@ -1139,7 +1122,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2E3-eB-d1Z" id="GzT-q8-3YH">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="pGI-Ab-tjv">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="2E3-eB-d1Z"/>
@@ -1153,7 +1136,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="Mag-xc-XUr">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1171,14 +1154,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="FgO-c1-0EL">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjr-0c-Ig5">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="XcK-R4-GFg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1187,7 +1170,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="42N-os-YR8">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1196,7 +1179,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="HRp-VZ-D4y">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1205,7 +1188,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="xDB-WQ-hdP">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1214,7 +1197,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="bH4-sr-BOs">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1223,7 +1206,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="tgr-13-0IN">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1232,7 +1215,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="ujL-wa-Ojg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1241,7 +1224,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="eNJ-cf-XR5">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1250,7 +1233,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="zdG-Hw-e2A">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1259,7 +1242,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="ETH-Ce-dyZ">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1268,7 +1251,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Un0-Mv-k4b">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -1283,7 +1266,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="sWd-0L-fAM" id="KCJ-bx-Na8">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="bMB-xt-yNr">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="sWd-0L-fAM"/>
@@ -1303,7 +1286,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="fRA-QS-VAs">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1312,7 +1295,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="bkE-Jh-PhR">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1321,7 +1304,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="fEV-cs-9RM">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1330,7 +1313,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="I0C-g3-3MK">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1339,7 +1322,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="mU7-rv-ozF">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1348,7 +1331,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="PQu-pY-JOj">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1357,7 +1340,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="ibO-Ta-idx">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1367,7 +1350,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wou-sA-KTz">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3hU-FK-08R">
@@ -1375,7 +1358,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Ma1-in-rTt" id="6bw-Nb-iDX">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="DuE-tK-bcv">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="Ma1-in-rTt"/>
@@ -1389,7 +1372,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="OxA-Na-zmy">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1407,14 +1390,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xRt-mQ-9lV">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRO-vb-N2Q">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="yO7-wo-gMW">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1423,7 +1406,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="TVa-Rv-0rk">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1432,7 +1415,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="3oE-pM-XHn">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1441,7 +1424,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="AW8-5m-yp2">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1450,7 +1433,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="uab-qo-zTD">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1459,7 +1442,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="tnu-Kj-ARP">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1468,7 +1451,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="5l8-jd-0eE">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1477,7 +1460,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="oFD-EJ-KRV">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1486,7 +1469,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="Tlp-Jw-z25">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1495,7 +1478,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="9LO-rg-71b">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1504,7 +1487,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="COg-Hg-g2D">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -1519,7 +1502,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="AZH-xd-BDu" id="mLt-oY-7gS">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="Jsf-ub-xhx">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="AZH-xd-BDu"/>
@@ -1539,7 +1522,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="z1N-8g-WAU">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1548,7 +1531,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="eqD-Ud-tMw">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1557,7 +1540,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="dZY-L2-Izg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1566,7 +1549,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="KfC-Ql-NjD">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1575,7 +1558,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="cEu-5H-HbY">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1584,7 +1567,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="Nl7-Oa-17k">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1593,7 +1576,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="9Y6-5b-cUr">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1603,7 +1586,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Cal-5V-guy">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tbz-yW-kkL">
@@ -1611,7 +1594,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="DKs-aq-MNT" id="9hq-wL-AXs">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="U4s-9I-Utv">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="DKs-aq-MNT"/>
@@ -1625,7 +1608,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="YLG-ug-a5K">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1643,14 +1626,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PPG-Ad-NHD">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPZ-1l-y1g">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="V1p-tC-ag8">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1659,7 +1642,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="GDM-z5-Z5g">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1668,7 +1651,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="mKg-oa-Aiy">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1677,7 +1660,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="uOJ-Df-yg8">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1686,7 +1669,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="VlA-V6-cMD">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1695,7 +1678,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="wsk-S6-gBV">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1704,7 +1687,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="Pob-Yu-Sq1">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1713,7 +1696,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="h8z-VK-o9S">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1722,7 +1705,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="2Vo-wm-yjx">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1731,7 +1714,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="ahE-Bv-KP5">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1740,7 +1723,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="Gxm-dp-Re3">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -1755,7 +1738,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="ERH-td-8T7" id="hKW-9Y-djy">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="rQj-ZI-AK4">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="ERH-td-8T7"/>
@@ -1775,7 +1758,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="1ob-77-O91">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1784,7 +1767,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="gbW-lQ-A9v">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1793,7 +1776,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="riK-PY-eZG">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1802,7 +1785,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="bYb-IN-xDd">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1811,7 +1794,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="pB9-Ld-WiH">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1820,7 +1803,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="dU8-3p-OUg">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1829,7 +1812,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="OOm-Dm-WcA">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1839,7 +1822,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="DMu-52-l0p">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uiy-Sd-jb8">
@@ -1847,7 +1830,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="2eO-mM-Gk7" id="ICr-fV-G5y">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="tvj-zy-Rbu">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="2eO-mM-Gk7"/>
@@ -1861,7 +1844,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="7vf-oU-2Ge">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1879,14 +1862,14 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hC8-mI-yeQ">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLw-sV-cov">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI ID" id="nxP-uD-tgL">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1895,7 +1878,7 @@
                                             <rect key="frame" x="137" y="257" width="79" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Type" id="VAU-fx-PX1">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1904,7 +1887,7 @@
                                             <rect key="frame" x="137" y="232" width="126" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SD card start sector" id="Kfy-or-rGZ">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1913,7 +1896,7 @@
                                             <rect key="frame" x="137" y="207" width="120" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Size (bytes)" id="b5n-0r-5ER">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1922,7 +1905,7 @@
                                             <rect key="frame" x="137" y="182" width="85" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Sector Count" id="W3S-Y7-TI6">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1931,7 +1914,7 @@
                                             <rect key="frame" x="137" y="157" width="75" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Device Size" id="21A-ly-ESX">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1940,7 +1923,7 @@
                                             <rect key="frame" x="137" y="132" width="48" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Vendor" id="dKF-vM-kHk">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1949,7 +1932,7 @@
                                             <rect key="frame" x="137" y="107" width="69" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Product ID" id="7fS-H4-Ba7">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1958,7 +1941,7 @@
                                             <rect key="frame" x="137" y="82" width="55" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Revision" id="gBw-HZ-oJY">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1967,7 +1950,7 @@
                                             <rect key="frame" x="137" y="57" width="90" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Serial Number" id="AeL-dO-CSe">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -1976,7 +1959,7 @@
                                             <rect key="frame" x="362" y="275" width="151" height="26"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="x1U-GS-lS6">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <objectValues>
@@ -1991,7 +1974,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="Hard Drive" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="dFU-7G-gdt" id="D8F-9B-LkG">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="9aV-uT-G18">
                                                     <items>
                                                         <menuItem title="Hard Drive" state="on" id="dFU-7G-gdt"/>
@@ -2011,7 +1994,7 @@
                                             <rect key="frame" x="362" y="230" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="lie-7J-aWo">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2020,7 +2003,7 @@
                                             <rect key="frame" x="362" y="205" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="512" drawsBackground="YES" id="EGz-W9-v81">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2029,7 +2012,7 @@
                                             <rect key="frame" x="362" y="179" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="4194304" drawsBackground="YES" id="WIW-Sb-wez">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2038,7 +2021,7 @@
                                             <rect key="frame" x="362" y="152" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="2" drawsBackground="YES" id="PNa-ge-1Rd">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2047,7 +2030,7 @@
                                             <rect key="frame" x="362" y="127" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="codesrc" drawsBackground="YES" id="biu-KF-IdC">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2056,7 +2039,7 @@
                                             <rect key="frame" x="362" y="102" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="SCSI2SD" drawsBackground="YES" id="vq8-Dp-ljq">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2065,7 +2048,7 @@
                                             <rect key="frame" x="362" y="77" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="6.0" drawsBackground="YES" id="VI6-Tc-tN9">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2075,7 +2058,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="gDO-yk-lce">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cnL-Uu-Jpg">
@@ -2083,7 +2066,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="GB" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="xhP-bg-Ug3" id="4Wa-XJ-vcS">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <menu key="menu" id="0GZ-a6-hJg">
                                                     <items>
                                                         <menuItem title="GB" state="on" id="xhP-bg-Ug3"/>
@@ -2097,7 +2080,7 @@
                                             <rect key="frame" x="362" y="52" width="151" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="123456789123456789" drawsBackground="YES" id="giA-Gc-KFr">
-                                                <font key="font" metaFont="system"/>
+                                                <font key="font" metaFont="label" size="13"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -2125,7 +2108,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <buttonCell key="cell" type="check" title="Enable SCSI terminator" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MwZ-5r-D7g">
                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                <font key="font" metaFont="system"/>
+                <font key="font" metaFont="label" size="13"/>
             </buttonCell>
             <point key="canvasLocation" x="46" y="3"/>
         </button>

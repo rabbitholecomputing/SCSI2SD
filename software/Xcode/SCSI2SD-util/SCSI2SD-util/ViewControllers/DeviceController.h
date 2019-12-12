@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
 
 - (TargetConfig *) generateTargetConfig;
+- (NSString *) toXml;
 
 @end
 

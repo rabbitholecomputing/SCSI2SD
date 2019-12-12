@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) toXml;
 - (void) fromXml: (NSXMLElement *)node;
 
+- (BOOL) evaluate;
 @end
 
 NS_ASSUME_NONNULL_END

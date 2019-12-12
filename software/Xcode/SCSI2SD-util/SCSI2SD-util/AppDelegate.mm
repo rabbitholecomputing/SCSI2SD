@@ -33,6 +33,26 @@ enum
     ID_OpenFile
 };
 
+static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
+{
+    uint8_t a;
+    for(a = 0; a < cnt; a++)
+    {
+        uint8_t data = chr[a];
+        uint8_t i;
+        for(i = 0; i < 8; i++)
+        {
+            crc <<= 1;
+            if ((data & 0x80) ^ (crc & 0x80))
+            {
+                crc ^= 0x09;
+            }
+            data <<= 1;
+        }
+    }
+    return crc & 0x7F;
+}
+
 void dumpSCSICommand(std::vector<uint8_t> buf)
 {
     /*
@@ -852,6 +872,7 @@ out:
 
 - (void) evaluate
 {
+    /*
     bool valid = true;
 
     // Check for duplicate SCSI IDs
@@ -866,12 +887,12 @@ out:
     {
         DeviceController *target = [deviceControllers objectAtIndex:i]; //  getTargetConfig];
     
-        [target setAutoStartSector: autoStartSector];
-        valid = myTargets[i]->evaluate() && valid;
-        if (myTargets[i]->isEnabled())
+        [target setAutoStartSectorValue: autoStartSector];
+        valid = [target evaluate] && valid;
+        if ([target isEnabled])
         {
             isTargetEnabled = true;
-            uint8_t scsiID = myTargets[i]->getSCSIId();
+            uint8_t scsiID = [target getSCSIIdVal];
             //if (find(enabledID, scsiID) != enabledID.end())
             {
                 myTargets[i]->setDuplicateID(true);
@@ -908,6 +929,7 @@ out:
     }
 
     valid = valid && isTargetEnabled; // Need at least one.
+     */
 /*
     mySaveButton->Enable(
         valid &&
@@ -918,6 +940,7 @@ out:
         myHID &&
         (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION));
  */
+    
 }
 
 @end

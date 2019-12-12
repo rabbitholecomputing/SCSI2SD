@@ -1,0 +1,6 @@
+C:\Users\Rabbit Hole Shipping\Google Drive\SCSI2SD\software\SCSI2SD\v5.6\USB_Bootloader.cydsn\USB_Bootloader.cyprj|fac6f18f-7ae2-45df-b9bf-b9a883a1215b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|3db43fd4-328c-4659-bfbb-5d81d5f65a0d
+C:\Users\Rabbit Hole Shipping\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|366fa57d-ce28-460e-8e8b-31d0762049cb
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|cec95f11-5d26-4cce-bf67-db230419bdba
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|c0f82d49-5d26-458c-af99-752779376b9b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|bc5ac1ed-f5dd-4f09-9b60-6a1b7a6e8b03

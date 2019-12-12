@@ -1,0 +1,1207 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_msc.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.USBFS_DispatchMSCClassRqst,"ax",%progbits
+  20              		.align	1
+  21              		.global	USBFS_DispatchMSCClassRqst
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	USBFS_DispatchMSCClassRqst, %function
+  25              	USBFS_DispatchMSCClassRqst:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\USBFS_msc.c"
+   1:Generated_Source\PSoC5/USBFS_msc.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC5/USBFS_msc.c **** * \file USBFS_cdc.c
+   3:Generated_Source\PSoC5/USBFS_msc.c **** * \version 3.20
+   4:Generated_Source\PSoC5/USBFS_msc.c **** *
+   5:Generated_Source\PSoC5/USBFS_msc.c **** * \brief
+   6:Generated_Source\PSoC5/USBFS_msc.c **** *  This file contains the USB MSC Class request handler and global API for MSC 
+   7:Generated_Source\PSoC5/USBFS_msc.c **** *  class.
+   8:Generated_Source\PSoC5/USBFS_msc.c **** *
+   9:Generated_Source\PSoC5/USBFS_msc.c **** * Related Document:
+  10:Generated_Source\PSoC5/USBFS_msc.c **** *  Universal Serial Bus Class Definitions for Communication Devices Version 1.1
+  11:Generated_Source\PSoC5/USBFS_msc.c **** *
+  12:Generated_Source\PSoC5/USBFS_msc.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/USBFS_msc.c **** * \copyright
+  14:Generated_Source\PSoC5/USBFS_msc.c **** * Copyright 2012-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  15:Generated_Source\PSoC5/USBFS_msc.c **** * You may use this file only in accordance with the license, terms, conditions,
+  16:Generated_Source\PSoC5/USBFS_msc.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  17:Generated_Source\PSoC5/USBFS_msc.c **** * the software package with which this file was provided.
+  18:Generated_Source\PSoC5/USBFS_msc.c **** *******************************************************************************/
+  19:Generated_Source\PSoC5/USBFS_msc.c **** 
+  20:Generated_Source\PSoC5/USBFS_msc.c **** #include "USBFS_msc.h"
+  21:Generated_Source\PSoC5/USBFS_msc.c **** #include "USBFS_pvt.h"
+  22:Generated_Source\PSoC5/USBFS_msc.c **** 
+  23:Generated_Source\PSoC5/USBFS_msc.c **** 
+  24:Generated_Source\PSoC5/USBFS_msc.c **** #if (USBFS_HANDLE_MSC_REQUESTS)
+  25:Generated_Source\PSoC5/USBFS_msc.c **** 
+  26:Generated_Source\PSoC5/USBFS_msc.c **** /***************************************
+  27:Generated_Source\PSoC5/USBFS_msc.c **** *          Internal variables
+  28:Generated_Source\PSoC5/USBFS_msc.c **** ***************************************/
+  29:Generated_Source\PSoC5/USBFS_msc.c **** 
+  30:Generated_Source\PSoC5/USBFS_msc.c **** static uint8 USBFS_lunCount = USBFS_MSC_LUN_NUMBER;
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 2
+
+
+  31:Generated_Source\PSoC5/USBFS_msc.c **** 
+  32:Generated_Source\PSoC5/USBFS_msc.c **** 
+  33:Generated_Source\PSoC5/USBFS_msc.c **** /*******************************************************************************
+  34:Generated_Source\PSoC5/USBFS_msc.c **** * Function Name: USBFS_DispatchMSCClassRqst
+  35:Generated_Source\PSoC5/USBFS_msc.c **** ****************************************************************************//**
+  36:Generated_Source\PSoC5/USBFS_msc.c **** *   
+  37:Generated_Source\PSoC5/USBFS_msc.c **** *  \internal 
+  38:Generated_Source\PSoC5/USBFS_msc.c **** *  This routine dispatches MSC class requests.
+  39:Generated_Source\PSoC5/USBFS_msc.c **** *
+  40:Generated_Source\PSoC5/USBFS_msc.c **** * \return
+  41:Generated_Source\PSoC5/USBFS_msc.c **** *  Status of request processing: handled or not handled.
+  42:Generated_Source\PSoC5/USBFS_msc.c **** *
+  43:Generated_Source\PSoC5/USBFS_msc.c **** * \globalvars
+  44:Generated_Source\PSoC5/USBFS_msc.c **** *  USBFS_lunCount - stores number of LUN (logical units).
+  45:Generated_Source\PSoC5/USBFS_msc.c **** *
+  46:Generated_Source\PSoC5/USBFS_msc.c **** * \reentrant
+  47:Generated_Source\PSoC5/USBFS_msc.c **** *  No.
+  48:Generated_Source\PSoC5/USBFS_msc.c **** *
+  49:Generated_Source\PSoC5/USBFS_msc.c **** *******************************************************************************/
+  50:Generated_Source\PSoC5/USBFS_msc.c **** uint8 USBFS_DispatchMSCClassRqst(void) 
+  51:Generated_Source\PSoC5/USBFS_msc.c **** {
+  28              		.loc 1 51 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  52:Generated_Source\PSoC5/USBFS_msc.c ****     uint8 requestHandled = USBFS_FALSE;
+  53:Generated_Source\PSoC5/USBFS_msc.c ****     
+  54:Generated_Source\PSoC5/USBFS_msc.c ****     /* Get request data. */
+  55:Generated_Source\PSoC5/USBFS_msc.c ****     uint16 value  = USBFS_GET_UINT16(USBFS_wValueHiReg,  USBFS_wValueLoReg);
+  34              		.loc 1 55 0
+  35 0000 104B     		ldr	r3, .L11
+  36 0002 D978     		ldrb	r1, [r3, #3]	@ zero_extendqisi2
+  37 0004 9A78     		ldrb	r2, [r3, #2]	@ zero_extendqisi2
+  56:Generated_Source\PSoC5/USBFS_msc.c ****     uint16 dataLength = USBFS_GET_UINT16(USBFS_wLengthHiReg, USBFS_wLengthLoReg);
+  38              		.loc 1 56 0
+  39 0006 D879     		ldrb	r0, [r3, #7]	@ zero_extendqisi2
+  55:Generated_Source\PSoC5/USBFS_msc.c ****     uint16 dataLength = USBFS_GET_UINT16(USBFS_wLengthHiReg, USBFS_wLengthLoReg);
+  40              		.loc 1 55 0
+  41 0008 42EA0121 		orr	r1, r2, r1, lsl #8
+  42              	.LVL1:
+  43              		.loc 1 56 0
+  44 000c 9A79     		ldrb	r2, [r3, #6]	@ zero_extendqisi2
+  45 000e 42EA0022 		orr	r2, r2, r0, lsl #8
+  46              	.LVL2:
+  57:Generated_Source\PSoC5/USBFS_msc.c ****        
+  58:Generated_Source\PSoC5/USBFS_msc.c ****     /* Check request direction: D2H or H2D. */
+  59:Generated_Source\PSoC5/USBFS_msc.c ****     if (0u != (USBFS_bmRequestTypeReg & USBFS_RQST_DIR_D2H))
+  47              		.loc 1 59 0
+  48 0012 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+  60:Generated_Source\PSoC5/USBFS_msc.c ****     {
+  61:Generated_Source\PSoC5/USBFS_msc.c ****         /* Handle direction from device to host. */
+  62:Generated_Source\PSoC5/USBFS_msc.c ****         
+  63:Generated_Source\PSoC5/USBFS_msc.c ****         if (USBFS_MSC_GET_MAX_LUN == USBFS_bRequestReg)
+  49              		.loc 1 63 0
+  50 0014 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 3
+
+
+  59:Generated_Source\PSoC5/USBFS_msc.c ****     {
+  51              		.loc 1 59 0
+  52 0016 0006     		lsls	r0, r0, #24
+  53 0018 0AD5     		bpl	.L2
+  54              		.loc 1 63 0
+  55 001a FE2B     		cmp	r3, #254
+  56 001c 10D1     		bne	.L3
+  64:Generated_Source\PSoC5/USBFS_msc.c ****         {
+  65:Generated_Source\PSoC5/USBFS_msc.c ****             /* Check request fields. */
+  66:Generated_Source\PSoC5/USBFS_msc.c ****             if ((value  == USBFS_MSC_GET_MAX_LUN_WVALUE) &&
+  57              		.loc 1 66 0
+  58 001e 79B9     		cbnz	r1, .L3
+  59              		.loc 1 66 0 is_stmt 0 discriminator 1
+  60 0020 012A     		cmp	r2, #1
+  61 0022 0DD1     		bne	.L3
+  67:Generated_Source\PSoC5/USBFS_msc.c ****                 (dataLength == USBFS_MSC_GET_MAX_LUN_WLENGTH))
+  68:Generated_Source\PSoC5/USBFS_msc.c ****             {
+  69:Generated_Source\PSoC5/USBFS_msc.c ****                 /* Reply to Get Max LUN request: setup control read. */
+  70:Generated_Source\PSoC5/USBFS_msc.c ****                 USBFS_currentTD.pData = &USBFS_lunCount;
+  62              		.loc 1 70 0 is_stmt 1
+  63 0024 084B     		ldr	r3, .L11+4
+  64 0026 0949     		ldr	r1, .L11+8
+  65              	.LVL3:
+  66 0028 5960     		str	r1, [r3, #4]
+  71:Generated_Source\PSoC5/USBFS_msc.c ****                 USBFS_currentTD.count =  USBFS_MSC_GET_MAX_LUN_WLENGTH;
+  67              		.loc 1 71 0
+  68 002a 1A80     		strh	r2, [r3]	@ movhi
+  72:Generated_Source\PSoC5/USBFS_msc.c ****                 
+  73:Generated_Source\PSoC5/USBFS_msc.c ****                 requestHandled  = USBFS_InitControlRead();
+  69              		.loc 1 73 0
+  70 002c FFF7FEBF 		b	USBFS_InitControlRead
+  71              	.LVL4:
+  72              	.L2:
+  74:Generated_Source\PSoC5/USBFS_msc.c ****             }
+  75:Generated_Source\PSoC5/USBFS_msc.c ****         }
+  76:Generated_Source\PSoC5/USBFS_msc.c ****     }
+  77:Generated_Source\PSoC5/USBFS_msc.c ****     else
+  78:Generated_Source\PSoC5/USBFS_msc.c ****     {
+  79:Generated_Source\PSoC5/USBFS_msc.c ****         /* Handle direction from host to device. */
+  80:Generated_Source\PSoC5/USBFS_msc.c ****         
+  81:Generated_Source\PSoC5/USBFS_msc.c ****         if (USBFS_MSC_RESET == USBFS_bRequestReg)
+  73              		.loc 1 81 0
+  74 0030 FF2B     		cmp	r3, #255
+  75 0032 05D1     		bne	.L3
+  82:Generated_Source\PSoC5/USBFS_msc.c ****         {
+  83:Generated_Source\PSoC5/USBFS_msc.c ****             /* Check request fields. */
+  84:Generated_Source\PSoC5/USBFS_msc.c ****             if ((value  == USBFS_MSC_RESET_WVALUE) &&
+  76              		.loc 1 84 0
+  77 0034 21B9     		cbnz	r1, .L3
+  78              		.loc 1 84 0 is_stmt 0 discriminator 1
+  79 0036 1AB9     		cbnz	r2, .L3
+  85:Generated_Source\PSoC5/USBFS_msc.c ****                 (dataLength == USBFS_MSC_RESET_WLENGTH))
+  86:Generated_Source\PSoC5/USBFS_msc.c ****             {
+  87:Generated_Source\PSoC5/USBFS_msc.c ****                 /* Handle to Bulk-Only Reset request: no data control transfer. */
+  88:Generated_Source\PSoC5/USBFS_msc.c ****                 USBFS_currentTD.count = USBFS_MSC_RESET_WLENGTH;
+  80              		.loc 1 88 0 is_stmt 1
+  81 0038 034B     		ldr	r3, .L11+4
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 4
+
+
+  82 003a 1A80     		strh	r2, [r3]	@ movhi
+  89:Generated_Source\PSoC5/USBFS_msc.c ****                 
+  90:Generated_Source\PSoC5/USBFS_msc.c ****             #ifdef USBFS_DISPATCH_MSC_CLASS_MSC_RESET_RQST_CALLBACK
+  91:Generated_Source\PSoC5/USBFS_msc.c ****                 USBFS_DispatchMSCClass_MSC_RESET_RQST_Callback();
+  92:Generated_Source\PSoC5/USBFS_msc.c ****             #endif /* (USBFS_DISPATCH_MSC_CLASS_MSC_RESET_RQST_CALLBACK) */
+  93:Generated_Source\PSoC5/USBFS_msc.c ****                 
+  94:Generated_Source\PSoC5/USBFS_msc.c ****                 requestHandled = USBFS_InitNoDataControlTransfer();
+  83              		.loc 1 94 0
+  84 003c FFF7FEBF 		b	USBFS_InitNoDataControlTransfer
+  85              	.LVL5:
+  86              	.L3:
+  95:Generated_Source\PSoC5/USBFS_msc.c ****             }
+  96:Generated_Source\PSoC5/USBFS_msc.c ****         }
+  97:Generated_Source\PSoC5/USBFS_msc.c ****     }
+  98:Generated_Source\PSoC5/USBFS_msc.c ****     
+  99:Generated_Source\PSoC5/USBFS_msc.c ****     return (requestHandled);
+ 100:Generated_Source\PSoC5/USBFS_msc.c **** }
+  87              		.loc 1 100 0
+  88 0040 0020     		movs	r0, #0
+  89 0042 7047     		bx	lr
+  90              	.L12:
+  91              		.align	2
+  92              	.L11:
+  93 0044 00600040 		.word	1073766400
+  94 0048 00000000 		.word	USBFS_currentTD
+  95 004c 00000000 		.word	.LANCHOR0
+  96              		.cfi_endproc
+  97              	.LFE0:
+  98              		.size	USBFS_DispatchMSCClassRqst, .-USBFS_DispatchMSCClassRqst
+  99              		.section	.text.USBFS_MSC_SetLunCount,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	USBFS_MSC_SetLunCount
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.type	USBFS_MSC_SetLunCount, %function
+ 105              	USBFS_MSC_SetLunCount:
+ 106              	.LFB1:
+ 101:Generated_Source\PSoC5/USBFS_msc.c **** 
+ 102:Generated_Source\PSoC5/USBFS_msc.c **** 
+ 103:Generated_Source\PSoC5/USBFS_msc.c **** /*******************************************************************************
+ 104:Generated_Source\PSoC5/USBFS_msc.c **** * Function Name: USBFS_MSC_SetLunCount
+ 105:Generated_Source\PSoC5/USBFS_msc.c **** ****************************************************************************//**
+ 106:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 107:Generated_Source\PSoC5/USBFS_msc.c **** *  This function sets the number of logical units supported in the application. 
+ 108:Generated_Source\PSoC5/USBFS_msc.c **** *  The default number of logical units is set in the component customizer.
+ 109:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 110:Generated_Source\PSoC5/USBFS_msc.c **** *  \param lunCount: Count of the logical units. Valid range is between 1 and 16.
+ 111:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 112:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 113:Generated_Source\PSoC5/USBFS_msc.c **** * \globalvars
+ 114:Generated_Source\PSoC5/USBFS_msc.c **** *  USBFS_lunCount - stores number of LUN (logical units).
+ 115:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 116:Generated_Source\PSoC5/USBFS_msc.c **** * \reentrant
+ 117:Generated_Source\PSoC5/USBFS_msc.c **** *  No.
+ 118:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 119:Generated_Source\PSoC5/USBFS_msc.c **** *******************************************************************************/
+ 120:Generated_Source\PSoC5/USBFS_msc.c **** void USBFS_MSC_SetLunCount(uint8 lunCount) 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 5
+
+
+ 121:Generated_Source\PSoC5/USBFS_msc.c **** {
+ 107              		.loc 1 121 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112              	.LVL6:
+ 122:Generated_Source\PSoC5/USBFS_msc.c ****     USBFS_lunCount = (lunCount - 1u);
+ 113              		.loc 1 122 0
+ 114 0000 014B     		ldr	r3, .L14
+ 115 0002 0138     		subs	r0, r0, #1
+ 116              	.LVL7:
+ 117 0004 1870     		strb	r0, [r3]
+ 118 0006 7047     		bx	lr
+ 119              	.L15:
+ 120              		.align	2
+ 121              	.L14:
+ 122 0008 00000000 		.word	.LANCHOR0
+ 123              		.cfi_endproc
+ 124              	.LFE1:
+ 125              		.size	USBFS_MSC_SetLunCount, .-USBFS_MSC_SetLunCount
+ 126              		.section	.text.USBFS_MSC_GetLunCount,"ax",%progbits
+ 127              		.align	1
+ 128              		.global	USBFS_MSC_GetLunCount
+ 129              		.thumb
+ 130              		.thumb_func
+ 131              		.type	USBFS_MSC_GetLunCount, %function
+ 132              	USBFS_MSC_GetLunCount:
+ 133              	.LFB2:
+ 123:Generated_Source\PSoC5/USBFS_msc.c **** }
+ 124:Generated_Source\PSoC5/USBFS_msc.c **** 
+ 125:Generated_Source\PSoC5/USBFS_msc.c **** 
+ 126:Generated_Source\PSoC5/USBFS_msc.c **** /*******************************************************************************
+ 127:Generated_Source\PSoC5/USBFS_msc.c **** * Function Name: USBFS_MSC_GetLunCount
+ 128:Generated_Source\PSoC5/USBFS_msc.c **** ****************************************************************************//**
+ 129:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 130:Generated_Source\PSoC5/USBFS_msc.c **** *  This function returns the number of logical units.
+ 131:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 132:Generated_Source\PSoC5/USBFS_msc.c **** * \return
+ 133:Generated_Source\PSoC5/USBFS_msc.c **** *   Number of the logical units.
+ 134:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 135:Generated_Source\PSoC5/USBFS_msc.c **** * \globalvars
+ 136:Generated_Source\PSoC5/USBFS_msc.c **** *  USBFS_lunCount - stores number of LUN (logical units).
+ 137:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 138:Generated_Source\PSoC5/USBFS_msc.c **** * \reentrant
+ 139:Generated_Source\PSoC5/USBFS_msc.c **** *  No.
+ 140:Generated_Source\PSoC5/USBFS_msc.c **** *
+ 141:Generated_Source\PSoC5/USBFS_msc.c **** *******************************************************************************/
+ 142:Generated_Source\PSoC5/USBFS_msc.c **** uint8 USBFS_MSC_GetLunCount(void) 
+ 143:Generated_Source\PSoC5/USBFS_msc.c **** {
+ 134              		.loc 1 143 0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              		@ link register save eliminated.
+ 144:Generated_Source\PSoC5/USBFS_msc.c ****     return (USBFS_lunCount + 1u);
+ 139              		.loc 1 144 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 6
+
+
+ 140 0000 024B     		ldr	r3, .L17
+ 141 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 142 0004 0130     		adds	r0, r0, #1
+ 145:Generated_Source\PSoC5/USBFS_msc.c **** }   
+ 143              		.loc 1 145 0
+ 144 0006 C0B2     		uxtb	r0, r0
+ 145 0008 7047     		bx	lr
+ 146              	.L18:
+ 147 000a 00BF     		.align	2
+ 148              	.L17:
+ 149 000c 00000000 		.word	.LANCHOR0
+ 150              		.cfi_endproc
+ 151              	.LFE2:
+ 152              		.size	USBFS_MSC_GetLunCount, .-USBFS_MSC_GetLunCount
+ 153              		.bss
+ 154              		.set	.LANCHOR0,. + 0
+ 155              		.type	USBFS_lunCount, %object
+ 156              		.size	USBFS_lunCount, 1
+ 157              	USBFS_lunCount:
+ 158 0000 00       		.space	1
+ 159              		.text
+ 160              	.Letext0:
+ 161              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 162              		.file 3 "Generated_Source\\PSoC5\\USBFS.h"
+ 163              		.file 4 "Generated_Source\\PSoC5\\USBFS_pvt.h"
+ 164              		.section	.debug_info,"",%progbits
+ 165              	.Ldebug_info0:
+ 166 0000 12020000 		.4byte	0x212
+ 167 0004 0400     		.2byte	0x4
+ 168 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 169 000a 04       		.byte	0x4
+ 170 000b 01       		.uleb128 0x1
+ 171 000c 94000000 		.4byte	.LASF31
+ 172 0010 0C       		.byte	0xc
+ 173 0011 50020000 		.4byte	.LASF32
+ 174 0015 98010000 		.4byte	.LASF33
+ 175 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 176 001d 00000000 		.4byte	0
+ 177 0021 00000000 		.4byte	.Ldebug_line0
+ 178 0025 02       		.uleb128 0x2
+ 179 0026 01       		.byte	0x1
+ 180 0027 06       		.byte	0x6
+ 181 0028 E2020000 		.4byte	.LASF0
+ 182 002c 02       		.uleb128 0x2
+ 183 002d 01       		.byte	0x1
+ 184 002e 08       		.byte	0x8
+ 185 002f 6C000000 		.4byte	.LASF1
+ 186 0033 02       		.uleb128 0x2
+ 187 0034 02       		.byte	0x2
+ 188 0035 05       		.byte	0x5
+ 189 0036 99020000 		.4byte	.LASF2
+ 190 003a 02       		.uleb128 0x2
+ 191 003b 02       		.byte	0x2
+ 192 003c 07       		.byte	0x7
+ 193 003d 19000000 		.4byte	.LASF3
+ 194 0041 02       		.uleb128 0x2
+ 195 0042 04       		.byte	0x4
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 7
+
+
+ 196 0043 05       		.byte	0x5
+ 197 0044 B2020000 		.4byte	.LASF4
+ 198 0048 02       		.uleb128 0x2
+ 199 0049 04       		.byte	0x4
+ 200 004a 07       		.byte	0x7
+ 201 004b F6010000 		.4byte	.LASF5
+ 202 004f 02       		.uleb128 0x2
+ 203 0050 08       		.byte	0x8
+ 204 0051 05       		.byte	0x5
+ 205 0052 7C020000 		.4byte	.LASF6
+ 206 0056 02       		.uleb128 0x2
+ 207 0057 08       		.byte	0x8
+ 208 0058 07       		.byte	0x7
+ 209 0059 15020000 		.4byte	.LASF7
+ 210 005d 03       		.uleb128 0x3
+ 211 005e 04       		.byte	0x4
+ 212 005f 05       		.byte	0x5
+ 213 0060 696E7400 		.ascii	"int\000"
+ 214 0064 02       		.uleb128 0x2
+ 215 0065 04       		.byte	0x4
+ 216 0066 07       		.byte	0x7
+ 217 0067 08020000 		.4byte	.LASF8
+ 218 006b 04       		.uleb128 0x4
+ 219 006c 22010000 		.4byte	.LASF9
+ 220 0070 02       		.byte	0x2
+ 221 0071 9201     		.2byte	0x192
+ 222 0073 2C000000 		.4byte	0x2c
+ 223 0077 04       		.uleb128 0x4
+ 224 0078 91010000 		.4byte	.LASF10
+ 225 007c 02       		.byte	0x2
+ 226 007d 9301     		.2byte	0x193
+ 227 007f 3A000000 		.4byte	0x3a
+ 228 0083 02       		.uleb128 0x2
+ 229 0084 04       		.byte	0x4
+ 230 0085 04       		.byte	0x4
+ 231 0086 66000000 		.4byte	.LASF11
+ 232 008a 02       		.uleb128 0x2
+ 233 008b 08       		.byte	0x8
+ 234 008c 04       		.byte	0x4
+ 235 008d 5E010000 		.4byte	.LASF12
+ 236 0091 02       		.uleb128 0x2
+ 237 0092 01       		.byte	0x1
+ 238 0093 08       		.byte	0x8
+ 239 0094 BB020000 		.4byte	.LASF13
+ 240 0098 05       		.uleb128 0x5
+ 241 0099 6B000000 		.4byte	0x6b
+ 242 009d 02       		.uleb128 0x2
+ 243 009e 08       		.byte	0x8
+ 244 009f 04       		.byte	0x4
+ 245 00a0 C0020000 		.4byte	.LASF14
+ 246 00a4 02       		.uleb128 0x2
+ 247 00a5 04       		.byte	0x4
+ 248 00a6 07       		.byte	0x7
+ 249 00a7 73020000 		.4byte	.LASF15
+ 250 00ab 06       		.uleb128 0x6
+ 251 00ac 04       		.byte	0x4
+ 252 00ad 03       		.byte	0x3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 8
+
+
+ 253 00ae AB       		.byte	0xab
+ 254 00af CC000000 		.4byte	0xcc
+ 255 00b3 07       		.uleb128 0x7
+ 256 00b4 2C000000 		.4byte	.LASF16
+ 257 00b8 03       		.byte	0x3
+ 258 00b9 AD       		.byte	0xad
+ 259 00ba 6B000000 		.4byte	0x6b
+ 260 00be 00       		.byte	0
+ 261 00bf 07       		.uleb128 0x7
+ 262 00c0 EE020000 		.4byte	.LASF17
+ 263 00c4 03       		.byte	0x3
+ 264 00c5 AE       		.byte	0xae
+ 265 00c6 77000000 		.4byte	0x77
+ 266 00ca 02       		.byte	0x2
+ 267 00cb 00       		.byte	0
+ 268 00cc 08       		.uleb128 0x8
+ 269 00cd 7A000000 		.4byte	.LASF18
+ 270 00d1 03       		.byte	0x3
+ 271 00d2 AF       		.byte	0xaf
+ 272 00d3 AB000000 		.4byte	0xab
+ 273 00d7 06       		.uleb128 0x6
+ 274 00d8 0C       		.byte	0xc
+ 275 00d9 03       		.byte	0x3
+ 276 00da B1       		.byte	0xb1
+ 277 00db 04010000 		.4byte	0x104
+ 278 00df 07       		.uleb128 0x7
+ 279 00e0 13000000 		.4byte	.LASF19
+ 280 00e4 03       		.byte	0x3
+ 281 00e5 B3       		.byte	0xb3
+ 282 00e6 77000000 		.4byte	0x77
+ 283 00ea 00       		.byte	0
+ 284 00eb 07       		.uleb128 0x7
+ 285 00ec 4E000000 		.4byte	.LASF20
+ 286 00f0 03       		.byte	0x3
+ 287 00f1 B4       		.byte	0xb4
+ 288 00f2 04010000 		.4byte	0x104
+ 289 00f6 04       		.byte	0x4
+ 290 00f7 07       		.uleb128 0x7
+ 291 00f8 00000000 		.4byte	.LASF21
+ 292 00fc 03       		.byte	0x3
+ 293 00fd B5       		.byte	0xb5
+ 294 00fe 0A010000 		.4byte	0x10a
+ 295 0102 08       		.byte	0x8
+ 296 0103 00       		.byte	0
+ 297 0104 09       		.uleb128 0x9
+ 298 0105 04       		.byte	0x4
+ 299 0106 98000000 		.4byte	0x98
+ 300 010a 09       		.uleb128 0x9
+ 301 010b 04       		.byte	0x4
+ 302 010c CC000000 		.4byte	0xcc
+ 303 0110 08       		.uleb128 0x8
+ 304 0111 5B000000 		.4byte	.LASF22
+ 305 0115 03       		.byte	0x3
+ 306 0116 B6       		.byte	0xb6
+ 307 0117 D7000000 		.4byte	0xd7
+ 308 011b 06       		.uleb128 0x6
+ 309 011c 08       		.byte	0x8
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 9
+
+
+ 310 011d 03       		.byte	0x3
+ 311 011e CC       		.byte	0xcc
+ 312 011f 30010000 		.4byte	0x130
+ 313 0123 07       		.uleb128 0x7
+ 314 0124 54000000 		.4byte	.LASF23
+ 315 0128 03       		.byte	0x3
+ 316 0129 CE       		.byte	0xce
+ 317 012a 30010000 		.4byte	0x130
+ 318 012e 00       		.byte	0
+ 319 012f 00       		.byte	0
+ 320 0130 0A       		.uleb128 0xa
+ 321 0131 6B000000 		.4byte	0x6b
+ 322 0135 40010000 		.4byte	0x140
+ 323 0139 0B       		.uleb128 0xb
+ 324 013a A4000000 		.4byte	0xa4
+ 325 013e 07       		.byte	0x7
+ 326 013f 00       		.byte	0
+ 327 0140 08       		.uleb128 0x8
+ 328 0141 48010000 		.4byte	.LASF24
+ 329 0145 03       		.byte	0x3
+ 330 0146 CF       		.byte	0xcf
+ 331 0147 1B010000 		.4byte	0x11b
+ 332 014b 0C       		.uleb128 0xc
+ 333 014c 33000000 		.4byte	.LASF34
+ 334 0150 01       		.byte	0x1
+ 335 0151 32       		.byte	0x32
+ 336 0152 6B000000 		.4byte	0x6b
+ 337 0156 00000000 		.4byte	.LFB0
+ 338 015a 50000000 		.4byte	.LFE0-.LFB0
+ 339 015e 01       		.uleb128 0x1
+ 340 015f 9C       		.byte	0x9c
+ 341 0160 A4010000 		.4byte	0x1a4
+ 342 0164 0D       		.uleb128 0xd
+ 343 0165 A3020000 		.4byte	.LASF25
+ 344 0169 01       		.byte	0x1
+ 345 016a 34       		.byte	0x34
+ 346 016b 6B000000 		.4byte	0x6b
+ 347 016f 00000000 		.4byte	.LLST0
+ 348 0173 0D       		.uleb128 0xd
+ 349 0174 0D000000 		.4byte	.LASF26
+ 350 0178 01       		.byte	0x1
+ 351 0179 37       		.byte	0x37
+ 352 017a 77000000 		.4byte	0x77
+ 353 017e 14000000 		.4byte	.LLST1
+ 354 0182 0D       		.uleb128 0xd
+ 355 0183 35020000 		.4byte	.LASF27
+ 356 0187 01       		.byte	0x1
+ 357 0188 38       		.byte	0x38
+ 358 0189 77000000 		.4byte	0x77
+ 359 018d 3D000000 		.4byte	.LLST2
+ 360 0191 0E       		.uleb128 0xe
+ 361 0192 30000000 		.4byte	.LVL4
+ 362 0196 FF010000 		.4byte	0x1ff
+ 363 019a 0E       		.uleb128 0xe
+ 364 019b 40000000 		.4byte	.LVL5
+ 365 019f 0A020000 		.4byte	0x20a
+ 366 01a3 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 10
+
+
+ 367 01a4 0F       		.uleb128 0xf
+ 368 01a5 CC020000 		.4byte	.LASF35
+ 369 01a9 01       		.byte	0x1
+ 370 01aa 78       		.byte	0x78
+ 371 01ab 00000000 		.4byte	.LFB1
+ 372 01af 0C000000 		.4byte	.LFE1-.LFB1
+ 373 01b3 01       		.uleb128 0x1
+ 374 01b4 9C       		.byte	0x9c
+ 375 01b5 C9010000 		.4byte	0x1c9
+ 376 01b9 10       		.uleb128 0x10
+ 377 01ba 2C020000 		.4byte	.LASF36
+ 378 01be 01       		.byte	0x1
+ 379 01bf 78       		.byte	0x78
+ 380 01c0 6B000000 		.4byte	0x6b
+ 381 01c4 66000000 		.4byte	.LLST3
+ 382 01c8 00       		.byte	0
+ 383 01c9 11       		.uleb128 0x11
+ 384 01ca 7B010000 		.4byte	.LASF37
+ 385 01ce 01       		.byte	0x1
+ 386 01cf 8E       		.byte	0x8e
+ 387 01d0 6B000000 		.4byte	0x6b
+ 388 01d4 00000000 		.4byte	.LFB2
+ 389 01d8 10000000 		.4byte	.LFE2-.LFB2
+ 390 01dc 01       		.uleb128 0x1
+ 391 01dd 9C       		.byte	0x9c
+ 392 01de 12       		.uleb128 0x12
+ 393 01df 8A020000 		.4byte	.LASF28
+ 394 01e3 01       		.byte	0x1
+ 395 01e4 1E       		.byte	0x1e
+ 396 01e5 6B000000 		.4byte	0x6b
+ 397 01e9 05       		.uleb128 0x5
+ 398 01ea 03       		.byte	0x3
+ 399 01eb 00000000 		.4byte	USBFS_lunCount
+ 400 01ef 13       		.uleb128 0x13
+ 401 01f0 40020000 		.4byte	.LASF38
+ 402 01f4 04       		.byte	0x4
+ 403 01f5 85       		.byte	0x85
+ 404 01f6 FA010000 		.4byte	0x1fa
+ 405 01fa 05       		.uleb128 0x5
+ 406 01fb 10010000 		.4byte	0x110
+ 407 01ff 14       		.uleb128 0x14
+ 408 0200 65010000 		.4byte	.LASF29
+ 409 0204 65010000 		.4byte	.LASF29
+ 410 0208 04       		.byte	0x4
+ 411 0209 B4       		.byte	0xb4
+ 412 020a 14       		.uleb128 0x14
+ 413 020b 28010000 		.4byte	.LASF30
+ 414 020f 28010000 		.4byte	.LASF30
+ 415 0213 04       		.byte	0x4
+ 416 0214 BE       		.byte	0xbe
+ 417 0215 00       		.byte	0
+ 418              		.section	.debug_abbrev,"",%progbits
+ 419              	.Ldebug_abbrev0:
+ 420 0000 01       		.uleb128 0x1
+ 421 0001 11       		.uleb128 0x11
+ 422 0002 01       		.byte	0x1
+ 423 0003 25       		.uleb128 0x25
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 11
+
+
+ 424 0004 0E       		.uleb128 0xe
+ 425 0005 13       		.uleb128 0x13
+ 426 0006 0B       		.uleb128 0xb
+ 427 0007 03       		.uleb128 0x3
+ 428 0008 0E       		.uleb128 0xe
+ 429 0009 1B       		.uleb128 0x1b
+ 430 000a 0E       		.uleb128 0xe
+ 431 000b 55       		.uleb128 0x55
+ 432 000c 17       		.uleb128 0x17
+ 433 000d 11       		.uleb128 0x11
+ 434 000e 01       		.uleb128 0x1
+ 435 000f 10       		.uleb128 0x10
+ 436 0010 17       		.uleb128 0x17
+ 437 0011 00       		.byte	0
+ 438 0012 00       		.byte	0
+ 439 0013 02       		.uleb128 0x2
+ 440 0014 24       		.uleb128 0x24
+ 441 0015 00       		.byte	0
+ 442 0016 0B       		.uleb128 0xb
+ 443 0017 0B       		.uleb128 0xb
+ 444 0018 3E       		.uleb128 0x3e
+ 445 0019 0B       		.uleb128 0xb
+ 446 001a 03       		.uleb128 0x3
+ 447 001b 0E       		.uleb128 0xe
+ 448 001c 00       		.byte	0
+ 449 001d 00       		.byte	0
+ 450 001e 03       		.uleb128 0x3
+ 451 001f 24       		.uleb128 0x24
+ 452 0020 00       		.byte	0
+ 453 0021 0B       		.uleb128 0xb
+ 454 0022 0B       		.uleb128 0xb
+ 455 0023 3E       		.uleb128 0x3e
+ 456 0024 0B       		.uleb128 0xb
+ 457 0025 03       		.uleb128 0x3
+ 458 0026 08       		.uleb128 0x8
+ 459 0027 00       		.byte	0
+ 460 0028 00       		.byte	0
+ 461 0029 04       		.uleb128 0x4
+ 462 002a 16       		.uleb128 0x16
+ 463 002b 00       		.byte	0
+ 464 002c 03       		.uleb128 0x3
+ 465 002d 0E       		.uleb128 0xe
+ 466 002e 3A       		.uleb128 0x3a
+ 467 002f 0B       		.uleb128 0xb
+ 468 0030 3B       		.uleb128 0x3b
+ 469 0031 05       		.uleb128 0x5
+ 470 0032 49       		.uleb128 0x49
+ 471 0033 13       		.uleb128 0x13
+ 472 0034 00       		.byte	0
+ 473 0035 00       		.byte	0
+ 474 0036 05       		.uleb128 0x5
+ 475 0037 35       		.uleb128 0x35
+ 476 0038 00       		.byte	0
+ 477 0039 49       		.uleb128 0x49
+ 478 003a 13       		.uleb128 0x13
+ 479 003b 00       		.byte	0
+ 480 003c 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 12
+
+
+ 481 003d 06       		.uleb128 0x6
+ 482 003e 13       		.uleb128 0x13
+ 483 003f 01       		.byte	0x1
+ 484 0040 0B       		.uleb128 0xb
+ 485 0041 0B       		.uleb128 0xb
+ 486 0042 3A       		.uleb128 0x3a
+ 487 0043 0B       		.uleb128 0xb
+ 488 0044 3B       		.uleb128 0x3b
+ 489 0045 0B       		.uleb128 0xb
+ 490 0046 01       		.uleb128 0x1
+ 491 0047 13       		.uleb128 0x13
+ 492 0048 00       		.byte	0
+ 493 0049 00       		.byte	0
+ 494 004a 07       		.uleb128 0x7
+ 495 004b 0D       		.uleb128 0xd
+ 496 004c 00       		.byte	0
+ 497 004d 03       		.uleb128 0x3
+ 498 004e 0E       		.uleb128 0xe
+ 499 004f 3A       		.uleb128 0x3a
+ 500 0050 0B       		.uleb128 0xb
+ 501 0051 3B       		.uleb128 0x3b
+ 502 0052 0B       		.uleb128 0xb
+ 503 0053 49       		.uleb128 0x49
+ 504 0054 13       		.uleb128 0x13
+ 505 0055 38       		.uleb128 0x38
+ 506 0056 0B       		.uleb128 0xb
+ 507 0057 00       		.byte	0
+ 508 0058 00       		.byte	0
+ 509 0059 08       		.uleb128 0x8
+ 510 005a 16       		.uleb128 0x16
+ 511 005b 00       		.byte	0
+ 512 005c 03       		.uleb128 0x3
+ 513 005d 0E       		.uleb128 0xe
+ 514 005e 3A       		.uleb128 0x3a
+ 515 005f 0B       		.uleb128 0xb
+ 516 0060 3B       		.uleb128 0x3b
+ 517 0061 0B       		.uleb128 0xb
+ 518 0062 49       		.uleb128 0x49
+ 519 0063 13       		.uleb128 0x13
+ 520 0064 00       		.byte	0
+ 521 0065 00       		.byte	0
+ 522 0066 09       		.uleb128 0x9
+ 523 0067 0F       		.uleb128 0xf
+ 524 0068 00       		.byte	0
+ 525 0069 0B       		.uleb128 0xb
+ 526 006a 0B       		.uleb128 0xb
+ 527 006b 49       		.uleb128 0x49
+ 528 006c 13       		.uleb128 0x13
+ 529 006d 00       		.byte	0
+ 530 006e 00       		.byte	0
+ 531 006f 0A       		.uleb128 0xa
+ 532 0070 01       		.uleb128 0x1
+ 533 0071 01       		.byte	0x1
+ 534 0072 49       		.uleb128 0x49
+ 535 0073 13       		.uleb128 0x13
+ 536 0074 01       		.uleb128 0x1
+ 537 0075 13       		.uleb128 0x13
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 13
+
+
+ 538 0076 00       		.byte	0
+ 539 0077 00       		.byte	0
+ 540 0078 0B       		.uleb128 0xb
+ 541 0079 21       		.uleb128 0x21
+ 542 007a 00       		.byte	0
+ 543 007b 49       		.uleb128 0x49
+ 544 007c 13       		.uleb128 0x13
+ 545 007d 2F       		.uleb128 0x2f
+ 546 007e 0B       		.uleb128 0xb
+ 547 007f 00       		.byte	0
+ 548 0080 00       		.byte	0
+ 549 0081 0C       		.uleb128 0xc
+ 550 0082 2E       		.uleb128 0x2e
+ 551 0083 01       		.byte	0x1
+ 552 0084 3F       		.uleb128 0x3f
+ 553 0085 19       		.uleb128 0x19
+ 554 0086 03       		.uleb128 0x3
+ 555 0087 0E       		.uleb128 0xe
+ 556 0088 3A       		.uleb128 0x3a
+ 557 0089 0B       		.uleb128 0xb
+ 558 008a 3B       		.uleb128 0x3b
+ 559 008b 0B       		.uleb128 0xb
+ 560 008c 27       		.uleb128 0x27
+ 561 008d 19       		.uleb128 0x19
+ 562 008e 49       		.uleb128 0x49
+ 563 008f 13       		.uleb128 0x13
+ 564 0090 11       		.uleb128 0x11
+ 565 0091 01       		.uleb128 0x1
+ 566 0092 12       		.uleb128 0x12
+ 567 0093 06       		.uleb128 0x6
+ 568 0094 40       		.uleb128 0x40
+ 569 0095 18       		.uleb128 0x18
+ 570 0096 9742     		.uleb128 0x2117
+ 571 0098 19       		.uleb128 0x19
+ 572 0099 01       		.uleb128 0x1
+ 573 009a 13       		.uleb128 0x13
+ 574 009b 00       		.byte	0
+ 575 009c 00       		.byte	0
+ 576 009d 0D       		.uleb128 0xd
+ 577 009e 34       		.uleb128 0x34
+ 578 009f 00       		.byte	0
+ 579 00a0 03       		.uleb128 0x3
+ 580 00a1 0E       		.uleb128 0xe
+ 581 00a2 3A       		.uleb128 0x3a
+ 582 00a3 0B       		.uleb128 0xb
+ 583 00a4 3B       		.uleb128 0x3b
+ 584 00a5 0B       		.uleb128 0xb
+ 585 00a6 49       		.uleb128 0x49
+ 586 00a7 13       		.uleb128 0x13
+ 587 00a8 02       		.uleb128 0x2
+ 588 00a9 17       		.uleb128 0x17
+ 589 00aa 00       		.byte	0
+ 590 00ab 00       		.byte	0
+ 591 00ac 0E       		.uleb128 0xe
+ 592 00ad 898201   		.uleb128 0x4109
+ 593 00b0 00       		.byte	0
+ 594 00b1 11       		.uleb128 0x11
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 14
+
+
+ 595 00b2 01       		.uleb128 0x1
+ 596 00b3 9542     		.uleb128 0x2115
+ 597 00b5 19       		.uleb128 0x19
+ 598 00b6 31       		.uleb128 0x31
+ 599 00b7 13       		.uleb128 0x13
+ 600 00b8 00       		.byte	0
+ 601 00b9 00       		.byte	0
+ 602 00ba 0F       		.uleb128 0xf
+ 603 00bb 2E       		.uleb128 0x2e
+ 604 00bc 01       		.byte	0x1
+ 605 00bd 3F       		.uleb128 0x3f
+ 606 00be 19       		.uleb128 0x19
+ 607 00bf 03       		.uleb128 0x3
+ 608 00c0 0E       		.uleb128 0xe
+ 609 00c1 3A       		.uleb128 0x3a
+ 610 00c2 0B       		.uleb128 0xb
+ 611 00c3 3B       		.uleb128 0x3b
+ 612 00c4 0B       		.uleb128 0xb
+ 613 00c5 27       		.uleb128 0x27
+ 614 00c6 19       		.uleb128 0x19
+ 615 00c7 11       		.uleb128 0x11
+ 616 00c8 01       		.uleb128 0x1
+ 617 00c9 12       		.uleb128 0x12
+ 618 00ca 06       		.uleb128 0x6
+ 619 00cb 40       		.uleb128 0x40
+ 620 00cc 18       		.uleb128 0x18
+ 621 00cd 9742     		.uleb128 0x2117
+ 622 00cf 19       		.uleb128 0x19
+ 623 00d0 01       		.uleb128 0x1
+ 624 00d1 13       		.uleb128 0x13
+ 625 00d2 00       		.byte	0
+ 626 00d3 00       		.byte	0
+ 627 00d4 10       		.uleb128 0x10
+ 628 00d5 05       		.uleb128 0x5
+ 629 00d6 00       		.byte	0
+ 630 00d7 03       		.uleb128 0x3
+ 631 00d8 0E       		.uleb128 0xe
+ 632 00d9 3A       		.uleb128 0x3a
+ 633 00da 0B       		.uleb128 0xb
+ 634 00db 3B       		.uleb128 0x3b
+ 635 00dc 0B       		.uleb128 0xb
+ 636 00dd 49       		.uleb128 0x49
+ 637 00de 13       		.uleb128 0x13
+ 638 00df 02       		.uleb128 0x2
+ 639 00e0 17       		.uleb128 0x17
+ 640 00e1 00       		.byte	0
+ 641 00e2 00       		.byte	0
+ 642 00e3 11       		.uleb128 0x11
+ 643 00e4 2E       		.uleb128 0x2e
+ 644 00e5 00       		.byte	0
+ 645 00e6 3F       		.uleb128 0x3f
+ 646 00e7 19       		.uleb128 0x19
+ 647 00e8 03       		.uleb128 0x3
+ 648 00e9 0E       		.uleb128 0xe
+ 649 00ea 3A       		.uleb128 0x3a
+ 650 00eb 0B       		.uleb128 0xb
+ 651 00ec 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 15
+
+
+ 652 00ed 0B       		.uleb128 0xb
+ 653 00ee 27       		.uleb128 0x27
+ 654 00ef 19       		.uleb128 0x19
+ 655 00f0 49       		.uleb128 0x49
+ 656 00f1 13       		.uleb128 0x13
+ 657 00f2 11       		.uleb128 0x11
+ 658 00f3 01       		.uleb128 0x1
+ 659 00f4 12       		.uleb128 0x12
+ 660 00f5 06       		.uleb128 0x6
+ 661 00f6 40       		.uleb128 0x40
+ 662 00f7 18       		.uleb128 0x18
+ 663 00f8 9742     		.uleb128 0x2117
+ 664 00fa 19       		.uleb128 0x19
+ 665 00fb 00       		.byte	0
+ 666 00fc 00       		.byte	0
+ 667 00fd 12       		.uleb128 0x12
+ 668 00fe 34       		.uleb128 0x34
+ 669 00ff 00       		.byte	0
+ 670 0100 03       		.uleb128 0x3
+ 671 0101 0E       		.uleb128 0xe
+ 672 0102 3A       		.uleb128 0x3a
+ 673 0103 0B       		.uleb128 0xb
+ 674 0104 3B       		.uleb128 0x3b
+ 675 0105 0B       		.uleb128 0xb
+ 676 0106 49       		.uleb128 0x49
+ 677 0107 13       		.uleb128 0x13
+ 678 0108 02       		.uleb128 0x2
+ 679 0109 18       		.uleb128 0x18
+ 680 010a 00       		.byte	0
+ 681 010b 00       		.byte	0
+ 682 010c 13       		.uleb128 0x13
+ 683 010d 34       		.uleb128 0x34
+ 684 010e 00       		.byte	0
+ 685 010f 03       		.uleb128 0x3
+ 686 0110 0E       		.uleb128 0xe
+ 687 0111 3A       		.uleb128 0x3a
+ 688 0112 0B       		.uleb128 0xb
+ 689 0113 3B       		.uleb128 0x3b
+ 690 0114 0B       		.uleb128 0xb
+ 691 0115 49       		.uleb128 0x49
+ 692 0116 13       		.uleb128 0x13
+ 693 0117 3F       		.uleb128 0x3f
+ 694 0118 19       		.uleb128 0x19
+ 695 0119 3C       		.uleb128 0x3c
+ 696 011a 19       		.uleb128 0x19
+ 697 011b 00       		.byte	0
+ 698 011c 00       		.byte	0
+ 699 011d 14       		.uleb128 0x14
+ 700 011e 2E       		.uleb128 0x2e
+ 701 011f 00       		.byte	0
+ 702 0120 3F       		.uleb128 0x3f
+ 703 0121 19       		.uleb128 0x19
+ 704 0122 3C       		.uleb128 0x3c
+ 705 0123 19       		.uleb128 0x19
+ 706 0124 6E       		.uleb128 0x6e
+ 707 0125 0E       		.uleb128 0xe
+ 708 0126 03       		.uleb128 0x3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 16
+
+
+ 709 0127 0E       		.uleb128 0xe
+ 710 0128 3A       		.uleb128 0x3a
+ 711 0129 0B       		.uleb128 0xb
+ 712 012a 3B       		.uleb128 0x3b
+ 713 012b 0B       		.uleb128 0xb
+ 714 012c 00       		.byte	0
+ 715 012d 00       		.byte	0
+ 716 012e 00       		.byte	0
+ 717              		.section	.debug_loc,"",%progbits
+ 718              	.Ldebug_loc0:
+ 719              	.LLST0:
+ 720 0000 00000000 		.4byte	.LVL0
+ 721 0004 40000000 		.4byte	.LVL5
+ 722 0008 0200     		.2byte	0x2
+ 723 000a 30       		.byte	0x30
+ 724 000b 9F       		.byte	0x9f
+ 725 000c 00000000 		.4byte	0
+ 726 0010 00000000 		.4byte	0
+ 727              	.LLST1:
+ 728 0014 0C000000 		.4byte	.LVL1
+ 729 0018 28000000 		.4byte	.LVL3
+ 730 001c 0100     		.2byte	0x1
+ 731 001e 51       		.byte	0x51
+ 732 001f 30000000 		.4byte	.LVL4
+ 733 0023 3F000000 		.4byte	.LVL5-1
+ 734 0027 0100     		.2byte	0x1
+ 735 0029 51       		.byte	0x51
+ 736 002a 40000000 		.4byte	.LVL5
+ 737 002e 50000000 		.4byte	.LFE0
+ 738 0032 0100     		.2byte	0x1
+ 739 0034 51       		.byte	0x51
+ 740 0035 00000000 		.4byte	0
+ 741 0039 00000000 		.4byte	0
+ 742              	.LLST2:
+ 743 003d 12000000 		.4byte	.LVL2
+ 744 0041 2F000000 		.4byte	.LVL4-1
+ 745 0045 0100     		.2byte	0x1
+ 746 0047 52       		.byte	0x52
+ 747 0048 30000000 		.4byte	.LVL4
+ 748 004c 3F000000 		.4byte	.LVL5-1
+ 749 0050 0100     		.2byte	0x1
+ 750 0052 52       		.byte	0x52
+ 751 0053 40000000 		.4byte	.LVL5
+ 752 0057 50000000 		.4byte	.LFE0
+ 753 005b 0100     		.2byte	0x1
+ 754 005d 52       		.byte	0x52
+ 755 005e 00000000 		.4byte	0
+ 756 0062 00000000 		.4byte	0
+ 757              	.LLST3:
+ 758 0066 00000000 		.4byte	.LVL6
+ 759 006a 04000000 		.4byte	.LVL7
+ 760 006e 0100     		.2byte	0x1
+ 761 0070 50       		.byte	0x50
+ 762 0071 04000000 		.4byte	.LVL7
+ 763 0075 0C000000 		.4byte	.LFE1
+ 764 0079 0400     		.2byte	0x4
+ 765 007b F3       		.byte	0xf3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 17
+
+
+ 766 007c 01       		.uleb128 0x1
+ 767 007d 50       		.byte	0x50
+ 768 007e 9F       		.byte	0x9f
+ 769 007f 00000000 		.4byte	0
+ 770 0083 00000000 		.4byte	0
+ 771              		.section	.debug_aranges,"",%progbits
+ 772 0000 2C000000 		.4byte	0x2c
+ 773 0004 0200     		.2byte	0x2
+ 774 0006 00000000 		.4byte	.Ldebug_info0
+ 775 000a 04       		.byte	0x4
+ 776 000b 00       		.byte	0
+ 777 000c 0000     		.2byte	0
+ 778 000e 0000     		.2byte	0
+ 779 0010 00000000 		.4byte	.LFB0
+ 780 0014 50000000 		.4byte	.LFE0-.LFB0
+ 781 0018 00000000 		.4byte	.LFB1
+ 782 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 783 0020 00000000 		.4byte	.LFB2
+ 784 0024 10000000 		.4byte	.LFE2-.LFB2
+ 785 0028 00000000 		.4byte	0
+ 786 002c 00000000 		.4byte	0
+ 787              		.section	.debug_ranges,"",%progbits
+ 788              	.Ldebug_ranges0:
+ 789 0000 00000000 		.4byte	.LFB0
+ 790 0004 50000000 		.4byte	.LFE0
+ 791 0008 00000000 		.4byte	.LFB1
+ 792 000c 0C000000 		.4byte	.LFE1
+ 793 0010 00000000 		.4byte	.LFB2
+ 794 0014 10000000 		.4byte	.LFE2
+ 795 0018 00000000 		.4byte	0
+ 796 001c 00000000 		.4byte	0
+ 797              		.section	.debug_line,"",%progbits
+ 798              	.Ldebug_line0:
+ 799 0000 B7000000 		.section	.debug_str,"MS",%progbits,1
+ 799      02006000 
+ 799      00000201 
+ 799      FB0E0D00 
+ 799      01010101 
+ 800              	.LASF21:
+ 801 0000 70537461 		.ascii	"pStatusBlock\000"
+ 801      74757342 
+ 801      6C6F636B 
+ 801      00
+ 802              	.LASF26:
+ 803 000d 76616C75 		.ascii	"value\000"
+ 803      6500
+ 804              	.LASF19:
+ 805 0013 636F756E 		.ascii	"count\000"
+ 805      7400
+ 806              	.LASF3:
+ 807 0019 73686F72 		.ascii	"short unsigned int\000"
+ 807      7420756E 
+ 807      7369676E 
+ 807      65642069 
+ 807      6E7400
+ 808              	.LASF16:
+ 809 002c 73746174 		.ascii	"status\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 18
+
+
+ 809      757300
+ 810              	.LASF34:
+ 811 0033 55534246 		.ascii	"USBFS_DispatchMSCClassRqst\000"
+ 811      535F4469 
+ 811      73706174 
+ 811      63684D53 
+ 811      43436C61 
+ 812              	.LASF20:
+ 813 004e 70446174 		.ascii	"pData\000"
+ 813      6100
+ 814              	.LASF23:
+ 815 0054 65704461 		.ascii	"epData\000"
+ 815      746100
+ 816              	.LASF22:
+ 817 005b 545F5553 		.ascii	"T_USBFS_TD\000"
+ 817      4246535F 
+ 817      544400
+ 818              	.LASF11:
+ 819 0066 666C6F61 		.ascii	"float\000"
+ 819      7400
+ 820              	.LASF1:
+ 821 006c 756E7369 		.ascii	"unsigned char\000"
+ 821      676E6564 
+ 821      20636861 
+ 821      7200
+ 822              	.LASF18:
+ 823 007a 545F5553 		.ascii	"T_USBFS_XFER_STATUS_BLOCK\000"
+ 823      4246535F 
+ 823      58464552 
+ 823      5F535441 
+ 823      5455535F 
+ 824              	.LASF31:
+ 825 0094 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 825      43313120 
+ 825      352E342E 
+ 825      31203230 
+ 825      31363036 
+ 826 00c7 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 826      20726576 
+ 826      6973696F 
+ 826      6E203233 
+ 826      37373135 
+ 827 00fa 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 827      66756E63 
+ 827      74696F6E 
+ 827      2D736563 
+ 827      74696F6E 
+ 828              	.LASF9:
+ 829 0122 75696E74 		.ascii	"uint8\000"
+ 829      3800
+ 830              	.LASF30:
+ 831 0128 55534246 		.ascii	"USBFS_InitNoDataControlTransfer\000"
+ 831      535F496E 
+ 831      69744E6F 
+ 831      44617461 
+ 831      436F6E74 
+ 832              	.LASF24:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 19
+
+
+ 833 0148 55534246 		.ascii	"USBFS_ep0_data_struct\000"
+ 833      535F6570 
+ 833      305F6461 
+ 833      74615F73 
+ 833      74727563 
+ 834              	.LASF12:
+ 835 015e 646F7562 		.ascii	"double\000"
+ 835      6C6500
+ 836              	.LASF29:
+ 837 0165 55534246 		.ascii	"USBFS_InitControlRead\000"
+ 837      535F496E 
+ 837      6974436F 
+ 837      6E74726F 
+ 837      6C526561 
+ 838              	.LASF37:
+ 839 017b 55534246 		.ascii	"USBFS_MSC_GetLunCount\000"
+ 839      535F4D53 
+ 839      435F4765 
+ 839      744C756E 
+ 839      436F756E 
+ 840              	.LASF10:
+ 841 0191 75696E74 		.ascii	"uint16\000"
+ 841      313600
+ 842              	.LASF33:
+ 843 0198 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 843      73657273 
+ 843      5C526162 
+ 843      62697420 
+ 843      486F6C65 
+ 844 01c7 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.6\\USB_Bootloader.cydsn\000"
+ 844      736F6674 
+ 844      77617265 
+ 844      5C534353 
+ 844      49325344 
+ 845              	.LASF5:
+ 846 01f6 6C6F6E67 		.ascii	"long unsigned int\000"
+ 846      20756E73 
+ 846      69676E65 
+ 846      6420696E 
+ 846      7400
+ 847              	.LASF8:
+ 848 0208 756E7369 		.ascii	"unsigned int\000"
+ 848      676E6564 
+ 848      20696E74 
+ 848      00
+ 849              	.LASF7:
+ 850 0215 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 850      206C6F6E 
+ 850      6720756E 
+ 850      7369676E 
+ 850      65642069 
+ 851              	.LASF36:
+ 852 022c 6C756E43 		.ascii	"lunCount\000"
+ 852      6F756E74 
+ 852      00
+ 853              	.LASF27:
+ 854 0235 64617461 		.ascii	"dataLength\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 20
+
+
+ 854      4C656E67 
+ 854      746800
+ 855              	.LASF38:
+ 856 0240 55534246 		.ascii	"USBFS_currentTD\000"
+ 856      535F6375 
+ 856      7272656E 
+ 856      74544400 
+ 857              	.LASF32:
+ 858 0250 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_msc.c\000"
+ 858      72617465 
+ 858      645F536F 
+ 858      75726365 
+ 858      5C50536F 
+ 859              	.LASF15:
+ 860 0273 73697A65 		.ascii	"sizetype\000"
+ 860      74797065 
+ 860      00
+ 861              	.LASF6:
+ 862 027c 6C6F6E67 		.ascii	"long long int\000"
+ 862      206C6F6E 
+ 862      6720696E 
+ 862      7400
+ 863              	.LASF28:
+ 864 028a 55534246 		.ascii	"USBFS_lunCount\000"
+ 864      535F6C75 
+ 864      6E436F75 
+ 864      6E7400
+ 865              	.LASF2:
+ 866 0299 73686F72 		.ascii	"short int\000"
+ 866      7420696E 
+ 866      7400
+ 867              	.LASF25:
+ 868 02a3 72657175 		.ascii	"requestHandled\000"
+ 868      65737448 
+ 868      616E646C 
+ 868      656400
+ 869              	.LASF4:
+ 870 02b2 6C6F6E67 		.ascii	"long int\000"
+ 870      20696E74 
+ 870      00
+ 871              	.LASF13:
+ 872 02bb 63686172 		.ascii	"char\000"
+ 872      00
+ 873              	.LASF14:
+ 874 02c0 6C6F6E67 		.ascii	"long double\000"
+ 874      20646F75 
+ 874      626C6500 
+ 875              	.LASF35:
+ 876 02cc 55534246 		.ascii	"USBFS_MSC_SetLunCount\000"
+ 876      535F4D53 
+ 876      435F5365 
+ 876      744C756E 
+ 876      436F756E 
+ 877              	.LASF0:
+ 878 02e2 7369676E 		.ascii	"signed char\000"
+ 878      65642063 
+ 878      68617200 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccSwwhht.s 			page 21
+
+
+ 879              	.LASF17:
+ 880 02ee 6C656E67 		.ascii	"length\000"
+ 880      746800
+ 881              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

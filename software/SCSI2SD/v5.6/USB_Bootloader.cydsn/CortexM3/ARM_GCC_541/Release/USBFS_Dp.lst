@@ -1,0 +1,1047 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_Dp.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.USBFS_Dp_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	USBFS_Dp_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	USBFS_Dp_Write, %function
+  25              	USBFS_Dp_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\USBFS_Dp.c"
+   1:Generated_Source\PSoC5/USBFS_Dp.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/USBFS_Dp.c **** * File Name: USBFS_Dp.c  
+   3:Generated_Source\PSoC5/USBFS_Dp.c **** * Version 2.20
+   4:Generated_Source\PSoC5/USBFS_Dp.c **** *
+   5:Generated_Source\PSoC5/USBFS_Dp.c **** * Description:
+   6:Generated_Source\PSoC5/USBFS_Dp.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/USBFS_Dp.c **** *
+   8:Generated_Source\PSoC5/USBFS_Dp.c **** * Note:
+   9:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  10:Generated_Source\PSoC5/USBFS_Dp.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/USBFS_Dp.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/USBFS_Dp.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/USBFS_Dp.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/USBFS_Dp.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/USBFS_Dp.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  17:Generated_Source\PSoC5/USBFS_Dp.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/USBFS_Dp.c **** #include "USBFS_Dp.h"
+  19:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  20:Generated_Source\PSoC5/USBFS_Dp.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/USBFS_Dp.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/USBFS_Dp.c **** 	 USBFS_Dp__PORT == 15 && ((USBFS_Dp__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  24:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  25:Generated_Source\PSoC5/USBFS_Dp.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/USBFS_Dp.c **** * Function Name: USBFS_Dp_Write
+  27:Generated_Source\PSoC5/USBFS_Dp.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  29:Generated_Source\PSoC5/USBFS_Dp.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/USBFS_Dp.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 2
+
+
+  31:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  32:Generated_Source\PSoC5/USBFS_Dp.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/USBFS_Dp.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/USBFS_Dp.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/USBFS_Dp.c **** * bit banding).
+  36:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  37:Generated_Source\PSoC5/USBFS_Dp.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/USBFS_Dp.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  40:Generated_Source\PSoC5/USBFS_Dp.c **** * \param value
+  41:Generated_Source\PSoC5/USBFS_Dp.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  43:Generated_Source\PSoC5/USBFS_Dp.c **** * \return 
+  44:Generated_Source\PSoC5/USBFS_Dp.c **** *  None 
+  45:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  46:Generated_Source\PSoC5/USBFS_Dp.c **** * \sideeffect
+  47:Generated_Source\PSoC5/USBFS_Dp.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/USBFS_Dp.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/USBFS_Dp.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/USBFS_Dp.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/USBFS_Dp.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/USBFS_Dp.c **** *  this function.
+  53:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  54:Generated_Source\PSoC5/USBFS_Dp.c **** * \funcusage
+  55:Generated_Source\PSoC5/USBFS_Dp.c **** *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_Write
+  56:Generated_Source\PSoC5/USBFS_Dp.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/USBFS_Dp.c **** void USBFS_Dp_Write(uint8 value)
+  58:Generated_Source\PSoC5/USBFS_Dp.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/USBFS_Dp.c ****     uint8 staticBits = (USBFS_Dp_DR & (uint8)(~USBFS_Dp_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/USBFS_Dp.c ****     USBFS_Dp_DR = staticBits | ((uint8)(value << USBFS_Dp_SHIFT) & USBFS_Dp_MASK);
+  36              		.loc 1 60 0
+  37 0002 8001     		lsls	r0, r0, #6
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/USBFS_Dp.c ****     uint8 staticBits = (USBFS_Dp_DR & (uint8)(~USBFS_Dp_MASK));
+  39              		.loc 1 59 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0006 00F04000 		and	r0, r0, #64
+  44 000a 03F0BF03 		and	r3, r3, #191
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 F0510040 		.word	1073762800
+  53              		.cfi_endproc
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 3
+
+
+  54              	.LFE0:
+  55              		.size	USBFS_Dp_Write, .-USBFS_Dp_Write
+  56              		.section	.text.USBFS_Dp_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	USBFS_Dp_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	USBFS_Dp_SetDriveMode, %function
+  62              	USBFS_Dp_SetDriveMode:
+  63              	.LFB1:
+  61:Generated_Source\PSoC5/USBFS_Dp.c **** }
+  62:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  63:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  64:Generated_Source\PSoC5/USBFS_Dp.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/USBFS_Dp.c **** * Function Name: USBFS_Dp_SetDriveMode
+  66:Generated_Source\PSoC5/USBFS_Dp.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  68:Generated_Source\PSoC5/USBFS_Dp.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/USBFS_Dp.c **** * 
+  70:Generated_Source\PSoC5/USBFS_Dp.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/USBFS_Dp.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  73:Generated_Source\PSoC5/USBFS_Dp.c **** * \param mode
+  74:Generated_Source\PSoC5/USBFS_Dp.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/USBFS_Dp.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  77:Generated_Source\PSoC5/USBFS_Dp.c **** * \return
+  78:Generated_Source\PSoC5/USBFS_Dp.c **** *  None
+  79:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  80:Generated_Source\PSoC5/USBFS_Dp.c **** * \sideeffect
+  81:Generated_Source\PSoC5/USBFS_Dp.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/USBFS_Dp.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/USBFS_Dp.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/USBFS_Dp.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/USBFS_Dp.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/USBFS_Dp.c **** *
+  87:Generated_Source\PSoC5/USBFS_Dp.c **** * \funcusage
+  88:Generated_Source\PSoC5/USBFS_Dp.c **** *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_SetDriveMode
+  89:Generated_Source\PSoC5/USBFS_Dp.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/USBFS_Dp.c **** void USBFS_Dp_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/USBFS_Dp.c **** {
+  64              		.loc 1 91 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  92:Generated_Source\PSoC5/USBFS_Dp.c **** 	CyPins_SetPinDriveMode(USBFS_Dp_0, mode);
+  70              		.loc 1 92 0
+  71 0000 044A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 1843     		orrs	r0, r0, r3
+  77 000e 1070     		strb	r0, [r2]
+  78 0010 7047     		bx	lr
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 4
+
+
+  79              	.L6:
+  80 0012 00BF     		.align	2
+  81              	.L5:
+  82 0014 7E500040 		.word	1073762430
+  83              		.cfi_endproc
+  84              	.LFE1:
+  85              		.size	USBFS_Dp_SetDriveMode, .-USBFS_Dp_SetDriveMode
+  86              		.section	.text.USBFS_Dp_Read,"ax",%progbits
+  87              		.align	1
+  88              		.global	USBFS_Dp_Read
+  89              		.thumb
+  90              		.thumb_func
+  91              		.type	USBFS_Dp_Read, %function
+  92              	USBFS_Dp_Read:
+  93              	.LFB2:
+  93:Generated_Source\PSoC5/USBFS_Dp.c **** }
+  94:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  95:Generated_Source\PSoC5/USBFS_Dp.c **** 
+  96:Generated_Source\PSoC5/USBFS_Dp.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/USBFS_Dp.c **** * Function Name: USBFS_Dp_Read
+  98:Generated_Source\PSoC5/USBFS_Dp.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 100:Generated_Source\PSoC5/USBFS_Dp.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/USBFS_Dp.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/USBFS_Dp.c **** *  instance. 
+ 103:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 104:Generated_Source\PSoC5/USBFS_Dp.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/USBFS_Dp.c **** * physical pin.
+ 106:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 107:Generated_Source\PSoC5/USBFS_Dp.c **** * \return 
+ 108:Generated_Source\PSoC5/USBFS_Dp.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 110:Generated_Source\PSoC5/USBFS_Dp.c **** * \funcusage
+ 111:Generated_Source\PSoC5/USBFS_Dp.c **** *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_Read  
+ 112:Generated_Source\PSoC5/USBFS_Dp.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/USBFS_Dp.c **** uint8 USBFS_Dp_Read(void)
+ 114:Generated_Source\PSoC5/USBFS_Dp.c **** {
+  94              		.loc 1 114 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+ 115:Generated_Source\PSoC5/USBFS_Dp.c ****     return (USBFS_Dp_PS & USBFS_Dp_MASK) >> USBFS_Dp_SHIFT;
+  99              		.loc 1 115 0
+ 100 0000 024B     		ldr	r3, .L8
+ 101 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 116:Generated_Source\PSoC5/USBFS_Dp.c **** }
+ 102              		.loc 1 116 0
+ 103 0004 C0F38010 		ubfx	r0, r0, #6, #1
+ 104 0008 7047     		bx	lr
+ 105              	.L9:
+ 106 000a 00BF     		.align	2
+ 107              	.L8:
+ 108 000c F1510040 		.word	1073762801
+ 109              		.cfi_endproc
+ 110              	.LFE2:
+ 111              		.size	USBFS_Dp_Read, .-USBFS_Dp_Read
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 5
+
+
+ 112              		.section	.text.USBFS_Dp_ReadDataReg,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	USBFS_Dp_ReadDataReg
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	USBFS_Dp_ReadDataReg, %function
+ 118              	USBFS_Dp_ReadDataReg:
+ 119              	.LFB3:
+ 117:Generated_Source\PSoC5/USBFS_Dp.c **** 
+ 118:Generated_Source\PSoC5/USBFS_Dp.c **** 
+ 119:Generated_Source\PSoC5/USBFS_Dp.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/USBFS_Dp.c **** * Function Name: USBFS_Dp_ReadDataReg
+ 121:Generated_Source\PSoC5/USBFS_Dp.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 123:Generated_Source\PSoC5/USBFS_Dp.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/USBFS_Dp.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/USBFS_Dp.c **** *  instance. 
+ 126:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 127:Generated_Source\PSoC5/USBFS_Dp.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/USBFS_Dp.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/USBFS_Dp.c **** * preferred USBFS_Dp_Read() API because the 
+ 130:Generated_Source\PSoC5/USBFS_Dp.c **** * USBFS_Dp_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/USBFS_Dp.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/USBFS_Dp.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 134:Generated_Source\PSoC5/USBFS_Dp.c **** * \return 
+ 135:Generated_Source\PSoC5/USBFS_Dp.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/USBFS_Dp.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/USBFS_Dp.c **** *
+ 138:Generated_Source\PSoC5/USBFS_Dp.c **** * \funcusage
+ 139:Generated_Source\PSoC5/USBFS_Dp.c **** *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_ReadDataReg 
+ 140:Generated_Source\PSoC5/USBFS_Dp.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/USBFS_Dp.c **** uint8 USBFS_Dp_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/USBFS_Dp.c **** {
+ 120              		.loc 1 142 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124              		@ link register save eliminated.
+ 143:Generated_Source\PSoC5/USBFS_Dp.c ****     return (USBFS_Dp_DR & USBFS_Dp_MASK) >> USBFS_Dp_SHIFT;
+ 125              		.loc 1 143 0
+ 126 0000 024B     		ldr	r3, .L11
+ 127 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 144:Generated_Source\PSoC5/USBFS_Dp.c **** }
+ 128              		.loc 1 144 0
+ 129 0004 C0F38010 		ubfx	r0, r0, #6, #1
+ 130 0008 7047     		bx	lr
+ 131              	.L12:
+ 132 000a 00BF     		.align	2
+ 133              	.L11:
+ 134 000c F0510040 		.word	1073762800
+ 135              		.cfi_endproc
+ 136              	.LFE3:
+ 137              		.size	USBFS_Dp_ReadDataReg, .-USBFS_Dp_ReadDataReg
+ 138              		.section	.text.USBFS_Dp_SetInterruptMode,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	USBFS_Dp_SetInterruptMode
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 6
+
+
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.type	USBFS_Dp_SetInterruptMode, %function
+ 144              	USBFS_Dp_SetInterruptMode:
+ 145              	.LFB4:
+ 145:Generated_Source\PSoC5/USBFS_Dp.c **** 
+ 146:Generated_Source\PSoC5/USBFS_Dp.c **** 
+ 147:Generated_Source\PSoC5/USBFS_Dp.c **** /* If interrupt is connected for this Pins component */ 
+ 148:Generated_Source\PSoC5/USBFS_Dp.c **** #if defined(USBFS_Dp_INTSTAT) 
+ 149:Generated_Source\PSoC5/USBFS_Dp.c **** 
+ 150:Generated_Source\PSoC5/USBFS_Dp.c ****     /*******************************************************************************
+ 151:Generated_Source\PSoC5/USBFS_Dp.c ****     * Function Name: USBFS_Dp_SetInterruptMode
+ 152:Generated_Source\PSoC5/USBFS_Dp.c ****     ****************************************************************************//**
+ 153:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 154:Generated_Source\PSoC5/USBFS_Dp.c ****     * \brief Configures the interrupt mode for each of the Pins component's
+ 155:Generated_Source\PSoC5/USBFS_Dp.c ****     *  pins. Alternatively you may set the interrupt mode for all the pins
+ 156:Generated_Source\PSoC5/USBFS_Dp.c ****     *  specified in the Pins component.
+ 157:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 158:Generated_Source\PSoC5/USBFS_Dp.c ****     *  <b>Note</b> The interrupt is port-wide and therefore any enabled pin
+ 159:Generated_Source\PSoC5/USBFS_Dp.c ****     *  interrupt may trigger it.
+ 160:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 161:Generated_Source\PSoC5/USBFS_Dp.c ****     * \param position
+ 162:Generated_Source\PSoC5/USBFS_Dp.c ****     *  The pin position as listed in the Pins component. You may OR these to be 
+ 163:Generated_Source\PSoC5/USBFS_Dp.c ****     *  able to configure the interrupt mode of multiple pins within a Pins 
+ 164:Generated_Source\PSoC5/USBFS_Dp.c ****     *  component. Or you may use USBFS_Dp_INTR_ALL to configure the
+ 165:Generated_Source\PSoC5/USBFS_Dp.c ****     *  interrupt mode of all the pins in the Pins component.       
+ 166:Generated_Source\PSoC5/USBFS_Dp.c ****     *  - USBFS_Dp_0_INTR       (First pin in the list)
+ 167:Generated_Source\PSoC5/USBFS_Dp.c ****     *  - USBFS_Dp_1_INTR       (Second pin in the list)
+ 168:Generated_Source\PSoC5/USBFS_Dp.c ****     *  - ...
+ 169:Generated_Source\PSoC5/USBFS_Dp.c ****     *  - USBFS_Dp_INTR_ALL     (All pins in Pins component)
+ 170:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 171:Generated_Source\PSoC5/USBFS_Dp.c ****     * \param mode
+ 172:Generated_Source\PSoC5/USBFS_Dp.c ****     *  Interrupt mode for the selected pins. Valid options are documented in
+ 173:Generated_Source\PSoC5/USBFS_Dp.c ****     *  \ref intrMode.
+ 174:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 175:Generated_Source\PSoC5/USBFS_Dp.c ****     * \return 
+ 176:Generated_Source\PSoC5/USBFS_Dp.c ****     *  None
+ 177:Generated_Source\PSoC5/USBFS_Dp.c ****     *  
+ 178:Generated_Source\PSoC5/USBFS_Dp.c ****     * \sideeffect
+ 179:Generated_Source\PSoC5/USBFS_Dp.c ****     *  It is recommended that the interrupt be disabled before calling this 
+ 180:Generated_Source\PSoC5/USBFS_Dp.c ****     *  function to avoid unintended interrupt requests. Note that the interrupt
+ 181:Generated_Source\PSoC5/USBFS_Dp.c ****     *  type is port wide, and therefore will trigger for any enabled pin on the 
+ 182:Generated_Source\PSoC5/USBFS_Dp.c ****     *  port.
+ 183:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 184:Generated_Source\PSoC5/USBFS_Dp.c ****     * \funcusage
+ 185:Generated_Source\PSoC5/USBFS_Dp.c ****     *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_SetInterruptMode
+ 186:Generated_Source\PSoC5/USBFS_Dp.c ****     *******************************************************************************/
+ 187:Generated_Source\PSoC5/USBFS_Dp.c ****     void USBFS_Dp_SetInterruptMode(uint16 position, uint16 mode)
+ 188:Generated_Source\PSoC5/USBFS_Dp.c ****     {
+ 146              		.loc 1 188 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+ 151              	.LVL6:
+ 189:Generated_Source\PSoC5/USBFS_Dp.c **** 		if((position & USBFS_Dp_0_INTR) != 0u) 
+ 152              		.loc 1 189 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 7
+
+
+ 153 0000 4306     		lsls	r3, r0, #25
+ 190:Generated_Source\PSoC5/USBFS_Dp.c **** 		{ 
+ 191:Generated_Source\PSoC5/USBFS_Dp.c **** 			 USBFS_Dp_0_INTTYPE_REG = (uint8)mode; 
+ 154              		.loc 1 191 0
+ 155 0002 42BF     		ittt	mi
+ 156 0004 014B     		ldrmi	r3, .L18
+ 157 0006 C9B2     		uxtbmi	r1, r1
+ 158              	.LVL7:
+ 159 0008 1970     		strbmi	r1, [r3]
+ 160 000a 7047     		bx	lr
+ 161              	.L19:
+ 162              		.align	2
+ 163              	.L18:
+ 164 000c 7E450040 		.word	1073759614
+ 165              		.cfi_endproc
+ 166              	.LFE4:
+ 167              		.size	USBFS_Dp_SetInterruptMode, .-USBFS_Dp_SetInterruptMode
+ 168              		.section	.text.USBFS_Dp_ClearInterrupt,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	USBFS_Dp_ClearInterrupt
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.type	USBFS_Dp_ClearInterrupt, %function
+ 174              	USBFS_Dp_ClearInterrupt:
+ 175              	.LFB5:
+ 192:Generated_Source\PSoC5/USBFS_Dp.c **** 		}
+ 193:Generated_Source\PSoC5/USBFS_Dp.c ****     }
+ 194:Generated_Source\PSoC5/USBFS_Dp.c ****     
+ 195:Generated_Source\PSoC5/USBFS_Dp.c ****     
+ 196:Generated_Source\PSoC5/USBFS_Dp.c ****     /*******************************************************************************
+ 197:Generated_Source\PSoC5/USBFS_Dp.c ****     * Function Name: USBFS_Dp_ClearInterrupt
+ 198:Generated_Source\PSoC5/USBFS_Dp.c ****     ****************************************************************************//**
+ 199:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 200:Generated_Source\PSoC5/USBFS_Dp.c ****     * \brief Clears any active interrupts attached with the component and returns 
+ 201:Generated_Source\PSoC5/USBFS_Dp.c ****     *  the value of the interrupt status register allowing determination of which
+ 202:Generated_Source\PSoC5/USBFS_Dp.c ****     *  pins generated an interrupt event.
+ 203:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 204:Generated_Source\PSoC5/USBFS_Dp.c ****     * \return 
+ 205:Generated_Source\PSoC5/USBFS_Dp.c ****     *  The right-shifted current value of the interrupt status register. Each pin 
+ 206:Generated_Source\PSoC5/USBFS_Dp.c ****     *  has one bit set if it generated an interrupt event. For example, bit 0 is 
+ 207:Generated_Source\PSoC5/USBFS_Dp.c ****     *  for pin 0 and bit 1 is for pin 1 of the Pins component.
+ 208:Generated_Source\PSoC5/USBFS_Dp.c ****     *  
+ 209:Generated_Source\PSoC5/USBFS_Dp.c ****     * \sideeffect
+ 210:Generated_Source\PSoC5/USBFS_Dp.c ****     *  Clears all bits of the physical port's interrupt status register, not just
+ 211:Generated_Source\PSoC5/USBFS_Dp.c ****     *  those associated with the Pins component.
+ 212:Generated_Source\PSoC5/USBFS_Dp.c ****     *
+ 213:Generated_Source\PSoC5/USBFS_Dp.c ****     * \funcusage
+ 214:Generated_Source\PSoC5/USBFS_Dp.c ****     *  \snippet USBFS_Dp_SUT.c usage_USBFS_Dp_ClearInterrupt
+ 215:Generated_Source\PSoC5/USBFS_Dp.c ****     *******************************************************************************/
+ 216:Generated_Source\PSoC5/USBFS_Dp.c ****     uint8 USBFS_Dp_ClearInterrupt(void)
+ 217:Generated_Source\PSoC5/USBFS_Dp.c ****     {
+ 176              		.loc 1 217 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 218:Generated_Source\PSoC5/USBFS_Dp.c ****         return (USBFS_Dp_INTSTAT & USBFS_Dp_MASK) >> USBFS_Dp_SHIFT;
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 8
+
+
+ 181              		.loc 1 218 0
+ 182 0000 024B     		ldr	r3, .L21
+ 183 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 219:Generated_Source\PSoC5/USBFS_Dp.c ****     }
+ 184              		.loc 1 219 0
+ 185 0004 C0F38010 		ubfx	r0, r0, #6, #1
+ 186 0008 7047     		bx	lr
+ 187              	.L22:
+ 188 000a 00BF     		.align	2
+ 189              	.L21:
+ 190 000c 8F450040 		.word	1073759631
+ 191              		.cfi_endproc
+ 192              	.LFE5:
+ 193              		.size	USBFS_Dp_ClearInterrupt, .-USBFS_Dp_ClearInterrupt
+ 194              		.text
+ 195              	.Letext0:
+ 196              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 197              		.section	.debug_info,"",%progbits
+ 198              	.Ldebug_info0:
+ 199 0000 70010000 		.4byte	0x170
+ 200 0004 0400     		.2byte	0x4
+ 201 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 202 000a 04       		.byte	0x4
+ 203 000b 01       		.uleb128 0x1
+ 204 000c 1F010000 		.4byte	.LASF24
+ 205 0010 0C       		.byte	0xc
+ 206 0011 21020000 		.4byte	.LASF25
+ 207 0015 8B000000 		.4byte	.LASF26
+ 208 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 209 001d 00000000 		.4byte	0
+ 210 0021 00000000 		.4byte	.Ldebug_line0
+ 211 0025 02       		.uleb128 0x2
+ 212 0026 01       		.byte	0x1
+ 213 0027 06       		.byte	0x6
+ 214 0028 43020000 		.4byte	.LASF0
+ 215 002c 02       		.uleb128 0x2
+ 216 002d 01       		.byte	0x1
+ 217 002e 08       		.byte	0x8
+ 218 002f 3C000000 		.4byte	.LASF1
+ 219 0033 02       		.uleb128 0x2
+ 220 0034 02       		.byte	0x2
+ 221 0035 05       		.byte	0x5
+ 222 0036 DA010000 		.4byte	.LASF2
+ 223 003a 02       		.uleb128 0x2
+ 224 003b 02       		.byte	0x2
+ 225 003c 07       		.byte	0x7
+ 226 003d 61000000 		.4byte	.LASF3
+ 227 0041 02       		.uleb128 0x2
+ 228 0042 04       		.byte	0x4
+ 229 0043 05       		.byte	0x5
+ 230 0044 02020000 		.4byte	.LASF4
+ 231 0048 02       		.uleb128 0x2
+ 232 0049 04       		.byte	0x4
+ 233 004a 07       		.byte	0x7
+ 234 004b 4F000000 		.4byte	.LASF5
+ 235 004f 02       		.uleb128 0x2
+ 236 0050 08       		.byte	0x8
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 9
+
+
+ 237 0051 05       		.byte	0x5
+ 238 0052 C7010000 		.4byte	.LASF6
+ 239 0056 02       		.uleb128 0x2
+ 240 0057 08       		.byte	0x8
+ 241 0058 07       		.byte	0x7
+ 242 0059 25000000 		.4byte	.LASF7
+ 243 005d 03       		.uleb128 0x3
+ 244 005e 04       		.byte	0x4
+ 245 005f 05       		.byte	0x5
+ 246 0060 696E7400 		.ascii	"int\000"
+ 247 0064 02       		.uleb128 0x2
+ 248 0065 04       		.byte	0x4
+ 249 0066 07       		.byte	0x7
+ 250 0067 12010000 		.4byte	.LASF8
+ 251 006b 04       		.uleb128 0x4
+ 252 006c E4010000 		.4byte	.LASF9
+ 253 0070 02       		.byte	0x2
+ 254 0071 9201     		.2byte	0x192
+ 255 0073 2C000000 		.4byte	0x2c
+ 256 0077 04       		.uleb128 0x4
+ 257 0078 7B000000 		.4byte	.LASF10
+ 258 007c 02       		.byte	0x2
+ 259 007d 9301     		.2byte	0x193
+ 260 007f 3A000000 		.4byte	0x3a
+ 261 0083 02       		.uleb128 0x2
+ 262 0084 04       		.byte	0x4
+ 263 0085 04       		.byte	0x4
+ 264 0086 1F000000 		.4byte	.LASF11
+ 265 008a 02       		.uleb128 0x2
+ 266 008b 08       		.byte	0x8
+ 267 008c 04       		.byte	0x4
+ 268 008d 74000000 		.4byte	.LASF12
+ 269 0091 02       		.uleb128 0x2
+ 270 0092 01       		.byte	0x1
+ 271 0093 08       		.byte	0x8
+ 272 0094 D5010000 		.4byte	.LASF13
+ 273 0098 04       		.uleb128 0x4
+ 274 0099 4A000000 		.4byte	.LASF14
+ 275 009d 02       		.byte	0x2
+ 276 009e 3C02     		.2byte	0x23c
+ 277 00a0 A4000000 		.4byte	0xa4
+ 278 00a4 05       		.uleb128 0x5
+ 279 00a5 6B000000 		.4byte	0x6b
+ 280 00a9 06       		.uleb128 0x6
+ 281 00aa 03010000 		.4byte	.LASF15
+ 282 00ae 01       		.byte	0x1
+ 283 00af 39       		.byte	0x39
+ 284 00b0 00000000 		.4byte	.LFB0
+ 285 00b4 18000000 		.4byte	.LFE0-.LFB0
+ 286 00b8 01       		.uleb128 0x1
+ 287 00b9 9C       		.byte	0x9c
+ 288 00ba DD000000 		.4byte	0xdd
+ 289 00be 07       		.uleb128 0x7
+ 290 00bf 00000000 		.4byte	.LASF17
+ 291 00c3 01       		.byte	0x1
+ 292 00c4 39       		.byte	0x39
+ 293 00c5 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 10
+
+
+ 294 00c9 00000000 		.4byte	.LLST0
+ 295 00cd 08       		.uleb128 0x8
+ 296 00ce 14000000 		.4byte	.LASF27
+ 297 00d2 01       		.byte	0x1
+ 298 00d3 3B       		.byte	0x3b
+ 299 00d4 6B000000 		.4byte	0x6b
+ 300 00d8 21000000 		.4byte	.LLST1
+ 301 00dc 00       		.byte	0
+ 302 00dd 06       		.uleb128 0x6
+ 303 00de 0B020000 		.4byte	.LASF16
+ 304 00e2 01       		.byte	0x1
+ 305 00e3 5A       		.byte	0x5a
+ 306 00e4 00000000 		.4byte	.LFB1
+ 307 00e8 18000000 		.4byte	.LFE1-.LFB1
+ 308 00ec 01       		.uleb128 0x1
+ 309 00ed 9C       		.byte	0x9c
+ 310 00ee 02010000 		.4byte	0x102
+ 311 00f2 07       		.uleb128 0x7
+ 312 00f3 C2010000 		.4byte	.LASF18
+ 313 00f7 01       		.byte	0x1
+ 314 00f8 5A       		.byte	0x5a
+ 315 00f9 6B000000 		.4byte	0x6b
+ 316 00fd 39000000 		.4byte	.LLST2
+ 317 0101 00       		.byte	0
+ 318 0102 09       		.uleb128 0x9
+ 319 0103 06000000 		.4byte	.LASF19
+ 320 0107 01       		.byte	0x1
+ 321 0108 71       		.byte	0x71
+ 322 0109 6B000000 		.4byte	0x6b
+ 323 010d 00000000 		.4byte	.LFB2
+ 324 0111 10000000 		.4byte	.LFE2-.LFB2
+ 325 0115 01       		.uleb128 0x1
+ 326 0116 9C       		.byte	0x9c
+ 327 0117 09       		.uleb128 0x9
+ 328 0118 AD010000 		.4byte	.LASF20
+ 329 011c 01       		.byte	0x1
+ 330 011d 8D       		.byte	0x8d
+ 331 011e 6B000000 		.4byte	0x6b
+ 332 0122 00000000 		.4byte	.LFB3
+ 333 0126 10000000 		.4byte	.LFE3-.LFB3
+ 334 012a 01       		.uleb128 0x1
+ 335 012b 9C       		.byte	0x9c
+ 336 012c 06       		.uleb128 0x6
+ 337 012d E9000000 		.4byte	.LASF21
+ 338 0131 01       		.byte	0x1
+ 339 0132 BB       		.byte	0xbb
+ 340 0133 00000000 		.4byte	.LFB4
+ 341 0137 10000000 		.4byte	.LFE4-.LFB4
+ 342 013b 01       		.uleb128 0x1
+ 343 013c 9C       		.byte	0x9c
+ 344 013d 5E010000 		.4byte	0x15e
+ 345 0141 0A       		.uleb128 0xa
+ 346 0142 82000000 		.4byte	.LASF22
+ 347 0146 01       		.byte	0x1
+ 348 0147 BB       		.byte	0xbb
+ 349 0148 77000000 		.4byte	0x77
+ 350 014c 01       		.uleb128 0x1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 11
+
+
+ 351 014d 50       		.byte	0x50
+ 352 014e 07       		.uleb128 0x7
+ 353 014f C2010000 		.4byte	.LASF18
+ 354 0153 01       		.byte	0x1
+ 355 0154 BB       		.byte	0xbb
+ 356 0155 77000000 		.4byte	0x77
+ 357 0159 5A000000 		.4byte	.LLST3
+ 358 015d 00       		.byte	0
+ 359 015e 09       		.uleb128 0x9
+ 360 015f EA010000 		.4byte	.LASF23
+ 361 0163 01       		.byte	0x1
+ 362 0164 D8       		.byte	0xd8
+ 363 0165 6B000000 		.4byte	0x6b
+ 364 0169 00000000 		.4byte	.LFB5
+ 365 016d 10000000 		.4byte	.LFE5-.LFB5
+ 366 0171 01       		.uleb128 0x1
+ 367 0172 9C       		.byte	0x9c
+ 368 0173 00       		.byte	0
+ 369              		.section	.debug_abbrev,"",%progbits
+ 370              	.Ldebug_abbrev0:
+ 371 0000 01       		.uleb128 0x1
+ 372 0001 11       		.uleb128 0x11
+ 373 0002 01       		.byte	0x1
+ 374 0003 25       		.uleb128 0x25
+ 375 0004 0E       		.uleb128 0xe
+ 376 0005 13       		.uleb128 0x13
+ 377 0006 0B       		.uleb128 0xb
+ 378 0007 03       		.uleb128 0x3
+ 379 0008 0E       		.uleb128 0xe
+ 380 0009 1B       		.uleb128 0x1b
+ 381 000a 0E       		.uleb128 0xe
+ 382 000b 55       		.uleb128 0x55
+ 383 000c 17       		.uleb128 0x17
+ 384 000d 11       		.uleb128 0x11
+ 385 000e 01       		.uleb128 0x1
+ 386 000f 10       		.uleb128 0x10
+ 387 0010 17       		.uleb128 0x17
+ 388 0011 00       		.byte	0
+ 389 0012 00       		.byte	0
+ 390 0013 02       		.uleb128 0x2
+ 391 0014 24       		.uleb128 0x24
+ 392 0015 00       		.byte	0
+ 393 0016 0B       		.uleb128 0xb
+ 394 0017 0B       		.uleb128 0xb
+ 395 0018 3E       		.uleb128 0x3e
+ 396 0019 0B       		.uleb128 0xb
+ 397 001a 03       		.uleb128 0x3
+ 398 001b 0E       		.uleb128 0xe
+ 399 001c 00       		.byte	0
+ 400 001d 00       		.byte	0
+ 401 001e 03       		.uleb128 0x3
+ 402 001f 24       		.uleb128 0x24
+ 403 0020 00       		.byte	0
+ 404 0021 0B       		.uleb128 0xb
+ 405 0022 0B       		.uleb128 0xb
+ 406 0023 3E       		.uleb128 0x3e
+ 407 0024 0B       		.uleb128 0xb
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 12
+
+
+ 408 0025 03       		.uleb128 0x3
+ 409 0026 08       		.uleb128 0x8
+ 410 0027 00       		.byte	0
+ 411 0028 00       		.byte	0
+ 412 0029 04       		.uleb128 0x4
+ 413 002a 16       		.uleb128 0x16
+ 414 002b 00       		.byte	0
+ 415 002c 03       		.uleb128 0x3
+ 416 002d 0E       		.uleb128 0xe
+ 417 002e 3A       		.uleb128 0x3a
+ 418 002f 0B       		.uleb128 0xb
+ 419 0030 3B       		.uleb128 0x3b
+ 420 0031 05       		.uleb128 0x5
+ 421 0032 49       		.uleb128 0x49
+ 422 0033 13       		.uleb128 0x13
+ 423 0034 00       		.byte	0
+ 424 0035 00       		.byte	0
+ 425 0036 05       		.uleb128 0x5
+ 426 0037 35       		.uleb128 0x35
+ 427 0038 00       		.byte	0
+ 428 0039 49       		.uleb128 0x49
+ 429 003a 13       		.uleb128 0x13
+ 430 003b 00       		.byte	0
+ 431 003c 00       		.byte	0
+ 432 003d 06       		.uleb128 0x6
+ 433 003e 2E       		.uleb128 0x2e
+ 434 003f 01       		.byte	0x1
+ 435 0040 3F       		.uleb128 0x3f
+ 436 0041 19       		.uleb128 0x19
+ 437 0042 03       		.uleb128 0x3
+ 438 0043 0E       		.uleb128 0xe
+ 439 0044 3A       		.uleb128 0x3a
+ 440 0045 0B       		.uleb128 0xb
+ 441 0046 3B       		.uleb128 0x3b
+ 442 0047 0B       		.uleb128 0xb
+ 443 0048 27       		.uleb128 0x27
+ 444 0049 19       		.uleb128 0x19
+ 445 004a 11       		.uleb128 0x11
+ 446 004b 01       		.uleb128 0x1
+ 447 004c 12       		.uleb128 0x12
+ 448 004d 06       		.uleb128 0x6
+ 449 004e 40       		.uleb128 0x40
+ 450 004f 18       		.uleb128 0x18
+ 451 0050 9742     		.uleb128 0x2117
+ 452 0052 19       		.uleb128 0x19
+ 453 0053 01       		.uleb128 0x1
+ 454 0054 13       		.uleb128 0x13
+ 455 0055 00       		.byte	0
+ 456 0056 00       		.byte	0
+ 457 0057 07       		.uleb128 0x7
+ 458 0058 05       		.uleb128 0x5
+ 459 0059 00       		.byte	0
+ 460 005a 03       		.uleb128 0x3
+ 461 005b 0E       		.uleb128 0xe
+ 462 005c 3A       		.uleb128 0x3a
+ 463 005d 0B       		.uleb128 0xb
+ 464 005e 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 13
+
+
+ 465 005f 0B       		.uleb128 0xb
+ 466 0060 49       		.uleb128 0x49
+ 467 0061 13       		.uleb128 0x13
+ 468 0062 02       		.uleb128 0x2
+ 469 0063 17       		.uleb128 0x17
+ 470 0064 00       		.byte	0
+ 471 0065 00       		.byte	0
+ 472 0066 08       		.uleb128 0x8
+ 473 0067 34       		.uleb128 0x34
+ 474 0068 00       		.byte	0
+ 475 0069 03       		.uleb128 0x3
+ 476 006a 0E       		.uleb128 0xe
+ 477 006b 3A       		.uleb128 0x3a
+ 478 006c 0B       		.uleb128 0xb
+ 479 006d 3B       		.uleb128 0x3b
+ 480 006e 0B       		.uleb128 0xb
+ 481 006f 49       		.uleb128 0x49
+ 482 0070 13       		.uleb128 0x13
+ 483 0071 02       		.uleb128 0x2
+ 484 0072 17       		.uleb128 0x17
+ 485 0073 00       		.byte	0
+ 486 0074 00       		.byte	0
+ 487 0075 09       		.uleb128 0x9
+ 488 0076 2E       		.uleb128 0x2e
+ 489 0077 00       		.byte	0
+ 490 0078 3F       		.uleb128 0x3f
+ 491 0079 19       		.uleb128 0x19
+ 492 007a 03       		.uleb128 0x3
+ 493 007b 0E       		.uleb128 0xe
+ 494 007c 3A       		.uleb128 0x3a
+ 495 007d 0B       		.uleb128 0xb
+ 496 007e 3B       		.uleb128 0x3b
+ 497 007f 0B       		.uleb128 0xb
+ 498 0080 27       		.uleb128 0x27
+ 499 0081 19       		.uleb128 0x19
+ 500 0082 49       		.uleb128 0x49
+ 501 0083 13       		.uleb128 0x13
+ 502 0084 11       		.uleb128 0x11
+ 503 0085 01       		.uleb128 0x1
+ 504 0086 12       		.uleb128 0x12
+ 505 0087 06       		.uleb128 0x6
+ 506 0088 40       		.uleb128 0x40
+ 507 0089 18       		.uleb128 0x18
+ 508 008a 9742     		.uleb128 0x2117
+ 509 008c 19       		.uleb128 0x19
+ 510 008d 00       		.byte	0
+ 511 008e 00       		.byte	0
+ 512 008f 0A       		.uleb128 0xa
+ 513 0090 05       		.uleb128 0x5
+ 514 0091 00       		.byte	0
+ 515 0092 03       		.uleb128 0x3
+ 516 0093 0E       		.uleb128 0xe
+ 517 0094 3A       		.uleb128 0x3a
+ 518 0095 0B       		.uleb128 0xb
+ 519 0096 3B       		.uleb128 0x3b
+ 520 0097 0B       		.uleb128 0xb
+ 521 0098 49       		.uleb128 0x49
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 14
+
+
+ 522 0099 13       		.uleb128 0x13
+ 523 009a 02       		.uleb128 0x2
+ 524 009b 18       		.uleb128 0x18
+ 525 009c 00       		.byte	0
+ 526 009d 00       		.byte	0
+ 527 009e 00       		.byte	0
+ 528              		.section	.debug_loc,"",%progbits
+ 529              	.Ldebug_loc0:
+ 530              	.LLST0:
+ 531 0000 00000000 		.4byte	.LVL0
+ 532 0004 04000000 		.4byte	.LVL1
+ 533 0008 0100     		.2byte	0x1
+ 534 000a 50       		.byte	0x50
+ 535 000b 04000000 		.4byte	.LVL1
+ 536 000f 18000000 		.4byte	.LFE0
+ 537 0013 0400     		.2byte	0x4
+ 538 0015 F3       		.byte	0xf3
+ 539 0016 01       		.uleb128 0x1
+ 540 0017 50       		.byte	0x50
+ 541 0018 9F       		.byte	0x9f
+ 542 0019 00000000 		.4byte	0
+ 543 001d 00000000 		.4byte	0
+ 544              	.LLST1:
+ 545 0021 06000000 		.4byte	.LVL2
+ 546 0025 0E000000 		.4byte	.LVL3
+ 547 0029 0600     		.2byte	0x6
+ 548 002b 73       		.byte	0x73
+ 549 002c 00       		.sleb128 0
+ 550 002d 09       		.byte	0x9
+ 551 002e BF       		.byte	0xbf
+ 552 002f 1A       		.byte	0x1a
+ 553 0030 9F       		.byte	0x9f
+ 554 0031 00000000 		.4byte	0
+ 555 0035 00000000 		.4byte	0
+ 556              	.LLST2:
+ 557 0039 00000000 		.4byte	.LVL4
+ 558 003d 06000000 		.4byte	.LVL5
+ 559 0041 0100     		.2byte	0x1
+ 560 0043 50       		.byte	0x50
+ 561 0044 06000000 		.4byte	.LVL5
+ 562 0048 18000000 		.4byte	.LFE1
+ 563 004c 0400     		.2byte	0x4
+ 564 004e F3       		.byte	0xf3
+ 565 004f 01       		.uleb128 0x1
+ 566 0050 50       		.byte	0x50
+ 567 0051 9F       		.byte	0x9f
+ 568 0052 00000000 		.4byte	0
+ 569 0056 00000000 		.4byte	0
+ 570              	.LLST3:
+ 571 005a 00000000 		.4byte	.LVL6
+ 572 005e 08000000 		.4byte	.LVL7
+ 573 0062 0100     		.2byte	0x1
+ 574 0064 51       		.byte	0x51
+ 575 0065 08000000 		.4byte	.LVL7
+ 576 0069 10000000 		.4byte	.LFE4
+ 577 006d 0400     		.2byte	0x4
+ 578 006f F3       		.byte	0xf3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 15
+
+
+ 579 0070 01       		.uleb128 0x1
+ 580 0071 51       		.byte	0x51
+ 581 0072 9F       		.byte	0x9f
+ 582 0073 00000000 		.4byte	0
+ 583 0077 00000000 		.4byte	0
+ 584              		.section	.debug_aranges,"",%progbits
+ 585 0000 44000000 		.4byte	0x44
+ 586 0004 0200     		.2byte	0x2
+ 587 0006 00000000 		.4byte	.Ldebug_info0
+ 588 000a 04       		.byte	0x4
+ 589 000b 00       		.byte	0
+ 590 000c 0000     		.2byte	0
+ 591 000e 0000     		.2byte	0
+ 592 0010 00000000 		.4byte	.LFB0
+ 593 0014 18000000 		.4byte	.LFE0-.LFB0
+ 594 0018 00000000 		.4byte	.LFB1
+ 595 001c 18000000 		.4byte	.LFE1-.LFB1
+ 596 0020 00000000 		.4byte	.LFB2
+ 597 0024 10000000 		.4byte	.LFE2-.LFB2
+ 598 0028 00000000 		.4byte	.LFB3
+ 599 002c 10000000 		.4byte	.LFE3-.LFB3
+ 600 0030 00000000 		.4byte	.LFB4
+ 601 0034 10000000 		.4byte	.LFE4-.LFB4
+ 602 0038 00000000 		.4byte	.LFB5
+ 603 003c 10000000 		.4byte	.LFE5-.LFB5
+ 604 0040 00000000 		.4byte	0
+ 605 0044 00000000 		.4byte	0
+ 606              		.section	.debug_ranges,"",%progbits
+ 607              	.Ldebug_ranges0:
+ 608 0000 00000000 		.4byte	.LFB0
+ 609 0004 18000000 		.4byte	.LFE0
+ 610 0008 00000000 		.4byte	.LFB1
+ 611 000c 18000000 		.4byte	.LFE1
+ 612 0010 00000000 		.4byte	.LFB2
+ 613 0014 10000000 		.4byte	.LFE2
+ 614 0018 00000000 		.4byte	.LFB3
+ 615 001c 10000000 		.4byte	.LFE3
+ 616 0020 00000000 		.4byte	.LFB4
+ 617 0024 10000000 		.4byte	.LFE4
+ 618 0028 00000000 		.4byte	.LFB5
+ 619 002c 10000000 		.4byte	.LFE5
+ 620 0030 00000000 		.4byte	0
+ 621 0034 00000000 		.4byte	0
+ 622              		.section	.debug_line,"",%progbits
+ 623              	.Ldebug_line0:
+ 624 0000 B7000000 		.section	.debug_str,"MS",%progbits,1
+ 624      02004500 
+ 624      00000201 
+ 624      FB0E0D00 
+ 624      01010101 
+ 625              	.LASF17:
+ 626 0000 76616C75 		.ascii	"value\000"
+ 626      6500
+ 627              	.LASF19:
+ 628 0006 55534246 		.ascii	"USBFS_Dp_Read\000"
+ 628      535F4470 
+ 628      5F526561 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 16
+
+
+ 628      6400
+ 629              	.LASF27:
+ 630 0014 73746174 		.ascii	"staticBits\000"
+ 630      69634269 
+ 630      747300
+ 631              	.LASF11:
+ 632 001f 666C6F61 		.ascii	"float\000"
+ 632      7400
+ 633              	.LASF7:
+ 634 0025 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 634      206C6F6E 
+ 634      6720756E 
+ 634      7369676E 
+ 634      65642069 
+ 635              	.LASF1:
+ 636 003c 756E7369 		.ascii	"unsigned char\000"
+ 636      676E6564 
+ 636      20636861 
+ 636      7200
+ 637              	.LASF14:
+ 638 004a 72656738 		.ascii	"reg8\000"
+ 638      00
+ 639              	.LASF5:
+ 640 004f 6C6F6E67 		.ascii	"long unsigned int\000"
+ 640      20756E73 
+ 640      69676E65 
+ 640      6420696E 
+ 640      7400
+ 641              	.LASF3:
+ 642 0061 73686F72 		.ascii	"short unsigned int\000"
+ 642      7420756E 
+ 642      7369676E 
+ 642      65642069 
+ 642      6E7400
+ 643              	.LASF12:
+ 644 0074 646F7562 		.ascii	"double\000"
+ 644      6C6500
+ 645              	.LASF10:
+ 646 007b 75696E74 		.ascii	"uint16\000"
+ 646      313600
+ 647              	.LASF22:
+ 648 0082 706F7369 		.ascii	"position\000"
+ 648      74696F6E 
+ 648      00
+ 649              	.LASF26:
+ 650 008b 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 650      73657273 
+ 650      5C526162 
+ 650      62697420 
+ 650      486F6C65 
+ 651 00ba 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.6\\USB_Bootloader.cydsn\000"
+ 651      736F6674 
+ 651      77617265 
+ 651      5C534353 
+ 651      49325344 
+ 652              	.LASF21:
+ 653 00e9 55534246 		.ascii	"USBFS_Dp_SetInterruptMode\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 17
+
+
+ 653      535F4470 
+ 653      5F536574 
+ 653      496E7465 
+ 653      72727570 
+ 654              	.LASF15:
+ 655 0103 55534246 		.ascii	"USBFS_Dp_Write\000"
+ 655      535F4470 
+ 655      5F577269 
+ 655      746500
+ 656              	.LASF8:
+ 657 0112 756E7369 		.ascii	"unsigned int\000"
+ 657      676E6564 
+ 657      20696E74 
+ 657      00
+ 658              	.LASF24:
+ 659 011f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 659      43313120 
+ 659      352E342E 
+ 659      31203230 
+ 659      31363036 
+ 660 0152 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 660      20726576 
+ 660      6973696F 
+ 660      6E203233 
+ 660      37373135 
+ 661 0185 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 661      66756E63 
+ 661      74696F6E 
+ 661      2D736563 
+ 661      74696F6E 
+ 662              	.LASF20:
+ 663 01ad 55534246 		.ascii	"USBFS_Dp_ReadDataReg\000"
+ 663      535F4470 
+ 663      5F526561 
+ 663      64446174 
+ 663      61526567 
+ 664              	.LASF18:
+ 665 01c2 6D6F6465 		.ascii	"mode\000"
+ 665      00
+ 666              	.LASF6:
+ 667 01c7 6C6F6E67 		.ascii	"long long int\000"
+ 667      206C6F6E 
+ 667      6720696E 
+ 667      7400
+ 668              	.LASF13:
+ 669 01d5 63686172 		.ascii	"char\000"
+ 669      00
+ 670              	.LASF2:
+ 671 01da 73686F72 		.ascii	"short int\000"
+ 671      7420696E 
+ 671      7400
+ 672              	.LASF9:
+ 673 01e4 75696E74 		.ascii	"uint8\000"
+ 673      3800
+ 674              	.LASF23:
+ 675 01ea 55534246 		.ascii	"USBFS_Dp_ClearInterrupt\000"
+ 675      535F4470 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc892etA.s 			page 18
+
+
+ 675      5F436C65 
+ 675      6172496E 
+ 675      74657272 
+ 676              	.LASF4:
+ 677 0202 6C6F6E67 		.ascii	"long int\000"
+ 677      20696E74 
+ 677      00
+ 678              	.LASF16:
+ 679 020b 55534246 		.ascii	"USBFS_Dp_SetDriveMode\000"
+ 679      535F4470 
+ 679      5F536574 
+ 679      44726976 
+ 679      654D6F64 
+ 680              	.LASF25:
+ 681 0221 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_Dp.c\000"
+ 681      72617465 
+ 681      645F536F 
+ 681      75726365 
+ 681      5C50536F 
+ 682              	.LASF0:
+ 683 0243 7369676E 		.ascii	"signed char\000"
+ 683      65642063 
+ 683      68617200 
+ 684              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

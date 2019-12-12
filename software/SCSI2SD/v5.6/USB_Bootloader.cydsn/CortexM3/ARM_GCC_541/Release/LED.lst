@@ -1,0 +1,807 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"LED.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.LED_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	LED_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	LED_Write, %function
+  25              	LED_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\LED.c"
+   1:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/LED.c **** * File Name: LED.c  
+   3:Generated_Source\PSoC5/LED.c **** * Version 2.20
+   4:Generated_Source\PSoC5/LED.c **** *
+   5:Generated_Source\PSoC5/LED.c **** * Description:
+   6:Generated_Source\PSoC5/LED.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/LED.c **** *
+   8:Generated_Source\PSoC5/LED.c **** * Note:
+   9:Generated_Source\PSoC5/LED.c **** *
+  10:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/LED.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/LED.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/LED.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/LED.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/LED.c **** 
+  17:Generated_Source\PSoC5/LED.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/LED.c **** #include "LED.h"
+  19:Generated_Source\PSoC5/LED.c **** 
+  20:Generated_Source\PSoC5/LED.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/LED.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/LED.c **** 	 LED__PORT == 15 && ((LED__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/LED.c **** 
+  24:Generated_Source\PSoC5/LED.c **** 
+  25:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/LED.c **** * Function Name: LED_Write
+  27:Generated_Source\PSoC5/LED.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/LED.c **** *
+  29:Generated_Source\PSoC5/LED.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/LED.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 2
+
+
+  31:Generated_Source\PSoC5/LED.c **** *
+  32:Generated_Source\PSoC5/LED.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/LED.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/LED.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/LED.c **** * bit banding).
+  36:Generated_Source\PSoC5/LED.c **** *
+  37:Generated_Source\PSoC5/LED.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/LED.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/LED.c **** *
+  40:Generated_Source\PSoC5/LED.c **** * \param value
+  41:Generated_Source\PSoC5/LED.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/LED.c **** *
+  43:Generated_Source\PSoC5/LED.c **** * \return 
+  44:Generated_Source\PSoC5/LED.c **** *  None 
+  45:Generated_Source\PSoC5/LED.c **** *
+  46:Generated_Source\PSoC5/LED.c **** * \sideeffect
+  47:Generated_Source\PSoC5/LED.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/LED.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/LED.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/LED.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/LED.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/LED.c **** *  this function.
+  53:Generated_Source\PSoC5/LED.c **** *
+  54:Generated_Source\PSoC5/LED.c **** * \funcusage
+  55:Generated_Source\PSoC5/LED.c **** *  \snippet LED_SUT.c usage_LED_Write
+  56:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/LED.c **** void LED_Write(uint8 value)
+  58:Generated_Source\PSoC5/LED.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/LED.c ****     uint8 staticBits = (LED_DR & (uint8)(~LED_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/LED.c ****     LED_DR = staticBits | ((uint8)(value << LED_SHIFT) & LED_MASK);
+  36              		.loc 1 60 0
+  37 0002 00F00100 		and	r0, r0, #1
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/LED.c ****     uint8 staticBits = (LED_DR & (uint8)(~LED_MASK));
+  39              		.loc 1 59 0
+  40 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0008 03F0FE03 		and	r3, r3, #254
+  44              	.LVL3:
+  45 000c 1843     		orrs	r0, r0, r3
+  46 000e 1070     		strb	r0, [r2]
+  47 0010 7047     		bx	lr
+  48              	.L3:
+  49 0012 00BF     		.align	2
+  50              	.L2:
+  51 0014 C0510040 		.word	1073762752
+  52              		.cfi_endproc
+  53              	.LFE0:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 3
+
+
+  54              		.size	LED_Write, .-LED_Write
+  55              		.section	.text.LED_SetDriveMode,"ax",%progbits
+  56              		.align	1
+  57              		.global	LED_SetDriveMode
+  58              		.thumb
+  59              		.thumb_func
+  60              		.type	LED_SetDriveMode, %function
+  61              	LED_SetDriveMode:
+  62              	.LFB1:
+  61:Generated_Source\PSoC5/LED.c **** }
+  62:Generated_Source\PSoC5/LED.c **** 
+  63:Generated_Source\PSoC5/LED.c **** 
+  64:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/LED.c **** * Function Name: LED_SetDriveMode
+  66:Generated_Source\PSoC5/LED.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/LED.c **** *
+  68:Generated_Source\PSoC5/LED.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/LED.c **** * 
+  70:Generated_Source\PSoC5/LED.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/LED.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/LED.c **** *
+  73:Generated_Source\PSoC5/LED.c **** * \param mode
+  74:Generated_Source\PSoC5/LED.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/LED.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/LED.c **** *
+  77:Generated_Source\PSoC5/LED.c **** * \return
+  78:Generated_Source\PSoC5/LED.c **** *  None
+  79:Generated_Source\PSoC5/LED.c **** *
+  80:Generated_Source\PSoC5/LED.c **** * \sideeffect
+  81:Generated_Source\PSoC5/LED.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/LED.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/LED.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/LED.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/LED.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/LED.c **** *
+  87:Generated_Source\PSoC5/LED.c **** * \funcusage
+  88:Generated_Source\PSoC5/LED.c **** *  \snippet LED_SUT.c usage_LED_SetDriveMode
+  89:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/LED.c **** void LED_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/LED.c **** {
+  63              		.loc 1 91 0
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68              	.LVL4:
+  92:Generated_Source\PSoC5/LED.c **** 	CyPins_SetPinDriveMode(LED_0, mode);
+  69              		.loc 1 92 0
+  70 0000 044A     		ldr	r2, .L5
+  71 0002 00F00E00 		and	r0, r0, #14
+  72              	.LVL5:
+  73 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  74 0008 03F0F103 		and	r3, r3, #241
+  75 000c 1843     		orrs	r0, r0, r3
+  76 000e 1070     		strb	r0, [r2]
+  77 0010 7047     		bx	lr
+  78              	.L6:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 4
+
+
+  79 0012 00BF     		.align	2
+  80              	.L5:
+  81 0014 60500040 		.word	1073762400
+  82              		.cfi_endproc
+  83              	.LFE1:
+  84              		.size	LED_SetDriveMode, .-LED_SetDriveMode
+  85              		.section	.text.LED_Read,"ax",%progbits
+  86              		.align	1
+  87              		.global	LED_Read
+  88              		.thumb
+  89              		.thumb_func
+  90              		.type	LED_Read, %function
+  91              	LED_Read:
+  92              	.LFB2:
+  93:Generated_Source\PSoC5/LED.c **** }
+  94:Generated_Source\PSoC5/LED.c **** 
+  95:Generated_Source\PSoC5/LED.c **** 
+  96:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/LED.c **** * Function Name: LED_Read
+  98:Generated_Source\PSoC5/LED.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/LED.c **** *
+ 100:Generated_Source\PSoC5/LED.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/LED.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/LED.c **** *  instance. 
+ 103:Generated_Source\PSoC5/LED.c **** *
+ 104:Generated_Source\PSoC5/LED.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/LED.c **** * physical pin.
+ 106:Generated_Source\PSoC5/LED.c **** *
+ 107:Generated_Source\PSoC5/LED.c **** * \return 
+ 108:Generated_Source\PSoC5/LED.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/LED.c **** *
+ 110:Generated_Source\PSoC5/LED.c **** * \funcusage
+ 111:Generated_Source\PSoC5/LED.c **** *  \snippet LED_SUT.c usage_LED_Read  
+ 112:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/LED.c **** uint8 LED_Read(void)
+ 114:Generated_Source\PSoC5/LED.c **** {
+  93              		.loc 1 114 0
+  94              		.cfi_startproc
+  95              		@ args = 0, pretend = 0, frame = 0
+  96              		@ frame_needed = 0, uses_anonymous_args = 0
+  97              		@ link register save eliminated.
+ 115:Generated_Source\PSoC5/LED.c ****     return (LED_PS & LED_MASK) >> LED_SHIFT;
+  98              		.loc 1 115 0
+  99 0000 024B     		ldr	r3, .L8
+ 100 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 116:Generated_Source\PSoC5/LED.c **** }
+ 101              		.loc 1 116 0
+ 102 0004 00F00100 		and	r0, r0, #1
+ 103 0008 7047     		bx	lr
+ 104              	.L9:
+ 105 000a 00BF     		.align	2
+ 106              	.L8:
+ 107 000c C1510040 		.word	1073762753
+ 108              		.cfi_endproc
+ 109              	.LFE2:
+ 110              		.size	LED_Read, .-LED_Read
+ 111              		.section	.text.LED_ReadDataReg,"ax",%progbits
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 5
+
+
+ 112              		.align	1
+ 113              		.global	LED_ReadDataReg
+ 114              		.thumb
+ 115              		.thumb_func
+ 116              		.type	LED_ReadDataReg, %function
+ 117              	LED_ReadDataReg:
+ 118              	.LFB3:
+ 117:Generated_Source\PSoC5/LED.c **** 
+ 118:Generated_Source\PSoC5/LED.c **** 
+ 119:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/LED.c **** * Function Name: LED_ReadDataReg
+ 121:Generated_Source\PSoC5/LED.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/LED.c **** *
+ 123:Generated_Source\PSoC5/LED.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/LED.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/LED.c **** *  instance. 
+ 126:Generated_Source\PSoC5/LED.c **** *
+ 127:Generated_Source\PSoC5/LED.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/LED.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/LED.c **** * preferred LED_Read() API because the 
+ 130:Generated_Source\PSoC5/LED.c **** * LED_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/LED.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/LED.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/LED.c **** *
+ 134:Generated_Source\PSoC5/LED.c **** * \return 
+ 135:Generated_Source\PSoC5/LED.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/LED.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/LED.c **** *
+ 138:Generated_Source\PSoC5/LED.c **** * \funcusage
+ 139:Generated_Source\PSoC5/LED.c **** *  \snippet LED_SUT.c usage_LED_ReadDataReg 
+ 140:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/LED.c **** uint8 LED_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/LED.c **** {
+ 119              		.loc 1 142 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123              		@ link register save eliminated.
+ 143:Generated_Source\PSoC5/LED.c ****     return (LED_DR & LED_MASK) >> LED_SHIFT;
+ 124              		.loc 1 143 0
+ 125 0000 024B     		ldr	r3, .L11
+ 126 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 144:Generated_Source\PSoC5/LED.c **** }
+ 127              		.loc 1 144 0
+ 128 0004 00F00100 		and	r0, r0, #1
+ 129 0008 7047     		bx	lr
+ 130              	.L12:
+ 131 000a 00BF     		.align	2
+ 132              	.L11:
+ 133 000c C0510040 		.word	1073762752
+ 134              		.cfi_endproc
+ 135              	.LFE3:
+ 136              		.size	LED_ReadDataReg, .-LED_ReadDataReg
+ 137              		.text
+ 138              	.Letext0:
+ 139              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 140              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 6
+
+
+ 141              	.Ldebug_info0:
+ 142 0000 1D010000 		.4byte	0x11d
+ 143 0004 0400     		.2byte	0x4
+ 144 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 145 000a 04       		.byte	0x4
+ 146 000b 01       		.uleb128 0x1
+ 147 000c 29010000 		.4byte	.LASF20
+ 148 0010 0C       		.byte	0xc
+ 149 0011 11000000 		.4byte	.LASF21
+ 150 0015 BE000000 		.4byte	.LASF22
+ 151 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 152 001d 00000000 		.4byte	0
+ 153 0021 00000000 		.4byte	.Ldebug_line0
+ 154 0025 02       		.uleb128 0x2
+ 155 0026 01       		.byte	0x1
+ 156 0027 06       		.byte	0x6
+ 157 0028 E8010000 		.4byte	.LASF0
+ 158 002c 02       		.uleb128 0x2
+ 159 002d 01       		.byte	0x1
+ 160 002e 08       		.byte	0x8
+ 161 002f 66000000 		.4byte	.LASF1
+ 162 0033 02       		.uleb128 0x2
+ 163 0034 02       		.byte	0x2
+ 164 0035 05       		.byte	0x5
+ 165 0036 CF010000 		.4byte	.LASF2
+ 166 003a 02       		.uleb128 0x2
+ 167 003b 02       		.byte	0x2
+ 168 003c 07       		.byte	0x7
+ 169 003d 8B000000 		.4byte	.LASF3
+ 170 0041 02       		.uleb128 0x2
+ 171 0042 04       		.byte	0x4
+ 172 0043 05       		.byte	0x5
+ 173 0044 DF010000 		.4byte	.LASF4
+ 174 0048 02       		.uleb128 0x2
+ 175 0049 04       		.byte	0x4
+ 176 004a 07       		.byte	0x7
+ 177 004b 79000000 		.4byte	.LASF5
+ 178 004f 02       		.uleb128 0x2
+ 179 0050 08       		.byte	0x8
+ 180 0051 05       		.byte	0x5
+ 181 0052 BC010000 		.4byte	.LASF6
+ 182 0056 02       		.uleb128 0x2
+ 183 0057 08       		.byte	0x8
+ 184 0058 07       		.byte	0x7
+ 185 0059 4F000000 		.4byte	.LASF7
+ 186 005d 03       		.uleb128 0x3
+ 187 005e 04       		.byte	0x4
+ 188 005f 05       		.byte	0x5
+ 189 0060 696E7400 		.ascii	"int\000"
+ 190 0064 02       		.uleb128 0x2
+ 191 0065 04       		.byte	0x4
+ 192 0066 07       		.byte	0x7
+ 193 0067 1C010000 		.4byte	.LASF8
+ 194 006b 04       		.uleb128 0x4
+ 195 006c D9010000 		.4byte	.LASF12
+ 196 0070 02       		.byte	0x2
+ 197 0071 9201     		.2byte	0x192
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 7
+
+
+ 198 0073 2C000000 		.4byte	0x2c
+ 199 0077 02       		.uleb128 0x2
+ 200 0078 04       		.byte	0x4
+ 201 0079 04       		.byte	0x4
+ 202 007a 49000000 		.4byte	.LASF9
+ 203 007e 02       		.uleb128 0x2
+ 204 007f 08       		.byte	0x8
+ 205 0080 04       		.byte	0x4
+ 206 0081 B7000000 		.4byte	.LASF10
+ 207 0085 02       		.uleb128 0x2
+ 208 0086 01       		.byte	0x1
+ 209 0087 08       		.byte	0x8
+ 210 0088 CA010000 		.4byte	.LASF11
+ 211 008c 04       		.uleb128 0x4
+ 212 008d 74000000 		.4byte	.LASF13
+ 213 0091 02       		.byte	0x2
+ 214 0092 3C02     		.2byte	0x23c
+ 215 0094 98000000 		.4byte	0x98
+ 216 0098 05       		.uleb128 0x5
+ 217 0099 6B000000 		.4byte	0x6b
+ 218 009d 06       		.uleb128 0x6
+ 219 009e 2E000000 		.4byte	.LASF14
+ 220 00a2 01       		.byte	0x1
+ 221 00a3 39       		.byte	0x39
+ 222 00a4 00000000 		.4byte	.LFB0
+ 223 00a8 18000000 		.4byte	.LFE0-.LFB0
+ 224 00ac 01       		.uleb128 0x1
+ 225 00ad 9C       		.byte	0x9c
+ 226 00ae D1000000 		.4byte	0xd1
+ 227 00b2 07       		.uleb128 0x7
+ 228 00b3 38000000 		.4byte	.LASF16
+ 229 00b7 01       		.byte	0x1
+ 230 00b8 39       		.byte	0x39
+ 231 00b9 6B000000 		.4byte	0x6b
+ 232 00bd 00000000 		.4byte	.LLST0
+ 233 00c1 08       		.uleb128 0x8
+ 234 00c2 3E000000 		.4byte	.LASF23
+ 235 00c6 01       		.byte	0x1
+ 236 00c7 3B       		.byte	0x3b
+ 237 00c8 6B000000 		.4byte	0x6b
+ 238 00cc 21000000 		.4byte	.LLST1
+ 239 00d0 00       		.byte	0
+ 240 00d1 06       		.uleb128 0x6
+ 241 00d2 00000000 		.4byte	.LASF15
+ 242 00d6 01       		.byte	0x1
+ 243 00d7 5A       		.byte	0x5a
+ 244 00d8 00000000 		.4byte	.LFB1
+ 245 00dc 18000000 		.4byte	.LFE1-.LFB1
+ 246 00e0 01       		.uleb128 0x1
+ 247 00e1 9C       		.byte	0x9c
+ 248 00e2 F6000000 		.4byte	0xf6
+ 249 00e6 07       		.uleb128 0x7
+ 250 00e7 B7010000 		.4byte	.LASF17
+ 251 00eb 01       		.byte	0x1
+ 252 00ec 5A       		.byte	0x5a
+ 253 00ed 6B000000 		.4byte	0x6b
+ 254 00f1 39000000 		.4byte	.LLST2
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 8
+
+
+ 255 00f5 00       		.byte	0
+ 256 00f6 09       		.uleb128 0x9
+ 257 00f7 9E000000 		.4byte	.LASF18
+ 258 00fb 01       		.byte	0x1
+ 259 00fc 71       		.byte	0x71
+ 260 00fd 6B000000 		.4byte	0x6b
+ 261 0101 00000000 		.4byte	.LFB2
+ 262 0105 10000000 		.4byte	.LFE2-.LFB2
+ 263 0109 01       		.uleb128 0x1
+ 264 010a 9C       		.byte	0x9c
+ 265 010b 09       		.uleb128 0x9
+ 266 010c A7000000 		.4byte	.LASF19
+ 267 0110 01       		.byte	0x1
+ 268 0111 8D       		.byte	0x8d
+ 269 0112 6B000000 		.4byte	0x6b
+ 270 0116 00000000 		.4byte	.LFB3
+ 271 011a 10000000 		.4byte	.LFE3-.LFB3
+ 272 011e 01       		.uleb128 0x1
+ 273 011f 9C       		.byte	0x9c
+ 274 0120 00       		.byte	0
+ 275              		.section	.debug_abbrev,"",%progbits
+ 276              	.Ldebug_abbrev0:
+ 277 0000 01       		.uleb128 0x1
+ 278 0001 11       		.uleb128 0x11
+ 279 0002 01       		.byte	0x1
+ 280 0003 25       		.uleb128 0x25
+ 281 0004 0E       		.uleb128 0xe
+ 282 0005 13       		.uleb128 0x13
+ 283 0006 0B       		.uleb128 0xb
+ 284 0007 03       		.uleb128 0x3
+ 285 0008 0E       		.uleb128 0xe
+ 286 0009 1B       		.uleb128 0x1b
+ 287 000a 0E       		.uleb128 0xe
+ 288 000b 55       		.uleb128 0x55
+ 289 000c 17       		.uleb128 0x17
+ 290 000d 11       		.uleb128 0x11
+ 291 000e 01       		.uleb128 0x1
+ 292 000f 10       		.uleb128 0x10
+ 293 0010 17       		.uleb128 0x17
+ 294 0011 00       		.byte	0
+ 295 0012 00       		.byte	0
+ 296 0013 02       		.uleb128 0x2
+ 297 0014 24       		.uleb128 0x24
+ 298 0015 00       		.byte	0
+ 299 0016 0B       		.uleb128 0xb
+ 300 0017 0B       		.uleb128 0xb
+ 301 0018 3E       		.uleb128 0x3e
+ 302 0019 0B       		.uleb128 0xb
+ 303 001a 03       		.uleb128 0x3
+ 304 001b 0E       		.uleb128 0xe
+ 305 001c 00       		.byte	0
+ 306 001d 00       		.byte	0
+ 307 001e 03       		.uleb128 0x3
+ 308 001f 24       		.uleb128 0x24
+ 309 0020 00       		.byte	0
+ 310 0021 0B       		.uleb128 0xb
+ 311 0022 0B       		.uleb128 0xb
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 9
+
+
+ 312 0023 3E       		.uleb128 0x3e
+ 313 0024 0B       		.uleb128 0xb
+ 314 0025 03       		.uleb128 0x3
+ 315 0026 08       		.uleb128 0x8
+ 316 0027 00       		.byte	0
+ 317 0028 00       		.byte	0
+ 318 0029 04       		.uleb128 0x4
+ 319 002a 16       		.uleb128 0x16
+ 320 002b 00       		.byte	0
+ 321 002c 03       		.uleb128 0x3
+ 322 002d 0E       		.uleb128 0xe
+ 323 002e 3A       		.uleb128 0x3a
+ 324 002f 0B       		.uleb128 0xb
+ 325 0030 3B       		.uleb128 0x3b
+ 326 0031 05       		.uleb128 0x5
+ 327 0032 49       		.uleb128 0x49
+ 328 0033 13       		.uleb128 0x13
+ 329 0034 00       		.byte	0
+ 330 0035 00       		.byte	0
+ 331 0036 05       		.uleb128 0x5
+ 332 0037 35       		.uleb128 0x35
+ 333 0038 00       		.byte	0
+ 334 0039 49       		.uleb128 0x49
+ 335 003a 13       		.uleb128 0x13
+ 336 003b 00       		.byte	0
+ 337 003c 00       		.byte	0
+ 338 003d 06       		.uleb128 0x6
+ 339 003e 2E       		.uleb128 0x2e
+ 340 003f 01       		.byte	0x1
+ 341 0040 3F       		.uleb128 0x3f
+ 342 0041 19       		.uleb128 0x19
+ 343 0042 03       		.uleb128 0x3
+ 344 0043 0E       		.uleb128 0xe
+ 345 0044 3A       		.uleb128 0x3a
+ 346 0045 0B       		.uleb128 0xb
+ 347 0046 3B       		.uleb128 0x3b
+ 348 0047 0B       		.uleb128 0xb
+ 349 0048 27       		.uleb128 0x27
+ 350 0049 19       		.uleb128 0x19
+ 351 004a 11       		.uleb128 0x11
+ 352 004b 01       		.uleb128 0x1
+ 353 004c 12       		.uleb128 0x12
+ 354 004d 06       		.uleb128 0x6
+ 355 004e 40       		.uleb128 0x40
+ 356 004f 18       		.uleb128 0x18
+ 357 0050 9742     		.uleb128 0x2117
+ 358 0052 19       		.uleb128 0x19
+ 359 0053 01       		.uleb128 0x1
+ 360 0054 13       		.uleb128 0x13
+ 361 0055 00       		.byte	0
+ 362 0056 00       		.byte	0
+ 363 0057 07       		.uleb128 0x7
+ 364 0058 05       		.uleb128 0x5
+ 365 0059 00       		.byte	0
+ 366 005a 03       		.uleb128 0x3
+ 367 005b 0E       		.uleb128 0xe
+ 368 005c 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 10
+
+
+ 369 005d 0B       		.uleb128 0xb
+ 370 005e 3B       		.uleb128 0x3b
+ 371 005f 0B       		.uleb128 0xb
+ 372 0060 49       		.uleb128 0x49
+ 373 0061 13       		.uleb128 0x13
+ 374 0062 02       		.uleb128 0x2
+ 375 0063 17       		.uleb128 0x17
+ 376 0064 00       		.byte	0
+ 377 0065 00       		.byte	0
+ 378 0066 08       		.uleb128 0x8
+ 379 0067 34       		.uleb128 0x34
+ 380 0068 00       		.byte	0
+ 381 0069 03       		.uleb128 0x3
+ 382 006a 0E       		.uleb128 0xe
+ 383 006b 3A       		.uleb128 0x3a
+ 384 006c 0B       		.uleb128 0xb
+ 385 006d 3B       		.uleb128 0x3b
+ 386 006e 0B       		.uleb128 0xb
+ 387 006f 49       		.uleb128 0x49
+ 388 0070 13       		.uleb128 0x13
+ 389 0071 02       		.uleb128 0x2
+ 390 0072 17       		.uleb128 0x17
+ 391 0073 00       		.byte	0
+ 392 0074 00       		.byte	0
+ 393 0075 09       		.uleb128 0x9
+ 394 0076 2E       		.uleb128 0x2e
+ 395 0077 00       		.byte	0
+ 396 0078 3F       		.uleb128 0x3f
+ 397 0079 19       		.uleb128 0x19
+ 398 007a 03       		.uleb128 0x3
+ 399 007b 0E       		.uleb128 0xe
+ 400 007c 3A       		.uleb128 0x3a
+ 401 007d 0B       		.uleb128 0xb
+ 402 007e 3B       		.uleb128 0x3b
+ 403 007f 0B       		.uleb128 0xb
+ 404 0080 27       		.uleb128 0x27
+ 405 0081 19       		.uleb128 0x19
+ 406 0082 49       		.uleb128 0x49
+ 407 0083 13       		.uleb128 0x13
+ 408 0084 11       		.uleb128 0x11
+ 409 0085 01       		.uleb128 0x1
+ 410 0086 12       		.uleb128 0x12
+ 411 0087 06       		.uleb128 0x6
+ 412 0088 40       		.uleb128 0x40
+ 413 0089 18       		.uleb128 0x18
+ 414 008a 9742     		.uleb128 0x2117
+ 415 008c 19       		.uleb128 0x19
+ 416 008d 00       		.byte	0
+ 417 008e 00       		.byte	0
+ 418 008f 00       		.byte	0
+ 419              		.section	.debug_loc,"",%progbits
+ 420              	.Ldebug_loc0:
+ 421              	.LLST0:
+ 422 0000 00000000 		.4byte	.LVL0
+ 423 0004 06000000 		.4byte	.LVL1
+ 424 0008 0100     		.2byte	0x1
+ 425 000a 50       		.byte	0x50
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 11
+
+
+ 426 000b 06000000 		.4byte	.LVL1
+ 427 000f 18000000 		.4byte	.LFE0
+ 428 0013 0400     		.2byte	0x4
+ 429 0015 F3       		.byte	0xf3
+ 430 0016 01       		.uleb128 0x1
+ 431 0017 50       		.byte	0x50
+ 432 0018 9F       		.byte	0x9f
+ 433 0019 00000000 		.4byte	0
+ 434 001d 00000000 		.4byte	0
+ 435              	.LLST1:
+ 436 0021 08000000 		.4byte	.LVL2
+ 437 0025 0C000000 		.4byte	.LVL3
+ 438 0029 0600     		.2byte	0x6
+ 439 002b 73       		.byte	0x73
+ 440 002c 00       		.sleb128 0
+ 441 002d 09       		.byte	0x9
+ 442 002e FE       		.byte	0xfe
+ 443 002f 1A       		.byte	0x1a
+ 444 0030 9F       		.byte	0x9f
+ 445 0031 00000000 		.4byte	0
+ 446 0035 00000000 		.4byte	0
+ 447              	.LLST2:
+ 448 0039 00000000 		.4byte	.LVL4
+ 449 003d 06000000 		.4byte	.LVL5
+ 450 0041 0100     		.2byte	0x1
+ 451 0043 50       		.byte	0x50
+ 452 0044 06000000 		.4byte	.LVL5
+ 453 0048 18000000 		.4byte	.LFE1
+ 454 004c 0400     		.2byte	0x4
+ 455 004e F3       		.byte	0xf3
+ 456 004f 01       		.uleb128 0x1
+ 457 0050 50       		.byte	0x50
+ 458 0051 9F       		.byte	0x9f
+ 459 0052 00000000 		.4byte	0
+ 460 0056 00000000 		.4byte	0
+ 461              		.section	.debug_aranges,"",%progbits
+ 462 0000 34000000 		.4byte	0x34
+ 463 0004 0200     		.2byte	0x2
+ 464 0006 00000000 		.4byte	.Ldebug_info0
+ 465 000a 04       		.byte	0x4
+ 466 000b 00       		.byte	0
+ 467 000c 0000     		.2byte	0
+ 468 000e 0000     		.2byte	0
+ 469 0010 00000000 		.4byte	.LFB0
+ 470 0014 18000000 		.4byte	.LFE0-.LFB0
+ 471 0018 00000000 		.4byte	.LFB1
+ 472 001c 18000000 		.4byte	.LFE1-.LFB1
+ 473 0020 00000000 		.4byte	.LFB2
+ 474 0024 10000000 		.4byte	.LFE2-.LFB2
+ 475 0028 00000000 		.4byte	.LFB3
+ 476 002c 10000000 		.4byte	.LFE3-.LFB3
+ 477 0030 00000000 		.4byte	0
+ 478 0034 00000000 		.4byte	0
+ 479              		.section	.debug_ranges,"",%progbits
+ 480              	.Ldebug_ranges0:
+ 481 0000 00000000 		.4byte	.LFB0
+ 482 0004 18000000 		.4byte	.LFE0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 12
+
+
+ 483 0008 00000000 		.4byte	.LFB1
+ 484 000c 18000000 		.4byte	.LFE1
+ 485 0010 00000000 		.4byte	.LFB2
+ 486 0014 10000000 		.4byte	.LFE2
+ 487 0018 00000000 		.4byte	.LFB3
+ 488 001c 10000000 		.4byte	.LFE3
+ 489 0020 00000000 		.4byte	0
+ 490 0024 00000000 		.4byte	0
+ 491              		.section	.debug_line,"",%progbits
+ 492              	.Ldebug_line0:
+ 493 0000 8E000000 		.section	.debug_str,"MS",%progbits,1
+ 493      02004000 
+ 493      00000201 
+ 493      FB0E0D00 
+ 493      01010101 
+ 494              	.LASF15:
+ 495 0000 4C45445F 		.ascii	"LED_SetDriveMode\000"
+ 495      53657444 
+ 495      72697665 
+ 495      4D6F6465 
+ 495      00
+ 496              	.LASF21:
+ 497 0011 47656E65 		.ascii	"Generated_Source\\PSoC5\\LED.c\000"
+ 497      72617465 
+ 497      645F536F 
+ 497      75726365 
+ 497      5C50536F 
+ 498              	.LASF14:
+ 499 002e 4C45445F 		.ascii	"LED_Write\000"
+ 499      57726974 
+ 499      6500
+ 500              	.LASF16:
+ 501 0038 76616C75 		.ascii	"value\000"
+ 501      6500
+ 502              	.LASF23:
+ 503 003e 73746174 		.ascii	"staticBits\000"
+ 503      69634269 
+ 503      747300
+ 504              	.LASF9:
+ 505 0049 666C6F61 		.ascii	"float\000"
+ 505      7400
+ 506              	.LASF7:
+ 507 004f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 507      206C6F6E 
+ 507      6720756E 
+ 507      7369676E 
+ 507      65642069 
+ 508              	.LASF1:
+ 509 0066 756E7369 		.ascii	"unsigned char\000"
+ 509      676E6564 
+ 509      20636861 
+ 509      7200
+ 510              	.LASF13:
+ 511 0074 72656738 		.ascii	"reg8\000"
+ 511      00
+ 512              	.LASF5:
+ 513 0079 6C6F6E67 		.ascii	"long unsigned int\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 13
+
+
+ 513      20756E73 
+ 513      69676E65 
+ 513      6420696E 
+ 513      7400
+ 514              	.LASF3:
+ 515 008b 73686F72 		.ascii	"short unsigned int\000"
+ 515      7420756E 
+ 515      7369676E 
+ 515      65642069 
+ 515      6E7400
+ 516              	.LASF18:
+ 517 009e 4C45445F 		.ascii	"LED_Read\000"
+ 517      52656164 
+ 517      00
+ 518              	.LASF19:
+ 519 00a7 4C45445F 		.ascii	"LED_ReadDataReg\000"
+ 519      52656164 
+ 519      44617461 
+ 519      52656700 
+ 520              	.LASF10:
+ 521 00b7 646F7562 		.ascii	"double\000"
+ 521      6C6500
+ 522              	.LASF22:
+ 523 00be 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 523      73657273 
+ 523      5C526162 
+ 523      62697420 
+ 523      486F6C65 
+ 524 00ed 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.6\\USB_Bootloader.cydsn\000"
+ 524      736F6674 
+ 524      77617265 
+ 524      5C534353 
+ 524      49325344 
+ 525              	.LASF8:
+ 526 011c 756E7369 		.ascii	"unsigned int\000"
+ 526      676E6564 
+ 526      20696E74 
+ 526      00
+ 527              	.LASF20:
+ 528 0129 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 528      43313120 
+ 528      352E342E 
+ 528      31203230 
+ 528      31363036 
+ 529 015c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 529      20726576 
+ 529      6973696F 
+ 529      6E203233 
+ 529      37373135 
+ 530 018f 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 530      66756E63 
+ 530      74696F6E 
+ 530      2D736563 
+ 530      74696F6E 
+ 531              	.LASF17:
+ 532 01b7 6D6F6465 		.ascii	"mode\000"
+ 532      00
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccmAuKRe.s 			page 14
+
+
+ 533              	.LASF6:
+ 534 01bc 6C6F6E67 		.ascii	"long long int\000"
+ 534      206C6F6E 
+ 534      6720696E 
+ 534      7400
+ 535              	.LASF11:
+ 536 01ca 63686172 		.ascii	"char\000"
+ 536      00
+ 537              	.LASF2:
+ 538 01cf 73686F72 		.ascii	"short int\000"
+ 538      7420696E 
+ 538      7400
+ 539              	.LASF12:
+ 540 01d9 75696E74 		.ascii	"uint8\000"
+ 540      3800
+ 541              	.LASF4:
+ 542 01df 6C6F6E67 		.ascii	"long int\000"
+ 542      20696E74 
+ 542      00
+ 543              	.LASF0:
+ 544 01e8 7369676E 		.ascii	"signed char\000"
+ 544      65642063 
+ 544      68617200 
+ 545              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

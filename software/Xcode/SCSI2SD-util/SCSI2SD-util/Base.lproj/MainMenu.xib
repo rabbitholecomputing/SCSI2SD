@@ -226,16 +226,40 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
-                            <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9"/>
-                            <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
-                            <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
+                            <menuItem title="Open…" keyEquivalent="o" id="IAo-SY-fd9">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>
+                                    <action selector="openFile:" target="Voe-Tx-rLC" id="fZe-MR-2Oy"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Save…" keyEquivalent="s" id="pxx-59-PXV">
                                 <connections>
                                     <action selector="saveFile:" target="Voe-Tx-rLC" id="r2G-Wt-bvb"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="m54-Is-iLE"/>
+                            <menuItem title="Load Defaults" keyEquivalent="l" id="AUv-J3-s1C">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="loadDefaults:" target="Voe-Tx-rLC" id="MuP-Kf-zeP"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="uFP-yu-NLn"/>
+                            <menuItem title="Load From Device..." keyEquivalent="L" id="77j-QG-g8Z">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="loadFromDevice:" target="Voe-Tx-rLC" id="Ydy-Nb-NeG"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save To Device..." keyEquivalent="S" id="X8D-yc-hlY">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="saveToDevice:" target="Voe-Tx-rLC" id="rgd-vV-Gaz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="cCC-Ze-EFk"/>
+                            <menuItem title="Upgrade Firmware..." keyEquivalent="u" id="vte-13-pdU">
+                                <connections>
+                                    <action selector="upgradeFirmware:" target="Voe-Tx-rLC" id="vRf-We-5DI"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -247,9 +271,15 @@
                         <items>
                             <menuItem title="Log SCSI Data" id="Gi5-1S-RQB">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="logScsiData:" target="Voe-Tx-rLC" id="p0q-oP-9z7"/>
+                                </connections>
                             </menuItem>
                             <menuItem title="SCSI Standalone Self-Test" id="Fal-I4-PZk">
                                 <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="scsiSelfTest:" target="Voe-Tx-rLC" id="e2e-eF-BGy"/>
+                                </connections>
                             </menuItem>
                         </items>
                     </menu>
@@ -292,9 +322,9 @@
                     </menu>
                 </menuItem>
             </items>
-            <point key="canvasLocation" x="140" y="261"/>
+            <point key="canvasLocation" x="134" y="6"/>
         </menu>
-        <window title="scsi2sd" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="scsi2sd-util" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="335" y="390" width="723" height="448"/>
@@ -437,7 +467,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 1" identifier="" id="brZ-Zo-uTs">
-                                <view key="view" id="ALI-Eb-2QG">
+                                <view key="view" ambiguous="YES" id="ALI-Eb-2QG">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -909,7 +939,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 3" identifier="" id="igu-ca-T6P">
-                                <view key="view" ambiguous="YES" id="HLV-lM-rpU">
+                                <view key="view" id="HLV-lM-rpU">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -2126,7 +2156,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3KJ-QQ-yLC">
                             <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="IUe-Fz-GvN">
                                     <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>
@@ -2138,6 +2168,7 @@
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
                             </subviews>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="sD6-qG-kw1">
                             <rect key="frame" x="-100" y="-100" width="240" height="16"/>

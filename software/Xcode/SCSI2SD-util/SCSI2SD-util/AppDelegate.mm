@@ -102,6 +102,35 @@ enum
     outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
 }
 
+- (IBAction) loadDefaults: (id)sender
+{
+}
+
+- (IBAction)saveToDevice:(id)sender
+{
+    
+}
+
+- (IBAction)loadFromDevice:(id)sender
+{
+    
+}
+
+- (IBAction)upgradeFirmware:(id)sender
+{
+    
+}
+
+- (IBAction)scsiSelfTest:(id)sender
+{
+    
+}
+
+- (IBAction)logScsiData:(id)sender
+{
+    
+}
+
 - (void) evaluate
 {
     bool valid = true;

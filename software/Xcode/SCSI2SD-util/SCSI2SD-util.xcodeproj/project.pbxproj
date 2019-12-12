@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1474C0972399677F003C67D5 /* libscsi2sd-util.a */; };
-		1474C0FA23998938003C67D5 /* scsi2sd_util_actions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1474C0F823998938003C67D5 /* scsi2sd_util_actions.mm */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.mm */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
@@ -342,7 +341,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1482B20C239748DB001BA513 /* Device6Controller.mm in Sources */,
-				1474C0FA23998938003C67D5 /* scsi2sd_util_actions.mm in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.mm in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				1482B20E239748DB001BA513 /* Device4Controller.mm in Sources */,

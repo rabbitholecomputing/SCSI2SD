@@ -105,7 +105,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device6];
     [deviceControllers addObject: _device7];
     
-    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)5
+    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)2
                                                       repeats:YES
                                                         block:^(NSTimer * _Nonnull timer) {
         [self doTimer];
@@ -115,6 +115,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
+    [pollDeviceTimer invalidate];
+    [deviceControllers removeAllObjects];
 }
 
 - (void) doTimer

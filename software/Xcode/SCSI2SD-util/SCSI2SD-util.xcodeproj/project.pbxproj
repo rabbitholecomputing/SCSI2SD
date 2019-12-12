@@ -39,8 +39,6 @@
 		1474C0972399677F003C67D5 /* libscsi2sd-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libscsi2sd-util.a"; sourceTree = "<group>"; };
 		1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
 		1474C0F723996A15003C67D5 /* SCSI2SD_Bootloader.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_Bootloader.hh; sourceTree = "<group>"; };
-		1474C0F823998938003C67D5 /* scsi2sd_util_actions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = scsi2sd_util_actions.mm; sourceTree = "<group>"; };
-		1474C0F923998938003C67D5 /* scsi2sd_util_actions.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = scsi2sd_util_actions.hh; sourceTree = "<group>"; };
 		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1482B1E723973F3E001BA513 /* AppDelegate.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AppDelegate.hh; sourceTree = "<group>"; };
 		1482B1E823973F3E001BA513 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
@@ -153,8 +151,6 @@
 			children = (
 				14DEC5E923A2F06C00ECD04A /* ConfigUtil.hh */,
 				14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */,
-				1474C0F823998938003C67D5 /* scsi2sd_util_actions.mm */,
-				1474C0F923998938003C67D5 /* scsi2sd_util_actions.hh */,
 				14DEC5E6239F456800ECD04A /* Functions.mm */,
 				14DEC5E7239F456800ECD04A /* Functions.hh */,
 			);

@@ -893,7 +893,7 @@ out:
         LogWarning(this, e.what());
         myHID.reset();
     } */
-    [self logStringToPanel:@"Logging SCSI info \n"];
+    // [self logStringToPanel:@"Logging SCSI info \n"];
 }
 
 - (void) evaluate

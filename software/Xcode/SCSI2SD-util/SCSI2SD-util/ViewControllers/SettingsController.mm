@@ -10,4 +10,25 @@
 
 @implementation SettingsController
 
+- (NSString *) toXml
+{
+    NSLog(@"%@",);
+    return nil;
+}
+
+- (void) fromXml: (NSXMLElement *)node
+{
+    
+}
+
+- (void) setConfig: (BoardConfig)config
+{
+    
+}
+
+- (BoardConfig) getConfig
+{
+    
+}
+
 @end

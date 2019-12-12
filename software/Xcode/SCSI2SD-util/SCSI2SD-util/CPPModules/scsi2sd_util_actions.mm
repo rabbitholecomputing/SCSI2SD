@@ -7,11 +7,13 @@
 //
 
 #include "scsi2sd_util_actions.hh"
-
+/*
 #import <Foundation/NSDistributedNotificationCenter.h>
 #import <Foundation/NSString.h>
 #import <Foundation/NSData.h>
+*/
 
+/*
 void LogMessage(char *message)
 {
     NSString *str = [NSString stringWithCString:message encoding:NSUTF8StringEncoding];
@@ -70,6 +72,7 @@ public:
         //SetStatusText(msg.c_str());
         //LogMessage(msg.c_str());
     }
+    */
 /*
     void OnID_ConfigDefaults()
     {
@@ -125,7 +128,8 @@ public:
                 wxOK | wxICON_ERROR);
         }
     }
-*/ 
+*/
+    /*
     void OnID_Firmware(wxCommandEvent& event)
     {
         TimerLock lock(myTimer);
@@ -297,7 +301,8 @@ public:
             wxRemoveFile(tmpFile);
         }
     }
-    
+    */
+    /*
     void doBootloaderUpdate(char *path)
     {
         NSString *filename = [NSString stringWithCString: path
@@ -377,7 +382,8 @@ public:
 
 
     }
-
+     */
+/*
     void dumpSCSICommand(std::vector<uint8_t> buf)
         {
         std::stringstream msg;
@@ -410,8 +416,8 @@ public:
             LogWarning(this, e.what());
             myHID.reset();
         }
-    }
-
+    } */
+/*
     void OnID_Timer()
     {
         logSCSI();
@@ -521,10 +527,10 @@ public:
 
                         if (!myInitialConfig)
                         {
-/* This doesn't work properly, and causes crashes.
-                            wxCommandEvent loadEvent(wxEVT_NULL, ID_BtnLoad);
-                            GetEventHandler()->AddPendingEvent(loadEvent);
-*/
+// This doesn't work properly, and causes crashes.
+//                            wxCommandEvent loadEvent(wxEVT_NULL, ID_BtnLoad);
+//                            GetEventHandler()->AddPendingEvent(loadEvent);
+
                         }
 
                     }
@@ -547,7 +553,8 @@ public:
 
         evaluate();
     }
-
+    */
+/*
     void doLoad()
     {
         TimerLock lock(myTimer);
@@ -674,7 +681,8 @@ public:
     out:
         return;
     }
-
+*/
+    /*
     void doSave()
     {
         TimerLock lock(myTimer);
@@ -796,15 +804,17 @@ public:
     }
 
     // Note: Don't confuse this with the wxApp::OnExit virtual method
-    void OnExitEvt();
+    //
+    //void OnExitEvt();
 
-    void OnCloseEvt();
+    //void OnCloseEvt();
 
-    void OnAbout()
-    {
-    }
+    //void OnAbout()
+    //{
+    //}
+     
 };
-
+*/
 /*
 wxBEGIN_EVENT_TABLE(AppFrame, wxFrame)
     EVT_MENU(AppFrame::ID_ConfigDefaults, AppFrame::OnID_ConfigDefaults)
@@ -827,6 +837,5 @@ wxBEGIN_EVENT_TABLE(AppFrame, wxFrame)
 
 wxEND_EVENT_TABLE()
 */
-
 
 

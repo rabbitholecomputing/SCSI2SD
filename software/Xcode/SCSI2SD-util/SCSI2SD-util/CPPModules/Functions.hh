@@ -19,4 +19,7 @@
 #endif
 
 #include <utility>
+
+static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc);
+
 #endif /* Functions_hpp */

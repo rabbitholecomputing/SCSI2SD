@@ -12,6 +12,7 @@
 #include "SCSI2SD_HID.hh"
 #include "Firmware.hh"
 #include "scsi2sd.h"
+#include "Functions.hh"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 {
@@ -23,6 +24,8 @@
     
     uint8_t myTickCounter;
     time_t myLastPollTime;
+    
+    NSTimer *pollDeviceTimer;
 }
 
 @end

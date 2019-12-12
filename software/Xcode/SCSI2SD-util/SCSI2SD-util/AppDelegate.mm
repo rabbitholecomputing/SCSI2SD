@@ -105,7 +105,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device6];
     [deviceControllers addObject: _device7];
     
-    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)2
+    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.5
                                                       repeats:YES
                                                         block:^(NSTimer * _Nonnull timer) {
         [self doTimer];

@@ -70,14 +70,7 @@ public:
         //SetStatusText(msg.c_str());
         //LogMessage(msg.c_str());
     }
-
-    void onConfigChanged()
-    {
-        evaluate();
-    }
-
-
-
+/*
     void OnID_ConfigDefaults()
     {
         myBoardPanel->setConfig(ConfigUtil::DefaultBoardConfig());
@@ -85,8 +78,9 @@ public:
         {
             myTargets[i]->setConfig(ConfigUtil::Default(i));
         }
-    }
-
+    }*/
+    
+/*
     void OnID_OpenFile(wxCommandEvent& event)
     {
         TimerLock lock(myTimer);
@@ -131,7 +125,7 @@ public:
                 wxOK | wxICON_ERROR);
         }
     }
-
+*/ 
     void OnID_Firmware(wxCommandEvent& event)
     {
         TimerLock lock(myTimer);

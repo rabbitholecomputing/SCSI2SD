@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
+#include "ConfigUtil.hh"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsController : NSObject
@@ -24,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSButton *mapLUNStoSCSIIDs;
 
 - (NSString *) toXml;
+- (void) fromXml: (NSXMLElement *)node;
+- (void) setConfig: (BoardConfig)config;
 
 @end
 

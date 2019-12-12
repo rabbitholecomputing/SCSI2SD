@@ -29,8 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSTextField *serialNumber;
 @property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
 
-- (TargetConfig *) generateTargetConfig;
+- (TargetConfig) generateTargetConfig;
+- (void) setConfig: (TargetConfig)config;
 - (NSString *) toXml;
+- (void) fromXml: (NSXMLElement *)node;
 
 @end
 

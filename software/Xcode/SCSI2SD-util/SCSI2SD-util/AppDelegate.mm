@@ -9,8 +9,10 @@
 #import "AppDelegate.hh"
 #import "DeviceController.h"
 #import "SettingsController.h"
+
 #include <vector>
 #include <string>
+#include "ConfigUtil.hh"
 
 enum
 {
@@ -89,21 +91,62 @@ enum
 
 - (IBAction)openFile:(id)sender
 {
-    NSString *outputString = @"";
-    outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    [panel setCanChooseFiles: YES];
+    [panel setRequiredFileType:@"xml"];
+    
+    [panel beginSheet:[self mainWindow]
+    completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK ||
+           returnCode == NSModalResponseContinue)
+        {
+            try
+            {
+                NSArray *paths = [panel filenames];
+                NSString *path = [paths objectAtIndex: 0];
+                char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
+                std::pair<BoardConfig, std::vector<TargetConfig>> configs(
+                    SCSI2SD::ConfigUtil::fromXML(std::string(sPath)));
 
-    outputString = [outputString stringByAppendingString: [_settings toXml]];
-    DeviceController *dc = nil;
-    NSEnumerator *en = [deviceControllers objectEnumerator];
-    while((dc = [en nextObject]) != nil)
-    {
-        outputString = [outputString stringByAppendingString: [dc toXml]];
-    }
-    outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
+                // myBoardPanel->setConfig(configs.first);
+                [self.settings setConfig:configs.first];
+                size_t i;
+                for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
+                {
+                    DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
+                    [devCon setConfig: configs.second[i]];
+                }
+
+                for (; i < [self->deviceControllers count]; ++i)
+                {
+                    DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
+                    [devCon setConfig: configs.second[i]];
+                }
+            }
+            catch (std::exception& e)
+            {
+                NSArray *paths = [panel filenames];
+                NSString *path = [paths objectAtIndex: 0];
+                char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
+                NSLog(@
+                    "Cannot load settings from file '%s'.\n%s",
+                    sPath,
+                    e.what());
+            }
+        }
+    }];
 }
 
 - (IBAction) loadDefaults: (id)sender
 {
+    // myBoardPanel->setConfig(ConfigUtil::DefaultBoardConfig());
+    [self.settings setConfig: SCSI2SD::ConfigUtil::DefaultBoardConfig()];
+    for (size_t i = 0; i < [deviceControllers count]; ++i)
+    {
+        // myTargets[i]->setConfig(ConfigUtil::Default(i));
+        DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
+        [devCon setConfig: SCSI2SD::ConfigUtil::Default(i)];
+    }
 }
 
 - (IBAction)saveToDevice:(id)sender

@@ -19,6 +19,7 @@
 #endif
 
 #include <utility>
+// #include "scsi2sd.h"
 
 static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc);
 

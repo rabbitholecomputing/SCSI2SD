@@ -1,13 +1,13 @@
 //
-//  Device1Controller.m
+//  Device5Controller.m
 //  scsi2sd
 //
 //  Created by Gregory Casamento on 12/3/18.
 //  Copyright © 2018 Open Logic. All rights reserved.
 //
 
-#import "Device1Controller.h"
+#import "Device5Controller.hh"
 
-@implementation Device1Controller
+@implementation Device5Controller
 
 @end

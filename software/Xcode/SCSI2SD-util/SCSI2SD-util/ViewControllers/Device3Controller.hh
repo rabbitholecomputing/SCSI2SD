@@ -1,16 +1,16 @@
 //
-//  Device5Controller.h
+//  Device3Controller.h
 //  scsi2sd
 //
 //  Created by Gregory Casamento on 12/3/18.
 //  Copyright © 2018 Open Logic. All rights reserved.
 //
 
-#import "DeviceController.h"
+#import "DeviceController.hh"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Device5Controller : DeviceController
+@interface Device3Controller : DeviceController
 
 @end
 

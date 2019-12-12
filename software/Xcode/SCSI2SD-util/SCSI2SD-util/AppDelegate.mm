@@ -12,7 +12,7 @@
 
 #include <vector>
 #include <string>
-#include "ConfigUtil.hh"
+//#include "ConfigUtil.hh"
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
@@ -286,13 +286,13 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                 for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
                 {
                     DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
-                    [devCon setConfig: configs.second[i]];
+                    [devCon setTargetConfig: configs.second[i]];
                 }
 
                 for (; i < [self->deviceControllers count]; ++i)
                 {
                     DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
-                    [devCon setConfig: configs.second[i]];
+                    [devCon setTargetConfig: configs.second[i]];
                 }
             }
             catch (std::exception& e)
@@ -317,7 +317,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     {
         // myTargets[i]->setConfig(ConfigUtil::Default(i));
         DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
-        [devCon setConfig: SCSI2SD::ConfigUtil::Default(i)];
+        [devCon setTargetConfig: SCSI2SD::ConfigUtil::Default(i)];
     }
 }
 
@@ -327,7 +327,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     if (!myHID) return;
 
     NSLog(@"Saving configuration");
-
+    /*
     wxWindowPtr<wxGenericProgressDialog> progress(
         new wxGenericProgressDialog(
             "Save config settings",
@@ -335,21 +335,22 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             100,
             this,
             wxPD_CAN_ABORT | wxPD_REMAINING_TIME)
-            );
+            ); */
 
 
     int currentProgress = 0;
-    int totalProgress = myTargets.size() * SCSI_CONFIG_ROWS + 1;
+    int totalProgress = (int)[deviceControllers count] * SCSI_CONFIG_ROWS + 1;
 
     // Write board config first.
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        std::stringstream ss;
-        ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
-            " row " << flashRow;
-        mmLogStatus(ss.str());
+        //std::stringstream ss;
+        //ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
+        //    " row " << flashRow;
+        //mmLogStatus(ss.str());
         currentProgress += 1;
 
+        /*
         if (!progress->Update(
                 (100 * currentProgress) / totalProgress,
                 ss.str()
@@ -357,10 +358,10 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             )
         {
             goto abort;
-        }
+        }*/
 
         std::vector<uint8_t> flashData =
-            ConfigUtil::boardConfigToBytes(myBoardPanel->getConfig());
+        SCSI2SD::ConfigUtil::boardConfigToBytes([self.settings getConfig]);
         try
         {
             myHID->writeFlashRow(
@@ -368,36 +369,37 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
         }
         catch (std::runtime_error& e)
         {
-            mmLogStatus(e.what());
+             NSLog(@"%s",e.what());
             goto err;
         }
     }
 
     flashRow = SCSI_CONFIG_0_ROW;
     for (size_t i = 0;
-        i < myTargets.size();
+        i < [deviceControllers count];
         ++i)
     {
         flashRow = (i <= 3)
-            ? SCSI_CONFIG_0_ROW + (i*SCSI_CONFIG_ROWS)
-            : SCSI_CONFIG_4_ROW + ((i-4)*SCSI_CONFIG_ROWS);
+            ? SCSI_CONFIG_0_ROW + ((int)i*SCSI_CONFIG_ROWS)
+            : SCSI_CONFIG_4_ROW + ((int)(i-4)*SCSI_CONFIG_ROWS);
 
-        TargetConfig config(myTargets[i]->getConfig());
-        std::vector<uint8_t> raw(ConfigUtil::toBytes(config));
+        TargetConfig config([[deviceControllers objectAtIndex:i] getTargetConfig]);//myTargets[i]->getConfig());
+        std::vector<uint8_t> raw(SCSI2SD::ConfigUtil::toBytes(config));
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            std::stringstream ss;
-            ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
-                " row " << (flashRow + j);
-            mmLogStatus(ss.str());
+            //std::stringstream ss;
+            //ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
+            //    " row " << (flashRow + j);
+            //mmLogStatus(ss.str());
             currentProgress += 1;
 
             if (currentProgress == totalProgress)
             {
-                ss.str("Save Complete.");
-                mmLogStatus("Save Complete.");
+                // ss.str("Save Complete.");
+                NSLog(@"Save Complete.");
             }
+            /*
             if (!progress->Update(
                     (100 * currentProgress) / totalProgress,
                     ss.str()
@@ -406,7 +408,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             {
                 goto abort;
             }
-
+             */
             std::vector<uint8_t> flashData(SCSI_CONFIG_ROW_SIZE, 0);
             std::copy(
                 &raw[j * SCSI_CONFIG_ROW_SIZE],
@@ -419,23 +421,23 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             }
             catch (std::runtime_error& e)
             {
-                mmLogStatus(e.what());
+                NSLog(@"%s",e.what());
                 goto err;
             }
         }
     }
 
-    myHID.reset();
+    myHID = SCSI2SD::HID::Open();
 
     goto out;
 
 err:
-    mmLogStatus("Save failed");
-    progress->Update(100, "Save failed");
+    NSLog(@"Save failed");
+    // progress->Update(100, "Save failed");
     goto out;
 
 abort:
-    mmLogStatus("Save Aborted");
+    NSLog(@"Save Aborted");
 
 out:
     return;
@@ -444,7 +446,7 @@ out:
 
 - (IBAction)loadFromDevice:(id)sender
 {
-    TimerLock lock(myTimer);
+    //TimerLock lock(myTimer);
     if (!myHID) return;
 
     NSLog(@"Loading configuration");
@@ -459,18 +461,19 @@ out:
             ); */
 
     int currentProgress = 0;
-    int totalProgress = myTargets.size() * SCSI_CONFIG_ROWS + 1;
+    int totalProgress = [deviceControllers count] * SCSI_CONFIG_ROWS + 1;
 
     // Read board config first.
     std::vector<uint8_t> boardCfgFlashData;
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        std::stringstream ss;
-        ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
-            " row " << flashRow;
-        mmLogStatus(ss.str());
+        //std::stringstream ss;
+        //ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
+         //   " row " << flashRow;
+        //mmLogStatus(ss.str());
         currentProgress += 1;
 
+        /*
         if (!progress->Update(
                 (100 * currentProgress) / totalProgress,
                 ss.str()
@@ -478,24 +481,23 @@ out:
             )
         {
             goto abort;
-        }
+        }*/
 
         try
         {
             myHID->readFlashRow(
                 SCSI_CONFIG_ARRAY, flashRow, boardCfgFlashData);
-            myBoardPanel->setConfig(
-                ConfigUtil::boardConfigFromBytes(&boardCfgFlashData[0]));
+            [_settings setConfig: SCSI2SD::ConfigUtil::boardConfigFromBytes(&boardCfgFlashData[0])];
         }
         catch (std::runtime_error& e)
         {
-            mmLogStatus(e.what());
+            NSLog(@"%s",e.what());
             goto err;
         }
     }
 
     for (size_t i = 0;
-        i < myTargets.size();
+        i < [deviceControllers count];
         ++i)
     {
         flashRow = (i <= 3)
@@ -505,17 +507,18 @@ out:
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            std::stringstream ss;
-            ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
-                " row " << (flashRow + j);
-            mmLogStatus(ss.str());
+            //std::stringstream ss;
+            //ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
+            //    " row " << (flashRow + j);
+            //mmLogStatus(ss.str());
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                ss.str("Load Complete.");
-                mmLogStatus("Load Complete.");
+                NSLog(@"Load Complete.");
+                // mmLogStatus("Load Complete.");
             }
 
+            /*
             if (!progress->Update(
                     (100 * currentProgress) / totalProgress,
                     ss.str()
@@ -524,7 +527,7 @@ out:
             {
                 goto abort;
             }
-
+*/
             std::vector<uint8_t> flashData;
 
             try
@@ -535,7 +538,7 @@ out:
             }
             catch (std::runtime_error& e)
             {
-                mmLogStatus(e.what());
+                NSLog(@"%s",e.what());
                 goto err;
             }
 
@@ -544,26 +547,29 @@ out:
                 flashData.end(),
                 &raw[j * SCSI_CONFIG_ROW_SIZE]);
         }
-        myTargets[i]->setConfig(ConfigUtil::fromBytes(&raw[0]));
+        [[deviceControllers objectAtIndex: i] setTargetConfig: SCSI2SD::ConfigUtil::fromBytes(&raw[0])];
+        // myTargets[i]->setConfig(ConfigUtil::fromBytes(&raw[0]));
     }
 
     // Support old boards without board config set
     if (memcmp(&boardCfgFlashData[0], "BCFG", 4)) {
-        BoardConfig defCfg = ConfigUtil::DefaultBoardConfig();
-        defCfg.flags = myTargets[0]->getConfig().flagsDEPRECATED;
-        myBoardPanel->setConfig(defCfg);
+        BoardConfig defCfg = SCSI2SD::ConfigUtil::DefaultBoardConfig();
+        // defCfg.flags = myTargets[0]->getConfig().flagsDEPRECATED;
+        defCfg.flags = [[deviceControllers objectAtIndex:0] getTargetConfig].flagsDEPRECATED;
+        // myBoardPanel->setConfig(defCfg);
+        [_settings setConfig:defCfg];
     }
 
     myInitialConfig = true;
     goto out;
 
 err:
-    mmLogStatus("Load failed");
-    progress->Update(100, "Load failed");
+    NSLog(@"Load failed");
+    // progress->Update(100, "Load failed");
     goto out;
 
 abort:
-    mmLogStatus("Load Aborted");
+    NSLog(@"Load Aborted");
 
 out:
     return;
@@ -630,7 +636,7 @@ out:
     int totalFlashRows = 0;
     std::string tmpFile;
     try
-    {
+    { /*
         zipper::ReaderPtr reader(new zipper::FileReader(filename));
         zipper::Decompressor decomp(reader);
         std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
@@ -638,10 +644,10 @@ out:
         {
             if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
             {
-                std::stringstream msg;
-                msg << "Found firmware entry " << (*it)->getPath() <<
-                    " within archive " << filename;
-                mmLogStatus(msg.str());
+                //std::stringstream msg;
+                //msg << "Found firmware entry " << (*it)->getPath() <<
+                //    " within archive " << filename;
+                //mmLogStatus(msg.str());
                 tmpFile =
                     wxFileName::CreateTempFileName(
                         _("SCSI2SD_Firmware"), static_cast<wxFile*>(NULL)
@@ -666,10 +672,10 @@ out:
         }
 
         Firmware firmware(tmpFile);
-        totalFlashRows = firmware.totalFlashRows();
+        totalFlashRows = firmware.totalFlashRows(); */
     }
     catch (std::exception& e)
-    {
+    { /*
         mmLogStatus(e.what());
         std::stringstream msg;
         msg << "Could not open firmware file: " << e.what();
@@ -678,10 +684,10 @@ out:
             "Bad file",
             wxOK | wxICON_ERROR);
         wxRemoveFile(tmpFile);
-        return;
+        return; */
     }
 
-    {
+    { /*
         wxWindowPtr<wxGenericProgressDialog> progress(
             new wxGenericProgressDialog(
                 "Loading firmware",
@@ -690,121 +696,130 @@ out:
                 this,
                 wxPD_AUTO_HIDE | wxPD_REMAINING_TIME)
                 );
-        TheProgressWrapper.setProgressDialog(progress, totalFlashRows);
+        TheProgressWrapper.setProgressDialog(progress, totalFlashRows); */
     }
 
-    std::stringstream msg;
-    msg << "Upgrading firmware from file: " << tmpFile;
-    mmLogStatus(msg.str());
+    //std::stringstream msg;
+    //msg << "Upgrading firmware from file: " << tmpFile;
+    //mmLogStatus(msg.str());
 
     try
     {
-        myBootloader->load(tmpFile, &ProgressUpdate);
-        TheProgressWrapper.clearProgressDialog();
+        //myBootloader->load(tmpFile, &ProgressUpdate);
+        //TheProgressWrapper.clearProgressDialog();
 
-        wxMessageBox(
-            "Firmware update successful",
-            "Firmware OK",
-            wxOK);
-        mmLogStatus("Firmware update successful");
+        //wxMessageBox(
+        //    "Firmware update successful",
+        //    "Firmware OK",
+        //    wxOK);
+//mmLogStatus("Firmware update successful");
 
 
-        myHID.reset();
-        myBootloader.reset();
+        //myHID.reset();
+        //myBootloader.reset();
     }
     catch (std::exception& e)
     {
-        TheProgressWrapper.clearProgressDialog();
-        mmLogStatus(e.what());
-        myHID.reset();
-        myBootloader.reset();
+        //TheProgressWrapper.clearProgressDialog();
+        //mmLogStatus(e.what());
+        //myHID.reset();
+        //myBootloader.reset();
 
-        wxMessageBox(
-            "Firmware Update Failed",
-            e.what(),
-            wxOK | wxICON_ERROR);
+        //wxMessageBox(
+        //    "Firmware Update Failed",
+        //    e.what(),
+        //    wxOK | wxICON_ERROR);
 
-        wxRemoveFile(tmpFile);
+        //wxRemoveFile(tmpFile);
     }
 }
 
 
 - (IBAction)bootloaderUpdate:(id)sender
 {
-    NSString *filename = [NSString stringWithCString: path
-                                            encoding: NSUTF8StringEncoding];
-
-    NSData *fileData = [NSData dataWithContentsOfFile:filename];
-    NSUInteger len = [fileData length];
-    if (len != 0x2400)
-    {
-        NSLog(@"Incorrect size, invalid boodloader");
-        return;
-    }
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
     
-    uint8_t *data = (uint8_t *)[fileData bytes];
-    static char magic[] = {
-        'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
-        'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
+    [panel beginSheet:[self mainWindow] completionHandler:^(NSModalResponse returnCode) {
+        if(returnCode == NSModalResponseOK ||
+           returnCode == NSModalResponseContinue)
+        {
+            NSArray *paths = [panel filenames];
+            NSString *filename = [paths objectAtIndex: 0];
+            NSData *fileData = [NSData dataWithContentsOfFile:filename];
+            NSUInteger len = [fileData length];
+            if (len != 0x2400)
+            {
+                NSLog(@"Incorrect size, invalid boodloader");
+                return;
+            }
+        
+            uint8_t *data = (uint8_t *)[fileData bytes];
+            static char magic[] = {
+                'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
+                'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
 
-    uint8_t* dataEnd = data + sizeof(data);
-    if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
-    {
-        NSLog(@"Not a valid boot loader file");
+            uint8_t* dataEnd = data + sizeof(data);
+            if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
+            {
+                NSLog(@"Not a valid boot loader file");
+                return;
+            }
+
+            NSLog(@"Upgrading bootloader from file: %@", filename);
+
+            int currentProgress = 0;
+            int totalProgress = 36;
+
+            for (size_t flashRow = 0; flashRow < 36; ++flashRow)
+            {
+                // std::stringstream ss;
+                // ss << "Programming flash array 0 row " << (flashRow);
+                // mmLogStatus(ss.str());
+                currentProgress += 1;
+
+                if (currentProgress == totalProgress)
+                {
+                    // ss.str("Save Complete.");
+                    // mmLogStatus("Save Complete.");
+                }
+                /*
+                if (!progress->Update(
+                                      (100 * currentProgress) / totalProgress,
+                                      ss.str()
+                                      )
+                    )
+                {
+                    goto abort;
+                }*/
+
+                uint8_t *rowData = data + (flashRow * 256);
+                std::vector<uint8_t> flashData(rowData, rowData + 256);
+                try
+                {
+                    self->myHID->writeFlashRow(0, (int)flashRow, flashData);
+                }
+                catch (std::runtime_error& e)
+                {
+                    NSLog(@"%s",e.what());
+                    goto err;
+                }
+            }
+
+            goto out;
+        }
+        
+    err:
+        NSLog(@"Bootloader update failed");
+        // progress->Update(100, "Bootloader update failed");
+        goto out;
+
+    abort:
+        NSLog(@"Bootloader update aborted");
+
+    out:
         return;
-    }
-
-    NSLog(@"Upgrading bootloader from file: %@", filename);
-
-    int currentProgress = 0;
-    int totalProgress = 36;
-
-    for (size_t flashRow = 0; flashRow < 36; ++flashRow)
-    {
-        // std::stringstream ss;
-        // ss << "Programming flash array 0 row " << (flashRow);
-        // mmLogStatus(ss.str());
-        currentProgress += 1;
-
-        if (currentProgress == totalProgress)
-        {
-            // ss.str("Save Complete.");
-            // mmLogStatus("Save Complete.");
-        }
-        if (!progress->Update(
-                (100 * currentProgress) / totalProgress,
-                ss.str()
-                )
-            )
-        {
-            goto abort;
-        }
-
-        uint8_t rowData = data + (flashRow * 256);
-        std::vector<uint8_t> flashData(rowData, rowData + 256);
-        try
-        {
-            myHID->writeFlashRow(0, flashRow, flashData);
-        }
-        catch (std::runtime_error& e)
-        {
-            mmLogStatus(e.what());
-            goto err;
-        }
-    }
-
-    goto out;
-
-err:
-    NSLog(@"Bootloader update failed");
-    // progress->Update(100, "Bootloader update failed");
-    goto out;
-
-abort:
-    NSLog(@"Bootloader update aborted");
-
-out:
-    return;
+        
+    }];
 }
 
 - (IBAction)scsiSelfTest:(id)sender
@@ -814,6 +829,7 @@ out:
 
 - (IBAction)logScsiData:(id)sender
 {
+    /*
     if (!mySCSILogChk->IsChecked() ||
         !myHID)
     {
@@ -831,7 +847,7 @@ out:
     {
         LogWarning(this, e.what());
         myHID.reset();
-    }
+    } */
 }
 
 - (void) evaluate
@@ -846,11 +862,12 @@ out:
 
     bool isTargetEnabled = false; // Need at least one enabled
     uint32_t autoStartSector = 0;
-    for (size_t i = 0; i < myTargets.size(); ++i)
+    for (size_t i = 0; i < [deviceControllers count]; ++i)
     {
-        myTargets[i]->setAutoStartSector(autoStartSector);
+        DeviceController *target = [deviceControllers objectAtIndex:i]; //  getTargetConfig];
+    
+        [target setAutoStartSector: autoStartSector];
         valid = myTargets[i]->evaluate() && valid;
-
         if (myTargets[i]->isEnabled())
         {
             isTargetEnabled = true;

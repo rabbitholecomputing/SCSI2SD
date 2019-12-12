@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) toXml;
 - (void) fromXml: (NSXMLElement *)node;
 - (void) setConfig: (BoardConfig)config;
+- (BoardConfig) getConfig;
 
 @end
 

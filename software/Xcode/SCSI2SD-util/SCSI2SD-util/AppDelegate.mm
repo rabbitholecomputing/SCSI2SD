@@ -287,17 +287,23 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
 - (IBAction)saveFile:(id)sender
 {
-    NSString *outputString = @"";
-    outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    [panel beginSheetModalForWindow: [self mainWindow]
+                  completionHandler:^(NSModalResponse result) {
+        NSString *filename = [panel filename];
+        NSString *outputString = @"";
+        outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
 
-    outputString = [outputString stringByAppendingString: [_settings toXml]];
-    DeviceController *dc = nil;
-    NSEnumerator *en = [deviceControllers objectEnumerator];
-    while((dc = [en nextObject]) != nil)
-    {
-        outputString = [outputString stringByAppendingString: [dc toXml]];
-    }
-    outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
+        outputString = [outputString stringByAppendingString: [_settings toXml]];
+        DeviceController *dc = nil;
+        NSEnumerator *en = [deviceControllers objectEnumerator];
+        while((dc = [en nextObject]) != nil)
+        {
+            outputString = [outputString stringByAppendingString: [dc toXml]];
+        }
+        outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
+        [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    }];
 }
 
 - (IBAction)openFile:(id)sender

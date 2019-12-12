@@ -12,7 +12,7 @@
 
 - (NSString *) toXml
 {
-    NSLog(@"%@",);
+    NSLog(@"toXML");
     return nil;
 }
 

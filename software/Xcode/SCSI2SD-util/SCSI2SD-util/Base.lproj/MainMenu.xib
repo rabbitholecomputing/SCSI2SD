@@ -162,20 +162,6 @@
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <menu id="Thg-JK-AzN">
-            <items>
-                <menuItem title="Item 1" id="6Uy-Yk-fP5">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Item 2" id="mhJ-zj-Yu0">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-                <menuItem title="Item 3" id="2Pm-xw-Pz4">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                </menuItem>
-            </items>
-            <point key="canvasLocation" x="140" y="152"/>
-        </menu>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="scsi2sd-util" id="1Xt-HY-uBw">
@@ -2133,16 +2119,7 @@
             </view>
             <point key="canvasLocation" x="99" y="-280"/>
         </window>
-        <button verticalHuggingPriority="750" id="2jP-my-I7c">
-            <rect key="frame" x="0.0" y="0.0" width="162" height="18"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-            <buttonCell key="cell" type="check" title="Enable SCSI terminator" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MwZ-5r-D7g">
-                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                <font key="font" metaFont="system"/>
-            </buttonCell>
-            <point key="canvasLocation" x="46" y="3"/>
-        </button>
-        <window title="scsi-util debug window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
+        <window title="scsi-util debug log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="167" y="107" width="276" height="378"/>

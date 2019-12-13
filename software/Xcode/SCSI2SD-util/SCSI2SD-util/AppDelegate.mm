@@ -127,6 +127,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device7];
     
     [self startTimer];
+    [self loadDefaults: nil];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

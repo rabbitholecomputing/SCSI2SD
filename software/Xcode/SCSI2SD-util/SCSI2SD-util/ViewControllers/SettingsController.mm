@@ -18,17 +18,22 @@
 
 - (void) fromXml: (NSXMLElement *)node
 {
-    
+    NSLog(@"fromXml");
+
 }
 
 - (void) setConfig: (BoardConfig)config
 {
-    
+    NSLog(@"setConfig");
+
 }
 
 - (BoardConfig) getConfig
 {
-    
+    BoardConfig config;
+    NSLog(@"getConfig");
+    // return NULL;
+    return config;
 }
 
 @end

@@ -344,7 +344,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8n8-Ud-LdI">
-                                            <rect key="frame" x="15" y="325" width="150" height="17"/>
+                                            <rect key="frame" x="15" y="285" width="150" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI Speed Limit" id="Xjl-De-x6L">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -353,7 +353,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjD-kA-vow">
-                                            <rect key="frame" x="15" y="293" width="151" height="17"/>
+                                            <rect key="frame" x="15" y="253" width="151" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Startup Delay (seconds)" id="pwX-Kg-yKT">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -362,7 +362,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dQS-Ei-zP6">
-                                            <rect key="frame" x="265" y="349" width="162" height="18"/>
+                                            <rect key="frame" x="265" y="309" width="162" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI terminator" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ixw-Kg-1ib">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -370,7 +370,7 @@
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ael-0l-G7C">
-                                            <rect key="frame" x="265" y="195" width="162" height="27"/>
+                                            <rect key="frame" x="265" y="155" width="162" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable Parity" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="79N-mG-1HY">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -378,7 +378,7 @@
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gH7-9Y-z4m">
-                                            <rect key="frame" x="265" y="175" width="150" height="18"/>
+                                            <rect key="frame" x="265" y="135" width="150" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable Unit Attention" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="eRX-6G-UaF">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -386,7 +386,7 @@
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Kk-W6-IiR">
-                                            <rect key="frame" x="265" y="149" width="141" height="18"/>
+                                            <rect key="frame" x="265" y="109" width="141" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI2 Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yPU-O5-Fio">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -394,7 +394,7 @@
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWm-ur-sda">
-                                            <rect key="frame" x="265" y="123" width="261" height="18"/>
+                                            <rect key="frame" x="265" y="83" width="261" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Respond to short SCSI selection pulses" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="bYO-xf-T2V">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -402,7 +402,7 @@
                                             </buttonCell>
                                         </button>
                                         <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L86-uX-2AA">
-                                            <rect key="frame" x="265" y="94" width="158" height="18"/>
+                                            <rect key="frame" x="265" y="54" width="158" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Map LUNS to SCSI IDs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="6Cc-mB-FAO">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -410,7 +410,7 @@
                                             </buttonCell>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Udt-SV-7Gs">
-                                            <rect key="frame" x="267" y="291" width="96" height="22"/>
+                                            <rect key="frame" x="267" y="251" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="iaz-sZ-XKj">
                                                 <font key="font" metaFont="system"/>
@@ -419,7 +419,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iwE-bZ-4i0">
-                                            <rect key="frame" x="267" y="259" width="96" height="22"/>
+                                            <rect key="frame" x="267" y="219" width="96" height="22"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="255" drawsBackground="YES" id="CWl-Al-s7c">
                                                 <font key="font" metaFont="system"/>
@@ -428,7 +428,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hla-Z9-zyP">
-                                            <rect key="frame" x="15" y="262" width="226" height="17"/>
+                                            <rect key="frame" x="15" y="222" width="226" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI Selection Delay ms, 255 = auto" id="bcZ-5u-tUC">
                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -437,7 +437,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YQw-dR-rmW">
-                                            <rect key="frame" x="265" y="318" width="159" height="25"/>
+                                            <rect key="frame" x="265" y="278" width="159" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="No Limit" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LeL-rm-YSp" id="QTo-ub-H5S">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -467,18 +467,10 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 1" identifier="" id="brZ-Zo-uTs">
-                                <view key="view" ambiguous="YES" id="ALI-Eb-2QG">
+                                <view key="view" id="ALI-Eb-2QG">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6wM-D2-KLl">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qdT-X0-TWP">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dzS-wo-qLR">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -699,22 +691,22 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                    </subviews>
-                                </view>
-                            </tabViewItem>
-                            <tabViewItem label="Device 2" identifier="" id="xwf-c1-aGF">
-                                <view key="view" id="gcT-2z-YpQ">
-                                    <rect key="frame" x="10" y="33" width="677" height="368"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EvT-5c-g2M">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6wM-D2-KLl">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dsp-Oo-0Gg">
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qdT-X0-TWP">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
+                                    </subviews>
+                                </view>
+                            </tabViewItem>
+                            <tabViewItem label="Device 2" identifier="" id="xwf-c1-aGF">
+                                <view key="view" ambiguous="YES" id="gcT-2z-YpQ">
+                                    <rect key="frame" x="10" y="33" width="677" height="368"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="h2J-LY-UdT">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -935,6 +927,14 @@
                                                 </menu>
                                             </popUpButtonCell>
                                         </popUpButton>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EvT-5c-g2M">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="dsp-Oo-0Gg">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -943,14 +943,6 @@
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GgA-O3-HK2">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IDE-Qa-9wl">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gfn-1u-W7H">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1171,6 +1163,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GgA-O3-HK2">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IDE-Qa-9wl">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1179,14 +1179,6 @@
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iVY-es-yt1">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="FgO-c1-0EL">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wjr-0c-Ig5">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1407,6 +1399,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iVY-es-yt1">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="FgO-c1-0EL">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1415,14 +1415,6 @@
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42L-uh-YPJ">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xRt-mQ-9lV">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bRO-vb-N2Q">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1643,6 +1635,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="42L-uh-YPJ">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="xRt-mQ-9lV">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1651,14 +1651,6 @@
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Asn-5F-8sU">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PPG-Ad-NHD">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WPZ-1l-y1g">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -1879,6 +1871,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Asn-5F-8sU">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="PPG-Ad-NHD">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1887,14 +1887,6 @@
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNH-ag-SCY">
-                                            <rect key="frame" x="337" y="313" width="146" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hC8-mI-yeQ">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                        </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pLw-sV-cov">
                                             <rect key="frame" x="137" y="282" width="50" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
@@ -2115,6 +2107,14 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sNH-ag-SCY">
+                                            <rect key="frame" x="265" y="305" width="146" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Enabled SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hC8-mI-yeQ">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                        </button>
                                     </subviews>
                                 </view>
                             </tabViewItem>

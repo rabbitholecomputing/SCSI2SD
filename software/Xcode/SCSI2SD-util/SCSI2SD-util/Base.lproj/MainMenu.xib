@@ -178,9 +178,9 @@
         </menu>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
-                <menuItem title="scsi2sd" id="1Xt-HY-uBw">
+                <menuItem title="scsi2sd-util" id="1Xt-HY-uBw">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="scsi2sd" systemMenu="apple" id="uQy-DD-JDr">
+                    <menu key="submenu" title="scsi2sd-util" systemMenu="apple" id="uQy-DD-JDr">
                         <items>
                             <menuItem title="About scsi2sd" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -2142,7 +2142,7 @@
             </buttonCell>
             <point key="canvasLocation" x="46" y="3"/>
         </button>
-        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
+        <window title="scsi-util debug window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="167" y="107" width="276" height="378"/>
@@ -2181,7 +2181,7 @@
                     </scrollView>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="666" y="81"/>
+            <point key="canvasLocation" x="328" y="-131"/>
         </window>
     </objects>
 </document>

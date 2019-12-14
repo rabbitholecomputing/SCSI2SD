@@ -77,6 +77,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 @property (weak, nonatomic) IBOutlet NSTextField *infoLabel;
 @property (weak, nonatomic) IBOutlet NSPanel *logPanel;
 @property (weak, nonatomic) IBOutlet NSTextView *logTextView;
+@property (weak, nonatomic) IBOutlet NSTabView *tabView;
 
 @property (weak, nonatomic) IBOutlet DeviceController *device1;
 @property (weak, nonatomic) IBOutlet DeviceController *device2;
@@ -125,6 +126,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device5];
     [deviceControllers addObject: _device6];
     [deviceControllers addObject: _device7];
+    
+    [self.tabView selectTabViewItemAtIndex:0];
     
     [self startTimer];
     [self loadDefaults: nil];
@@ -293,6 +296,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                   completionHandler:^(NSModalResponse result) {
         NSString *filename = [panel filename];
         NSString *outputString = @"";
+        
+        filename = [filename stringByAppendingPathExtension:@"xml"];
         outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
 
         outputString = [outputString stringByAppendingString: [self->_settings toXml]];
@@ -311,10 +316,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles: YES];
-    [panel setRequiredFileType:@"xml"];
-    
-    [panel beginSheet:[self mainWindow]
-    completionHandler:^(NSModalResponse returnCode) {
+    [panel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
+    [panel beginSheetModalForWindow:[self mainWindow]
+                  completionHandler:^(NSModalResponse returnCode) {
         if(returnCode == NSModalResponseOK ||
            returnCode == NSModalResponseContinue)
         {
@@ -463,7 +467,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             try
             {
                 myHID->writeFlashRow(
-                    SCSI_CONFIG_ARRAY, flashRow + j, flashData);
+                    SCSI_CONFIG_ARRAY, (int)flashRow + (int)j, flashData);
             }
             catch (std::runtime_error& e)
             {
@@ -507,7 +511,7 @@ out:
             ); */
 
     int currentProgress = 0;
-    int totalProgress = [deviceControllers count] * SCSI_CONFIG_ROWS + 1;
+    int totalProgress = (int)([deviceControllers count] * (NSUInteger)SCSI_CONFIG_ROWS + (NSUInteger)1);
 
     // Read board config first.
     std::vector<uint8_t> boardCfgFlashData;

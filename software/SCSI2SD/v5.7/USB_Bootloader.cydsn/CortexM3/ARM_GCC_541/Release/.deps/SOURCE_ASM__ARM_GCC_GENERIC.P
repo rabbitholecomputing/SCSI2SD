@@ -1,0 +1,10 @@
+Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/CortexM3/ARM_GCC_541/Release/CyBootAsmGnu.o : Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu.inc Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfittergnu.inc 
+
+Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/CyBootAsmGnu.s : 
+
+Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu.inc : 
+
+Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cydevicegnu_trm.inc : 
+
+Z:/projects/SCSI2SD/git-v6-licensed/v5.5/USB_Bootloader.cydsn/Generated_Source/PSoC5/cyfittergnu.inc : 
+

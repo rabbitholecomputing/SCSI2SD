@@ -1,0 +1,698 @@
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cymetadata.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	cy_metadata
+  20              		.global	cy_meta_flashprotect
+  21              		.global	cy_meta_wonvl
+  22              		.global	cy_meta_custnvl
+  23              		.global	cy_meta_configecc
+  24              		.global	cy_meta_loader
+  25              		.section	.cyconfigecc,"a",%progbits
+  26              		.type	cy_meta_configecc, %object
+  27              		.size	cy_meta_configecc, 1
+  28              	cy_meta_configecc:
+  29 0000 00       		.space	1
+  30              		.section	.cywolatch,"a",%progbits
+  31              		.type	cy_meta_wonvl, %object
+  32              		.size	cy_meta_wonvl, 4
+  33              	cy_meta_wonvl:
+  34 0000 BC       		.byte	-68
+  35 0001 90       		.byte	-112
+  36 0002 AC       		.byte	-84
+  37 0003 AF       		.byte	-81
+  38              		.section	.cyloadermeta,"a",%progbits
+  39              		.type	cy_meta_loader, %object
+  40              		.size	cy_meta_loader, 64
+  41              	cy_meta_loader:
+  42 0000 00       		.byte	0
+  43 0001 00       		.byte	0
+  44 0002 00       		.byte	0
+  45 0003 00       		.byte	0
+  46 0004 00       		.byte	0
+  47 0005 00       		.byte	0
+  48 0006 00       		.byte	0
+  49 0007 00       		.byte	0
+  50 0008 00       		.byte	0
+  51 0009 00       		.byte	0
+  52 000a 00       		.byte	0
+  53 000b 00       		.byte	0
+  54 000c 00       		.byte	0
+  55 000d 00       		.byte	0
+  56 000e 00       		.byte	0
+  57 000f 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 2
+
+
+  58 0010 00       		.byte	0
+  59 0011 00       		.byte	0
+  60 0012 00       		.byte	0
+  61 0013 55       		.byte	85
+  62 0014 01       		.byte	1
+  63 0015 00       		.byte	0
+  64 0016 01       		.byte	1
+  65 0017 00       		.byte	0
+  66 0018 00       		.byte	0
+  67 0019 00       		.byte	0
+  68 001a 00       		.byte	0
+  69 001b 00       		.byte	0
+  70 001c 00       		.byte	0
+  71 001d 00       		.byte	0
+  72 001e 00       		.byte	0
+  73 001f 00       		.byte	0
+  74 0020 00       		.byte	0
+  75 0021 00       		.byte	0
+  76 0022 00       		.byte	0
+  77 0023 00       		.byte	0
+  78 0024 00       		.byte	0
+  79 0025 00       		.byte	0
+  80 0026 00       		.byte	0
+  81 0027 00       		.byte	0
+  82 0028 00       		.byte	0
+  83 0029 00       		.byte	0
+  84 002a 00       		.byte	0
+  85 002b 00       		.byte	0
+  86 002c 00       		.byte	0
+  87 002d 00       		.byte	0
+  88 002e 00       		.byte	0
+  89 002f 00       		.byte	0
+  90 0030 00       		.byte	0
+  91 0031 00       		.byte	0
+  92 0032 00       		.byte	0
+  93 0033 00       		.byte	0
+  94 0034 00       		.byte	0
+  95 0035 00       		.byte	0
+  96 0036 00       		.byte	0
+  97 0037 00       		.byte	0
+  98 0038 00       		.byte	0
+  99 0039 00       		.byte	0
+ 100 003a 00       		.byte	0
+ 101 003b 00       		.byte	0
+ 102 003c 00       		.byte	0
+ 103 003d 00       		.byte	0
+ 104 003e 00       		.byte	0
+ 105 003f 00       		.byte	0
+ 106              		.section	.cycustnvl,"a",%progbits
+ 107              		.type	cy_meta_custnvl, %object
+ 108              		.size	cy_meta_custnvl, 4
+ 109              	cy_meta_custnvl:
+ 110 0000 80       		.byte	-128
+ 111 0001 00       		.byte	0
+ 112 0002 00       		.byte	0
+ 113 0003 07       		.byte	7
+ 114              		.section	.cymeta,"a",%progbits
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 3
+
+
+ 115              		.type	cy_metadata, %object
+ 116              		.size	cy_metadata, 12
+ 117              	cy_metadata:
+ 118 0000 00       		.byte	0
+ 119 0001 01       		.byte	1
+ 120 0002 2E       		.byte	46
+ 121 0003 13       		.byte	19
+ 122 0004 30       		.byte	48
+ 123 0005 69       		.byte	105
+ 124 0006 00       		.byte	0
+ 125 0007 00       		.byte	0
+ 126 0008 00       		.byte	0
+ 127 0009 00       		.byte	0
+ 128 000a 00       		.byte	0
+ 129 000b 00       		.byte	0
+ 130              		.section	.cyflashprotect,"a",%progbits
+ 131              		.type	cy_meta_flashprotect, %object
+ 132              		.size	cy_meta_flashprotect, 128
+ 133              	cy_meta_flashprotect:
+ 134 0000 00       		.byte	0
+ 135 0001 00       		.byte	0
+ 136 0002 00       		.byte	0
+ 137 0003 00       		.byte	0
+ 138 0004 00       		.byte	0
+ 139 0005 00       		.byte	0
+ 140 0006 00       		.byte	0
+ 141 0007 00       		.byte	0
+ 142 0008 00       		.byte	0
+ 143 0009 00       		.byte	0
+ 144 000a 00       		.byte	0
+ 145 000b 00       		.byte	0
+ 146 000c 00       		.byte	0
+ 147 000d 00       		.byte	0
+ 148 000e 50       		.byte	80
+ 149 000f 00       		.byte	0
+ 150 0010 00       		.byte	0
+ 151 0011 00       		.byte	0
+ 152 0012 00       		.byte	0
+ 153 0013 00       		.byte	0
+ 154 0014 00       		.byte	0
+ 155 0015 00       		.byte	0
+ 156 0016 00       		.byte	0
+ 157 0017 00       		.byte	0
+ 158 0018 00       		.byte	0
+ 159 0019 00       		.byte	0
+ 160 001a 00       		.byte	0
+ 161 001b 00       		.byte	0
+ 162 001c 00       		.byte	0
+ 163 001d 00       		.byte	0
+ 164 001e 00       		.byte	0
+ 165 001f 00       		.byte	0
+ 166 0020 00       		.byte	0
+ 167 0021 00       		.byte	0
+ 168 0022 00       		.byte	0
+ 169 0023 00       		.byte	0
+ 170 0024 00       		.byte	0
+ 171 0025 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 4
+
+
+ 172 0026 00       		.byte	0
+ 173 0027 00       		.byte	0
+ 174 0028 00       		.byte	0
+ 175 0029 00       		.byte	0
+ 176 002a 00       		.byte	0
+ 177 002b 00       		.byte	0
+ 178 002c 00       		.byte	0
+ 179 002d 00       		.byte	0
+ 180 002e 00       		.byte	0
+ 181 002f 00       		.byte	0
+ 182 0030 00       		.byte	0
+ 183 0031 00       		.byte	0
+ 184 0032 00       		.byte	0
+ 185 0033 00       		.byte	0
+ 186 0034 00       		.byte	0
+ 187 0035 00       		.byte	0
+ 188 0036 00       		.byte	0
+ 189 0037 00       		.byte	0
+ 190 0038 00       		.byte	0
+ 191 0039 00       		.byte	0
+ 192 003a 00       		.byte	0
+ 193 003b 00       		.byte	0
+ 194 003c 00       		.byte	0
+ 195 003d 00       		.byte	0
+ 196 003e 00       		.byte	0
+ 197 003f 00       		.byte	0
+ 198 0040 00       		.byte	0
+ 199 0041 00       		.byte	0
+ 200 0042 00       		.byte	0
+ 201 0043 00       		.byte	0
+ 202 0044 00       		.byte	0
+ 203 0045 00       		.byte	0
+ 204 0046 00       		.byte	0
+ 205 0047 00       		.byte	0
+ 206 0048 00       		.byte	0
+ 207 0049 00       		.byte	0
+ 208 004a 00       		.byte	0
+ 209 004b 00       		.byte	0
+ 210 004c 00       		.byte	0
+ 211 004d 00       		.byte	0
+ 212 004e 00       		.byte	0
+ 213 004f 00       		.byte	0
+ 214 0050 00       		.byte	0
+ 215 0051 00       		.byte	0
+ 216 0052 00       		.byte	0
+ 217 0053 00       		.byte	0
+ 218 0054 00       		.byte	0
+ 219 0055 00       		.byte	0
+ 220 0056 00       		.byte	0
+ 221 0057 00       		.byte	0
+ 222 0058 00       		.byte	0
+ 223 0059 00       		.byte	0
+ 224 005a 00       		.byte	0
+ 225 005b 00       		.byte	0
+ 226 005c 00       		.byte	0
+ 227 005d 00       		.byte	0
+ 228 005e 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 5
+
+
+ 229 005f 00       		.byte	0
+ 230 0060 00       		.byte	0
+ 231 0061 00       		.byte	0
+ 232 0062 00       		.byte	0
+ 233 0063 00       		.byte	0
+ 234 0064 00       		.byte	0
+ 235 0065 00       		.byte	0
+ 236 0066 00       		.byte	0
+ 237 0067 00       		.byte	0
+ 238 0068 00       		.byte	0
+ 239 0069 00       		.byte	0
+ 240 006a 00       		.byte	0
+ 241 006b 00       		.byte	0
+ 242 006c 00       		.byte	0
+ 243 006d 00       		.byte	0
+ 244 006e 00       		.byte	0
+ 245 006f 00       		.byte	0
+ 246 0070 00       		.byte	0
+ 247 0071 00       		.byte	0
+ 248 0072 00       		.byte	0
+ 249 0073 00       		.byte	0
+ 250 0074 00       		.byte	0
+ 251 0075 00       		.byte	0
+ 252 0076 00       		.byte	0
+ 253 0077 00       		.byte	0
+ 254 0078 00       		.byte	0
+ 255 0079 00       		.byte	0
+ 256 007a 00       		.byte	0
+ 257 007b 00       		.byte	0
+ 258 007c 00       		.byte	0
+ 259 007d 00       		.byte	0
+ 260 007e 00       		.byte	0
+ 261 007f 00       		.byte	0
+ 262              		.text
+ 263              	.Letext0:
+ 264              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 265              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 266              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
+ 267              		.section	.debug_info,"",%progbits
+ 268              	.Ldebug_info0:
+ 269 0000 56010000 		.4byte	0x156
+ 270 0004 0400     		.2byte	0x4
+ 271 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 272 000a 04       		.byte	0x4
+ 273 000b 01       		.uleb128 0x1
+ 274 000c DC000000 		.4byte	.LASF18
+ 275 0010 0C       		.byte	0xc
+ 276 0011 CB010000 		.4byte	.LASF19
+ 277 0015 4A000000 		.4byte	.LASF20
+ 278 0019 00000000 		.4byte	.Ldebug_line0
+ 279 001d 02       		.uleb128 0x2
+ 280 001e 01       		.byte	0x1
+ 281 001f 06       		.byte	0x6
+ 282 0020 BF010000 		.4byte	.LASF0
+ 283 0024 03       		.uleb128 0x3
+ 284 0025 00000000 		.4byte	.LASF9
+ 285 0029 01       		.byte	0x1
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 6
+
+
+ 286 002a 1D       		.byte	0x1d
+ 287 002b 2F000000 		.4byte	0x2f
+ 288 002f 02       		.uleb128 0x2
+ 289 0030 01       		.byte	0x1
+ 290 0031 08       		.byte	0x8
+ 291 0032 3C000000 		.4byte	.LASF1
+ 292 0036 02       		.uleb128 0x2
+ 293 0037 02       		.byte	0x2
+ 294 0038 05       		.byte	0x5
+ 295 0039 AC010000 		.4byte	.LASF2
+ 296 003d 02       		.uleb128 0x2
+ 297 003e 02       		.byte	0x2
+ 298 003f 07       		.byte	0x7
+ 299 0040 9A000000 		.4byte	.LASF3
+ 300 0044 02       		.uleb128 0x2
+ 301 0045 04       		.byte	0x4
+ 302 0046 05       		.byte	0x5
+ 303 0047 B6010000 		.4byte	.LASF4
+ 304 004b 02       		.uleb128 0x2
+ 305 004c 04       		.byte	0x4
+ 306 004d 07       		.byte	0x7
+ 307 004e 88000000 		.4byte	.LASF5
+ 308 0052 02       		.uleb128 0x2
+ 309 0053 08       		.byte	0x8
+ 310 0054 05       		.byte	0x5
+ 311 0055 9E010000 		.4byte	.LASF6
+ 312 0059 02       		.uleb128 0x2
+ 313 005a 08       		.byte	0x8
+ 314 005b 07       		.byte	0x7
+ 315 005c 25000000 		.4byte	.LASF7
+ 316 0060 04       		.uleb128 0x4
+ 317 0061 04       		.byte	0x4
+ 318 0062 05       		.byte	0x5
+ 319 0063 696E7400 		.ascii	"int\000"
+ 320 0067 02       		.uleb128 0x2
+ 321 0068 04       		.byte	0x4
+ 322 0069 07       		.byte	0x7
+ 323 006a CF000000 		.4byte	.LASF8
+ 324 006e 03       		.uleb128 0x3
+ 325 006f 6A010000 		.4byte	.LASF10
+ 326 0073 02       		.byte	0x2
+ 327 0074 18       		.byte	0x18
+ 328 0075 24000000 		.4byte	0x24
+ 329 0079 05       		.uleb128 0x5
+ 330 007a 90000000 		.4byte	0x90
+ 331 007e 89000000 		.4byte	0x89
+ 332 0082 06       		.uleb128 0x6
+ 333 0083 89000000 		.4byte	0x89
+ 334 0087 3F       		.byte	0x3f
+ 335 0088 00       		.byte	0
+ 336 0089 02       		.uleb128 0x2
+ 337 008a 04       		.byte	0x4
+ 338 008b 07       		.byte	0x7
+ 339 008c 95010000 		.4byte	.LASF11
+ 340 0090 07       		.uleb128 0x7
+ 341 0091 6E000000 		.4byte	0x6e
+ 342 0095 08       		.uleb128 0x8
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 7
+
+
+ 343 0096 0A000000 		.4byte	.LASF12
+ 344 009a 03       		.byte	0x3
+ 345 009b 1F       		.byte	0x1f
+ 346 009c A6000000 		.4byte	0xa6
+ 347 00a0 05       		.uleb128 0x5
+ 348 00a1 03       		.byte	0x3
+ 349 00a2 00000000 		.4byte	cy_meta_loader
+ 350 00a6 07       		.uleb128 0x7
+ 351 00a7 79000000 		.4byte	0x79
+ 352 00ab 05       		.uleb128 0x5
+ 353 00ac 90000000 		.4byte	0x90
+ 354 00b0 BB000000 		.4byte	0xbb
+ 355 00b4 06       		.uleb128 0x6
+ 356 00b5 89000000 		.4byte	0x89
+ 357 00b9 00       		.byte	0
+ 358 00ba 00       		.byte	0
+ 359 00bb 08       		.uleb128 0x8
+ 360 00bc BD000000 		.4byte	.LASF13
+ 361 00c0 03       		.byte	0x3
+ 362 00c1 34       		.byte	0x34
+ 363 00c2 CC000000 		.4byte	0xcc
+ 364 00c6 05       		.uleb128 0x5
+ 365 00c7 03       		.byte	0x3
+ 366 00c8 00000000 		.4byte	cy_meta_configecc
+ 367 00cc 07       		.uleb128 0x7
+ 368 00cd AB000000 		.4byte	0xab
+ 369 00d1 05       		.uleb128 0x5
+ 370 00d2 90000000 		.4byte	0x90
+ 371 00d6 E1000000 		.4byte	0xe1
+ 372 00da 06       		.uleb128 0x6
+ 373 00db 89000000 		.4byte	0x89
+ 374 00df 03       		.byte	0x3
+ 375 00e0 00       		.byte	0
+ 376 00e1 08       		.uleb128 0x8
+ 377 00e2 AD000000 		.4byte	.LASF14
+ 378 00e6 03       		.byte	0x3
+ 379 00e7 42       		.byte	0x42
+ 380 00e8 F2000000 		.4byte	0xf2
+ 381 00ec 05       		.uleb128 0x5
+ 382 00ed 03       		.byte	0x3
+ 383 00ee 00000000 		.4byte	cy_meta_custnvl
+ 384 00f2 07       		.uleb128 0x7
+ 385 00f3 D1000000 		.4byte	0xd1
+ 386 00f7 08       		.uleb128 0x8
+ 387 00f8 87010000 		.4byte	.LASF15
+ 388 00fc 03       		.byte	0x3
+ 389 00fd 50       		.byte	0x50
+ 390 00fe 08010000 		.4byte	0x108
+ 391 0102 05       		.uleb128 0x5
+ 392 0103 03       		.byte	0x3
+ 393 0104 00000000 		.4byte	cy_meta_wonvl
+ 394 0108 07       		.uleb128 0x7
+ 395 0109 D1000000 		.4byte	0xd1
+ 396 010d 05       		.uleb128 0x5
+ 397 010e 90000000 		.4byte	0x90
+ 398 0112 1D010000 		.4byte	0x11d
+ 399 0116 06       		.uleb128 0x6
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 8
+
+
+ 400 0117 89000000 		.4byte	0x89
+ 401 011b 7F       		.byte	0x7f
+ 402 011c 00       		.byte	0
+ 403 011d 08       		.uleb128 0x8
+ 404 011e 72010000 		.4byte	.LASF16
+ 405 0122 03       		.byte	0x3
+ 406 0123 5E       		.byte	0x5e
+ 407 0124 2E010000 		.4byte	0x12e
+ 408 0128 05       		.uleb128 0x5
+ 409 0129 03       		.byte	0x3
+ 410 012a 00000000 		.4byte	cy_meta_flashprotect
+ 411 012e 07       		.uleb128 0x7
+ 412 012f 0D010000 		.4byte	0x10d
+ 413 0133 05       		.uleb128 0x5
+ 414 0134 90000000 		.4byte	0x90
+ 415 0138 43010000 		.4byte	0x143
+ 416 013c 06       		.uleb128 0x6
+ 417 013d 89000000 		.4byte	0x89
+ 418 0141 0B       		.byte	0xb
+ 419 0142 00       		.byte	0
+ 420 0143 08       		.uleb128 0x8
+ 421 0144 19000000 		.4byte	.LASF17
+ 422 0148 03       		.byte	0x3
+ 423 0149 7B       		.byte	0x7b
+ 424 014a 54010000 		.4byte	0x154
+ 425 014e 05       		.uleb128 0x5
+ 426 014f 03       		.byte	0x3
+ 427 0150 00000000 		.4byte	cy_metadata
+ 428 0154 07       		.uleb128 0x7
+ 429 0155 33010000 		.4byte	0x133
+ 430 0159 00       		.byte	0
+ 431              		.section	.debug_abbrev,"",%progbits
+ 432              	.Ldebug_abbrev0:
+ 433 0000 01       		.uleb128 0x1
+ 434 0001 11       		.uleb128 0x11
+ 435 0002 01       		.byte	0x1
+ 436 0003 25       		.uleb128 0x25
+ 437 0004 0E       		.uleb128 0xe
+ 438 0005 13       		.uleb128 0x13
+ 439 0006 0B       		.uleb128 0xb
+ 440 0007 03       		.uleb128 0x3
+ 441 0008 0E       		.uleb128 0xe
+ 442 0009 1B       		.uleb128 0x1b
+ 443 000a 0E       		.uleb128 0xe
+ 444 000b 10       		.uleb128 0x10
+ 445 000c 17       		.uleb128 0x17
+ 446 000d 00       		.byte	0
+ 447 000e 00       		.byte	0
+ 448 000f 02       		.uleb128 0x2
+ 449 0010 24       		.uleb128 0x24
+ 450 0011 00       		.byte	0
+ 451 0012 0B       		.uleb128 0xb
+ 452 0013 0B       		.uleb128 0xb
+ 453 0014 3E       		.uleb128 0x3e
+ 454 0015 0B       		.uleb128 0xb
+ 455 0016 03       		.uleb128 0x3
+ 456 0017 0E       		.uleb128 0xe
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 9
+
+
+ 457 0018 00       		.byte	0
+ 458 0019 00       		.byte	0
+ 459 001a 03       		.uleb128 0x3
+ 460 001b 16       		.uleb128 0x16
+ 461 001c 00       		.byte	0
+ 462 001d 03       		.uleb128 0x3
+ 463 001e 0E       		.uleb128 0xe
+ 464 001f 3A       		.uleb128 0x3a
+ 465 0020 0B       		.uleb128 0xb
+ 466 0021 3B       		.uleb128 0x3b
+ 467 0022 0B       		.uleb128 0xb
+ 468 0023 49       		.uleb128 0x49
+ 469 0024 13       		.uleb128 0x13
+ 470 0025 00       		.byte	0
+ 471 0026 00       		.byte	0
+ 472 0027 04       		.uleb128 0x4
+ 473 0028 24       		.uleb128 0x24
+ 474 0029 00       		.byte	0
+ 475 002a 0B       		.uleb128 0xb
+ 476 002b 0B       		.uleb128 0xb
+ 477 002c 3E       		.uleb128 0x3e
+ 478 002d 0B       		.uleb128 0xb
+ 479 002e 03       		.uleb128 0x3
+ 480 002f 08       		.uleb128 0x8
+ 481 0030 00       		.byte	0
+ 482 0031 00       		.byte	0
+ 483 0032 05       		.uleb128 0x5
+ 484 0033 01       		.uleb128 0x1
+ 485 0034 01       		.byte	0x1
+ 486 0035 49       		.uleb128 0x49
+ 487 0036 13       		.uleb128 0x13
+ 488 0037 01       		.uleb128 0x1
+ 489 0038 13       		.uleb128 0x13
+ 490 0039 00       		.byte	0
+ 491 003a 00       		.byte	0
+ 492 003b 06       		.uleb128 0x6
+ 493 003c 21       		.uleb128 0x21
+ 494 003d 00       		.byte	0
+ 495 003e 49       		.uleb128 0x49
+ 496 003f 13       		.uleb128 0x13
+ 497 0040 2F       		.uleb128 0x2f
+ 498 0041 0B       		.uleb128 0xb
+ 499 0042 00       		.byte	0
+ 500 0043 00       		.byte	0
+ 501 0044 07       		.uleb128 0x7
+ 502 0045 26       		.uleb128 0x26
+ 503 0046 00       		.byte	0
+ 504 0047 49       		.uleb128 0x49
+ 505 0048 13       		.uleb128 0x13
+ 506 0049 00       		.byte	0
+ 507 004a 00       		.byte	0
+ 508 004b 08       		.uleb128 0x8
+ 509 004c 34       		.uleb128 0x34
+ 510 004d 00       		.byte	0
+ 511 004e 03       		.uleb128 0x3
+ 512 004f 0E       		.uleb128 0xe
+ 513 0050 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 10
+
+
+ 514 0051 0B       		.uleb128 0xb
+ 515 0052 3B       		.uleb128 0x3b
+ 516 0053 0B       		.uleb128 0xb
+ 517 0054 49       		.uleb128 0x49
+ 518 0055 13       		.uleb128 0x13
+ 519 0056 3F       		.uleb128 0x3f
+ 520 0057 19       		.uleb128 0x19
+ 521 0058 02       		.uleb128 0x2
+ 522 0059 18       		.uleb128 0x18
+ 523 005a 00       		.byte	0
+ 524 005b 00       		.byte	0
+ 525 005c 00       		.byte	0
+ 526              		.section	.debug_aranges,"",%progbits
+ 527 0000 14000000 		.4byte	0x14
+ 528 0004 0200     		.2byte	0x2
+ 529 0006 00000000 		.4byte	.Ldebug_info0
+ 530 000a 04       		.byte	0x4
+ 531 000b 00       		.byte	0
+ 532 000c 0000     		.2byte	0
+ 533 000e 0000     		.2byte	0
+ 534 0010 00000000 		.4byte	0
+ 535 0014 00000000 		.4byte	0
+ 536              		.section	.debug_line,"",%progbits
+ 537              	.Ldebug_line0:
+ 538 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
+ 538      02003701 
+ 538      00000201 
+ 538      FB0E0D00 
+ 538      01010101 
+ 539              	.LASF9:
+ 540 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 540      6E74385F 
+ 540      7400
+ 541              	.LASF12:
+ 542 000a 63795F6D 		.ascii	"cy_meta_loader\000"
+ 542      6574615F 
+ 542      6C6F6164 
+ 542      657200
+ 543              	.LASF17:
+ 544 0019 63795F6D 		.ascii	"cy_metadata\000"
+ 544      65746164 
+ 544      61746100 
+ 545              	.LASF7:
+ 546 0025 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 546      206C6F6E 
+ 546      6720756E 
+ 546      7369676E 
+ 546      65642069 
+ 547              	.LASF1:
+ 548 003c 756E7369 		.ascii	"unsigned char\000"
+ 548      676E6564 
+ 548      20636861 
+ 548      7200
+ 549              	.LASF20:
+ 550 004a 5A3A5C70 		.ascii	"Z:\\projects\\SCSI2SD\\git-v6-licensed\\v5.5\\USB_B"
+ 550      726F6A65 
+ 550      6374735C 
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 11
+
+
+ 550      53435349 
+ 550      3253445C 
+ 551 0078 6F6F746C 		.ascii	"ootloader.cydsn\000"
+ 551      6F616465 
+ 551      722E6379 
+ 551      64736E00 
+ 552              	.LASF5:
+ 553 0088 6C6F6E67 		.ascii	"long unsigned int\000"
+ 553      20756E73 
+ 553      69676E65 
+ 553      6420696E 
+ 553      7400
+ 554              	.LASF3:
+ 555 009a 73686F72 		.ascii	"short unsigned int\000"
+ 555      7420756E 
+ 555      7369676E 
+ 555      65642069 
+ 555      6E7400
+ 556              	.LASF14:
+ 557 00ad 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 557      6574615F 
+ 557      63757374 
+ 557      6E766C00 
+ 558              	.LASF13:
+ 559 00bd 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 559      6574615F 
+ 559      636F6E66 
+ 559      69676563 
+ 559      6300
+ 560              	.LASF8:
+ 561 00cf 756E7369 		.ascii	"unsigned int\000"
+ 561      676E6564 
+ 561      20696E74 
+ 561      00
+ 562              	.LASF18:
+ 563 00dc 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 563      43313120 
+ 563      352E342E 
+ 563      31203230 
+ 563      31363036 
+ 564 010f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 564      20726576 
+ 564      6973696F 
+ 564      6E203233 
+ 564      37373135 
+ 565 0142 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 565      66756E63 
+ 565      74696F6E 
+ 565      2D736563 
+ 565      74696F6E 
+ 566              	.LASF10:
+ 567 016a 75696E74 		.ascii	"uint8_t\000"
+ 567      385F7400 
+ 568              	.LASF16:
+ 569 0172 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 569      6574615F 
+ 569      666C6173 
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccEvfStG.s 			page 12
+
+
+ 569      6870726F 
+ 569      74656374 
+ 570              	.LASF15:
+ 571 0187 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 571      6574615F 
+ 571      776F6E76 
+ 571      6C00
+ 572              	.LASF11:
+ 573 0195 73697A65 		.ascii	"sizetype\000"
+ 573      74797065 
+ 573      00
+ 574              	.LASF6:
+ 575 019e 6C6F6E67 		.ascii	"long long int\000"
+ 575      206C6F6E 
+ 575      6720696E 
+ 575      7400
+ 576              	.LASF2:
+ 577 01ac 73686F72 		.ascii	"short int\000"
+ 577      7420696E 
+ 577      7400
+ 578              	.LASF4:
+ 579 01b6 6C6F6E67 		.ascii	"long int\000"
+ 579      20696E74 
+ 579      00
+ 580              	.LASF0:
+ 581 01bf 7369676E 		.ascii	"signed char\000"
+ 581      65642063 
+ 581      68617200 
+ 582              	.LASF19:
+ 583 01cb 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
+ 583      72617465 
+ 583      645F536F 
+ 583      75726365 
+ 583      5C50536F 
+ 584              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

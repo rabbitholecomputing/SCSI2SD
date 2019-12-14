@@ -1,0 +1,8 @@
+Z:\projects\SCSI2SD\git-v6-licensed\v5.5\USB_Bootloader.cydsn\USB_Bootloader.cyprj|2e1ffc2c-4efe-42b2-87ee-da6c96e3d93e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|d34bfe50-6313-43ac-9538-dc9fc4d5c78e
+C:\Users\Micha_000\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|c7ecd768-3e03-4173-b0e3-3a533c271075
+C:\Users\Micha_000\Documents\PSoC Creator\4.1\Downloads ( 4.1).cylib\Downloads ( 4.1).cyprj|6d315596-ffd4-4c91-aa25-1d15afcd2226
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|7dc4cc99-9fde-46c0-b03f-47b9b160b84b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|70ec51a8-65aa-4014-a032-5579a7624bd2
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|16b21d25-ede9-432e-b626-8e6774d8bdfe
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|a5fe0d52-6839-4564-ac97-fe5ce6f113bd

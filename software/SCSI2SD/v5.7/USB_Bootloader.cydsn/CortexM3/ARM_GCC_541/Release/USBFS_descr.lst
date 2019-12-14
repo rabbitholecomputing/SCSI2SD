@@ -1,0 +1,1404 @@
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_descr.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.comm	USBFS_idSerialNumberStringDescriptor,34,1
+  20              		.global	USBFS_TABLE
+  21              		.global	USBFS_DEVICE0_TABLE
+  22              		.global	USBFS_DEVICE0_CONFIGURATION0_TABLE
+  23              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+  24              		.global	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+  25              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+  26              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+  27              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+  28              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF,65,1
+  29              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB,4,2
+  30              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+  31              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF,65,1
+  32              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB,4,2
+  33              		.global	USBFS_HIDREPORT_DESCRIPTOR1
+  34              		.global	USBFS_SN_STRING_DESCRIPTOR
+  35              		.global	USBFS_STRING_DESCRIPTORS
+  36              		.global	USBFS_DEVICE0_CONFIGURATION0_DESCR
+  37              		.global	USBFS_DEVICE0_DESCR
+  38              		.section	.rodata
+  39              		.align	2
+  40              		.type	USBFS_TABLE, %object
+  41              		.size	USBFS_TABLE, 8
+  42              	USBFS_TABLE:
+  43 0000 01       		.byte	1
+  44 0001 000000   		.space	3
+  45 0004 00000000 		.word	USBFS_DEVICE0_TABLE
+  46              		.type	USBFS_DEVICE0_TABLE, %object
+  47              		.size	USBFS_DEVICE0_TABLE, 24
+  48              	USBFS_DEVICE0_TABLE:
+  49 0008 01       		.byte	1
+  50 0009 000000   		.space	3
+  51 000c 00000000 		.word	USBFS_DEVICE0_DESCR
+  52 0010 00       		.byte	0
+  53 0011 000000   		.space	3
+  54 0014 00000000 		.word	0
+  55 0018 01       		.byte	1
+  56 0019 000000   		.space	3
+  57 001c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_TABLE
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 2
+
+
+  58              		.type	USBFS_DEVICE0_CONFIGURATION0_TABLE, %object
+  59              		.size	USBFS_DEVICE0_CONFIGURATION0_TABLE, 32
+  60              	USBFS_DEVICE0_CONFIGURATION0_TABLE:
+  61 0020 01       		.byte	1
+  62 0021 000000   		.space	3
+  63 0024 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_DESCR
+  64 0028 02       		.byte	2
+  65 0029 000000   		.space	3
+  66 002c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+  67 0030 01       		.byte	1
+  68 0031 000000   		.space	3
+  69 0034 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+  70 0038 00       		.byte	0
+  71 0039 000000   		.space	3
+  72 003c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+  73              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, %object
+  74              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, 1
+  75              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS:
+  76 0040 03       		.byte	3
+  77 0041 00       		.space	1
+  78              		.type	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, %object
+  79              		.size	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, 16
+  80              	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE:
+  81 0042 00       		.byte	0
+  82 0043 00       		.byte	0
+  83 0044 01       		.byte	1
+  84 0045 03       		.byte	3
+  85 0046 4000     		.short	64
+  86 0048 03       		.byte	3
+  87 0049 00       		.space	1
+  88 004a 00       		.byte	0
+  89 004b 00       		.byte	0
+  90 004c 82       		.byte	-126
+  91 004d 03       		.byte	3
+  92 004e 4000     		.short	64
+  93 0050 03       		.byte	3
+  94 0051 00       		.space	1
+  95 0052 0000     		.space	2
+  96              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE, %object
+  97              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE, 8
+  98              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE:
+  99 0054 01       		.byte	1
+ 100 0055 000000   		.space	3
+ 101 0058 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+ 102              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE, %object
+ 103              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE, 40
+ 104              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE:
+ 105 005c 00       		.byte	0
+ 106 005d 000000   		.space	3
+ 107 0060 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+ 108 0064 00       		.byte	0
+ 109 0065 000000   		.space	3
+ 110 0068 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+ 111 006c 00       		.byte	0
+ 112 006d 000000   		.space	3
+ 113 0070 00000000 		.word	0
+ 114 0074 01       		.byte	1
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 3
+
+
+ 115 0075 000000   		.space	3
+ 116 0078 00000000 		.word	USBFS_HIDREPORT_DESCRIPTOR1
+ 117 007c 01       		.byte	1
+ 118 007d 000000   		.space	3
+ 119 0080 12000000 		.word	USBFS_DEVICE0_CONFIGURATION0_DESCR+18
+ 120              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE, %object
+ 121              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE, 12
+ 122              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE:
+ 123 0084 4100     		.short	65
+ 124 0086 0000     		.space	2
+ 125 0088 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF
+ 126 008c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB
+ 127              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE, %object
+ 128              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE, 12
+ 129              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE:
+ 130 0090 4100     		.short	65
+ 131 0092 0000     		.space	2
+ 132 0094 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+ 133 0098 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+ 134              		.type	USBFS_HIDREPORT_DESCRIPTOR1, %object
+ 135              		.size	USBFS_HIDREPORT_DESCRIPTOR1, 40
+ 136              	USBFS_HIDREPORT_DESCRIPTOR1:
+ 137 009c 24       		.byte	36
+ 138 009d 00       		.byte	0
+ 139 009e 05       		.byte	5
+ 140 009f 01       		.byte	1
+ 141 00a0 09       		.byte	9
+ 142 00a1 00       		.byte	0
+ 143 00a2 A1       		.byte	-95
+ 144 00a3 00       		.byte	0
+ 145 00a4 09       		.byte	9
+ 146 00a5 00       		.byte	0
+ 147 00a6 A1       		.byte	-95
+ 148 00a7 00       		.byte	0
+ 149 00a8 09       		.byte	9
+ 150 00a9 00       		.byte	0
+ 151 00aa 15       		.byte	21
+ 152 00ab 00       		.byte	0
+ 153 00ac 25       		.byte	37
+ 154 00ad FF       		.byte	-1
+ 155 00ae 75       		.byte	117
+ 156 00af 08       		.byte	8
+ 157 00b0 95       		.byte	-107
+ 158 00b1 40       		.byte	64
+ 159 00b2 91       		.byte	-111
+ 160 00b3 02       		.byte	2
+ 161 00b4 09       		.byte	9
+ 162 00b5 00       		.byte	0
+ 163 00b6 15       		.byte	21
+ 164 00b7 00       		.byte	0
+ 165 00b8 25       		.byte	37
+ 166 00b9 FF       		.byte	-1
+ 167 00ba 75       		.byte	117
+ 168 00bb 08       		.byte	8
+ 169 00bc 95       		.byte	-107
+ 170 00bd 40       		.byte	64
+ 171 00be 81       		.byte	-127
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 4
+
+
+ 172 00bf 02       		.byte	2
+ 173 00c0 C0       		.byte	-64
+ 174 00c1 C0       		.byte	-64
+ 175 00c2 00       		.byte	0
+ 176 00c3 00       		.byte	0
+ 177              		.type	USBFS_SN_STRING_DESCRIPTOR, %object
+ 178              		.size	USBFS_SN_STRING_DESCRIPTOR, 10
+ 179              	USBFS_SN_STRING_DESCRIPTOR:
+ 180 00c4 0A       		.byte	10
+ 181 00c5 03       		.byte	3
+ 182 00c6 30       		.byte	48
+ 183 00c7 00       		.byte	0
+ 184 00c8 30       		.byte	48
+ 185 00c9 00       		.byte	0
+ 186 00ca 30       		.byte	48
+ 187 00cb 00       		.byte	0
+ 188 00cc 31       		.byte	49
+ 189 00cd 00       		.byte	0
+ 190              		.type	USBFS_STRING_DESCRIPTORS, %object
+ 191              		.size	USBFS_STRING_DESCRIPTORS, 59
+ 192              	USBFS_STRING_DESCRIPTORS:
+ 193 00ce 04       		.byte	4
+ 194 00cf 03       		.byte	3
+ 195 00d0 09       		.byte	9
+ 196 00d1 04       		.byte	4
+ 197 00d2 10       		.byte	16
+ 198 00d3 03       		.byte	3
+ 199 00d4 63       		.byte	99
+ 200 00d5 00       		.byte	0
+ 201 00d6 6F       		.byte	111
+ 202 00d7 00       		.byte	0
+ 203 00d8 64       		.byte	100
+ 204 00d9 00       		.byte	0
+ 205 00da 65       		.byte	101
+ 206 00db 00       		.byte	0
+ 207 00dc 73       		.byte	115
+ 208 00dd 00       		.byte	0
+ 209 00de 72       		.byte	114
+ 210 00df 00       		.byte	0
+ 211 00e0 63       		.byte	99
+ 212 00e1 00       		.byte	0
+ 213 00e2 26       		.byte	38
+ 214 00e3 03       		.byte	3
+ 215 00e4 53       		.byte	83
+ 216 00e5 00       		.byte	0
+ 217 00e6 43       		.byte	67
+ 218 00e7 00       		.byte	0
+ 219 00e8 53       		.byte	83
+ 220 00e9 00       		.byte	0
+ 221 00ea 49       		.byte	73
+ 222 00eb 00       		.byte	0
+ 223 00ec 32       		.byte	50
+ 224 00ed 00       		.byte	0
+ 225 00ee 53       		.byte	83
+ 226 00ef 00       		.byte	0
+ 227 00f0 44       		.byte	68
+ 228 00f1 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 5
+
+
+ 229 00f2 20       		.byte	32
+ 230 00f3 00       		.byte	0
+ 231 00f4 42       		.byte	66
+ 232 00f5 00       		.byte	0
+ 233 00f6 6F       		.byte	111
+ 234 00f7 00       		.byte	0
+ 235 00f8 6F       		.byte	111
+ 236 00f9 00       		.byte	0
+ 237 00fa 74       		.byte	116
+ 238 00fb 00       		.byte	0
+ 239 00fc 6C       		.byte	108
+ 240 00fd 00       		.byte	0
+ 241 00fe 6F       		.byte	111
+ 242 00ff 00       		.byte	0
+ 243 0100 61       		.byte	97
+ 244 0101 00       		.byte	0
+ 245 0102 64       		.byte	100
+ 246 0103 00       		.byte	0
+ 247 0104 65       		.byte	101
+ 248 0105 00       		.byte	0
+ 249 0106 72       		.byte	114
+ 250 0107 00       		.byte	0
+ 251 0108 00       		.byte	0
+ 252              		.type	USBFS_DEVICE0_CONFIGURATION0_DESCR, %object
+ 253              		.size	USBFS_DEVICE0_CONFIGURATION0_DESCR, 41
+ 254              	USBFS_DEVICE0_CONFIGURATION0_DESCR:
+ 255 0109 09       		.byte	9
+ 256 010a 02       		.byte	2
+ 257 010b 29       		.byte	41
+ 258 010c 00       		.byte	0
+ 259 010d 01       		.byte	1
+ 260 010e 01       		.byte	1
+ 261 010f 00       		.byte	0
+ 262 0110 80       		.byte	-128
+ 263 0111 FA       		.byte	-6
+ 264 0112 09       		.byte	9
+ 265 0113 04       		.byte	4
+ 266 0114 00       		.byte	0
+ 267 0115 00       		.byte	0
+ 268 0116 02       		.byte	2
+ 269 0117 03       		.byte	3
+ 270 0118 00       		.byte	0
+ 271 0119 00       		.byte	0
+ 272 011a 02       		.byte	2
+ 273 011b 09       		.byte	9
+ 274 011c 21       		.byte	33
+ 275 011d 11       		.byte	17
+ 276 011e 01       		.byte	1
+ 277 011f 00       		.byte	0
+ 278 0120 01       		.byte	1
+ 279 0121 22       		.byte	34
+ 280 0122 24       		.byte	36
+ 281 0123 00       		.byte	0
+ 282 0124 07       		.byte	7
+ 283 0125 05       		.byte	5
+ 284 0126 01       		.byte	1
+ 285 0127 03       		.byte	3
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 6
+
+
+ 286 0128 40       		.byte	64
+ 287 0129 00       		.byte	0
+ 288 012a 01       		.byte	1
+ 289 012b 07       		.byte	7
+ 290 012c 05       		.byte	5
+ 291 012d 82       		.byte	-126
+ 292 012e 03       		.byte	3
+ 293 012f 40       		.byte	64
+ 294 0130 00       		.byte	0
+ 295 0131 01       		.byte	1
+ 296              		.type	USBFS_DEVICE0_DESCR, %object
+ 297              		.size	USBFS_DEVICE0_DESCR, 18
+ 298              	USBFS_DEVICE0_DESCR:
+ 299 0132 12       		.byte	18
+ 300 0133 01       		.byte	1
+ 301 0134 00       		.byte	0
+ 302 0135 02       		.byte	2
+ 303 0136 00       		.byte	0
+ 304 0137 00       		.byte	0
+ 305 0138 00       		.byte	0
+ 306 0139 08       		.byte	8
+ 307 013a B4       		.byte	-76
+ 308 013b 04       		.byte	4
+ 309 013c 1D       		.byte	29
+ 310 013d B7       		.byte	-73
+ 311 013e 55       		.byte	85
+ 312 013f 00       		.byte	0
+ 313 0140 01       		.byte	1
+ 314 0141 02       		.byte	2
+ 315 0142 80       		.byte	-128
+ 316 0143 01       		.byte	1
+ 317              		.text
+ 318              	.Letext0:
+ 319              		.file 1 "Generated_Source\\PSoC5\\cytypes.h"
+ 320              		.file 2 "Generated_Source\\PSoC5\\USBFS.h"
+ 321              		.file 3 "Generated_Source\\PSoC5\\USBFS_descr.c"
+ 322              		.section	.debug_info,"",%progbits
+ 323              	.Ldebug_info0:
+ 324 0000 1D040000 		.4byte	0x41d
+ 325 0004 0400     		.2byte	0x4
+ 326 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 327 000a 04       		.byte	0x4
+ 328 000b 01       		.uleb128 0x1
+ 329 000c 6F020000 		.4byte	.LASF51
+ 330 0010 0C       		.byte	0xc
+ 331 0011 2C040000 		.4byte	.LASF52
+ 332 0015 17020000 		.4byte	.LASF53
+ 333 0019 00000000 		.4byte	.Ldebug_line0
+ 334 001d 02       		.uleb128 0x2
+ 335 001e 01       		.byte	0x1
+ 336 001f 06       		.byte	0x6
+ 337 0020 80050000 		.4byte	.LASF0
+ 338 0024 02       		.uleb128 0x2
+ 339 0025 01       		.byte	0x1
+ 340 0026 08       		.byte	0x8
+ 341 0027 86040000 		.4byte	.LASF1
+ 342 002b 02       		.uleb128 0x2
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 7
+
+
+ 343 002c 02       		.byte	0x2
+ 344 002d 05       		.byte	0x5
+ 345 002e C7040000 		.4byte	.LASF2
+ 346 0032 02       		.uleb128 0x2
+ 347 0033 02       		.byte	0x2
+ 348 0034 07       		.byte	0x7
+ 349 0035 EC000000 		.4byte	.LASF3
+ 350 0039 02       		.uleb128 0x2
+ 351 003a 04       		.byte	0x4
+ 352 003b 05       		.byte	0x5
+ 353 003c 64050000 		.4byte	.LASF4
+ 354 0040 02       		.uleb128 0x2
+ 355 0041 04       		.byte	0x4
+ 356 0042 07       		.byte	0x7
+ 357 0043 F6030000 		.4byte	.LASF5
+ 358 0047 02       		.uleb128 0x2
+ 359 0048 08       		.byte	0x8
+ 360 0049 05       		.byte	0x5
+ 361 004a 9D040000 		.4byte	.LASF6
+ 362 004e 02       		.uleb128 0x2
+ 363 004f 08       		.byte	0x8
+ 364 0050 07       		.byte	0x7
+ 365 0051 15040000 		.4byte	.LASF7
+ 366 0055 03       		.uleb128 0x3
+ 367 0056 04       		.byte	0x4
+ 368 0057 05       		.byte	0x5
+ 369 0058 696E7400 		.ascii	"int\000"
+ 370 005c 02       		.uleb128 0x2
+ 371 005d 04       		.byte	0x4
+ 372 005e 07       		.byte	0x7
+ 373 005f 08040000 		.4byte	.LASF8
+ 374 0063 04       		.uleb128 0x4
+ 375 0064 2F050000 		.4byte	.LASF9
+ 376 0068 01       		.byte	0x1
+ 377 0069 9201     		.2byte	0x192
+ 378 006b 24000000 		.4byte	0x24
+ 379 006f 04       		.uleb128 0x4
+ 380 0070 9D030000 		.4byte	.LASF10
+ 381 0074 01       		.byte	0x1
+ 382 0075 9301     		.2byte	0x193
+ 383 0077 32000000 		.4byte	0x32
+ 384 007b 02       		.uleb128 0x2
+ 385 007c 04       		.byte	0x4
+ 386 007d 04       		.byte	0x4
+ 387 007e 74010000 		.4byte	.LASF11
+ 388 0082 02       		.uleb128 0x2
+ 389 0083 08       		.byte	0x8
+ 390 0084 04       		.byte	0x4
+ 391 0085 96030000 		.4byte	.LASF12
+ 392 0089 02       		.uleb128 0x2
+ 393 008a 01       		.byte	0x1
+ 394 008b 08       		.byte	0x8
+ 395 008c B7040000 		.4byte	.LASF13
+ 396 0090 05       		.uleb128 0x5
+ 397 0091 63000000 		.4byte	0x63
+ 398 0095 02       		.uleb128 0x2
+ 399 0096 08       		.byte	0x8
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 8
+
+
+ 400 0097 04       		.byte	0x4
+ 401 0098 74050000 		.4byte	.LASF14
+ 402 009c 02       		.uleb128 0x2
+ 403 009d 04       		.byte	0x4
+ 404 009e 07       		.byte	0x7
+ 405 009f 94040000 		.4byte	.LASF15
+ 406 00a3 06       		.uleb128 0x6
+ 407 00a4 08       		.byte	0x8
+ 408 00a5 02       		.byte	0x2
+ 409 00a6 A1       		.byte	0xa1
+ 410 00a7 F4000000 		.4byte	0xf4
+ 411 00ab 07       		.uleb128 0x7
+ 412 00ac 35050000 		.4byte	.LASF16
+ 413 00b0 02       		.byte	0x2
+ 414 00b1 A3       		.byte	0xa3
+ 415 00b2 63000000 		.4byte	0x63
+ 416 00b6 00       		.byte	0
+ 417 00b7 07       		.uleb128 0x7
+ 418 00b8 5E010000 		.4byte	.LASF17
+ 419 00bc 02       		.byte	0x2
+ 420 00bd A4       		.byte	0xa4
+ 421 00be 63000000 		.4byte	0x63
+ 422 00c2 01       		.byte	0x1
+ 423 00c3 07       		.uleb128 0x7
+ 424 00c4 FD020000 		.4byte	.LASF18
+ 425 00c8 02       		.byte	0x2
+ 426 00c9 A5       		.byte	0xa5
+ 427 00ca 63000000 		.4byte	0x63
+ 428 00ce 02       		.byte	0x2
+ 429 00cf 07       		.uleb128 0x7
+ 430 00d0 5D000000 		.4byte	.LASF19
+ 431 00d4 02       		.byte	0x2
+ 432 00d5 A6       		.byte	0xa6
+ 433 00d6 63000000 		.4byte	0x63
+ 434 00da 03       		.byte	0x3
+ 435 00db 07       		.uleb128 0x7
+ 436 00dc BC040000 		.4byte	.LASF20
+ 437 00e0 02       		.byte	0x2
+ 438 00e1 A7       		.byte	0xa7
+ 439 00e2 6F000000 		.4byte	0x6f
+ 440 00e6 04       		.byte	0x4
+ 441 00e7 07       		.uleb128 0x7
+ 442 00e8 93050000 		.4byte	.LASF21
+ 443 00ec 02       		.byte	0x2
+ 444 00ed A8       		.byte	0xa8
+ 445 00ee 63000000 		.4byte	0x63
+ 446 00f2 06       		.byte	0x6
+ 447 00f3 00       		.byte	0
+ 448 00f4 08       		.uleb128 0x8
+ 449 00f5 58040000 		.4byte	.LASF22
+ 450 00f9 02       		.byte	0x2
+ 451 00fa A9       		.byte	0xa9
+ 452 00fb A3000000 		.4byte	0xa3
+ 453 00ff 06       		.uleb128 0x6
+ 454 0100 04       		.byte	0x4
+ 455 0101 02       		.byte	0x2
+ 456 0102 AB       		.byte	0xab
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 9
+
+
+ 457 0103 20010000 		.4byte	0x120
+ 458 0107 07       		.uleb128 0x7
+ 459 0108 6D050000 		.4byte	.LASF23
+ 460 010c 02       		.byte	0x2
+ 461 010d AD       		.byte	0xad
+ 462 010e 63000000 		.4byte	0x63
+ 463 0112 00       		.byte	0
+ 464 0113 07       		.uleb128 0x7
+ 465 0114 8C050000 		.4byte	.LASF24
+ 466 0118 02       		.byte	0x2
+ 467 0119 AE       		.byte	0xae
+ 468 011a 6F000000 		.4byte	0x6f
+ 469 011e 02       		.byte	0x2
+ 470 011f 00       		.byte	0
+ 471 0120 08       		.uleb128 0x8
+ 472 0121 55020000 		.4byte	.LASF25
+ 473 0125 02       		.byte	0x2
+ 474 0126 AF       		.byte	0xaf
+ 475 0127 FF000000 		.4byte	0xff
+ 476 012b 06       		.uleb128 0x6
+ 477 012c 0C       		.byte	0xc
+ 478 012d 02       		.byte	0x2
+ 479 012e B1       		.byte	0xb1
+ 480 012f 58010000 		.4byte	0x158
+ 481 0133 07       		.uleb128 0x7
+ 482 0134 B8000000 		.4byte	.LASF26
+ 483 0138 02       		.byte	0x2
+ 484 0139 B3       		.byte	0xb3
+ 485 013a 6F000000 		.4byte	0x6f
+ 486 013e 00       		.byte	0
+ 487 013f 07       		.uleb128 0x7
+ 488 0140 58010000 		.4byte	.LASF27
+ 489 0144 02       		.byte	0x2
+ 490 0145 B4       		.byte	0xb4
+ 491 0146 58010000 		.4byte	0x158
+ 492 014a 04       		.byte	0x4
+ 493 014b 07       		.uleb128 0x7
+ 494 014c 23000000 		.4byte	.LASF28
+ 495 0150 02       		.byte	0x2
+ 496 0151 B5       		.byte	0xb5
+ 497 0152 5E010000 		.4byte	0x15e
+ 498 0156 08       		.byte	0x8
+ 499 0157 00       		.byte	0
+ 500 0158 09       		.uleb128 0x9
+ 501 0159 04       		.byte	0x4
+ 502 015a 90000000 		.4byte	0x90
+ 503 015e 09       		.uleb128 0x9
+ 504 015f 04       		.byte	0x4
+ 505 0160 20010000 		.4byte	0x120
+ 506 0164 08       		.uleb128 0x8
+ 507 0165 69010000 		.4byte	.LASF29
+ 508 0169 02       		.byte	0x2
+ 509 016a B6       		.byte	0xb6
+ 510 016b 2B010000 		.4byte	0x12b
+ 511 016f 06       		.uleb128 0x6
+ 512 0170 08       		.byte	0x8
+ 513 0171 02       		.byte	0x2
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 10
+
+
+ 514 0172 B8       		.byte	0xb8
+ 515 0173 8E010000 		.4byte	0x18e
+ 516 0177 0A       		.uleb128 0xa
+ 517 0178 6300     		.ascii	"c\000"
+ 518 017a 02       		.byte	0x2
+ 519 017b BA       		.byte	0xba
+ 520 017c 63000000 		.4byte	0x63
+ 521 0180 00       		.byte	0
+ 522 0181 07       		.uleb128 0x7
+ 523 0182 51040000 		.4byte	.LASF30
+ 524 0186 02       		.byte	0x2
+ 525 0187 BB       		.byte	0xbb
+ 526 0188 8E010000 		.4byte	0x18e
+ 527 018c 04       		.byte	0x4
+ 528 018d 00       		.byte	0
+ 529 018e 09       		.uleb128 0x9
+ 530 018f 04       		.byte	0x4
+ 531 0190 94010000 		.4byte	0x194
+ 532 0194 0B       		.uleb128 0xb
+ 533 0195 08       		.uleb128 0x8
+ 534 0196 AB040000 		.4byte	.LASF31
+ 535 019a 02       		.byte	0x2
+ 536 019b BC       		.byte	0xbc
+ 537 019c 6F010000 		.4byte	0x16f
+ 538 01a0 0C       		.uleb128 0xc
+ 539 01a1 B0010000 		.4byte	0x1b0
+ 540 01a5 B0010000 		.4byte	0x1b0
+ 541 01a9 0D       		.uleb128 0xd
+ 542 01aa 9C000000 		.4byte	0x9c
+ 543 01ae 11       		.byte	0x11
+ 544 01af 00       		.byte	0
+ 545 01b0 0E       		.uleb128 0xe
+ 546 01b1 63000000 		.4byte	0x63
+ 547 01b5 0F       		.uleb128 0xf
+ 548 01b6 72040000 		.4byte	.LASF32
+ 549 01ba 03       		.byte	0x3
+ 550 01bb 24       		.byte	0x24
+ 551 01bc C6010000 		.4byte	0x1c6
+ 552 01c0 05       		.uleb128 0x5
+ 553 01c1 03       		.byte	0x3
+ 554 01c2 00000000 		.4byte	USBFS_DEVICE0_DESCR
+ 555 01c6 0E       		.uleb128 0xe
+ 556 01c7 A0010000 		.4byte	0x1a0
+ 557 01cb 0C       		.uleb128 0xc
+ 558 01cc B0010000 		.4byte	0x1b0
+ 559 01d0 DB010000 		.4byte	0x1db
+ 560 01d4 0D       		.uleb128 0xd
+ 561 01d5 9C000000 		.4byte	0x9c
+ 562 01d9 28       		.byte	0x28
+ 563 01da 00       		.byte	0
+ 564 01db 0F       		.uleb128 0xf
+ 565 01dc D3030000 		.4byte	.LASF33
+ 566 01e0 03       		.byte	0x3
+ 567 01e1 37       		.byte	0x37
+ 568 01e2 EC010000 		.4byte	0x1ec
+ 569 01e6 05       		.uleb128 0x5
+ 570 01e7 03       		.byte	0x3
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 11
+
+
+ 571 01e8 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_DESCR
+ 572 01ec 0E       		.uleb128 0xe
+ 573 01ed CB010000 		.4byte	0x1cb
+ 574 01f1 0C       		.uleb128 0xc
+ 575 01f2 01020000 		.4byte	0x201
+ 576 01f6 01020000 		.4byte	0x201
+ 577 01fa 0D       		.uleb128 0xd
+ 578 01fb 9C000000 		.4byte	0x9c
+ 579 01ff 00       		.byte	0
+ 580 0200 00       		.byte	0
+ 581 0201 0E       		.uleb128 0xe
+ 582 0202 95010000 		.4byte	0x195
+ 583 0206 0F       		.uleb128 0xf
+ 584 0207 BE000000 		.4byte	.LASF34
+ 585 020b 03       		.byte	0x3
+ 586 020c E2       		.byte	0xe2
+ 587 020d 17020000 		.4byte	0x217
+ 588 0211 05       		.uleb128 0x5
+ 589 0212 03       		.byte	0x3
+ 590 0213 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+ 591 0217 0E       		.uleb128 0xe
+ 592 0218 F1010000 		.4byte	0x1f1
+ 593 021c 0C       		.uleb128 0xc
+ 594 021d 2C020000 		.4byte	0x22c
+ 595 0221 2C020000 		.4byte	0x22c
+ 596 0225 0D       		.uleb128 0xd
+ 597 0226 9C000000 		.4byte	0x9c
+ 598 022a 01       		.byte	0x1
+ 599 022b 00       		.byte	0
+ 600 022c 0E       		.uleb128 0xe
+ 601 022d F4000000 		.4byte	0xf4
+ 602 0231 0F       		.uleb128 0xf
+ 603 0232 A4030000 		.4byte	.LASF35
+ 604 0236 03       		.byte	0x3
+ 605 0237 ED       		.byte	0xed
+ 606 0238 42020000 		.4byte	0x242
+ 607 023c 05       		.uleb128 0x5
+ 608 023d 03       		.byte	0x3
+ 609 023e 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+ 610 0242 0E       		.uleb128 0xe
+ 611 0243 1C020000 		.4byte	0x21c
+ 612 0247 0C       		.uleb128 0xc
+ 613 0248 B0010000 		.4byte	0x1b0
+ 614 024c 57020000 		.4byte	0x257
+ 615 0250 0D       		.uleb128 0xd
+ 616 0251 9C000000 		.4byte	0x9c
+ 617 0255 00       		.byte	0
+ 618 0256 00       		.byte	0
+ 619 0257 0F       		.uleb128 0xf
+ 620 0258 30000000 		.4byte	.LASF36
+ 621 025c 03       		.byte	0x3
+ 622 025d F2       		.byte	0xf2
+ 623 025e 68020000 		.4byte	0x268
+ 624 0262 05       		.uleb128 0x5
+ 625 0263 03       		.byte	0x3
+ 626 0264 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+ 627 0268 0E       		.uleb128 0xe
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 12
+
+
+ 628 0269 47020000 		.4byte	0x247
+ 629 026d 0C       		.uleb128 0xc
+ 630 026e 01020000 		.4byte	0x201
+ 631 0272 7D020000 		.4byte	0x27d
+ 632 0276 0D       		.uleb128 0xd
+ 633 0277 9C000000 		.4byte	0x9c
+ 634 027b 03       		.byte	0x3
+ 635 027c 00       		.byte	0
+ 636 027d 0F       		.uleb128 0xf
+ 637 027e 00000000 		.4byte	.LASF37
+ 638 0282 03       		.byte	0x3
+ 639 0283 FA       		.byte	0xfa
+ 640 0284 8E020000 		.4byte	0x28e
+ 641 0288 05       		.uleb128 0x5
+ 642 0289 03       		.byte	0x3
+ 643 028a 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_TABLE
+ 644 028e 0E       		.uleb128 0xe
+ 645 028f 6D020000 		.4byte	0x26d
+ 646 0293 0C       		.uleb128 0xc
+ 647 0294 01020000 		.4byte	0x201
+ 648 0298 A3020000 		.4byte	0x2a3
+ 649 029c 0D       		.uleb128 0xd
+ 650 029d 9C000000 		.4byte	0x9c
+ 651 02a1 02       		.byte	0x2
+ 652 02a2 00       		.byte	0
+ 653 02a3 10       		.uleb128 0x10
+ 654 02a4 02030000 		.4byte	.LASF38
+ 655 02a8 03       		.byte	0x3
+ 656 02a9 0401     		.2byte	0x104
+ 657 02ab B5020000 		.4byte	0x2b5
+ 658 02af 05       		.uleb128 0x5
+ 659 02b0 03       		.byte	0x3
+ 660 02b1 00000000 		.4byte	USBFS_DEVICE0_TABLE
+ 661 02b5 0E       		.uleb128 0xe
+ 662 02b6 93020000 		.4byte	0x293
+ 663 02ba 10       		.uleb128 0x10
+ 664 02bb AC000000 		.4byte	.LASF39
+ 665 02bf 03       		.byte	0x3
+ 666 02c0 0C01     		.2byte	0x10c
+ 667 02c2 CC020000 		.4byte	0x2cc
+ 668 02c6 05       		.uleb128 0x5
+ 669 02c7 03       		.byte	0x3
+ 670 02c8 00000000 		.4byte	USBFS_TABLE
+ 671 02cc 0E       		.uleb128 0xe
+ 672 02cd F1010000 		.4byte	0x1f1
+ 673 02d1 0C       		.uleb128 0xc
+ 674 02d2 B0010000 		.4byte	0x1b0
+ 675 02d6 E1020000 		.4byte	0x2e1
+ 676 02da 0D       		.uleb128 0xd
+ 677 02db 9C000000 		.4byte	0x9c
+ 678 02df 09       		.byte	0x9
+ 679 02e0 00       		.byte	0
+ 680 02e1 0F       		.uleb128 0xf
+ 681 02e2 FF000000 		.4byte	.LASF40
+ 682 02e6 03       		.byte	0x3
+ 683 02e7 8C       		.byte	0x8c
+ 684 02e8 F2020000 		.4byte	0x2f2
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 13
+
+
+ 685 02ec 05       		.uleb128 0x5
+ 686 02ed 03       		.byte	0x3
+ 687 02ee 00000000 		.4byte	USBFS_SN_STRING_DESCRIPTOR
+ 688 02f2 0E       		.uleb128 0xe
+ 689 02f3 D1020000 		.4byte	0x2d1
+ 690 02f7 0C       		.uleb128 0xc
+ 691 02f8 B0010000 		.4byte	0x1b0
+ 692 02fc 07030000 		.4byte	0x307
+ 693 0300 0D       		.uleb128 0xd
+ 694 0301 9C000000 		.4byte	0x9c
+ 695 0305 3A       		.byte	0x3a
+ 696 0306 00       		.byte	0
+ 697 0307 0F       		.uleb128 0xf
+ 698 0308 FE010000 		.4byte	.LASF41
+ 699 030c 03       		.byte	0x3
+ 700 030d 6E       		.byte	0x6e
+ 701 030e 18030000 		.4byte	0x318
+ 702 0312 05       		.uleb128 0x5
+ 703 0313 03       		.byte	0x3
+ 704 0314 00000000 		.4byte	USBFS_STRING_DESCRIPTORS
+ 705 0318 0E       		.uleb128 0xe
+ 706 0319 F7020000 		.4byte	0x2f7
+ 707 031d 0F       		.uleb128 0xf
+ 708 031e ED040000 		.4byte	.LASF42
+ 709 0322 03       		.byte	0x3
+ 710 0323 B3       		.byte	0xb3
+ 711 0324 20010000 		.4byte	0x120
+ 712 0328 05       		.uleb128 0x5
+ 713 0329 03       		.byte	0x3
+ 714 032a 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+ 715 032e 0C       		.uleb128 0xc
+ 716 032f 63000000 		.4byte	0x63
+ 717 0333 3E030000 		.4byte	0x33e
+ 718 0337 0D       		.uleb128 0xd
+ 719 0338 9C000000 		.4byte	0x9c
+ 720 033c 40       		.byte	0x40
+ 721 033d 00       		.byte	0
+ 722 033e 0F       		.uleb128 0xf
+ 723 033f 1A010000 		.4byte	.LASF43
+ 724 0343 03       		.byte	0x3
+ 725 0344 B4       		.byte	0xb4
+ 726 0345 2E030000 		.4byte	0x32e
+ 727 0349 05       		.uleb128 0x5
+ 728 034a 03       		.byte	0x3
+ 729 034b 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+ 730 034f 0F       		.uleb128 0xf
+ 731 0350 16030000 		.4byte	.LASF44
+ 732 0354 03       		.byte	0x3
+ 733 0355 C2       		.byte	0xc2
+ 734 0356 20010000 		.4byte	0x120
+ 735 035a 05       		.uleb128 0x5
+ 736 035b 03       		.byte	0x3
+ 737 035c 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB
+ 738 0360 0F       		.uleb128 0xf
+ 739 0361 BF010000 		.4byte	.LASF45
+ 740 0365 03       		.byte	0x3
+ 741 0366 C3       		.byte	0xc3
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 14
+
+
+ 742 0367 2E030000 		.4byte	0x32e
+ 743 036b 05       		.uleb128 0x5
+ 744 036c 03       		.byte	0x3
+ 745 036d 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF
+ 746 0371 0C       		.uleb128 0xc
+ 747 0372 B0010000 		.4byte	0x1b0
+ 748 0376 81030000 		.4byte	0x381
+ 749 037a 0D       		.uleb128 0xd
+ 750 037b 9C000000 		.4byte	0x9c
+ 751 037f 27       		.byte	0x27
+ 752 0380 00       		.byte	0
+ 753 0381 0F       		.uleb128 0xf
+ 754 0382 D1040000 		.4byte	.LASF46
+ 755 0386 03       		.byte	0x3
+ 756 0387 95       		.byte	0x95
+ 757 0388 92030000 		.4byte	0x392
+ 758 038c 05       		.uleb128 0x5
+ 759 038d 03       		.byte	0x3
+ 760 038e 00000000 		.4byte	USBFS_HIDREPORT_DESCRIPTOR1
+ 761 0392 0E       		.uleb128 0xe
+ 762 0393 71030000 		.4byte	0x371
+ 763 0397 0C       		.uleb128 0xc
+ 764 0398 A7030000 		.4byte	0x3a7
+ 765 039c A7030000 		.4byte	0x3a7
+ 766 03a0 0D       		.uleb128 0xd
+ 767 03a1 9C000000 		.4byte	0x9c
+ 768 03a5 00       		.byte	0
+ 769 03a6 00       		.byte	0
+ 770 03a7 0E       		.uleb128 0xe
+ 771 03a8 64010000 		.4byte	0x164
+ 772 03ac 0F       		.uleb128 0xf
+ 773 03ad 68000000 		.4byte	.LASF47
+ 774 03b1 03       		.byte	0x3
+ 775 03b2 BA       		.byte	0xba
+ 776 03b3 BD030000 		.4byte	0x3bd
+ 777 03b7 05       		.uleb128 0x5
+ 778 03b8 03       		.byte	0x3
+ 779 03b9 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+ 780 03bd 0E       		.uleb128 0xe
+ 781 03be 97030000 		.4byte	0x397
+ 782 03c2 0F       		.uleb128 0xf
+ 783 03c3 7A010000 		.4byte	.LASF48
+ 784 03c7 03       		.byte	0x3
+ 785 03c8 C9       		.byte	0xc9
+ 786 03c9 D3030000 		.4byte	0x3d3
+ 787 03cd 05       		.uleb128 0x5
+ 788 03ce 03       		.byte	0x3
+ 789 03cf 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+ 790 03d3 0E       		.uleb128 0xe
+ 791 03d4 97030000 		.4byte	0x397
+ 792 03d8 0C       		.uleb128 0xc
+ 793 03d9 01020000 		.4byte	0x201
+ 794 03dd E8030000 		.4byte	0x3e8
+ 795 03e1 0D       		.uleb128 0xd
+ 796 03e2 9C000000 		.4byte	0x9c
+ 797 03e6 04       		.byte	0x4
+ 798 03e7 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 15
+
+
+ 799 03e8 0F       		.uleb128 0xf
+ 800 03e9 59030000 		.4byte	.LASF49
+ 801 03ed 03       		.byte	0x3
+ 802 03ee D6       		.byte	0xd6
+ 803 03ef F9030000 		.4byte	0x3f9
+ 804 03f3 05       		.uleb128 0x5
+ 805 03f4 03       		.byte	0x3
+ 806 03f5 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+ 807 03f9 0E       		.uleb128 0xe
+ 808 03fa D8030000 		.4byte	0x3d8
+ 809 03fe 0C       		.uleb128 0xc
+ 810 03ff 63000000 		.4byte	0x63
+ 811 0403 0E040000 		.4byte	0x40e
+ 812 0407 0D       		.uleb128 0xd
+ 813 0408 9C000000 		.4byte	0x9c
+ 814 040c 21       		.byte	0x21
+ 815 040d 00       		.byte	0
+ 816 040e 10       		.uleb128 0x10
+ 817 040f 3F050000 		.4byte	.LASF50
+ 818 0413 03       		.byte	0x3
+ 819 0414 3A01     		.2byte	0x13a
+ 820 0416 FE030000 		.4byte	0x3fe
+ 821 041a 05       		.uleb128 0x5
+ 822 041b 03       		.byte	0x3
+ 823 041c 00000000 		.4byte	USBFS_idSerialNumberStringDescriptor
+ 824 0420 00       		.byte	0
+ 825              		.section	.debug_abbrev,"",%progbits
+ 826              	.Ldebug_abbrev0:
+ 827 0000 01       		.uleb128 0x1
+ 828 0001 11       		.uleb128 0x11
+ 829 0002 01       		.byte	0x1
+ 830 0003 25       		.uleb128 0x25
+ 831 0004 0E       		.uleb128 0xe
+ 832 0005 13       		.uleb128 0x13
+ 833 0006 0B       		.uleb128 0xb
+ 834 0007 03       		.uleb128 0x3
+ 835 0008 0E       		.uleb128 0xe
+ 836 0009 1B       		.uleb128 0x1b
+ 837 000a 0E       		.uleb128 0xe
+ 838 000b 10       		.uleb128 0x10
+ 839 000c 17       		.uleb128 0x17
+ 840 000d 00       		.byte	0
+ 841 000e 00       		.byte	0
+ 842 000f 02       		.uleb128 0x2
+ 843 0010 24       		.uleb128 0x24
+ 844 0011 00       		.byte	0
+ 845 0012 0B       		.uleb128 0xb
+ 846 0013 0B       		.uleb128 0xb
+ 847 0014 3E       		.uleb128 0x3e
+ 848 0015 0B       		.uleb128 0xb
+ 849 0016 03       		.uleb128 0x3
+ 850 0017 0E       		.uleb128 0xe
+ 851 0018 00       		.byte	0
+ 852 0019 00       		.byte	0
+ 853 001a 03       		.uleb128 0x3
+ 854 001b 24       		.uleb128 0x24
+ 855 001c 00       		.byte	0
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 16
+
+
+ 856 001d 0B       		.uleb128 0xb
+ 857 001e 0B       		.uleb128 0xb
+ 858 001f 3E       		.uleb128 0x3e
+ 859 0020 0B       		.uleb128 0xb
+ 860 0021 03       		.uleb128 0x3
+ 861 0022 08       		.uleb128 0x8
+ 862 0023 00       		.byte	0
+ 863 0024 00       		.byte	0
+ 864 0025 04       		.uleb128 0x4
+ 865 0026 16       		.uleb128 0x16
+ 866 0027 00       		.byte	0
+ 867 0028 03       		.uleb128 0x3
+ 868 0029 0E       		.uleb128 0xe
+ 869 002a 3A       		.uleb128 0x3a
+ 870 002b 0B       		.uleb128 0xb
+ 871 002c 3B       		.uleb128 0x3b
+ 872 002d 05       		.uleb128 0x5
+ 873 002e 49       		.uleb128 0x49
+ 874 002f 13       		.uleb128 0x13
+ 875 0030 00       		.byte	0
+ 876 0031 00       		.byte	0
+ 877 0032 05       		.uleb128 0x5
+ 878 0033 35       		.uleb128 0x35
+ 879 0034 00       		.byte	0
+ 880 0035 49       		.uleb128 0x49
+ 881 0036 13       		.uleb128 0x13
+ 882 0037 00       		.byte	0
+ 883 0038 00       		.byte	0
+ 884 0039 06       		.uleb128 0x6
+ 885 003a 13       		.uleb128 0x13
+ 886 003b 01       		.byte	0x1
+ 887 003c 0B       		.uleb128 0xb
+ 888 003d 0B       		.uleb128 0xb
+ 889 003e 3A       		.uleb128 0x3a
+ 890 003f 0B       		.uleb128 0xb
+ 891 0040 3B       		.uleb128 0x3b
+ 892 0041 0B       		.uleb128 0xb
+ 893 0042 01       		.uleb128 0x1
+ 894 0043 13       		.uleb128 0x13
+ 895 0044 00       		.byte	0
+ 896 0045 00       		.byte	0
+ 897 0046 07       		.uleb128 0x7
+ 898 0047 0D       		.uleb128 0xd
+ 899 0048 00       		.byte	0
+ 900 0049 03       		.uleb128 0x3
+ 901 004a 0E       		.uleb128 0xe
+ 902 004b 3A       		.uleb128 0x3a
+ 903 004c 0B       		.uleb128 0xb
+ 904 004d 3B       		.uleb128 0x3b
+ 905 004e 0B       		.uleb128 0xb
+ 906 004f 49       		.uleb128 0x49
+ 907 0050 13       		.uleb128 0x13
+ 908 0051 38       		.uleb128 0x38
+ 909 0052 0B       		.uleb128 0xb
+ 910 0053 00       		.byte	0
+ 911 0054 00       		.byte	0
+ 912 0055 08       		.uleb128 0x8
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 17
+
+
+ 913 0056 16       		.uleb128 0x16
+ 914 0057 00       		.byte	0
+ 915 0058 03       		.uleb128 0x3
+ 916 0059 0E       		.uleb128 0xe
+ 917 005a 3A       		.uleb128 0x3a
+ 918 005b 0B       		.uleb128 0xb
+ 919 005c 3B       		.uleb128 0x3b
+ 920 005d 0B       		.uleb128 0xb
+ 921 005e 49       		.uleb128 0x49
+ 922 005f 13       		.uleb128 0x13
+ 923 0060 00       		.byte	0
+ 924 0061 00       		.byte	0
+ 925 0062 09       		.uleb128 0x9
+ 926 0063 0F       		.uleb128 0xf
+ 927 0064 00       		.byte	0
+ 928 0065 0B       		.uleb128 0xb
+ 929 0066 0B       		.uleb128 0xb
+ 930 0067 49       		.uleb128 0x49
+ 931 0068 13       		.uleb128 0x13
+ 932 0069 00       		.byte	0
+ 933 006a 00       		.byte	0
+ 934 006b 0A       		.uleb128 0xa
+ 935 006c 0D       		.uleb128 0xd
+ 936 006d 00       		.byte	0
+ 937 006e 03       		.uleb128 0x3
+ 938 006f 08       		.uleb128 0x8
+ 939 0070 3A       		.uleb128 0x3a
+ 940 0071 0B       		.uleb128 0xb
+ 941 0072 3B       		.uleb128 0x3b
+ 942 0073 0B       		.uleb128 0xb
+ 943 0074 49       		.uleb128 0x49
+ 944 0075 13       		.uleb128 0x13
+ 945 0076 38       		.uleb128 0x38
+ 946 0077 0B       		.uleb128 0xb
+ 947 0078 00       		.byte	0
+ 948 0079 00       		.byte	0
+ 949 007a 0B       		.uleb128 0xb
+ 950 007b 26       		.uleb128 0x26
+ 951 007c 00       		.byte	0
+ 952 007d 00       		.byte	0
+ 953 007e 00       		.byte	0
+ 954 007f 0C       		.uleb128 0xc
+ 955 0080 01       		.uleb128 0x1
+ 956 0081 01       		.byte	0x1
+ 957 0082 49       		.uleb128 0x49
+ 958 0083 13       		.uleb128 0x13
+ 959 0084 01       		.uleb128 0x1
+ 960 0085 13       		.uleb128 0x13
+ 961 0086 00       		.byte	0
+ 962 0087 00       		.byte	0
+ 963 0088 0D       		.uleb128 0xd
+ 964 0089 21       		.uleb128 0x21
+ 965 008a 00       		.byte	0
+ 966 008b 49       		.uleb128 0x49
+ 967 008c 13       		.uleb128 0x13
+ 968 008d 2F       		.uleb128 0x2f
+ 969 008e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 18
+
+
+ 970 008f 00       		.byte	0
+ 971 0090 00       		.byte	0
+ 972 0091 0E       		.uleb128 0xe
+ 973 0092 26       		.uleb128 0x26
+ 974 0093 00       		.byte	0
+ 975 0094 49       		.uleb128 0x49
+ 976 0095 13       		.uleb128 0x13
+ 977 0096 00       		.byte	0
+ 978 0097 00       		.byte	0
+ 979 0098 0F       		.uleb128 0xf
+ 980 0099 34       		.uleb128 0x34
+ 981 009a 00       		.byte	0
+ 982 009b 03       		.uleb128 0x3
+ 983 009c 0E       		.uleb128 0xe
+ 984 009d 3A       		.uleb128 0x3a
+ 985 009e 0B       		.uleb128 0xb
+ 986 009f 3B       		.uleb128 0x3b
+ 987 00a0 0B       		.uleb128 0xb
+ 988 00a1 49       		.uleb128 0x49
+ 989 00a2 13       		.uleb128 0x13
+ 990 00a3 3F       		.uleb128 0x3f
+ 991 00a4 19       		.uleb128 0x19
+ 992 00a5 02       		.uleb128 0x2
+ 993 00a6 18       		.uleb128 0x18
+ 994 00a7 00       		.byte	0
+ 995 00a8 00       		.byte	0
+ 996 00a9 10       		.uleb128 0x10
+ 997 00aa 34       		.uleb128 0x34
+ 998 00ab 00       		.byte	0
+ 999 00ac 03       		.uleb128 0x3
+ 1000 00ad 0E       		.uleb128 0xe
+ 1001 00ae 3A       		.uleb128 0x3a
+ 1002 00af 0B       		.uleb128 0xb
+ 1003 00b0 3B       		.uleb128 0x3b
+ 1004 00b1 05       		.uleb128 0x5
+ 1005 00b2 49       		.uleb128 0x49
+ 1006 00b3 13       		.uleb128 0x13
+ 1007 00b4 3F       		.uleb128 0x3f
+ 1008 00b5 19       		.uleb128 0x19
+ 1009 00b6 02       		.uleb128 0x2
+ 1010 00b7 18       		.uleb128 0x18
+ 1011 00b8 00       		.byte	0
+ 1012 00b9 00       		.byte	0
+ 1013 00ba 00       		.byte	0
+ 1014              		.section	.debug_aranges,"",%progbits
+ 1015 0000 14000000 		.4byte	0x14
+ 1016 0004 0200     		.2byte	0x2
+ 1017 0006 00000000 		.4byte	.Ldebug_info0
+ 1018 000a 04       		.byte	0x4
+ 1019 000b 00       		.byte	0
+ 1020 000c 0000     		.2byte	0
+ 1021 000e 0000     		.2byte	0
+ 1022 0010 00000000 		.4byte	0
+ 1023 0014 00000000 		.4byte	0
+ 1024              		.section	.debug_line,"",%progbits
+ 1025              	.Ldebug_line0:
+ 1026 0000 59000000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 19
+
+
+ 1026      02005300 
+ 1026      00000201 
+ 1026      FB0E0D00 
+ 1026      01010101 
+ 1027              	.LASF37:
+ 1028 0000 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_TABLE\000"
+ 1028      535F4445 
+ 1028      56494345 
+ 1028      305F434F 
+ 1028      4E464947 
+ 1029              	.LASF28:
+ 1030 0023 70537461 		.ascii	"pStatusBlock\000"
+ 1030      74757342 
+ 1030      6C6F636B 
+ 1030      00
+ 1031              	.LASF36:
+ 1032 0030 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS\000"
+ 1032      535F4445 
+ 1032      56494345 
+ 1032      305F434F 
+ 1032      4E464947 
+ 1033              	.LASF19:
+ 1034 005d 61747472 		.ascii	"attributes\000"
+ 1034      69627574 
+ 1034      657300
+ 1035              	.LASF47:
+ 1036 0068 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1036      535F4445 
+ 1036      56494345 
+ 1036      305F434F 
+ 1036      4E464947 
+ 1037 009b 4849445F 		.ascii	"HID_IN_RPT_TABLE\000"
+ 1037      494E5F52 
+ 1037      50545F54 
+ 1037      41424C45 
+ 1037      00
+ 1038              	.LASF39:
+ 1039 00ac 55534246 		.ascii	"USBFS_TABLE\000"
+ 1039      535F5441 
+ 1039      424C4500 
+ 1040              	.LASF26:
+ 1041 00b8 636F756E 		.ascii	"count\000"
+ 1041      7400
+ 1042              	.LASF34:
+ 1043 00be 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE\000"
+ 1043      535F4445 
+ 1043      56494345 
+ 1043      305F434F 
+ 1043      4E464947 
+ 1044              	.LASF3:
+ 1045 00ec 73686F72 		.ascii	"short unsigned int\000"
+ 1045      7420756E 
+ 1045      7369676E 
+ 1045      65642069 
+ 1045      6E7400
+ 1046              	.LASF40:
+ 1047 00ff 55534246 		.ascii	"USBFS_SN_STRING_DESCRIPTOR\000"
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 20
+
+
+ 1047      535F534E 
+ 1047      5F535452 
+ 1047      494E475F 
+ 1047      44455343 
+ 1048              	.LASF43:
+ 1049 011a 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1049      535F4445 
+ 1049      56494345 
+ 1049      305F434F 
+ 1049      4E464947 
+ 1050 014d 4849445F 		.ascii	"HID_IN_BUF\000"
+ 1050      494E5F42 
+ 1050      554600
+ 1051              	.LASF27:
+ 1052 0158 70446174 		.ascii	"pData\000"
+ 1052      6100
+ 1053              	.LASF17:
+ 1054 015e 616C7453 		.ascii	"altSetting\000"
+ 1054      65747469 
+ 1054      6E6700
+ 1055              	.LASF29:
+ 1056 0169 545F5553 		.ascii	"T_USBFS_TD\000"
+ 1056      4246535F 
+ 1056      544400
+ 1057              	.LASF11:
+ 1058 0174 666C6F61 		.ascii	"float\000"
+ 1058      7400
+ 1059              	.LASF48:
+ 1060 017a 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1060      535F4445 
+ 1060      56494345 
+ 1060      305F434F 
+ 1060      4E464947 
+ 1061 01ad 4849445F 		.ascii	"HID_OUT_RPT_TABLE\000"
+ 1061      4F55545F 
+ 1061      5250545F 
+ 1061      5441424C 
+ 1061      4500
+ 1062              	.LASF45:
+ 1063 01bf 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1063      535F4445 
+ 1063      56494345 
+ 1063      305F434F 
+ 1063      4E464947 
+ 1064 01f2 4849445F 		.ascii	"HID_OUT_BUF\000"
+ 1064      4F55545F 
+ 1064      42554600 
+ 1065              	.LASF41:
+ 1066 01fe 55534246 		.ascii	"USBFS_STRING_DESCRIPTORS\000"
+ 1066      535F5354 
+ 1066      52494E47 
+ 1066      5F444553 
+ 1066      43524950 
+ 1067              	.LASF53:
+ 1068 0217 5A3A5C70 		.ascii	"Z:\\projects\\SCSI2SD\\git-v6-licensed\\v5.5\\USB_B"
+ 1068      726F6A65 
+ 1068      6374735C 
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 21
+
+
+ 1068      53435349 
+ 1068      3253445C 
+ 1069 0245 6F6F746C 		.ascii	"ootloader.cydsn\000"
+ 1069      6F616465 
+ 1069      722E6379 
+ 1069      64736E00 
+ 1070              	.LASF25:
+ 1071 0255 545F5553 		.ascii	"T_USBFS_XFER_STATUS_BLOCK\000"
+ 1071      4246535F 
+ 1071      58464552 
+ 1071      5F535441 
+ 1071      5455535F 
+ 1072              	.LASF51:
+ 1073 026f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1073      43313120 
+ 1073      352E342E 
+ 1073      31203230 
+ 1073      31363036 
+ 1074 02a2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1074      20726576 
+ 1074      6973696F 
+ 1074      6E203233 
+ 1074      37373135 
+ 1075 02d5 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1075      66756E63 
+ 1075      74696F6E 
+ 1075      2D736563 
+ 1075      74696F6E 
+ 1076              	.LASF18:
+ 1077 02fd 61646472 		.ascii	"addr\000"
+ 1077      00
+ 1078              	.LASF38:
+ 1079 0302 55534246 		.ascii	"USBFS_DEVICE0_TABLE\000"
+ 1079      535F4445 
+ 1079      56494345 
+ 1079      305F5441 
+ 1079      424C4500 
+ 1080              	.LASF44:
+ 1081 0316 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1081      535F4445 
+ 1081      56494345 
+ 1081      305F434F 
+ 1081      4E464947 
+ 1082 0349 4849445F 		.ascii	"HID_OUT_RPT_SCB\000"
+ 1082      4F55545F 
+ 1082      5250545F 
+ 1082      53434200 
+ 1083              	.LASF49:
+ 1084 0359 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1084      535F4445 
+ 1084      56494345 
+ 1084      305F434F 
+ 1084      4E464947 
+ 1085 038c 4849445F 		.ascii	"HID_TABLE\000"
+ 1085      5441424C 
+ 1085      4500
+ 1086              	.LASF12:
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 22
+
+
+ 1087 0396 646F7562 		.ascii	"double\000"
+ 1087      6C6500
+ 1088              	.LASF10:
+ 1089 039d 75696E74 		.ascii	"uint16\000"
+ 1089      313600
+ 1090              	.LASF35:
+ 1091 03a4 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE\000"
+ 1091      535F4445 
+ 1091      56494345 
+ 1091      305F434F 
+ 1091      4E464947 
+ 1092              	.LASF33:
+ 1093 03d3 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_DESCR\000"
+ 1093      535F4445 
+ 1093      56494345 
+ 1093      305F434F 
+ 1093      4E464947 
+ 1094              	.LASF5:
+ 1095 03f6 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1095      20756E73 
+ 1095      69676E65 
+ 1095      6420696E 
+ 1095      7400
+ 1096              	.LASF8:
+ 1097 0408 756E7369 		.ascii	"unsigned int\000"
+ 1097      676E6564 
+ 1097      20696E74 
+ 1097      00
+ 1098              	.LASF7:
+ 1099 0415 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1099      206C6F6E 
+ 1099      6720756E 
+ 1099      7369676E 
+ 1099      65642069 
+ 1100              	.LASF52:
+ 1101 042c 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_descr.c\000"
+ 1101      72617465 
+ 1101      645F536F 
+ 1101      75726365 
+ 1101      5C50536F 
+ 1102              	.LASF30:
+ 1103 0451 705F6C69 		.ascii	"p_list\000"
+ 1103      737400
+ 1104              	.LASF22:
+ 1105 0458 545F5553 		.ascii	"T_USBFS_EP_SETTINGS_BLOCK\000"
+ 1105      4246535F 
+ 1105      45505F53 
+ 1105      45545449 
+ 1105      4E47535F 
+ 1106              	.LASF32:
+ 1107 0472 55534246 		.ascii	"USBFS_DEVICE0_DESCR\000"
+ 1107      535F4445 
+ 1107      56494345 
+ 1107      305F4445 
+ 1107      53435200 
+ 1108              	.LASF1:
+ 1109 0486 756E7369 		.ascii	"unsigned char\000"
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 23
+
+
+ 1109      676E6564 
+ 1109      20636861 
+ 1109      7200
+ 1110              	.LASF15:
+ 1111 0494 73697A65 		.ascii	"sizetype\000"
+ 1111      74797065 
+ 1111      00
+ 1112              	.LASF6:
+ 1113 049d 6C6F6E67 		.ascii	"long long int\000"
+ 1113      206C6F6E 
+ 1113      6720696E 
+ 1113      7400
+ 1114              	.LASF31:
+ 1115 04ab 545F5553 		.ascii	"T_USBFS_LUT\000"
+ 1115      4246535F 
+ 1115      4C555400 
+ 1116              	.LASF13:
+ 1117 04b7 63686172 		.ascii	"char\000"
+ 1117      00
+ 1118              	.LASF20:
+ 1119 04bc 62756666 		.ascii	"bufferSize\000"
+ 1119      65725369 
+ 1119      7A6500
+ 1120              	.LASF2:
+ 1121 04c7 73686F72 		.ascii	"short int\000"
+ 1121      7420696E 
+ 1121      7400
+ 1122              	.LASF46:
+ 1123 04d1 55534246 		.ascii	"USBFS_HIDREPORT_DESCRIPTOR1\000"
+ 1123      535F4849 
+ 1123      44524550 
+ 1123      4F52545F 
+ 1123      44455343 
+ 1124              	.LASF42:
+ 1125 04ed 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1125      535F4445 
+ 1125      56494345 
+ 1125      305F434F 
+ 1125      4E464947 
+ 1126 0520 4849445F 		.ascii	"HID_IN_RPT_SCB\000"
+ 1126      494E5F52 
+ 1126      50545F53 
+ 1126      434200
+ 1127              	.LASF9:
+ 1128 052f 75696E74 		.ascii	"uint8\000"
+ 1128      3800
+ 1129              	.LASF16:
+ 1130 0535 696E7465 		.ascii	"interface\000"
+ 1130      72666163 
+ 1130      6500
+ 1131              	.LASF50:
+ 1132 053f 55534246 		.ascii	"USBFS_idSerialNumberStringDescriptor\000"
+ 1132      535F6964 
+ 1132      53657269 
+ 1132      616C4E75 
+ 1132      6D626572 
+ 1133              	.LASF4:
+ARM GAS  C:\Users\MICHA_~1\AppData\Local\Temp\ccJAuDqR.s 			page 24
+
+
+ 1134 0564 6C6F6E67 		.ascii	"long int\000"
+ 1134      20696E74 
+ 1134      00
+ 1135              	.LASF23:
+ 1136 056d 73746174 		.ascii	"status\000"
+ 1136      757300
+ 1137              	.LASF14:
+ 1138 0574 6C6F6E67 		.ascii	"long double\000"
+ 1138      20646F75 
+ 1138      626C6500 
+ 1139              	.LASF0:
+ 1140 0580 7369676E 		.ascii	"signed char\000"
+ 1140      65642063 
+ 1140      68617200 
+ 1141              	.LASF24:
+ 1142 058c 6C656E67 		.ascii	"length\000"
+ 1142      746800
+ 1143              	.LASF21:
+ 1144 0593 624D6973 		.ascii	"bMisc\000"
+ 1144      6300
+ 1145              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -10,4 +10,32 @@
 
 @implementation DeviceController
 
+- (void) setTargetConfig: (TargetConfig)config
+{
+    NSLog(@"setTargetConfig");
+}
+
+- (TargetConfig) getTargetConfig
+{
+    TargetConfig targetConfig;
+    NSLog(@"getTargetConfig");
+    return targetConfig;
+}
+
+- (NSString *) toXml
+{
+    return nil;
+}
+
+- (void) fromXml: (NSXMLElement *)node
+{
+    NSLog(@"fromXml");
+}
+
+- (BOOL) evaluate
+{
+    NSLog(@"fromXml");
+    return YES;
+}
+
 @end

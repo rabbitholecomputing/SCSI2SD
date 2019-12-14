@@ -18,8 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) setTargetConfig: (TargetConfig)config;
 - (TargetConfig) getTargetConfig;
 - (NSString *) toXml;
-// - (void) fromXml: (NSXMLElement *)node;
 - (BOOL) evaluate;
+
 @end
 
 NS_ASSUME_NONNULL_END

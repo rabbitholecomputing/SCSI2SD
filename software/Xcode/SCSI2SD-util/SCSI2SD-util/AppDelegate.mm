@@ -87,6 +87,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 @property (weak, nonatomic) IBOutlet DeviceController *device6;
 @property (weak, nonatomic) IBOutlet DeviceController *device7;
 
+@property (weak, nonatomic) IBOutlet NSProgressIndicator *progress;
+
 @property (weak, nonatomic) IBOutlet SettingsController *settings;
 @end
 
@@ -373,42 +375,21 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
 - (IBAction)saveToDevice:(id)sender
 {
-    // TimerLock lock(myTimer);
+    [self stopTimer];
     if (!myHID) return;
 
-    NSLog(@"Saving configuration");
-    /*
-    wxWindowPtr<wxGenericProgressDialog> progress(
-        new wxGenericProgressDialog(
-            "Save config settings",
-            "Saving config settings",
-            100,
-            this,
-            wxPD_CAN_ABORT | wxPD_REMAINING_TIME)
-            ); */
-
-
+    [self logStringToPanel: @"Saving configuration"];
     int currentProgress = 0;
     int totalProgress = (int)[deviceControllers count] * SCSI_CONFIG_ROWS + 1;
 
     // Write board config first.
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        //std::stringstream ss;
-        //ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
-        //    " row " << flashRow;
-        //mmLogStatus(ss.str());
+        NSString *ss = [NSString stringWithFormat:
+                        @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+        [self logStringToPanel:ss];
         currentProgress += 1;
-
-        /*
-        if (!progress->Update(
-                (100 * currentProgress) / totalProgress,
-                ss.str()
-                )
-            )
-        {
-            goto abort;
-        }*/
+        [self.progress setDoubleValue:(double)currentProgress];
 
         std::vector<uint8_t> flashData =
         SCSI2SD::ConfigUtil::boardConfigToBytes([self.settings getConfig]);
@@ -438,27 +419,16 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            //std::stringstream ss;
-            //ss << "Programming flash array " << SCSI_CONFIG_ARRAY <<
-            //    " row " << (flashRow + j);
-            //mmLogStatus(ss.str());
-            currentProgress += 1;
+            NSString *ss = [NSString stringWithFormat:
+                            @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+            [self logStringToPanel:ss];
 
+            currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                // ss.str("Save Complete.");
-                NSLog(@"Save Complete.");
+                [self logStringToPanel:@"Save Complete."];
             }
-            /*
-            if (!progress->Update(
-                    (100 * currentProgress) / totalProgress,
-                    ss.str()
-                    )
-                )
-            {
-                goto abort;
-            }
-             */
+            [self.progress setDoubleValue:(double)currentProgress];
             std::vector<uint8_t> flashData(SCSI_CONFIG_ROW_SIZE, 0);
             std::copy(
                 &raw[j * SCSI_CONFIG_ROW_SIZE],
@@ -471,35 +441,34 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             }
             catch (std::runtime_error& e)
             {
-                NSLog(@"%s",e.what());
+                NSString *ss = [NSString stringWithFormat:
+                                @"Error: %s", e.what()];
+                [self logStringToPanel:ss];
                 goto err;
             }
         }
     }
 
     myHID = SCSI2SD::HID::Open();
-
     goto out;
 
 err:
-    NSLog(@"Save failed");
-    // progress->Update(100, "Save failed");
+    [self.progress setDoubleValue: 100.0];
+    [self.infoLabel setStringValue: @"Save Failed"];
     goto out;
 
-abort:
-    NSLog(@"Save Aborted");
-
 out:
+    [self startTimer];
     return;
 
 }
 
 - (IBAction)loadFromDevice:(id)sender
 {
-    //TimerLock lock(myTimer);
+    [self stopTimer];
     if (!myHID) return;
 
-    NSLog(@"Loading configuration");
+    [self logStringToPanel: @"Loading configuration"];
 /*
     wxWindowPtr<wxGenericProgressDialog> progress(
         new wxGenericProgressDialog(
@@ -517,22 +486,10 @@ out:
     std::vector<uint8_t> boardCfgFlashData;
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        //std::stringstream ss;
-        //ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
-         //   " row " << flashRow;
-        //mmLogStatus(ss.str());
+        NSString *ss = [NSString stringWithFormat:
+                        @"Reading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+        [self logStringToPanel:ss];
         currentProgress += 1;
-
-        /*
-        if (!progress->Update(
-                (100 * currentProgress) / totalProgress,
-                ss.str()
-                )
-            )
-        {
-            goto abort;
-        }*/
-
         try
         {
             myHID->readFlashRow(
@@ -557,29 +514,17 @@ out:
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            //std::stringstream ss;
-            //ss << "Reading flash array " << SCSI_CONFIG_ARRAY <<
-            //    " row " << (flashRow + j);
-            //mmLogStatus(ss.str());
+            NSString *ss = [NSString stringWithFormat:
+                            @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+            [self logStringToPanel:ss];
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                NSLog(@"Load Complete.");
-                // mmLogStatus("Load Complete.");
+                [self logStringToPanel: @"Load Complete."];
             }
-
-            /*
-            if (!progress->Update(
-                    (100 * currentProgress) / totalProgress,
-                    ss.str()
-                    )
-                )
-            {
-                goto abort;
-            }
-*/
+            [self.progress setDoubleValue:(double)currentProgress];
+            
             std::vector<uint8_t> flashData;
-
             try
             {
                 myHID->readFlashRow(
@@ -598,15 +543,12 @@ out:
                 &raw[j * SCSI_CONFIG_ROW_SIZE]);
         }
         [[deviceControllers objectAtIndex: i] setTargetConfig: SCSI2SD::ConfigUtil::fromBytes(&raw[0])];
-        // myTargets[i]->setConfig(ConfigUtil::fromBytes(&raw[0]));
     }
 
     // Support old boards without board config set
     if (memcmp(&boardCfgFlashData[0], "BCFG", 4)) {
         BoardConfig defCfg = SCSI2SD::ConfigUtil::DefaultBoardConfig();
-        // defCfg.flags = myTargets[0]->getConfig().flagsDEPRECATED;
         defCfg.flags = [[deviceControllers objectAtIndex:0] getTargetConfig].flagsDEPRECATED;
-        // myBoardPanel->setConfig(defCfg);
         [_settings setConfig:defCfg];
     }
 
@@ -615,13 +557,12 @@ out:
 
 err:
     NSLog(@"Load failed");
-    // progress->Update(100, "Load failed");
+    [self.progress setDoubleValue: 100.0];
+    [self.infoLabel setStringValue: @"Load Failed"];
     goto out;
 
-abort:
-    NSLog(@"Load Aborted");
-
 out:
+    [self startTimer];
     return;
 }
 

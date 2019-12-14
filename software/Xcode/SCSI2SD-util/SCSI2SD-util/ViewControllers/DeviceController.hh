@@ -20,6 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) toXml;
 - (BOOL) evaluate;
 
+- (BOOL) isEnabled;
+- (NSUInteger) getSCSIId;
+- (void) setDuplicateID: (BOOL)flag;
+- (void) setSDSectorOverlap: (BOOL)flag;
+- (NSRange) getSDSectorRange;
+- (void) setAutoStartSectorValue: (NSUInteger)sector;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -26,6 +26,9 @@
 @property (weak, nonatomic) IBOutlet NSTextField *serialNumber;
 @property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
 
+@property BOOL duplicateId;
+@property BOOL sectorOverlap;
+
 @end
 
 @implementation DeviceController
@@ -93,4 +96,32 @@
     return YES;
 }
 
+- (BOOL) isEnabled
+{
+    return self.enableSCSITarget.state == NSOnState;
+}
+
+- (NSUInteger) getSCSIId
+{
+    return (NSUInteger)self.SCSIID.integerValue;
+}
+
+- (void) setDuplicateID: (BOOL)flag
+{
+    self.duplicateId = flag;
+}
+- (void) setSDSectorOverlap: (BOOL)flag
+{
+    self.sectorOverlap = flag;
+}
+
+- (NSRange) getSDSectorRange
+{
+    return NSMakeRange(0,0);
+}
+
+- (void) setAutoStartSectorValue: (NSUInteger)sector
+{
+    
+}
 @end

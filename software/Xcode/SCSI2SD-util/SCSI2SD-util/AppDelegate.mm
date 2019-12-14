@@ -12,6 +12,8 @@
 
 #include <vector>
 #include <string>
+#include "zipper.hh"
+// #include "z.h"
 //#include "ConfigUtil.hh"
 
 #define MIN_FIRMWARE_VERSION 0x0400
@@ -88,6 +90,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 @property (weak, nonatomic) IBOutlet DeviceController *device7;
 
 @property (weak, nonatomic) IBOutlet NSProgressIndicator *progress;
+
+@property (weak, nonatomic) IBOutlet NSMenuItem *saveMenu;
+@property (weak, nonatomic) IBOutlet NSMenuItem *openMenu;
 
 @property (weak, nonatomic) IBOutlet SettingsController *settings;
 @end
@@ -210,25 +215,23 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                 }
                 else
                 {
-                    /*
-                    std::stringstream msg;
-                    msg << "SCSI2SD Ready, firmware version " <<
-                        myHID->getFirmwareVersionStr();
-                    mmLogStatus(msg.str()); */
-                    NSLog(@"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str());
+                    NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+                    [self logStringToPanel:msg];
 
                     std::vector<uint8_t> csd(myHID->getSD_CSD());
                     std::vector<uint8_t> cid(myHID->getSD_CID());
                     // std::stringstream sdinfo;
-                    NSLog(@"SD Capacity (512-byte sectors): %d",
-                        myHID->getSDCapacity());
+                    msg = [NSString stringWithFormat: @"SD Capacity (512-byte sectors): %d",
+                        myHID->getSDCapacity()];
+                    [self logStringToPanel:msg];
 
                     // sdinfo << "SD CSD Register: ";
-                    NSLog(@"SD CSD Register: ");
+                    msg = [NSString stringWithFormat: @"SD CSD Register: "];
+                    [self logStringToPanel:msg];
                     if (sdCrc7(&csd[0], 15, 0) != (csd[15] >> 1))
                     {
-                        // sdinfo << "BADCRC ";
-                        NSLog(@"BADCRC");
+                        msg = [NSString stringWithFormat: @"BADCRC"];
+                        [self logStringToPanel:msg];
                     }
                     for (size_t i = 0; i < csd.size(); ++i)
                     {
@@ -568,6 +571,15 @@ out:
 
 - (IBAction)upgradeFirmware:(id)sender
 {
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    int prog = 0;
+    __block NSString *filename;
+    
+    [panel beginSheetModalForWindow:[self mainWindow]
+                  completionHandler:^(NSModalResponse result) {
+        filename = [panel filename];
+    }];
+    
     while (true)
     {
         try
@@ -625,87 +637,61 @@ out:
     }
 
     int totalFlashRows = 0;
-    std::string tmpFile;
+    NSString *tmpFile = nil;
     try
-    { /*
-        zipper::ReaderPtr reader(new zipper::FileReader(filename));
+    {
+        zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSUTF8StringEncoding]));
         zipper::Decompressor decomp(reader);
         std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
         for (auto it(files.begin()); it != files.end(); it++)
         {
             if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
             {
-                //std::stringstream msg;
-                //msg << "Found firmware entry " << (*it)->getPath() <<
-                //    " within archive " << filename;
-                //mmLogStatus(msg.str());
-                tmpFile =
-                    wxFileName::CreateTempFileName(
-                        _("SCSI2SD_Firmware"), static_cast<wxFile*>(NULL)
-                        );
-                zipper::FileWriter out(tmpFile);
+                NSString *ss = [NSString stringWithFormat: @"Found firmware entry %s within archive %@",
+                                (*it)->getPath().c_str(), filename];
+                [self logStringToPanel:ss];
+                tmpFile = [NSTemporaryDirectory()
+                           stringByAppendingPathComponent: [NSString stringWithFormat: @"SCSI2SD_Firmware-%@.scsi2sd",
+                           [[NSUUID UUID] UUIDString]]];
+                zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
                 (*it)->decompress(out);
-                msg.clear();
-                msg << "Firmware extracted to " << tmpFile;
-                mmLogStatus(msg.str());
+                NSString *msg = [NSString stringWithFormat: @"Firmware extracted to %@",tmpFile];
+                [self logStringToPanel:msg];
                 break;
             }
         }
 
-        if (tmpFile.empty())
+        if ([tmpFile isEqualToString:@""])
         {
             // TODO allow "force" option
-            wxMessageBox(
-                "Wrong filename",
-                "Wrong filename",
-                wxOK | wxICON_ERROR);
+            [self logStringToPanel:@"Wrong filename"];
             return;
         }
 
-        Firmware firmware(tmpFile);
-        totalFlashRows = firmware.totalFlashRows(); */
+        SCSI2SD::Firmware firmware([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
+        totalFlashRows = firmware.totalFlashRows();
     }
     catch (std::exception& e)
-    { /*
-        mmLogStatus(e.what());
-        std::stringstream msg;
-        msg << "Could not open firmware file: " << e.what();
-        wxMessageBox(
-            msg.str(),
-            "Bad file",
-            wxOK | wxICON_ERROR);
-        wxRemoveFile(tmpFile);
-        return; */
+    {
+        NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s",e.what()];
+        [self logStringToPanel:msg];
+        return;
     }
 
-    { /*
-        wxWindowPtr<wxGenericProgressDialog> progress(
-            new wxGenericProgressDialog(
-                "Loading firmware",
-                "Loading firmware",
-                totalFlashRows,
-                this,
-                wxPD_AUTO_HIDE | wxPD_REMAINING_TIME)
-                );
-        TheProgressWrapper.setProgressDialog(progress, totalFlashRows); */
+    {
+        [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
     }
 
-    //std::stringstream msg;
-    //msg << "Upgrading firmware from file: " << tmpFile;
-    //mmLogStatus(msg.str());
-
+    NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
+    [self logStringToPanel: msg2];
     try
     {
-        //myBootloader->load(tmpFile, &ProgressUpdate);
+        myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
         //TheProgressWrapper.clearProgressDialog();
+        [self logStringToPanel: @"Firmware update successful"];
 
-        //wxMessageBox(
-        //    "Firmware update successful",
-        //    "Firmware OK",
-        //    wxOK);
-//mmLogStatus("Firmware update successful");
-
-
+        myHID = SCSI2SD::HID::Open();
+        myBootloader = SCSI2SD::Bootloader::Open();
         //myHID.reset();
         //myBootloader.reset();
     }
@@ -844,8 +830,7 @@ out:
 
 - (void) evaluate
 {
-    /*
-    bool valid = true;
+    BOOL valid = YES;
 
     // Check for duplicate SCSI IDs
     std::vector<uint8_t> enabledID;
@@ -864,44 +849,50 @@ out:
         if ([target isEnabled])
         {
             isTargetEnabled = true;
-            uint8_t scsiID = [target getSCSIIdVal];
-            //if (find(enabledID, scsiID) != enabledID.end())
+            uint8_t scsiID = [target getSCSIId];
+            /*
+            if (find(enabledID, scsiID) != enabledID.end())
             {
-                myTargets[i]->setDuplicateID(true);
+                [target setDuplicateID: YES]; // true);
                 valid = false;
             }
-            //else
+            else
             {
-                //enabledID.insert(scsiID);
-                myTargets[i]->setDuplicateID(false);
+                [target setDuplicateID: NO]; // false);
             }
 
-            auto sdSectorRange = myTargets[i]->getSDSectorRange();
+            //auto sdSectorRange = myTargets[i]->getSDSectorRange();
             for (auto it(sdSectors.begin()); it != sdSectors.end(); ++it)
             {
                 if (sdSectorRange.first < it->second &&
                     sdSectorRange.second > it->first)
                 {
                     valid = false;
-                    myTargets[i]->setSDSectorOverlap(true);
+                    [target setSDSectorOverlap: YES];
                 }
                 else
                 {
-                    myTargets[i]->setSDSectorOverlap(false);
+                    [target setSDSectorOverlap: NO];
+                    // myTargets[i]->setSDSectorOverlap(false);
                 }
             }
             sdSectors.push_back(sdSectorRange);
-            autoStartSector = sdSectorRange.second;
+            autoStartSector = sdSectorRange.second; */
         }
         else
         {
-            myTargets[i]->setDuplicateID(false);
-            myTargets[i]->setSDSectorOverlap(false);
+            [target setDuplicateID:NO];
+            [target setSDSectorOverlap:NO];
+           // myTargets[i]->setDuplicateID(false);
+           // myTargets[i]->setSDSectorOverlap(false);
         }
     }
 
     valid = valid && isTargetEnabled; // Need at least one.
-     */
+    
+    self.saveMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
+    self.openMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
+    
 /*
     mySaveButton->Enable(
         valid &&

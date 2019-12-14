@@ -162,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				14DEC5EC23A4C67A00ECD04A /* Categories */,
-				14DEC5E0239EE72D00ECD04A /* Modules */,
 				1474C0FB23998F0D003C67D5 /* CPPModules */,
 				1482B1F8239748DB001BA513 /* ViewControllers */,
 				1482B1E723973F3E001BA513 /* AppDelegate.hh */,
@@ -185,13 +184,6 @@
 				1482B203239748DB001BA513 /* DeviceController.mm */,
 			);
 			path = ViewControllers;
-			sourceTree = "<group>";
-		};
-		14DEC5E0239EE72D00ECD04A /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Modules;
 			sourceTree = "<group>";
 		};
 		14DEC5EC23A4C67A00ECD04A /* Categories */ = {
@@ -464,6 +456,8 @@
 					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
 					"\"${PODS_ROOT}/Headers/Public/objective-zip\"",
 					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
+					"\"${PROJECT_DIR}/libs/include/libz\"",
+					"\"${PROJECT_DIR}/libs/include/zipper\"",
 				);
 				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -485,6 +479,7 @@
 					"-framework",
 					"\"IOKit\"",
 					"-l\"scsi2sd-util\"",
+					"-l\"zipper\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -508,6 +503,8 @@
 					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
 					"\"${PODS_ROOT}/Headers/Public/objective-zip\"",
 					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
+					"\"${PROJECT_DIR}/libs/include/libz\"",
+					"\"${PROJECT_DIR}/libs/include/zipper\"",
 				);
 				INFOPLIST_FILE = "SCSI2SD-util/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -529,6 +526,7 @@
 					"-framework",
 					"\"IOKit\"",
 					"-l\"scsi2sd-util\"",
+					"-l\"zipper\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";

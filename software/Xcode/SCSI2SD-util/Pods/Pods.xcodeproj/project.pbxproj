@@ -52,22 +52,22 @@
 /* Begin PBXFileReference section */
 		0DBCE4571DB03ABE2F9DC539C2001A1B /* ZipFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipFile.m; path = "Objective-Zip/ZipFile.m"; sourceTree = "<group>"; };
 		0E6887AB49BB70FB061693B42BD13360 /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = MiniZip/crypt.h; sourceTree = "<group>"; };
-		179C134C4FDE28328F526B4DD57A2BBA /* hid.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hid.c; path = mac/hid.c; sourceTree = "<group>"; };
+		179C134C4FDE28328F526B4DD57A2BBA /* hid.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = hid.c; path = mac/hid.c; sourceTree = "<group>"; };
 		17B46E4461A7E45B571BDB686B72FA64 /* hidapi-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "hidapi-prefix.pch"; sourceTree = "<group>"; };
-		21D7C3DB20509FADCC8B36D4944EF398 /* libobjective-zip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libobjective-zip.a"; path = "libobjective-zip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21D7C3DB20509FADCC8B36D4944EF398 /* libobjective-zip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libobjective-zip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B4D36D88601C7EA198F10C23C5B8FDD /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = MiniZip/zip.h; sourceTree = "<group>"; };
 		34FF5B26789B1B25A88BF9E680B06251 /* ARCHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ARCHelper.h; path = ARCHelper/ARCHelper.h; sourceTree = "<group>"; };
 		35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "objective-zip.xcconfig"; sourceTree = "<group>"; };
-		38D4F67F0B89182B7C93A3983998FFD3 /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SCSI2SD-util.a"; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		38D4F67F0B89182B7C93A3983998FFD3 /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B7C754392CAEE9DD500811D7F610B1B /* ZipException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipException.m; path = "Objective-Zip/ZipException.m"; sourceTree = "<group>"; };
 		3D3BA4EE074DFB147B6662B126756AA9 /* objective-zip-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "objective-zip-dummy.m"; sourceTree = "<group>"; };
-		40A39BE5E389E54D080483A037AA5AEE /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ioapi.c; path = MiniZip/ioapi.c; sourceTree = "<group>"; };
+		40A39BE5E389E54D080483A037AA5AEE /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = ioapi.c; path = MiniZip/ioapi.c; sourceTree = "<group>"; };
 		45C266E2DD3B376802CB943BB2334BEE /* unzip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = MiniZip/unzip.h; sourceTree = "<group>"; };
 		5B16D7EC231DFF88F60A6FBE18BED655 /* FileInZipInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FileInZipInfo.h; path = "Objective-Zip/FileInZipInfo.h"; sourceTree = "<group>"; };
 		68B844CF2B1F85A907EB305DF82AE641 /* ZipException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipException.h; path = "Objective-Zip/ZipException.h"; sourceTree = "<group>"; };
 		6D46B80519A29F61AAA73FFFE551700C /* objective-zip-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objective-zip-prefix.pch"; sourceTree = "<group>"; };
 		71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = hidapi.xcconfig; sourceTree = "<group>"; };
-		76D3C777DC062AA6D78C97D4BFFCC64D /* libhidapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libhidapi.a; path = libhidapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		76D3C777DC062AA6D78C97D4BFFCC64D /* libhidapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhidapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC07068722BCC49CF2E94655BD208B8 /* Pods-SCSI2SD-util-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SCSI2SD-util-dummy.m"; sourceTree = "<group>"; };
 		7FD291405BD02E0E42A37561C241BA1E /* Pods-SCSI2SD-util-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SCSI2SD-util-acknowledgements.markdown"; sourceTree = "<group>"; };
 		81DA762D223F6924D395F5AD6D8932E2 /* ioapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = MiniZip/ioapi.h; sourceTree = "<group>"; };
@@ -75,15 +75,15 @@
 		8CAEECC8001AA1FC2014575132B75AE9 /* hidapi-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "hidapi-dummy.m"; sourceTree = "<group>"; };
 		8ED480F16CFD7A77D628907314CE58BF /* ZipReadStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipReadStream.h; path = "Objective-Zip/ZipReadStream.h"; sourceTree = "<group>"; };
 		95A4EAAB7C28BC5C877A5D37C7E69105 /* hidapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hidapi.h; path = hidapi/hidapi.h; sourceTree = "<group>"; };
-		99145928ACAF1CB9FB3C28C7035105FB /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; name = zip.c; path = MiniZip/zip.c; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		99145928ACAF1CB9FB3C28C7035105FB /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = zip.c; path = MiniZip/zip.c; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B058E7F44075E9928477828312A1040C /* ZipWriteStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipWriteStream.h; path = "Objective-Zip/ZipWriteStream.h"; sourceTree = "<group>"; };
 		B61632307A685623B31D8FAA968F70AC /* Pods-SCSI2SD-util-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCSI2SD-util-acknowledgements.plist"; sourceTree = "<group>"; };
 		C153EA9D2155B9E6E5E09D08DF10FF5F /* ZipReadStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipReadStream.m; path = "Objective-Zip/ZipReadStream.m"; sourceTree = "<group>"; };
 		C77ED76C03600EFF5AFBFEB2224D030E /* FileInZipInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FileInZipInfo.m; path = "Objective-Zip/FileInZipInfo.m"; sourceTree = "<group>"; };
 		D943583BD405F4C495D43F99A47C1318 /* ZipFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipFile.h; path = "Objective-Zip/ZipFile.h"; sourceTree = "<group>"; };
 		F59806FD5583D15C1463033260360FFA /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
-		F5BF67351F4870A047429808DA8D29F2 /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; name = unzip.c; path = MiniZip/unzip.c; sourceTree = "<group>"; };
+		F5BF67351F4870A047429808DA8D29F2 /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.c; name = unzip.c; path = MiniZip/unzip.c; sourceTree = "<group>"; };
 		FD6CADEAF828E4BE94171AC753316180 /* ZipWriteStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipWriteStream.m; path = "Objective-Zip/ZipWriteStream.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +119,6 @@
 				95A4EAAB7C28BC5C877A5D37C7E69105 /* hidapi.h */,
 				FBE831EC4E0EA5B3A8B943E4B1795D8B /* Support Files */,
 			);
-			name = hidapi;
 			path = hidapi;
 			sourceTree = "<group>";
 		};
@@ -157,7 +156,6 @@
 				FD6CADEAF828E4BE94171AC753316180 /* ZipWriteStream.m */,
 				3579FFED872D1C6BB7DBEBAF33ED0F64 /* Support Files */,
 			);
-			name = "objective-zip";
 			path = "objective-zip";
 			sourceTree = "<group>";
 		};
@@ -328,7 +326,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1120;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -406,7 +404,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -431,7 +428,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -457,7 +453,6 @@
 			baseConfigurationReference = F59806FD5583D15C1463033260360FFA /* Pods-SCSI2SD-util.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -479,7 +474,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -504,7 +498,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -654,7 +647,6 @@
 			baseConfigurationReference = 87D9A3196D2799DB1A76E4319297DC2A /* Pods-SCSI2SD-util.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

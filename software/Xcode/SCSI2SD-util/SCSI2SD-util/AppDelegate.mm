@@ -295,9 +295,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
         NSString *outputString = @"";
         outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
 
-        outputString = [outputString stringByAppendingString: [_settings toXml]];
+        outputString = [outputString stringByAppendingString: [self->_settings toXml]];
         DeviceController *dc = nil;
-        NSEnumerator *en = [deviceControllers objectEnumerator];
+        NSEnumerator *en = [self->deviceControllers objectEnumerator];
         while((dc = [en nextObject]) != nil)
         {
             outputString = [outputString stringByAppendingString: [dc toXml]];

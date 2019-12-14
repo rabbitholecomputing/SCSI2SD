@@ -15,18 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingsController : NSObject
 
-@property (weak, nonatomic) IBOutlet NSButton *enableSCSITerminator;
-@property (weak, nonatomic) IBOutlet NSPopUpButton *speedLimit;
-@property (weak, nonatomic) IBOutlet NSTextField *startupDelay;
-@property (weak, nonatomic) IBOutlet NSTextField *startupSelectionDelay;
-@property (weak, nonatomic) IBOutlet NSButton *enableParity;
-@property (weak, nonatomic) IBOutlet NSButton *enableUnitAttention;
-@property (weak, nonatomic) IBOutlet NSButton *enableSCSI2Mode;
-@property (weak, nonatomic) IBOutlet NSButton *respondToShortSCSISelection;
-@property (weak, nonatomic) IBOutlet NSButton *mapLUNStoSCSIIDs;
-
 - (NSString *) toXml;
-- (void) fromXml: (NSXMLElement *)node;
+// - (void) fromXml: (NSXMLElement *)node;
 - (void) setConfig: (BoardConfig)config;
 - (BoardConfig) getConfig;
 

@@ -16,6 +16,7 @@
 		1482B210239748DB001BA513 /* SettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.mm */; };
 		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */; };
+		14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */; };
 		90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,8 @@
 		14DEC5E7239F456800ECD04A /* Functions.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Functions.hh; sourceTree = "<group>"; };
 		14DEC5E923A2F06C00ECD04A /* ConfigUtil.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConfigUtil.hh; path = "SCSI2SD-util/ConfigUtil.hh"; sourceTree = SOURCE_ROOT; };
 		14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ConfigUtil.mm; path = "SCSI2SD-util/ConfigUtil.mm"; sourceTree = SOURCE_ROOT; };
+		14DEC5ED23A4C76000ECD04A /* NSString+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 		1482B1E623973F3E001BA513 /* SCSI2SD-util */ = {
 			isa = PBXGroup;
 			children = (
+				14DEC5EC23A4C67A00ECD04A /* Categories */,
 				14DEC5E0239EE72D00ECD04A /* Modules */,
 				1474C0FB23998F0D003C67D5 /* CPPModules */,
 				1482B1F8239748DB001BA513 /* ViewControllers */,
@@ -188,6 +192,15 @@
 			children = (
 			);
 			path = Modules;
+			sourceTree = "<group>";
+		};
+		14DEC5EC23A4C67A00ECD04A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				14DEC5ED23A4C76000ECD04A /* NSString+Extensions.h */,
+				14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		31BC21F99112F28CA817EF9E /* Pods */ = {
@@ -301,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.mm in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */,

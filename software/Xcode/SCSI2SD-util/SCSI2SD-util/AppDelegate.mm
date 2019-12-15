@@ -74,27 +74,27 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     NSMutableArray *deviceControllers;
 }
 
-@property (weak) IBOutlet NSWindow *window;
-@property (weak, nonatomic) IBOutlet NSWindow *mainWindow;
-@property (weak, nonatomic) IBOutlet NSTextField *infoLabel;
-@property (weak, nonatomic) IBOutlet NSPanel *logPanel;
-@property (weak, nonatomic) IBOutlet NSTextView *logTextView;
-@property (weak, nonatomic) IBOutlet NSTabView *tabView;
+@property (nonatomic) IBOutlet NSWindow *window;
+@property (nonatomic) IBOutlet NSWindow *mainWindow;
+@property (nonatomic) IBOutlet NSTextField *infoLabel;
+@property (nonatomic) IBOutlet NSPanel *logPanel;
+@property (nonatomic) IBOutlet NSTextView *logTextView;
+@property (nonatomic) IBOutlet NSTabView *tabView;
 
-@property (weak, nonatomic) IBOutlet DeviceController *device1;
-@property (weak, nonatomic) IBOutlet DeviceController *device2;
-@property (weak, nonatomic) IBOutlet DeviceController *device3;
-@property (weak, nonatomic) IBOutlet DeviceController *device4;
-@property (weak, nonatomic) IBOutlet DeviceController *device5;
-@property (weak, nonatomic) IBOutlet DeviceController *device6;
-@property (weak, nonatomic) IBOutlet DeviceController *device7;
+@property (nonatomic) IBOutlet DeviceController *device1;
+@property (nonatomic) IBOutlet DeviceController *device2;
+@property (nonatomic) IBOutlet DeviceController *device3;
+@property (nonatomic) IBOutlet DeviceController *device4;
+@property (nonatomic) IBOutlet DeviceController *device5;
+@property (nonatomic) IBOutlet DeviceController *device6;
+@property (nonatomic) IBOutlet DeviceController *device7;
 
-@property (weak, nonatomic) IBOutlet NSProgressIndicator *progress;
+@property (nonatomic) IBOutlet NSProgressIndicator *progress;
 
-@property (weak, nonatomic) IBOutlet NSMenuItem *saveMenu;
-@property (weak, nonatomic) IBOutlet NSMenuItem *openMenu;
+@property (nonatomic) IBOutlet NSMenuItem *saveMenu;
+@property (nonatomic) IBOutlet NSMenuItem *openMenu;
 
-@property (weak, nonatomic) IBOutlet SettingsController *settings;
+@property (nonatomic) IBOutlet SettingsController *settings;
 @end
 
 @implementation AppDelegate

@@ -7,84 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04D55C8442538012EEF0E9B3625EA431 /* ZipFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DBCE4571DB03ABE2F9DC539C2001A1B /* ZipFile.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		07C8042E31129B5E2E8D2710CB5EEF92 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 99145928ACAF1CB9FB3C28C7035105FB /* zip.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		0924C1BA395803BBA862E839747BDA50 /* FileInZipInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B16D7EC231DFF88F60A6FBE18BED655 /* FileInZipInfo.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		186B361039E6225588AB880A55FABE84 /* ZipException.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7C754392CAEE9DD500811D7F610B1B /* ZipException.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		1C3580D55F03B541C064546F57984383 /* ZipWriteStream.h in Headers */ = {isa = PBXBuildFile; fileRef = B058E7F44075E9928477828312A1040C /* ZipWriteStream.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		22792A8A0CDFD6AD1CA151648A5FBD5A /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = F5BF67351F4870A047429808DA8D29F2 /* unzip.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		23106F0151504EBB0CDEFF696A7E8F9D /* ZipReadStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 8ED480F16CFD7A77D628907314CE58BF /* ZipReadStream.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		2B4E078B01B9F71F045461CDD9935AE5 /* objective-zip-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D3BA4EE074DFB147B6662B126756AA9 /* objective-zip-dummy.m */; };
-		3327B2A32B62017AF29A37CAE4AD7BB7 /* ZipWriteStream.m in Sources */ = {isa = PBXBuildFile; fileRef = FD6CADEAF828E4BE94171AC753316180 /* ZipWriteStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		3ECFB793403D934FC2C9383CB636A28F /* hidapi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CAEECC8001AA1FC2014575132B75AE9 /* hidapi-dummy.m */; };
-		4F5B7EB0DF7974A8646F76A2EB451804 /* hidapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 95A4EAAB7C28BC5C877A5D37C7E69105 /* hidapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		5616559AA442A481B0BC75C2A5BECB0B /* ioapi.h in Headers */ = {isa = PBXBuildFile; fileRef = 81DA762D223F6924D395F5AD6D8932E2 /* ioapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		618EB3193C7944B56C3FFC97DD63566D /* crypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E6887AB49BB70FB061693B42BD13360 /* crypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		773BBFB5E3B6D4F78433F38C53FE2C98 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B4D36D88601C7EA198F10C23C5B8FDD /* zip.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8AE061ABD82F5E943275D58666D03C28 /* ZipException.h in Headers */ = {isa = PBXBuildFile; fileRef = 68B844CF2B1F85A907EB305DF82AE641 /* ZipException.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A218B8D778E2F8634FCF1BD55146349E /* Pods-SCSI2SD-util-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC07068722BCC49CF2E94655BD208B8 /* Pods-SCSI2SD-util-dummy.m */; };
-		A57C43C557651C0AF08B4FD4B76EFA33 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 40A39BE5E389E54D080483A037AA5AEE /* ioapi.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B6165EA1A90A703A0EA5EF9E7EF3831A /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C266E2DD3B376802CB943BB2334BEE /* unzip.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C7037FB754EC34E63FBA0EF7F0B93780 /* ZipFile.h in Headers */ = {isa = PBXBuildFile; fileRef = D943583BD405F4C495D43F99A47C1318 /* ZipFile.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C7D9DB2522E83A193F29412DAD7D8ACF /* FileInZipInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = C77ED76C03600EFF5AFBFEB2224D030E /* FileInZipInfo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		C875BA4C1DB83C23893CD9A0DF0AA39E /* ZipReadStream.m in Sources */ = {isa = PBXBuildFile; fileRef = C153EA9D2155B9E6E5E09D08DF10FF5F /* ZipReadStream.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		DAF92DF487DB09B34CF56FFB1886E113 /* ARCHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 34FF5B26789B1B25A88BF9E680B06251 /* ARCHelper.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EB3025859964788359BBE6D7BCFB8F1E /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 179C134C4FDE28328F526B4DD57A2BBA /* hid.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		063BD434E30DBE3D881606D25B142DF0 /* Pods-SCSI2SD-util-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC07068722BCC49CF2E94655BD208B8 /* Pods-SCSI2SD-util-dummy.m */; };
+		3ECFB793403D934FC2C9383CB636A28F /* hidapi-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 70AECACCA186758652A648FD3D731C6B /* hidapi-dummy.m */; };
+		4F5B7EB0DF7974A8646F76A2EB451804 /* hidapi.h in Headers */ = {isa = PBXBuildFile; fileRef = BD64768A6AFFA28F20B9B6310968EE6D /* hidapi.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EB3025859964788359BBE6D7BCFB8F1E /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 0BF5A0990B7F99BA04A86A8BB0EE9F57 /* hid.c */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0 -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		82AAB294C70296C64A4B97BFA0A3509D /* PBXContainerItemProxy */ = {
+		8F846E2B2071B1F2EA58A5399614CADE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FFC3309E2DA1339CC97FA811C6FFC7DE;
 			remoteInfo = hidapi;
 		};
-		8D91A79E4AB0404AE98F93C75373538E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 42EBAAA41C2C8B2085C7AB8A76A7121B;
-			remoteInfo = "objective-zip";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0DBCE4571DB03ABE2F9DC539C2001A1B /* ZipFile.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipFile.m; path = "Objective-Zip/ZipFile.m"; sourceTree = "<group>"; };
-		0E6887AB49BB70FB061693B42BD13360 /* crypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypt.h; path = MiniZip/crypt.h; sourceTree = "<group>"; };
-		179C134C4FDE28328F526B4DD57A2BBA /* hid.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hid.c; path = mac/hid.c; sourceTree = "<group>"; };
-		17B46E4461A7E45B571BDB686B72FA64 /* hidapi-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "hidapi-prefix.pch"; sourceTree = "<group>"; };
-		21D7C3DB20509FADCC8B36D4944EF398 /* libobjective-zip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libobjective-zip.a"; path = "libobjective-zip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2B4D36D88601C7EA198F10C23C5B8FDD /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = zip.h; path = MiniZip/zip.h; sourceTree = "<group>"; };
-		34FF5B26789B1B25A88BF9E680B06251 /* ARCHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ARCHelper.h; path = ARCHelper/ARCHelper.h; sourceTree = "<group>"; };
-		35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "objective-zip.xcconfig"; sourceTree = "<group>"; };
+		0BF5A0990B7F99BA04A86A8BB0EE9F57 /* hid.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hid.c; path = mac/hid.c; sourceTree = "<group>"; };
 		38D4F67F0B89182B7C93A3983998FFD3 /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SCSI2SD-util.a"; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B7C754392CAEE9DD500811D7F610B1B /* ZipException.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipException.m; path = "Objective-Zip/ZipException.m"; sourceTree = "<group>"; };
-		3D3BA4EE074DFB147B6662B126756AA9 /* objective-zip-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "objective-zip-dummy.m"; sourceTree = "<group>"; };
-		40A39BE5E389E54D080483A037AA5AEE /* ioapi.c */ = {isa = PBXFileReference; includeInIndex = 1; name = ioapi.c; path = MiniZip/ioapi.c; sourceTree = "<group>"; };
-		45C266E2DD3B376802CB943BB2334BEE /* unzip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = MiniZip/unzip.h; sourceTree = "<group>"; };
-		5B16D7EC231DFF88F60A6FBE18BED655 /* FileInZipInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FileInZipInfo.h; path = "Objective-Zip/FileInZipInfo.h"; sourceTree = "<group>"; };
-		68B844CF2B1F85A907EB305DF82AE641 /* ZipException.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipException.h; path = "Objective-Zip/ZipException.h"; sourceTree = "<group>"; };
-		6D46B80519A29F61AAA73FFFE551700C /* objective-zip-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objective-zip-prefix.pch"; sourceTree = "<group>"; };
-		71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = hidapi.xcconfig; sourceTree = "<group>"; };
+		6310253D357A5336843ED70B99EC2E47 /* hidapi.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = hidapi.xcconfig; sourceTree = "<group>"; };
+		70AECACCA186758652A648FD3D731C6B /* hidapi-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "hidapi-dummy.m"; sourceTree = "<group>"; };
 		76D3C777DC062AA6D78C97D4BFFCC64D /* libhidapi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libhidapi.a; path = libhidapi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AC07068722BCC49CF2E94655BD208B8 /* Pods-SCSI2SD-util-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SCSI2SD-util-dummy.m"; sourceTree = "<group>"; };
 		7FD291405BD02E0E42A37561C241BA1E /* Pods-SCSI2SD-util-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SCSI2SD-util-acknowledgements.markdown"; sourceTree = "<group>"; };
-		81DA762D223F6924D395F5AD6D8932E2 /* ioapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = MiniZip/ioapi.h; sourceTree = "<group>"; };
 		87D9A3196D2799DB1A76E4319297DC2A /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
-		8CAEECC8001AA1FC2014575132B75AE9 /* hidapi-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "hidapi-dummy.m"; sourceTree = "<group>"; };
-		8ED480F16CFD7A77D628907314CE58BF /* ZipReadStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipReadStream.h; path = "Objective-Zip/ZipReadStream.h"; sourceTree = "<group>"; };
-		95A4EAAB7C28BC5C877A5D37C7E69105 /* hidapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hidapi.h; path = hidapi/hidapi.h; sourceTree = "<group>"; };
-		99145928ACAF1CB9FB3C28C7035105FB /* zip.c */ = {isa = PBXFileReference; includeInIndex = 1; name = zip.c; path = MiniZip/zip.c; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		B058E7F44075E9928477828312A1040C /* ZipWriteStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipWriteStream.h; path = "Objective-Zip/ZipWriteStream.h"; sourceTree = "<group>"; };
 		B61632307A685623B31D8FAA968F70AC /* Pods-SCSI2SD-util-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SCSI2SD-util-acknowledgements.plist"; sourceTree = "<group>"; };
-		C153EA9D2155B9E6E5E09D08DF10FF5F /* ZipReadStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipReadStream.m; path = "Objective-Zip/ZipReadStream.m"; sourceTree = "<group>"; };
-		C77ED76C03600EFF5AFBFEB2224D030E /* FileInZipInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FileInZipInfo.m; path = "Objective-Zip/FileInZipInfo.m"; sourceTree = "<group>"; };
-		D943583BD405F4C495D43F99A47C1318 /* ZipFile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZipFile.h; path = "Objective-Zip/ZipFile.h"; sourceTree = "<group>"; };
+		BD64768A6AFFA28F20B9B6310968EE6D /* hidapi.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hidapi.h; path = hidapi/hidapi.h; sourceTree = "<group>"; };
+		D9A87467F9576F4676C49C11DC4CCB07 /* hidapi-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "hidapi-prefix.pch"; sourceTree = "<group>"; };
 		F59806FD5583D15C1463033260360FFA /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
-		F5BF67351F4870A047429808DA8D29F2 /* unzip.c */ = {isa = PBXFileReference; includeInIndex = 1; name = unzip.c; path = MiniZip/unzip.c; sourceTree = "<group>"; };
-		FD6CADEAF828E4BE94171AC753316180 /* ZipWriteStream.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZipWriteStream.m; path = "Objective-Zip/ZipWriteStream.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,14 +47,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5701A656A4E8C35E4FAFD7113B408B2A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B08E49B140B9E756CA3F5EB7BD963E14 /* Frameworks */ = {
+		83D5F43367B603078BE3620CCA24040D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -112,53 +57,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01704E7D72ECF140FD52001F1233ABA1 /* hidapi */ = {
+		177E2E2EB0D421266A52C2B23BA79963 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				179C134C4FDE28328F526B4DD57A2BBA /* hid.c */,
-				95A4EAAB7C28BC5C877A5D37C7E69105 /* hidapi.h */,
-				FBE831EC4E0EA5B3A8B943E4B1795D8B /* Support Files */,
+				5343F1EE55768DA39E7A1D330C08BAD6 /* hidapi */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		512B4F1835D5EC56A4CF6B9DE0CCAD36 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6310253D357A5336843ED70B99EC2E47 /* hidapi.xcconfig */,
+				70AECACCA186758652A648FD3D731C6B /* hidapi-dummy.m */,
+				D9A87467F9576F4676C49C11DC4CCB07 /* hidapi-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/hidapi";
+			sourceTree = "<group>";
+		};
+		5343F1EE55768DA39E7A1D330C08BAD6 /* hidapi */ = {
+			isa = PBXGroup;
+			children = (
+				0BF5A0990B7F99BA04A86A8BB0EE9F57 /* hid.c */,
+				BD64768A6AFFA28F20B9B6310968EE6D /* hidapi.h */,
+				512B4F1835D5EC56A4CF6B9DE0CCAD36 /* Support Files */,
 			);
 			name = hidapi;
 			path = hidapi;
-			sourceTree = "<group>";
-		};
-		3579FFED872D1C6BB7DBEBAF33ED0F64 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */,
-				3D3BA4EE074DFB147B6662B126756AA9 /* objective-zip-dummy.m */,
-				6D46B80519A29F61AAA73FFFE551700C /* objective-zip-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/objective-zip";
-			sourceTree = "<group>";
-		};
-		5A5D40CFE4BC89DC3A55612DB5511E37 /* objective-zip */ = {
-			isa = PBXGroup;
-			children = (
-				34FF5B26789B1B25A88BF9E680B06251 /* ARCHelper.h */,
-				0E6887AB49BB70FB061693B42BD13360 /* crypt.h */,
-				5B16D7EC231DFF88F60A6FBE18BED655 /* FileInZipInfo.h */,
-				C77ED76C03600EFF5AFBFEB2224D030E /* FileInZipInfo.m */,
-				40A39BE5E389E54D080483A037AA5AEE /* ioapi.c */,
-				81DA762D223F6924D395F5AD6D8932E2 /* ioapi.h */,
-				F5BF67351F4870A047429808DA8D29F2 /* unzip.c */,
-				45C266E2DD3B376802CB943BB2334BEE /* unzip.h */,
-				99145928ACAF1CB9FB3C28C7035105FB /* zip.c */,
-				2B4D36D88601C7EA198F10C23C5B8FDD /* zip.h */,
-				68B844CF2B1F85A907EB305DF82AE641 /* ZipException.h */,
-				3B7C754392CAEE9DD500811D7F610B1B /* ZipException.m */,
-				D943583BD405F4C495D43F99A47C1318 /* ZipFile.h */,
-				0DBCE4571DB03ABE2F9DC539C2001A1B /* ZipFile.m */,
-				8ED480F16CFD7A77D628907314CE58BF /* ZipReadStream.h */,
-				C153EA9D2155B9E6E5E09D08DF10FF5F /* ZipReadStream.m */,
-				B058E7F44075E9928477828312A1040C /* ZipWriteStream.h */,
-				FD6CADEAF828E4BE94171AC753316180 /* ZipWriteStream.m */,
-				3579FFED872D1C6BB7DBEBAF33ED0F64 /* Support Files */,
-			);
-			name = "objective-zip";
-			path = "objective-zip";
 			sourceTree = "<group>";
 		};
 		82E4B3A38E89D136490D687B388078DD /* Pods-SCSI2SD-util */ = {
@@ -174,6 +100,15 @@
 			path = "Target Support Files/Pods-SCSI2SD-util";
 			sourceTree = "<group>";
 		};
+		89A56ABE6A2E836A75E38D7CEF7F15F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				76D3C777DC062AA6D78C97D4BFFCC64D /* libhidapi.a */,
+				38D4F67F0B89182B7C93A3983998FFD3 /* libPods-SCSI2SD-util.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		ACF96D678CC93A4A5C3E272D1FDBEAAA /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,22 +117,13 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		B2BC9751094C85BFFB126AE097E71403 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				01704E7D72ECF140FD52001F1233ABA1 /* hidapi */,
-				5A5D40CFE4BC89DC3A55612DB5511E37 /* objective-zip */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
-				B2BC9751094C85BFFB126AE097E71403 /* Pods */,
-				E574006A56075F74860CBD6672E4BB77 /* Products */,
+				177E2E2EB0D421266A52C2B23BA79963 /* Pods */,
+				89A56ABE6A2E836A75E38D7CEF7F15F7 /* Products */,
 				ACF96D678CC93A4A5C3E272D1FDBEAAA /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
@@ -209,54 +135,9 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E574006A56075F74860CBD6672E4BB77 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				76D3C777DC062AA6D78C97D4BFFCC64D /* libhidapi.a */,
-				21D7C3DB20509FADCC8B36D4944EF398 /* libobjective-zip.a */,
-				38D4F67F0B89182B7C93A3983998FFD3 /* libPods-SCSI2SD-util.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FBE831EC4E0EA5B3A8B943E4B1795D8B /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */,
-				8CAEECC8001AA1FC2014575132B75AE9 /* hidapi-dummy.m */,
-				17B46E4461A7E45B571BDB686B72FA64 /* hidapi-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/hidapi";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		132B1DB603E68CD241B35C69CB84C2C3 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		623CCC3B87F97173C29DD3667532CA8A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DAF92DF487DB09B34CF56FFB1886E113 /* ARCHelper.h in Headers */,
-				618EB3193C7944B56C3FFC97DD63566D /* crypt.h in Headers */,
-				0924C1BA395803BBA862E839747BDA50 /* FileInZipInfo.h in Headers */,
-				5616559AA442A481B0BC75C2A5BECB0B /* ioapi.h in Headers */,
-				B6165EA1A90A703A0EA5EF9E7EF3831A /* unzip.h in Headers */,
-				773BBFB5E3B6D4F78433F38C53FE2C98 /* zip.h in Headers */,
-				8AE061ABD82F5E943275D58666D03C28 /* ZipException.h in Headers */,
-				C7037FB754EC34E63FBA0EF7F0B93780 /* ZipFile.h in Headers */,
-				23106F0151504EBB0CDEFF696A7E8F9D /* ZipReadStream.h in Headers */,
-				1C3580D55F03B541C064546F57984383 /* ZipWriteStream.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		775693DDCFB6D8DCC8A3C29D0E91C10F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -265,39 +146,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DE14FC15330A28EF423EEA40D2B28E5A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		42EBAAA41C2C8B2085C7AB8A76A7121B /* objective-zip */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 0998505A3929260C10A9DB04B149FBEF /* Build configuration list for PBXNativeTarget "objective-zip" */;
-			buildPhases = (
-				623CCC3B87F97173C29DD3667532CA8A /* Headers */,
-				9211BB2F65DA2B7B28E6B76B2293303C /* Sources */,
-				5701A656A4E8C35E4FAFD7113B408B2A /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "objective-zip";
-			productName = "objective-zip";
-			productReference = 21D7C3DB20509FADCC8B36D4944EF398 /* libobjective-zip.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		CBFADA79D6FF7F7101BE2771563D91FF /* Pods-SCSI2SD-util */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A4A61C231074E0CD3B45DBB485ACFC2 /* Build configuration list for PBXNativeTarget "Pods-SCSI2SD-util" */;
+			buildConfigurationList = 4CF6C4F58F1CB5270383958899E272B0 /* Build configuration list for PBXNativeTarget "Pods-SCSI2SD-util" */;
 			buildPhases = (
-				132B1DB603E68CD241B35C69CB84C2C3 /* Headers */,
-				47BE02678DD3553B06C3C4C0F474E23F /* Sources */,
-				B08E49B140B9E756CA3F5EB7BD963E14 /* Frameworks */,
+				DE14FC15330A28EF423EEA40D2B28E5A /* Headers */,
+				A60B9BAA07FCA0ED2D0CC8C6AF120EE8 /* Sources */,
+				83D5F43367B603078BE3620CCA24040D /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				142808D90AEE9CA372BC19B91814432C /* PBXTargetDependency */,
-				F6CDD2E5237639ED753DBB33540BD493 /* PBXTargetDependency */,
+				52EC7FFE00771F0BD20B4C4C533DC269 /* PBXTargetDependency */,
 			);
 			name = "Pods-SCSI2SD-util";
 			productName = "Pods-SCSI2SD-util";
@@ -339,39 +209,22 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = E574006A56075F74860CBD6672E4BB77 /* Products */;
+			productRefGroup = 89A56ABE6A2E836A75E38D7CEF7F15F7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				FFC3309E2DA1339CC97FA811C6FFC7DE /* hidapi */,
-				42EBAAA41C2C8B2085C7AB8A76A7121B /* objective-zip */,
 				CBFADA79D6FF7F7101BE2771563D91FF /* Pods-SCSI2SD-util */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		47BE02678DD3553B06C3C4C0F474E23F /* Sources */ = {
+		A60B9BAA07FCA0ED2D0CC8C6AF120EE8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A218B8D778E2F8634FCF1BD55146349E /* Pods-SCSI2SD-util-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9211BB2F65DA2B7B28E6B76B2293303C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C7D9DB2522E83A193F29412DAD7D8ACF /* FileInZipInfo.m in Sources */,
-				A57C43C557651C0AF08B4FD4B76EFA33 /* ioapi.c in Sources */,
-				2B4E078B01B9F71F045461CDD9935AE5 /* objective-zip-dummy.m in Sources */,
-				22792A8A0CDFD6AD1CA151648A5FBD5A /* unzip.c in Sources */,
-				07C8042E31129B5E2E8D2710CB5EEF92 /* zip.c in Sources */,
-				186B361039E6225588AB880A55FABE84 /* ZipException.m in Sources */,
-				04D55C8442538012EEF0E9B3625EA431 /* ZipFile.m in Sources */,
-				C875BA4C1DB83C23893CD9A0DF0AA39E /* ZipReadStream.m in Sources */,
-				3327B2A32B62017AF29A37CAE4AD7BB7 /* ZipWriteStream.m in Sources */,
+				063BD434E30DBE3D881606D25B142DF0 /* Pods-SCSI2SD-util-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,24 +240,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		142808D90AEE9CA372BC19B91814432C /* PBXTargetDependency */ = {
+		52EC7FFE00771F0BD20B4C4C533DC269 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = hidapi;
 			target = FFC3309E2DA1339CC97FA811C6FFC7DE /* hidapi */;
-			targetProxy = 82AAB294C70296C64A4B97BFA0A3509D /* PBXContainerItemProxy */;
-		};
-		F6CDD2E5237639ED753DBB33540BD493 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "objective-zip";
-			target = 42EBAAA41C2C8B2085C7AB8A76A7121B /* objective-zip */;
-			targetProxy = 8D91A79E4AB0404AE98F93C75373538E /* PBXContainerItemProxy */;
+			targetProxy = 8F846E2B2071B1F2EA58A5399614CADE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		01E65F1A49B417A3A88A1E99D2EDDAC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */;
+			baseConfigurationReference = 6310253D357A5336843ED70B99EC2E47 /* hidapi.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -429,7 +276,7 @@
 		};
 		4AC9E82DA0ED19E5D7639F3207772781 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71C0944505CF195637D768607B01C439 /* hidapi.xcconfig */;
+			baseConfigurationReference = 6310253D357A5336843ED70B99EC2E47 /* hidapi.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -452,7 +299,7 @@
 			};
 			name = Release;
 		};
-		684967EA1D755CC3D736665B1AFBBA21 /* Debug */ = {
+		563EDE172B4472F2FFC2CCC538DBC6DF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F59806FD5583D15C1463033260360FFA /* Pods-SCSI2SD-util.debug.xcconfig */;
 			buildSettings = {
@@ -475,10 +322,11 @@
 			};
 			name = Debug;
 		};
-		78AD8F099369474206EEEC1B7CCD8176 /* Release */ = {
+		C0C4A737BDA05A7CB0DC21E146F0EFC1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */;
+			baseConfigurationReference = 87D9A3196D2799DB1A76E4319297DC2A /* Pods-SCSI2SD-util.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "-";
@@ -486,44 +334,16 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/objective-zip/objective-zip-prefix.pch";
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = objective_zip;
-				PRODUCT_NAME = "objective-zip";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Release;
-		};
-		892C135DA41E0D02DFC6E0116B4EECCB /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35FEEF7568B5081940B4054356B4FD1D /* objective-zip.xcconfig */;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/objective-zip/objective-zip-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = objective_zip;
-				PRODUCT_NAME = "objective-zip";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-			};
-			name = Debug;
 		};
 		C6D7F5E1842D65720C18B1DD4E6D2CE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -649,41 +469,9 @@
 			};
 			name = Release;
 		};
-		F68473BD637381947AE8229D49589277 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87D9A3196D2799DB1A76E4319297DC2A /* Pods-SCSI2SD-util.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0998505A3929260C10A9DB04B149FBEF /* Build configuration list for PBXNativeTarget "objective-zip" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				892C135DA41E0D02DFC6E0116B4EECCB /* Debug */,
-				78AD8F099369474206EEEC1B7CCD8176 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		330D92CF4570D0909F883086B015D0EC /* Build configuration list for PBXNativeTarget "hidapi" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -702,11 +490,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A4A61C231074E0CD3B45DBB485ACFC2 /* Build configuration list for PBXNativeTarget "Pods-SCSI2SD-util" */ = {
+		4CF6C4F58F1CB5270383958899E272B0 /* Build configuration list for PBXNativeTarget "Pods-SCSI2SD-util" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				684967EA1D755CC3D736665B1AFBBA21 /* Debug */,
-				F68473BD637381947AE8229D49589277 /* Release */,
+				563EDE172B4472F2FFC2CCC538DBC6DF /* Debug */,
+				C0C4A737BDA05A7CB0DC21E146F0EFC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

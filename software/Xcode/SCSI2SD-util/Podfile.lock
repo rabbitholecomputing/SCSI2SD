@@ -1,20 +1,16 @@
 PODS:
-  - hidapi (1.0.0)
-  - objective-zip (0.8.3)
+  - Base64 (1.1.2)
 
 DEPENDENCIES:
-  - hidapi (~> 1.0)
-  - objective-zip
+  - Base64 (~> 1.1)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - hidapi
-    - objective-zip
+  trunk:
+    - Base64
 
 SPEC CHECKSUMS:
-  hidapi: 88dabef48766d02950b8a21ff018a9ff0c0fafc7
-  objective-zip: a27d4b3c060eead4325159e49178e7f0ad5ee808
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
 
-PODFILE CHECKSUM: ff0d3ec0b20871a9f9403f44b9ddfec12e0141eb
+PODFILE CHECKSUM: 3a65ef34ab01750a178870a5d37df8544f77ecc3
 
 COCOAPODS: 1.8.4

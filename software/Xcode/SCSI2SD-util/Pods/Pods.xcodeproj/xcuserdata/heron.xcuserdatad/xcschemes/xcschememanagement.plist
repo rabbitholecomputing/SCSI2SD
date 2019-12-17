@@ -4,21 +4,14 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-SCSI2SD-util.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
-		</dict>
-		<key>hidapi.xcscheme</key>
+		<key>Base64.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-		<key>objective-zip.xcscheme</key>
+		<key>Pods-SCSI2SD-util.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

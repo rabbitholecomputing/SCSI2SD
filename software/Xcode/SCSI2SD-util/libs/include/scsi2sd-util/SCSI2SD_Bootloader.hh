@@ -25,6 +25,8 @@ extern "C"
 #include "hidapi.h"
 }
 
+#import <IOKit/IOKitLib.h>
+
 #if __cplusplus >= 201103L
 #include <cstdint>
 #else

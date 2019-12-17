@@ -28,16 +28,7 @@
 #import <Foundation/NSString.h>
 #import <Foundation/NSXMLElement.h>
 
-
-/*
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-#include <wx/wx.h>
-#endif
-#include <wx/base64.h>
-#include <wx/buffer.h>
-#include <wx/xml/xml.h>
-*/
+#import <Base64/MF_Base64Additions.h>
 
 using namespace SCSI2SD;
 
@@ -337,8 +328,7 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	<!-- Custom mode pages, base64 encoded, up to 1024 bytes.-->\n" <<
 		"	<modePages>\n" <<
             (modePages.size() == 0 ? "" :
-             [[[NSData dataWithBytes:&modePages[0] length:modePages.size()]
-               base64EncodedStringWithOptions: NSDataBase64Encoding64CharacterLineLength]
+             [[[NSData dataWithBytes:&modePages[0] length:modePages.size()] base64String]
               cStringUsingEncoding:NSUTF8StringEncoding])
 				<< "\n" <<
 		"	</modePages>\n" <<
@@ -346,9 +336,8 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	<!-- Custom inquiry VPD pages, base64 encoded, up to 1024 bytes.-->\n" <<
 		"	<vpd>\n" <<
 			(vpd.size() == 0 ? "" :
-             [[[NSData dataWithBytes:&vpd[0] length:vpd.size()]
-               base64EncodedStringWithOptions: NSDataBase64Encoding64CharacterLineLength]
-              cStringUsingEncoding:NSUTF8StringEncoding])
+            [[[NSData dataWithBytes:&vpd[0] length:vpd.size()] base64String]
+             cStringUsingEncoding:NSUTF8StringEncoding])
 				<< "\n" <<
 		"	</vpd>\n" <<
 		"</SCSITarget>\n";

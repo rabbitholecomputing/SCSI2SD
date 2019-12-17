@@ -4,3 +4,5 @@ software/build
 *~
 *.log
 *.xcuserstate
+software/Xcode/SCSI2SD-util/Pods/*
+software/Xcode/SCSI2SD-util/Pods

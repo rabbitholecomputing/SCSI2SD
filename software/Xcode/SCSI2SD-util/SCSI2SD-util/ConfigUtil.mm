@@ -589,14 +589,14 @@ parseTarget(NSXMLElement* node)
 		else if ([[child name] isEqualToString: @"modePages"])
 		{
             NSString *content = [child stringValue];
-            NSData *buf = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64Encoding64CharacterLineLength];
+            NSData *buf = [[NSData alloc] initWithBase64Encoding:content];
 			size_t len = std::min([buf length], sizeof(result.modePages));
 			memcpy(result.modePages, [buf bytes], len);
 		}
 		else if ([[child name] isEqualToString: @"vpd"])
 		{
             NSString *content = [child stringValue];
-            NSData *buf = [[NSData alloc] initWithBase64EncodedString:content options:NSDataBase64Encoding64CharacterLineLength];
+            NSData *buf = [[NSData alloc] initWithBase64Encoding:content];
             size_t len = std::min([buf length], sizeof(result.vpd));
             memcpy(result.vpd, [buf bytes], len);
 		}

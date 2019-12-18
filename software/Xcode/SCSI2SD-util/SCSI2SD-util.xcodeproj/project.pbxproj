@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14418B4323AAC07900C8EB09 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */; };
+		14418B4523AAC6EB00C8EB09 /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 14418B4423AAC6EB00C8EB09 /* hid.c */; };
 		1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1474C0972399677F003C67D5 /* libscsi2sd-util.a */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.mm */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
@@ -22,6 +24,10 @@
 
 /* Begin PBXFileReference section */
 		03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
+		14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_HID.cc; path = "../../../../scsi2sd-util/SCSI2SD_HID.cc"; sourceTree = "<group>"; };
+		14418B4423AAC6EB00C8EB09 /* hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hid.c; path = "../../../../scsi2sd-util/hidapi-mac/hid.c"; sourceTree = "<group>"; };
+		14418B4623AAC77000C8EB09 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hidpacket.h; path = ../../../../include/hidpacket.h; sourceTree = "<group>"; };
+		14418B4723AAC7DC00C8EB09 /* hidapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hidapi.h; path = "../../../../scsi2sd-util/hidapi/hidapi/hidapi.h"; sourceTree = "<group>"; };
 		1474BFE52399677E003C67D5 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hidpacket.h; sourceTree = "<group>"; };
 		1474BFE62399677E003C67D5 /* scsi2sd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scsi2sd.h; sourceTree = "<group>"; };
 		1474BFEB2399677E003C67D5 /* cybtldr_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api.h; sourceTree = "<group>"; };
@@ -131,6 +137,10 @@
 		1474C0FB23998F0D003C67D5 /* CPPModules */ = {
 			isa = PBXGroup;
 			children = (
+				14418B4723AAC7DC00C8EB09 /* hidapi.h */,
+				14418B4623AAC77000C8EB09 /* hidpacket.h */,
+				14418B4423AAC6EB00C8EB09 /* hid.c */,
+				14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */,
 				14DEC5E923A2F06C00ECD04A /* ConfigUtil.hh */,
 				14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */,
 				14DEC5E6239F456800ECD04A /* Functions.mm */,
@@ -307,7 +317,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */,
+				14418B4323AAC07900C8EB09 /* SCSI2SD_HID.cc in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.mm in Sources */,
+				14418B4523AAC6EB00C8EB09 /* hid.c in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */,
 				14DEC5E8239F456800ECD04A /* Functions.mm in Sources */,
@@ -471,7 +483,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"hidapi\"",
 					"-l\"z\"",
 					"-framework",
 					"\"CoreFoundation\"",
@@ -517,7 +528,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"hidapi\"",
 					"-l\"z\"",
 					"-framework",
 					"\"CoreFoundation\"",

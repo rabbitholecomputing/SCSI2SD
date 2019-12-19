@@ -30,9 +30,9 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
-            landmarkName = "-openFile:"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "-saveFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -46,9 +46,9 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "327"
-            endingLineNumber = "327"
-            landmarkName = "-openFile:"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
+            landmarkName = "-saveFile:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,10 +62,42 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "471"
-            endingLineNumber = "471"
-            landmarkName = "-loadFromDevice:"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
+            landmarkName = "-saveToDevice:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2F5F0224-AA1C-4EAD-8AC2-CAD5480AF5AE - d1cf24ea29d6bbf3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AppDelegate saveToDevice:]"
+                  moduleName = "SCSI2SD-util"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/heron/Development/SCSI2SD/software/Xcode/SCSI2SD-util/SCSI2SD-util/AppDelegate.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "488"
+                  endingLineNumber = "488"
+                  offsetFromSymbolStart = "2571">
+               </Location>
+               <Location
+                  uuid = "2F5F0224-AA1C-4EAD-8AC2-CAD5480AF5AE - d1cf24ea29d6bbf3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[AppDelegate saveToDevice:]"
+                  moduleName = "SCSI2SD-util"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/heron/Development/SCSI2SD/software/Xcode/SCSI2SD-util/SCSI2SD-util/AppDelegate.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "488"
+                  endingLineNumber = "488"
+                  offsetFromSymbolStart = "2628">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -78,9 +110,9 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "-applicationDidFinishLaunching:"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "-reset_hid"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

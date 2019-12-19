@@ -13,8 +13,16 @@
 #include <vector>
 #include <string>
 #include "zipper.hh"
+#include <signal.h>
+
 // #include "z.h"
-//#include "ConfigUtil.hh"
+// #include "ConfigUtil.hh"
+
+void clean_exit_on_sig(int sig_num)
+{
+    NSLog(@"Signal %d received\n",sig_num);
+    NSApplicationMain(NULL, NULL);
+}
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
@@ -120,10 +128,37 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [pollDeviceTimer invalidate];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void) reset_hid
+{
+    try
+    {
+        myHID = SCSI2SD::HID::Open();
+    }
+    catch (std::exception& e)
+    {
+        NSLog(@"Exception caught : %s\n", e.what());
+    }
+}
+
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
     // Insert code here to initialize your application
-    myHID = SCSI2SD::HID::Open();
-    myBootloader = SCSI2SD::Bootloader::Open();
+    signal(SIGINT , clean_exit_on_sig);
+    signal(SIGABRT , clean_exit_on_sig);
+    signal(SIGILL , clean_exit_on_sig);
+    signal(SIGFPE , clean_exit_on_sig);
+    signal(SIGSEGV, clean_exit_on_sig); // <-- this one is for segmentation fault
+    signal(SIGTERM , clean_exit_on_sig);
+    
+    try
+    {
+        myHID = SCSI2SD::HID::Open();
+        myBootloader = SCSI2SD::Bootloader::Open();
+    }
+    catch (std::exception& e)
+    {
+        NSLog(@"Exception caught : %s\n", e.what());
+    }
     
     deviceControllers = [[NSMutableArray alloc] initWithCapacity: 7];
     [deviceControllers addObject: _device1];
@@ -140,7 +175,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [self loadDefaults: nil];
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
     // Insert code here to tear down your application
     [pollDeviceTimer invalidate];
     [deviceControllers removeAllObjects];
@@ -184,19 +220,19 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             // No method to check connection is still valid.
             // So assume it isn't.
             // myHID.reset();
-            myHID = SCSI2SD::HID::Open();
+            [self reset_hid];
             supressLog = 1;
         }
         else if (myHID && !myHID->ping())
         {
             // Verify the USB HID connection is valid
             // myHID.reset();
-            myHID = SCSI2SD::HID::Open();
+            [self reset_hid];
         }
 
         if (!myHID)
         {
-            myHID = SCSI2SD::HID::Open();
+            [self reset_hid];
             if (myHID)
             {
                 if (myHID->getFirmwareVersion() < MIN_FIRMWARE_VERSION)
@@ -452,7 +488,8 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
         }
     }
 
-    myHID = SCSI2SD::HID::Open();
+    [self reset_hid];
+        //myHID = SCSI2SD::HID::Open();
     goto out;
 
 err:
@@ -586,7 +623,8 @@ out:
         {
             if (!myHID)
             {
-                myHID = SCSI2SD::HID::Open();
+                [self reset_hid];
+//                myHID = SCSI2SD::HID::Open();
             }
             if (myHID)
             {
@@ -626,7 +664,8 @@ out:
         catch (std::exception& e)
         {
             NSLog(@"%s",e.what());
-            myHID = SCSI2SD::HID::Open(); // .reset()
+            [self reset_hid];
+//            myHID = SCSI2SD::HID::Open(); // .reset()
             myBootloader = SCSI2SD::Bootloader::Open(); // .reset()
         }
         // wxMilliSleep(100);
@@ -690,7 +729,8 @@ out:
         //TheProgressWrapper.clearProgressDialog();
         [self logStringToPanel: @"Firmware update successful"];
 
-        myHID = SCSI2SD::HID::Open();
+    //        myHID = SCSI2SD::HID::Open();
+        [self reset_hid];
         myBootloader = SCSI2SD::Bootloader::Open();
         //myHID.reset();
         //myBootloader.reset();

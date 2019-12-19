@@ -1,0 +1,825 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"TERM_EN.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.TERM_EN_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	TERM_EN_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	TERM_EN_Write, %function
+  25              	TERM_EN_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\TERM_EN.c"
+   1:Generated_Source\PSoC5/TERM_EN.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/TERM_EN.c **** * File Name: TERM_EN.c  
+   3:Generated_Source\PSoC5/TERM_EN.c **** * Version 2.20
+   4:Generated_Source\PSoC5/TERM_EN.c **** *
+   5:Generated_Source\PSoC5/TERM_EN.c **** * Description:
+   6:Generated_Source\PSoC5/TERM_EN.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/TERM_EN.c **** *
+   8:Generated_Source\PSoC5/TERM_EN.c **** * Note:
+   9:Generated_Source\PSoC5/TERM_EN.c **** *
+  10:Generated_Source\PSoC5/TERM_EN.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/TERM_EN.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/TERM_EN.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/TERM_EN.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/TERM_EN.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/TERM_EN.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/TERM_EN.c **** 
+  17:Generated_Source\PSoC5/TERM_EN.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/TERM_EN.c **** #include "TERM_EN.h"
+  19:Generated_Source\PSoC5/TERM_EN.c **** 
+  20:Generated_Source\PSoC5/TERM_EN.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/TERM_EN.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/TERM_EN.c **** 	 TERM_EN__PORT == 15 && ((TERM_EN__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/TERM_EN.c **** 
+  24:Generated_Source\PSoC5/TERM_EN.c **** 
+  25:Generated_Source\PSoC5/TERM_EN.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/TERM_EN.c **** * Function Name: TERM_EN_Write
+  27:Generated_Source\PSoC5/TERM_EN.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/TERM_EN.c **** *
+  29:Generated_Source\PSoC5/TERM_EN.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/TERM_EN.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 2
+
+
+  31:Generated_Source\PSoC5/TERM_EN.c **** *
+  32:Generated_Source\PSoC5/TERM_EN.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/TERM_EN.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/TERM_EN.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/TERM_EN.c **** * bit banding).
+  36:Generated_Source\PSoC5/TERM_EN.c **** *
+  37:Generated_Source\PSoC5/TERM_EN.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/TERM_EN.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/TERM_EN.c **** *
+  40:Generated_Source\PSoC5/TERM_EN.c **** * \param value
+  41:Generated_Source\PSoC5/TERM_EN.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/TERM_EN.c **** *
+  43:Generated_Source\PSoC5/TERM_EN.c **** * \return 
+  44:Generated_Source\PSoC5/TERM_EN.c **** *  None 
+  45:Generated_Source\PSoC5/TERM_EN.c **** *
+  46:Generated_Source\PSoC5/TERM_EN.c **** * \sideeffect
+  47:Generated_Source\PSoC5/TERM_EN.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/TERM_EN.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/TERM_EN.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/TERM_EN.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/TERM_EN.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/TERM_EN.c **** *  this function.
+  53:Generated_Source\PSoC5/TERM_EN.c **** *
+  54:Generated_Source\PSoC5/TERM_EN.c **** * \funcusage
+  55:Generated_Source\PSoC5/TERM_EN.c **** *  \snippet TERM_EN_SUT.c usage_TERM_EN_Write
+  56:Generated_Source\PSoC5/TERM_EN.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/TERM_EN.c **** void TERM_EN_Write(uint8 value)
+  58:Generated_Source\PSoC5/TERM_EN.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/TERM_EN.c ****     uint8 staticBits = (TERM_EN_DR & (uint8)(~TERM_EN_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/TERM_EN.c ****     TERM_EN_DR = staticBits | ((uint8)(value << TERM_EN_SHIFT) & TERM_EN_MASK);
+  36              		.loc 1 60 0
+  37 0002 C000     		lsls	r0, r0, #3
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/TERM_EN.c ****     uint8 staticBits = (TERM_EN_DR & (uint8)(~TERM_EN_MASK));
+  39              		.loc 1 59 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0006 00F00800 		and	r0, r0, #8
+  44 000a 03F0F703 		and	r3, r3, #247
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 F0510040 		.word	1073762800
+  53              		.cfi_endproc
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 3
+
+
+  54              	.LFE0:
+  55              		.size	TERM_EN_Write, .-TERM_EN_Write
+  56              		.section	.text.TERM_EN_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	TERM_EN_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	TERM_EN_SetDriveMode, %function
+  62              	TERM_EN_SetDriveMode:
+  63              	.LFB1:
+  61:Generated_Source\PSoC5/TERM_EN.c **** }
+  62:Generated_Source\PSoC5/TERM_EN.c **** 
+  63:Generated_Source\PSoC5/TERM_EN.c **** 
+  64:Generated_Source\PSoC5/TERM_EN.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/TERM_EN.c **** * Function Name: TERM_EN_SetDriveMode
+  66:Generated_Source\PSoC5/TERM_EN.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/TERM_EN.c **** *
+  68:Generated_Source\PSoC5/TERM_EN.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/TERM_EN.c **** * 
+  70:Generated_Source\PSoC5/TERM_EN.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/TERM_EN.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/TERM_EN.c **** *
+  73:Generated_Source\PSoC5/TERM_EN.c **** * \param mode
+  74:Generated_Source\PSoC5/TERM_EN.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/TERM_EN.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/TERM_EN.c **** *
+  77:Generated_Source\PSoC5/TERM_EN.c **** * \return
+  78:Generated_Source\PSoC5/TERM_EN.c **** *  None
+  79:Generated_Source\PSoC5/TERM_EN.c **** *
+  80:Generated_Source\PSoC5/TERM_EN.c **** * \sideeffect
+  81:Generated_Source\PSoC5/TERM_EN.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/TERM_EN.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/TERM_EN.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/TERM_EN.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/TERM_EN.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/TERM_EN.c **** *
+  87:Generated_Source\PSoC5/TERM_EN.c **** * \funcusage
+  88:Generated_Source\PSoC5/TERM_EN.c **** *  \snippet TERM_EN_SUT.c usage_TERM_EN_SetDriveMode
+  89:Generated_Source\PSoC5/TERM_EN.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/TERM_EN.c **** void TERM_EN_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/TERM_EN.c **** {
+  64              		.loc 1 91 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  92:Generated_Source\PSoC5/TERM_EN.c **** 	CyPins_SetPinDriveMode(TERM_EN_0, mode);
+  70              		.loc 1 92 0
+  71 0000 044A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 1843     		orrs	r0, r0, r3
+  77 000e 1070     		strb	r0, [r2]
+  78 0010 7047     		bx	lr
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 4
+
+
+  79              	.L6:
+  80 0012 00BF     		.align	2
+  81              	.L5:
+  82 0014 7B500040 		.word	1073762427
+  83              		.cfi_endproc
+  84              	.LFE1:
+  85              		.size	TERM_EN_SetDriveMode, .-TERM_EN_SetDriveMode
+  86              		.section	.text.TERM_EN_Read,"ax",%progbits
+  87              		.align	1
+  88              		.global	TERM_EN_Read
+  89              		.thumb
+  90              		.thumb_func
+  91              		.type	TERM_EN_Read, %function
+  92              	TERM_EN_Read:
+  93              	.LFB2:
+  93:Generated_Source\PSoC5/TERM_EN.c **** }
+  94:Generated_Source\PSoC5/TERM_EN.c **** 
+  95:Generated_Source\PSoC5/TERM_EN.c **** 
+  96:Generated_Source\PSoC5/TERM_EN.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/TERM_EN.c **** * Function Name: TERM_EN_Read
+  98:Generated_Source\PSoC5/TERM_EN.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/TERM_EN.c **** *
+ 100:Generated_Source\PSoC5/TERM_EN.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/TERM_EN.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/TERM_EN.c **** *  instance. 
+ 103:Generated_Source\PSoC5/TERM_EN.c **** *
+ 104:Generated_Source\PSoC5/TERM_EN.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/TERM_EN.c **** * physical pin.
+ 106:Generated_Source\PSoC5/TERM_EN.c **** *
+ 107:Generated_Source\PSoC5/TERM_EN.c **** * \return 
+ 108:Generated_Source\PSoC5/TERM_EN.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/TERM_EN.c **** *
+ 110:Generated_Source\PSoC5/TERM_EN.c **** * \funcusage
+ 111:Generated_Source\PSoC5/TERM_EN.c **** *  \snippet TERM_EN_SUT.c usage_TERM_EN_Read  
+ 112:Generated_Source\PSoC5/TERM_EN.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/TERM_EN.c **** uint8 TERM_EN_Read(void)
+ 114:Generated_Source\PSoC5/TERM_EN.c **** {
+  94              		.loc 1 114 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+ 115:Generated_Source\PSoC5/TERM_EN.c ****     return (TERM_EN_PS & TERM_EN_MASK) >> TERM_EN_SHIFT;
+  99              		.loc 1 115 0
+ 100 0000 024B     		ldr	r3, .L8
+ 101 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 116:Generated_Source\PSoC5/TERM_EN.c **** }
+ 102              		.loc 1 116 0
+ 103 0004 C0F3C000 		ubfx	r0, r0, #3, #1
+ 104 0008 7047     		bx	lr
+ 105              	.L9:
+ 106 000a 00BF     		.align	2
+ 107              	.L8:
+ 108 000c F1510040 		.word	1073762801
+ 109              		.cfi_endproc
+ 110              	.LFE2:
+ 111              		.size	TERM_EN_Read, .-TERM_EN_Read
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 5
+
+
+ 112              		.section	.text.TERM_EN_ReadDataReg,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	TERM_EN_ReadDataReg
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	TERM_EN_ReadDataReg, %function
+ 118              	TERM_EN_ReadDataReg:
+ 119              	.LFB3:
+ 117:Generated_Source\PSoC5/TERM_EN.c **** 
+ 118:Generated_Source\PSoC5/TERM_EN.c **** 
+ 119:Generated_Source\PSoC5/TERM_EN.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/TERM_EN.c **** * Function Name: TERM_EN_ReadDataReg
+ 121:Generated_Source\PSoC5/TERM_EN.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/TERM_EN.c **** *
+ 123:Generated_Source\PSoC5/TERM_EN.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/TERM_EN.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/TERM_EN.c **** *  instance. 
+ 126:Generated_Source\PSoC5/TERM_EN.c **** *
+ 127:Generated_Source\PSoC5/TERM_EN.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/TERM_EN.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/TERM_EN.c **** * preferred TERM_EN_Read() API because the 
+ 130:Generated_Source\PSoC5/TERM_EN.c **** * TERM_EN_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/TERM_EN.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/TERM_EN.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/TERM_EN.c **** *
+ 134:Generated_Source\PSoC5/TERM_EN.c **** * \return 
+ 135:Generated_Source\PSoC5/TERM_EN.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/TERM_EN.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/TERM_EN.c **** *
+ 138:Generated_Source\PSoC5/TERM_EN.c **** * \funcusage
+ 139:Generated_Source\PSoC5/TERM_EN.c **** *  \snippet TERM_EN_SUT.c usage_TERM_EN_ReadDataReg 
+ 140:Generated_Source\PSoC5/TERM_EN.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/TERM_EN.c **** uint8 TERM_EN_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/TERM_EN.c **** {
+ 120              		.loc 1 142 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124              		@ link register save eliminated.
+ 143:Generated_Source\PSoC5/TERM_EN.c ****     return (TERM_EN_DR & TERM_EN_MASK) >> TERM_EN_SHIFT;
+ 125              		.loc 1 143 0
+ 126 0000 024B     		ldr	r3, .L11
+ 127 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 144:Generated_Source\PSoC5/TERM_EN.c **** }
+ 128              		.loc 1 144 0
+ 129 0004 C0F3C000 		ubfx	r0, r0, #3, #1
+ 130 0008 7047     		bx	lr
+ 131              	.L12:
+ 132 000a 00BF     		.align	2
+ 133              	.L11:
+ 134 000c F0510040 		.word	1073762800
+ 135              		.cfi_endproc
+ 136              	.LFE3:
+ 137              		.size	TERM_EN_ReadDataReg, .-TERM_EN_ReadDataReg
+ 138              		.text
+ 139              	.Letext0:
+ 140              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 6
+
+
+ 141              		.section	.debug_info,"",%progbits
+ 142              	.Ldebug_info0:
+ 143 0000 1C010000 		.4byte	0x11c
+ 144 0004 0400     		.2byte	0x4
+ 145 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 146 000a 04       		.byte	0x4
+ 147 000b 01       		.uleb128 0x1
+ 148 000c E9000000 		.4byte	.LASF20
+ 149 0010 0C       		.byte	0xc
+ 150 0011 77010000 		.4byte	.LASF21
+ 151 0015 1E000000 		.4byte	.LASF22
+ 152 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 153 001d 00000000 		.4byte	0
+ 154 0021 00000000 		.4byte	.Ldebug_line0
+ 155 0025 02       		.uleb128 0x2
+ 156 0026 01       		.byte	0x1
+ 157 0027 06       		.byte	0x6
+ 158 0028 EC010000 		.4byte	.LASF0
+ 159 002c 02       		.uleb128 0x2
+ 160 002d 01       		.byte	0x1
+ 161 002e 08       		.byte	0x8
+ 162 002f 9D000000 		.4byte	.LASF1
+ 163 0033 02       		.uleb128 0x2
+ 164 0034 02       		.byte	0x2
+ 165 0035 05       		.byte	0x5
+ 166 0036 D3010000 		.4byte	.LASF2
+ 167 003a 02       		.uleb128 0x2
+ 168 003b 02       		.byte	0x2
+ 169 003c 07       		.byte	0x7
+ 170 003d C2000000 		.4byte	.LASF3
+ 171 0041 02       		.uleb128 0x2
+ 172 0042 04       		.byte	0x4
+ 173 0043 05       		.byte	0x5
+ 174 0044 E3010000 		.4byte	.LASF4
+ 175 0048 02       		.uleb128 0x2
+ 176 0049 04       		.byte	0x4
+ 177 004a 07       		.byte	0x7
+ 178 004b B0000000 		.4byte	.LASF5
+ 179 004f 02       		.uleb128 0x2
+ 180 0050 08       		.byte	0x8
+ 181 0051 05       		.byte	0x5
+ 182 0052 AB010000 		.4byte	.LASF6
+ 183 0056 02       		.uleb128 0x2
+ 184 0057 08       		.byte	0x8
+ 185 0058 07       		.byte	0x7
+ 186 0059 86000000 		.4byte	.LASF7
+ 187 005d 03       		.uleb128 0x3
+ 188 005e 04       		.byte	0x4
+ 189 005f 05       		.byte	0x5
+ 190 0060 696E7400 		.ascii	"int\000"
+ 191 0064 02       		.uleb128 0x2
+ 192 0065 04       		.byte	0x4
+ 193 0066 07       		.byte	0x7
+ 194 0067 DC000000 		.4byte	.LASF8
+ 195 006b 04       		.uleb128 0x4
+ 196 006c DD010000 		.4byte	.LASF12
+ 197 0070 02       		.byte	0x2
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 7
+
+
+ 198 0071 A1       		.byte	0xa1
+ 199 0072 2C000000 		.4byte	0x2c
+ 200 0076 02       		.uleb128 0x2
+ 201 0077 04       		.byte	0x4
+ 202 0078 04       		.byte	0x4
+ 203 0079 80000000 		.4byte	.LASF9
+ 204 007d 02       		.uleb128 0x2
+ 205 007e 08       		.byte	0x8
+ 206 007f 04       		.byte	0x4
+ 207 0080 D5000000 		.4byte	.LASF10
+ 208 0084 02       		.uleb128 0x2
+ 209 0085 01       		.byte	0x1
+ 210 0086 08       		.byte	0x8
+ 211 0087 B9010000 		.4byte	.LASF11
+ 212 008b 05       		.uleb128 0x5
+ 213 008c AB000000 		.4byte	.LASF13
+ 214 0090 02       		.byte	0x2
+ 215 0091 4B01     		.2byte	0x14b
+ 216 0093 97000000 		.4byte	0x97
+ 217 0097 06       		.uleb128 0x6
+ 218 0098 6B000000 		.4byte	0x6b
+ 219 009c 07       		.uleb128 0x7
+ 220 009d 98010000 		.4byte	.LASF14
+ 221 00a1 01       		.byte	0x1
+ 222 00a2 39       		.byte	0x39
+ 223 00a3 00000000 		.4byte	.LFB0
+ 224 00a7 18000000 		.4byte	.LFE0-.LFB0
+ 225 00ab 01       		.uleb128 0x1
+ 226 00ac 9C       		.byte	0x9c
+ 227 00ad D0000000 		.4byte	0xd0
+ 228 00b1 08       		.uleb128 0x8
+ 229 00b2 0D000000 		.4byte	.LASF16
+ 230 00b6 01       		.byte	0x1
+ 231 00b7 39       		.byte	0x39
+ 232 00b8 6B000000 		.4byte	0x6b
+ 233 00bc 00000000 		.4byte	.LLST0
+ 234 00c0 09       		.uleb128 0x9
+ 235 00c1 13000000 		.4byte	.LASF23
+ 236 00c5 01       		.byte	0x1
+ 237 00c6 3B       		.byte	0x3b
+ 238 00c7 6B000000 		.4byte	0x6b
+ 239 00cb 21000000 		.4byte	.LLST1
+ 240 00cf 00       		.byte	0
+ 241 00d0 07       		.uleb128 0x7
+ 242 00d1 BE010000 		.4byte	.LASF15
+ 243 00d5 01       		.byte	0x1
+ 244 00d6 5A       		.byte	0x5a
+ 245 00d7 00000000 		.4byte	.LFB1
+ 246 00db 18000000 		.4byte	.LFE1-.LFB1
+ 247 00df 01       		.uleb128 0x1
+ 248 00e0 9C       		.byte	0x9c
+ 249 00e1 F5000000 		.4byte	0xf5
+ 250 00e5 08       		.uleb128 0x8
+ 251 00e6 A6010000 		.4byte	.LASF17
+ 252 00ea 01       		.byte	0x1
+ 253 00eb 5A       		.byte	0x5a
+ 254 00ec 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 8
+
+
+ 255 00f0 39000000 		.4byte	.LLST2
+ 256 00f4 00       		.byte	0
+ 257 00f5 0A       		.uleb128 0xa
+ 258 00f6 00000000 		.4byte	.LASF18
+ 259 00fa 01       		.byte	0x1
+ 260 00fb 71       		.byte	0x71
+ 261 00fc 6B000000 		.4byte	0x6b
+ 262 0100 00000000 		.4byte	.LFB2
+ 263 0104 10000000 		.4byte	.LFE2-.LFB2
+ 264 0108 01       		.uleb128 0x1
+ 265 0109 9C       		.byte	0x9c
+ 266 010a 0A       		.uleb128 0xa
+ 267 010b F8010000 		.4byte	.LASF19
+ 268 010f 01       		.byte	0x1
+ 269 0110 8D       		.byte	0x8d
+ 270 0111 6B000000 		.4byte	0x6b
+ 271 0115 00000000 		.4byte	.LFB3
+ 272 0119 10000000 		.4byte	.LFE3-.LFB3
+ 273 011d 01       		.uleb128 0x1
+ 274 011e 9C       		.byte	0x9c
+ 275 011f 00       		.byte	0
+ 276              		.section	.debug_abbrev,"",%progbits
+ 277              	.Ldebug_abbrev0:
+ 278 0000 01       		.uleb128 0x1
+ 279 0001 11       		.uleb128 0x11
+ 280 0002 01       		.byte	0x1
+ 281 0003 25       		.uleb128 0x25
+ 282 0004 0E       		.uleb128 0xe
+ 283 0005 13       		.uleb128 0x13
+ 284 0006 0B       		.uleb128 0xb
+ 285 0007 03       		.uleb128 0x3
+ 286 0008 0E       		.uleb128 0xe
+ 287 0009 1B       		.uleb128 0x1b
+ 288 000a 0E       		.uleb128 0xe
+ 289 000b 55       		.uleb128 0x55
+ 290 000c 17       		.uleb128 0x17
+ 291 000d 11       		.uleb128 0x11
+ 292 000e 01       		.uleb128 0x1
+ 293 000f 10       		.uleb128 0x10
+ 294 0010 17       		.uleb128 0x17
+ 295 0011 00       		.byte	0
+ 296 0012 00       		.byte	0
+ 297 0013 02       		.uleb128 0x2
+ 298 0014 24       		.uleb128 0x24
+ 299 0015 00       		.byte	0
+ 300 0016 0B       		.uleb128 0xb
+ 301 0017 0B       		.uleb128 0xb
+ 302 0018 3E       		.uleb128 0x3e
+ 303 0019 0B       		.uleb128 0xb
+ 304 001a 03       		.uleb128 0x3
+ 305 001b 0E       		.uleb128 0xe
+ 306 001c 00       		.byte	0
+ 307 001d 00       		.byte	0
+ 308 001e 03       		.uleb128 0x3
+ 309 001f 24       		.uleb128 0x24
+ 310 0020 00       		.byte	0
+ 311 0021 0B       		.uleb128 0xb
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 9
+
+
+ 312 0022 0B       		.uleb128 0xb
+ 313 0023 3E       		.uleb128 0x3e
+ 314 0024 0B       		.uleb128 0xb
+ 315 0025 03       		.uleb128 0x3
+ 316 0026 08       		.uleb128 0x8
+ 317 0027 00       		.byte	0
+ 318 0028 00       		.byte	0
+ 319 0029 04       		.uleb128 0x4
+ 320 002a 16       		.uleb128 0x16
+ 321 002b 00       		.byte	0
+ 322 002c 03       		.uleb128 0x3
+ 323 002d 0E       		.uleb128 0xe
+ 324 002e 3A       		.uleb128 0x3a
+ 325 002f 0B       		.uleb128 0xb
+ 326 0030 3B       		.uleb128 0x3b
+ 327 0031 0B       		.uleb128 0xb
+ 328 0032 49       		.uleb128 0x49
+ 329 0033 13       		.uleb128 0x13
+ 330 0034 00       		.byte	0
+ 331 0035 00       		.byte	0
+ 332 0036 05       		.uleb128 0x5
+ 333 0037 16       		.uleb128 0x16
+ 334 0038 00       		.byte	0
+ 335 0039 03       		.uleb128 0x3
+ 336 003a 0E       		.uleb128 0xe
+ 337 003b 3A       		.uleb128 0x3a
+ 338 003c 0B       		.uleb128 0xb
+ 339 003d 3B       		.uleb128 0x3b
+ 340 003e 05       		.uleb128 0x5
+ 341 003f 49       		.uleb128 0x49
+ 342 0040 13       		.uleb128 0x13
+ 343 0041 00       		.byte	0
+ 344 0042 00       		.byte	0
+ 345 0043 06       		.uleb128 0x6
+ 346 0044 35       		.uleb128 0x35
+ 347 0045 00       		.byte	0
+ 348 0046 49       		.uleb128 0x49
+ 349 0047 13       		.uleb128 0x13
+ 350 0048 00       		.byte	0
+ 351 0049 00       		.byte	0
+ 352 004a 07       		.uleb128 0x7
+ 353 004b 2E       		.uleb128 0x2e
+ 354 004c 01       		.byte	0x1
+ 355 004d 3F       		.uleb128 0x3f
+ 356 004e 19       		.uleb128 0x19
+ 357 004f 03       		.uleb128 0x3
+ 358 0050 0E       		.uleb128 0xe
+ 359 0051 3A       		.uleb128 0x3a
+ 360 0052 0B       		.uleb128 0xb
+ 361 0053 3B       		.uleb128 0x3b
+ 362 0054 0B       		.uleb128 0xb
+ 363 0055 27       		.uleb128 0x27
+ 364 0056 19       		.uleb128 0x19
+ 365 0057 11       		.uleb128 0x11
+ 366 0058 01       		.uleb128 0x1
+ 367 0059 12       		.uleb128 0x12
+ 368 005a 06       		.uleb128 0x6
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 10
+
+
+ 369 005b 40       		.uleb128 0x40
+ 370 005c 18       		.uleb128 0x18
+ 371 005d 9742     		.uleb128 0x2117
+ 372 005f 19       		.uleb128 0x19
+ 373 0060 01       		.uleb128 0x1
+ 374 0061 13       		.uleb128 0x13
+ 375 0062 00       		.byte	0
+ 376 0063 00       		.byte	0
+ 377 0064 08       		.uleb128 0x8
+ 378 0065 05       		.uleb128 0x5
+ 379 0066 00       		.byte	0
+ 380 0067 03       		.uleb128 0x3
+ 381 0068 0E       		.uleb128 0xe
+ 382 0069 3A       		.uleb128 0x3a
+ 383 006a 0B       		.uleb128 0xb
+ 384 006b 3B       		.uleb128 0x3b
+ 385 006c 0B       		.uleb128 0xb
+ 386 006d 49       		.uleb128 0x49
+ 387 006e 13       		.uleb128 0x13
+ 388 006f 02       		.uleb128 0x2
+ 389 0070 17       		.uleb128 0x17
+ 390 0071 00       		.byte	0
+ 391 0072 00       		.byte	0
+ 392 0073 09       		.uleb128 0x9
+ 393 0074 34       		.uleb128 0x34
+ 394 0075 00       		.byte	0
+ 395 0076 03       		.uleb128 0x3
+ 396 0077 0E       		.uleb128 0xe
+ 397 0078 3A       		.uleb128 0x3a
+ 398 0079 0B       		.uleb128 0xb
+ 399 007a 3B       		.uleb128 0x3b
+ 400 007b 0B       		.uleb128 0xb
+ 401 007c 49       		.uleb128 0x49
+ 402 007d 13       		.uleb128 0x13
+ 403 007e 02       		.uleb128 0x2
+ 404 007f 17       		.uleb128 0x17
+ 405 0080 00       		.byte	0
+ 406 0081 00       		.byte	0
+ 407 0082 0A       		.uleb128 0xa
+ 408 0083 2E       		.uleb128 0x2e
+ 409 0084 00       		.byte	0
+ 410 0085 3F       		.uleb128 0x3f
+ 411 0086 19       		.uleb128 0x19
+ 412 0087 03       		.uleb128 0x3
+ 413 0088 0E       		.uleb128 0xe
+ 414 0089 3A       		.uleb128 0x3a
+ 415 008a 0B       		.uleb128 0xb
+ 416 008b 3B       		.uleb128 0x3b
+ 417 008c 0B       		.uleb128 0xb
+ 418 008d 27       		.uleb128 0x27
+ 419 008e 19       		.uleb128 0x19
+ 420 008f 49       		.uleb128 0x49
+ 421 0090 13       		.uleb128 0x13
+ 422 0091 11       		.uleb128 0x11
+ 423 0092 01       		.uleb128 0x1
+ 424 0093 12       		.uleb128 0x12
+ 425 0094 06       		.uleb128 0x6
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 11
+
+
+ 426 0095 40       		.uleb128 0x40
+ 427 0096 18       		.uleb128 0x18
+ 428 0097 9742     		.uleb128 0x2117
+ 429 0099 19       		.uleb128 0x19
+ 430 009a 00       		.byte	0
+ 431 009b 00       		.byte	0
+ 432 009c 00       		.byte	0
+ 433              		.section	.debug_loc,"",%progbits
+ 434              	.Ldebug_loc0:
+ 435              	.LLST0:
+ 436 0000 00000000 		.4byte	.LVL0
+ 437 0004 04000000 		.4byte	.LVL1
+ 438 0008 0100     		.2byte	0x1
+ 439 000a 50       		.byte	0x50
+ 440 000b 04000000 		.4byte	.LVL1
+ 441 000f 18000000 		.4byte	.LFE0
+ 442 0013 0400     		.2byte	0x4
+ 443 0015 F3       		.byte	0xf3
+ 444 0016 01       		.uleb128 0x1
+ 445 0017 50       		.byte	0x50
+ 446 0018 9F       		.byte	0x9f
+ 447 0019 00000000 		.4byte	0
+ 448 001d 00000000 		.4byte	0
+ 449              	.LLST1:
+ 450 0021 06000000 		.4byte	.LVL2
+ 451 0025 0E000000 		.4byte	.LVL3
+ 452 0029 0600     		.2byte	0x6
+ 453 002b 73       		.byte	0x73
+ 454 002c 00       		.sleb128 0
+ 455 002d 09       		.byte	0x9
+ 456 002e F7       		.byte	0xf7
+ 457 002f 1A       		.byte	0x1a
+ 458 0030 9F       		.byte	0x9f
+ 459 0031 00000000 		.4byte	0
+ 460 0035 00000000 		.4byte	0
+ 461              	.LLST2:
+ 462 0039 00000000 		.4byte	.LVL4
+ 463 003d 06000000 		.4byte	.LVL5
+ 464 0041 0100     		.2byte	0x1
+ 465 0043 50       		.byte	0x50
+ 466 0044 06000000 		.4byte	.LVL5
+ 467 0048 18000000 		.4byte	.LFE1
+ 468 004c 0400     		.2byte	0x4
+ 469 004e F3       		.byte	0xf3
+ 470 004f 01       		.uleb128 0x1
+ 471 0050 50       		.byte	0x50
+ 472 0051 9F       		.byte	0x9f
+ 473 0052 00000000 		.4byte	0
+ 474 0056 00000000 		.4byte	0
+ 475              		.section	.debug_aranges,"",%progbits
+ 476 0000 34000000 		.4byte	0x34
+ 477 0004 0200     		.2byte	0x2
+ 478 0006 00000000 		.4byte	.Ldebug_info0
+ 479 000a 04       		.byte	0x4
+ 480 000b 00       		.byte	0
+ 481 000c 0000     		.2byte	0
+ 482 000e 0000     		.2byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 12
+
+
+ 483 0010 00000000 		.4byte	.LFB0
+ 484 0014 18000000 		.4byte	.LFE0-.LFB0
+ 485 0018 00000000 		.4byte	.LFB1
+ 486 001c 18000000 		.4byte	.LFE1-.LFB1
+ 487 0020 00000000 		.4byte	.LFB2
+ 488 0024 10000000 		.4byte	.LFE2-.LFB2
+ 489 0028 00000000 		.4byte	.LFB3
+ 490 002c 10000000 		.4byte	.LFE3-.LFB3
+ 491 0030 00000000 		.4byte	0
+ 492 0034 00000000 		.4byte	0
+ 493              		.section	.debug_ranges,"",%progbits
+ 494              	.Ldebug_ranges0:
+ 495 0000 00000000 		.4byte	.LFB0
+ 496 0004 18000000 		.4byte	.LFE0
+ 497 0008 00000000 		.4byte	.LFB1
+ 498 000c 18000000 		.4byte	.LFE1
+ 499 0010 00000000 		.4byte	.LFB2
+ 500 0014 10000000 		.4byte	.LFE2
+ 501 0018 00000000 		.4byte	.LFB3
+ 502 001c 10000000 		.4byte	.LFE3
+ 503 0020 00000000 		.4byte	0
+ 504 0024 00000000 		.4byte	0
+ 505              		.section	.debug_line,"",%progbits
+ 506              	.Ldebug_line0:
+ 507 0000 92000000 		.section	.debug_str,"MS",%progbits,1
+ 507      02004400 
+ 507      00000201 
+ 507      FB0E0D00 
+ 507      01010101 
+ 508              	.LASF18:
+ 509 0000 5445524D 		.ascii	"TERM_EN_Read\000"
+ 509      5F454E5F 
+ 509      52656164 
+ 509      00
+ 510              	.LASF16:
+ 511 000d 76616C75 		.ascii	"value\000"
+ 511      6500
+ 512              	.LASF23:
+ 513 0013 73746174 		.ascii	"staticBits\000"
+ 513      69634269 
+ 513      747300
+ 514              	.LASF22:
+ 515 001e 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 515      73657273 
+ 515      5C526162 
+ 515      62697420 
+ 515      486F6C65 
+ 516 004d 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.2-eth\\USB_Bootloader.cy"
+ 516      736F6674 
+ 516      77617265 
+ 516      5C534353 
+ 516      49325344 
+ 517 007c 64736E00 		.ascii	"dsn\000"
+ 518              	.LASF9:
+ 519 0080 666C6F61 		.ascii	"float\000"
+ 519      7400
+ 520              	.LASF7:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 13
+
+
+ 521 0086 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 521      206C6F6E 
+ 521      6720756E 
+ 521      7369676E 
+ 521      65642069 
+ 522              	.LASF1:
+ 523 009d 756E7369 		.ascii	"unsigned char\000"
+ 523      676E6564 
+ 523      20636861 
+ 523      7200
+ 524              	.LASF13:
+ 525 00ab 72656738 		.ascii	"reg8\000"
+ 525      00
+ 526              	.LASF5:
+ 527 00b0 6C6F6E67 		.ascii	"long unsigned int\000"
+ 527      20756E73 
+ 527      69676E65 
+ 527      6420696E 
+ 527      7400
+ 528              	.LASF3:
+ 529 00c2 73686F72 		.ascii	"short unsigned int\000"
+ 529      7420756E 
+ 529      7369676E 
+ 529      65642069 
+ 529      6E7400
+ 530              	.LASF10:
+ 531 00d5 646F7562 		.ascii	"double\000"
+ 531      6C6500
+ 532              	.LASF8:
+ 533 00dc 756E7369 		.ascii	"unsigned int\000"
+ 533      676E6564 
+ 533      20696E74 
+ 533      00
+ 534              	.LASF20:
+ 535 00e9 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 535      43313120 
+ 535      352E342E 
+ 535      31203230 
+ 535      31363036 
+ 536 011c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 536      20726576 
+ 536      6973696F 
+ 536      6E203233 
+ 536      37373135 
+ 537 014f 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 537      66756E63 
+ 537      74696F6E 
+ 537      2D736563 
+ 537      74696F6E 
+ 538              	.LASF21:
+ 539 0177 47656E65 		.ascii	"Generated_Source\\PSoC5\\TERM_EN.c\000"
+ 539      72617465 
+ 539      645F536F 
+ 539      75726365 
+ 539      5C50536F 
+ 540              	.LASF14:
+ 541 0198 5445524D 		.ascii	"TERM_EN_Write\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccY4WoEb.s 			page 14
+
+
+ 541      5F454E5F 
+ 541      57726974 
+ 541      6500
+ 542              	.LASF17:
+ 543 01a6 6D6F6465 		.ascii	"mode\000"
+ 543      00
+ 544              	.LASF6:
+ 545 01ab 6C6F6E67 		.ascii	"long long int\000"
+ 545      206C6F6E 
+ 545      6720696E 
+ 545      7400
+ 546              	.LASF11:
+ 547 01b9 63686172 		.ascii	"char\000"
+ 547      00
+ 548              	.LASF15:
+ 549 01be 5445524D 		.ascii	"TERM_EN_SetDriveMode\000"
+ 549      5F454E5F 
+ 549      53657444 
+ 549      72697665 
+ 549      4D6F6465 
+ 550              	.LASF2:
+ 551 01d3 73686F72 		.ascii	"short int\000"
+ 551      7420696E 
+ 551      7400
+ 552              	.LASF12:
+ 553 01dd 75696E74 		.ascii	"uint8\000"
+ 553      3800
+ 554              	.LASF4:
+ 555 01e3 6C6F6E67 		.ascii	"long int\000"
+ 555      20696E74 
+ 555      00
+ 556              	.LASF0:
+ 557 01ec 7369676E 		.ascii	"signed char\000"
+ 557      65642063 
+ 557      68617200 
+ 558              	.LASF19:
+ 559 01f8 5445524D 		.ascii	"TERM_EN_ReadDataReg\000"
+ 559      5F454E5F 
+ 559      52656164 
+ 559      44617461 
+ 559      52656700 
+ 560              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,1392 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_descr.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	USBFS_TABLE
+  20              		.global	USBFS_DEVICE0_TABLE
+  21              		.global	USBFS_DEVICE0_CONFIGURATION0_TABLE
+  22              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+  23              		.global	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+  24              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+  25              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+  26              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+  27              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF,65,1
+  28              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB,4,2
+  29              		.global	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+  30              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF,65,1
+  31              		.comm	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB,4,2
+  32              		.global	USBFS_HIDREPORT_DESCRIPTOR1
+  33              		.global	USBFS_SN_STRING_DESCRIPTOR
+  34              		.global	USBFS_STRING_DESCRIPTORS
+  35              		.global	USBFS_DEVICE0_CONFIGURATION0_DESCR
+  36              		.global	USBFS_DEVICE0_DESCR
+  37              		.section	.rodata
+  38              		.align	2
+  39              		.type	USBFS_TABLE, %object
+  40              		.size	USBFS_TABLE, 8
+  41              	USBFS_TABLE:
+  42 0000 01       		.byte	1
+  43 0001 000000   		.space	3
+  44 0004 00000000 		.word	USBFS_DEVICE0_TABLE
+  45              		.type	USBFS_DEVICE0_TABLE, %object
+  46              		.size	USBFS_DEVICE0_TABLE, 16
+  47              	USBFS_DEVICE0_TABLE:
+  48 0008 01       		.byte	1
+  49 0009 000000   		.space	3
+  50 000c 00000000 		.word	USBFS_DEVICE0_DESCR
+  51 0010 01       		.byte	1
+  52 0011 000000   		.space	3
+  53 0014 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_TABLE
+  54              		.type	USBFS_DEVICE0_CONFIGURATION0_TABLE, %object
+  55              		.size	USBFS_DEVICE0_CONFIGURATION0_TABLE, 32
+  56              	USBFS_DEVICE0_CONFIGURATION0_TABLE:
+  57 0018 01       		.byte	1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 2
+
+
+  58 0019 000000   		.space	3
+  59 001c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_DESCR
+  60 0020 02       		.byte	2
+  61 0021 000000   		.space	3
+  62 0024 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+  63 0028 01       		.byte	1
+  64 0029 000000   		.space	3
+  65 002c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+  66 0030 00       		.byte	0
+  67 0031 000000   		.space	3
+  68 0034 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+  69              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, %object
+  70              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, 1
+  71              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS:
+  72 0038 03       		.byte	3
+  73 0039 00       		.space	1
+  74              		.type	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, %object
+  75              		.size	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, 16
+  76              	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE:
+  77 003a 00       		.byte	0
+  78 003b 00       		.byte	0
+  79 003c 01       		.byte	1
+  80 003d 03       		.byte	3
+  81 003e 4000     		.short	64
+  82 0040 03       		.byte	3
+  83 0041 00       		.space	1
+  84 0042 00       		.byte	0
+  85 0043 00       		.byte	0
+  86 0044 82       		.byte	-126
+  87 0045 03       		.byte	3
+  88 0046 4000     		.short	64
+  89 0048 03       		.byte	3
+  90 0049 00       		.space	1
+  91 004a 0000     		.space	2
+  92              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE, %object
+  93              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE, 8
+  94              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE:
+  95 004c 01       		.byte	1
+  96 004d 000000   		.space	3
+  97 0050 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+  98              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE, %object
+  99              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE, 40
+ 100              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE:
+ 101 0054 00       		.byte	0
+ 102 0055 000000   		.space	3
+ 103 0058 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+ 104 005c 00       		.byte	0
+ 105 005d 000000   		.space	3
+ 106 0060 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+ 107 0064 00       		.byte	0
+ 108 0065 000000   		.space	3
+ 109 0068 00000000 		.word	0
+ 110 006c 01       		.byte	1
+ 111 006d 000000   		.space	3
+ 112 0070 00000000 		.word	USBFS_HIDREPORT_DESCRIPTOR1
+ 113 0074 01       		.byte	1
+ 114 0075 000000   		.space	3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 3
+
+
+ 115 0078 12000000 		.word	USBFS_DEVICE0_CONFIGURATION0_DESCR+18
+ 116              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE, %object
+ 117              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE, 12
+ 118              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE:
+ 119 007c 4100     		.short	65
+ 120 007e 0000     		.space	2
+ 121 0080 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF
+ 122 0084 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB
+ 123              		.type	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE, %object
+ 124              		.size	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE, 12
+ 125              	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE:
+ 126 0088 4100     		.short	65
+ 127 008a 0000     		.space	2
+ 128 008c 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+ 129 0090 00000000 		.word	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+ 130              		.type	USBFS_HIDREPORT_DESCRIPTOR1, %object
+ 131              		.size	USBFS_HIDREPORT_DESCRIPTOR1, 40
+ 132              	USBFS_HIDREPORT_DESCRIPTOR1:
+ 133 0094 24       		.byte	36
+ 134 0095 00       		.byte	0
+ 135 0096 05       		.byte	5
+ 136 0097 01       		.byte	1
+ 137 0098 09       		.byte	9
+ 138 0099 00       		.byte	0
+ 139 009a A1       		.byte	-95
+ 140 009b 00       		.byte	0
+ 141 009c 09       		.byte	9
+ 142 009d 00       		.byte	0
+ 143 009e A1       		.byte	-95
+ 144 009f 00       		.byte	0
+ 145 00a0 09       		.byte	9
+ 146 00a1 00       		.byte	0
+ 147 00a2 15       		.byte	21
+ 148 00a3 00       		.byte	0
+ 149 00a4 25       		.byte	37
+ 150 00a5 FF       		.byte	-1
+ 151 00a6 75       		.byte	117
+ 152 00a7 08       		.byte	8
+ 153 00a8 95       		.byte	-107
+ 154 00a9 40       		.byte	64
+ 155 00aa 91       		.byte	-111
+ 156 00ab 02       		.byte	2
+ 157 00ac 09       		.byte	9
+ 158 00ad 00       		.byte	0
+ 159 00ae 15       		.byte	21
+ 160 00af 00       		.byte	0
+ 161 00b0 25       		.byte	37
+ 162 00b1 FF       		.byte	-1
+ 163 00b2 75       		.byte	117
+ 164 00b3 08       		.byte	8
+ 165 00b4 95       		.byte	-107
+ 166 00b5 40       		.byte	64
+ 167 00b6 81       		.byte	-127
+ 168 00b7 02       		.byte	2
+ 169 00b8 C0       		.byte	-64
+ 170 00b9 C0       		.byte	-64
+ 171 00ba 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 4
+
+
+ 172 00bb 00       		.byte	0
+ 173              		.type	USBFS_SN_STRING_DESCRIPTOR, %object
+ 174              		.size	USBFS_SN_STRING_DESCRIPTOR, 10
+ 175              	USBFS_SN_STRING_DESCRIPTOR:
+ 176 00bc 0A       		.byte	10
+ 177 00bd 03       		.byte	3
+ 178 00be 30       		.byte	48
+ 179 00bf 00       		.byte	0
+ 180 00c0 30       		.byte	48
+ 181 00c1 00       		.byte	0
+ 182 00c2 30       		.byte	48
+ 183 00c3 00       		.byte	0
+ 184 00c4 31       		.byte	49
+ 185 00c5 00       		.byte	0
+ 186              		.type	USBFS_STRING_DESCRIPTORS, %object
+ 187              		.size	USBFS_STRING_DESCRIPTORS, 83
+ 188              	USBFS_STRING_DESCRIPTORS:
+ 189 00c6 04       		.byte	4
+ 190 00c7 03       		.byte	3
+ 191 00c8 09       		.byte	9
+ 192 00c9 04       		.byte	4
+ 193 00ca 2C       		.byte	44
+ 194 00cb 03       		.byte	3
+ 195 00cc 43       		.byte	67
+ 196 00cd 00       		.byte	0
+ 197 00ce 79       		.byte	121
+ 198 00cf 00       		.byte	0
+ 199 00d0 70       		.byte	112
+ 200 00d1 00       		.byte	0
+ 201 00d2 72       		.byte	114
+ 202 00d3 00       		.byte	0
+ 203 00d4 65       		.byte	101
+ 204 00d5 00       		.byte	0
+ 205 00d6 73       		.byte	115
+ 206 00d7 00       		.byte	0
+ 207 00d8 73       		.byte	115
+ 208 00d9 00       		.byte	0
+ 209 00da 20       		.byte	32
+ 210 00db 00       		.byte	0
+ 211 00dc 53       		.byte	83
+ 212 00dd 00       		.byte	0
+ 213 00de 65       		.byte	101
+ 214 00df 00       		.byte	0
+ 215 00e0 6D       		.byte	109
+ 216 00e1 00       		.byte	0
+ 217 00e2 69       		.byte	105
+ 218 00e3 00       		.byte	0
+ 219 00e4 63       		.byte	99
+ 220 00e5 00       		.byte	0
+ 221 00e6 6F       		.byte	111
+ 222 00e7 00       		.byte	0
+ 223 00e8 6E       		.byte	110
+ 224 00e9 00       		.byte	0
+ 225 00ea 64       		.byte	100
+ 226 00eb 00       		.byte	0
+ 227 00ec 75       		.byte	117
+ 228 00ed 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 5
+
+
+ 229 00ee 63       		.byte	99
+ 230 00ef 00       		.byte	0
+ 231 00f0 74       		.byte	116
+ 232 00f1 00       		.byte	0
+ 233 00f2 6F       		.byte	111
+ 234 00f3 00       		.byte	0
+ 235 00f4 72       		.byte	114
+ 236 00f5 00       		.byte	0
+ 237 00f6 22       		.byte	34
+ 238 00f7 03       		.byte	3
+ 239 00f8 50       		.byte	80
+ 240 00f9 00       		.byte	0
+ 241 00fa 53       		.byte	83
+ 242 00fb 00       		.byte	0
+ 243 00fc 6F       		.byte	111
+ 244 00fd 00       		.byte	0
+ 245 00fe 43       		.byte	67
+ 246 00ff 00       		.byte	0
+ 247 0100 33       		.byte	51
+ 248 0101 00       		.byte	0
+ 249 0102 20       		.byte	32
+ 250 0103 00       		.byte	0
+ 251 0104 42       		.byte	66
+ 252 0105 00       		.byte	0
+ 253 0106 6F       		.byte	111
+ 254 0107 00       		.byte	0
+ 255 0108 6F       		.byte	111
+ 256 0109 00       		.byte	0
+ 257 010a 74       		.byte	116
+ 258 010b 00       		.byte	0
+ 259 010c 6C       		.byte	108
+ 260 010d 00       		.byte	0
+ 261 010e 6F       		.byte	111
+ 262 010f 00       		.byte	0
+ 263 0110 61       		.byte	97
+ 264 0111 00       		.byte	0
+ 265 0112 64       		.byte	100
+ 266 0113 00       		.byte	0
+ 267 0114 65       		.byte	101
+ 268 0115 00       		.byte	0
+ 269 0116 72       		.byte	114
+ 270 0117 00       		.byte	0
+ 271 0118 00       		.byte	0
+ 272              		.type	USBFS_DEVICE0_CONFIGURATION0_DESCR, %object
+ 273              		.size	USBFS_DEVICE0_CONFIGURATION0_DESCR, 41
+ 274              	USBFS_DEVICE0_CONFIGURATION0_DESCR:
+ 275 0119 09       		.byte	9
+ 276 011a 02       		.byte	2
+ 277 011b 29       		.byte	41
+ 278 011c 00       		.byte	0
+ 279 011d 01       		.byte	1
+ 280 011e 01       		.byte	1
+ 281 011f 00       		.byte	0
+ 282 0120 80       		.byte	-128
+ 283 0121 00       		.byte	0
+ 284 0122 09       		.byte	9
+ 285 0123 04       		.byte	4
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 6
+
+
+ 286 0124 00       		.byte	0
+ 287 0125 00       		.byte	0
+ 288 0126 02       		.byte	2
+ 289 0127 03       		.byte	3
+ 290 0128 00       		.byte	0
+ 291 0129 00       		.byte	0
+ 292 012a 02       		.byte	2
+ 293 012b 09       		.byte	9
+ 294 012c 21       		.byte	33
+ 295 012d 11       		.byte	17
+ 296 012e 01       		.byte	1
+ 297 012f 00       		.byte	0
+ 298 0130 01       		.byte	1
+ 299 0131 22       		.byte	34
+ 300 0132 24       		.byte	36
+ 301 0133 00       		.byte	0
+ 302 0134 07       		.byte	7
+ 303 0135 05       		.byte	5
+ 304 0136 01       		.byte	1
+ 305 0137 03       		.byte	3
+ 306 0138 40       		.byte	64
+ 307 0139 00       		.byte	0
+ 308 013a 01       		.byte	1
+ 309 013b 07       		.byte	7
+ 310 013c 05       		.byte	5
+ 311 013d 82       		.byte	-126
+ 312 013e 03       		.byte	3
+ 313 013f 40       		.byte	64
+ 314 0140 00       		.byte	0
+ 315 0141 01       		.byte	1
+ 316              		.type	USBFS_DEVICE0_DESCR, %object
+ 317              		.size	USBFS_DEVICE0_DESCR, 18
+ 318              	USBFS_DEVICE0_DESCR:
+ 319 0142 12       		.byte	18
+ 320 0143 01       		.byte	1
+ 321 0144 00       		.byte	0
+ 322 0145 02       		.byte	2
+ 323 0146 00       		.byte	0
+ 324 0147 00       		.byte	0
+ 325 0148 00       		.byte	0
+ 326 0149 08       		.byte	8
+ 327 014a B4       		.byte	-76
+ 328 014b 04       		.byte	4
+ 329 014c 1D       		.byte	29
+ 330 014d B7       		.byte	-73
+ 331 014e 03       		.byte	3
+ 332 014f 30       		.byte	48
+ 333 0150 01       		.byte	1
+ 334 0151 02       		.byte	2
+ 335 0152 80       		.byte	-128
+ 336 0153 01       		.byte	1
+ 337              		.text
+ 338              	.Letext0:
+ 339              		.file 1 "Generated_Source\\PSoC5\\cytypes.h"
+ 340              		.file 2 "Generated_Source\\PSoC5\\USBFS.h"
+ 341              		.file 3 "Generated_Source\\PSoC5\\USBFS_descr.c"
+ 342              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 7
+
+
+ 343              	.Ldebug_info0:
+ 344 0000 F9030000 		.4byte	0x3f9
+ 345 0004 0400     		.2byte	0x4
+ 346 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 347 000a 04       		.byte	0x4
+ 348 000b 01       		.uleb128 0x1
+ 349 000c 93020000 		.4byte	.LASF50
+ 350 0010 0C       		.byte	0xc
+ 351 0011 50040000 		.4byte	.LASF51
+ 352 0015 39010000 		.4byte	.LASF52
+ 353 0019 00000000 		.4byte	.Ldebug_line0
+ 354 001d 02       		.uleb128 0x2
+ 355 001e 01       		.byte	0x1
+ 356 001f 06       		.byte	0x6
+ 357 0020 7F050000 		.4byte	.LASF0
+ 358 0024 02       		.uleb128 0x2
+ 359 0025 01       		.byte	0x1
+ 360 0026 08       		.byte	0x8
+ 361 0027 AA040000 		.4byte	.LASF1
+ 362 002b 02       		.uleb128 0x2
+ 363 002c 02       		.byte	0x2
+ 364 002d 05       		.byte	0x5
+ 365 002e EB040000 		.4byte	.LASF2
+ 366 0032 02       		.uleb128 0x2
+ 367 0033 02       		.byte	0x2
+ 368 0034 07       		.byte	0x7
+ 369 0035 26010000 		.4byte	.LASF3
+ 370 0039 02       		.uleb128 0x2
+ 371 003a 04       		.byte	0x4
+ 372 003b 05       		.byte	0x5
+ 373 003c 63050000 		.4byte	.LASF4
+ 374 0040 02       		.uleb128 0x2
+ 375 0041 04       		.byte	0x4
+ 376 0042 07       		.byte	0x7
+ 377 0043 1A040000 		.4byte	.LASF5
+ 378 0047 02       		.uleb128 0x2
+ 379 0048 08       		.byte	0x8
+ 380 0049 05       		.byte	0x5
+ 381 004a C1040000 		.4byte	.LASF6
+ 382 004e 02       		.uleb128 0x2
+ 383 004f 08       		.byte	0x8
+ 384 0050 07       		.byte	0x7
+ 385 0051 39040000 		.4byte	.LASF7
+ 386 0055 03       		.uleb128 0x3
+ 387 0056 04       		.byte	0x4
+ 388 0057 05       		.byte	0x5
+ 389 0058 696E7400 		.ascii	"int\000"
+ 390 005c 02       		.uleb128 0x2
+ 391 005d 04       		.byte	0x4
+ 392 005e 07       		.byte	0x7
+ 393 005f 2C040000 		.4byte	.LASF8
+ 394 0063 04       		.uleb128 0x4
+ 395 0064 53050000 		.4byte	.LASF9
+ 396 0068 01       		.byte	0x1
+ 397 0069 A1       		.byte	0xa1
+ 398 006a 24000000 		.4byte	0x24
+ 399 006e 04       		.uleb128 0x4
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 8
+
+
+ 400 006f C1030000 		.4byte	.LASF10
+ 401 0073 01       		.byte	0x1
+ 402 0074 A2       		.byte	0xa2
+ 403 0075 32000000 		.4byte	0x32
+ 404 0079 02       		.uleb128 0x2
+ 405 007a 04       		.byte	0x4
+ 406 007b 04       		.byte	0x4
+ 407 007c 10020000 		.4byte	.LASF11
+ 408 0080 02       		.uleb128 0x2
+ 409 0081 08       		.byte	0x8
+ 410 0082 04       		.byte	0x4
+ 411 0083 BA030000 		.4byte	.LASF12
+ 412 0087 02       		.uleb128 0x2
+ 413 0088 01       		.byte	0x1
+ 414 0089 08       		.byte	0x8
+ 415 008a DB040000 		.4byte	.LASF13
+ 416 008e 05       		.uleb128 0x5
+ 417 008f 63000000 		.4byte	0x63
+ 418 0093 02       		.uleb128 0x2
+ 419 0094 08       		.byte	0x8
+ 420 0095 04       		.byte	0x4
+ 421 0096 73050000 		.4byte	.LASF14
+ 422 009a 02       		.uleb128 0x2
+ 423 009b 04       		.byte	0x4
+ 424 009c 07       		.byte	0x7
+ 425 009d B8040000 		.4byte	.LASF15
+ 426 00a1 06       		.uleb128 0x6
+ 427 00a2 08       		.byte	0x8
+ 428 00a3 02       		.byte	0x2
+ 429 00a4 8C       		.byte	0x8c
+ 430 00a5 F2000000 		.4byte	0xf2
+ 431 00a9 07       		.uleb128 0x7
+ 432 00aa 59050000 		.4byte	.LASF16
+ 433 00ae 02       		.byte	0x2
+ 434 00af 8E       		.byte	0x8e
+ 435 00b0 63000000 		.4byte	0x63
+ 436 00b4 00       		.byte	0
+ 437 00b5 07       		.uleb128 0x7
+ 438 00b6 FA010000 		.4byte	.LASF17
+ 439 00ba 02       		.byte	0x2
+ 440 00bb 8F       		.byte	0x8f
+ 441 00bc 63000000 		.4byte	0x63
+ 442 00c0 01       		.byte	0x1
+ 443 00c1 07       		.uleb128 0x7
+ 444 00c2 21030000 		.4byte	.LASF18
+ 445 00c6 02       		.byte	0x2
+ 446 00c7 90       		.byte	0x90
+ 447 00c8 63000000 		.4byte	0x63
+ 448 00cc 02       		.byte	0x2
+ 449 00cd 07       		.uleb128 0x7
+ 450 00ce 6E020000 		.4byte	.LASF19
+ 451 00d2 02       		.byte	0x2
+ 452 00d3 91       		.byte	0x91
+ 453 00d4 63000000 		.4byte	0x63
+ 454 00d8 03       		.byte	0x3
+ 455 00d9 07       		.uleb128 0x7
+ 456 00da E0040000 		.4byte	.LASF20
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 9
+
+
+ 457 00de 02       		.byte	0x2
+ 458 00df 92       		.byte	0x92
+ 459 00e0 6E000000 		.4byte	0x6e
+ 460 00e4 04       		.byte	0x4
+ 461 00e5 07       		.uleb128 0x7
+ 462 00e6 92050000 		.4byte	.LASF21
+ 463 00ea 02       		.byte	0x2
+ 464 00eb 93       		.byte	0x93
+ 465 00ec 63000000 		.4byte	0x63
+ 466 00f0 06       		.byte	0x6
+ 467 00f1 00       		.byte	0
+ 468 00f2 04       		.uleb128 0x4
+ 469 00f3 7C040000 		.4byte	.LASF22
+ 470 00f7 02       		.byte	0x2
+ 471 00f8 94       		.byte	0x94
+ 472 00f9 A1000000 		.4byte	0xa1
+ 473 00fd 06       		.uleb128 0x6
+ 474 00fe 04       		.byte	0x4
+ 475 00ff 02       		.byte	0x2
+ 476 0100 96       		.byte	0x96
+ 477 0101 1E010000 		.4byte	0x11e
+ 478 0105 07       		.uleb128 0x7
+ 479 0106 6C050000 		.4byte	.LASF23
+ 480 010a 02       		.byte	0x2
+ 481 010b 98       		.byte	0x98
+ 482 010c 63000000 		.4byte	0x63
+ 483 0110 00       		.byte	0
+ 484 0111 07       		.uleb128 0x7
+ 485 0112 8B050000 		.4byte	.LASF24
+ 486 0116 02       		.byte	0x2
+ 487 0117 99       		.byte	0x99
+ 488 0118 6E000000 		.4byte	0x6e
+ 489 011c 02       		.byte	0x2
+ 490 011d 00       		.byte	0
+ 491 011e 04       		.uleb128 0x4
+ 492 011f 79020000 		.4byte	.LASF25
+ 493 0123 02       		.byte	0x2
+ 494 0124 9A       		.byte	0x9a
+ 495 0125 FD000000 		.4byte	0xfd
+ 496 0129 06       		.uleb128 0x6
+ 497 012a 0C       		.byte	0xc
+ 498 012b 02       		.byte	0x2
+ 499 012c 9C       		.byte	0x9c
+ 500 012d 56010000 		.4byte	0x156
+ 501 0131 07       		.uleb128 0x7
+ 502 0132 F2000000 		.4byte	.LASF26
+ 503 0136 02       		.byte	0x2
+ 504 0137 9E       		.byte	0x9e
+ 505 0138 6E000000 		.4byte	0x6e
+ 506 013c 00       		.byte	0
+ 507 013d 07       		.uleb128 0x7
+ 508 013e F4010000 		.4byte	.LASF27
+ 509 0142 02       		.byte	0x2
+ 510 0143 9F       		.byte	0x9f
+ 511 0144 56010000 		.4byte	0x156
+ 512 0148 04       		.byte	0x4
+ 513 0149 07       		.uleb128 0x7
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 10
+
+
+ 514 014a 23000000 		.4byte	.LASF28
+ 515 014e 02       		.byte	0x2
+ 516 014f A0       		.byte	0xa0
+ 517 0150 5C010000 		.4byte	0x15c
+ 518 0154 08       		.byte	0x8
+ 519 0155 00       		.byte	0
+ 520 0156 08       		.uleb128 0x8
+ 521 0157 04       		.byte	0x4
+ 522 0158 8E000000 		.4byte	0x8e
+ 523 015c 08       		.uleb128 0x8
+ 524 015d 04       		.byte	0x4
+ 525 015e 1E010000 		.4byte	0x11e
+ 526 0162 04       		.uleb128 0x4
+ 527 0163 05020000 		.4byte	.LASF29
+ 528 0167 02       		.byte	0x2
+ 529 0168 A1       		.byte	0xa1
+ 530 0169 29010000 		.4byte	0x129
+ 531 016d 06       		.uleb128 0x6
+ 532 016e 08       		.byte	0x8
+ 533 016f 02       		.byte	0x2
+ 534 0170 A4       		.byte	0xa4
+ 535 0171 8C010000 		.4byte	0x18c
+ 536 0175 09       		.uleb128 0x9
+ 537 0176 6300     		.ascii	"c\000"
+ 538 0178 02       		.byte	0x2
+ 539 0179 A6       		.byte	0xa6
+ 540 017a 63000000 		.4byte	0x63
+ 541 017e 00       		.byte	0
+ 542 017f 07       		.uleb128 0x7
+ 543 0180 75040000 		.4byte	.LASF30
+ 544 0184 02       		.byte	0x2
+ 545 0185 A7       		.byte	0xa7
+ 546 0186 8C010000 		.4byte	0x18c
+ 547 018a 04       		.byte	0x4
+ 548 018b 00       		.byte	0
+ 549 018c 08       		.uleb128 0x8
+ 550 018d 04       		.byte	0x4
+ 551 018e 92010000 		.4byte	0x192
+ 552 0192 0A       		.uleb128 0xa
+ 553 0193 04       		.uleb128 0x4
+ 554 0194 CF040000 		.4byte	.LASF31
+ 555 0198 02       		.byte	0x2
+ 556 0199 A8       		.byte	0xa8
+ 557 019a 6D010000 		.4byte	0x16d
+ 558 019e 0B       		.uleb128 0xb
+ 559 019f AE010000 		.4byte	0x1ae
+ 560 01a3 AE010000 		.4byte	0x1ae
+ 561 01a7 0C       		.uleb128 0xc
+ 562 01a8 9A000000 		.4byte	0x9a
+ 563 01ac 11       		.byte	0x11
+ 564 01ad 00       		.byte	0
+ 565 01ae 0D       		.uleb128 0xd
+ 566 01af 63000000 		.4byte	0x63
+ 567 01b3 0E       		.uleb128 0xe
+ 568 01b4 96040000 		.4byte	.LASF32
+ 569 01b8 03       		.byte	0x3
+ 570 01b9 26       		.byte	0x26
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 11
+
+
+ 571 01ba C4010000 		.4byte	0x1c4
+ 572 01be 05       		.uleb128 0x5
+ 573 01bf 03       		.byte	0x3
+ 574 01c0 00000000 		.4byte	USBFS_DEVICE0_DESCR
+ 575 01c4 0D       		.uleb128 0xd
+ 576 01c5 9E010000 		.4byte	0x19e
+ 577 01c9 0B       		.uleb128 0xb
+ 578 01ca AE010000 		.4byte	0x1ae
+ 579 01ce D9010000 		.4byte	0x1d9
+ 580 01d2 0C       		.uleb128 0xc
+ 581 01d3 9A000000 		.4byte	0x9a
+ 582 01d7 28       		.byte	0x28
+ 583 01d8 00       		.byte	0
+ 584 01d9 0E       		.uleb128 0xe
+ 585 01da F7030000 		.4byte	.LASF33
+ 586 01de 03       		.byte	0x3
+ 587 01df 39       		.byte	0x39
+ 588 01e0 EA010000 		.4byte	0x1ea
+ 589 01e4 05       		.uleb128 0x5
+ 590 01e5 03       		.byte	0x3
+ 591 01e6 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_DESCR
+ 592 01ea 0D       		.uleb128 0xd
+ 593 01eb C9010000 		.4byte	0x1c9
+ 594 01ef 0B       		.uleb128 0xb
+ 595 01f0 FF010000 		.4byte	0x1ff
+ 596 01f4 FF010000 		.4byte	0x1ff
+ 597 01f8 0C       		.uleb128 0xc
+ 598 01f9 9A000000 		.4byte	0x9a
+ 599 01fd 00       		.byte	0
+ 600 01fe 00       		.byte	0
+ 601 01ff 0D       		.uleb128 0xd
+ 602 0200 93010000 		.4byte	0x193
+ 603 0204 0E       		.uleb128 0xe
+ 604 0205 F8000000 		.4byte	.LASF34
+ 605 0209 03       		.byte	0x3
+ 606 020a E7       		.byte	0xe7
+ 607 020b 15020000 		.4byte	0x215
+ 608 020f 05       		.uleb128 0x5
+ 609 0210 03       		.byte	0x3
+ 610 0211 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE
+ 611 0215 0D       		.uleb128 0xd
+ 612 0216 EF010000 		.4byte	0x1ef
+ 613 021a 0B       		.uleb128 0xb
+ 614 021b 2A020000 		.4byte	0x22a
+ 615 021f 2A020000 		.4byte	0x22a
+ 616 0223 0C       		.uleb128 0xc
+ 617 0224 9A000000 		.4byte	0x9a
+ 618 0228 01       		.byte	0x1
+ 619 0229 00       		.byte	0
+ 620 022a 0D       		.uleb128 0xd
+ 621 022b F2000000 		.4byte	0xf2
+ 622 022f 0E       		.uleb128 0xe
+ 623 0230 C8030000 		.4byte	.LASF35
+ 624 0234 03       		.byte	0x3
+ 625 0235 F2       		.byte	0xf2
+ 626 0236 40020000 		.4byte	0x240
+ 627 023a 05       		.uleb128 0x5
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 12
+
+
+ 628 023b 03       		.byte	0x3
+ 629 023c 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+ 630 0240 0D       		.uleb128 0xd
+ 631 0241 1A020000 		.4byte	0x21a
+ 632 0245 0B       		.uleb128 0xb
+ 633 0246 AE010000 		.4byte	0x1ae
+ 634 024a 55020000 		.4byte	0x255
+ 635 024e 0C       		.uleb128 0xc
+ 636 024f 9A000000 		.4byte	0x9a
+ 637 0253 00       		.byte	0
+ 638 0254 00       		.byte	0
+ 639 0255 0E       		.uleb128 0xe
+ 640 0256 30000000 		.4byte	.LASF36
+ 641 025a 03       		.byte	0x3
+ 642 025b F7       		.byte	0xf7
+ 643 025c 66020000 		.4byte	0x266
+ 644 0260 05       		.uleb128 0x5
+ 645 0261 03       		.byte	0x3
+ 646 0262 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+ 647 0266 0D       		.uleb128 0xd
+ 648 0267 45020000 		.4byte	0x245
+ 649 026b 0B       		.uleb128 0xb
+ 650 026c FF010000 		.4byte	0x1ff
+ 651 0270 7B020000 		.4byte	0x27b
+ 652 0274 0C       		.uleb128 0xc
+ 653 0275 9A000000 		.4byte	0x9a
+ 654 0279 03       		.byte	0x3
+ 655 027a 00       		.byte	0
+ 656 027b 0E       		.uleb128 0xe
+ 657 027c 00000000 		.4byte	.LASF37
+ 658 0280 03       		.byte	0x3
+ 659 0281 FF       		.byte	0xff
+ 660 0282 8C020000 		.4byte	0x28c
+ 661 0286 05       		.uleb128 0x5
+ 662 0287 03       		.byte	0x3
+ 663 0288 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_TABLE
+ 664 028c 0D       		.uleb128 0xd
+ 665 028d 6B020000 		.4byte	0x26b
+ 666 0291 0B       		.uleb128 0xb
+ 667 0292 FF010000 		.4byte	0x1ff
+ 668 0296 A1020000 		.4byte	0x2a1
+ 669 029a 0C       		.uleb128 0xc
+ 670 029b 9A000000 		.4byte	0x9a
+ 671 029f 01       		.byte	0x1
+ 672 02a0 00       		.byte	0
+ 673 02a1 0F       		.uleb128 0xf
+ 674 02a2 26030000 		.4byte	.LASF38
+ 675 02a6 03       		.byte	0x3
+ 676 02a7 0901     		.2byte	0x109
+ 677 02a9 B3020000 		.4byte	0x2b3
+ 678 02ad 05       		.uleb128 0x5
+ 679 02ae 03       		.byte	0x3
+ 680 02af 00000000 		.4byte	USBFS_DEVICE0_TABLE
+ 681 02b3 0D       		.uleb128 0xd
+ 682 02b4 91020000 		.4byte	0x291
+ 683 02b8 0F       		.uleb128 0xf
+ 684 02b9 E6000000 		.4byte	.LASF39
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 13
+
+
+ 685 02bd 03       		.byte	0x3
+ 686 02be 1001     		.2byte	0x110
+ 687 02c0 CA020000 		.4byte	0x2ca
+ 688 02c4 05       		.uleb128 0x5
+ 689 02c5 03       		.byte	0x3
+ 690 02c6 00000000 		.4byte	USBFS_TABLE
+ 691 02ca 0D       		.uleb128 0xd
+ 692 02cb EF010000 		.4byte	0x1ef
+ 693 02cf 0B       		.uleb128 0xb
+ 694 02d0 AE010000 		.4byte	0x1ae
+ 695 02d4 DF020000 		.4byte	0x2df
+ 696 02d8 0C       		.uleb128 0xc
+ 697 02d9 9A000000 		.4byte	0x9a
+ 698 02dd 09       		.byte	0x9
+ 699 02de 00       		.byte	0
+ 700 02df 0E       		.uleb128 0xe
+ 701 02e0 9B010000 		.4byte	.LASF40
+ 702 02e4 03       		.byte	0x3
+ 703 02e5 91       		.byte	0x91
+ 704 02e6 F0020000 		.4byte	0x2f0
+ 705 02ea 05       		.uleb128 0x5
+ 706 02eb 03       		.byte	0x3
+ 707 02ec 00000000 		.4byte	USBFS_SN_STRING_DESCRIPTOR
+ 708 02f0 0D       		.uleb128 0xd
+ 709 02f1 CF020000 		.4byte	0x2cf
+ 710 02f5 0B       		.uleb128 0xb
+ 711 02f6 AE010000 		.4byte	0x1ae
+ 712 02fa 05030000 		.4byte	0x305
+ 713 02fe 0C       		.uleb128 0xc
+ 714 02ff 9A000000 		.4byte	0x9a
+ 715 0303 52       		.byte	0x52
+ 716 0304 00       		.byte	0
+ 717 0305 0E       		.uleb128 0xe
+ 718 0306 55020000 		.4byte	.LASF41
+ 719 030a 03       		.byte	0x3
+ 720 030b 70       		.byte	0x70
+ 721 030c 16030000 		.4byte	0x316
+ 722 0310 05       		.uleb128 0x5
+ 723 0311 03       		.byte	0x3
+ 724 0312 00000000 		.4byte	USBFS_STRING_DESCRIPTORS
+ 725 0316 0D       		.uleb128 0xd
+ 726 0317 F5020000 		.4byte	0x2f5
+ 727 031b 0E       		.uleb128 0xe
+ 728 031c 11050000 		.4byte	.LASF42
+ 729 0320 03       		.byte	0x3
+ 730 0321 B8       		.byte	0xb8
+ 731 0322 1E010000 		.4byte	0x11e
+ 732 0326 05       		.uleb128 0x5
+ 733 0327 03       		.byte	0x3
+ 734 0328 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_SCB
+ 735 032c 0B       		.uleb128 0xb
+ 736 032d 63000000 		.4byte	0x63
+ 737 0331 3C030000 		.4byte	0x33c
+ 738 0335 0C       		.uleb128 0xc
+ 739 0336 9A000000 		.4byte	0x9a
+ 740 033a 40       		.byte	0x40
+ 741 033b 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 14
+
+
+ 742 033c 0E       		.uleb128 0xe
+ 743 033d B6010000 		.4byte	.LASF43
+ 744 0341 03       		.byte	0x3
+ 745 0342 B9       		.byte	0xb9
+ 746 0343 2C030000 		.4byte	0x32c
+ 747 0347 05       		.uleb128 0x5
+ 748 0348 03       		.byte	0x3
+ 749 0349 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_BUF
+ 750 034d 0E       		.uleb128 0xe
+ 751 034e 3A030000 		.4byte	.LASF44
+ 752 0352 03       		.byte	0x3
+ 753 0353 C7       		.byte	0xc7
+ 754 0354 1E010000 		.4byte	0x11e
+ 755 0358 05       		.uleb128 0x5
+ 756 0359 03       		.byte	0x3
+ 757 035a 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_SCB
+ 758 035e 0E       		.uleb128 0xe
+ 759 035f 16020000 		.4byte	.LASF45
+ 760 0363 03       		.byte	0x3
+ 761 0364 C8       		.byte	0xc8
+ 762 0365 2C030000 		.4byte	0x32c
+ 763 0369 05       		.uleb128 0x5
+ 764 036a 03       		.byte	0x3
+ 765 036b 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_BUF
+ 766 036f 0B       		.uleb128 0xb
+ 767 0370 AE010000 		.4byte	0x1ae
+ 768 0374 7F030000 		.4byte	0x37f
+ 769 0378 0C       		.uleb128 0xc
+ 770 0379 9A000000 		.4byte	0x9a
+ 771 037d 27       		.byte	0x27
+ 772 037e 00       		.byte	0
+ 773 037f 0E       		.uleb128 0xe
+ 774 0380 F5040000 		.4byte	.LASF46
+ 775 0384 03       		.byte	0x3
+ 776 0385 9A       		.byte	0x9a
+ 777 0386 90030000 		.4byte	0x390
+ 778 038a 05       		.uleb128 0x5
+ 779 038b 03       		.byte	0x3
+ 780 038c 00000000 		.4byte	USBFS_HIDREPORT_DESCRIPTOR1
+ 781 0390 0D       		.uleb128 0xd
+ 782 0391 6F030000 		.4byte	0x36f
+ 783 0395 0B       		.uleb128 0xb
+ 784 0396 A5030000 		.4byte	0x3a5
+ 785 039a A5030000 		.4byte	0x3a5
+ 786 039e 0C       		.uleb128 0xc
+ 787 039f 9A000000 		.4byte	0x9a
+ 788 03a3 00       		.byte	0
+ 789 03a4 00       		.byte	0
+ 790 03a5 0D       		.uleb128 0xd
+ 791 03a6 62010000 		.4byte	0x162
+ 792 03aa 0E       		.uleb128 0xe
+ 793 03ab A2000000 		.4byte	.LASF47
+ 794 03af 03       		.byte	0x3
+ 795 03b0 BF       		.byte	0xbf
+ 796 03b1 BB030000 		.4byte	0x3bb
+ 797 03b5 05       		.uleb128 0x5
+ 798 03b6 03       		.byte	0x3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 15
+
+
+ 799 03b7 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_IN_RPT_TABLE
+ 800 03bb 0D       		.uleb128 0xd
+ 801 03bc 95030000 		.4byte	0x395
+ 802 03c0 0E       		.uleb128 0xe
+ 803 03c1 5D000000 		.4byte	.LASF48
+ 804 03c5 03       		.byte	0x3
+ 805 03c6 CE       		.byte	0xce
+ 806 03c7 D1030000 		.4byte	0x3d1
+ 807 03cb 05       		.uleb128 0x5
+ 808 03cc 03       		.byte	0x3
+ 809 03cd 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_OUT_RPT_TABLE
+ 810 03d1 0D       		.uleb128 0xd
+ 811 03d2 95030000 		.4byte	0x395
+ 812 03d6 0B       		.uleb128 0xb
+ 813 03d7 FF010000 		.4byte	0x1ff
+ 814 03db E6030000 		.4byte	0x3e6
+ 815 03df 0C       		.uleb128 0xc
+ 816 03e0 9A000000 		.4byte	0x9a
+ 817 03e4 04       		.byte	0x4
+ 818 03e5 00       		.byte	0
+ 819 03e6 0E       		.uleb128 0xe
+ 820 03e7 7D030000 		.4byte	.LASF49
+ 821 03eb 03       		.byte	0x3
+ 822 03ec DB       		.byte	0xdb
+ 823 03ed F7030000 		.4byte	0x3f7
+ 824 03f1 05       		.uleb128 0x5
+ 825 03f2 03       		.byte	0x3
+ 826 03f3 00000000 		.4byte	USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_HID_TABLE
+ 827 03f7 0D       		.uleb128 0xd
+ 828 03f8 D6030000 		.4byte	0x3d6
+ 829 03fc 00       		.byte	0
+ 830              		.section	.debug_abbrev,"",%progbits
+ 831              	.Ldebug_abbrev0:
+ 832 0000 01       		.uleb128 0x1
+ 833 0001 11       		.uleb128 0x11
+ 834 0002 01       		.byte	0x1
+ 835 0003 25       		.uleb128 0x25
+ 836 0004 0E       		.uleb128 0xe
+ 837 0005 13       		.uleb128 0x13
+ 838 0006 0B       		.uleb128 0xb
+ 839 0007 03       		.uleb128 0x3
+ 840 0008 0E       		.uleb128 0xe
+ 841 0009 1B       		.uleb128 0x1b
+ 842 000a 0E       		.uleb128 0xe
+ 843 000b 10       		.uleb128 0x10
+ 844 000c 17       		.uleb128 0x17
+ 845 000d 00       		.byte	0
+ 846 000e 00       		.byte	0
+ 847 000f 02       		.uleb128 0x2
+ 848 0010 24       		.uleb128 0x24
+ 849 0011 00       		.byte	0
+ 850 0012 0B       		.uleb128 0xb
+ 851 0013 0B       		.uleb128 0xb
+ 852 0014 3E       		.uleb128 0x3e
+ 853 0015 0B       		.uleb128 0xb
+ 854 0016 03       		.uleb128 0x3
+ 855 0017 0E       		.uleb128 0xe
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 16
+
+
+ 856 0018 00       		.byte	0
+ 857 0019 00       		.byte	0
+ 858 001a 03       		.uleb128 0x3
+ 859 001b 24       		.uleb128 0x24
+ 860 001c 00       		.byte	0
+ 861 001d 0B       		.uleb128 0xb
+ 862 001e 0B       		.uleb128 0xb
+ 863 001f 3E       		.uleb128 0x3e
+ 864 0020 0B       		.uleb128 0xb
+ 865 0021 03       		.uleb128 0x3
+ 866 0022 08       		.uleb128 0x8
+ 867 0023 00       		.byte	0
+ 868 0024 00       		.byte	0
+ 869 0025 04       		.uleb128 0x4
+ 870 0026 16       		.uleb128 0x16
+ 871 0027 00       		.byte	0
+ 872 0028 03       		.uleb128 0x3
+ 873 0029 0E       		.uleb128 0xe
+ 874 002a 3A       		.uleb128 0x3a
+ 875 002b 0B       		.uleb128 0xb
+ 876 002c 3B       		.uleb128 0x3b
+ 877 002d 0B       		.uleb128 0xb
+ 878 002e 49       		.uleb128 0x49
+ 879 002f 13       		.uleb128 0x13
+ 880 0030 00       		.byte	0
+ 881 0031 00       		.byte	0
+ 882 0032 05       		.uleb128 0x5
+ 883 0033 35       		.uleb128 0x35
+ 884 0034 00       		.byte	0
+ 885 0035 49       		.uleb128 0x49
+ 886 0036 13       		.uleb128 0x13
+ 887 0037 00       		.byte	0
+ 888 0038 00       		.byte	0
+ 889 0039 06       		.uleb128 0x6
+ 890 003a 13       		.uleb128 0x13
+ 891 003b 01       		.byte	0x1
+ 892 003c 0B       		.uleb128 0xb
+ 893 003d 0B       		.uleb128 0xb
+ 894 003e 3A       		.uleb128 0x3a
+ 895 003f 0B       		.uleb128 0xb
+ 896 0040 3B       		.uleb128 0x3b
+ 897 0041 0B       		.uleb128 0xb
+ 898 0042 01       		.uleb128 0x1
+ 899 0043 13       		.uleb128 0x13
+ 900 0044 00       		.byte	0
+ 901 0045 00       		.byte	0
+ 902 0046 07       		.uleb128 0x7
+ 903 0047 0D       		.uleb128 0xd
+ 904 0048 00       		.byte	0
+ 905 0049 03       		.uleb128 0x3
+ 906 004a 0E       		.uleb128 0xe
+ 907 004b 3A       		.uleb128 0x3a
+ 908 004c 0B       		.uleb128 0xb
+ 909 004d 3B       		.uleb128 0x3b
+ 910 004e 0B       		.uleb128 0xb
+ 911 004f 49       		.uleb128 0x49
+ 912 0050 13       		.uleb128 0x13
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 17
+
+
+ 913 0051 38       		.uleb128 0x38
+ 914 0052 0B       		.uleb128 0xb
+ 915 0053 00       		.byte	0
+ 916 0054 00       		.byte	0
+ 917 0055 08       		.uleb128 0x8
+ 918 0056 0F       		.uleb128 0xf
+ 919 0057 00       		.byte	0
+ 920 0058 0B       		.uleb128 0xb
+ 921 0059 0B       		.uleb128 0xb
+ 922 005a 49       		.uleb128 0x49
+ 923 005b 13       		.uleb128 0x13
+ 924 005c 00       		.byte	0
+ 925 005d 00       		.byte	0
+ 926 005e 09       		.uleb128 0x9
+ 927 005f 0D       		.uleb128 0xd
+ 928 0060 00       		.byte	0
+ 929 0061 03       		.uleb128 0x3
+ 930 0062 08       		.uleb128 0x8
+ 931 0063 3A       		.uleb128 0x3a
+ 932 0064 0B       		.uleb128 0xb
+ 933 0065 3B       		.uleb128 0x3b
+ 934 0066 0B       		.uleb128 0xb
+ 935 0067 49       		.uleb128 0x49
+ 936 0068 13       		.uleb128 0x13
+ 937 0069 38       		.uleb128 0x38
+ 938 006a 0B       		.uleb128 0xb
+ 939 006b 00       		.byte	0
+ 940 006c 00       		.byte	0
+ 941 006d 0A       		.uleb128 0xa
+ 942 006e 26       		.uleb128 0x26
+ 943 006f 00       		.byte	0
+ 944 0070 00       		.byte	0
+ 945 0071 00       		.byte	0
+ 946 0072 0B       		.uleb128 0xb
+ 947 0073 01       		.uleb128 0x1
+ 948 0074 01       		.byte	0x1
+ 949 0075 49       		.uleb128 0x49
+ 950 0076 13       		.uleb128 0x13
+ 951 0077 01       		.uleb128 0x1
+ 952 0078 13       		.uleb128 0x13
+ 953 0079 00       		.byte	0
+ 954 007a 00       		.byte	0
+ 955 007b 0C       		.uleb128 0xc
+ 956 007c 21       		.uleb128 0x21
+ 957 007d 00       		.byte	0
+ 958 007e 49       		.uleb128 0x49
+ 959 007f 13       		.uleb128 0x13
+ 960 0080 2F       		.uleb128 0x2f
+ 961 0081 0B       		.uleb128 0xb
+ 962 0082 00       		.byte	0
+ 963 0083 00       		.byte	0
+ 964 0084 0D       		.uleb128 0xd
+ 965 0085 26       		.uleb128 0x26
+ 966 0086 00       		.byte	0
+ 967 0087 49       		.uleb128 0x49
+ 968 0088 13       		.uleb128 0x13
+ 969 0089 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 18
+
+
+ 970 008a 00       		.byte	0
+ 971 008b 0E       		.uleb128 0xe
+ 972 008c 34       		.uleb128 0x34
+ 973 008d 00       		.byte	0
+ 974 008e 03       		.uleb128 0x3
+ 975 008f 0E       		.uleb128 0xe
+ 976 0090 3A       		.uleb128 0x3a
+ 977 0091 0B       		.uleb128 0xb
+ 978 0092 3B       		.uleb128 0x3b
+ 979 0093 0B       		.uleb128 0xb
+ 980 0094 49       		.uleb128 0x49
+ 981 0095 13       		.uleb128 0x13
+ 982 0096 3F       		.uleb128 0x3f
+ 983 0097 19       		.uleb128 0x19
+ 984 0098 02       		.uleb128 0x2
+ 985 0099 18       		.uleb128 0x18
+ 986 009a 00       		.byte	0
+ 987 009b 00       		.byte	0
+ 988 009c 0F       		.uleb128 0xf
+ 989 009d 34       		.uleb128 0x34
+ 990 009e 00       		.byte	0
+ 991 009f 03       		.uleb128 0x3
+ 992 00a0 0E       		.uleb128 0xe
+ 993 00a1 3A       		.uleb128 0x3a
+ 994 00a2 0B       		.uleb128 0xb
+ 995 00a3 3B       		.uleb128 0x3b
+ 996 00a4 05       		.uleb128 0x5
+ 997 00a5 49       		.uleb128 0x49
+ 998 00a6 13       		.uleb128 0x13
+ 999 00a7 3F       		.uleb128 0x3f
+ 1000 00a8 19       		.uleb128 0x19
+ 1001 00a9 02       		.uleb128 0x2
+ 1002 00aa 18       		.uleb128 0x18
+ 1003 00ab 00       		.byte	0
+ 1004 00ac 00       		.byte	0
+ 1005 00ad 00       		.byte	0
+ 1006              		.section	.debug_aranges,"",%progbits
+ 1007 0000 14000000 		.4byte	0x14
+ 1008 0004 0200     		.2byte	0x2
+ 1009 0006 00000000 		.4byte	.Ldebug_info0
+ 1010 000a 04       		.byte	0x4
+ 1011 000b 00       		.byte	0
+ 1012 000c 0000     		.2byte	0
+ 1013 000e 0000     		.2byte	0
+ 1014 0010 00000000 		.4byte	0
+ 1015 0014 00000000 		.4byte	0
+ 1016              		.section	.debug_line,"",%progbits
+ 1017              	.Ldebug_line0:
+ 1018 0000 59000000 		.section	.debug_str,"MS",%progbits,1
+ 1018      02005300 
+ 1018      00000201 
+ 1018      FB0E0D00 
+ 1018      01010101 
+ 1019              	.LASF37:
+ 1020 0000 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_TABLE\000"
+ 1020      535F4445 
+ 1020      56494345 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 19
+
+
+ 1020      305F434F 
+ 1020      4E464947 
+ 1021              	.LASF28:
+ 1022 0023 70537461 		.ascii	"pStatusBlock\000"
+ 1022      74757342 
+ 1022      6C6F636B 
+ 1022      00
+ 1023              	.LASF36:
+ 1024 0030 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE_CLASS\000"
+ 1024      535F4445 
+ 1024      56494345 
+ 1024      305F434F 
+ 1024      4E464947 
+ 1025              	.LASF48:
+ 1026 005d 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1026      535F4445 
+ 1026      56494345 
+ 1026      305F434F 
+ 1026      4E464947 
+ 1027 0090 4849445F 		.ascii	"HID_OUT_RPT_TABLE\000"
+ 1027      4F55545F 
+ 1027      5250545F 
+ 1027      5441424C 
+ 1027      4500
+ 1028              	.LASF47:
+ 1029 00a2 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1029      535F4445 
+ 1029      56494345 
+ 1029      305F434F 
+ 1029      4E464947 
+ 1030 00d5 4849445F 		.ascii	"HID_IN_RPT_TABLE\000"
+ 1030      494E5F52 
+ 1030      50545F54 
+ 1030      41424C45 
+ 1030      00
+ 1031              	.LASF39:
+ 1032 00e6 55534246 		.ascii	"USBFS_TABLE\000"
+ 1032      535F5441 
+ 1032      424C4500 
+ 1033              	.LASF26:
+ 1034 00f2 636F756E 		.ascii	"count\000"
+ 1034      7400
+ 1035              	.LASF34:
+ 1036 00f8 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_TABLE\000"
+ 1036      535F4445 
+ 1036      56494345 
+ 1036      305F434F 
+ 1036      4E464947 
+ 1037              	.LASF3:
+ 1038 0126 73686F72 		.ascii	"short unsigned int\000"
+ 1038      7420756E 
+ 1038      7369676E 
+ 1038      65642069 
+ 1038      6E7400
+ 1039              	.LASF52:
+ 1040 0139 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 1040      73657273 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 20
+
+
+ 1040      5C526162 
+ 1040      62697420 
+ 1040      486F6C65 
+ 1041 0168 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.2-eth\\USB_Bootloader.cy"
+ 1041      736F6674 
+ 1041      77617265 
+ 1041      5C534353 
+ 1041      49325344 
+ 1042 0197 64736E00 		.ascii	"dsn\000"
+ 1043              	.LASF40:
+ 1044 019b 55534246 		.ascii	"USBFS_SN_STRING_DESCRIPTOR\000"
+ 1044      535F534E 
+ 1044      5F535452 
+ 1044      494E475F 
+ 1044      44455343 
+ 1045              	.LASF43:
+ 1046 01b6 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1046      535F4445 
+ 1046      56494345 
+ 1046      305F434F 
+ 1046      4E464947 
+ 1047 01e9 4849445F 		.ascii	"HID_IN_BUF\000"
+ 1047      494E5F42 
+ 1047      554600
+ 1048              	.LASF27:
+ 1049 01f4 70446174 		.ascii	"pData\000"
+ 1049      6100
+ 1050              	.LASF17:
+ 1051 01fa 616C7453 		.ascii	"altSetting\000"
+ 1051      65747469 
+ 1051      6E6700
+ 1052              	.LASF29:
+ 1053 0205 545F5553 		.ascii	"T_USBFS_TD\000"
+ 1053      4246535F 
+ 1053      544400
+ 1054              	.LASF11:
+ 1055 0210 666C6F61 		.ascii	"float\000"
+ 1055      7400
+ 1056              	.LASF45:
+ 1057 0216 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1057      535F4445 
+ 1057      56494345 
+ 1057      305F434F 
+ 1057      4E464947 
+ 1058 0249 4849445F 		.ascii	"HID_OUT_BUF\000"
+ 1058      4F55545F 
+ 1058      42554600 
+ 1059              	.LASF41:
+ 1060 0255 55534246 		.ascii	"USBFS_STRING_DESCRIPTORS\000"
+ 1060      535F5354 
+ 1060      52494E47 
+ 1060      5F444553 
+ 1060      43524950 
+ 1061              	.LASF19:
+ 1062 026e 61747472 		.ascii	"attributes\000"
+ 1062      69627574 
+ 1062      657300
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 21
+
+
+ 1063              	.LASF25:
+ 1064 0279 545F5553 		.ascii	"T_USBFS_XFER_STATUS_BLOCK\000"
+ 1064      4246535F 
+ 1064      58464552 
+ 1064      5F535441 
+ 1064      5455535F 
+ 1065              	.LASF50:
+ 1066 0293 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1066      43313120 
+ 1066      352E342E 
+ 1066      31203230 
+ 1066      31363036 
+ 1067 02c6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1067      20726576 
+ 1067      6973696F 
+ 1067      6E203233 
+ 1067      37373135 
+ 1068 02f9 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1068      66756E63 
+ 1068      74696F6E 
+ 1068      2D736563 
+ 1068      74696F6E 
+ 1069              	.LASF18:
+ 1070 0321 61646472 		.ascii	"addr\000"
+ 1070      00
+ 1071              	.LASF38:
+ 1072 0326 55534246 		.ascii	"USBFS_DEVICE0_TABLE\000"
+ 1072      535F4445 
+ 1072      56494345 
+ 1072      305F5441 
+ 1072      424C4500 
+ 1073              	.LASF44:
+ 1074 033a 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1074      535F4445 
+ 1074      56494345 
+ 1074      305F434F 
+ 1074      4E464947 
+ 1075 036d 4849445F 		.ascii	"HID_OUT_RPT_SCB\000"
+ 1075      4F55545F 
+ 1075      5250545F 
+ 1075      53434200 
+ 1076              	.LASF49:
+ 1077 037d 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1077      535F4445 
+ 1077      56494345 
+ 1077      305F434F 
+ 1077      4E464947 
+ 1078 03b0 4849445F 		.ascii	"HID_TABLE\000"
+ 1078      5441424C 
+ 1078      4500
+ 1079              	.LASF12:
+ 1080 03ba 646F7562 		.ascii	"double\000"
+ 1080      6C6500
+ 1081              	.LASF10:
+ 1082 03c1 75696E74 		.ascii	"uint16\000"
+ 1082      313600
+ 1083              	.LASF35:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 22
+
+
+ 1084 03c8 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE\000"
+ 1084      535F4445 
+ 1084      56494345 
+ 1084      305F434F 
+ 1084      4E464947 
+ 1085              	.LASF33:
+ 1086 03f7 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_DESCR\000"
+ 1086      535F4445 
+ 1086      56494345 
+ 1086      305F434F 
+ 1086      4E464947 
+ 1087              	.LASF5:
+ 1088 041a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1088      20756E73 
+ 1088      69676E65 
+ 1088      6420696E 
+ 1088      7400
+ 1089              	.LASF8:
+ 1090 042c 756E7369 		.ascii	"unsigned int\000"
+ 1090      676E6564 
+ 1090      20696E74 
+ 1090      00
+ 1091              	.LASF7:
+ 1092 0439 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1092      206C6F6E 
+ 1092      6720756E 
+ 1092      7369676E 
+ 1092      65642069 
+ 1093              	.LASF51:
+ 1094 0450 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_descr.c\000"
+ 1094      72617465 
+ 1094      645F536F 
+ 1094      75726365 
+ 1094      5C50536F 
+ 1095              	.LASF30:
+ 1096 0475 705F6C69 		.ascii	"p_list\000"
+ 1096      737400
+ 1097              	.LASF22:
+ 1098 047c 545F5553 		.ascii	"T_USBFS_EP_SETTINGS_BLOCK\000"
+ 1098      4246535F 
+ 1098      45505F53 
+ 1098      45545449 
+ 1098      4E47535F 
+ 1099              	.LASF32:
+ 1100 0496 55534246 		.ascii	"USBFS_DEVICE0_DESCR\000"
+ 1100      535F4445 
+ 1100      56494345 
+ 1100      305F4445 
+ 1100      53435200 
+ 1101              	.LASF1:
+ 1102 04aa 756E7369 		.ascii	"unsigned char\000"
+ 1102      676E6564 
+ 1102      20636861 
+ 1102      7200
+ 1103              	.LASF15:
+ 1104 04b8 73697A65 		.ascii	"sizetype\000"
+ 1104      74797065 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 23
+
+
+ 1104      00
+ 1105              	.LASF6:
+ 1106 04c1 6C6F6E67 		.ascii	"long long int\000"
+ 1106      206C6F6E 
+ 1106      6720696E 
+ 1106      7400
+ 1107              	.LASF31:
+ 1108 04cf 545F5553 		.ascii	"T_USBFS_LUT\000"
+ 1108      4246535F 
+ 1108      4C555400 
+ 1109              	.LASF13:
+ 1110 04db 63686172 		.ascii	"char\000"
+ 1110      00
+ 1111              	.LASF20:
+ 1112 04e0 62756666 		.ascii	"bufferSize\000"
+ 1112      65725369 
+ 1112      7A6500
+ 1113              	.LASF2:
+ 1114 04eb 73686F72 		.ascii	"short int\000"
+ 1114      7420696E 
+ 1114      7400
+ 1115              	.LASF46:
+ 1116 04f5 55534246 		.ascii	"USBFS_HIDREPORT_DESCRIPTOR1\000"
+ 1116      535F4849 
+ 1116      44524550 
+ 1116      4F52545F 
+ 1116      44455343 
+ 1117              	.LASF42:
+ 1118 0511 55534246 		.ascii	"USBFS_DEVICE0_CONFIGURATION0_INTERFACE0_ALTERNATE0_"
+ 1118      535F4445 
+ 1118      56494345 
+ 1118      305F434F 
+ 1118      4E464947 
+ 1119 0544 4849445F 		.ascii	"HID_IN_RPT_SCB\000"
+ 1119      494E5F52 
+ 1119      50545F53 
+ 1119      434200
+ 1120              	.LASF9:
+ 1121 0553 75696E74 		.ascii	"uint8\000"
+ 1121      3800
+ 1122              	.LASF16:
+ 1123 0559 696E7465 		.ascii	"interface\000"
+ 1123      72666163 
+ 1123      6500
+ 1124              	.LASF4:
+ 1125 0563 6C6F6E67 		.ascii	"long int\000"
+ 1125      20696E74 
+ 1125      00
+ 1126              	.LASF23:
+ 1127 056c 73746174 		.ascii	"status\000"
+ 1127      757300
+ 1128              	.LASF14:
+ 1129 0573 6C6F6E67 		.ascii	"long double\000"
+ 1129      20646F75 
+ 1129      626C6500 
+ 1130              	.LASF0:
+ 1131 057f 7369676E 		.ascii	"signed char\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccK5ZuWu.s 			page 24
+
+
+ 1131      65642063 
+ 1131      68617200 
+ 1132              	.LASF24:
+ 1133 058b 6C656E67 		.ascii	"length\000"
+ 1133      746800
+ 1134              	.LASF21:
+ 1135 0592 624D6973 		.ascii	"bMisc\000"
+ 1135      6300
+ 1136              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

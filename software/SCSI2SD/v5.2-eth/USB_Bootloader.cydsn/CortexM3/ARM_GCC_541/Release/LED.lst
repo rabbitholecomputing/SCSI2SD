@@ -1,0 +1,800 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"LED.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.LED_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	LED_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	LED_Write, %function
+  25              	LED_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\LED.c"
+   1:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/LED.c **** * File Name: LED.c  
+   3:Generated_Source\PSoC5/LED.c **** * Version 2.10
+   4:Generated_Source\PSoC5/LED.c **** *
+   5:Generated_Source\PSoC5/LED.c **** * Description:
+   6:Generated_Source\PSoC5/LED.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/LED.c **** *
+   8:Generated_Source\PSoC5/LED.c **** * Note:
+   9:Generated_Source\PSoC5/LED.c **** *
+  10:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/LED.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/LED.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/LED.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/LED.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/LED.c **** 
+  17:Generated_Source\PSoC5/LED.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/LED.c **** #include "LED.h"
+  19:Generated_Source\PSoC5/LED.c **** 
+  20:Generated_Source\PSoC5/LED.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/LED.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/LED.c **** 	 LED__PORT == 15 && ((LED__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/LED.c **** 
+  24:Generated_Source\PSoC5/LED.c **** 
+  25:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/LED.c **** * Function Name: LED_Write
+  27:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+  28:Generated_Source\PSoC5/LED.c **** *
+  29:Generated_Source\PSoC5/LED.c **** * Summary:
+  30:Generated_Source\PSoC5/LED.c **** *  Assign a new value to the digital port's data output register.  
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 2
+
+
+  31:Generated_Source\PSoC5/LED.c **** *
+  32:Generated_Source\PSoC5/LED.c **** * Parameters:  
+  33:Generated_Source\PSoC5/LED.c **** *  prtValue:  The value to be assigned to the Digital Port. 
+  34:Generated_Source\PSoC5/LED.c **** *
+  35:Generated_Source\PSoC5/LED.c **** * Return: 
+  36:Generated_Source\PSoC5/LED.c **** *  None
+  37:Generated_Source\PSoC5/LED.c **** *  
+  38:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  39:Generated_Source\PSoC5/LED.c **** void LED_Write(uint8 value) 
+  40:Generated_Source\PSoC5/LED.c **** {
+  28              		.loc 1 40 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  41:Generated_Source\PSoC5/LED.c ****     uint8 staticBits = (LED_DR & (uint8)(~LED_MASK));
+  34              		.loc 1 41 0
+  35 0000 044A     		ldr	r2, .L2
+  42:Generated_Source\PSoC5/LED.c ****     LED_DR = staticBits | ((uint8)(value << LED_SHIFT) & LED_MASK);
+  36              		.loc 1 42 0
+  37 0002 8000     		lsls	r0, r0, #2
+  38              	.LVL1:
+  41:Generated_Source\PSoC5/LED.c ****     uint8 staticBits = (LED_DR & (uint8)(~LED_MASK));
+  39              		.loc 1 41 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 42 0
+  43 0006 00F00C00 		and	r0, r0, #12
+  44 000a 03F0F303 		and	r3, r3, #243
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 C0510040 		.word	1073762752
+  53              		.cfi_endproc
+  54              	.LFE0:
+  55              		.size	LED_Write, .-LED_Write
+  56              		.section	.text.LED_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	LED_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	LED_SetDriveMode, %function
+  62              	LED_SetDriveMode:
+  63              	.LFB1:
+  43:Generated_Source\PSoC5/LED.c **** }
+  44:Generated_Source\PSoC5/LED.c **** 
+  45:Generated_Source\PSoC5/LED.c **** 
+  46:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  47:Generated_Source\PSoC5/LED.c **** * Function Name: LED_SetDriveMode
+  48:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+  49:Generated_Source\PSoC5/LED.c **** *
+  50:Generated_Source\PSoC5/LED.c **** * Summary:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 3
+
+
+  51:Generated_Source\PSoC5/LED.c **** *  Change the drive mode on the pins of the port.
+  52:Generated_Source\PSoC5/LED.c **** * 
+  53:Generated_Source\PSoC5/LED.c **** * Parameters:  
+  54:Generated_Source\PSoC5/LED.c **** *  mode:  Change the pins to one of the following drive modes.
+  55:Generated_Source\PSoC5/LED.c **** *
+  56:Generated_Source\PSoC5/LED.c **** *  LED_DM_STRONG     Strong Drive 
+  57:Generated_Source\PSoC5/LED.c **** *  LED_DM_OD_HI      Open Drain, Drives High 
+  58:Generated_Source\PSoC5/LED.c **** *  LED_DM_OD_LO      Open Drain, Drives Low 
+  59:Generated_Source\PSoC5/LED.c **** *  LED_DM_RES_UP     Resistive Pull Up 
+  60:Generated_Source\PSoC5/LED.c **** *  LED_DM_RES_DWN    Resistive Pull Down 
+  61:Generated_Source\PSoC5/LED.c **** *  LED_DM_RES_UPDWN  Resistive Pull Up/Down 
+  62:Generated_Source\PSoC5/LED.c **** *  LED_DM_DIG_HIZ    High Impedance Digital 
+  63:Generated_Source\PSoC5/LED.c **** *  LED_DM_ALG_HIZ    High Impedance Analog 
+  64:Generated_Source\PSoC5/LED.c **** *
+  65:Generated_Source\PSoC5/LED.c **** * Return: 
+  66:Generated_Source\PSoC5/LED.c **** *  None
+  67:Generated_Source\PSoC5/LED.c **** *
+  68:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  69:Generated_Source\PSoC5/LED.c **** void LED_SetDriveMode(uint8 mode) 
+  70:Generated_Source\PSoC5/LED.c **** {
+  64              		.loc 1 70 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  71:Generated_Source\PSoC5/LED.c **** 	CyPins_SetPinDriveMode(LED_0, mode);
+  70              		.loc 1 71 0
+  71 0000 064A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 0343     		orrs	r3, r3, r0
+  77 000e 1370     		strb	r3, [r2]
+  72:Generated_Source\PSoC5/LED.c **** 	CyPins_SetPinDriveMode(LED_1, mode);
+  78              		.loc 1 72 0
+  79 0010 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+  80 0012 03F0F103 		and	r3, r3, #241
+  81 0016 1843     		orrs	r0, r0, r3
+  82 0018 5070     		strb	r0, [r2, #1]
+  83 001a 7047     		bx	lr
+  84              	.L6:
+  85              		.align	2
+  86              	.L5:
+  87 001c 62500040 		.word	1073762402
+  88              		.cfi_endproc
+  89              	.LFE1:
+  90              		.size	LED_SetDriveMode, .-LED_SetDriveMode
+  91              		.section	.text.LED_Read,"ax",%progbits
+  92              		.align	1
+  93              		.global	LED_Read
+  94              		.thumb
+  95              		.thumb_func
+  96              		.type	LED_Read, %function
+  97              	LED_Read:
+  98              	.LFB2:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 4
+
+
+  73:Generated_Source\PSoC5/LED.c **** }
+  74:Generated_Source\PSoC5/LED.c **** 
+  75:Generated_Source\PSoC5/LED.c **** 
+  76:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+  77:Generated_Source\PSoC5/LED.c **** * Function Name: LED_Read
+  78:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+  79:Generated_Source\PSoC5/LED.c **** *
+  80:Generated_Source\PSoC5/LED.c **** * Summary:
+  81:Generated_Source\PSoC5/LED.c **** *  Read the current value on the pins of the Digital Port in right justified 
+  82:Generated_Source\PSoC5/LED.c **** *  form.
+  83:Generated_Source\PSoC5/LED.c **** *
+  84:Generated_Source\PSoC5/LED.c **** * Parameters:  
+  85:Generated_Source\PSoC5/LED.c **** *  None
+  86:Generated_Source\PSoC5/LED.c **** *
+  87:Generated_Source\PSoC5/LED.c **** * Return: 
+  88:Generated_Source\PSoC5/LED.c **** *  Returns the current value of the Digital Port as a right justified number
+  89:Generated_Source\PSoC5/LED.c **** *  
+  90:Generated_Source\PSoC5/LED.c **** * Note:
+  91:Generated_Source\PSoC5/LED.c **** *  Macro LED_ReadPS calls this function. 
+  92:Generated_Source\PSoC5/LED.c **** *  
+  93:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+  94:Generated_Source\PSoC5/LED.c **** uint8 LED_Read(void) 
+  95:Generated_Source\PSoC5/LED.c **** {
+  99              		.loc 1 95 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+  96:Generated_Source\PSoC5/LED.c ****     return (LED_PS & LED_MASK) >> LED_SHIFT;
+ 104              		.loc 1 96 0
+ 105 0000 024B     		ldr	r3, .L8
+ 106 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+  97:Generated_Source\PSoC5/LED.c **** }
+ 107              		.loc 1 97 0
+ 108 0004 C0F38100 		ubfx	r0, r0, #2, #2
+ 109 0008 7047     		bx	lr
+ 110              	.L9:
+ 111 000a 00BF     		.align	2
+ 112              	.L8:
+ 113 000c C1510040 		.word	1073762753
+ 114              		.cfi_endproc
+ 115              	.LFE2:
+ 116              		.size	LED_Read, .-LED_Read
+ 117              		.section	.text.LED_ReadDataReg,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	LED_ReadDataReg
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.type	LED_ReadDataReg, %function
+ 123              	LED_ReadDataReg:
+ 124              	.LFB3:
+  98:Generated_Source\PSoC5/LED.c **** 
+  99:Generated_Source\PSoC5/LED.c **** 
+ 100:Generated_Source\PSoC5/LED.c **** /*******************************************************************************
+ 101:Generated_Source\PSoC5/LED.c **** * Function Name: LED_ReadDataReg
+ 102:Generated_Source\PSoC5/LED.c **** ********************************************************************************
+ 103:Generated_Source\PSoC5/LED.c **** *
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 5
+
+
+ 104:Generated_Source\PSoC5/LED.c **** * Summary:
+ 105:Generated_Source\PSoC5/LED.c **** *  Read the current value assigned to a Digital Port's data output register
+ 106:Generated_Source\PSoC5/LED.c **** *
+ 107:Generated_Source\PSoC5/LED.c **** * Parameters:  
+ 108:Generated_Source\PSoC5/LED.c **** *  None 
+ 109:Generated_Source\PSoC5/LED.c **** *
+ 110:Generated_Source\PSoC5/LED.c **** * Return: 
+ 111:Generated_Source\PSoC5/LED.c **** *  Returns the current value assigned to the Digital Port's data output register
+ 112:Generated_Source\PSoC5/LED.c **** *  
+ 113:Generated_Source\PSoC5/LED.c **** *******************************************************************************/
+ 114:Generated_Source\PSoC5/LED.c **** uint8 LED_ReadDataReg(void) 
+ 115:Generated_Source\PSoC5/LED.c **** {
+ 125              		.loc 1 115 0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 116:Generated_Source\PSoC5/LED.c ****     return (LED_DR & LED_MASK) >> LED_SHIFT;
+ 130              		.loc 1 116 0
+ 131 0000 024B     		ldr	r3, .L11
+ 132 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 117:Generated_Source\PSoC5/LED.c **** }
+ 133              		.loc 1 117 0
+ 134 0004 C0F38100 		ubfx	r0, r0, #2, #2
+ 135 0008 7047     		bx	lr
+ 136              	.L12:
+ 137 000a 00BF     		.align	2
+ 138              	.L11:
+ 139 000c C0510040 		.word	1073762752
+ 140              		.cfi_endproc
+ 141              	.LFE3:
+ 142              		.size	LED_ReadDataReg, .-LED_ReadDataReg
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 146              		.section	.debug_info,"",%progbits
+ 147              	.Ldebug_info0:
+ 148 0000 1C010000 		.4byte	0x11c
+ 149 0004 0400     		.2byte	0x4
+ 150 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 151 000a 04       		.byte	0x4
+ 152 000b 01       		.uleb128 0x1
+ 153 000c 2D010000 		.4byte	.LASF20
+ 154 0010 0C       		.byte	0xc
+ 155 0011 11000000 		.4byte	.LASF21
+ 156 0015 49000000 		.4byte	.LASF22
+ 157 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 158 001d 00000000 		.4byte	0
+ 159 0021 00000000 		.4byte	.Ldebug_line0
+ 160 0025 02       		.uleb128 0x2
+ 161 0026 01       		.byte	0x1
+ 162 0027 06       		.byte	0x6
+ 163 0028 EC010000 		.4byte	.LASF0
+ 164 002c 02       		.uleb128 0x2
+ 165 002d 01       		.byte	0x1
+ 166 002e 08       		.byte	0x8
+ 167 002f C8000000 		.4byte	.LASF1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 6
+
+
+ 168 0033 02       		.uleb128 0x2
+ 169 0034 02       		.byte	0x2
+ 170 0035 05       		.byte	0x5
+ 171 0036 D3010000 		.4byte	.LASF2
+ 172 003a 02       		.uleb128 0x2
+ 173 003b 02       		.byte	0x2
+ 174 003c 07       		.byte	0x7
+ 175 003d ED000000 		.4byte	.LASF3
+ 176 0041 02       		.uleb128 0x2
+ 177 0042 04       		.byte	0x4
+ 178 0043 05       		.byte	0x5
+ 179 0044 E3010000 		.4byte	.LASF4
+ 180 0048 02       		.uleb128 0x2
+ 181 0049 04       		.byte	0x4
+ 182 004a 07       		.byte	0x7
+ 183 004b DB000000 		.4byte	.LASF5
+ 184 004f 02       		.uleb128 0x2
+ 185 0050 08       		.byte	0x8
+ 186 0051 05       		.byte	0x5
+ 187 0052 C0010000 		.4byte	.LASF6
+ 188 0056 02       		.uleb128 0x2
+ 189 0057 08       		.byte	0x8
+ 190 0058 07       		.byte	0x7
+ 191 0059 B1000000 		.4byte	.LASF7
+ 192 005d 03       		.uleb128 0x3
+ 193 005e 04       		.byte	0x4
+ 194 005f 05       		.byte	0x5
+ 195 0060 696E7400 		.ascii	"int\000"
+ 196 0064 02       		.uleb128 0x2
+ 197 0065 04       		.byte	0x4
+ 198 0066 07       		.byte	0x7
+ 199 0067 20010000 		.4byte	.LASF8
+ 200 006b 04       		.uleb128 0x4
+ 201 006c DD010000 		.4byte	.LASF12
+ 202 0070 02       		.byte	0x2
+ 203 0071 A1       		.byte	0xa1
+ 204 0072 2C000000 		.4byte	0x2c
+ 205 0076 02       		.uleb128 0x2
+ 206 0077 04       		.byte	0x4
+ 207 0078 04       		.byte	0x4
+ 208 0079 AB000000 		.4byte	.LASF9
+ 209 007d 02       		.uleb128 0x2
+ 210 007e 08       		.byte	0x8
+ 211 007f 04       		.byte	0x4
+ 212 0080 19010000 		.4byte	.LASF10
+ 213 0084 02       		.uleb128 0x2
+ 214 0085 01       		.byte	0x1
+ 215 0086 08       		.byte	0x8
+ 216 0087 CE010000 		.4byte	.LASF11
+ 217 008b 05       		.uleb128 0x5
+ 218 008c D6000000 		.4byte	.LASF13
+ 219 0090 02       		.byte	0x2
+ 220 0091 4B01     		.2byte	0x14b
+ 221 0093 97000000 		.4byte	0x97
+ 222 0097 06       		.uleb128 0x6
+ 223 0098 6B000000 		.4byte	0x6b
+ 224 009c 07       		.uleb128 0x7
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 7
+
+
+ 225 009d 2E000000 		.4byte	.LASF14
+ 226 00a1 01       		.byte	0x1
+ 227 00a2 27       		.byte	0x27
+ 228 00a3 00000000 		.4byte	.LFB0
+ 229 00a7 18000000 		.4byte	.LFE0-.LFB0
+ 230 00ab 01       		.uleb128 0x1
+ 231 00ac 9C       		.byte	0x9c
+ 232 00ad D0000000 		.4byte	0xd0
+ 233 00b1 08       		.uleb128 0x8
+ 234 00b2 38000000 		.4byte	.LASF16
+ 235 00b6 01       		.byte	0x1
+ 236 00b7 27       		.byte	0x27
+ 237 00b8 6B000000 		.4byte	0x6b
+ 238 00bc 00000000 		.4byte	.LLST0
+ 239 00c0 09       		.uleb128 0x9
+ 240 00c1 3E000000 		.4byte	.LASF23
+ 241 00c5 01       		.byte	0x1
+ 242 00c6 29       		.byte	0x29
+ 243 00c7 6B000000 		.4byte	0x6b
+ 244 00cb 21000000 		.4byte	.LLST1
+ 245 00cf 00       		.byte	0
+ 246 00d0 07       		.uleb128 0x7
+ 247 00d1 00000000 		.4byte	.LASF15
+ 248 00d5 01       		.byte	0x1
+ 249 00d6 45       		.byte	0x45
+ 250 00d7 00000000 		.4byte	.LFB1
+ 251 00db 20000000 		.4byte	.LFE1-.LFB1
+ 252 00df 01       		.uleb128 0x1
+ 253 00e0 9C       		.byte	0x9c
+ 254 00e1 F5000000 		.4byte	0xf5
+ 255 00e5 08       		.uleb128 0x8
+ 256 00e6 BB010000 		.4byte	.LASF17
+ 257 00ea 01       		.byte	0x1
+ 258 00eb 45       		.byte	0x45
+ 259 00ec 6B000000 		.4byte	0x6b
+ 260 00f0 39000000 		.4byte	.LLST2
+ 261 00f4 00       		.byte	0
+ 262 00f5 0A       		.uleb128 0xa
+ 263 00f6 00010000 		.4byte	.LASF18
+ 264 00fa 01       		.byte	0x1
+ 265 00fb 5E       		.byte	0x5e
+ 266 00fc 6B000000 		.4byte	0x6b
+ 267 0100 00000000 		.4byte	.LFB2
+ 268 0104 10000000 		.4byte	.LFE2-.LFB2
+ 269 0108 01       		.uleb128 0x1
+ 270 0109 9C       		.byte	0x9c
+ 271 010a 0A       		.uleb128 0xa
+ 272 010b 09010000 		.4byte	.LASF19
+ 273 010f 01       		.byte	0x1
+ 274 0110 72       		.byte	0x72
+ 275 0111 6B000000 		.4byte	0x6b
+ 276 0115 00000000 		.4byte	.LFB3
+ 277 0119 10000000 		.4byte	.LFE3-.LFB3
+ 278 011d 01       		.uleb128 0x1
+ 279 011e 9C       		.byte	0x9c
+ 280 011f 00       		.byte	0
+ 281              		.section	.debug_abbrev,"",%progbits
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 8
+
+
+ 282              	.Ldebug_abbrev0:
+ 283 0000 01       		.uleb128 0x1
+ 284 0001 11       		.uleb128 0x11
+ 285 0002 01       		.byte	0x1
+ 286 0003 25       		.uleb128 0x25
+ 287 0004 0E       		.uleb128 0xe
+ 288 0005 13       		.uleb128 0x13
+ 289 0006 0B       		.uleb128 0xb
+ 290 0007 03       		.uleb128 0x3
+ 291 0008 0E       		.uleb128 0xe
+ 292 0009 1B       		.uleb128 0x1b
+ 293 000a 0E       		.uleb128 0xe
+ 294 000b 55       		.uleb128 0x55
+ 295 000c 17       		.uleb128 0x17
+ 296 000d 11       		.uleb128 0x11
+ 297 000e 01       		.uleb128 0x1
+ 298 000f 10       		.uleb128 0x10
+ 299 0010 17       		.uleb128 0x17
+ 300 0011 00       		.byte	0
+ 301 0012 00       		.byte	0
+ 302 0013 02       		.uleb128 0x2
+ 303 0014 24       		.uleb128 0x24
+ 304 0015 00       		.byte	0
+ 305 0016 0B       		.uleb128 0xb
+ 306 0017 0B       		.uleb128 0xb
+ 307 0018 3E       		.uleb128 0x3e
+ 308 0019 0B       		.uleb128 0xb
+ 309 001a 03       		.uleb128 0x3
+ 310 001b 0E       		.uleb128 0xe
+ 311 001c 00       		.byte	0
+ 312 001d 00       		.byte	0
+ 313 001e 03       		.uleb128 0x3
+ 314 001f 24       		.uleb128 0x24
+ 315 0020 00       		.byte	0
+ 316 0021 0B       		.uleb128 0xb
+ 317 0022 0B       		.uleb128 0xb
+ 318 0023 3E       		.uleb128 0x3e
+ 319 0024 0B       		.uleb128 0xb
+ 320 0025 03       		.uleb128 0x3
+ 321 0026 08       		.uleb128 0x8
+ 322 0027 00       		.byte	0
+ 323 0028 00       		.byte	0
+ 324 0029 04       		.uleb128 0x4
+ 325 002a 16       		.uleb128 0x16
+ 326 002b 00       		.byte	0
+ 327 002c 03       		.uleb128 0x3
+ 328 002d 0E       		.uleb128 0xe
+ 329 002e 3A       		.uleb128 0x3a
+ 330 002f 0B       		.uleb128 0xb
+ 331 0030 3B       		.uleb128 0x3b
+ 332 0031 0B       		.uleb128 0xb
+ 333 0032 49       		.uleb128 0x49
+ 334 0033 13       		.uleb128 0x13
+ 335 0034 00       		.byte	0
+ 336 0035 00       		.byte	0
+ 337 0036 05       		.uleb128 0x5
+ 338 0037 16       		.uleb128 0x16
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 9
+
+
+ 339 0038 00       		.byte	0
+ 340 0039 03       		.uleb128 0x3
+ 341 003a 0E       		.uleb128 0xe
+ 342 003b 3A       		.uleb128 0x3a
+ 343 003c 0B       		.uleb128 0xb
+ 344 003d 3B       		.uleb128 0x3b
+ 345 003e 05       		.uleb128 0x5
+ 346 003f 49       		.uleb128 0x49
+ 347 0040 13       		.uleb128 0x13
+ 348 0041 00       		.byte	0
+ 349 0042 00       		.byte	0
+ 350 0043 06       		.uleb128 0x6
+ 351 0044 35       		.uleb128 0x35
+ 352 0045 00       		.byte	0
+ 353 0046 49       		.uleb128 0x49
+ 354 0047 13       		.uleb128 0x13
+ 355 0048 00       		.byte	0
+ 356 0049 00       		.byte	0
+ 357 004a 07       		.uleb128 0x7
+ 358 004b 2E       		.uleb128 0x2e
+ 359 004c 01       		.byte	0x1
+ 360 004d 3F       		.uleb128 0x3f
+ 361 004e 19       		.uleb128 0x19
+ 362 004f 03       		.uleb128 0x3
+ 363 0050 0E       		.uleb128 0xe
+ 364 0051 3A       		.uleb128 0x3a
+ 365 0052 0B       		.uleb128 0xb
+ 366 0053 3B       		.uleb128 0x3b
+ 367 0054 0B       		.uleb128 0xb
+ 368 0055 27       		.uleb128 0x27
+ 369 0056 19       		.uleb128 0x19
+ 370 0057 11       		.uleb128 0x11
+ 371 0058 01       		.uleb128 0x1
+ 372 0059 12       		.uleb128 0x12
+ 373 005a 06       		.uleb128 0x6
+ 374 005b 40       		.uleb128 0x40
+ 375 005c 18       		.uleb128 0x18
+ 376 005d 9742     		.uleb128 0x2117
+ 377 005f 19       		.uleb128 0x19
+ 378 0060 01       		.uleb128 0x1
+ 379 0061 13       		.uleb128 0x13
+ 380 0062 00       		.byte	0
+ 381 0063 00       		.byte	0
+ 382 0064 08       		.uleb128 0x8
+ 383 0065 05       		.uleb128 0x5
+ 384 0066 00       		.byte	0
+ 385 0067 03       		.uleb128 0x3
+ 386 0068 0E       		.uleb128 0xe
+ 387 0069 3A       		.uleb128 0x3a
+ 388 006a 0B       		.uleb128 0xb
+ 389 006b 3B       		.uleb128 0x3b
+ 390 006c 0B       		.uleb128 0xb
+ 391 006d 49       		.uleb128 0x49
+ 392 006e 13       		.uleb128 0x13
+ 393 006f 02       		.uleb128 0x2
+ 394 0070 17       		.uleb128 0x17
+ 395 0071 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 10
+
+
+ 396 0072 00       		.byte	0
+ 397 0073 09       		.uleb128 0x9
+ 398 0074 34       		.uleb128 0x34
+ 399 0075 00       		.byte	0
+ 400 0076 03       		.uleb128 0x3
+ 401 0077 0E       		.uleb128 0xe
+ 402 0078 3A       		.uleb128 0x3a
+ 403 0079 0B       		.uleb128 0xb
+ 404 007a 3B       		.uleb128 0x3b
+ 405 007b 0B       		.uleb128 0xb
+ 406 007c 49       		.uleb128 0x49
+ 407 007d 13       		.uleb128 0x13
+ 408 007e 02       		.uleb128 0x2
+ 409 007f 17       		.uleb128 0x17
+ 410 0080 00       		.byte	0
+ 411 0081 00       		.byte	0
+ 412 0082 0A       		.uleb128 0xa
+ 413 0083 2E       		.uleb128 0x2e
+ 414 0084 00       		.byte	0
+ 415 0085 3F       		.uleb128 0x3f
+ 416 0086 19       		.uleb128 0x19
+ 417 0087 03       		.uleb128 0x3
+ 418 0088 0E       		.uleb128 0xe
+ 419 0089 3A       		.uleb128 0x3a
+ 420 008a 0B       		.uleb128 0xb
+ 421 008b 3B       		.uleb128 0x3b
+ 422 008c 0B       		.uleb128 0xb
+ 423 008d 27       		.uleb128 0x27
+ 424 008e 19       		.uleb128 0x19
+ 425 008f 49       		.uleb128 0x49
+ 426 0090 13       		.uleb128 0x13
+ 427 0091 11       		.uleb128 0x11
+ 428 0092 01       		.uleb128 0x1
+ 429 0093 12       		.uleb128 0x12
+ 430 0094 06       		.uleb128 0x6
+ 431 0095 40       		.uleb128 0x40
+ 432 0096 18       		.uleb128 0x18
+ 433 0097 9742     		.uleb128 0x2117
+ 434 0099 19       		.uleb128 0x19
+ 435 009a 00       		.byte	0
+ 436 009b 00       		.byte	0
+ 437 009c 00       		.byte	0
+ 438              		.section	.debug_loc,"",%progbits
+ 439              	.Ldebug_loc0:
+ 440              	.LLST0:
+ 441 0000 00000000 		.4byte	.LVL0
+ 442 0004 04000000 		.4byte	.LVL1
+ 443 0008 0100     		.2byte	0x1
+ 444 000a 50       		.byte	0x50
+ 445 000b 04000000 		.4byte	.LVL1
+ 446 000f 18000000 		.4byte	.LFE0
+ 447 0013 0400     		.2byte	0x4
+ 448 0015 F3       		.byte	0xf3
+ 449 0016 01       		.uleb128 0x1
+ 450 0017 50       		.byte	0x50
+ 451 0018 9F       		.byte	0x9f
+ 452 0019 00000000 		.4byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 11
+
+
+ 453 001d 00000000 		.4byte	0
+ 454              	.LLST1:
+ 455 0021 06000000 		.4byte	.LVL2
+ 456 0025 0E000000 		.4byte	.LVL3
+ 457 0029 0600     		.2byte	0x6
+ 458 002b 73       		.byte	0x73
+ 459 002c 00       		.sleb128 0
+ 460 002d 09       		.byte	0x9
+ 461 002e F3       		.byte	0xf3
+ 462 002f 1A       		.byte	0x1a
+ 463 0030 9F       		.byte	0x9f
+ 464 0031 00000000 		.4byte	0
+ 465 0035 00000000 		.4byte	0
+ 466              	.LLST2:
+ 467 0039 00000000 		.4byte	.LVL4
+ 468 003d 06000000 		.4byte	.LVL5
+ 469 0041 0100     		.2byte	0x1
+ 470 0043 50       		.byte	0x50
+ 471 0044 06000000 		.4byte	.LVL5
+ 472 0048 20000000 		.4byte	.LFE1
+ 473 004c 0400     		.2byte	0x4
+ 474 004e F3       		.byte	0xf3
+ 475 004f 01       		.uleb128 0x1
+ 476 0050 50       		.byte	0x50
+ 477 0051 9F       		.byte	0x9f
+ 478 0052 00000000 		.4byte	0
+ 479 0056 00000000 		.4byte	0
+ 480              		.section	.debug_aranges,"",%progbits
+ 481 0000 34000000 		.4byte	0x34
+ 482 0004 0200     		.2byte	0x2
+ 483 0006 00000000 		.4byte	.Ldebug_info0
+ 484 000a 04       		.byte	0x4
+ 485 000b 00       		.byte	0
+ 486 000c 0000     		.2byte	0
+ 487 000e 0000     		.2byte	0
+ 488 0010 00000000 		.4byte	.LFB0
+ 489 0014 18000000 		.4byte	.LFE0-.LFB0
+ 490 0018 00000000 		.4byte	.LFB1
+ 491 001c 20000000 		.4byte	.LFE1-.LFB1
+ 492 0020 00000000 		.4byte	.LFB2
+ 493 0024 10000000 		.4byte	.LFE2-.LFB2
+ 494 0028 00000000 		.4byte	.LFB3
+ 495 002c 10000000 		.4byte	.LFE3-.LFB3
+ 496 0030 00000000 		.4byte	0
+ 497 0034 00000000 		.4byte	0
+ 498              		.section	.debug_ranges,"",%progbits
+ 499              	.Ldebug_ranges0:
+ 500 0000 00000000 		.4byte	.LFB0
+ 501 0004 18000000 		.4byte	.LFE0
+ 502 0008 00000000 		.4byte	.LFB1
+ 503 000c 20000000 		.4byte	.LFE1
+ 504 0010 00000000 		.4byte	.LFB2
+ 505 0014 10000000 		.4byte	.LFE2
+ 506 0018 00000000 		.4byte	.LFB3
+ 507 001c 10000000 		.4byte	.LFE3
+ 508 0020 00000000 		.4byte	0
+ 509 0024 00000000 		.4byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 12
+
+
+ 510              		.section	.debug_line,"",%progbits
+ 511              	.Ldebug_line0:
+ 512 0000 8F000000 		.section	.debug_str,"MS",%progbits,1
+ 512      02004000 
+ 512      00000201 
+ 512      FB0E0D00 
+ 512      01010101 
+ 513              	.LASF15:
+ 514 0000 4C45445F 		.ascii	"LED_SetDriveMode\000"
+ 514      53657444 
+ 514      72697665 
+ 514      4D6F6465 
+ 514      00
+ 515              	.LASF21:
+ 516 0011 47656E65 		.ascii	"Generated_Source\\PSoC5\\LED.c\000"
+ 516      72617465 
+ 516      645F536F 
+ 516      75726365 
+ 516      5C50536F 
+ 517              	.LASF14:
+ 518 002e 4C45445F 		.ascii	"LED_Write\000"
+ 518      57726974 
+ 518      6500
+ 519              	.LASF16:
+ 520 0038 76616C75 		.ascii	"value\000"
+ 520      6500
+ 521              	.LASF23:
+ 522 003e 73746174 		.ascii	"staticBits\000"
+ 522      69634269 
+ 522      747300
+ 523              	.LASF22:
+ 524 0049 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 524      73657273 
+ 524      5C526162 
+ 524      62697420 
+ 524      486F6C65 
+ 525 0078 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.2-eth\\USB_Bootloader.cy"
+ 525      736F6674 
+ 525      77617265 
+ 525      5C534353 
+ 525      49325344 
+ 526 00a7 64736E00 		.ascii	"dsn\000"
+ 527              	.LASF9:
+ 528 00ab 666C6F61 		.ascii	"float\000"
+ 528      7400
+ 529              	.LASF7:
+ 530 00b1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 530      206C6F6E 
+ 530      6720756E 
+ 530      7369676E 
+ 530      65642069 
+ 531              	.LASF1:
+ 532 00c8 756E7369 		.ascii	"unsigned char\000"
+ 532      676E6564 
+ 532      20636861 
+ 532      7200
+ 533              	.LASF13:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 13
+
+
+ 534 00d6 72656738 		.ascii	"reg8\000"
+ 534      00
+ 535              	.LASF5:
+ 536 00db 6C6F6E67 		.ascii	"long unsigned int\000"
+ 536      20756E73 
+ 536      69676E65 
+ 536      6420696E 
+ 536      7400
+ 537              	.LASF3:
+ 538 00ed 73686F72 		.ascii	"short unsigned int\000"
+ 538      7420756E 
+ 538      7369676E 
+ 538      65642069 
+ 538      6E7400
+ 539              	.LASF18:
+ 540 0100 4C45445F 		.ascii	"LED_Read\000"
+ 540      52656164 
+ 540      00
+ 541              	.LASF19:
+ 542 0109 4C45445F 		.ascii	"LED_ReadDataReg\000"
+ 542      52656164 
+ 542      44617461 
+ 542      52656700 
+ 543              	.LASF10:
+ 544 0119 646F7562 		.ascii	"double\000"
+ 544      6C6500
+ 545              	.LASF8:
+ 546 0120 756E7369 		.ascii	"unsigned int\000"
+ 546      676E6564 
+ 546      20696E74 
+ 546      00
+ 547              	.LASF20:
+ 548 012d 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 548      43313120 
+ 548      352E342E 
+ 548      31203230 
+ 548      31363036 
+ 549 0160 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 549      20726576 
+ 549      6973696F 
+ 549      6E203233 
+ 549      37373135 
+ 550 0193 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 550      66756E63 
+ 550      74696F6E 
+ 550      2D736563 
+ 550      74696F6E 
+ 551              	.LASF17:
+ 552 01bb 6D6F6465 		.ascii	"mode\000"
+ 552      00
+ 553              	.LASF6:
+ 554 01c0 6C6F6E67 		.ascii	"long long int\000"
+ 554      206C6F6E 
+ 554      6720696E 
+ 554      7400
+ 555              	.LASF11:
+ 556 01ce 63686172 		.ascii	"char\000"
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccBbYJ3X.s 			page 14
+
+
+ 556      00
+ 557              	.LASF2:
+ 558 01d3 73686F72 		.ascii	"short int\000"
+ 558      7420696E 
+ 558      7400
+ 559              	.LASF12:
+ 560 01dd 75696E74 		.ascii	"uint8\000"
+ 560      3800
+ 561              	.LASF4:
+ 562 01e3 6C6F6E67 		.ascii	"long int\000"
+ 562      20696E74 
+ 562      00
+ 563              	.LASF0:
+ 564 01ec 7369676E 		.ascii	"signed char\000"
+ 564      65642063 
+ 564      68617200 
+ 565              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

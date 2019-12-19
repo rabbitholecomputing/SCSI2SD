@@ -1,0 +1,534 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cyutils.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.CySetReg24,"ax",%progbits
+  20              		.align	1
+  21              		.global	CySetReg24
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	CySetReg24, %function
+  25              	CySetReg24:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\cyutils.c"
+   1:Generated_Source\PSoC5/cyutils.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/cyutils.c **** * FILENAME: cyutils.c
+   3:Generated_Source\PSoC5/cyutils.c **** * Version 4.20
+   4:Generated_Source\PSoC5/cyutils.c **** *
+   5:Generated_Source\PSoC5/cyutils.c **** *  Description:
+   6:Generated_Source\PSoC5/cyutils.c **** *   CyUtils provides a function to handle 24-bit value writes.
+   7:Generated_Source\PSoC5/cyutils.c **** *
+   8:Generated_Source\PSoC5/cyutils.c **** ********************************************************************************
+   9:Generated_Source\PSoC5/cyutils.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  10:Generated_Source\PSoC5/cyutils.c **** * You may use this file only in accordance with the license, terms, conditions,
+  11:Generated_Source\PSoC5/cyutils.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  12:Generated_Source\PSoC5/cyutils.c **** * the software package with which this file was provided.
+  13:Generated_Source\PSoC5/cyutils.c **** *******************************************************************************/
+  14:Generated_Source\PSoC5/cyutils.c **** 
+  15:Generated_Source\PSoC5/cyutils.c **** #include "cytypes.h"
+  16:Generated_Source\PSoC5/cyutils.c **** 
+  17:Generated_Source\PSoC5/cyutils.c **** #if (!CY_PSOC3)
+  18:Generated_Source\PSoC5/cyutils.c **** 
+  19:Generated_Source\PSoC5/cyutils.c ****     /***************************************************************************
+  20:Generated_Source\PSoC5/cyutils.c ****     * Function Name: CySetReg24
+  21:Generated_Source\PSoC5/cyutils.c ****     ****************************************************************************
+  22:Generated_Source\PSoC5/cyutils.c ****     *
+  23:Generated_Source\PSoC5/cyutils.c ****     * Summary:
+  24:Generated_Source\PSoC5/cyutils.c ****     *  Writes a 24-bit value to the specified register.
+  25:Generated_Source\PSoC5/cyutils.c ****     *
+  26:Generated_Source\PSoC5/cyutils.c ****     * Parameters:
+  27:Generated_Source\PSoC5/cyutils.c ****     *  addr : the address where data must be written.
+  28:Generated_Source\PSoC5/cyutils.c ****     *  value: the data that must be written.
+  29:Generated_Source\PSoC5/cyutils.c ****     *
+  30:Generated_Source\PSoC5/cyutils.c ****     * Return:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 2
+
+
+  31:Generated_Source\PSoC5/cyutils.c ****     *  None
+  32:Generated_Source\PSoC5/cyutils.c ****     *
+  33:Generated_Source\PSoC5/cyutils.c ****     * Reentrant:
+  34:Generated_Source\PSoC5/cyutils.c ****     *  No
+  35:Generated_Source\PSoC5/cyutils.c ****     *
+  36:Generated_Source\PSoC5/cyutils.c ****     ***************************************************************************/
+  37:Generated_Source\PSoC5/cyutils.c ****     void CySetReg24(uint32 volatile * addr, uint32 value)
+  38:Generated_Source\PSoC5/cyutils.c ****     {
+  28              		.loc 1 38 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  39:Generated_Source\PSoC5/cyutils.c ****         uint8 volatile *tmpAddr;
+  40:Generated_Source\PSoC5/cyutils.c **** 
+  41:Generated_Source\PSoC5/cyutils.c ****         tmpAddr = (uint8 volatile *) addr;
+  42:Generated_Source\PSoC5/cyutils.c **** 
+  43:Generated_Source\PSoC5/cyutils.c ****         tmpAddr[0u] = (uint8) value;
+  34              		.loc 1 43 0
+  35 0000 CBB2     		uxtb	r3, r1
+  36 0002 0370     		strb	r3, [r0]
+  44:Generated_Source\PSoC5/cyutils.c ****         tmpAddr[1u] = (uint8) (value >> 8u);
+  37              		.loc 1 44 0
+  38 0004 C1F30723 		ubfx	r3, r1, #8, #8
+  45:Generated_Source\PSoC5/cyutils.c ****         tmpAddr[2u] = (uint8) (value >> 16u);
+  39              		.loc 1 45 0
+  40 0008 C1F30741 		ubfx	r1, r1, #16, #8
+  41              	.LVL1:
+  44:Generated_Source\PSoC5/cyutils.c ****         tmpAddr[1u] = (uint8) (value >> 8u);
+  42              		.loc 1 44 0
+  43 000c 4370     		strb	r3, [r0, #1]
+  44              		.loc 1 45 0
+  45 000e 8170     		strb	r1, [r0, #2]
+  46 0010 7047     		bx	lr
+  47              		.cfi_endproc
+  48              	.LFE0:
+  49              		.size	CySetReg24, .-CySetReg24
+  50              		.text
+  51              	.Letext0:
+  52              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+  53              		.section	.debug_info,"",%progbits
+  54              	.Ldebug_info0:
+  55 0000 E8000000 		.4byte	0xe8
+  56 0004 0400     		.2byte	0x4
+  57 0006 00000000 		.4byte	.Ldebug_abbrev0
+  58 000a 04       		.byte	0x4
+  59 000b 01       		.uleb128 0x1
+  60 000c 0C010000 		.4byte	.LASF16
+  61 0010 0C       		.byte	0xc
+  62 0011 D0000000 		.4byte	.LASF17
+  63 0015 11000000 		.4byte	.LASF18
+  64 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  65 001d 00000000 		.4byte	0
+  66 0021 00000000 		.4byte	.Ldebug_line0
+  67 0025 02       		.uleb128 0x2
+  68 0026 01       		.byte	0x1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 3
+
+
+  69 0027 06       		.byte	0x6
+  70 0028 C6010000 		.4byte	.LASF0
+  71 002c 02       		.uleb128 0x2
+  72 002d 01       		.byte	0x1
+  73 002e 08       		.byte	0x8
+  74 002f 95000000 		.4byte	.LASF1
+  75 0033 02       		.uleb128 0x2
+  76 0034 02       		.byte	0x2
+  77 0035 05       		.byte	0x5
+  78 0036 AD010000 		.4byte	.LASF2
+  79 003a 02       		.uleb128 0x2
+  80 003b 02       		.byte	0x2
+  81 003c 07       		.byte	0x7
+  82 003d BD000000 		.4byte	.LASF3
+  83 0041 02       		.uleb128 0x2
+  84 0042 04       		.byte	0x4
+  85 0043 05       		.byte	0x5
+  86 0044 BD010000 		.4byte	.LASF4
+  87 0048 02       		.uleb128 0x2
+  88 0049 04       		.byte	0x4
+  89 004a 07       		.byte	0x7
+  90 004b AB000000 		.4byte	.LASF5
+  91 004f 02       		.uleb128 0x2
+  92 0050 08       		.byte	0x8
+  93 0051 05       		.byte	0x5
+  94 0052 9A010000 		.4byte	.LASF6
+  95 0056 02       		.uleb128 0x2
+  96 0057 08       		.byte	0x8
+  97 0058 07       		.byte	0x7
+  98 0059 7E000000 		.4byte	.LASF7
+  99 005d 03       		.uleb128 0x3
+ 100 005e 04       		.byte	0x4
+ 101 005f 05       		.byte	0x5
+ 102 0060 696E7400 		.ascii	"int\000"
+ 103 0064 02       		.uleb128 0x2
+ 104 0065 04       		.byte	0x4
+ 105 0066 07       		.byte	0x7
+ 106 0067 FF000000 		.4byte	.LASF8
+ 107 006b 04       		.uleb128 0x4
+ 108 006c B7010000 		.4byte	.LASF9
+ 109 0070 02       		.byte	0x2
+ 110 0071 A1       		.byte	0xa1
+ 111 0072 2C000000 		.4byte	0x2c
+ 112 0076 04       		.uleb128 0x4
+ 113 0077 F8000000 		.4byte	.LASF10
+ 114 007b 02       		.byte	0x2
+ 115 007c A3       		.byte	0xa3
+ 116 007d 48000000 		.4byte	0x48
+ 117 0081 02       		.uleb128 0x2
+ 118 0082 04       		.byte	0x4
+ 119 0083 04       		.byte	0x4
+ 120 0084 78000000 		.4byte	.LASF11
+ 121 0088 02       		.uleb128 0x2
+ 122 0089 08       		.byte	0x8
+ 123 008a 04       		.byte	0x4
+ 124 008b F1000000 		.4byte	.LASF12
+ 125 008f 02       		.uleb128 0x2
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 4
+
+
+ 126 0090 01       		.byte	0x1
+ 127 0091 08       		.byte	0x8
+ 128 0092 A8010000 		.4byte	.LASF13
+ 129 0096 05       		.uleb128 0x5
+ 130 0097 6B000000 		.4byte	0x6b
+ 131 009b 05       		.uleb128 0x5
+ 132 009c 76000000 		.4byte	0x76
+ 133 00a0 06       		.uleb128 0x6
+ 134 00a1 06000000 		.4byte	.LASF19
+ 135 00a5 01       		.byte	0x1
+ 136 00a6 25       		.byte	0x25
+ 137 00a7 00000000 		.4byte	.LFB0
+ 138 00ab 12000000 		.4byte	.LFE0-.LFB0
+ 139 00af 01       		.uleb128 0x1
+ 140 00b0 9C       		.byte	0x9c
+ 141 00b1 DF000000 		.4byte	0xdf
+ 142 00b5 07       		.uleb128 0x7
+ 143 00b6 73000000 		.4byte	.LASF14
+ 144 00ba 01       		.byte	0x1
+ 145 00bb 25       		.byte	0x25
+ 146 00bc DF000000 		.4byte	0xdf
+ 147 00c0 01       		.uleb128 0x1
+ 148 00c1 50       		.byte	0x50
+ 149 00c2 08       		.uleb128 0x8
+ 150 00c3 00000000 		.4byte	.LASF15
+ 151 00c7 01       		.byte	0x1
+ 152 00c8 25       		.byte	0x25
+ 153 00c9 76000000 		.4byte	0x76
+ 154 00cd 00000000 		.4byte	.LLST0
+ 155 00d1 09       		.uleb128 0x9
+ 156 00d2 A3000000 		.4byte	.LASF20
+ 157 00d6 01       		.byte	0x1
+ 158 00d7 27       		.byte	0x27
+ 159 00d8 E5000000 		.4byte	0xe5
+ 160 00dc 01       		.uleb128 0x1
+ 161 00dd 50       		.byte	0x50
+ 162 00de 00       		.byte	0
+ 163 00df 0A       		.uleb128 0xa
+ 164 00e0 04       		.byte	0x4
+ 165 00e1 9B000000 		.4byte	0x9b
+ 166 00e5 0A       		.uleb128 0xa
+ 167 00e6 04       		.byte	0x4
+ 168 00e7 96000000 		.4byte	0x96
+ 169 00eb 00       		.byte	0
+ 170              		.section	.debug_abbrev,"",%progbits
+ 171              	.Ldebug_abbrev0:
+ 172 0000 01       		.uleb128 0x1
+ 173 0001 11       		.uleb128 0x11
+ 174 0002 01       		.byte	0x1
+ 175 0003 25       		.uleb128 0x25
+ 176 0004 0E       		.uleb128 0xe
+ 177 0005 13       		.uleb128 0x13
+ 178 0006 0B       		.uleb128 0xb
+ 179 0007 03       		.uleb128 0x3
+ 180 0008 0E       		.uleb128 0xe
+ 181 0009 1B       		.uleb128 0x1b
+ 182 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 5
+
+
+ 183 000b 55       		.uleb128 0x55
+ 184 000c 17       		.uleb128 0x17
+ 185 000d 11       		.uleb128 0x11
+ 186 000e 01       		.uleb128 0x1
+ 187 000f 10       		.uleb128 0x10
+ 188 0010 17       		.uleb128 0x17
+ 189 0011 00       		.byte	0
+ 190 0012 00       		.byte	0
+ 191 0013 02       		.uleb128 0x2
+ 192 0014 24       		.uleb128 0x24
+ 193 0015 00       		.byte	0
+ 194 0016 0B       		.uleb128 0xb
+ 195 0017 0B       		.uleb128 0xb
+ 196 0018 3E       		.uleb128 0x3e
+ 197 0019 0B       		.uleb128 0xb
+ 198 001a 03       		.uleb128 0x3
+ 199 001b 0E       		.uleb128 0xe
+ 200 001c 00       		.byte	0
+ 201 001d 00       		.byte	0
+ 202 001e 03       		.uleb128 0x3
+ 203 001f 24       		.uleb128 0x24
+ 204 0020 00       		.byte	0
+ 205 0021 0B       		.uleb128 0xb
+ 206 0022 0B       		.uleb128 0xb
+ 207 0023 3E       		.uleb128 0x3e
+ 208 0024 0B       		.uleb128 0xb
+ 209 0025 03       		.uleb128 0x3
+ 210 0026 08       		.uleb128 0x8
+ 211 0027 00       		.byte	0
+ 212 0028 00       		.byte	0
+ 213 0029 04       		.uleb128 0x4
+ 214 002a 16       		.uleb128 0x16
+ 215 002b 00       		.byte	0
+ 216 002c 03       		.uleb128 0x3
+ 217 002d 0E       		.uleb128 0xe
+ 218 002e 3A       		.uleb128 0x3a
+ 219 002f 0B       		.uleb128 0xb
+ 220 0030 3B       		.uleb128 0x3b
+ 221 0031 0B       		.uleb128 0xb
+ 222 0032 49       		.uleb128 0x49
+ 223 0033 13       		.uleb128 0x13
+ 224 0034 00       		.byte	0
+ 225 0035 00       		.byte	0
+ 226 0036 05       		.uleb128 0x5
+ 227 0037 35       		.uleb128 0x35
+ 228 0038 00       		.byte	0
+ 229 0039 49       		.uleb128 0x49
+ 230 003a 13       		.uleb128 0x13
+ 231 003b 00       		.byte	0
+ 232 003c 00       		.byte	0
+ 233 003d 06       		.uleb128 0x6
+ 234 003e 2E       		.uleb128 0x2e
+ 235 003f 01       		.byte	0x1
+ 236 0040 3F       		.uleb128 0x3f
+ 237 0041 19       		.uleb128 0x19
+ 238 0042 03       		.uleb128 0x3
+ 239 0043 0E       		.uleb128 0xe
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 6
+
+
+ 240 0044 3A       		.uleb128 0x3a
+ 241 0045 0B       		.uleb128 0xb
+ 242 0046 3B       		.uleb128 0x3b
+ 243 0047 0B       		.uleb128 0xb
+ 244 0048 27       		.uleb128 0x27
+ 245 0049 19       		.uleb128 0x19
+ 246 004a 11       		.uleb128 0x11
+ 247 004b 01       		.uleb128 0x1
+ 248 004c 12       		.uleb128 0x12
+ 249 004d 06       		.uleb128 0x6
+ 250 004e 40       		.uleb128 0x40
+ 251 004f 18       		.uleb128 0x18
+ 252 0050 9742     		.uleb128 0x2117
+ 253 0052 19       		.uleb128 0x19
+ 254 0053 01       		.uleb128 0x1
+ 255 0054 13       		.uleb128 0x13
+ 256 0055 00       		.byte	0
+ 257 0056 00       		.byte	0
+ 258 0057 07       		.uleb128 0x7
+ 259 0058 05       		.uleb128 0x5
+ 260 0059 00       		.byte	0
+ 261 005a 03       		.uleb128 0x3
+ 262 005b 0E       		.uleb128 0xe
+ 263 005c 3A       		.uleb128 0x3a
+ 264 005d 0B       		.uleb128 0xb
+ 265 005e 3B       		.uleb128 0x3b
+ 266 005f 0B       		.uleb128 0xb
+ 267 0060 49       		.uleb128 0x49
+ 268 0061 13       		.uleb128 0x13
+ 269 0062 02       		.uleb128 0x2
+ 270 0063 18       		.uleb128 0x18
+ 271 0064 00       		.byte	0
+ 272 0065 00       		.byte	0
+ 273 0066 08       		.uleb128 0x8
+ 274 0067 05       		.uleb128 0x5
+ 275 0068 00       		.byte	0
+ 276 0069 03       		.uleb128 0x3
+ 277 006a 0E       		.uleb128 0xe
+ 278 006b 3A       		.uleb128 0x3a
+ 279 006c 0B       		.uleb128 0xb
+ 280 006d 3B       		.uleb128 0x3b
+ 281 006e 0B       		.uleb128 0xb
+ 282 006f 49       		.uleb128 0x49
+ 283 0070 13       		.uleb128 0x13
+ 284 0071 02       		.uleb128 0x2
+ 285 0072 17       		.uleb128 0x17
+ 286 0073 00       		.byte	0
+ 287 0074 00       		.byte	0
+ 288 0075 09       		.uleb128 0x9
+ 289 0076 34       		.uleb128 0x34
+ 290 0077 00       		.byte	0
+ 291 0078 03       		.uleb128 0x3
+ 292 0079 0E       		.uleb128 0xe
+ 293 007a 3A       		.uleb128 0x3a
+ 294 007b 0B       		.uleb128 0xb
+ 295 007c 3B       		.uleb128 0x3b
+ 296 007d 0B       		.uleb128 0xb
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 7
+
+
+ 297 007e 49       		.uleb128 0x49
+ 298 007f 13       		.uleb128 0x13
+ 299 0080 02       		.uleb128 0x2
+ 300 0081 18       		.uleb128 0x18
+ 301 0082 00       		.byte	0
+ 302 0083 00       		.byte	0
+ 303 0084 0A       		.uleb128 0xa
+ 304 0085 0F       		.uleb128 0xf
+ 305 0086 00       		.byte	0
+ 306 0087 0B       		.uleb128 0xb
+ 307 0088 0B       		.uleb128 0xb
+ 308 0089 49       		.uleb128 0x49
+ 309 008a 13       		.uleb128 0x13
+ 310 008b 00       		.byte	0
+ 311 008c 00       		.byte	0
+ 312 008d 00       		.byte	0
+ 313              		.section	.debug_loc,"",%progbits
+ 314              	.Ldebug_loc0:
+ 315              	.LLST0:
+ 316 0000 00000000 		.4byte	.LVL0
+ 317 0004 0C000000 		.4byte	.LVL1
+ 318 0008 0100     		.2byte	0x1
+ 319 000a 51       		.byte	0x51
+ 320 000b 0C000000 		.4byte	.LVL1
+ 321 000f 12000000 		.4byte	.LFE0
+ 322 0013 0400     		.2byte	0x4
+ 323 0015 F3       		.byte	0xf3
+ 324 0016 01       		.uleb128 0x1
+ 325 0017 51       		.byte	0x51
+ 326 0018 9F       		.byte	0x9f
+ 327 0019 00000000 		.4byte	0
+ 328 001d 00000000 		.4byte	0
+ 329              		.section	.debug_aranges,"",%progbits
+ 330 0000 1C000000 		.4byte	0x1c
+ 331 0004 0200     		.2byte	0x2
+ 332 0006 00000000 		.4byte	.Ldebug_info0
+ 333 000a 04       		.byte	0x4
+ 334 000b 00       		.byte	0
+ 335 000c 0000     		.2byte	0
+ 336 000e 0000     		.2byte	0
+ 337 0010 00000000 		.4byte	.LFB0
+ 338 0014 12000000 		.4byte	.LFE0-.LFB0
+ 339 0018 00000000 		.4byte	0
+ 340 001c 00000000 		.4byte	0
+ 341              		.section	.debug_ranges,"",%progbits
+ 342              	.Ldebug_ranges0:
+ 343 0000 00000000 		.4byte	.LFB0
+ 344 0004 12000000 		.4byte	.LFE0
+ 345 0008 00000000 		.4byte	0
+ 346 000c 00000000 		.4byte	0
+ 347              		.section	.debug_line,"",%progbits
+ 348              	.Ldebug_line0:
+ 349 0000 5E000000 		.section	.debug_str,"MS",%progbits,1
+ 349      02004400 
+ 349      00000201 
+ 349      FB0E0D00 
+ 349      01010101 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 8
+
+
+ 350              	.LASF15:
+ 351 0000 76616C75 		.ascii	"value\000"
+ 351      6500
+ 352              	.LASF19:
+ 353 0006 43795365 		.ascii	"CySetReg24\000"
+ 353      74526567 
+ 353      323400
+ 354              	.LASF18:
+ 355 0011 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 355      73657273 
+ 355      5C526162 
+ 355      62697420 
+ 355      486F6C65 
+ 356 0040 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.2-eth\\USB_Bootloader.cy"
+ 356      736F6674 
+ 356      77617265 
+ 356      5C534353 
+ 356      49325344 
+ 357 006f 64736E00 		.ascii	"dsn\000"
+ 358              	.LASF14:
+ 359 0073 61646472 		.ascii	"addr\000"
+ 359      00
+ 360              	.LASF11:
+ 361 0078 666C6F61 		.ascii	"float\000"
+ 361      7400
+ 362              	.LASF7:
+ 363 007e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 363      206C6F6E 
+ 363      6720756E 
+ 363      7369676E 
+ 363      65642069 
+ 364              	.LASF1:
+ 365 0095 756E7369 		.ascii	"unsigned char\000"
+ 365      676E6564 
+ 365      20636861 
+ 365      7200
+ 366              	.LASF20:
+ 367 00a3 746D7041 		.ascii	"tmpAddr\000"
+ 367      64647200 
+ 368              	.LASF5:
+ 369 00ab 6C6F6E67 		.ascii	"long unsigned int\000"
+ 369      20756E73 
+ 369      69676E65 
+ 369      6420696E 
+ 369      7400
+ 370              	.LASF3:
+ 371 00bd 73686F72 		.ascii	"short unsigned int\000"
+ 371      7420756E 
+ 371      7369676E 
+ 371      65642069 
+ 371      6E7400
+ 372              	.LASF17:
+ 373 00d0 47656E65 		.ascii	"Generated_Source\\PSoC5\\cyutils.c\000"
+ 373      72617465 
+ 373      645F536F 
+ 373      75726365 
+ 373      5C50536F 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\cc0QrRPg.s 			page 9
+
+
+ 374              	.LASF12:
+ 375 00f1 646F7562 		.ascii	"double\000"
+ 375      6C6500
+ 376              	.LASF10:
+ 377 00f8 75696E74 		.ascii	"uint32\000"
+ 377      333200
+ 378              	.LASF8:
+ 379 00ff 756E7369 		.ascii	"unsigned int\000"
+ 379      676E6564 
+ 379      20696E74 
+ 379      00
+ 380              	.LASF16:
+ 381 010c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 381      43313120 
+ 381      352E342E 
+ 381      31203230 
+ 381      31363036 
+ 382 013f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 382      20726576 
+ 382      6973696F 
+ 382      6E203233 
+ 382      37373135 
+ 383 0172 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 383      66756E63 
+ 383      74696F6E 
+ 383      2D736563 
+ 383      74696F6E 
+ 384              	.LASF6:
+ 385 019a 6C6F6E67 		.ascii	"long long int\000"
+ 385      206C6F6E 
+ 385      6720696E 
+ 385      7400
+ 386              	.LASF13:
+ 387 01a8 63686172 		.ascii	"char\000"
+ 387      00
+ 388              	.LASF2:
+ 389 01ad 73686F72 		.ascii	"short int\000"
+ 389      7420696E 
+ 389      7400
+ 390              	.LASF9:
+ 391 01b7 75696E74 		.ascii	"uint8\000"
+ 391      3800
+ 392              	.LASF4:
+ 393 01bd 6C6F6E67 		.ascii	"long int\000"
+ 393      20696E74 
+ 393      00
+ 394              	.LASF0:
+ 395 01c6 7369676E 		.ascii	"signed char\000"
+ 395      65642063 
+ 395      68617200 
+ 396              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

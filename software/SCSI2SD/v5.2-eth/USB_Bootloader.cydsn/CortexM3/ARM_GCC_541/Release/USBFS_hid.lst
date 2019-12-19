@@ -1,0 +1,2621 @@
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_hid.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.USBFS_UpdateHIDTimer,"ax",%progbits
+  20              		.align	1
+  21              		.global	USBFS_UpdateHIDTimer
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	USBFS_UpdateHIDTimer, %function
+  25              	USBFS_UpdateHIDTimer:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\USBFS_hid.c"
+   1:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/USBFS_hid.c **** * File Name: USBFS_hid.c
+   3:Generated_Source\PSoC5/USBFS_hid.c **** * Version 2.80
+   4:Generated_Source\PSoC5/USBFS_hid.c **** *
+   5:Generated_Source\PSoC5/USBFS_hid.c **** * Description:
+   6:Generated_Source\PSoC5/USBFS_hid.c **** *  USB HID Class request handler.
+   7:Generated_Source\PSoC5/USBFS_hid.c **** *
+   8:Generated_Source\PSoC5/USBFS_hid.c **** * Related Document:
+   9:Generated_Source\PSoC5/USBFS_hid.c **** *  Device Class Definition for Human Interface Devices (HID) Version 1.11
+  10:Generated_Source\PSoC5/USBFS_hid.c **** *
+  11:Generated_Source\PSoC5/USBFS_hid.c **** * Note:
+  12:Generated_Source\PSoC5/USBFS_hid.c **** *
+  13:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+  14:Generated_Source\PSoC5/USBFS_hid.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  15:Generated_Source\PSoC5/USBFS_hid.c **** * You may use this file only in accordance with the license, terms, conditions,
+  16:Generated_Source\PSoC5/USBFS_hid.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  17:Generated_Source\PSoC5/USBFS_hid.c **** * the software package with which this file was provided.
+  18:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+  19:Generated_Source\PSoC5/USBFS_hid.c **** 
+  20:Generated_Source\PSoC5/USBFS_hid.c **** #include "USBFS.h"
+  21:Generated_Source\PSoC5/USBFS_hid.c **** 
+  22:Generated_Source\PSoC5/USBFS_hid.c **** #if defined(USBFS_ENABLE_HID_CLASS)
+  23:Generated_Source\PSoC5/USBFS_hid.c **** 
+  24:Generated_Source\PSoC5/USBFS_hid.c **** #include "USBFS_pvt.h"
+  25:Generated_Source\PSoC5/USBFS_hid.c **** #include "USBFS_hid.h"
+  26:Generated_Source\PSoC5/USBFS_hid.c **** 
+  27:Generated_Source\PSoC5/USBFS_hid.c **** 
+  28:Generated_Source\PSoC5/USBFS_hid.c **** 
+  29:Generated_Source\PSoC5/USBFS_hid.c **** /***************************************
+  30:Generated_Source\PSoC5/USBFS_hid.c **** *    HID Variables
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 2
+
+
+  31:Generated_Source\PSoC5/USBFS_hid.c **** ***************************************/
+  32:Generated_Source\PSoC5/USBFS_hid.c **** 
+  33:Generated_Source\PSoC5/USBFS_hid.c **** volatile uint8 USBFS_hidProtocol[USBFS_MAX_INTERFACES_NUMBER];  /* HID device protocol status */
+  34:Generated_Source\PSoC5/USBFS_hid.c **** volatile uint8 USBFS_hidIdleRate[USBFS_MAX_INTERFACES_NUMBER];  /* HID device idle reload value */
+  35:Generated_Source\PSoC5/USBFS_hid.c **** volatile uint8 USBFS_hidIdleTimer[USBFS_MAX_INTERFACES_NUMBER]; /* HID device idle rate value */
+  36:Generated_Source\PSoC5/USBFS_hid.c **** 
+  37:Generated_Source\PSoC5/USBFS_hid.c **** 
+  38:Generated_Source\PSoC5/USBFS_hid.c **** /***************************************
+  39:Generated_Source\PSoC5/USBFS_hid.c **** * Custom Declarations
+  40:Generated_Source\PSoC5/USBFS_hid.c **** ***************************************/
+  41:Generated_Source\PSoC5/USBFS_hid.c **** 
+  42:Generated_Source\PSoC5/USBFS_hid.c **** /* `#START HID_CUSTOM_DECLARATIONS` Place your declaration here */
+  43:Generated_Source\PSoC5/USBFS_hid.c **** 
+  44:Generated_Source\PSoC5/USBFS_hid.c **** /* `#END` */
+  45:Generated_Source\PSoC5/USBFS_hid.c **** 
+  46:Generated_Source\PSoC5/USBFS_hid.c **** 
+  47:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+  48:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USBFS_UpdateHIDTimer
+  49:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+  50:Generated_Source\PSoC5/USBFS_hid.c **** *
+  51:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+  52:Generated_Source\PSoC5/USBFS_hid.c **** *  Updates the HID report timer and reloads it if expired
+  53:Generated_Source\PSoC5/USBFS_hid.c **** *
+  54:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+  55:Generated_Source\PSoC5/USBFS_hid.c **** *  interface:  Interface Number.
+  56:Generated_Source\PSoC5/USBFS_hid.c **** *
+  57:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+  58:Generated_Source\PSoC5/USBFS_hid.c **** *  status.
+  59:Generated_Source\PSoC5/USBFS_hid.c **** *
+  60:Generated_Source\PSoC5/USBFS_hid.c **** * Reentrant:
+  61:Generated_Source\PSoC5/USBFS_hid.c **** *  No.
+  62:Generated_Source\PSoC5/USBFS_hid.c **** *
+  63:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+  64:Generated_Source\PSoC5/USBFS_hid.c **** uint8 USBFS_UpdateHIDTimer(uint8 interface) 
+  65:Generated_Source\PSoC5/USBFS_hid.c **** {
+  28              		.loc 1 65 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  66:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 stat = USBFS_IDLE_TIMER_INDEFINITE;
+  67:Generated_Source\PSoC5/USBFS_hid.c **** 
+  68:Generated_Source\PSoC5/USBFS_hid.c ****     if(USBFS_hidIdleRate[interface] != 0u)
+  34              		.loc 1 68 0
+  35 0000 0A49     		ldr	r1, .L6
+  36 0002 0A5C     		ldrb	r2, [r1, r0]	@ zero_extendqisi2
+  37 0004 02F0FF03 		and	r3, r2, #255
+  38 0008 6AB1     		cbz	r2, .L4
+  69:Generated_Source\PSoC5/USBFS_hid.c ****     {
+  70:Generated_Source\PSoC5/USBFS_hid.c ****         if(USBFS_hidIdleTimer[interface] > 0u)
+  39              		.loc 1 70 0
+  40 000a 094A     		ldr	r2, .L6+4
+  41 000c 135C     		ldrb	r3, [r2, r0]	@ zero_extendqisi2
+  42 000e 2BB1     		cbz	r3, .L3
+  71:Generated_Source\PSoC5/USBFS_hid.c ****         {
+  72:Generated_Source\PSoC5/USBFS_hid.c ****             USBFS_hidIdleTimer[interface]--;
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 3
+
+
+  43              		.loc 1 72 0
+  44 0010 135C     		ldrb	r3, [r2, r0]	@ zero_extendqisi2
+  45 0012 013B     		subs	r3, r3, #1
+  46 0014 DBB2     		uxtb	r3, r3
+  47 0016 1354     		strb	r3, [r2, r0]
+  48              	.LVL1:
+  73:Generated_Source\PSoC5/USBFS_hid.c ****             stat = USBFS_IDLE_TIMER_RUNNING;
+  49              		.loc 1 73 0
+  50 0018 0220     		movs	r0, #2
+  51              	.LVL2:
+  52 001a 7047     		bx	lr
+  53              	.LVL3:
+  54              	.L3:
+  74:Generated_Source\PSoC5/USBFS_hid.c ****         }
+  75:Generated_Source\PSoC5/USBFS_hid.c ****         else
+  76:Generated_Source\PSoC5/USBFS_hid.c ****         {
+  77:Generated_Source\PSoC5/USBFS_hid.c ****             USBFS_hidIdleTimer[interface] = USBFS_hidIdleRate[interface];
+  55              		.loc 1 77 0
+  56 001c 0B5C     		ldrb	r3, [r1, r0]	@ zero_extendqisi2
+  57 001e DBB2     		uxtb	r3, r3
+  58 0020 1354     		strb	r3, [r2, r0]
+  59              	.LVL4:
+  78:Generated_Source\PSoC5/USBFS_hid.c ****             stat = USBFS_IDLE_TIMER_EXPIRED;
+  60              		.loc 1 78 0
+  61 0022 0120     		movs	r0, #1
+  62              	.LVL5:
+  63 0024 7047     		bx	lr
+  64              	.LVL6:
+  65              	.L4:
+  66:Generated_Source\PSoC5/USBFS_hid.c **** 
+  66              		.loc 1 66 0
+  67 0026 1846     		mov	r0, r3
+  68              	.LVL7:
+  79:Generated_Source\PSoC5/USBFS_hid.c ****         }
+  80:Generated_Source\PSoC5/USBFS_hid.c ****     }
+  81:Generated_Source\PSoC5/USBFS_hid.c **** 
+  82:Generated_Source\PSoC5/USBFS_hid.c ****     return(stat);
+  83:Generated_Source\PSoC5/USBFS_hid.c **** }
+  69              		.loc 1 83 0
+  70 0028 7047     		bx	lr
+  71              	.L7:
+  72 002a 00BF     		.align	2
+  73              	.L6:
+  74 002c 00000000 		.word	USBFS_hidIdleRate
+  75 0030 00000000 		.word	USBFS_hidIdleTimer
+  76              		.cfi_endproc
+  77              	.LFE0:
+  78              		.size	USBFS_UpdateHIDTimer, .-USBFS_UpdateHIDTimer
+  79              		.section	.text.USBFS_GetProtocol,"ax",%progbits
+  80              		.align	1
+  81              		.global	USBFS_GetProtocol
+  82              		.thumb
+  83              		.thumb_func
+  84              		.type	USBFS_GetProtocol, %function
+  85              	USBFS_GetProtocol:
+  86              	.LFB1:
+  84:Generated_Source\PSoC5/USBFS_hid.c **** 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 4
+
+
+  85:Generated_Source\PSoC5/USBFS_hid.c **** 
+  86:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+  87:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USBFS_GetProtocol
+  88:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+  89:Generated_Source\PSoC5/USBFS_hid.c **** *
+  90:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+  91:Generated_Source\PSoC5/USBFS_hid.c **** *  Returns the selected protocol value to the application
+  92:Generated_Source\PSoC5/USBFS_hid.c **** *
+  93:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+  94:Generated_Source\PSoC5/USBFS_hid.c **** *  interface:  Interface Number.
+  95:Generated_Source\PSoC5/USBFS_hid.c **** *
+  96:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+  97:Generated_Source\PSoC5/USBFS_hid.c **** *  Interface protocol.
+  98:Generated_Source\PSoC5/USBFS_hid.c **** *
+  99:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+ 100:Generated_Source\PSoC5/USBFS_hid.c **** uint8 USBFS_GetProtocol(uint8 interface) 
+ 101:Generated_Source\PSoC5/USBFS_hid.c **** {
+  87              		.loc 1 101 0
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92              	.LVL8:
+ 102:Generated_Source\PSoC5/USBFS_hid.c ****     return(USBFS_hidProtocol[interface]);
+  93              		.loc 1 102 0
+  94 0000 014B     		ldr	r3, .L9
+  95 0002 185C     		ldrb	r0, [r3, r0]	@ zero_extendqisi2
+  96              	.LVL9:
+ 103:Generated_Source\PSoC5/USBFS_hid.c **** }
+  97              		.loc 1 103 0
+  98 0004 7047     		bx	lr
+  99              	.L10:
+ 100 0006 00BF     		.align	2
+ 101              	.L9:
+ 102 0008 00000000 		.word	USBFS_hidProtocol
+ 103              		.cfi_endproc
+ 104              	.LFE1:
+ 105              		.size	USBFS_GetProtocol, .-USBFS_GetProtocol
+ 106              		.section	.text.USBFS_FindHidClassDecriptor,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	USBFS_FindHidClassDecriptor
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.type	USBFS_FindHidClassDecriptor, %function
+ 112              	USBFS_FindHidClassDecriptor:
+ 113              	.LFB3:
+ 104:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 105:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 106:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+ 107:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USBFS_DispatchHIDClassRqst
+ 108:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+ 109:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 110:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+ 111:Generated_Source\PSoC5/USBFS_hid.c **** *  This routine dispatches class requests
+ 112:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 113:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+ 114:Generated_Source\PSoC5/USBFS_hid.c **** *  None.
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 5
+
+
+ 115:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 116:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+ 117:Generated_Source\PSoC5/USBFS_hid.c **** *  requestHandled
+ 118:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 119:Generated_Source\PSoC5/USBFS_hid.c **** * Reentrant:
+ 120:Generated_Source\PSoC5/USBFS_hid.c **** *  No.
+ 121:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 122:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+ 123:Generated_Source\PSoC5/USBFS_hid.c **** uint8 USBFS_DispatchHIDClassRqst(void) 
+ 124:Generated_Source\PSoC5/USBFS_hid.c **** {
+ 125:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 requestHandled = USBFS_FALSE;
+ 126:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 interfaceNumber;
+ 127:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 128:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceNumber = CY_GET_REG8(USBFS_wIndexLo);
+ 129:Generated_Source\PSoC5/USBFS_hid.c ****     if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+ 130:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* Control Read */
+ 131:Generated_Source\PSoC5/USBFS_hid.c ****         switch (CY_GET_REG8(USBFS_bRequest))
+ 132:Generated_Source\PSoC5/USBFS_hid.c ****         {
+ 133:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_GET_DESCRIPTOR:
+ 134:Generated_Source\PSoC5/USBFS_hid.c ****                 if (CY_GET_REG8(USBFS_wValueHi) == USBFS_DESCR_HID_CLASS)
+ 135:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 136:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_FindHidClassDecriptor();
+ 137:Generated_Source\PSoC5/USBFS_hid.c ****                     if (USBFS_currentTD.count != 0u)
+ 138:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 139:Generated_Source\PSoC5/USBFS_hid.c ****                         requestHandled = USBFS_InitControlRead();
+ 140:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 141:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 142:Generated_Source\PSoC5/USBFS_hid.c ****                 else if (CY_GET_REG8(USBFS_wValueHi) == USBFS_DESCR_HID_REPORT)
+ 143:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 144:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_FindReportDescriptor();
+ 145:Generated_Source\PSoC5/USBFS_hid.c ****                     if (USBFS_currentTD.count != 0u)
+ 146:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 147:Generated_Source\PSoC5/USBFS_hid.c ****                         requestHandled = USBFS_InitControlRead();
+ 148:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 149:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 150:Generated_Source\PSoC5/USBFS_hid.c ****                 else
+ 151:Generated_Source\PSoC5/USBFS_hid.c ****                 {   /* requestHandled is initialezed as FALSE by default */
+ 152:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 153:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 154:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_GET_REPORT:
+ 155:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_FindReport();
+ 156:Generated_Source\PSoC5/USBFS_hid.c ****                 if (USBFS_currentTD.count != 0u)
+ 157:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 158:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled = USBFS_InitControlRead();
+ 159:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 160:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 161:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 162:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_GET_IDLE:
+ 163:Generated_Source\PSoC5/USBFS_hid.c ****                 /* This function does not support multiple reports per interface*/
+ 164:Generated_Source\PSoC5/USBFS_hid.c ****                 /* Validate interfaceNumber and Report ID (should be 0) */
+ 165:Generated_Source\PSoC5/USBFS_hid.c ****                 if( (interfaceNumber < USBFS_MAX_INTERFACES_NUMBER) &&
+ 166:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 167:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 168:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.count = 1u;
+ 169:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.pData = &USBFS_hidIdleRate[interfaceNumber];
+ 170:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled  = USBFS_InitControlRead();
+ 171:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 6
+
+
+ 172:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 173:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_GET_PROTOCOL:
+ 174:Generated_Source\PSoC5/USBFS_hid.c ****                 /* Validate interfaceNumber */
+ 175:Generated_Source\PSoC5/USBFS_hid.c ****                 if( interfaceNumber < USBFS_MAX_INTERFACES_NUMBER)
+ 176:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 177:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.count = 1u;
+ 178:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.pData = &USBFS_hidProtocol[interfaceNumber];
+ 179:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled  = USBFS_InitControlRead();
+ 180:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 181:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 182:Generated_Source\PSoC5/USBFS_hid.c ****             default:    /* requestHandled is initialized as FALSE by default */
+ 183:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 184:Generated_Source\PSoC5/USBFS_hid.c ****         }
+ 185:Generated_Source\PSoC5/USBFS_hid.c ****     }
+ 186:Generated_Source\PSoC5/USBFS_hid.c ****     else if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) ==
+ 187:Generated_Source\PSoC5/USBFS_hid.c ****                                                                             USBFS_RQST_DIR_H2D)
+ 188:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* Control Write */
+ 189:Generated_Source\PSoC5/USBFS_hid.c ****         switch (CY_GET_REG8(USBFS_bRequest))
+ 190:Generated_Source\PSoC5/USBFS_hid.c ****         {
+ 191:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_SET_REPORT:
+ 192:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_FindReport();
+ 193:Generated_Source\PSoC5/USBFS_hid.c ****                 if (USBFS_currentTD.count != 0u)
+ 194:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 195:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled = USBFS_InitControlWrite();
+ 196:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 197:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 198:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_SET_IDLE:
+ 199:Generated_Source\PSoC5/USBFS_hid.c ****                 /* This function does not support multiple reports per interface */
+ 200:Generated_Source\PSoC5/USBFS_hid.c ****                 /* Validate interfaceNumber and Report ID (should be 0) */
+ 201:Generated_Source\PSoC5/USBFS_hid.c ****                 if( (interfaceNumber < USBFS_MAX_INTERFACES_NUMBER) &&
+ 202:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 203:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 204:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_hidIdleRate[interfaceNumber] = CY_GET_REG8(USBFS_wValueHi);
+ 205:Generated_Source\PSoC5/USBFS_hid.c ****                     /* With regards to HID spec: "7.2.4 Set_Idle Request"
+ 206:Generated_Source\PSoC5/USBFS_hid.c ****                     *  Latency. If the current period has gone past the
+ 207:Generated_Source\PSoC5/USBFS_hid.c ****                     *  newly proscribed time duration, then a report
+ 208:Generated_Source\PSoC5/USBFS_hid.c ****                     *  will be generated immediately.
+ 209:Generated_Source\PSoC5/USBFS_hid.c ****                     */
+ 210:Generated_Source\PSoC5/USBFS_hid.c ****                     if(USBFS_hidIdleRate[interfaceNumber] <
+ 211:Generated_Source\PSoC5/USBFS_hid.c ****                        USBFS_hidIdleTimer[interfaceNumber])
+ 212:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 213:Generated_Source\PSoC5/USBFS_hid.c ****                         /* Set the timer to zero and let the UpdateHIDTimer() API return IDLE_TIMER
+ 214:Generated_Source\PSoC5/USBFS_hid.c ****                         USBFS_hidIdleTimer[interfaceNumber] = 0u;
+ 215:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 216:Generated_Source\PSoC5/USBFS_hid.c ****                     /* If the new request is received within 4 milliseconds
+ 217:Generated_Source\PSoC5/USBFS_hid.c ****                     *  (1 count) of the end of the current period, then the
+ 218:Generated_Source\PSoC5/USBFS_hid.c ****                     *  new request will have no effect until after the report.
+ 219:Generated_Source\PSoC5/USBFS_hid.c ****                     */
+ 220:Generated_Source\PSoC5/USBFS_hid.c ****                     else if(USBFS_hidIdleTimer[interfaceNumber] <= 1u)
+ 221:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 222:Generated_Source\PSoC5/USBFS_hid.c ****                         /* Do nothing.
+ 223:Generated_Source\PSoC5/USBFS_hid.c ****                         *  Let the UpdateHIDTimer() API continue to work and
+ 224:Generated_Source\PSoC5/USBFS_hid.c ****                         *  return IDLE_TIMER_EXPIRED status
+ 225:Generated_Source\PSoC5/USBFS_hid.c ****                         */
+ 226:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 227:Generated_Source\PSoC5/USBFS_hid.c ****                     else
+ 228:Generated_Source\PSoC5/USBFS_hid.c ****                     {   /* Reload the timer*/
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 7
+
+
+ 229:Generated_Source\PSoC5/USBFS_hid.c ****                         USBFS_hidIdleTimer[interfaceNumber] =
+ 230:Generated_Source\PSoC5/USBFS_hid.c ****                         USBFS_hidIdleRate[interfaceNumber];
+ 231:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 232:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled = USBFS_InitNoDataControlTransfer();
+ 233:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 234:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 235:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 236:Generated_Source\PSoC5/USBFS_hid.c ****             case USBFS_HID_SET_PROTOCOL:
+ 237:Generated_Source\PSoC5/USBFS_hid.c ****                 /* Validate interfaceNumber and protocol (must be 0 or 1) */
+ 238:Generated_Source\PSoC5/USBFS_hid.c ****                 if( (interfaceNumber < USBFS_MAX_INTERFACES_NUMBER) &&
+ 239:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) <= 1u) )
+ 240:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 241:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_hidProtocol[interfaceNumber] = CY_GET_REG8(USBFS_wValueLo);
+ 242:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled = USBFS_InitNoDataControlTransfer();
+ 243:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 244:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 245:Generated_Source\PSoC5/USBFS_hid.c ****             default:    /* requestHandled is initialized as FALSE by default */
+ 246:Generated_Source\PSoC5/USBFS_hid.c ****                 break;
+ 247:Generated_Source\PSoC5/USBFS_hid.c ****         }
+ 248:Generated_Source\PSoC5/USBFS_hid.c ****     }
+ 249:Generated_Source\PSoC5/USBFS_hid.c ****     else
+ 250:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* requestHandled is initialized as FALSE by default */
+ 251:Generated_Source\PSoC5/USBFS_hid.c ****     }
+ 252:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 253:Generated_Source\PSoC5/USBFS_hid.c ****     return(requestHandled);
+ 254:Generated_Source\PSoC5/USBFS_hid.c **** }
+ 255:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 256:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 257:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+ 258:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USB_FindHidClassDescriptor
+ 259:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+ 260:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 261:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+ 262:Generated_Source\PSoC5/USBFS_hid.c **** *  This routine find Hid Class Descriptor pointer based on the Interface number
+ 263:Generated_Source\PSoC5/USBFS_hid.c **** *  and Alternate setting then loads the currentTD structure with the address of
+ 264:Generated_Source\PSoC5/USBFS_hid.c **** *  the buffer and the size.
+ 265:Generated_Source\PSoC5/USBFS_hid.c **** *  The HID Class Descriptor resides inside the config descriptor.
+ 266:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 267:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+ 268:Generated_Source\PSoC5/USBFS_hid.c **** *  None.
+ 269:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 270:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+ 271:Generated_Source\PSoC5/USBFS_hid.c **** *  currentTD
+ 272:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 273:Generated_Source\PSoC5/USBFS_hid.c **** * Reentrant:
+ 274:Generated_Source\PSoC5/USBFS_hid.c **** *  No.
+ 275:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 276:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+ 277:Generated_Source\PSoC5/USBFS_hid.c **** void USBFS_FindHidClassDecriptor(void) 
+ 278:Generated_Source\PSoC5/USBFS_hid.c **** {
+ 114              		.loc 1 278 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118 0000 08B5     		push	{r3, lr}
+ 119              		.cfi_def_cfa_offset 8
+ 120              		.cfi_offset 3, -8
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 8
+
+
+ 121              		.cfi_offset 14, -4
+ 279:Generated_Source\PSoC5/USBFS_hid.c ****     const T_USBFS_LUT CYCODE *pTmp;
+ 280:Generated_Source\PSoC5/USBFS_hid.c ****     volatile uint8 *pDescr;
+ 281:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 interfaceN;
+ 282:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 283:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
+ 122              		.loc 1 283 0
+ 123 0002 0B4B     		ldr	r3, .L12
+ 124 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 125 0006 0138     		subs	r0, r0, #1
+ 126 0008 C0B2     		uxtb	r0, r0
+ 127 000a FFF7FEFF 		bl	USBFS_GetConfigTablePtr
+ 128              	.LVL10:
+ 284:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceN = CY_GET_REG8(USBFS_wIndexLo);
+ 129              		.loc 1 284 0
+ 130 000e 094B     		ldr	r3, .L12+4
+ 285:Generated_Source\PSoC5/USBFS_hid.c ****     /* Third entry in the LUT starts the Interface Table pointers */
+ 286:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use the request interface number*/
+ 287:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[interfaceN + 2u];
+ 288:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_TABLE */
+ 289:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 290:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use Alternate setting number */
+ 291:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[USBFS_interfaceSetting[interfaceN]];
+ 131              		.loc 1 291 0
+ 132 0010 0949     		ldr	r1, .L12+8
+ 284:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceN = CY_GET_REG8(USBFS_wIndexLo);
+ 133              		.loc 1 284 0
+ 134 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 135 0014 DBB2     		uxtb	r3, r3
+ 136              	.LVL11:
+ 287:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_TABLE */
+ 137              		.loc 1 287 0
+ 138 0016 00EBC300 		add	r0, r0, r3, lsl #3
+ 139              	.LVL12:
+ 289:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use Alternate setting number */
+ 140              		.loc 1 289 0
+ 141 001a 4269     		ldr	r2, [r0, #20]
+ 142              	.LVL13:
+ 143              		.loc 1 291 0
+ 144 001c CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 145              	.LVL14:
+ 146 001e 02EBC303 		add	r3, r2, r3, lsl #3
+ 147              	.LVL15:
+ 292:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_ALTERNATEi_HID_TABLE */
+ 293:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 294:Generated_Source\PSoC5/USBFS_hid.c ****     /* Fifth entry in the LUT points to Hid Class Descriptor in Configuration Descriptor */
+ 295:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[4u];
+ 296:Generated_Source\PSoC5/USBFS_hid.c ****     pDescr = (volatile uint8 *)pTmp->p_list;
+ 148              		.loc 1 296 0
+ 149 0022 5B68     		ldr	r3, [r3, #4]
+ 150              	.LVL16:
+ 297:Generated_Source\PSoC5/USBFS_hid.c ****     /* The first byte contains the descriptor length */
+ 298:Generated_Source\PSoC5/USBFS_hid.c ****     USBFS_currentTD.count = *pDescr;
+ 151              		.loc 1 298 0
+ 152 0024 054A     		ldr	r2, .L12+12
+ 296:Generated_Source\PSoC5/USBFS_hid.c ****     /* The first byte contains the descriptor length */
+ 153              		.loc 1 296 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 9
+
+
+ 154 0026 596A     		ldr	r1, [r3, #36]
+ 155              	.LVL17:
+ 156              		.loc 1 298 0
+ 157 0028 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 158              	.LVL18:
+ 159 002a 1380     		strh	r3, [r2]	@ movhi
+ 299:Generated_Source\PSoC5/USBFS_hid.c ****     USBFS_currentTD.pData = pDescr;
+ 160              		.loc 1 299 0
+ 161 002c 5160     		str	r1, [r2, #4]
+ 162 002e 08BD     		pop	{r3, pc}
+ 163              	.L13:
+ 164              		.align	2
+ 165              	.L12:
+ 166 0030 00000000 		.word	USBFS_configuration
+ 167 0034 04600040 		.word	1073766404
+ 168 0038 00000000 		.word	USBFS_interfaceSetting
+ 169 003c 00000000 		.word	USBFS_currentTD
+ 170              		.cfi_endproc
+ 171              	.LFE3:
+ 172              		.size	USBFS_FindHidClassDecriptor, .-USBFS_FindHidClassDecriptor
+ 173              		.section	.text.USBFS_FindReportDescriptor,"ax",%progbits
+ 174              		.align	1
+ 175              		.global	USBFS_FindReportDescriptor
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.type	USBFS_FindReportDescriptor, %function
+ 179              	USBFS_FindReportDescriptor:
+ 180              	.LFB4:
+ 300:Generated_Source\PSoC5/USBFS_hid.c **** }
+ 301:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 302:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 303:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+ 304:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USB_FindReportDescriptor
+ 305:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+ 306:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 307:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+ 308:Generated_Source\PSoC5/USBFS_hid.c **** *  This routine find Hid Report Descriptor pointer based on the Interface
+ 309:Generated_Source\PSoC5/USBFS_hid.c **** *  number, then loads the currentTD structure with the address of the buffer
+ 310:Generated_Source\PSoC5/USBFS_hid.c **** *  and the size.
+ 311:Generated_Source\PSoC5/USBFS_hid.c **** *  Hid Report Descriptor is located after IN/OUT/FEATURE reports.
+ 312:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 313:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+ 314:Generated_Source\PSoC5/USBFS_hid.c **** *   void
+ 315:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 316:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+ 317:Generated_Source\PSoC5/USBFS_hid.c **** *  currentTD
+ 318:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 319:Generated_Source\PSoC5/USBFS_hid.c **** * Reentrant:
+ 320:Generated_Source\PSoC5/USBFS_hid.c **** *  No.
+ 321:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 322:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+ 323:Generated_Source\PSoC5/USBFS_hid.c **** void USBFS_FindReportDescriptor(void) 
+ 324:Generated_Source\PSoC5/USBFS_hid.c **** {
+ 181              		.loc 1 324 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 10
+
+
+ 185 0000 08B5     		push	{r3, lr}
+ 186              		.cfi_def_cfa_offset 8
+ 187              		.cfi_offset 3, -8
+ 188              		.cfi_offset 14, -4
+ 325:Generated_Source\PSoC5/USBFS_hid.c ****     const T_USBFS_LUT CYCODE *pTmp;
+ 326:Generated_Source\PSoC5/USBFS_hid.c ****     volatile uint8 *pDescr;
+ 327:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 interfaceN;
+ 328:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 329:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
+ 189              		.loc 1 329 0
+ 190 0002 0D4B     		ldr	r3, .L15
+ 191 0004 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 192 0006 0138     		subs	r0, r0, #1
+ 193 0008 C0B2     		uxtb	r0, r0
+ 194 000a FFF7FEFF 		bl	USBFS_GetConfigTablePtr
+ 195              	.LVL19:
+ 330:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceN = CY_GET_REG8(USBFS_wIndexLo);
+ 196              		.loc 1 330 0
+ 197 000e 0B4B     		ldr	r3, .L15+4
+ 331:Generated_Source\PSoC5/USBFS_hid.c ****     /* Third entry in the LUT starts the Interface Table pointers */
+ 332:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use the request interface number */
+ 333:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[interfaceN + 2u];
+ 334:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_TABLE */
+ 335:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 336:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use Alternate setting number */
+ 337:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[USBFS_interfaceSetting[interfaceN]];
+ 198              		.loc 1 337 0
+ 199 0010 0B49     		ldr	r1, .L15+8
+ 330:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceN = CY_GET_REG8(USBFS_wIndexLo);
+ 200              		.loc 1 330 0
+ 201 0012 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 202 0014 DBB2     		uxtb	r3, r3
+ 203              	.LVL20:
+ 333:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_TABLE */
+ 204              		.loc 1 333 0
+ 205 0016 00EBC300 		add	r0, r0, r3, lsl #3
+ 206              	.LVL21:
+ 335:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use Alternate setting number */
+ 207              		.loc 1 335 0
+ 208 001a 4269     		ldr	r2, [r0, #20]
+ 209              	.LVL22:
+ 210              		.loc 1 337 0
+ 211 001c CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 212              	.LVL23:
+ 213 001e 02EBC303 		add	r3, r2, r3, lsl #3
+ 214              	.LVL24:
+ 338:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_ALTERNATEi_HID_TABLE */
+ 339:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 340:Generated_Source\PSoC5/USBFS_hid.c ****     /* Fourth entry in the LUT starts the Hid Report Descriptor */
+ 341:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[3u];
+ 342:Generated_Source\PSoC5/USBFS_hid.c ****     pDescr = (volatile uint8 *)pTmp->p_list;
+ 215              		.loc 1 342 0
+ 216 0022 5B68     		ldr	r3, [r3, #4]
+ 217              	.LVL25:
+ 218 0024 DB69     		ldr	r3, [r3, #28]
+ 219              	.LVL26:
+ 343:Generated_Source\PSoC5/USBFS_hid.c ****     /* The 1st and 2nd bytes of descriptor contain its length. LSB is 1st. */
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 11
+
+
+ 344:Generated_Source\PSoC5/USBFS_hid.c ****     USBFS_currentTD.count =  (((uint16)pDescr[1u] << 8u) | pDescr[0u]);
+ 220              		.loc 1 344 0
+ 221 0026 5978     		ldrb	r1, [r3, #1]	@ zero_extendqisi2
+ 222 0028 13F8022B 		ldrb	r2, [r3], #2	@ zero_extendqisi2
+ 223              	.LVL27:
+ 224 002c 42EA0122 		orr	r2, r2, r1, lsl #8
+ 225 0030 0449     		ldr	r1, .L15+12
+ 226 0032 0A80     		strh	r2, [r1]	@ movhi
+ 345:Generated_Source\PSoC5/USBFS_hid.c ****     USBFS_currentTD.pData = &pDescr[2u];
+ 227              		.loc 1 345 0
+ 228 0034 4B60     		str	r3, [r1, #4]
+ 229 0036 08BD     		pop	{r3, pc}
+ 230              	.LVL28:
+ 231              	.L16:
+ 232              		.align	2
+ 233              	.L15:
+ 234 0038 00000000 		.word	USBFS_configuration
+ 235 003c 04600040 		.word	1073766404
+ 236 0040 00000000 		.word	USBFS_interfaceSetting
+ 237 0044 00000000 		.word	USBFS_currentTD
+ 238              		.cfi_endproc
+ 239              	.LFE4:
+ 240              		.size	USBFS_FindReportDescriptor, .-USBFS_FindReportDescriptor
+ 241              		.section	.text.USBFS_FindReport,"ax",%progbits
+ 242              		.align	1
+ 243              		.global	USBFS_FindReport
+ 244              		.thumb
+ 245              		.thumb_func
+ 246              		.type	USBFS_FindReport, %function
+ 247              	USBFS_FindReport:
+ 248              	.LFB5:
+ 346:Generated_Source\PSoC5/USBFS_hid.c **** }
+ 347:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 348:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 349:Generated_Source\PSoC5/USBFS_hid.c **** /*******************************************************************************
+ 350:Generated_Source\PSoC5/USBFS_hid.c **** * Function Name: USBFS_FindReport
+ 351:Generated_Source\PSoC5/USBFS_hid.c **** ********************************************************************************
+ 352:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 353:Generated_Source\PSoC5/USBFS_hid.c **** * Summary:
+ 354:Generated_Source\PSoC5/USBFS_hid.c **** *  This routine sets up a transfer based on the Interface number, Report Type
+ 355:Generated_Source\PSoC5/USBFS_hid.c **** *  and Report ID, then loads the currentTD structure with the address of the
+ 356:Generated_Source\PSoC5/USBFS_hid.c **** *  buffer and the size.  The caller has to decide if it is a control read or
+ 357:Generated_Source\PSoC5/USBFS_hid.c **** *  control write.
+ 358:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 359:Generated_Source\PSoC5/USBFS_hid.c **** * Parameters:
+ 360:Generated_Source\PSoC5/USBFS_hid.c **** *  None.
+ 361:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 362:Generated_Source\PSoC5/USBFS_hid.c **** * Return:
+ 363:Generated_Source\PSoC5/USBFS_hid.c **** *  currentTD
+ 364:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 365:Generated_Source\PSoC5/USBFS_hid.c **** * Reentrant:
+ 366:Generated_Source\PSoC5/USBFS_hid.c **** *  No.
+ 367:Generated_Source\PSoC5/USBFS_hid.c **** *
+ 368:Generated_Source\PSoC5/USBFS_hid.c **** *******************************************************************************/
+ 369:Generated_Source\PSoC5/USBFS_hid.c **** void USBFS_FindReport(void) 
+ 370:Generated_Source\PSoC5/USBFS_hid.c **** {
+ 249              		.loc 1 370 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 12
+
+
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 0000 10B5     		push	{r4, lr}
+ 254              		.cfi_def_cfa_offset 8
+ 255              		.cfi_offset 4, -8
+ 256              		.cfi_offset 14, -4
+ 371:Generated_Source\PSoC5/USBFS_hid.c ****     const T_USBFS_LUT CYCODE *pTmp;
+ 372:Generated_Source\PSoC5/USBFS_hid.c ****     T_USBFS_TD *pTD;
+ 373:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 interfaceN;
+ 374:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 reportType;
+ 375:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 376:Generated_Source\PSoC5/USBFS_hid.c ****     /* `#START HID_FINDREPORT` Place custom handling here */
+ 377:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 378:Generated_Source\PSoC5/USBFS_hid.c ****     /* `#END` */
+ 379:Generated_Source\PSoC5/USBFS_hid.c ****     
+ 380:Generated_Source\PSoC5/USBFS_hid.c ****     #ifdef USBFS_FIND_REPORT_CALLBACK
+ 381:Generated_Source\PSoC5/USBFS_hid.c ****         USBFS_FindReport_Callback();
+ 382:Generated_Source\PSoC5/USBFS_hid.c ****     #endif /* USBFS_FIND_REPORT_CALLBACK */
+ 383:Generated_Source\PSoC5/USBFS_hid.c ****     
+ 384:Generated_Source\PSoC5/USBFS_hid.c ****     USBFS_currentTD.count = 0u;   /* Init not supported condition */
+ 257              		.loc 1 384 0
+ 258 0002 184C     		ldr	r4, .L19
+ 259 0004 0023     		movs	r3, #0
+ 260 0006 2380     		strh	r3, [r4]	@ movhi
+ 385:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = USBFS_GetConfigTablePtr(USBFS_configuration - 1u);
+ 261              		.loc 1 385 0
+ 262 0008 174B     		ldr	r3, .L19+4
+ 263 000a 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 264 000c 0138     		subs	r0, r0, #1
+ 265 000e C0B2     		uxtb	r0, r0
+ 266 0010 FFF7FEFF 		bl	USBFS_GetConfigTablePtr
+ 267              	.LVL29:
+ 386:Generated_Source\PSoC5/USBFS_hid.c ****     reportType = CY_GET_REG8(USBFS_wValueHi);
+ 268              		.loc 1 386 0
+ 269 0014 154B     		ldr	r3, .L19+8
+ 387:Generated_Source\PSoC5/USBFS_hid.c ****     interfaceN = CY_GET_REG8(USBFS_wIndexLo);
+ 270              		.loc 1 387 0
+ 271 0016 164A     		ldr	r2, .L19+12
+ 386:Generated_Source\PSoC5/USBFS_hid.c ****     reportType = CY_GET_REG8(USBFS_wValueHi);
+ 272              		.loc 1 386 0
+ 273 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 274              		.loc 1 387 0
+ 275 001a 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 386:Generated_Source\PSoC5/USBFS_hid.c ****     reportType = CY_GET_REG8(USBFS_wValueHi);
+ 276              		.loc 1 386 0
+ 277 001c DBB2     		uxtb	r3, r3
+ 278              	.LVL30:
+ 388:Generated_Source\PSoC5/USBFS_hid.c ****     /* Third entry in the LUT COnfiguration Table starts the Interface Table pointers */
+ 389:Generated_Source\PSoC5/USBFS_hid.c ****     /* Now use the request interface number */
+ 390:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = &pTmp[interfaceN + 2u];
+ 391:Generated_Source\PSoC5/USBFS_hid.c ****     /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_TABLE*/
+ 392:Generated_Source\PSoC5/USBFS_hid.c ****     pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 393:Generated_Source\PSoC5/USBFS_hid.c ****     if(interfaceN < USBFS_MAX_INTERFACES_NUMBER)
+ 279              		.loc 1 393 0
+ 280 001e FAB9     		cbnz	r2, .L17
+ 394:Generated_Source\PSoC5/USBFS_hid.c ****     {
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 13
+
+
+ 395:Generated_Source\PSoC5/USBFS_hid.c ****         /* Now use Alternate setting number */
+ 396:Generated_Source\PSoC5/USBFS_hid.c ****         pTmp = &pTmp[USBFS_interfaceSetting[interfaceN]];
+ 281              		.loc 1 396 0
+ 282 0020 144A     		ldr	r2, .L19+16
+ 283              	.LVL31:
+ 284 0022 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 285 0024 D1B2     		uxtb	r1, r2
+ 397:Generated_Source\PSoC5/USBFS_hid.c ****         /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_ALTERNATEi_HID_TABLE */
+ 398:Generated_Source\PSoC5/USBFS_hid.c ****         pTmp = (const T_USBFS_LUT CYCODE *) pTmp->p_list;
+ 399:Generated_Source\PSoC5/USBFS_hid.c ****         /* Validate reportType to comply with "7.2.1 Get_Report Request" */
+ 400:Generated_Source\PSoC5/USBFS_hid.c ****         if((reportType >= USBFS_HID_GET_REPORT_INPUT) &&
+ 286              		.loc 1 400 0
+ 287 0026 5A1E     		subs	r2, r3, #1
+ 288 0028 022A     		cmp	r2, #2
+ 289 002a 19D8     		bhi	.L17
+ 392:Generated_Source\PSoC5/USBFS_hid.c ****     if(interfaceN < USBFS_MAX_INTERFACES_NUMBER)
+ 290              		.loc 1 392 0
+ 291 002c 4269     		ldr	r2, [r0, #20]
+ 401:Generated_Source\PSoC5/USBFS_hid.c ****            (reportType <= USBFS_HID_GET_REPORT_FEATURE))
+ 402:Generated_Source\PSoC5/USBFS_hid.c ****         {
+ 403:Generated_Source\PSoC5/USBFS_hid.c ****             /* Get the entry proper TD (IN, OUT or Feature Report Table)*/
+ 404:Generated_Source\PSoC5/USBFS_hid.c ****             pTmp = &pTmp[reportType - 1u];
+ 292              		.loc 1 404 0
+ 293 002e 03F10053 		add	r3, r3, #536870912
+ 294              	.LVL32:
+ 396:Generated_Source\PSoC5/USBFS_hid.c ****         /* USB_DEVICEx_CONFIGURATIONy_INTERFACEz_ALTERNATEi_HID_TABLE */
+ 295              		.loc 1 396 0
+ 296 0032 02EBC102 		add	r2, r2, r1, lsl #3
+ 398:Generated_Source\PSoC5/USBFS_hid.c ****         /* Validate reportType to comply with "7.2.1 Get_Report Request" */
+ 297              		.loc 1 398 0
+ 298 0036 5168     		ldr	r1, [r2, #4]
+ 405:Generated_Source\PSoC5/USBFS_hid.c ****             reportType = CY_GET_REG8(USBFS_wValueLo);    /* Get reportID */
+ 299              		.loc 1 405 0
+ 300 0038 0F4A     		ldr	r2, .L19+20
+ 404:Generated_Source\PSoC5/USBFS_hid.c ****             reportType = CY_GET_REG8(USBFS_wValueLo);    /* Get reportID */
+ 301              		.loc 1 404 0
+ 302 003a 013B     		subs	r3, r3, #1
+ 303              	.LVL33:
+ 304              		.loc 1 405 0
+ 305 003c 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 404:Generated_Source\PSoC5/USBFS_hid.c ****             reportType = CY_GET_REG8(USBFS_wValueLo);    /* Get reportID */
+ 306              		.loc 1 404 0
+ 307 003e 01EBC300 		add	r0, r1, r3, lsl #3
+ 308              	.LVL34:
+ 406:Generated_Source\PSoC5/USBFS_hid.c ****             /* Validate table support by the HID descriptor, compare table count with reportID */
+ 407:Generated_Source\PSoC5/USBFS_hid.c ****             if(pTmp->c >= reportType)
+ 309              		.loc 1 407 0
+ 310 0042 11F83330 		ldrb	r3, [r1, r3, lsl #3]	@ zero_extendqisi2
+ 311              	.LVL35:
+ 405:Generated_Source\PSoC5/USBFS_hid.c ****             /* Validate table support by the HID descriptor, compare table count with reportID */
+ 312              		.loc 1 405 0
+ 313 0046 D2B2     		uxtb	r2, r2
+ 314              	.LVL36:
+ 315              		.loc 1 407 0
+ 316 0048 9342     		cmp	r3, r2
+ 317 004a 09D3     		bcc	.L17
+ 408:Generated_Source\PSoC5/USBFS_hid.c ****             {
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 14
+
+
+ 409:Generated_Source\PSoC5/USBFS_hid.c ****                 pTD = (T_USBFS_TD *) pTmp->p_list;
+ 410:Generated_Source\PSoC5/USBFS_hid.c ****                 pTD = &pTD[reportType];                          /* select entry depend on report I
+ 318              		.loc 1 410 0
+ 319 004c 0C23     		movs	r3, #12
+ 320 004e 5343     		muls	r3, r2, r3
+ 409:Generated_Source\PSoC5/USBFS_hid.c ****                 pTD = &pTD[reportType];                          /* select entry depend on report I
+ 321              		.loc 1 409 0
+ 322 0050 4168     		ldr	r1, [r0, #4]
+ 323              	.LVL37:
+ 324              		.loc 1 410 0
+ 325 0052 CA18     		adds	r2, r1, r3
+ 326              	.LVL38:
+ 411:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_currentTD.pData = pTD->pData;   /* Buffer pointer */
+ 327              		.loc 1 411 0
+ 328 0054 5068     		ldr	r0, [r2, #4]
+ 329              	.LVL39:
+ 412:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_currentTD.count = pTD->count;   /* Buffer Size */
+ 330              		.loc 1 412 0
+ 331 0056 CB5A     		ldrh	r3, [r1, r3]
+ 411:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_currentTD.pData = pTD->pData;   /* Buffer pointer */
+ 332              		.loc 1 411 0
+ 333 0058 6060     		str	r0, [r4, #4]
+ 334              		.loc 1 412 0
+ 335 005a 2380     		strh	r3, [r4]	@ movhi
+ 413:Generated_Source\PSoC5/USBFS_hid.c ****                 USBFS_currentTD.pStatusBlock = pTD->pStatusBlock;
+ 336              		.loc 1 413 0
+ 337 005c 9368     		ldr	r3, [r2, #8]
+ 338 005e A360     		str	r3, [r4, #8]
+ 339              	.LVL40:
+ 340              	.L17:
+ 341 0060 10BD     		pop	{r4, pc}
+ 342              	.L20:
+ 343 0062 00BF     		.align	2
+ 344              	.L19:
+ 345 0064 00000000 		.word	USBFS_currentTD
+ 346 0068 00000000 		.word	USBFS_configuration
+ 347 006c 03600040 		.word	1073766403
+ 348 0070 04600040 		.word	1073766404
+ 349 0074 00000000 		.word	USBFS_interfaceSetting
+ 350 0078 02600040 		.word	1073766402
+ 351              		.cfi_endproc
+ 352              	.LFE5:
+ 353              		.size	USBFS_FindReport, .-USBFS_FindReport
+ 354              		.section	.text.USBFS_DispatchHIDClassRqst,"ax",%progbits
+ 355              		.align	1
+ 356              		.global	USBFS_DispatchHIDClassRqst
+ 357              		.thumb
+ 358              		.thumb_func
+ 359              		.type	USBFS_DispatchHIDClassRqst, %function
+ 360              	USBFS_DispatchHIDClassRqst:
+ 361              	.LFB2:
+ 124:Generated_Source\PSoC5/USBFS_hid.c ****     uint8 requestHandled = USBFS_FALSE;
+ 362              		.loc 1 124 0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366              	.LVL41:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 15
+
+
+ 367 0000 10B5     		push	{r4, lr}
+ 368              		.cfi_def_cfa_offset 8
+ 369              		.cfi_offset 4, -8
+ 370              		.cfi_offset 14, -4
+ 128:Generated_Source\PSoC5/USBFS_hid.c ****     if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+ 371              		.loc 1 128 0
+ 372 0002 3D4B     		ldr	r3, .L56
+ 129:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* Control Read */
+ 373              		.loc 1 129 0
+ 374 0004 3D4A     		ldr	r2, .L56+4
+ 128:Generated_Source\PSoC5/USBFS_hid.c ****     if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+ 375              		.loc 1 128 0
+ 376 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 129:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* Control Read */
+ 377              		.loc 1 129 0
+ 378 0008 1178     		ldrb	r1, [r2]	@ zero_extendqisi2
+ 128:Generated_Source\PSoC5/USBFS_hid.c ****     if ((CY_GET_REG8(USBFS_bmRequestType) & USBFS_RQST_DIR_MASK) == USBFS_RQST_DIR_D2H)
+ 379              		.loc 1 128 0
+ 380 000a DBB2     		uxtb	r3, r3
+ 381              	.LVL42:
+ 129:Generated_Source\PSoC5/USBFS_hid.c ****     {   /* Control Read */
+ 382              		.loc 1 129 0
+ 383 000c 0906     		lsls	r1, r1, #24
+ 384 000e 34D5     		bpl	.L22
+ 131:Generated_Source\PSoC5/USBFS_hid.c ****         {
+ 385              		.loc 1 131 0
+ 386 0010 0132     		adds	r2, r2, #1
+ 387 0012 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 388 0014 013A     		subs	r2, r2, #1
+ 389 0016 052A     		cmp	r2, #5
+ 390 0018 6BD8     		bhi	.L23
+ 391 001a DFE802F0 		tbb	[pc, r2]
+ 392              	.L25:
+ 393 001e 10       		.byte	(.L24-.L25)/2
+ 394 001f 18       		.byte	(.L26-.L25)/2
+ 395 0020 27       		.byte	(.L27-.L25)/2
+ 396 0021 6A       		.byte	(.L23-.L25)/2
+ 397 0022 6A       		.byte	(.L23-.L25)/2
+ 398 0023 03       		.byte	(.L28-.L25)/2
+ 399              		.p2align 1
+ 400              	.L28:
+ 134:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 401              		.loc 1 134 0
+ 402 0024 364B     		ldr	r3, .L56+8
+ 403              	.LVL43:
+ 404 0026 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 405 0028 212A     		cmp	r2, #33
+ 406 002a 02D1     		bne	.L29
+ 136:Generated_Source\PSoC5/USBFS_hid.c ****                     if (USBFS_currentTD.count != 0u)
+ 407              		.loc 1 136 0
+ 408 002c FFF7FEFF 		bl	USBFS_FindHidClassDecriptor
+ 409              	.LVL44:
+ 410 0030 07E0     		b	.L54
+ 411              	.L29:
+ 142:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 412              		.loc 1 142 0
+ 413 0032 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 16
+
+
+ 414 0034 222B     		cmp	r3, #34
+ 415 0036 5CD1     		bne	.L23
+ 144:Generated_Source\PSoC5/USBFS_hid.c ****                     if (USBFS_currentTD.count != 0u)
+ 416              		.loc 1 144 0
+ 417 0038 FFF7FEFF 		bl	USBFS_FindReportDescriptor
+ 418              	.LVL45:
+ 419 003c 01E0     		b	.L54
+ 420              	.LVL46:
+ 421              	.L24:
+ 155:Generated_Source\PSoC5/USBFS_hid.c ****                 if (USBFS_currentTD.count != 0u)
+ 422              		.loc 1 155 0
+ 423 003e FFF7FEFF 		bl	USBFS_FindReport
+ 424              	.LVL47:
+ 425              	.L54:
+ 156:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 426              		.loc 1 156 0
+ 427 0042 304B     		ldr	r3, .L56+12
+ 428 0044 1B88     		ldrh	r3, [r3]
+ 429 0046 9BB2     		uxth	r3, r3
+ 430 0048 002B     		cmp	r3, #0
+ 431 004a 52D0     		beq	.L23
+ 432 004c 0AE0     		b	.L51
+ 433              	.LVL48:
+ 434              	.L26:
+ 165:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 435              		.loc 1 165 0
+ 436 004e 002B     		cmp	r3, #0
+ 437 0050 4FD1     		bne	.L23
+ 166:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 438              		.loc 1 166 0 discriminator 1
+ 439 0052 2D4B     		ldr	r3, .L56+16
+ 440              	.LVL49:
+ 441 0054 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 165:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 442              		.loc 1 165 0 discriminator 1
+ 443 0056 002B     		cmp	r3, #0
+ 444 0058 4BD1     		bne	.L23
+ 168:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.pData = &USBFS_hidIdleRate[interfaceNumber];
+ 445              		.loc 1 168 0
+ 446 005a 2A4B     		ldr	r3, .L56+12
+ 447 005c 0122     		movs	r2, #1
+ 448 005e 1A80     		strh	r2, [r3]	@ movhi
+ 169:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled  = USBFS_InitControlRead();
+ 449              		.loc 1 169 0
+ 450 0060 2A4A     		ldr	r2, .L56+20
+ 451              	.L52:
+ 452 0062 5A60     		str	r2, [r3, #4]
+ 453              	.L51:
+ 254:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 454              		.loc 1 254 0
+ 455 0064 BDE81040 		pop	{r4, lr}
+ 456              		.cfi_remember_state
+ 457              		.cfi_restore 14
+ 458              		.cfi_restore 4
+ 459              		.cfi_def_cfa_offset 0
+ 170:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 460              		.loc 1 170 0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 17
+
+
+ 461 0068 FFF7FEBF 		b	USBFS_InitControlRead
+ 462              	.LVL50:
+ 463              	.L27:
+ 464              		.cfi_restore_state
+ 175:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 465              		.loc 1 175 0
+ 466 006c 002B     		cmp	r3, #0
+ 467 006e 40D1     		bne	.L23
+ 177:Generated_Source\PSoC5/USBFS_hid.c ****                     USBFS_currentTD.pData = &USBFS_hidProtocol[interfaceNumber];
+ 468              		.loc 1 177 0
+ 469 0070 244B     		ldr	r3, .L56+12
+ 470              	.LVL51:
+ 471 0072 0122     		movs	r2, #1
+ 472 0074 1A80     		strh	r2, [r3]	@ movhi
+ 178:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled  = USBFS_InitControlRead();
+ 473              		.loc 1 178 0
+ 474 0076 264A     		ldr	r2, .L56+24
+ 475 0078 F3E7     		b	.L52
+ 476              	.LVL52:
+ 477              	.L22:
+ 186:Generated_Source\PSoC5/USBFS_hid.c ****                                                                             USBFS_RQST_DIR_H2D)
+ 478              		.loc 1 186 0
+ 479 007a 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 480 007c 1206     		lsls	r2, r2, #24
+ 481 007e 38D4     		bmi	.L23
+ 189:Generated_Source\PSoC5/USBFS_hid.c ****         {
+ 482              		.loc 1 189 0
+ 483 0080 244A     		ldr	r2, .L56+28
+ 484 0082 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 485 0084 D2B2     		uxtb	r2, r2
+ 486 0086 0A2A     		cmp	r2, #10
+ 487 0088 0DD0     		beq	.L32
+ 488 008a 0B2A     		cmp	r2, #11
+ 489 008c 24D0     		beq	.L33
+ 490 008e 092A     		cmp	r2, #9
+ 491 0090 2FD1     		bne	.L23
+ 192:Generated_Source\PSoC5/USBFS_hid.c ****                 if (USBFS_currentTD.count != 0u)
+ 492              		.loc 1 192 0
+ 493 0092 FFF7FEFF 		bl	USBFS_FindReport
+ 494              	.LVL53:
+ 193:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 495              		.loc 1 193 0
+ 496 0096 1B4B     		ldr	r3, .L56+12
+ 497 0098 1B88     		ldrh	r3, [r3]
+ 498 009a 9BB2     		uxth	r3, r3
+ 499 009c 4BB3     		cbz	r3, .L23
+ 254:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 500              		.loc 1 254 0
+ 501 009e BDE81040 		pop	{r4, lr}
+ 502              		.cfi_remember_state
+ 503              		.cfi_restore 14
+ 504              		.cfi_restore 4
+ 505              		.cfi_def_cfa_offset 0
+ 195:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 506              		.loc 1 195 0
+ 507 00a2 FFF7FEBF 		b	USBFS_InitControlWrite
+ 508              	.LVL54:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 18
+
+
+ 509              	.L32:
+ 510              		.cfi_restore_state
+ 201:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 511              		.loc 1 201 0
+ 512 00a6 23BB     		cbnz	r3, .L23
+ 202:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 513              		.loc 1 202 0 discriminator 1
+ 514 00a8 174B     		ldr	r3, .L56+16
+ 515              	.LVL55:
+ 516 00aa 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 201:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) == 0u ) ) /* Do not support Idle per Report ID */
+ 517              		.loc 1 201 0 discriminator 1
+ 518 00ac 03F0FF01 		and	r1, r3, #255
+ 519 00b0 FBB9     		cbnz	r3, .L23
+ 204:Generated_Source\PSoC5/USBFS_hid.c ****                     /* With regards to HID spec: "7.2.4 Set_Idle Request"
+ 520              		.loc 1 204 0
+ 521 00b2 134B     		ldr	r3, .L56+8
+ 522 00b4 154A     		ldr	r2, .L56+20
+ 523 00b6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 524 00b8 DBB2     		uxtb	r3, r3
+ 525 00ba 1370     		strb	r3, [r2]
+ 211:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 526              		.loc 1 211 0
+ 527 00bc 164B     		ldr	r3, .L56+32
+ 210:Generated_Source\PSoC5/USBFS_hid.c ****                        USBFS_hidIdleTimer[interfaceNumber])
+ 528              		.loc 1 210 0
+ 529 00be 1478     		ldrb	r4, [r2]	@ zero_extendqisi2
+ 211:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 530              		.loc 1 211 0
+ 531 00c0 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 210:Generated_Source\PSoC5/USBFS_hid.c ****                        USBFS_hidIdleTimer[interfaceNumber])
+ 532              		.loc 1 210 0
+ 533 00c2 8442     		cmp	r4, r0
+ 534 00c4 01D2     		bcs	.L35
+ 214:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 535              		.loc 1 214 0
+ 536 00c6 1970     		strb	r1, [r3]
+ 537 00c8 0FE0     		b	.L50
+ 538              	.L35:
+ 220:Generated_Source\PSoC5/USBFS_hid.c ****                     {
+ 539              		.loc 1 220 0
+ 540 00ca 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 541 00cc 0129     		cmp	r1, #1
+ 542 00ce 0CD9     		bls	.L50
+ 230:Generated_Source\PSoC5/USBFS_hid.c ****                     }
+ 543              		.loc 1 230 0
+ 544 00d0 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 545 00d2 D2B2     		uxtb	r2, r2
+ 229:Generated_Source\PSoC5/USBFS_hid.c ****                         USBFS_hidIdleRate[interfaceNumber];
+ 546              		.loc 1 229 0
+ 547 00d4 1A70     		strb	r2, [r3]
+ 548 00d6 08E0     		b	.L50
+ 549              	.LVL56:
+ 550              	.L33:
+ 238:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) <= 1u) )
+ 551              		.loc 1 238 0
+ 552 00d8 5BB9     		cbnz	r3, .L23
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 19
+
+
+ 239:Generated_Source\PSoC5/USBFS_hid.c ****                 {
+ 553              		.loc 1 239 0 discriminator 1
+ 554 00da 0B4B     		ldr	r3, .L56+16
+ 555              	.LVL57:
+ 556 00dc 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 238:Generated_Source\PSoC5/USBFS_hid.c ****                     (CY_GET_REG8(USBFS_wValueLo) <= 1u) )
+ 557              		.loc 1 238 0 discriminator 1
+ 558 00de 012A     		cmp	r2, #1
+ 559 00e0 07D8     		bhi	.L23
+ 241:Generated_Source\PSoC5/USBFS_hid.c ****                     requestHandled = USBFS_InitNoDataControlTransfer();
+ 560              		.loc 1 241 0
+ 561 00e2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 562 00e4 0A4A     		ldr	r2, .L56+24
+ 563 00e6 DBB2     		uxtb	r3, r3
+ 564 00e8 1370     		strb	r3, [r2]
+ 565              	.L50:
+ 254:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 566              		.loc 1 254 0
+ 567 00ea BDE81040 		pop	{r4, lr}
+ 568              		.cfi_remember_state
+ 569              		.cfi_restore 14
+ 570              		.cfi_restore 4
+ 571              		.cfi_def_cfa_offset 0
+ 242:Generated_Source\PSoC5/USBFS_hid.c ****                 }
+ 572              		.loc 1 242 0
+ 573 00ee FFF7FEBF 		b	USBFS_InitNoDataControlTransfer
+ 574              	.LVL58:
+ 575              	.L23:
+ 576              		.cfi_restore_state
+ 254:Generated_Source\PSoC5/USBFS_hid.c **** 
+ 577              		.loc 1 254 0
+ 578 00f2 0020     		movs	r0, #0
+ 579 00f4 10BD     		pop	{r4, pc}
+ 580              	.L57:
+ 581 00f6 00BF     		.align	2
+ 582              	.L56:
+ 583 00f8 04600040 		.word	1073766404
+ 584 00fc 00600040 		.word	1073766400
+ 585 0100 03600040 		.word	1073766403
+ 586 0104 00000000 		.word	USBFS_currentTD
+ 587 0108 02600040 		.word	1073766402
+ 588 010c 00000000 		.word	USBFS_hidIdleRate
+ 589 0110 00000000 		.word	USBFS_hidProtocol
+ 590 0114 01600040 		.word	1073766401
+ 591 0118 00000000 		.word	USBFS_hidIdleTimer
+ 592              		.cfi_endproc
+ 593              	.LFE2:
+ 594              		.size	USBFS_DispatchHIDClassRqst, .-USBFS_DispatchHIDClassRqst
+ 595              		.comm	USBFS_hidIdleTimer,1,1
+ 596              		.comm	USBFS_hidIdleRate,1,1
+ 597              		.comm	USBFS_hidProtocol,1,1
+ 598              		.text
+ 599              	.Letext0:
+ 600              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 601              		.file 3 "Generated_Source\\PSoC5\\USBFS.h"
+ 602              		.file 4 "Generated_Source\\PSoC5\\USBFS_pvt.h"
+ 603              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 20
+
+
+ 604              	.Ldebug_info0:
+ 605 0000 E4030000 		.4byte	0x3e4
+ 606 0004 0400     		.2byte	0x4
+ 607 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 608 000a 04       		.byte	0x4
+ 609 000b 01       		.uleb128 0x1
+ 610 000c 48010000 		.4byte	.LASF50
+ 611 0010 0C       		.byte	0xc
+ 612 0011 E4020000 		.4byte	.LASF51
+ 613 0015 55000000 		.4byte	.LASF52
+ 614 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 615 001d 00000000 		.4byte	0
+ 616 0021 00000000 		.4byte	.Ldebug_line0
+ 617 0025 02       		.uleb128 0x2
+ 618 0026 01       		.byte	0x1
+ 619 0027 06       		.byte	0x6
+ 620 0028 91030000 		.4byte	.LASF0
+ 621 002c 02       		.uleb128 0x2
+ 622 002d 01       		.byte	0x1
+ 623 002e 08       		.byte	0x8
+ 624 002f 1B010000 		.4byte	.LASF1
+ 625 0033 02       		.uleb128 0x2
+ 626 0034 02       		.byte	0x2
+ 627 0035 05       		.byte	0x5
+ 628 0036 3A020000 		.4byte	.LASF2
+ 629 003a 02       		.uleb128 0x2
+ 630 003b 02       		.byte	0x2
+ 631 003c 07       		.byte	0x7
+ 632 003d 42000000 		.4byte	.LASF3
+ 633 0041 02       		.uleb128 0x2
+ 634 0042 04       		.byte	0x4
+ 635 0043 05       		.byte	0x5
+ 636 0044 7C030000 		.4byte	.LASF4
+ 637 0048 02       		.uleb128 0x2
+ 638 0049 04       		.byte	0x4
+ 639 004a 07       		.byte	0x7
+ 640 004b 6A020000 		.4byte	.LASF5
+ 641 004f 02       		.uleb128 0x2
+ 642 0050 08       		.byte	0x8
+ 643 0051 05       		.byte	0x5
+ 644 0052 10030000 		.4byte	.LASF6
+ 645 0056 02       		.uleb128 0x2
+ 646 0057 08       		.byte	0x8
+ 647 0058 07       		.byte	0x7
+ 648 0059 A4020000 		.4byte	.LASF7
+ 649 005d 03       		.uleb128 0x3
+ 650 005e 04       		.byte	0x4
+ 651 005f 05       		.byte	0x5
+ 652 0060 696E7400 		.ascii	"int\000"
+ 653 0064 02       		.uleb128 0x2
+ 654 0065 04       		.byte	0x4
+ 655 0066 07       		.byte	0x7
+ 656 0067 7C020000 		.4byte	.LASF8
+ 657 006b 04       		.uleb128 0x4
+ 658 006c D6010000 		.4byte	.LASF9
+ 659 0070 02       		.byte	0x2
+ 660 0071 A1       		.byte	0xa1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 21
+
+
+ 661 0072 2C000000 		.4byte	0x2c
+ 662 0076 04       		.uleb128 0x4
+ 663 0077 44020000 		.4byte	.LASF10
+ 664 007b 02       		.byte	0x2
+ 665 007c A2       		.byte	0xa2
+ 666 007d 3A000000 		.4byte	0x3a
+ 667 0081 02       		.uleb128 0x2
+ 668 0082 04       		.byte	0x4
+ 669 0083 04       		.byte	0x4
+ 670 0084 F6000000 		.4byte	.LASF11
+ 671 0088 02       		.uleb128 0x2
+ 672 0089 08       		.byte	0x8
+ 673 008a 04       		.byte	0x4
+ 674 008b 1D020000 		.4byte	.LASF12
+ 675 008f 02       		.uleb128 0x2
+ 676 0090 01       		.byte	0x1
+ 677 0091 08       		.byte	0x8
+ 678 0092 2A030000 		.4byte	.LASF13
+ 679 0096 05       		.uleb128 0x5
+ 680 0097 29010000 		.4byte	.LASF14
+ 681 009b 02       		.byte	0x2
+ 682 009c 4B01     		.2byte	0x14b
+ 683 009e A2000000 		.4byte	0xa2
+ 684 00a2 06       		.uleb128 0x6
+ 685 00a3 6B000000 		.4byte	0x6b
+ 686 00a7 02       		.uleb128 0x2
+ 687 00a8 08       		.byte	0x8
+ 688 00a9 04       		.byte	0x4
+ 689 00aa 85030000 		.4byte	.LASF15
+ 690 00ae 02       		.uleb128 0x2
+ 691 00af 04       		.byte	0x4
+ 692 00b0 07       		.byte	0x7
+ 693 00b1 07030000 		.4byte	.LASF16
+ 694 00b5 07       		.uleb128 0x7
+ 695 00b6 04       		.byte	0x4
+ 696 00b7 03       		.byte	0x3
+ 697 00b8 96       		.byte	0x96
+ 698 00b9 D6000000 		.4byte	0xd6
+ 699 00bd 08       		.uleb128 0x8
+ 700 00be C2000000 		.4byte	.LASF17
+ 701 00c2 03       		.byte	0x3
+ 702 00c3 98       		.byte	0x98
+ 703 00c4 6B000000 		.4byte	0x6b
+ 704 00c8 00       		.byte	0
+ 705 00c9 08       		.uleb128 0x8
+ 706 00ca C2030000 		.4byte	.LASF18
+ 707 00ce 03       		.byte	0x3
+ 708 00cf 99       		.byte	0x99
+ 709 00d0 76000000 		.4byte	0x76
+ 710 00d4 02       		.byte	0x2
+ 711 00d5 00       		.byte	0
+ 712 00d6 04       		.uleb128 0x4
+ 713 00d7 2E010000 		.4byte	.LASF19
+ 714 00db 03       		.byte	0x3
+ 715 00dc 9A       		.byte	0x9a
+ 716 00dd B5000000 		.4byte	0xb5
+ 717 00e1 07       		.uleb128 0x7
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 22
+
+
+ 718 00e2 0C       		.byte	0xc
+ 719 00e3 03       		.byte	0x3
+ 720 00e4 9C       		.byte	0x9c
+ 721 00e5 0E010000 		.4byte	0x10e
+ 722 00e9 08       		.uleb128 0x8
+ 723 00ea 21000000 		.4byte	.LASF20
+ 724 00ee 03       		.byte	0x3
+ 725 00ef 9E       		.byte	0x9e
+ 726 00f0 76000000 		.4byte	0x76
+ 727 00f4 00       		.byte	0
+ 728 00f5 08       		.uleb128 0x8
+ 729 00f6 C9000000 		.4byte	.LASF21
+ 730 00fa 03       		.byte	0x3
+ 731 00fb 9F       		.byte	0x9f
+ 732 00fc 0E010000 		.4byte	0x10e
+ 733 0100 04       		.byte	0x4
+ 734 0101 08       		.uleb128 0x8
+ 735 0102 00000000 		.4byte	.LASF22
+ 736 0106 03       		.byte	0x3
+ 737 0107 A0       		.byte	0xa0
+ 738 0108 14010000 		.4byte	0x114
+ 739 010c 08       		.byte	0x8
+ 740 010d 00       		.byte	0
+ 741 010e 09       		.uleb128 0x9
+ 742 010f 04       		.byte	0x4
+ 743 0110 A2000000 		.4byte	0xa2
+ 744 0114 09       		.uleb128 0x9
+ 745 0115 04       		.byte	0x4
+ 746 0116 D6000000 		.4byte	0xd6
+ 747 011a 04       		.uleb128 0x4
+ 748 011b EB000000 		.4byte	.LASF23
+ 749 011f 03       		.byte	0x3
+ 750 0120 A1       		.byte	0xa1
+ 751 0121 E1000000 		.4byte	0xe1
+ 752 0125 07       		.uleb128 0x7
+ 753 0126 08       		.byte	0x8
+ 754 0127 03       		.byte	0x3
+ 755 0128 A4       		.byte	0xa4
+ 756 0129 44010000 		.4byte	0x144
+ 757 012d 0A       		.uleb128 0xa
+ 758 012e 6300     		.ascii	"c\000"
+ 759 0130 03       		.byte	0x3
+ 760 0131 A6       		.byte	0xa6
+ 761 0132 6B000000 		.4byte	0x6b
+ 762 0136 00       		.byte	0
+ 763 0137 08       		.uleb128 0x8
+ 764 0138 BB020000 		.4byte	.LASF24
+ 765 013c 03       		.byte	0x3
+ 766 013d A7       		.byte	0xa7
+ 767 013e 44010000 		.4byte	0x144
+ 768 0142 04       		.byte	0x4
+ 769 0143 00       		.byte	0
+ 770 0144 09       		.uleb128 0x9
+ 771 0145 04       		.byte	0x4
+ 772 0146 4A010000 		.4byte	0x14a
+ 773 014a 0B       		.uleb128 0xb
+ 774 014b 04       		.uleb128 0x4
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 23
+
+
+ 775 014c 1E030000 		.4byte	.LASF25
+ 776 0150 03       		.byte	0x3
+ 777 0151 A8       		.byte	0xa8
+ 778 0152 25010000 		.4byte	0x125
+ 779 0156 0C       		.uleb128 0xc
+ 780 0157 5D030000 		.4byte	.LASF26
+ 781 015b 01       		.byte	0x1
+ 782 015c 40       		.byte	0x40
+ 783 015d 6B000000 		.4byte	0x6b
+ 784 0161 00000000 		.4byte	.LFB0
+ 785 0165 34000000 		.4byte	.LFE0-.LFB0
+ 786 0169 01       		.uleb128 0x1
+ 787 016a 9C       		.byte	0x9c
+ 788 016b 8E010000 		.4byte	0x18e
+ 789 016f 0D       		.uleb128 0xd
+ 790 0170 72030000 		.4byte	.LASF28
+ 791 0174 01       		.byte	0x1
+ 792 0175 40       		.byte	0x40
+ 793 0176 6B000000 		.4byte	0x6b
+ 794 017a 00000000 		.4byte	.LLST0
+ 795 017e 0E       		.uleb128 0xe
+ 796 017f 0D000000 		.4byte	.LASF29
+ 797 0183 01       		.byte	0x1
+ 798 0184 42       		.byte	0x42
+ 799 0185 6B000000 		.4byte	0x6b
+ 800 0189 53000000 		.4byte	.LLST1
+ 801 018d 00       		.byte	0
+ 802 018e 0C       		.uleb128 0xc
+ 803 018f D2020000 		.4byte	.LASF27
+ 804 0193 01       		.byte	0x1
+ 805 0194 64       		.byte	0x64
+ 806 0195 6B000000 		.4byte	0x6b
+ 807 0199 00000000 		.4byte	.LFB1
+ 808 019d 0C000000 		.4byte	.LFE1-.LFB1
+ 809 01a1 01       		.uleb128 0x1
+ 810 01a2 9C       		.byte	0x9c
+ 811 01a3 B7010000 		.4byte	0x1b7
+ 812 01a7 0D       		.uleb128 0xd
+ 813 01a8 72030000 		.4byte	.LASF28
+ 814 01ac 01       		.byte	0x1
+ 815 01ad 64       		.byte	0x64
+ 816 01ae 6B000000 		.4byte	0x6b
+ 817 01b2 A2000000 		.4byte	.LLST2
+ 818 01b6 00       		.byte	0
+ 819 01b7 0F       		.uleb128 0xf
+ 820 01b8 CF000000 		.4byte	.LASF33
+ 821 01bc 01       		.byte	0x1
+ 822 01bd 1501     		.2byte	0x115
+ 823 01bf 00000000 		.4byte	.LFB3
+ 824 01c3 40000000 		.4byte	.LFE3-.LFB3
+ 825 01c7 01       		.uleb128 0x1
+ 826 01c8 9C       		.byte	0x9c
+ 827 01c9 05020000 		.4byte	0x205
+ 828 01cd 10       		.uleb128 0x10
+ 829 01ce 2F030000 		.4byte	.LASF30
+ 830 01d2 01       		.byte	0x1
+ 831 01d3 1701     		.2byte	0x117
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 24
+
+
+ 832 01d5 05020000 		.4byte	0x205
+ 833 01d9 C3000000 		.4byte	.LLST3
+ 834 01dd 11       		.uleb128 0x11
+ 835 01de 63020000 		.4byte	.LASF31
+ 836 01e2 01       		.byte	0x1
+ 837 01e3 1801     		.2byte	0x118
+ 838 01e5 0E010000 		.4byte	0x10e
+ 839 01e9 01       		.uleb128 0x1
+ 840 01ea 51       		.byte	0x51
+ 841 01eb 10       		.uleb128 0x10
+ 842 01ec B7000000 		.4byte	.LASF32
+ 843 01f0 01       		.byte	0x1
+ 844 01f1 1901     		.2byte	0x119
+ 845 01f3 6B000000 		.4byte	0x6b
+ 846 01f7 FE000000 		.4byte	.LLST4
+ 847 01fb 12       		.uleb128 0x12
+ 848 01fc 0E000000 		.4byte	.LVL10
+ 849 0200 BB030000 		.4byte	0x3bb
+ 850 0204 00       		.byte	0
+ 851 0205 09       		.uleb128 0x9
+ 852 0206 04       		.byte	0x4
+ 853 0207 0B020000 		.4byte	0x20b
+ 854 020b 13       		.uleb128 0x13
+ 855 020c 4B010000 		.4byte	0x14b
+ 856 0210 0F       		.uleb128 0xf
+ 857 0211 27000000 		.4byte	.LASF34
+ 858 0215 01       		.byte	0x1
+ 859 0216 4301     		.2byte	0x143
+ 860 0218 00000000 		.4byte	.LFB4
+ 861 021c 48000000 		.4byte	.LFE4-.LFB4
+ 862 0220 01       		.uleb128 0x1
+ 863 0221 9C       		.byte	0x9c
+ 864 0222 60020000 		.4byte	0x260
+ 865 0226 10       		.uleb128 0x10
+ 866 0227 2F030000 		.4byte	.LASF30
+ 867 022b 01       		.byte	0x1
+ 868 022c 4501     		.2byte	0x145
+ 869 022e 05020000 		.4byte	0x205
+ 870 0232 11010000 		.4byte	.LLST5
+ 871 0236 10       		.uleb128 0x10
+ 872 0237 63020000 		.4byte	.LASF31
+ 873 023b 01       		.byte	0x1
+ 874 023c 4601     		.2byte	0x146
+ 875 023e 0E010000 		.4byte	0x10e
+ 876 0242 4C010000 		.4byte	.LLST6
+ 877 0246 10       		.uleb128 0x10
+ 878 0247 B7000000 		.4byte	.LASF32
+ 879 024b 01       		.byte	0x1
+ 880 024c 4701     		.2byte	0x147
+ 881 024e 6B000000 		.4byte	0x6b
+ 882 0252 7C010000 		.4byte	.LLST7
+ 883 0256 12       		.uleb128 0x12
+ 884 0257 0E000000 		.4byte	.LVL19
+ 885 025b BB030000 		.4byte	0x3bb
+ 886 025f 00       		.byte	0
+ 887 0260 0F       		.uleb128 0xf
+ 888 0261 0C020000 		.4byte	.LASF35
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 25
+
+
+ 889 0265 01       		.byte	0x1
+ 890 0266 7101     		.2byte	0x171
+ 891 0268 00000000 		.4byte	.LFB5
+ 892 026c 7C000000 		.4byte	.LFE5-.LFB5
+ 893 0270 01       		.uleb128 0x1
+ 894 0271 9C       		.byte	0x9c
+ 895 0272 C0020000 		.4byte	0x2c0
+ 896 0276 10       		.uleb128 0x10
+ 897 0277 2F030000 		.4byte	.LASF30
+ 898 027b 01       		.byte	0x1
+ 899 027c 7301     		.2byte	0x173
+ 900 027e 05020000 		.4byte	0x205
+ 901 0282 8F010000 		.4byte	.LLST8
+ 902 0286 14       		.uleb128 0x14
+ 903 0287 70544400 		.ascii	"pTD\000"
+ 904 028b 01       		.byte	0x1
+ 905 028c 7401     		.2byte	0x174
+ 906 028e C0020000 		.4byte	0x2c0
+ 907 0292 C0010000 		.4byte	.LLST9
+ 908 0296 10       		.uleb128 0x10
+ 909 0297 B7000000 		.4byte	.LASF32
+ 910 029b 01       		.byte	0x1
+ 911 029c 7501     		.2byte	0x175
+ 912 029e 6B000000 		.4byte	0x6b
+ 913 02a2 DE010000 		.4byte	.LLST10
+ 914 02a6 10       		.uleb128 0x10
+ 915 02a7 FC000000 		.4byte	.LASF36
+ 916 02ab 01       		.byte	0x1
+ 917 02ac 7601     		.2byte	0x176
+ 918 02ae 6B000000 		.4byte	0x6b
+ 919 02b2 F1010000 		.4byte	.LLST11
+ 920 02b6 12       		.uleb128 0x12
+ 921 02b7 14000000 		.4byte	.LVL29
+ 922 02bb BB030000 		.4byte	0x3bb
+ 923 02bf 00       		.byte	0
+ 924 02c0 09       		.uleb128 0x9
+ 925 02c1 04       		.byte	0x4
+ 926 02c2 1A010000 		.4byte	0x11a
+ 927 02c6 0C       		.uleb128 0xc
+ 928 02c7 89020000 		.4byte	.LASF37
+ 929 02cb 01       		.byte	0x1
+ 930 02cc 7B       		.byte	0x7b
+ 931 02cd 6B000000 		.4byte	0x6b
+ 932 02d1 00000000 		.4byte	.LFB2
+ 933 02d5 1C010000 		.4byte	.LFE2-.LFB2
+ 934 02d9 01       		.uleb128 0x1
+ 935 02da 9C       		.byte	0x9c
+ 936 02db 3D030000 		.4byte	0x33d
+ 937 02df 0E       		.uleb128 0xe
+ 938 02e0 12000000 		.4byte	.LASF38
+ 939 02e4 01       		.byte	0x1
+ 940 02e5 7D       		.byte	0x7d
+ 941 02e6 6B000000 		.4byte	0x6b
+ 942 02ea 31020000 		.4byte	.LLST12
+ 943 02ee 0E       		.uleb128 0xe
+ 944 02ef DC010000 		.4byte	.LASF39
+ 945 02f3 01       		.byte	0x1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 26
+
+
+ 946 02f4 7E       		.byte	0x7e
+ 947 02f5 6B000000 		.4byte	0x6b
+ 948 02f9 45020000 		.4byte	.LLST13
+ 949 02fd 12       		.uleb128 0x12
+ 950 02fe 30000000 		.4byte	.LVL44
+ 951 0302 B7010000 		.4byte	0x1b7
+ 952 0306 12       		.uleb128 0x12
+ 953 0307 3C000000 		.4byte	.LVL45
+ 954 030b 10020000 		.4byte	0x210
+ 955 030f 12       		.uleb128 0x12
+ 956 0310 42000000 		.4byte	.LVL47
+ 957 0314 60020000 		.4byte	0x260
+ 958 0318 15       		.uleb128 0x15
+ 959 0319 6C000000 		.4byte	.LVL50
+ 960 031d C6030000 		.4byte	0x3c6
+ 961 0321 12       		.uleb128 0x12
+ 962 0322 96000000 		.4byte	.LVL53
+ 963 0326 60020000 		.4byte	0x260
+ 964 032a 15       		.uleb128 0x15
+ 965 032b A6000000 		.4byte	.LVL54
+ 966 032f D1030000 		.4byte	0x3d1
+ 967 0333 15       		.uleb128 0x15
+ 968 0334 F2000000 		.4byte	.LVL58
+ 969 0338 DC030000 		.4byte	0x3dc
+ 970 033c 00       		.byte	0
+ 971 033d 16       		.uleb128 0x16
+ 972 033e 07010000 		.4byte	.LASF40
+ 973 0342 03       		.byte	0x3
+ 974 0343 5302     		.2byte	0x253
+ 975 0345 A2000000 		.4byte	0xa2
+ 976 0349 17       		.uleb128 0x17
+ 977 034a A2000000 		.4byte	0xa2
+ 978 034e 59030000 		.4byte	0x359
+ 979 0352 18       		.uleb128 0x18
+ 980 0353 AE000000 		.4byte	0xae
+ 981 0357 00       		.byte	0
+ 982 0358 00       		.byte	0
+ 983 0359 19       		.uleb128 0x19
+ 984 035a 4B030000 		.4byte	.LASF41
+ 985 035e 01       		.byte	0x1
+ 986 035f 21       		.byte	0x21
+ 987 0360 6A030000 		.4byte	0x36a
+ 988 0364 05       		.uleb128 0x5
+ 989 0365 03       		.byte	0x3
+ 990 0366 00000000 		.4byte	USBFS_hidProtocol
+ 991 036a 06       		.uleb128 0x6
+ 992 036b 49030000 		.4byte	0x349
+ 993 036f 19       		.uleb128 0x19
+ 994 0370 9D030000 		.4byte	.LASF42
+ 995 0374 01       		.byte	0x1
+ 996 0375 22       		.byte	0x22
+ 997 0376 80030000 		.4byte	0x380
+ 998 037a 05       		.uleb128 0x5
+ 999 037b 03       		.byte	0x3
+ 1000 037c 00000000 		.4byte	USBFS_hidIdleRate
+ 1001 0380 06       		.uleb128 0x6
+ 1002 0381 49030000 		.4byte	0x349
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 27
+
+
+ 1003 0385 19       		.uleb128 0x19
+ 1004 0386 AF030000 		.4byte	.LASF43
+ 1005 038a 01       		.byte	0x1
+ 1006 038b 23       		.byte	0x23
+ 1007 038c 96030000 		.4byte	0x396
+ 1008 0390 05       		.uleb128 0x5
+ 1009 0391 03       		.byte	0x3
+ 1010 0392 00000000 		.4byte	USBFS_hidIdleTimer
+ 1011 0396 06       		.uleb128 0x6
+ 1012 0397 49030000 		.4byte	0x349
+ 1013 039b 1A       		.uleb128 0x1a
+ 1014 039c 34030000 		.4byte	.LASF44
+ 1015 03a0 04       		.byte	0x4
+ 1016 03a1 39       		.byte	0x39
+ 1017 03a2 A6030000 		.4byte	0x3a6
+ 1018 03a6 06       		.uleb128 0x6
+ 1019 03a7 49030000 		.4byte	0x349
+ 1020 03ab 1A       		.uleb128 0x1a
+ 1021 03ac C2020000 		.4byte	.LASF45
+ 1022 03b0 04       		.byte	0x4
+ 1023 03b1 40       		.byte	0x40
+ 1024 03b2 B6030000 		.4byte	0x3b6
+ 1025 03b6 06       		.uleb128 0x6
+ 1026 03b7 1A010000 		.4byte	0x11a
+ 1027 03bb 1B       		.uleb128 0x1b
+ 1028 03bc 4B020000 		.4byte	.LASF46
+ 1029 03c0 4B020000 		.4byte	.LASF46
+ 1030 03c4 04       		.byte	0x4
+ 1031 03c5 74       		.byte	0x74
+ 1032 03c6 1B       		.uleb128 0x1b
+ 1033 03c7 24020000 		.4byte	.LASF47
+ 1034 03cb 24020000 		.4byte	.LASF47
+ 1035 03cf 04       		.byte	0x4
+ 1036 03d0 5D       		.byte	0x5d
+ 1037 03d1 1B       		.uleb128 0x1b
+ 1038 03d2 C9030000 		.4byte	.LASF48
+ 1039 03d6 C9030000 		.4byte	.LASF48
+ 1040 03da 04       		.byte	0x4
+ 1041 03db 63       		.byte	0x63
+ 1042 03dc 1B       		.uleb128 0x1b
+ 1043 03dd EC010000 		.4byte	.LASF49
+ 1044 03e1 EC010000 		.4byte	.LASF49
+ 1045 03e5 04       		.byte	0x4
+ 1046 03e6 6A       		.byte	0x6a
+ 1047 03e7 00       		.byte	0
+ 1048              		.section	.debug_abbrev,"",%progbits
+ 1049              	.Ldebug_abbrev0:
+ 1050 0000 01       		.uleb128 0x1
+ 1051 0001 11       		.uleb128 0x11
+ 1052 0002 01       		.byte	0x1
+ 1053 0003 25       		.uleb128 0x25
+ 1054 0004 0E       		.uleb128 0xe
+ 1055 0005 13       		.uleb128 0x13
+ 1056 0006 0B       		.uleb128 0xb
+ 1057 0007 03       		.uleb128 0x3
+ 1058 0008 0E       		.uleb128 0xe
+ 1059 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 28
+
+
+ 1060 000a 0E       		.uleb128 0xe
+ 1061 000b 55       		.uleb128 0x55
+ 1062 000c 17       		.uleb128 0x17
+ 1063 000d 11       		.uleb128 0x11
+ 1064 000e 01       		.uleb128 0x1
+ 1065 000f 10       		.uleb128 0x10
+ 1066 0010 17       		.uleb128 0x17
+ 1067 0011 00       		.byte	0
+ 1068 0012 00       		.byte	0
+ 1069 0013 02       		.uleb128 0x2
+ 1070 0014 24       		.uleb128 0x24
+ 1071 0015 00       		.byte	0
+ 1072 0016 0B       		.uleb128 0xb
+ 1073 0017 0B       		.uleb128 0xb
+ 1074 0018 3E       		.uleb128 0x3e
+ 1075 0019 0B       		.uleb128 0xb
+ 1076 001a 03       		.uleb128 0x3
+ 1077 001b 0E       		.uleb128 0xe
+ 1078 001c 00       		.byte	0
+ 1079 001d 00       		.byte	0
+ 1080 001e 03       		.uleb128 0x3
+ 1081 001f 24       		.uleb128 0x24
+ 1082 0020 00       		.byte	0
+ 1083 0021 0B       		.uleb128 0xb
+ 1084 0022 0B       		.uleb128 0xb
+ 1085 0023 3E       		.uleb128 0x3e
+ 1086 0024 0B       		.uleb128 0xb
+ 1087 0025 03       		.uleb128 0x3
+ 1088 0026 08       		.uleb128 0x8
+ 1089 0027 00       		.byte	0
+ 1090 0028 00       		.byte	0
+ 1091 0029 04       		.uleb128 0x4
+ 1092 002a 16       		.uleb128 0x16
+ 1093 002b 00       		.byte	0
+ 1094 002c 03       		.uleb128 0x3
+ 1095 002d 0E       		.uleb128 0xe
+ 1096 002e 3A       		.uleb128 0x3a
+ 1097 002f 0B       		.uleb128 0xb
+ 1098 0030 3B       		.uleb128 0x3b
+ 1099 0031 0B       		.uleb128 0xb
+ 1100 0032 49       		.uleb128 0x49
+ 1101 0033 13       		.uleb128 0x13
+ 1102 0034 00       		.byte	0
+ 1103 0035 00       		.byte	0
+ 1104 0036 05       		.uleb128 0x5
+ 1105 0037 16       		.uleb128 0x16
+ 1106 0038 00       		.byte	0
+ 1107 0039 03       		.uleb128 0x3
+ 1108 003a 0E       		.uleb128 0xe
+ 1109 003b 3A       		.uleb128 0x3a
+ 1110 003c 0B       		.uleb128 0xb
+ 1111 003d 3B       		.uleb128 0x3b
+ 1112 003e 05       		.uleb128 0x5
+ 1113 003f 49       		.uleb128 0x49
+ 1114 0040 13       		.uleb128 0x13
+ 1115 0041 00       		.byte	0
+ 1116 0042 00       		.byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 29
+
+
+ 1117 0043 06       		.uleb128 0x6
+ 1118 0044 35       		.uleb128 0x35
+ 1119 0045 00       		.byte	0
+ 1120 0046 49       		.uleb128 0x49
+ 1121 0047 13       		.uleb128 0x13
+ 1122 0048 00       		.byte	0
+ 1123 0049 00       		.byte	0
+ 1124 004a 07       		.uleb128 0x7
+ 1125 004b 13       		.uleb128 0x13
+ 1126 004c 01       		.byte	0x1
+ 1127 004d 0B       		.uleb128 0xb
+ 1128 004e 0B       		.uleb128 0xb
+ 1129 004f 3A       		.uleb128 0x3a
+ 1130 0050 0B       		.uleb128 0xb
+ 1131 0051 3B       		.uleb128 0x3b
+ 1132 0052 0B       		.uleb128 0xb
+ 1133 0053 01       		.uleb128 0x1
+ 1134 0054 13       		.uleb128 0x13
+ 1135 0055 00       		.byte	0
+ 1136 0056 00       		.byte	0
+ 1137 0057 08       		.uleb128 0x8
+ 1138 0058 0D       		.uleb128 0xd
+ 1139 0059 00       		.byte	0
+ 1140 005a 03       		.uleb128 0x3
+ 1141 005b 0E       		.uleb128 0xe
+ 1142 005c 3A       		.uleb128 0x3a
+ 1143 005d 0B       		.uleb128 0xb
+ 1144 005e 3B       		.uleb128 0x3b
+ 1145 005f 0B       		.uleb128 0xb
+ 1146 0060 49       		.uleb128 0x49
+ 1147 0061 13       		.uleb128 0x13
+ 1148 0062 38       		.uleb128 0x38
+ 1149 0063 0B       		.uleb128 0xb
+ 1150 0064 00       		.byte	0
+ 1151 0065 00       		.byte	0
+ 1152 0066 09       		.uleb128 0x9
+ 1153 0067 0F       		.uleb128 0xf
+ 1154 0068 00       		.byte	0
+ 1155 0069 0B       		.uleb128 0xb
+ 1156 006a 0B       		.uleb128 0xb
+ 1157 006b 49       		.uleb128 0x49
+ 1158 006c 13       		.uleb128 0x13
+ 1159 006d 00       		.byte	0
+ 1160 006e 00       		.byte	0
+ 1161 006f 0A       		.uleb128 0xa
+ 1162 0070 0D       		.uleb128 0xd
+ 1163 0071 00       		.byte	0
+ 1164 0072 03       		.uleb128 0x3
+ 1165 0073 08       		.uleb128 0x8
+ 1166 0074 3A       		.uleb128 0x3a
+ 1167 0075 0B       		.uleb128 0xb
+ 1168 0076 3B       		.uleb128 0x3b
+ 1169 0077 0B       		.uleb128 0xb
+ 1170 0078 49       		.uleb128 0x49
+ 1171 0079 13       		.uleb128 0x13
+ 1172 007a 38       		.uleb128 0x38
+ 1173 007b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 30
+
+
+ 1174 007c 00       		.byte	0
+ 1175 007d 00       		.byte	0
+ 1176 007e 0B       		.uleb128 0xb
+ 1177 007f 26       		.uleb128 0x26
+ 1178 0080 00       		.byte	0
+ 1179 0081 00       		.byte	0
+ 1180 0082 00       		.byte	0
+ 1181 0083 0C       		.uleb128 0xc
+ 1182 0084 2E       		.uleb128 0x2e
+ 1183 0085 01       		.byte	0x1
+ 1184 0086 3F       		.uleb128 0x3f
+ 1185 0087 19       		.uleb128 0x19
+ 1186 0088 03       		.uleb128 0x3
+ 1187 0089 0E       		.uleb128 0xe
+ 1188 008a 3A       		.uleb128 0x3a
+ 1189 008b 0B       		.uleb128 0xb
+ 1190 008c 3B       		.uleb128 0x3b
+ 1191 008d 0B       		.uleb128 0xb
+ 1192 008e 27       		.uleb128 0x27
+ 1193 008f 19       		.uleb128 0x19
+ 1194 0090 49       		.uleb128 0x49
+ 1195 0091 13       		.uleb128 0x13
+ 1196 0092 11       		.uleb128 0x11
+ 1197 0093 01       		.uleb128 0x1
+ 1198 0094 12       		.uleb128 0x12
+ 1199 0095 06       		.uleb128 0x6
+ 1200 0096 40       		.uleb128 0x40
+ 1201 0097 18       		.uleb128 0x18
+ 1202 0098 9742     		.uleb128 0x2117
+ 1203 009a 19       		.uleb128 0x19
+ 1204 009b 01       		.uleb128 0x1
+ 1205 009c 13       		.uleb128 0x13
+ 1206 009d 00       		.byte	0
+ 1207 009e 00       		.byte	0
+ 1208 009f 0D       		.uleb128 0xd
+ 1209 00a0 05       		.uleb128 0x5
+ 1210 00a1 00       		.byte	0
+ 1211 00a2 03       		.uleb128 0x3
+ 1212 00a3 0E       		.uleb128 0xe
+ 1213 00a4 3A       		.uleb128 0x3a
+ 1214 00a5 0B       		.uleb128 0xb
+ 1215 00a6 3B       		.uleb128 0x3b
+ 1216 00a7 0B       		.uleb128 0xb
+ 1217 00a8 49       		.uleb128 0x49
+ 1218 00a9 13       		.uleb128 0x13
+ 1219 00aa 02       		.uleb128 0x2
+ 1220 00ab 17       		.uleb128 0x17
+ 1221 00ac 00       		.byte	0
+ 1222 00ad 00       		.byte	0
+ 1223 00ae 0E       		.uleb128 0xe
+ 1224 00af 34       		.uleb128 0x34
+ 1225 00b0 00       		.byte	0
+ 1226 00b1 03       		.uleb128 0x3
+ 1227 00b2 0E       		.uleb128 0xe
+ 1228 00b3 3A       		.uleb128 0x3a
+ 1229 00b4 0B       		.uleb128 0xb
+ 1230 00b5 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 31
+
+
+ 1231 00b6 0B       		.uleb128 0xb
+ 1232 00b7 49       		.uleb128 0x49
+ 1233 00b8 13       		.uleb128 0x13
+ 1234 00b9 02       		.uleb128 0x2
+ 1235 00ba 17       		.uleb128 0x17
+ 1236 00bb 00       		.byte	0
+ 1237 00bc 00       		.byte	0
+ 1238 00bd 0F       		.uleb128 0xf
+ 1239 00be 2E       		.uleb128 0x2e
+ 1240 00bf 01       		.byte	0x1
+ 1241 00c0 3F       		.uleb128 0x3f
+ 1242 00c1 19       		.uleb128 0x19
+ 1243 00c2 03       		.uleb128 0x3
+ 1244 00c3 0E       		.uleb128 0xe
+ 1245 00c4 3A       		.uleb128 0x3a
+ 1246 00c5 0B       		.uleb128 0xb
+ 1247 00c6 3B       		.uleb128 0x3b
+ 1248 00c7 05       		.uleb128 0x5
+ 1249 00c8 27       		.uleb128 0x27
+ 1250 00c9 19       		.uleb128 0x19
+ 1251 00ca 11       		.uleb128 0x11
+ 1252 00cb 01       		.uleb128 0x1
+ 1253 00cc 12       		.uleb128 0x12
+ 1254 00cd 06       		.uleb128 0x6
+ 1255 00ce 40       		.uleb128 0x40
+ 1256 00cf 18       		.uleb128 0x18
+ 1257 00d0 9742     		.uleb128 0x2117
+ 1258 00d2 19       		.uleb128 0x19
+ 1259 00d3 01       		.uleb128 0x1
+ 1260 00d4 13       		.uleb128 0x13
+ 1261 00d5 00       		.byte	0
+ 1262 00d6 00       		.byte	0
+ 1263 00d7 10       		.uleb128 0x10
+ 1264 00d8 34       		.uleb128 0x34
+ 1265 00d9 00       		.byte	0
+ 1266 00da 03       		.uleb128 0x3
+ 1267 00db 0E       		.uleb128 0xe
+ 1268 00dc 3A       		.uleb128 0x3a
+ 1269 00dd 0B       		.uleb128 0xb
+ 1270 00de 3B       		.uleb128 0x3b
+ 1271 00df 05       		.uleb128 0x5
+ 1272 00e0 49       		.uleb128 0x49
+ 1273 00e1 13       		.uleb128 0x13
+ 1274 00e2 02       		.uleb128 0x2
+ 1275 00e3 17       		.uleb128 0x17
+ 1276 00e4 00       		.byte	0
+ 1277 00e5 00       		.byte	0
+ 1278 00e6 11       		.uleb128 0x11
+ 1279 00e7 34       		.uleb128 0x34
+ 1280 00e8 00       		.byte	0
+ 1281 00e9 03       		.uleb128 0x3
+ 1282 00ea 0E       		.uleb128 0xe
+ 1283 00eb 3A       		.uleb128 0x3a
+ 1284 00ec 0B       		.uleb128 0xb
+ 1285 00ed 3B       		.uleb128 0x3b
+ 1286 00ee 05       		.uleb128 0x5
+ 1287 00ef 49       		.uleb128 0x49
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 32
+
+
+ 1288 00f0 13       		.uleb128 0x13
+ 1289 00f1 02       		.uleb128 0x2
+ 1290 00f2 18       		.uleb128 0x18
+ 1291 00f3 00       		.byte	0
+ 1292 00f4 00       		.byte	0
+ 1293 00f5 12       		.uleb128 0x12
+ 1294 00f6 898201   		.uleb128 0x4109
+ 1295 00f9 00       		.byte	0
+ 1296 00fa 11       		.uleb128 0x11
+ 1297 00fb 01       		.uleb128 0x1
+ 1298 00fc 31       		.uleb128 0x31
+ 1299 00fd 13       		.uleb128 0x13
+ 1300 00fe 00       		.byte	0
+ 1301 00ff 00       		.byte	0
+ 1302 0100 13       		.uleb128 0x13
+ 1303 0101 26       		.uleb128 0x26
+ 1304 0102 00       		.byte	0
+ 1305 0103 49       		.uleb128 0x49
+ 1306 0104 13       		.uleb128 0x13
+ 1307 0105 00       		.byte	0
+ 1308 0106 00       		.byte	0
+ 1309 0107 14       		.uleb128 0x14
+ 1310 0108 34       		.uleb128 0x34
+ 1311 0109 00       		.byte	0
+ 1312 010a 03       		.uleb128 0x3
+ 1313 010b 08       		.uleb128 0x8
+ 1314 010c 3A       		.uleb128 0x3a
+ 1315 010d 0B       		.uleb128 0xb
+ 1316 010e 3B       		.uleb128 0x3b
+ 1317 010f 05       		.uleb128 0x5
+ 1318 0110 49       		.uleb128 0x49
+ 1319 0111 13       		.uleb128 0x13
+ 1320 0112 02       		.uleb128 0x2
+ 1321 0113 17       		.uleb128 0x17
+ 1322 0114 00       		.byte	0
+ 1323 0115 00       		.byte	0
+ 1324 0116 15       		.uleb128 0x15
+ 1325 0117 898201   		.uleb128 0x4109
+ 1326 011a 00       		.byte	0
+ 1327 011b 11       		.uleb128 0x11
+ 1328 011c 01       		.uleb128 0x1
+ 1329 011d 9542     		.uleb128 0x2115
+ 1330 011f 19       		.uleb128 0x19
+ 1331 0120 31       		.uleb128 0x31
+ 1332 0121 13       		.uleb128 0x13
+ 1333 0122 00       		.byte	0
+ 1334 0123 00       		.byte	0
+ 1335 0124 16       		.uleb128 0x16
+ 1336 0125 34       		.uleb128 0x34
+ 1337 0126 00       		.byte	0
+ 1338 0127 03       		.uleb128 0x3
+ 1339 0128 0E       		.uleb128 0xe
+ 1340 0129 3A       		.uleb128 0x3a
+ 1341 012a 0B       		.uleb128 0xb
+ 1342 012b 3B       		.uleb128 0x3b
+ 1343 012c 05       		.uleb128 0x5
+ 1344 012d 49       		.uleb128 0x49
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 33
+
+
+ 1345 012e 13       		.uleb128 0x13
+ 1346 012f 3F       		.uleb128 0x3f
+ 1347 0130 19       		.uleb128 0x19
+ 1348 0131 3C       		.uleb128 0x3c
+ 1349 0132 19       		.uleb128 0x19
+ 1350 0133 00       		.byte	0
+ 1351 0134 00       		.byte	0
+ 1352 0135 17       		.uleb128 0x17
+ 1353 0136 01       		.uleb128 0x1
+ 1354 0137 01       		.byte	0x1
+ 1355 0138 49       		.uleb128 0x49
+ 1356 0139 13       		.uleb128 0x13
+ 1357 013a 01       		.uleb128 0x1
+ 1358 013b 13       		.uleb128 0x13
+ 1359 013c 00       		.byte	0
+ 1360 013d 00       		.byte	0
+ 1361 013e 18       		.uleb128 0x18
+ 1362 013f 21       		.uleb128 0x21
+ 1363 0140 00       		.byte	0
+ 1364 0141 49       		.uleb128 0x49
+ 1365 0142 13       		.uleb128 0x13
+ 1366 0143 2F       		.uleb128 0x2f
+ 1367 0144 0B       		.uleb128 0xb
+ 1368 0145 00       		.byte	0
+ 1369 0146 00       		.byte	0
+ 1370 0147 19       		.uleb128 0x19
+ 1371 0148 34       		.uleb128 0x34
+ 1372 0149 00       		.byte	0
+ 1373 014a 03       		.uleb128 0x3
+ 1374 014b 0E       		.uleb128 0xe
+ 1375 014c 3A       		.uleb128 0x3a
+ 1376 014d 0B       		.uleb128 0xb
+ 1377 014e 3B       		.uleb128 0x3b
+ 1378 014f 0B       		.uleb128 0xb
+ 1379 0150 49       		.uleb128 0x49
+ 1380 0151 13       		.uleb128 0x13
+ 1381 0152 3F       		.uleb128 0x3f
+ 1382 0153 19       		.uleb128 0x19
+ 1383 0154 02       		.uleb128 0x2
+ 1384 0155 18       		.uleb128 0x18
+ 1385 0156 00       		.byte	0
+ 1386 0157 00       		.byte	0
+ 1387 0158 1A       		.uleb128 0x1a
+ 1388 0159 34       		.uleb128 0x34
+ 1389 015a 00       		.byte	0
+ 1390 015b 03       		.uleb128 0x3
+ 1391 015c 0E       		.uleb128 0xe
+ 1392 015d 3A       		.uleb128 0x3a
+ 1393 015e 0B       		.uleb128 0xb
+ 1394 015f 3B       		.uleb128 0x3b
+ 1395 0160 0B       		.uleb128 0xb
+ 1396 0161 49       		.uleb128 0x49
+ 1397 0162 13       		.uleb128 0x13
+ 1398 0163 3F       		.uleb128 0x3f
+ 1399 0164 19       		.uleb128 0x19
+ 1400 0165 3C       		.uleb128 0x3c
+ 1401 0166 19       		.uleb128 0x19
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 34
+
+
+ 1402 0167 00       		.byte	0
+ 1403 0168 00       		.byte	0
+ 1404 0169 1B       		.uleb128 0x1b
+ 1405 016a 2E       		.uleb128 0x2e
+ 1406 016b 00       		.byte	0
+ 1407 016c 3F       		.uleb128 0x3f
+ 1408 016d 19       		.uleb128 0x19
+ 1409 016e 3C       		.uleb128 0x3c
+ 1410 016f 19       		.uleb128 0x19
+ 1411 0170 6E       		.uleb128 0x6e
+ 1412 0171 0E       		.uleb128 0xe
+ 1413 0172 03       		.uleb128 0x3
+ 1414 0173 0E       		.uleb128 0xe
+ 1415 0174 3A       		.uleb128 0x3a
+ 1416 0175 0B       		.uleb128 0xb
+ 1417 0176 3B       		.uleb128 0x3b
+ 1418 0177 0B       		.uleb128 0xb
+ 1419 0178 00       		.byte	0
+ 1420 0179 00       		.byte	0
+ 1421 017a 00       		.byte	0
+ 1422              		.section	.debug_loc,"",%progbits
+ 1423              	.Ldebug_loc0:
+ 1424              	.LLST0:
+ 1425 0000 00000000 		.4byte	.LVL0
+ 1426 0004 1A000000 		.4byte	.LVL2
+ 1427 0008 0100     		.2byte	0x1
+ 1428 000a 50       		.byte	0x50
+ 1429 000b 1A000000 		.4byte	.LVL2
+ 1430 000f 1C000000 		.4byte	.LVL3
+ 1431 0013 0400     		.2byte	0x4
+ 1432 0015 F3       		.byte	0xf3
+ 1433 0016 01       		.uleb128 0x1
+ 1434 0017 50       		.byte	0x50
+ 1435 0018 9F       		.byte	0x9f
+ 1436 0019 1C000000 		.4byte	.LVL3
+ 1437 001d 24000000 		.4byte	.LVL5
+ 1438 0021 0100     		.2byte	0x1
+ 1439 0023 50       		.byte	0x50
+ 1440 0024 24000000 		.4byte	.LVL5
+ 1441 0028 26000000 		.4byte	.LVL6
+ 1442 002c 0400     		.2byte	0x4
+ 1443 002e F3       		.byte	0xf3
+ 1444 002f 01       		.uleb128 0x1
+ 1445 0030 50       		.byte	0x50
+ 1446 0031 9F       		.byte	0x9f
+ 1447 0032 26000000 		.4byte	.LVL6
+ 1448 0036 28000000 		.4byte	.LVL7
+ 1449 003a 0100     		.2byte	0x1
+ 1450 003c 50       		.byte	0x50
+ 1451 003d 28000000 		.4byte	.LVL7
+ 1452 0041 34000000 		.4byte	.LFE0
+ 1453 0045 0400     		.2byte	0x4
+ 1454 0047 F3       		.byte	0xf3
+ 1455 0048 01       		.uleb128 0x1
+ 1456 0049 50       		.byte	0x50
+ 1457 004a 9F       		.byte	0x9f
+ 1458 004b 00000000 		.4byte	0
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 35
+
+
+ 1459 004f 00000000 		.4byte	0
+ 1460              	.LLST1:
+ 1461 0053 00000000 		.4byte	.LVL0
+ 1462 0057 18000000 		.4byte	.LVL1
+ 1463 005b 0200     		.2byte	0x2
+ 1464 005d 30       		.byte	0x30
+ 1465 005e 9F       		.byte	0x9f
+ 1466 005f 18000000 		.4byte	.LVL1
+ 1467 0063 1C000000 		.4byte	.LVL3
+ 1468 0067 0200     		.2byte	0x2
+ 1469 0069 32       		.byte	0x32
+ 1470 006a 9F       		.byte	0x9f
+ 1471 006b 1C000000 		.4byte	.LVL3
+ 1472 006f 22000000 		.4byte	.LVL4
+ 1473 0073 0200     		.2byte	0x2
+ 1474 0075 30       		.byte	0x30
+ 1475 0076 9F       		.byte	0x9f
+ 1476 0077 22000000 		.4byte	.LVL4
+ 1477 007b 26000000 		.4byte	.LVL6
+ 1478 007f 0200     		.2byte	0x2
+ 1479 0081 31       		.byte	0x31
+ 1480 0082 9F       		.byte	0x9f
+ 1481 0083 26000000 		.4byte	.LVL6
+ 1482 0087 28000000 		.4byte	.LVL7
+ 1483 008b 0200     		.2byte	0x2
+ 1484 008d 30       		.byte	0x30
+ 1485 008e 9F       		.byte	0x9f
+ 1486 008f 28000000 		.4byte	.LVL7
+ 1487 0093 34000000 		.4byte	.LFE0
+ 1488 0097 0100     		.2byte	0x1
+ 1489 0099 50       		.byte	0x50
+ 1490 009a 00000000 		.4byte	0
+ 1491 009e 00000000 		.4byte	0
+ 1492              	.LLST2:
+ 1493 00a2 00000000 		.4byte	.LVL8
+ 1494 00a6 04000000 		.4byte	.LVL9
+ 1495 00aa 0100     		.2byte	0x1
+ 1496 00ac 50       		.byte	0x50
+ 1497 00ad 04000000 		.4byte	.LVL9
+ 1498 00b1 0C000000 		.4byte	.LFE1
+ 1499 00b5 0400     		.2byte	0x4
+ 1500 00b7 F3       		.byte	0xf3
+ 1501 00b8 01       		.uleb128 0x1
+ 1502 00b9 50       		.byte	0x50
+ 1503 00ba 9F       		.byte	0x9f
+ 1504 00bb 00000000 		.4byte	0
+ 1505 00bf 00000000 		.4byte	0
+ 1506              	.LLST3:
+ 1507 00c3 0E000000 		.4byte	.LVL10
+ 1508 00c7 1A000000 		.4byte	.LVL12
+ 1509 00cb 0100     		.2byte	0x1
+ 1510 00cd 50       		.byte	0x50
+ 1511 00ce 1C000000 		.4byte	.LVL13
+ 1512 00d2 22000000 		.4byte	.LVL15
+ 1513 00d6 0100     		.2byte	0x1
+ 1514 00d8 52       		.byte	0x52
+ 1515 00d9 22000000 		.4byte	.LVL15
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 36
+
+
+ 1516 00dd 24000000 		.4byte	.LVL16
+ 1517 00e1 0600     		.2byte	0x6
+ 1518 00e3 73       		.byte	0x73
+ 1519 00e4 04       		.sleb128 4
+ 1520 00e5 06       		.byte	0x6
+ 1521 00e6 23       		.byte	0x23
+ 1522 00e7 20       		.uleb128 0x20
+ 1523 00e8 9F       		.byte	0x9f
+ 1524 00e9 24000000 		.4byte	.LVL16
+ 1525 00ed 2A000000 		.4byte	.LVL18
+ 1526 00f1 0300     		.2byte	0x3
+ 1527 00f3 73       		.byte	0x73
+ 1528 00f4 20       		.sleb128 32
+ 1529 00f5 9F       		.byte	0x9f
+ 1530 00f6 00000000 		.4byte	0
+ 1531 00fa 00000000 		.4byte	0
+ 1532              	.LLST4:
+ 1533 00fe 16000000 		.4byte	.LVL11
+ 1534 0102 1E000000 		.4byte	.LVL14
+ 1535 0106 0100     		.2byte	0x1
+ 1536 0108 53       		.byte	0x53
+ 1537 0109 00000000 		.4byte	0
+ 1538 010d 00000000 		.4byte	0
+ 1539              	.LLST5:
+ 1540 0111 0E000000 		.4byte	.LVL19
+ 1541 0115 1A000000 		.4byte	.LVL21
+ 1542 0119 0100     		.2byte	0x1
+ 1543 011b 50       		.byte	0x50
+ 1544 011c 1C000000 		.4byte	.LVL22
+ 1545 0120 22000000 		.4byte	.LVL24
+ 1546 0124 0100     		.2byte	0x1
+ 1547 0126 52       		.byte	0x52
+ 1548 0127 22000000 		.4byte	.LVL24
+ 1549 012b 24000000 		.4byte	.LVL25
+ 1550 012f 0600     		.2byte	0x6
+ 1551 0131 73       		.byte	0x73
+ 1552 0132 04       		.sleb128 4
+ 1553 0133 06       		.byte	0x6
+ 1554 0134 23       		.byte	0x23
+ 1555 0135 18       		.uleb128 0x18
+ 1556 0136 9F       		.byte	0x9f
+ 1557 0137 24000000 		.4byte	.LVL25
+ 1558 013b 26000000 		.4byte	.LVL26
+ 1559 013f 0300     		.2byte	0x3
+ 1560 0141 73       		.byte	0x73
+ 1561 0142 18       		.sleb128 24
+ 1562 0143 9F       		.byte	0x9f
+ 1563 0144 00000000 		.4byte	0
+ 1564 0148 00000000 		.4byte	0
+ 1565              	.LLST6:
+ 1566 014c 26000000 		.4byte	.LVL26
+ 1567 0150 2C000000 		.4byte	.LVL27
+ 1568 0154 0100     		.2byte	0x1
+ 1569 0156 53       		.byte	0x53
+ 1570 0157 2C000000 		.4byte	.LVL27
+ 1571 015b 38000000 		.4byte	.LVL28
+ 1572 015f 0300     		.2byte	0x3
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 37
+
+
+ 1573 0161 73       		.byte	0x73
+ 1574 0162 7E       		.sleb128 -2
+ 1575 0163 9F       		.byte	0x9f
+ 1576 0164 38000000 		.4byte	.LVL28
+ 1577 0168 48000000 		.4byte	.LFE4
+ 1578 016c 0600     		.2byte	0x6
+ 1579 016e 71       		.byte	0x71
+ 1580 016f 04       		.sleb128 4
+ 1581 0170 06       		.byte	0x6
+ 1582 0171 32       		.byte	0x32
+ 1583 0172 1C       		.byte	0x1c
+ 1584 0173 9F       		.byte	0x9f
+ 1585 0174 00000000 		.4byte	0
+ 1586 0178 00000000 		.4byte	0
+ 1587              	.LLST7:
+ 1588 017c 16000000 		.4byte	.LVL20
+ 1589 0180 1E000000 		.4byte	.LVL23
+ 1590 0184 0100     		.2byte	0x1
+ 1591 0186 53       		.byte	0x53
+ 1592 0187 00000000 		.4byte	0
+ 1593 018b 00000000 		.4byte	0
+ 1594              	.LLST8:
+ 1595 018f 14000000 		.4byte	.LVL29
+ 1596 0193 1E000000 		.4byte	.LVL30
+ 1597 0197 0100     		.2byte	0x1
+ 1598 0199 50       		.byte	0x50
+ 1599 019a 1E000000 		.4byte	.LVL30
+ 1600 019e 22000000 		.4byte	.LVL31
+ 1601 01a2 0900     		.2byte	0x9
+ 1602 01a4 72       		.byte	0x72
+ 1603 01a5 02       		.sleb128 2
+ 1604 01a6 33       		.byte	0x33
+ 1605 01a7 24       		.byte	0x24
+ 1606 01a8 70       		.byte	0x70
+ 1607 01a9 00       		.sleb128 0
+ 1608 01aa 22       		.byte	0x22
+ 1609 01ab 23       		.byte	0x23
+ 1610 01ac 04       		.uleb128 0x4
+ 1611 01ad 42000000 		.4byte	.LVL34
+ 1612 01b1 56000000 		.4byte	.LVL39
+ 1613 01b5 0100     		.2byte	0x1
+ 1614 01b7 50       		.byte	0x50
+ 1615 01b8 00000000 		.4byte	0
+ 1616 01bc 00000000 		.4byte	0
+ 1617              	.LLST9:
+ 1618 01c0 52000000 		.4byte	.LVL37
+ 1619 01c4 54000000 		.4byte	.LVL38
+ 1620 01c8 0100     		.2byte	0x1
+ 1621 01ca 51       		.byte	0x51
+ 1622 01cb 54000000 		.4byte	.LVL38
+ 1623 01cf 60000000 		.4byte	.LVL40
+ 1624 01d3 0100     		.2byte	0x1
+ 1625 01d5 52       		.byte	0x52
+ 1626 01d6 00000000 		.4byte	0
+ 1627 01da 00000000 		.4byte	0
+ 1628              	.LLST10:
+ 1629 01de 1E000000 		.4byte	.LVL30
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 38
+
+
+ 1630 01e2 22000000 		.4byte	.LVL31
+ 1631 01e6 0100     		.2byte	0x1
+ 1632 01e8 52       		.byte	0x52
+ 1633 01e9 00000000 		.4byte	0
+ 1634 01ed 00000000 		.4byte	0
+ 1635              	.LLST11:
+ 1636 01f1 1E000000 		.4byte	.LVL30
+ 1637 01f5 32000000 		.4byte	.LVL32
+ 1638 01f9 0100     		.2byte	0x1
+ 1639 01fb 53       		.byte	0x53
+ 1640 01fc 32000000 		.4byte	.LVL32
+ 1641 0200 3C000000 		.4byte	.LVL33
+ 1642 0204 0700     		.2byte	0x7
+ 1643 0206 73       		.byte	0x73
+ 1644 0207 80808080 		.sleb128 -536870912
+ 1644      7E
+ 1645 020c 9F       		.byte	0x9f
+ 1646 020d 3C000000 		.4byte	.LVL33
+ 1647 0211 46000000 		.4byte	.LVL35
+ 1648 0215 0700     		.2byte	0x7
+ 1649 0217 73       		.byte	0x73
+ 1650 0218 81808080 		.sleb128 -536870911
+ 1650      7E
+ 1651 021d 9F       		.byte	0x9f
+ 1652 021e 48000000 		.4byte	.LVL36
+ 1653 0222 54000000 		.4byte	.LVL38
+ 1654 0226 0100     		.2byte	0x1
+ 1655 0228 52       		.byte	0x52
+ 1656 0229 00000000 		.4byte	0
+ 1657 022d 00000000 		.4byte	0
+ 1658              	.LLST12:
+ 1659 0231 00000000 		.4byte	.LVL41
+ 1660 0235 F2000000 		.4byte	.LVL58
+ 1661 0239 0200     		.2byte	0x2
+ 1662 023b 30       		.byte	0x30
+ 1663 023c 9F       		.byte	0x9f
+ 1664 023d 00000000 		.4byte	0
+ 1665 0241 00000000 		.4byte	0
+ 1666              	.LLST13:
+ 1667 0245 0C000000 		.4byte	.LVL42
+ 1668 0249 26000000 		.4byte	.LVL43
+ 1669 024d 0100     		.2byte	0x1
+ 1670 024f 53       		.byte	0x53
+ 1671 0250 3E000000 		.4byte	.LVL46
+ 1672 0254 41000000 		.4byte	.LVL47-1
+ 1673 0258 0100     		.2byte	0x1
+ 1674 025a 53       		.byte	0x53
+ 1675 025b 4E000000 		.4byte	.LVL48
+ 1676 025f 54000000 		.4byte	.LVL49
+ 1677 0263 0100     		.2byte	0x1
+ 1678 0265 53       		.byte	0x53
+ 1679 0266 6C000000 		.4byte	.LVL50
+ 1680 026a 72000000 		.4byte	.LVL51
+ 1681 026e 0100     		.2byte	0x1
+ 1682 0270 53       		.byte	0x53
+ 1683 0271 7A000000 		.4byte	.LVL52
+ 1684 0275 95000000 		.4byte	.LVL53-1
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 39
+
+
+ 1685 0279 0100     		.2byte	0x1
+ 1686 027b 53       		.byte	0x53
+ 1687 027c A6000000 		.4byte	.LVL54
+ 1688 0280 AA000000 		.4byte	.LVL55
+ 1689 0284 0100     		.2byte	0x1
+ 1690 0286 53       		.byte	0x53
+ 1691 0287 D8000000 		.4byte	.LVL56
+ 1692 028b DC000000 		.4byte	.LVL57
+ 1693 028f 0100     		.2byte	0x1
+ 1694 0291 53       		.byte	0x53
+ 1695 0292 00000000 		.4byte	0
+ 1696 0296 00000000 		.4byte	0
+ 1697              		.section	.debug_aranges,"",%progbits
+ 1698 0000 44000000 		.4byte	0x44
+ 1699 0004 0200     		.2byte	0x2
+ 1700 0006 00000000 		.4byte	.Ldebug_info0
+ 1701 000a 04       		.byte	0x4
+ 1702 000b 00       		.byte	0
+ 1703 000c 0000     		.2byte	0
+ 1704 000e 0000     		.2byte	0
+ 1705 0010 00000000 		.4byte	.LFB0
+ 1706 0014 34000000 		.4byte	.LFE0-.LFB0
+ 1707 0018 00000000 		.4byte	.LFB1
+ 1708 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 1709 0020 00000000 		.4byte	.LFB3
+ 1710 0024 40000000 		.4byte	.LFE3-.LFB3
+ 1711 0028 00000000 		.4byte	.LFB4
+ 1712 002c 48000000 		.4byte	.LFE4-.LFB4
+ 1713 0030 00000000 		.4byte	.LFB5
+ 1714 0034 7C000000 		.4byte	.LFE5-.LFB5
+ 1715 0038 00000000 		.4byte	.LFB2
+ 1716 003c 1C010000 		.4byte	.LFE2-.LFB2
+ 1717 0040 00000000 		.4byte	0
+ 1718 0044 00000000 		.4byte	0
+ 1719              		.section	.debug_ranges,"",%progbits
+ 1720              	.Ldebug_ranges0:
+ 1721 0000 00000000 		.4byte	.LFB0
+ 1722 0004 34000000 		.4byte	.LFE0
+ 1723 0008 00000000 		.4byte	.LFB1
+ 1724 000c 0C000000 		.4byte	.LFE1
+ 1725 0010 00000000 		.4byte	.LFB3
+ 1726 0014 40000000 		.4byte	.LFE3
+ 1727 0018 00000000 		.4byte	.LFB4
+ 1728 001c 48000000 		.4byte	.LFE4
+ 1729 0020 00000000 		.4byte	.LFB5
+ 1730 0024 7C000000 		.4byte	.LFE5
+ 1731 0028 00000000 		.4byte	.LFB2
+ 1732 002c 1C010000 		.4byte	.LFE2
+ 1733 0030 00000000 		.4byte	0
+ 1734 0034 00000000 		.4byte	0
+ 1735              		.section	.debug_line,"",%progbits
+ 1736              	.Ldebug_line0:
+ 1737 0000 73010000 		.section	.debug_str,"MS",%progbits,1
+ 1737      02006000 
+ 1737      00000201 
+ 1737      FB0E0D00 
+ 1737      01010101 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 40
+
+
+ 1738              	.LASF22:
+ 1739 0000 70537461 		.ascii	"pStatusBlock\000"
+ 1739      74757342 
+ 1739      6C6F636B 
+ 1739      00
+ 1740              	.LASF29:
+ 1741 000d 73746174 		.ascii	"stat\000"
+ 1741      00
+ 1742              	.LASF38:
+ 1743 0012 72657175 		.ascii	"requestHandled\000"
+ 1743      65737448 
+ 1743      616E646C 
+ 1743      656400
+ 1744              	.LASF20:
+ 1745 0021 636F756E 		.ascii	"count\000"
+ 1745      7400
+ 1746              	.LASF34:
+ 1747 0027 55534246 		.ascii	"USBFS_FindReportDescriptor\000"
+ 1747      535F4669 
+ 1747      6E645265 
+ 1747      706F7274 
+ 1747      44657363 
+ 1748              	.LASF3:
+ 1749 0042 73686F72 		.ascii	"short unsigned int\000"
+ 1749      7420756E 
+ 1749      7369676E 
+ 1749      65642069 
+ 1749      6E7400
+ 1750              	.LASF52:
+ 1751 0055 433A5C55 		.ascii	"C:\\Users\\Rabbit Hole Shipping\\Google Drive\\SCSI"
+ 1751      73657273 
+ 1751      5C526162 
+ 1751      62697420 
+ 1751      486F6C65 
+ 1752 0084 3253445C 		.ascii	"2SD\\software\\SCSI2SD\\v5.2-eth\\USB_Bootloader.cy"
+ 1752      736F6674 
+ 1752      77617265 
+ 1752      5C534353 
+ 1752      49325344 
+ 1753 00b3 64736E00 		.ascii	"dsn\000"
+ 1754              	.LASF32:
+ 1755 00b7 696E7465 		.ascii	"interfaceN\000"
+ 1755      72666163 
+ 1755      654E00
+ 1756              	.LASF17:
+ 1757 00c2 73746174 		.ascii	"status\000"
+ 1757      757300
+ 1758              	.LASF21:
+ 1759 00c9 70446174 		.ascii	"pData\000"
+ 1759      6100
+ 1760              	.LASF33:
+ 1761 00cf 55534246 		.ascii	"USBFS_FindHidClassDecriptor\000"
+ 1761      535F4669 
+ 1761      6E644869 
+ 1761      64436C61 
+ 1761      73734465 
+ 1762              	.LASF23:
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 41
+
+
+ 1763 00eb 545F5553 		.ascii	"T_USBFS_TD\000"
+ 1763      4246535F 
+ 1763      544400
+ 1764              	.LASF11:
+ 1765 00f6 666C6F61 		.ascii	"float\000"
+ 1765      7400
+ 1766              	.LASF36:
+ 1767 00fc 7265706F 		.ascii	"reportType\000"
+ 1767      72745479 
+ 1767      706500
+ 1768              	.LASF40:
+ 1769 0107 55534246 		.ascii	"USBFS_configuration\000"
+ 1769      535F636F 
+ 1769      6E666967 
+ 1769      75726174 
+ 1769      696F6E00 
+ 1770              	.LASF1:
+ 1771 011b 756E7369 		.ascii	"unsigned char\000"
+ 1771      676E6564 
+ 1771      20636861 
+ 1771      7200
+ 1772              	.LASF14:
+ 1773 0129 72656738 		.ascii	"reg8\000"
+ 1773      00
+ 1774              	.LASF19:
+ 1775 012e 545F5553 		.ascii	"T_USBFS_XFER_STATUS_BLOCK\000"
+ 1775      4246535F 
+ 1775      58464552 
+ 1775      5F535441 
+ 1775      5455535F 
+ 1776              	.LASF50:
+ 1777 0148 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1777      43313120 
+ 1777      352E342E 
+ 1777      31203230 
+ 1777      31363036 
+ 1778 017b 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1778      20726576 
+ 1778      6973696F 
+ 1778      6E203233 
+ 1778      37373135 
+ 1779 01ae 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1779      66756E63 
+ 1779      74696F6E 
+ 1779      2D736563 
+ 1779      74696F6E 
+ 1780              	.LASF9:
+ 1781 01d6 75696E74 		.ascii	"uint8\000"
+ 1781      3800
+ 1782              	.LASF39:
+ 1783 01dc 696E7465 		.ascii	"interfaceNumber\000"
+ 1783      72666163 
+ 1783      654E756D 
+ 1783      62657200 
+ 1784              	.LASF49:
+ 1785 01ec 55534246 		.ascii	"USBFS_InitNoDataControlTransfer\000"
+ 1785      535F496E 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 42
+
+
+ 1785      69744E6F 
+ 1785      44617461 
+ 1785      436F6E74 
+ 1786              	.LASF35:
+ 1787 020c 55534246 		.ascii	"USBFS_FindReport\000"
+ 1787      535F4669 
+ 1787      6E645265 
+ 1787      706F7274 
+ 1787      00
+ 1788              	.LASF12:
+ 1789 021d 646F7562 		.ascii	"double\000"
+ 1789      6C6500
+ 1790              	.LASF47:
+ 1791 0224 55534246 		.ascii	"USBFS_InitControlRead\000"
+ 1791      535F496E 
+ 1791      6974436F 
+ 1791      6E74726F 
+ 1791      6C526561 
+ 1792              	.LASF2:
+ 1793 023a 73686F72 		.ascii	"short int\000"
+ 1793      7420696E 
+ 1793      7400
+ 1794              	.LASF10:
+ 1795 0244 75696E74 		.ascii	"uint16\000"
+ 1795      313600
+ 1796              	.LASF46:
+ 1797 024b 55534246 		.ascii	"USBFS_GetConfigTablePtr\000"
+ 1797      535F4765 
+ 1797      74436F6E 
+ 1797      66696754 
+ 1797      61626C65 
+ 1798              	.LASF31:
+ 1799 0263 70446573 		.ascii	"pDescr\000"
+ 1799      637200
+ 1800              	.LASF5:
+ 1801 026a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1801      20756E73 
+ 1801      69676E65 
+ 1801      6420696E 
+ 1801      7400
+ 1802              	.LASF8:
+ 1803 027c 756E7369 		.ascii	"unsigned int\000"
+ 1803      676E6564 
+ 1803      20696E74 
+ 1803      00
+ 1804              	.LASF37:
+ 1805 0289 55534246 		.ascii	"USBFS_DispatchHIDClassRqst\000"
+ 1805      535F4469 
+ 1805      73706174 
+ 1805      63684849 
+ 1805      44436C61 
+ 1806              	.LASF7:
+ 1807 02a4 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1807      206C6F6E 
+ 1807      6720756E 
+ 1807      7369676E 
+ 1807      65642069 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 43
+
+
+ 1808              	.LASF24:
+ 1809 02bb 705F6C69 		.ascii	"p_list\000"
+ 1809      737400
+ 1810              	.LASF45:
+ 1811 02c2 55534246 		.ascii	"USBFS_currentTD\000"
+ 1811      535F6375 
+ 1811      7272656E 
+ 1811      74544400 
+ 1812              	.LASF27:
+ 1813 02d2 55534246 		.ascii	"USBFS_GetProtocol\000"
+ 1813      535F4765 
+ 1813      7450726F 
+ 1813      746F636F 
+ 1813      6C00
+ 1814              	.LASF51:
+ 1815 02e4 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_hid.c\000"
+ 1815      72617465 
+ 1815      645F536F 
+ 1815      75726365 
+ 1815      5C50536F 
+ 1816              	.LASF16:
+ 1817 0307 73697A65 		.ascii	"sizetype\000"
+ 1817      74797065 
+ 1817      00
+ 1818              	.LASF6:
+ 1819 0310 6C6F6E67 		.ascii	"long long int\000"
+ 1819      206C6F6E 
+ 1819      6720696E 
+ 1819      7400
+ 1820              	.LASF25:
+ 1821 031e 545F5553 		.ascii	"T_USBFS_LUT\000"
+ 1821      4246535F 
+ 1821      4C555400 
+ 1822              	.LASF13:
+ 1823 032a 63686172 		.ascii	"char\000"
+ 1823      00
+ 1824              	.LASF30:
+ 1825 032f 70546D70 		.ascii	"pTmp\000"
+ 1825      00
+ 1826              	.LASF44:
+ 1827 0334 55534246 		.ascii	"USBFS_interfaceSetting\000"
+ 1827      535F696E 
+ 1827      74657266 
+ 1827      61636553 
+ 1827      65747469 
+ 1828              	.LASF41:
+ 1829 034b 55534246 		.ascii	"USBFS_hidProtocol\000"
+ 1829      535F6869 
+ 1829      6450726F 
+ 1829      746F636F 
+ 1829      6C00
+ 1830              	.LASF26:
+ 1831 035d 55534246 		.ascii	"USBFS_UpdateHIDTimer\000"
+ 1831      535F5570 
+ 1831      64617465 
+ 1831      48494454 
+ 1831      696D6572 
+ARM GAS  C:\Users\RABBIT~1\AppData\Local\Temp\ccl4TAxK.s 			page 44
+
+
+ 1832              	.LASF28:
+ 1833 0372 696E7465 		.ascii	"interface\000"
+ 1833      72666163 
+ 1833      6500
+ 1834              	.LASF4:
+ 1835 037c 6C6F6E67 		.ascii	"long int\000"
+ 1835      20696E74 
+ 1835      00
+ 1836              	.LASF15:
+ 1837 0385 6C6F6E67 		.ascii	"long double\000"
+ 1837      20646F75 
+ 1837      626C6500 
+ 1838              	.LASF0:
+ 1839 0391 7369676E 		.ascii	"signed char\000"
+ 1839      65642063 
+ 1839      68617200 
+ 1840              	.LASF42:
+ 1841 039d 55534246 		.ascii	"USBFS_hidIdleRate\000"
+ 1841      535F6869 
+ 1841      6449646C 
+ 1841      65526174 
+ 1841      6500
+ 1842              	.LASF43:
+ 1843 03af 55534246 		.ascii	"USBFS_hidIdleTimer\000"
+ 1843      535F6869 
+ 1843      6449646C 
+ 1843      6554696D 
+ 1843      657200
+ 1844              	.LASF18:
+ 1845 03c2 6C656E67 		.ascii	"length\000"
+ 1845      746800
+ 1846              	.LASF48:
+ 1847 03c9 55534246 		.ascii	"USBFS_InitControlWrite\000"
+ 1847      535F496E 
+ 1847      6974436F 
+ 1847      6E74726F 
+ 1847      6C577269 
+ 1848              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -6,3 +6,6 @@ software/build
 *.xcuserstate
 software/Xcode/SCSI2SD-util/Pods/*
 software/Xcode/SCSI2SD-util/Pods
+software/Xcode/SCSI2SD-util/Podfile.lock
+software/Xcode/SCSI2SD-util/build
+software/Xcode/SCSI2SD-util/build/*

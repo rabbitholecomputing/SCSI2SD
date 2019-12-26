@@ -91,6 +91,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
 @implementation AppDelegate
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated"
+
 - (void) logStringToPanel: (NSString *)logString
 {
     NSString *string = [self.logTextView string];
@@ -101,10 +104,10 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 - (void) startTimer
 {
     pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.5
-                                                      repeats:YES
-                                                        block:^(NSTimer * _Nonnull timer) {
-        [self doTimer];
-    }];
+                                                       target:self
+                                                     selector:@selector(doTimer)
+                                                     userInfo:nil
+                                                      repeats:YES];
 }
 
 - (void) stopTimer
@@ -522,7 +525,8 @@ out:
             goto err;
         }
     }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
     for (size_t i = 0;
         i < [deviceControllers count];
         ++i)
@@ -562,6 +566,7 @@ out:
                 flashData.end(),
                 &raw[j * SCSI_CONFIG_ROW_SIZE]);
         }
+#pragma GCC diagnostic pop
         [[deviceControllers objectAtIndex: i] setTargetConfig: SCSI2SD::ConfigUtil::fromBytes(&raw[0])];
     }
 
@@ -670,8 +675,10 @@ out:
                                 (*it)->getPath().c_str(), filename];
                 [self logStringToPanel:ss];
                 tmpFile = [NSTemporaryDirectory()
-                           stringByAppendingPathComponent: [NSString stringWithFormat: @"SCSI2SD_Firmware-%@.scsi2sd",
-                           [[NSUUID UUID] UUIDString]]];
+                           stringByAppendingPathComponent:
+                           [NSString stringWithFormat:
+                            @"SCSI2SD_Firmware-%f.scsi2sd",
+                            [[NSDate date] timeIntervalSince1970]]];
                 zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
                 (*it)->decompress(out);
                 NSString *msg = [NSString stringWithFormat: @"Firmware extracted to %@",tmpFile];
@@ -736,83 +743,86 @@ out:
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     
+    //[panel begin]
+    
     [panel beginSheet:[self mainWindow] completionHandler:^(NSModalResponse returnCode) {
-        if(returnCode == NSModalResponseOK ||
-           returnCode == NSModalResponseContinue)
-        {
-            NSArray *paths = [panel filenames];
-            NSString *filename = [paths objectAtIndex: 0];
-            NSData *fileData = [NSData dataWithContentsOfFile:filename];
-            NSUInteger len = [fileData length];
-            if (len != 0x2400)
+        if (@available(macOS 10.9, *)) {
+            if(returnCode == NSModalResponseOK ||
+               returnCode == NSModalResponseContinue)
             {
-                NSLog(@"Incorrect size, invalid boodloader");
-                return;
-            }
-        
-            uint8_t *data = (uint8_t *)[fileData bytes];
-            static char magic[] = {
-                'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
-                'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
-
-            uint8_t* dataEnd = data + sizeof(data);
-            if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
-            {
-                NSLog(@"Not a valid boot loader file");
-                return;
-            }
-
-            NSLog(@"Upgrading bootloader from file: %@", filename);
-
-            int currentProgress = 0;
-            int totalProgress = 36;
-
-            for (size_t flashRow = 0; flashRow < 36; ++flashRow)
-            {
-                // std::stringstream ss;
-                // ss << "Programming flash array 0 row " << (flashRow);
-                // mmLogStatus(ss.str());
-                currentProgress += 1;
-
-                if (currentProgress == totalProgress)
+                NSArray *paths = [panel filenames];
+                NSString *filename = [paths objectAtIndex: 0];
+                NSData *fileData = [NSData dataWithContentsOfFile:filename];
+                NSUInteger len = [fileData length];
+                if (len != 0x2400)
                 {
-                    // ss.str("Save Complete.");
-                    // mmLogStatus("Save Complete.");
+                    NSLog(@"Incorrect size, invalid boodloader");
+                    return;
                 }
-                /*
-                if (!progress->Update(
-                                      (100 * currentProgress) / totalProgress,
-                                      ss.str()
-                                      )
-                    )
+                
+                uint8_t *data = (uint8_t *)[fileData bytes];
+                static char magic[] = {
+                    'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
+                    'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
+                
+                uint8_t* dataEnd = data + sizeof(data);
+                if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
                 {
-                    goto abort;
-                }*/
-
-                uint8_t *rowData = data + (flashRow * 256);
-                std::vector<uint8_t> flashData(rowData, rowData + 256);
-                try
-                {
-                    self->myHID->writeFlashRow(0, (int)flashRow, flashData);
+                    NSLog(@"Not a valid boot loader file");
+                    return;
                 }
-                catch (std::runtime_error& e)
+                
+                NSLog(@"Upgrading bootloader from file: %@", filename);
+                
+                int currentProgress = 0;
+                int totalProgress = 36;
+                
+                for (size_t flashRow = 0; flashRow < 36; ++flashRow)
                 {
-                    NSLog(@"%s",e.what());
-                    goto err;
+                    // std::stringstream ss;
+                    // ss << "Programming flash array 0 row " << (flashRow);
+                    // mmLogStatus(ss.str());
+                    currentProgress += 1;
+                    
+                    if (currentProgress == totalProgress)
+                    {
+                        // ss.str("Save Complete.");
+                        // mmLogStatus("Save Complete.");
+                    }
+                    /*
+                     if (!progress->Update(
+                     (100 * currentProgress) / totalProgress,
+                     ss.str()
+                     )
+                     )
+                     {
+                     goto abort;
+                     }*/
+                    
+                    uint8_t *rowData = data + (flashRow * 256);
+                    std::vector<uint8_t> flashData(rowData, rowData + 256);
+                    try
+                    {
+                        self->myHID->writeFlashRow(0, (int)flashRow, flashData);
+                    }
+                    catch (std::runtime_error& e)
+                    {
+                        NSLog(@"%s",e.what());
+                        goto err;
+                    }
                 }
+                
+                goto out;
             }
-
-            goto out;
+        } else {
+            // Fallback on earlier versions
         }
         
     err:
         NSLog(@"Bootloader update failed");
         // progress->Update(100, "Bootloader update failed");
         goto out;
-
-    abort:
-        NSLog(@"Bootloader update aborted");
-
+        
     out:
         return;
         
@@ -869,7 +879,7 @@ out:
         if ([target isEnabled])
         {
             isTargetEnabled = true;
-            uint8_t scsiID = [target getSCSIId];
+            // uint8_t scsiID = [target getSCSIId];
             /*
             if (find(enabledID, scsiID) != enabledID.end())
             {
@@ -925,5 +935,6 @@ out:
  */
     
 }
+#pragma GCC diagnostic pop
 
 @end

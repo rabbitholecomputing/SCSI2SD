@@ -33,6 +33,9 @@
 
 #include "hidapi.h"
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+
 /* Barrier implementation because Mac OSX doesn't have pthread_barrier.
    It also doesn't have clock_gettime(). So much for POSIX and SUSv2.
    This implementation came from Brent Priddy and was posted on
@@ -1119,3 +1122,6 @@ int main(void)
 	return 0;
 }
 #endif
+
+#pragma GCC diagnostic pop
+

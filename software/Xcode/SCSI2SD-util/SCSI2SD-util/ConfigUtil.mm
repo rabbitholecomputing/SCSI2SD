@@ -498,6 +498,8 @@ parseTarget(NSXMLElement* node)
     NSXMLNode *child = [en nextObject];
 	while (child)
 	{
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
 		if ([[child name] isEqualToString: @"enabled"])
 		{
 			NSString *s = [child stringValue];
@@ -602,6 +604,7 @@ parseTarget(NSXMLElement* node)
 		}
         
         child = [en nextObject];
+#pragma GCC diagnostic pop
 	}
 	return result;
 }

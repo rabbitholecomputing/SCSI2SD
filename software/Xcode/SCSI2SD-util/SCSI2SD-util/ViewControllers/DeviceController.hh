@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) toXml;
 - (BOOL) evaluate;
 
+// Getters and setters for properties of the GUI...
 - (BOOL) isEnabled;
 - (NSUInteger) getSCSIId;
 - (void) setDuplicateID: (BOOL)flag;

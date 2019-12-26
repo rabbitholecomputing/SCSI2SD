@@ -92,7 +92,7 @@
 
 - (BOOL) evaluate
 {
-    NSLog(@"fromXml");
+    // NSLog(@"fromXml");
     return YES;
 }
 

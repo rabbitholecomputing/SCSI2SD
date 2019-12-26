@@ -21,27 +21,11 @@
 void clean_exit_on_sig(int sig_num)
 {
     NSLog(@"Signal %d received\n",sig_num);
-    NSApplicationMain(NULL, NULL);
+    // NSApplicationMain(NULL, NULL);
 }
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
-
-enum
-{
-    ID_ConfigDefaults = 0, // wxID_HIGHEST + 1,
-    ID_Firmware,
-    ID_Bootloader,
-    ID_Timer,
-    ID_Notebook,
-    ID_BtnLoad,
-    ID_BtnSave,
-    ID_LogWindow,
-    ID_SCSILog,
-    ID_SelfTest,
-    ID_SaveFile,
-    ID_OpenFile
-};
 
 static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
@@ -303,10 +287,6 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 
                     if (!myInitialConfig)
                     {
-/* This doesn't work properly, and causes crashes.
-                        wxCommandEvent loadEvent(wxEVT_NULL, ID_BtnLoad);
-                        GetEventHandler()->AddPendingEvent(loadEvent);
-*/
                     }
 
                 }

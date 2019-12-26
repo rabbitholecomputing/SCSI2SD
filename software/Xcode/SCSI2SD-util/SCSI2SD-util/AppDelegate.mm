@@ -21,7 +21,7 @@
 void clean_exit_on_sig(int sig_num)
 {
     NSLog(@"Signal %d received\n",sig_num);
-    // NSApplicationMain(NULL, NULL);
+    exit( 0 ); // exit cleanly...
 }
 
 #define MIN_FIRMWARE_VERSION 0x0400

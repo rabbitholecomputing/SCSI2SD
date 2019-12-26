@@ -251,7 +251,7 @@
 		1482B1DC23973F3E001BA513 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "RabbitHole Computing, LLC";
 				TargetAttributes = {
 					1482B1E323973F3E001BA513 = {

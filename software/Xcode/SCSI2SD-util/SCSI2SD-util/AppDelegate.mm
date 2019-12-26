@@ -336,51 +336,60 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     }];
 }
 
+- (void) openFileEnd: (NSOpenPanel *)panel
+{
+    try
+    {
+        NSArray *paths = [panel filenames];
+        if([paths count] == 0)
+            return;
+        
+        NSString *path = [paths objectAtIndex: 0];
+        char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
+        std::pair<BoardConfig, std::vector<TargetConfig>> configs(
+            SCSI2SD::ConfigUtil::fromXML(std::string(sPath)));
+
+        // myBoardPanel->setConfig(configs.first);
+        [self.settings setConfig:configs.first];
+        size_t i;
+        for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
+        {
+            DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
+            [devCon setTargetConfig: configs.second[i]];
+        }
+
+        for (; i < [self->deviceControllers count]; ++i)
+        {
+            DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
+            [devCon setTargetConfig: configs.second[i]];
+        }
+    }
+    catch (std::exception& e)
+    {
+        NSArray *paths = [panel filenames];
+        NSString *path = [paths objectAtIndex: 0];
+        char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
+        NSLog(@
+            "Cannot load settings from file '%s'.\n%s",
+            sPath,
+            e.what());
+    }
+}
+
 - (IBAction)openFile:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles: YES];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
-    [panel beginSheetModalForWindow:[self mainWindow]
-                  completionHandler:^(NSModalResponse returnCode) {
-        if(returnCode == NSModalResponseOK ||
-           returnCode == NSModalResponseContinue)
-        {
-            try
-            {
-                NSArray *paths = [panel filenames];
-                NSString *path = [paths objectAtIndex: 0];
-                char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
-                std::pair<BoardConfig, std::vector<TargetConfig>> configs(
-                    SCSI2SD::ConfigUtil::fromXML(std::string(sPath)));
+    [panel beginSheetForDirectory:nil
+                             file:nil
+                            types:[NSArray arrayWithObject: @"xml"]
+                   modalForWindow:[self mainWindow]
+                    modalDelegate:self
+                   didEndSelector:@selector(openFileEnd:)
+                      contextInfo:NULL];
+    
 
-                // myBoardPanel->setConfig(configs.first);
-                [self.settings setConfig:configs.first];
-                size_t i;
-                for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
-                {
-                    DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
-                    [devCon setTargetConfig: configs.second[i]];
-                }
-
-                for (; i < [self->deviceControllers count]; ++i)
-                {
-                    DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
-                    [devCon setTargetConfig: configs.second[i]];
-                }
-            }
-            catch (std::exception& e)
-            {
-                NSArray *paths = [panel filenames];
-                NSString *path = [paths objectAtIndex: 0];
-                char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
-                NSLog(@
-                    "Cannot load settings from file '%s'.\n%s",
-                    sPath,
-                    e.what());
-            }
-        }
-    }];
 }
 
 - (IBAction) loadDefaults: (id)sender
@@ -738,96 +747,94 @@ out:
     }
 }
 
+- (void) bootLoaderUpdateEnd: (NSOpenPanel *)panel
+{
+    NSArray *paths = [panel filenames];
+    if([paths count] == 0)
+        return;
+
+    NSString *filename = [paths objectAtIndex: 0];
+    NSData *fileData = [NSData dataWithContentsOfFile:filename];
+    NSUInteger len = [fileData length];
+    if (len != 0x2400)
+    {
+        NSLog(@"Incorrect size, invalid boodloader");
+        return;
+    }
+    
+    uint8_t *data = (uint8_t *)[fileData bytes];
+    static char magic[] = {
+        'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
+        'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
+    
+    uint8_t* dataEnd = data + sizeof(data);
+    if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
+    {
+        NSLog(@"Not a valid boot loader file");
+        return;
+    }
+    
+    NSLog(@"Upgrading bootloader from file: %@", filename);
+    
+    int currentProgress = 0;
+    int totalProgress = 36;
+    
+    for (size_t flashRow = 0; flashRow < 36; ++flashRow)
+    {
+        // std::stringstream ss;
+        // ss << "Programming flash array 0 row " << (flashRow);
+        // mmLogStatus(ss.str());
+        currentProgress += 1;
+        
+        if (currentProgress == totalProgress)
+        {
+            // ss.str("Save Complete.");
+            // mmLogStatus("Save Complete.");
+        }
+        
+        /*
+         if (!progress->Update((100 * currentProgress) / totalProgress,ss.str()))
+         {
+            goto abort;
+         }*/
+        
+        uint8_t *rowData = data + (flashRow * 256);
+        std::vector<uint8_t> flashData(rowData, rowData + 256);
+        try
+        {
+            self->myHID->writeFlashRow(0, (int)flashRow, flashData);
+        }
+        catch (std::runtime_error& e)
+        {
+            NSLog(@"%s",e.what());
+            goto err;
+        }
+    }
+    
+    goto out;
+    
+err:
+    NSLog(@"Bootloader update failed");
+    // progress->Update(100, "Bootloader update failed");
+    goto out;
+    
+out:
+    return;
+}
 
 - (IBAction)bootloaderUpdate:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     
-    //[panel begin]
-    
-    [panel beginSheet:[self mainWindow] completionHandler:^(NSModalResponse returnCode) {
-        if (@available(macOS 10.9, *)) {
-            if(returnCode == NSModalResponseOK ||
-               returnCode == NSModalResponseContinue)
-            {
-                NSArray *paths = [panel filenames];
-                NSString *filename = [paths objectAtIndex: 0];
-                NSData *fileData = [NSData dataWithContentsOfFile:filename];
-                NSUInteger len = [fileData length];
-                if (len != 0x2400)
-                {
-                    NSLog(@"Incorrect size, invalid boodloader");
-                    return;
-                }
-                
-                uint8_t *data = (uint8_t *)[fileData bytes];
-                static char magic[] = {
-                    'P', 0, 'S', 0, 'o', 0, 'C', 0, '3', 0, ' ', 0,
-                    'B', 0, 'o', 0, 'o', 0, 't', 0, 'l', 0, 'o', 0, 'a', 0, 'd', 0, 'e', 0, 'r', 0};
-                
-                uint8_t* dataEnd = data + sizeof(data);
-                if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
-                {
-                    NSLog(@"Not a valid boot loader file");
-                    return;
-                }
-                
-                NSLog(@"Upgrading bootloader from file: %@", filename);
-                
-                int currentProgress = 0;
-                int totalProgress = 36;
-                
-                for (size_t flashRow = 0; flashRow < 36; ++flashRow)
-                {
-                    // std::stringstream ss;
-                    // ss << "Programming flash array 0 row " << (flashRow);
-                    // mmLogStatus(ss.str());
-                    currentProgress += 1;
-                    
-                    if (currentProgress == totalProgress)
-                    {
-                        // ss.str("Save Complete.");
-                        // mmLogStatus("Save Complete.");
-                    }
-                    /*
-                     if (!progress->Update(
-                     (100 * currentProgress) / totalProgress,
-                     ss.str()
-                     )
-                     )
-                     {
-                     goto abort;
-                     }*/
-                    
-                    uint8_t *rowData = data + (flashRow * 256);
-                    std::vector<uint8_t> flashData(rowData, rowData + 256);
-                    try
-                    {
-                        self->myHID->writeFlashRow(0, (int)flashRow, flashData);
-                    }
-                    catch (std::runtime_error& e)
-                    {
-                        NSLog(@"%s",e.what());
-                        goto err;
-                    }
-                }
-                
-                goto out;
-            }
-        } else {
-            // Fallback on earlier versions
-        }
-        
-    err:
-        NSLog(@"Bootloader update failed");
-        // progress->Update(100, "Bootloader update failed");
-        goto out;
-        
-    out:
-        return;
-        
-    }];
+    [panel beginSheetForDirectory:nil
+                             file:nil
+                            types:nil
+                   modalForWindow:[self mainWindow]
+                    modalDelegate:self
+                   didEndSelector:@selector(bootLoaderUpdateEnd:)
+                      contextInfo:nil];
 }
+
 
 - (IBAction)scsiSelfTest:(id)sender
 {

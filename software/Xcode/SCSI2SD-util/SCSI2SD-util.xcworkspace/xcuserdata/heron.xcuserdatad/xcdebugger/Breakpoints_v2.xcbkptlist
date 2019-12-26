@@ -30,8 +30,8 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
+            startingLineNumber = "322"
+            endingLineNumber = "322"
             landmarkName = "-saveFile:"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
+            startingLineNumber = "327"
+            endingLineNumber = "327"
             landmarkName = "-saveFile:"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "468"
-            endingLineNumber = "468"
+            startingLineNumber = "480"
+            endingLineNumber = "480"
             landmarkName = "-saveToDevice:"
             landmarkType = "7">
             <Locations>
@@ -78,8 +78,8 @@
                   urlString = "file:///Users/heron/Development/SCSI2SD/software/Xcode/SCSI2SD-util/SCSI2SD-util/AppDelegate.mm"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "468"
-                  endingLineNumber = "468"
+                  startingLineNumber = "480"
+                  endingLineNumber = "480"
                   offsetFromSymbolStart = "2571">
                </Location>
                <Location
@@ -93,8 +93,8 @@
                   urlString = "file:///Users/heron/Development/SCSI2SD/software/Xcode/SCSI2SD-util/SCSI2SD-util/AppDelegate.mm"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "468"
-                  endingLineNumber = "468"
+                  startingLineNumber = "480"
+                  endingLineNumber = "480"
                   offsetFromSymbolStart = "2628">
                </Location>
             </Locations>
@@ -110,9 +110,9 @@
             filePath = "SCSI2SD-util/AppDelegate.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
-            landmarkName = "-stopTimer"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-reset_hid"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

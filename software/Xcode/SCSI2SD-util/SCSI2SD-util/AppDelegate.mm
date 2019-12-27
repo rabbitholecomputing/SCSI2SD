@@ -953,12 +953,22 @@ out:
 #pragma GCC diagnostic pop
 
 
+- (NSInteger)numberOfItemsInComboBoxCell:(NSComboBox *)comboBox
+{
+    return 8;
+}
+
 - (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
 {
     return 8;
 }
 
 - (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    return [NSString stringWithFormat:@"%ld", (long)index];
+}
+
+- (nullable id)comboBoxCall:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
 {
     return [NSString stringWithFormat:@"%ld", (long)index];
 }

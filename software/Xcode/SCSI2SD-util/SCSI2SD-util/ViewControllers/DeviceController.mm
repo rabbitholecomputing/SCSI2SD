@@ -37,7 +37,7 @@
 
 - (void) setTargetConfig: (TargetConfig)config
 {
-    NSLog(@"setTargetConfig");
+    // NSLog(@"setTargetConfig");
     self.enableSCSITarget.state = (config.scsiId & 0x80) ? NSOnState : NSOffState;
     [self.SCSIID setStringValue:
      [NSString stringWithFormat: @"%d", (config.scsiId & 0x80) ?

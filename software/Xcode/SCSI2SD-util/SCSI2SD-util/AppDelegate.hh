@@ -14,7 +14,7 @@
 #include "scsi2sd.h"
 #include "Functions.hh"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate, NSComboBoxDataSource>
 {
     SCSI2SD::HID *myHID;
     SCSI2SD::Bootloader *myBootloader;

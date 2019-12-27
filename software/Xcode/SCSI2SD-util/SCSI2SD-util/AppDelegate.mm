@@ -313,27 +313,37 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [self evaluate];
 }
 
+- (void)saveFileEnd: (NSOpenPanel *)panel
+{
+    NSString *filename = [[panel directory] stringByAppendingPathComponent: [[panel filename] lastPathComponent]];
+    if([filename isEqualToString:@""] || filename == nil)
+        return;
+    
+     NSString *outputString = @"";
+     
+     filename = [filename stringByAppendingPathExtension:@"xml"];
+     outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
+
+     outputString = [outputString stringByAppendingString: [self->_settings toXml]];
+     DeviceController *dc = nil;
+     NSEnumerator *en = [self->deviceControllers objectEnumerator];
+     while((dc = [en nextObject]) != nil)
+     {
+         outputString = [outputString stringByAppendingString: [dc toXml]];
+     }
+     outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
+     [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+}
+
 - (IBAction)saveFile:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
-    [panel beginSheetModalForWindow: [self mainWindow]
-                  completionHandler:^(NSModalResponse result) {
-        NSString *filename = [panel filename];
-        NSString *outputString = @"";
-        
-        filename = [filename stringByAppendingPathExtension:@"xml"];
-        outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
-
-        outputString = [outputString stringByAppendingString: [self->_settings toXml]];
-        DeviceController *dc = nil;
-        NSEnumerator *en = [self->deviceControllers objectEnumerator];
-        while((dc = [en nextObject]) != nil)
-        {
-            outputString = [outputString stringByAppendingString: [dc toXml]];
-        }
-        outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
-        [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
-    }];
+    [panel beginSheetForDirectory:NSHomeDirectory()
+                             file:nil
+                   modalForWindow:[self mainWindow]
+                    modalDelegate:self
+                   didEndSelector:@selector(saveFileEnd:)
+                      contextInfo:nil];
 }
 
 - (void) openFileEnd: (NSOpenPanel *)panel
@@ -388,8 +398,6 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                     modalDelegate:self
                    didEndSelector:@selector(openFileEnd:)
                       contextInfo:NULL];
-    
-
 }
 
 - (IBAction) loadDefaults: (id)sender
@@ -944,4 +952,14 @@ out:
 }
 #pragma GCC diagnostic pop
 
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
+{
+    return 8;
+}
+
+- (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    return [NSString stringWithFormat:@"%ld", (long)index];
+}
 @end

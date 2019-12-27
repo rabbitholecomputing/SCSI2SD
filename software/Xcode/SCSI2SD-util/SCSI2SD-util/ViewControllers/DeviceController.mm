@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet NSTextField *revsion;
 @property (weak, nonatomic) IBOutlet NSTextField *serialNumber;
 @property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
+@property (weak, nonatomic) IBOutlet NSTextField *sectorsPerTrack;
+@property (weak, nonatomic) IBOutlet NSTextField *headsPerCylinder;
 
 @property BOOL duplicateId;
 @property BOOL sectorOverlap;
@@ -51,6 +53,8 @@
     [self.productId setStringValue: [NSString stringWithCString:config.prodId length:16]];
     [self.revsion setStringValue: [NSString stringWithCString:config.revision length:4]];
     [self.serialNumber setStringValue: [NSString stringWithCString:config.serial length:16]];
+    [self.sectorsPerTrack setStringValue: [NSString stringWithFormat: @"%d", config.sectorsPerTrack]];
+    [self.headsPerCylinder setStringValue: [NSString stringWithFormat: @"%d", config.headsPerCylinder]];
     // [self.autoStartSector setState:]
 }
 

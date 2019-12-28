@@ -44,7 +44,7 @@
 
 - (void) setConfig: (BoardConfig)config
 {
-    NSLog(@"setConfig");
+    // NSLog(@"setConfig");
     self.enableParity.state = (config.flags & CONFIG_ENABLE_PARITY) ? NSOnState : NSOffState;
     self.enableUnitAttention.state = (config.flags & CONFIG_ENABLE_UNIT_ATTENTION) ? NSOnState : NSOffState;
     self.enableSCSI2Mode.state = (config.flags & CONFIG_ENABLE_SCSI2) ? NSOnState : NSOffState;
@@ -61,7 +61,7 @@
 - (BoardConfig) getConfig
 {
     BoardConfig config;
-    NSLog(@"getConfig");
+    // NSLog(@"getConfig");
     config.flags |= self.enableSCSITerminator.intValue;
 
     config.flags =

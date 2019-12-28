@@ -35,6 +35,25 @@
 
 @implementation DeviceController
 
+- (void) awakeFromNib
+{
+    self.enableSCSITarget.toolTip = @"Enable this device";
+    self.SCSIID.toolTip = @"Unique SCSI ID for target device";
+    self.deviceType.toolTip = @"Dervice type: HD, Removable, etc";
+    self.sdCardStartSector.toolTip = @"Sector to start SCSI emulation from";
+    self.sectorSize.toolTip = @"Size of each sector, default is 512";
+    self.sectorCount.toolTip = @"Number of sectors";
+    self.deviceSize.toolTip = @"Size in units specified";
+    self.deviceUnit.toolTip = @"Units for device: GB, MB, etc";
+    self.vendor.toolTip = @"Vendor identification number.";
+    self.productId.toolTip = @"Unique product identifier";
+    self.revsion.toolTip = @"Revision";
+    self.serialNumber.toolTip = @"Serial number for device";
+    self.autoStartSector.toolTip = @"Auto start sector based on other targets";
+    self.sectorsPerTrack.toolTip = @"Number of sectors in each track";
+    self.headsPerCylinder.toolTip = @"Number of heads in cylinder";
+}
+
 - (void) setTargetConfig: (TargetConfig)config
 {
     // NSLog(@"setTargetConfig");

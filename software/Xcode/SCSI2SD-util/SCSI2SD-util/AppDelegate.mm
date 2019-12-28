@@ -506,18 +506,22 @@ out:
 - (IBAction)loadFromDevice:(id)sender
 {
     [self stopTimer];
-    if (!myHID) return;
+    if (!myHID) // goto out;
+    {
+        [self reset_hid];
+    }
+    
+    if(!myHID)
+    {
+        [self logStringToPanel: @"Couldn't initialize HID configuration"];
+
+        [self startTimer];
+        return;
+    }
 
     [self logStringToPanel: @"Loading configuration"];
-/*
-    wxWindowPtr<wxGenericProgressDialog> progress(
-        new wxGenericProgressDialog(
-            "Load config settings",
-            "Loading config settings",
-            100,
-            this,
-            wxPD_CAN_ABORT | wxPD_REMAINING_TIME)
-            ); */
+    
+    [self logStringToPanel:@"Load config settings"];
 
     int currentProgress = 0;
     int totalProgress = (int)([deviceControllers count] * (NSUInteger)SCSI_CONFIG_ROWS + (NSUInteger)1);

@@ -41,6 +41,21 @@
     NSLog(@"fromXml");
 }
 */
+- (void) awakeFromNib
+{
+    self.enableParity.toolTip = @"Enable error correction parity.";
+    self.enableUnitAttention.toolTip = @"Enable UNIT Attention code.";
+    self.enableSCSI2Mode.toolTip = @"Enable SCSI2 Mode";
+    self.enableSCSITerminator.toolTip = @"Terminate SCSI connection";
+    self.enableGlitch.toolTip = @"Enable glitch mode";
+    self.enableCache.toolTip = @"Enable cache";
+    self.enableDisconnect.toolTip = @"Enable SCSI disconnection";
+    self.respondToShortSCSISelection.toolTip = @"Respond to short SCSI selection command";
+    self.mapLUNStoSCSIIDs.toolTip = @"Map Logical Units to SCSIIDs";
+    self.startupDelay.toolTip = @"Delay for startup of device";
+    self.speedLimit.toolTip = @"Transfer rate";
+    self.startupSelectionDelay.toolTip = @"Delay between selection command and selection of device.";
+}
 
 - (void) setConfig: (BoardConfig)config
 {
@@ -55,6 +70,7 @@
     self.respondToShortSCSISelection.state = (config.flags & CONFIG_ENABLE_SEL_LATCH) ? NSOnState : NSOffState;
     self.mapLUNStoSCSIIDs.state = (config.flags & CONFIG_MAP_LUNS_TO_IDS) ? NSOnState : NSOffState;
     self.startupDelay.intValue = config.startupDelay;
+    self.startupSelectionDelay.intValue = config.selectionDelay;
     [self.speedLimit selectItemAtIndex: config.scsiSpeed];
 }
 
@@ -75,6 +91,7 @@
         (self.mapLUNStoSCSIIDs.state == NSOnState ? CONFIG_MAP_LUNS_TO_IDS : 0) |
         (self.enableSCSITerminator.state == NSOnState ? S2S_CFG_ENABLE_TERMINATOR : 0);
     config.startupDelay = self.startupDelay.intValue;
+    config.selectionDelay = self.startupSelectionDelay.intValue;
     config.scsiSpeed = self.speedLimit.indexOfSelectedItem;
     
     return config;

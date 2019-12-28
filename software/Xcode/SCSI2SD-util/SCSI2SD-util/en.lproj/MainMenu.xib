@@ -347,7 +347,7 @@
                         <font key="font" metaFont="label" size="13"/>
                         <tabViewItems>
                             <tabViewItem label="General Settings" identifier="" id="WrU-eM-PTx">
-                                <view key="view" id="MTa-GI-ipO">
+                                <view key="view" ambiguous="YES" id="MTa-GI-ipO">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -385,7 +385,7 @@
                                                 <font key="font" metaFont="label" size="13"/>
                                             </buttonCell>
                                         </button>
-                                        <button verticalHuggingPriority="750" id="1Kk-W6-IiR">
+                                        <button verticalHuggingPriority="750" ambiguous="YES" id="1Kk-W6-IiR">
                                             <rect key="frame" x="265" y="142" width="141" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI2 Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yPU-O5-Fio">
@@ -1849,7 +1849,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 6" identifier="" id="EB6-BV-Jen">
-                                <view key="view" ambiguous="YES" id="RNa-2F-sIQ">
+                                <view key="view" id="RNa-2F-sIQ">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>

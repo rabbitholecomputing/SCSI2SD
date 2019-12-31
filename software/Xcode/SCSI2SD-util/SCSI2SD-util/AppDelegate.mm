@@ -160,9 +160,11 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
+    /*
     [deviceControllers addObject: _device5];
     [deviceControllers addObject: _device6];
     [deviceControllers addObject: _device7];
+     */
     
     [self.tabView selectTabViewItemAtIndex:0];
     
@@ -413,12 +415,14 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     }
 }
 
-- (IBAction)saveToDevice:(id)sender
+- (void) saveToDeviceThread: (id)obj
 {
     [self stopTimer];
     if (!myHID) return;
 
-    [self logStringToPanel: @"Saving configuration"];
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                            withObject: @"Saving configuration"
+                         waitUntilDone:YES];
     int currentProgress = 0;
     int totalProgress = (int)[deviceControllers count] * SCSI_CONFIG_ROWS + 1;
 
@@ -427,7 +431,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     {
         NSString *ss = [NSString stringWithFormat:
                         @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-        [self logStringToPanel:ss];
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                withObject:ss
+                             waitUntilDone:YES];
         currentProgress += 1;
         [self.progress setDoubleValue:(double)currentProgress];
 
@@ -461,7 +467,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
         {
             NSString *ss = [NSString stringWithFormat:
                             @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-            [self logStringToPanel:ss];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject:ss
+                                 waitUntilDone:YES];
 
             currentProgress += 1;
             if (currentProgress == totalProgress)
@@ -483,7 +491,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             {
                 NSString *ss = [NSString stringWithFormat:
                                 @"Error: %s", e.what()];
-                [self logStringToPanel:ss];
+                [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                        withObject:ss
+                                     waitUntilDone:YES];
                 goto err;
             }
         }
@@ -494,17 +504,23 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     goto out;
 
 err:
-    [self.progress setDoubleValue: 100.0];
-    [self.infoLabel setStringValue: @"Save Failed"];
+    // [self.progress setDoubleValue: 100.0];
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                            withObject:@"Save Failed"
+                         waitUntilDone:YES];
     goto out;
 
 out:
     [self startTimer];
     return;
-
 }
 
-- (IBAction)loadFromDevice:(id)sender
+- (IBAction)saveToDevice:(id)sender
+{
+    [NSThread detachNewThreadSelector:@selector(saveToDeviceThread:) toTarget:self withObject:self];
+}
+
+- (void) loadFromDeviceThread: (id)obj
 {
     [self stopTimer];
     if (!myHID) // goto out;
@@ -514,15 +530,20 @@ out:
     
     if(!myHID)
     {
-        [self logStringToPanel: @"Couldn't initialize HID configuration"];
-
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                               withObject:@"Couldn't initialize HID configuration"
+                            waitUntilDone:YES];
         [self startTimer];
         return;
     }
 
-    [self logStringToPanel: @"Loading configuration"];
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                           withObject:@"Loading configuration"
+                        waitUntilDone:YES];
     
-    [self logStringToPanel:@"Load config settings"];
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                           withObject:@"Load config settings"
+                        waitUntilDone:YES];
 
     int currentProgress = 0;
     int totalProgress = (int)([deviceControllers count] * (NSUInteger)SCSI_CONFIG_ROWS + (NSUInteger)1);
@@ -533,20 +554,28 @@ out:
     {
         NSString *ss = [NSString stringWithFormat:
                         @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-        [self logStringToPanel:ss];
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                withObject:ss
+                             waitUntilDone:YES];
         currentProgress += 1;
         try
         {
             myHID->readFlashRow(
                 SCSI_CONFIG_ARRAY, flashRow, boardCfgFlashData);
-            [_settings setConfig: SCSI2SD::ConfigUtil::boardConfigFromBytes(&boardCfgFlashData[0])];
+            BoardConfig bConfig = SCSI2SD::ConfigUtil::boardConfigFromBytes(&boardCfgFlashData[0]);
+            NSData *configBytes = [[NSData alloc] initWithBytes: &bConfig length:sizeof(BoardConfig)];
+            [_settings performSelectorOnMainThread:@selector(setConfigData:)
+                                        withObject:configBytes
+                                     waitUntilDone:YES]; //  setConfig: ];
         }
         catch (std::runtime_error& e)
         {
             NSLog(@"%s",e.what());
             NSString *ss = [NSString stringWithFormat:
                             @"\n\nException: %s\n\n",e.what()];
-            [self logStringToPanel:ss];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject:ss
+                                 waitUntilDone:YES];
             goto err;
         }
     }
@@ -564,14 +593,19 @@ out:
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
             NSString *ss = [NSString stringWithFormat:
-                            @"\Reading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-            [self logStringToPanel:ss];
+                            @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject:ss
+                                 waitUntilDone:YES];
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                [self logStringToPanel: @"\nRead Complete."];
+                [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                        withObject:@"\nRead Complete."
+                                     waitUntilDone:YES];
             }
-            [self.progress setDoubleValue:(double)currentProgress];
+            
+            // [self.progress setDoubleValue:(double)currentProgress];
             
             std::vector<uint8_t> flashData;
             try
@@ -592,7 +626,11 @@ out:
                 &raw[j * SCSI_CONFIG_ROW_SIZE]);
         }
 #pragma GCC diagnostic pop
-        [[deviceControllers objectAtIndex: i] setTargetConfig: SCSI2SD::ConfigUtil::fromBytes(&raw[0])];
+        TargetConfig tConfig = SCSI2SD::ConfigUtil::fromBytes(&raw[0]);
+        NSData *configBytes = [[NSData alloc] initWithBytes: &tConfig length:sizeof(TargetConfig)];
+        [[deviceControllers objectAtIndex: i] performSelectorOnMainThread:@selector(setTargetConfigData:)
+                                                               withObject:configBytes
+                                                            waitUntilDone:YES];
     }
 
     // Support old boards without board config set
@@ -607,13 +645,18 @@ out:
 
 err:
     NSLog(@"Load failed");
-    [self.progress setDoubleValue: 100.0];
-    [self.infoLabel setStringValue: @"Load Failed"];
+    // [self.progress setDoubleValue: 100.0];
+    // [self.infoLabel setStringValue: @"Load Failed"];
     goto out;
 
 out:
     [self startTimer];
     return;
+}
+
+- (IBAction)loadFromDevice:(id)sender
+{
+    [NSThread detachNewThreadSelector:@selector(loadFromDeviceThread:) toTarget:self withObject:self];
 }
 
 - (void) upgradeFirmwareEnd: (NSOpenPanel *)panel

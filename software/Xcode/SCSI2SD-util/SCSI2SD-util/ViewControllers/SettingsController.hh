@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *) toXml;
 - (void) setConfig: (BoardConfig)config;
+- (void) setConfigData: (NSData *)data;
 - (BoardConfig) getConfig;
 
 @end

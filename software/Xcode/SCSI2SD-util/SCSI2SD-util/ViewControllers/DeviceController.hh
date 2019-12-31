@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceController : NSObject
 
+- (void) setTargetConfigData: (NSData *)data;
 - (void) setTargetConfig: (TargetConfig)config;
 - (TargetConfig) getTargetConfig;
 - (NSString *) toXml;

@@ -74,6 +74,15 @@
     [self.speedLimit selectItemAtIndex: config.scsiSpeed];
 }
 
+- (void) setConfigData:(NSData *)data
+{
+    BoardConfig config;
+    const void *bytes;
+    bytes = [data bytes];
+    memcpy(&config, bytes, sizeof(BoardConfig));
+    [self setConfig: config];
+}
+
 - (BoardConfig) getConfig
 {
     BoardConfig config;

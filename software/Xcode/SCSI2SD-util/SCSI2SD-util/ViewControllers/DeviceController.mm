@@ -77,6 +77,15 @@
     // [self.autoStartSector setState:]
 }
 
+- (void) setTargetConfigData: (NSData *)data
+{
+    TargetConfig config;
+    const void *bytes;
+    bytes = [data bytes];
+    memcpy(&config, bytes, sizeof(TargetConfig));
+    [self setTargetConfig: config];
+}
+
 - (TargetConfig) getTargetConfig
 {
     TargetConfig targetConfig;

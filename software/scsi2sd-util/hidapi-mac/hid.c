@@ -456,6 +456,8 @@ struct hid_device_info  HID_API_EXPORT *hid_enumerate(unsigned short vendor_id, 
 		    (product_id == 0x0 || product_id == dev_pid)) {
 			struct hid_device_info *tmp;
 			size_t len;
+            
+            // printf("got device %hu\n", dev_pid);
 
 			/* VID/PID match. Create the record. */
 			tmp = malloc(sizeof(struct hid_device_info));

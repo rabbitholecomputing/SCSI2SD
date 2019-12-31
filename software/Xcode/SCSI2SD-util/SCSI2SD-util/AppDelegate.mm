@@ -86,6 +86,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 @property (nonatomic) IBOutlet NSMenuItem *saveMenu;
 @property (nonatomic) IBOutlet NSMenuItem *openMenu;
 
+@property (nonatomic) IBOutlet NSMenuItem *readMenu;
+@property (nonatomic) IBOutlet NSMenuItem *writeMenu;
+
 @property (nonatomic) IBOutlet SettingsController *settings;
 @end
 
@@ -101,9 +104,14 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [self.logTextView setString: string];
 }
 
+- (void) logStringToLabel: (NSString *)logString
+{
+    [self.infoLabel setStringValue:logString];
+}
+
 - (void) startTimer
 {
-    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.5
+    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.125
                                                        target:self
                                                      selector:@selector(doTimer)
                                                      userInfo:nil
@@ -213,7 +221,6 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
         else if (myHID && !myHID->ping())
         {
             // Verify the USB HID connection is valid
-            // myHID.reset();
             [self reset_hid];
         }
 
@@ -228,27 +235,25 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                     {
                         // Oh dear, old firmware
                         NSString *log = [NSString stringWithFormat: @"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str()];
-                        [self logStringToPanel: log];
+                        [self logStringToLabel: log];
                     }
                 }
                 else
                 {
                     NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
-                    [self logStringToPanel:msg];
+                    [self logStringToLabel:msg];
 
                     std::vector<uint8_t> csd(myHID->getSD_CSD());
                     std::vector<uint8_t> cid(myHID->getSD_CID());
-                    // std::stringstream sdinfo;
-                    msg = [NSString stringWithFormat: @"SD Capacity (512-byte sectors): %d",
+                    msg = [NSString stringWithFormat: @"\nSD Capacity (512-byte sectors): %d",
                         myHID->getSDCapacity()];
                     [self logStringToPanel:msg];
 
-                    // sdinfo << "SD CSD Register: ";
-                    msg = [NSString stringWithFormat: @"SD CSD Register: "];
+                    msg = [NSString stringWithFormat: @"\nSD CSD Register: "];
                     [self logStringToPanel:msg];
                     if (sdCrc7(&csd[0], 15, 0) != (csd[15] >> 1))
                     {
-                        msg = [NSString stringWithFormat: @"BADCRC"];
+                        msg = [NSString stringWithFormat: @"\nBADCRC"];
                         [self logStringToPanel:msg];
                     }
                     for (size_t i = 0; i < csd.size(); ++i)
@@ -258,11 +263,12 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                             std::hex << std::setfill('0') << std::setw(2) <<
                             static_cast<int>(csd[i]); */
                     }
-                    //sdinfo << std::endl;
-                    //sdinfo << "SD CID Register: ";
+                    msg = [NSString stringWithFormat: @"\nSD CID Register: "];
+                    [self logStringToPanel:msg];
                     if (sdCrc7(&cid[0], 15, 0) != (cid[15] >> 1))
                     {
-                        // sdinfo << "BADCRC ";
+                        msg = [NSString stringWithFormat: @"BADCRC"];
+                        [self logStringToPanel:msg];
                     }
                     for (size_t i = 0; i < cid.size(); ++i)
                     {
@@ -294,7 +300,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                 char ticks[] = {'/', '-', '\\', '|'};
                 myTickCounter++;
                 NSString *ss = [NSString stringWithFormat:@"Searching for SCSI2SD device %c", ticks[myTickCounter % sizeof(ticks)]];
-                [self.infoLabel setStringValue: ss];
+                [self logStringToLabel: ss];
             }
         }
     }
@@ -526,7 +532,7 @@ out:
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
         NSString *ss = [NSString stringWithFormat:
-                        @"Reading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+                        @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
         [self logStringToPanel:ss];
         currentProgress += 1;
         try
@@ -538,6 +544,9 @@ out:
         catch (std::runtime_error& e)
         {
             NSLog(@"%s",e.what());
+            NSString *ss = [NSString stringWithFormat:
+                            @"\n\nException: %s\n\n",e.what()];
+            [self logStringToPanel:ss];
             goto err;
         }
     }
@@ -555,12 +564,12 @@ out:
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
             NSString *ss = [NSString stringWithFormat:
-                            @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+                            @"\Reading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
             [self logStringToPanel:ss];
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                [self logStringToPanel: @"Load Complete."];
+                [self logStringToPanel: @"\nRead Complete."];
             }
             [self.progress setDoubleValue:(double)currentProgress];
             
@@ -607,151 +616,158 @@ out:
     return;
 }
 
-- (IBAction)upgradeFirmware:(id)sender
+- (void) upgradeFirmwareEnd: (NSOpenPanel *)panel
 {
-    NSOpenPanel *panel = [NSOpenPanel openPanel];
-    int prog = 0;
-    __block NSString *filename;
-    
-    [panel beginSheetModalForWindow:[self mainWindow]
-                  completionHandler:^(NSModalResponse result) {
-        filename = [panel filename];
-    }];
-    
-    while (true)
+    NSString *filename = [panel filename];
+    if(filename != nil)
     {
+        int prog = 0;
+        while (true)
+        {
+            try
+            {
+                if (!myHID)
+                {
+                    [self reset_hid];
+    //                myHID = SCSI2SD::HID::Open();
+                }
+                if (myHID)
+                {
+                    NSLog(@"Resetting SCSI2SD into bootloader");
+
+                    myHID->enterBootloader();
+                    // myHID->reset();
+                }
+
+
+                if (!myBootloader)
+                {
+                    myBootloader = SCSI2SD::Bootloader::Open();
+                    if (myBootloader)
+                    {
+                        NSLog(@"Bootloader found");
+                        break;
+                    }
+                }
+
+                else if (myBootloader)
+                {
+                    // Verify the USB HID connection is valid
+                    if (!myBootloader->ping())
+                    {
+                        NSLog(@"Bootloader ping failed");
+                        // myBootloader.reset();
+                        myBootloader = SCSI2SD::Bootloader::Open();
+                    }
+                    else
+                    {
+                        NSLog(@"Bootloader found");
+                        break;
+                    }
+                }
+            }
+            catch (std::exception& e)
+            {
+                NSLog(@"%s",e.what());
+                [self reset_hid];
+                myBootloader = SCSI2SD::Bootloader::Open();
+            }
+            // wxMilliSleep(100);
+            if (false) // !progress->Pulse())
+            {
+                return; // user cancelled.
+            }
+        }
+
+        int totalFlashRows = 0;
+        NSString *tmpFile = nil;
         try
         {
-            if (!myHID)
+            zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSUTF8StringEncoding]));
+            zipper::Decompressor decomp(reader);
+            std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
+            for (auto it(files.begin()); it != files.end(); it++)
             {
-                [self reset_hid];
-//                myHID = SCSI2SD::HID::Open();
-            }
-            if (myHID)
-            {
-                NSLog(@"Resetting SCSI2SD into bootloader");
-
-                myHID->enterBootloader();
-                // myHID->reset();
-            }
-
-
-            if (!myBootloader)
-            {
-                myBootloader = SCSI2SD::Bootloader::Open();
-                if (myBootloader)
+                if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
                 {
-                    NSLog(@"Bootloader found");
+                    NSString *ss = [NSString stringWithFormat: @"Found firmware entry %s within archive %@",
+                                    (*it)->getPath().c_str(), filename];
+                    [self logStringToPanel:ss];
+                    tmpFile = [NSTemporaryDirectory()
+                               stringByAppendingPathComponent:
+                               [NSString stringWithFormat:
+                                @"SCSI2SD_Firmware-%f.scsi2sd",
+                                [[NSDate date] timeIntervalSince1970]]];
+                    zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
+                    (*it)->decompress(out);
+                    NSString *msg = [NSString stringWithFormat: @"Firmware extracted to %@",tmpFile];
+                    [self logStringToPanel:msg];
                     break;
                 }
             }
 
-            else if (myBootloader)
+            if ([tmpFile isEqualToString:@""])
             {
-                // Verify the USB HID connection is valid
-                if (!myBootloader->ping())
-                {
-                    NSLog(@"Bootloader ping failed");
-                    // myBootloader.reset();
-                    myBootloader = SCSI2SD::Bootloader::Open();
-                }
-                else
-                {
-                    NSLog(@"Bootloader found");
-                    break;
-                }
+                // TODO allow "force" option
+                [self logStringToPanel:@"Wrong filename"];
+                return;
             }
+
+            SCSI2SD::Firmware firmware([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
+            totalFlashRows = firmware.totalFlashRows();
         }
         catch (std::exception& e)
         {
-            NSLog(@"%s",e.what());
-            [self reset_hid];
-//            myHID = SCSI2SD::HID::Open(); // .reset()
-            myBootloader = SCSI2SD::Bootloader::Open(); // .reset()
-        }
-        // wxMilliSleep(100);
-        if (false) // !progress->Pulse())
-        {
-            return; // user cancelled.
-        }
-    }
-
-    int totalFlashRows = 0;
-    NSString *tmpFile = nil;
-    try
-    {
-        zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSUTF8StringEncoding]));
-        zipper::Decompressor decomp(reader);
-        std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
-        for (auto it(files.begin()); it != files.end(); it++)
-        {
-            if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
-            {
-                NSString *ss = [NSString stringWithFormat: @"Found firmware entry %s within archive %@",
-                                (*it)->getPath().c_str(), filename];
-                [self logStringToPanel:ss];
-                tmpFile = [NSTemporaryDirectory()
-                           stringByAppendingPathComponent:
-                           [NSString stringWithFormat:
-                            @"SCSI2SD_Firmware-%f.scsi2sd",
-                            [[NSDate date] timeIntervalSince1970]]];
-                zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
-                (*it)->decompress(out);
-                NSString *msg = [NSString stringWithFormat: @"Firmware extracted to %@",tmpFile];
-                [self logStringToPanel:msg];
-                break;
-            }
-        }
-
-        if ([tmpFile isEqualToString:@""])
-        {
-            // TODO allow "force" option
-            [self logStringToPanel:@"Wrong filename"];
+            NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s",e.what()];
+            [self logStringToPanel:msg];
             return;
         }
 
-        SCSI2SD::Firmware firmware([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
-        totalFlashRows = firmware.totalFlashRows();
-    }
-    catch (std::exception& e)
-    {
-        NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s",e.what()];
-        [self logStringToPanel:msg];
-        return;
-    }
+        {
+            [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
+        }
 
-    {
-        [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
+        NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
+        [self logStringToPanel: msg2];
+        try
+        {
+            myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+            //TheProgressWrapper.clearProgressDialog();
+            [self logStringToPanel: @"Firmware update successful"];
+
+        //        myHID = SCSI2SD::HID::Open();
+            [self reset_hid];
+            myBootloader = SCSI2SD::Bootloader::Open();
+            //myHID.reset();
+            //myBootloader.reset();
+        }
+        catch (std::exception& e)
+        {
+            //TheProgressWrapper.clearProgressDialog();
+            //mmLogStatus(e.what());
+            //myHID.reset();
+            //myBootloader.reset();
+
+            //wxMessageBox(
+            //    "Firmware Update Failed",
+            //    e.what(),
+            //    wxOK | wxICON_ERROR);
+
+            //wxRemoveFile(tmpFile);
+        }
     }
+}
 
-    NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
-    [self logStringToPanel: msg2];
-    try
-    {
-        myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
-        //TheProgressWrapper.clearProgressDialog();
-        [self logStringToPanel: @"Firmware update successful"];
+- (IBAction)upgradeFirmware:(id)sender
+{
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
 
-    //        myHID = SCSI2SD::HID::Open();
-        [self reset_hid];
-        myBootloader = SCSI2SD::Bootloader::Open();
-        //myHID.reset();
-        //myBootloader.reset();
-    }
-    catch (std::exception& e)
-    {
-        //TheProgressWrapper.clearProgressDialog();
-        //mmLogStatus(e.what());
-        //myHID.reset();
-        //myBootloader.reset();
-
-        //wxMessageBox(
-        //    "Firmware Update Failed",
-        //    e.what(),
-        //    wxOK | wxICON_ERROR);
-
-        //wxRemoveFile(tmpFile);
-    }
+    [panel beginForDirectory:NULL
+                        file:nil
+                       types:[NSArray arrayWithObject:@"scsi2sd"]
+            modelessDelegate:NULL
+              didEndSelector:@selector(upgradeFirmwareEnd:)
+                 contextInfo:NULL];
 }
 
 - (void) bootLoaderUpdateEnd: (NSOpenPanel *)panel

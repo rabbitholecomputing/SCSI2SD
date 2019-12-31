@@ -175,12 +175,14 @@
                 <outlet property="logPanel" destination="H9u-55-H3N" id="0ax-Oo-P3x"/>
                 <outlet property="logTextView" destination="IUe-Fz-GvN" id="xlT-NK-QdU"/>
                 <outlet property="mainWindow" destination="QvC-M9-y7g" id="aa3-CG-2Ja"/>
-                <outlet property="openMenu" destination="IAo-SY-fd9" id="uVw-VI-Tdm"/>
+                <outlet property="openMenu" destination="IAo-SY-fd9" id="p23-ve-9Tb"/>
                 <outlet property="progress" destination="Buk-nO-Jap" id="RvG-jV-7y1"/>
-                <outlet property="saveMenu" destination="pxx-59-PXV" id="8tx-wg-pjE"/>
+                <outlet property="readMenu" destination="77j-QG-g8Z" id="uKl-nP-wSh"/>
+                <outlet property="saveMenu" destination="pxx-59-PXV" id="zpe-hJ-hpr"/>
                 <outlet property="settings" destination="eJ5-Xi-KA2" id="tRL-KS-k2Y"/>
                 <outlet property="tabView" destination="Pmn-E4-Otb" id="62F-DP-hrH"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
+                <outlet property="writeMenu" destination="X8D-yc-hlY" id="Bpf-5x-cx4"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -252,14 +254,12 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="uFP-yu-NLn"/>
-                            <menuItem title="Load From Device..." keyEquivalent="L" id="77j-QG-g8Z">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            <menuItem title="Read From Device..." keyEquivalent="r" id="77j-QG-g8Z">
                                 <connections>
                                     <action selector="loadFromDevice:" target="Voe-Tx-rLC" id="Ydy-Nb-NeG"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Save To Device..." keyEquivalent="S" id="X8D-yc-hlY">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                            <menuItem title="Write To Device..." keyEquivalent="w" id="X8D-yc-hlY">
                                 <connections>
                                     <action selector="saveToDevice:" target="Voe-Tx-rLC" id="rgd-vV-Gaz"/>
                                 </connections>

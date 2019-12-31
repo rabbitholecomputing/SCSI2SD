@@ -855,15 +855,15 @@ out:
 
 - (IBAction)logScsiData:(id)sender
 {
-    /*
-    if (!mySCSILogChk->IsChecked() ||
+    BOOL checkSCSILog = YES;   // replce this with checking the menu status
+    if (checkSCSILog ||
         !myHID)
     {
         return;
     }
     try
     {
-        std::vector<uint8_t> info(HID::HID_PACKET_SIZE);
+        std::vector<uint8_t> info(SCSI2SD::HID::HID_PACKET_SIZE);
         if (myHID->readSCSIDebugInfo(info))
         {
             dumpSCSICommand(info);
@@ -871,10 +871,12 @@ out:
     }
     catch (std::exception& e)
     {
-        LogWarning(this, e.what());
-        myHID.reset();
-    } */
-    // [self logStringToPanel:@"Logging SCSI info \n"];
+        NSString *warning = [NSString stringWithFormat: @"Warning: %s", e.what()];
+        [self logStringToPanel: warning];
+        // myHID = SCSI2SD::HID::Open();
+        [self reset_hid]; // myHID->reset();
+    }
+    [self logStringToPanel:@"Logging SCSI info \n"];
 }
 
 - (void) evaluate

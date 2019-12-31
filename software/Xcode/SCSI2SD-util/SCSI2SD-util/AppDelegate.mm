@@ -201,14 +201,14 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
             }
         }
 
-        int supressLog = 0;
+        BOOL supressLog = NO;
         if (myHID && myHID->getFirmwareVersion() < MIN_FIRMWARE_VERSION)
         {
             // No method to check connection is still valid.
             // So assume it isn't.
             // myHID.reset();
             [self reset_hid];
-            supressLog = 1;
+            // supressLog = 1;
         }
         else if (myHID && !myHID->ping())
         {
@@ -227,11 +227,6 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                     if (!supressLog)
                     {
                         // Oh dear, old firmware
-                        /*
-                        std::stringstream msg;
-                        msg << "Firmware update required. Version " <<
-                            myHID->getFirmwareVersionStr();
-                        mmLogStatus(msg.str());*/
                         NSString *log = [NSString stringWithFormat: @"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str()];
                         [self logStringToPanel: log];
                     }

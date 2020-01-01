@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet NSTextField *sectorsPerTrack;
 @property (weak, nonatomic) IBOutlet NSTextField *headsPerCylinder;
 
+@property (weak, nonatomic) IBOutlet NSTextField *autoErrorText;
+
 @property BOOL duplicateId;
 @property BOOL sectorOverlap;
 
@@ -52,6 +54,9 @@
     self.autoStartSector.toolTip = @"Auto start sector based on other targets";
     self.sectorsPerTrack.toolTip = @"Number of sectors in each track";
     self.headsPerCylinder.toolTip = @"Number of heads in cylinder";
+    
+    // Initial values
+    self.autoErrorText.stringValue = @"";
 }
 
 - (void) setTargetConfig: (TargetConfig)config
@@ -154,6 +159,5 @@
 
 - (void) setAutoStartSectorValue: (NSUInteger)sector
 {
-    
 }
 @end

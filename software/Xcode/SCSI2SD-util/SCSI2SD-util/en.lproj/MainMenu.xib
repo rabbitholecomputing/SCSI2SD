@@ -32,6 +32,7 @@
         <customObject id="Rxt-kb-gYI" customClass="DeviceController">
             <connections>
                 <outlet property="SCSIID" destination="Qyj-pn-k5w" id="Uvr-1T-jr9"/>
+                <outlet property="autoErrorText" destination="mZE-h8-JyI" id="Ud5-qs-euT"/>
                 <outlet property="autoStartSector" destination="OxM-NJ-nRg" id="mGS-8Y-KKB"/>
                 <outlet property="deviceSize" destination="mf7-2L-91G" id="A8a-e2-UGd"/>
                 <outlet property="deviceType" destination="EbT-lY-RTW" id="bUI-fh-sfD"/>
@@ -51,6 +52,7 @@
         <customObject id="pNT-g4-Vd5" customClass="DeviceController">
             <connections>
                 <outlet property="SCSIID" destination="pHJ-ss-ncg" id="V3U-DL-LzK"/>
+                <outlet property="autoErrorText" destination="7bV-kK-7cT" id="Xjr-aq-fQD"/>
                 <outlet property="autoStartSector" destination="Y2T-aG-JUV" id="pSU-xu-fJz"/>
                 <outlet property="deviceSize" destination="S2Y-mB-PTe" id="9fF-Px-PYD"/>
                 <outlet property="deviceType" destination="loe-6h-swv" id="qJB-qL-CqC"/>
@@ -70,6 +72,7 @@
         <customObject id="YnD-md-VMP" customClass="DeviceController">
             <connections>
                 <outlet property="SCSIID" destination="iDF-O8-h4R" id="CS6-Nf-9C4"/>
+                <outlet property="autoErrorText" destination="E5n-p2-8iW" id="z5b-lJ-eeJ"/>
                 <outlet property="autoStartSector" destination="Tq8-jP-aTx" id="j1b-US-JNQ"/>
                 <outlet property="deviceSize" destination="YZH-Dd-Kak" id="TAn-aV-8Kp"/>
                 <outlet property="deviceType" destination="Rel-6e-ufZ" id="UcS-wU-PDh"/>
@@ -89,6 +92,7 @@
         <customObject id="eDc-Zj-phF" customClass="DeviceController">
             <connections>
                 <outlet property="SCSIID" destination="xk5-AP-8ar" id="sOr-Z4-5m3"/>
+                <outlet property="autoErrorText" destination="whV-yk-IxJ" id="1de-4J-jtI"/>
                 <outlet property="autoStartSector" destination="3Bi-Uk-ysR" id="NN6-qg-VDa"/>
                 <outlet property="deviceSize" destination="kWO-0X-kNp" id="aUx-HI-ubJ"/>
                 <outlet property="deviceType" destination="UqU-el-4rn" id="4gh-Oj-hOn"/>
@@ -293,7 +297,7 @@
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
                             <tabViewItem label="General Settings" identifier="" id="WrU-eM-PTx">
-                                <view key="view" ambiguous="YES" id="MTa-GI-ipO">
+                                <view key="view" id="MTa-GI-ipO">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -331,7 +335,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                         </button>
-                                        <button verticalHuggingPriority="750" ambiguous="YES" id="1Kk-W6-IiR">
+                                        <button verticalHuggingPriority="750" id="1Kk-W6-IiR">
                                             <rect key="frame" x="265" y="142" width="141" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <buttonCell key="cell" type="check" title="Enable SCSI2 Mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="yPU-O5-Fio">
@@ -711,11 +715,20 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mZE-h8-JyI">
+                                            <rect key="frame" x="521" y="262" width="141" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Clo-UA-DN0">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 2" identifier="" id="xwf-c1-aGF">
-                                <view key="view" id="gcT-2z-YpQ">
+                                <view key="view" ambiguous="YES" id="gcT-2z-YpQ">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -978,6 +991,15 @@
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="SXd-VQ-BUg">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-kK-7cT">
+                                            <rect key="frame" x="521" y="262" width="141" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="Ii3-Vn-ZZy">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
@@ -1251,6 +1273,15 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5n-p2-8iW">
+                                            <rect key="frame" x="521" y="262" width="141" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="IDp-Ug-Cgf">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1518,6 +1549,15 @@
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="0" drawsBackground="YES" id="KVX-xO-Oks">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whV-yk-IxJ">
+                                            <rect key="frame" x="521" y="262" width="141" height="16"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="390-rZ-udC">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>

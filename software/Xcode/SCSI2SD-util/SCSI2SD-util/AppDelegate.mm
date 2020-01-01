@@ -97,18 +97,22 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated"
 
+// Output to the debug info panel...
 - (void) logStringToPanel: (NSString *)logString
 {
     NSString *string = [self.logTextView string];
     string = [string stringByAppendingString: logString];
     [self.logTextView setString: string];
+    [self.logTextView scrollToEndOfDocument:self];
 }
 
+// Output to the label...
 - (void) logStringToLabel: (NSString *)logString
 {
     [self.infoLabel setStringValue:logString];
 }
 
+// Start polling for the device...
 - (void) startTimer
 {
     pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.125
@@ -118,11 +122,13 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                                                       repeats:YES];
 }
 
+// Pause the timer...
 - (void) stopTimer
 {
     [pollDeviceTimer invalidate];
 }
 
+// Reset the HID...
 - (void) reset_hid
 {
     try
@@ -135,6 +141,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     }
 }
 
+// Initialize everything once we finish launching...
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
@@ -172,6 +179,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [self loadDefaults: nil];
 }
 
+// Shutdown everything when termination happens...
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
     // Insert code here to tear down your application
@@ -179,6 +187,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [deviceControllers removeAllObjects];
 }
 
+// Periodically check to see if Device is present...
 - (void) doTimer
 {
     // logSCSI();
@@ -316,6 +325,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     [self evaluate];
 }
 
+// Save XML file
 - (void)saveFileEnd: (NSOpenPanel *)panel
 {
     NSString *filename = [[panel directory] stringByAppendingPathComponent: [[panel filename] lastPathComponent]];
@@ -338,6 +348,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
      [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
 }
 
+// Save XML file....
 - (IBAction)saveFile:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
@@ -349,6 +360,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                       contextInfo:nil];
 }
 
+// Open XML file...
 - (void) openFileEnd: (NSOpenPanel *)panel
 {
     try
@@ -389,6 +401,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     }
 }
 
+// Open file panel
 - (IBAction)openFile:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -403,6 +416,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
                       contextInfo:NULL];
 }
 
+// Load defaults into all configs...
 - (IBAction) loadDefaults: (id)sender
 {
     // myBoardPanel->setConfig(ConfigUtil::DefaultBoardConfig());
@@ -415,6 +429,7 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
     }
 }
 
+// Save information to device on background thread....
 - (void) saveToDeviceThread: (id)obj
 {
     [self stopTimer];

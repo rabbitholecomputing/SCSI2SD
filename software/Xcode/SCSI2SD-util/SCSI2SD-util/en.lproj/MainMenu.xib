@@ -645,6 +645,9 @@
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="l4b-q5-LbI">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="autoButton:" target="Voe-Tx-rLC" id="dT9-br-Epx"/>
+                                                </connections>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WuS-Tz-H4h">
@@ -728,7 +731,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 2" identifier="" id="xwf-c1-aGF">
-                                <view key="view" ambiguous="YES" id="gcT-2z-YpQ">
+                                <view key="view" id="gcT-2z-YpQ">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -924,6 +927,9 @@
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Bz5-uo-o1h">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="autoButton:" target="Voe-Tx-rLC" id="0AF-sZ-Lo5"/>
+                                                </connections>
                                             </buttonCell>
                                         </button>
                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hTP-Ic-caa">
@@ -1203,6 +1209,9 @@
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="bls-yf-BaG">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="autoButton:" target="Voe-Tx-rLC" id="TxZ-yY-3lF"/>
+                                                </connections>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JdM-JS-vrO">
@@ -1286,7 +1295,7 @@
                                 </view>
                             </tabViewItem>
                             <tabViewItem label="Device 4" identifier="" id="iRM-Cd-bin">
-                                <view key="view" id="eHq-vE-Fuv">
+                                <view key="view" ambiguous="YES" id="eHq-vE-Fuv">
                                     <rect key="frame" x="10" y="33" width="677" height="368"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -1482,6 +1491,9 @@
                                             <buttonCell key="cell" type="check" title="Auto" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wou-sA-KTz">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="autoButton:" target="Voe-Tx-rLC" id="xeh-yl-92r"/>
+                                                </connections>
                                             </buttonCell>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3hU-FK-08R">

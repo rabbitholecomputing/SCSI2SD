@@ -146,18 +146,28 @@
 - (void) setDuplicateID: (BOOL)flag
 {
     self.duplicateId = flag;
+    if(flag)
+        self.autoErrorText.stringValue = @"Duplicate IDs.";
+    else
+        self.autoErrorText.stringValue = @"";
 }
 - (void) setSDSectorOverlap: (BOOL)flag
 {
     self.sectorOverlap = flag;
+    if(flag)
+        self.autoErrorText.stringValue = @"Sectors overlap.";
+    else
+        self.autoErrorText.stringValue = @"";
 }
 
 - (NSRange) getSDSectorRange
 {
-    return NSMakeRange(0,0);
+    return NSMakeRange(self.sdCardStartSector.integerValue,
+                       self.sectorSize.integerValue);
 }
 
 - (void) setAutoStartSectorValue: (NSUInteger)sector
 {
+    self.sdCardStartSector.integerValue = (NSInteger)sector;
 }
 @end

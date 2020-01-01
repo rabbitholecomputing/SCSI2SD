@@ -61,6 +61,10 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
      */
 }
 
+BOOL RangesIntersect(NSRange range1, NSRange range2) {
+    return NSIntersectionRange(range1, range2).length != 0;
+}
+
 @interface AppDelegate ()
 {
     NSMutableArray *deviceControllers;
@@ -948,6 +952,12 @@ out:
     [self logStringToPanel:@"Logging SCSI info \n"];
 }
 
+- (IBAction) autoButton: (id)sender
+{
+    // recalculate...
+    // [self evaluate];
+}
+
 - (void) evaluate
 {
     BOOL valid = YES;
@@ -962,30 +972,37 @@ out:
     uint32_t autoStartSector = 0;
     for (size_t i = 0; i < [deviceControllers count]; ++i)
     {
-        DeviceController *target = [deviceControllers objectAtIndex:i]; //  getTargetConfig];
+        DeviceController *target = [deviceControllers objectAtIndex: i]; //  getTargetConfig];
     
         [target setAutoStartSectorValue: autoStartSector];
         valid = [target evaluate] && valid;
         if ([target isEnabled])
         {
             isTargetEnabled = true;
-            // uint8_t scsiID = [target getSCSIId];
-            /*
-            if (find(enabledID, scsiID) != enabledID.end())
+            uint8_t scsiID = [target getSCSIId];
+            for (size_t j = 0; j < [deviceControllers count]; ++j)
             {
-                [target setDuplicateID: YES]; // true);
-                valid = false;
-            }
-            else
-            {
-                [target setDuplicateID: NO]; // false);
+                DeviceController *t2 = [deviceControllers objectAtIndex: j];
+                if (![t2 isEnabled])
+                    continue;
+                
+                uint8_t sid2 = [t2 getSCSIId];
+                if(sid2 == scsiID)
+                {
+                    [target setDuplicateID:YES];
+                    valid = false;
+                }
             }
 
-            //auto sdSectorRange = myTargets[i]->getSDSectorRange();
-            for (auto it(sdSectors.begin()); it != sdSectors.end(); ++it)
+            NSRange sdSectorRange = [target getSDSectorRange];
+            for (size_t k = 0; k < [deviceControllers count]; ++k)
             {
-                if (sdSectorRange.first < it->second &&
-                    sdSectorRange.second > it->first)
+                DeviceController *t3 = [deviceControllers objectAtIndex: k];
+                if (![t3 isEnabled])
+                    continue;
+
+                NSRange sdr = [t3 getSDSectorRange];
+                if(RangesIntersect(sdSectorRange, sdr))
                 {
                     valid = false;
                     [target setSDSectorOverlap: YES];
@@ -993,18 +1010,15 @@ out:
                 else
                 {
                     [target setSDSectorOverlap: NO];
-                    // myTargets[i]->setSDSectorOverlap(false);
                 }
             }
-            sdSectors.push_back(sdSectorRange);
-            autoStartSector = sdSectorRange.second; */
+            // sdSectors.push_back(sdSectorRange);
+            // autoStartSector = sdSectorRange.second;
         }
         else
         {
             [target setDuplicateID:NO];
             [target setSDSectorOverlap:NO];
-           // myTargets[i]->setDuplicateID(false);
-           // myTargets[i]->setSDSectorOverlap(false);
         }
     }
 

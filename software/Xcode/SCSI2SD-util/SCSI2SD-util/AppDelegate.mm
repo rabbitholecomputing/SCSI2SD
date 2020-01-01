@@ -62,7 +62,9 @@ void dumpSCSICommand(std::vector<uint8_t> buf)
 }
 
 BOOL RangesIntersect(NSRange range1, NSRange range2) {
-    return NSIntersectionRange(range1, range2).length != 0;
+    if(range1.location > range2.location + range2.length) return NO;
+    if(range2.location > range1.location + range1.length) return NO;
+    return YES;
 }
 
 @interface AppDelegate ()
@@ -955,7 +957,21 @@ out:
 - (IBAction) autoButton: (id)sender
 {
     // recalculate...
-    // [self evaluate];
+    NSButton *but = sender;
+    if(but.state == NSOnState)
+    {
+        NSUInteger index = [sender tag]; // [deviceControllers indexOfObject:sender];
+        if(index > 0)
+        {
+            NSUInteger j = index - 1;
+            DeviceController *dev = [deviceControllers objectAtIndex:j];
+            NSRange sectorRange = [dev getSDSectorRange];
+            NSUInteger len = sectorRange.length;
+            NSUInteger secStart = len + 1;
+            DeviceController *devToUpdate = [deviceControllers objectAtIndex:index];
+            [devToUpdate setAutoStartSectorValue:secStart];
+        }
+    }
 }
 
 - (void) evaluate
@@ -974,7 +990,7 @@ out:
     {
         DeviceController *target = [deviceControllers objectAtIndex: i]; //  getTargetConfig];
     
-        [target setAutoStartSectorValue: autoStartSector];
+        // [target setAutoStartSectorValue: autoStartSector];
         valid = [target evaluate] && valid;
         if ([target isEnabled])
         {
@@ -983,7 +999,7 @@ out:
             for (size_t j = 0; j < [deviceControllers count]; ++j)
             {
                 DeviceController *t2 = [deviceControllers objectAtIndex: j];
-                if (![t2 isEnabled])
+                if (![t2 isEnabled] || t2 == target)
                     continue;
                 
                 uint8_t sid2 = [t2 getSCSIId];
@@ -998,7 +1014,7 @@ out:
             for (size_t k = 0; k < [deviceControllers count]; ++k)
             {
                 DeviceController *t3 = [deviceControllers objectAtIndex: k];
-                if (![t3 isEnabled])
+                if (![t3 isEnabled] || t3 == target)
                     continue;
 
                 NSRange sdr = [t3 getSDSectorRange];
@@ -1009,6 +1025,7 @@ out:
                 }
                 else
                 {
+                    valid = true;
                     [target setSDSectorOverlap: NO];
                 }
             }
@@ -1024,9 +1041,11 @@ out:
 
     valid = valid && isTargetEnabled; // Need at least one.
     
-    self.saveMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
-    self.openMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
-    
+    if(myHID)
+    {
+        self.saveMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
+        self.openMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
+    }
 /*
     mySaveButton->Enable(
         valid &&

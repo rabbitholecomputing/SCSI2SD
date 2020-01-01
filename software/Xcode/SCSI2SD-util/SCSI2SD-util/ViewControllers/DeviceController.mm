@@ -163,7 +163,7 @@
 - (NSRange) getSDSectorRange
 {
     return NSMakeRange(self.sdCardStartSector.integerValue,
-                       self.sectorSize.integerValue);
+                       self.sectorCount.integerValue);
 }
 
 - (void) setAutoStartSectorValue: (NSUInteger)sector

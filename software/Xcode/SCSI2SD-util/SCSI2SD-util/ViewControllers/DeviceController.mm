@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet NSTextField *headsPerCylinder;
 
 @property (weak, nonatomic) IBOutlet NSTextField *autoErrorText;
+@property (weak, nonatomic) IBOutlet NSTextField *scsiIdErrorText;
 
 @property BOOL duplicateId;
 @property BOOL sectorOverlap;
@@ -57,6 +58,7 @@
     
     // Initial values
     self.autoErrorText.stringValue = @"";
+    self.scsiIdErrorText.stringValue = @"";
 }
 
 - (void) setTargetConfig: (TargetConfig)config
@@ -117,16 +119,6 @@
     return result;
 }
 
-/*
-- (void) fromXml: (NSString *)file
-{
-    std::string filename = std::string([file cStringUsingEncoding:NSUTF8StringEncoding]);
-    TargetConfig config = SCSI2SD::ConfigUtil::fromXML(filename);
-    NSLog(@"fromXml");
-    [self setTargetConfig: config];
-}
-*/
-
 - (BOOL) evaluate
 {
     // NSLog(@"fromXml");
@@ -147,9 +139,9 @@
 {
     self.duplicateId = flag;
     if(flag)
-        self.autoErrorText.stringValue = @"Duplicate IDs.";
+        self.scsiIdErrorText.stringValue = @"Duplicate IDs.";
     else
-        self.autoErrorText.stringValue = @"";
+        self.scsiIdErrorText.stringValue = @"";
 }
 - (void) setSDSectorOverlap: (BOOL)flag
 {

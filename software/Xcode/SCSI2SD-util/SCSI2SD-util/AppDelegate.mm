@@ -985,7 +985,6 @@ out:
     std::vector<std::pair<uint32_t, uint64_t> > sdSectors;
 
     bool isTargetEnabled = false; // Need at least one enabled
-    uint32_t autoStartSector = 0;
     for (size_t i = 0; i < [deviceControllers count]; ++i)
     {
         DeviceController *target = [deviceControllers objectAtIndex: i]; //  getTargetConfig];
@@ -1007,6 +1006,11 @@ out:
                 {
                     [target setDuplicateID:YES];
                     valid = false;
+                }
+                else
+                {
+                    [target setDuplicateID:NO];
+                    valid = true;
                 }
             }
 

@@ -834,13 +834,8 @@ out:
                  contextInfo:NULL];
 }
 
-- (void) bootLoaderUpdateEnd: (NSOpenPanel *)panel
+- (void)bootloaderUpdateThread: (NSString *)filename
 {
-    NSArray *paths = [panel filenames];
-    if([paths count] == 0)
-        return;
-
-    NSString *filename = [paths objectAtIndex: 0];
     NSData *fileData = [NSData dataWithContentsOfFile:filename];
     NSUInteger len = [fileData length];
     if (len != 0x2400)
@@ -879,12 +874,6 @@ out:
             // mmLogStatus("Save Complete.");
         }
         
-        /*
-         if (!progress->Update((100 * currentProgress) / totalProgress,ss.str()))
-         {
-            goto abort;
-         }*/
-        
         uint8_t *rowData = data + (flashRow * 256);
         std::vector<uint8_t> flashData(rowData, rowData + 256);
         try
@@ -907,6 +896,19 @@ err:
     
 out:
     return;
+
+}
+
+- (void) bootLoaderUpdateEnd: (NSOpenPanel *)panel
+{
+    NSArray *paths = [panel filenames];
+    if([paths count] == 0)
+        return;
+
+    NSString *filename = [paths objectAtIndex: 0];
+    [NSThread detachNewThreadSelector:@selector(bootloaderUpdateThread:)
+                             toTarget:self
+                           withObject:filename];
 }
 
 - (IBAction)bootloaderUpdate:(id)sender

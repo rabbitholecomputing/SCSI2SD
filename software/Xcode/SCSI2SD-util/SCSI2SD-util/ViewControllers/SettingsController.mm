@@ -43,18 +43,18 @@
 */
 - (void) awakeFromNib
 {
-    self.enableParity.toolTip = @"Enable error correction parity.";
-    self.enableUnitAttention.toolTip = @"Enable UNIT Attention code.";
-    self.enableSCSI2Mode.toolTip = @"Enable SCSI2 Mode";
-    self.enableSCSITerminator.toolTip = @"Terminate SCSI connection";
-    self.enableGlitch.toolTip = @"Enable glitch mode";
-    self.enableCache.toolTip = @"Enable cache";
-    self.enableDisconnect.toolTip = @"Enable SCSI disconnection";
-    self.respondToShortSCSISelection.toolTip = @"Respond to short SCSI selection command";
-    self.mapLUNStoSCSIIDs.toolTip = @"Map Logical Units to SCSIIDs";
-    self.startupDelay.toolTip = @"Delay for startup of device";
-    self.speedLimit.toolTip = @"Transfer rate";
-    self.startupSelectionDelay.toolTip = @"Delay between selection command and selection of device.";
+    self.enableParity.toolTip = @"Enable to require valid SCSI parity bits when receiving data. Some hosts don't provide parity. SCSI2SD always outputs valid parity bits.";
+    self.enableUnitAttention.toolTip = @"Enable this to inform the host of changes after hot-swapping SD cards. Causes problems with Mac Plus.";
+    self.enableSCSI2Mode.toolTip = @"Enable high-performance mode. May cause problems with SASI/SCSI1 hosts.";
+    self.enableSCSITerminator.toolTip = @"Enable active terminator. Both ends of the SCSI chain must be terminated.";
+    self.enableGlitch.toolTip = @"Improve performance at the cost of noise immunity. Only use with short cables";
+    self.enableCache.toolTip = @"SD IO commands aren't completed when SCSI commands complete";
+    self.enableDisconnect.toolTip = @"Release the SCSI bus while waiting for SD card writes to complete. Must also be enabled in host OS";
+    self.respondToShortSCSISelection.toolTip = @"Respond to very short duration selection attempts. This supports non-standard hardware, but is generally safe to enable.  Required for Philips P2000C.";
+    self.mapLUNStoSCSIIDs.toolTip = @""Treat LUNS as IDs instead. Supports multiple drives on XEBEC S1410 SASI Bridge";
+    self.startupDelay.toolTip = @"Extra delay on power on, normally set to 0";
+    self.speedLimit.toolTip = @"Limit SCSI interface speed";
+    self.startupSelectionDelay.toolTip = @"Delay before responding to SCSI selection. SCSI1 hosts usually require 1ms delay, however some require no delay.";
 }
 
 - (void) setConfig: (BoardConfig)config

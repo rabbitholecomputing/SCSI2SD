@@ -17,6 +17,7 @@
 
 // #include "z.h"
 // #include "ConfigUtil.hh"
+#define TIMER_INTERVAL 0.1
 
 void clean_exit_on_sig(int sig_num)
 {
@@ -125,7 +126,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 // Start polling for the device...
 - (void) startTimer
 {
-    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.125
+    pollDeviceTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)TIMER_INTERVAL
                                                        target:self
                                                      selector:@selector(doTimer)
                                                      userInfo:nil
@@ -244,35 +245,47 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             // Verify the USB HID connection is valid
             if (!myBootloader->ping())
             {
-               //  myBootloader = SCSI2SD::Bootloader::Open();
-               //  myBootloader.reset();
                 [self reset_bootloader];
             }
         }
 
         if (!myBootloader)
         {
-            // myBootloader = SCSI2SD::Bootloader::Open();
             [self reset_bootloader];
             if (myBootloader)
             {
                 [self logStringToPanel:@"SCSI2SD Bootloader Ready"];
+                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+                [self logStringToLabel:msg];
             }
+        }
+        else
+        {
+            [self logStringToPanel:@"SCSI2SD Bootloader Ready"];
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+            [self logStringToLabel:msg];
         }
 
         BOOL supressLog = NO;
         if (myHID && myHID->getFirmwareVersion() < MIN_FIRMWARE_VERSION)
         {
             // No method to check connection is still valid.
-            // So assume it isn't.
-            // myHID.reset();
             [self reset_hid];
-            // supressLog = 1;
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+            [self logStringToLabel:msg];
         }
         else if (myHID && !myHID->ping())
         {
             // Verify the USB HID connection is valid
             [self reset_hid];
+        }
+        else
+        {
+            if(myHID)
+            {
+                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+                [self logStringToLabel:msg];
+            }
         }
 
         if (!myHID)
@@ -309,10 +322,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     }
                     for (size_t i = 0; i < csd.size(); ++i)
                     {
-                        /*
-                        sdinfo <<
-                            std::hex << std::setfill('0') << std::setw(2) <<
-                            static_cast<int>(csd[i]); */
                         [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(csd[i])]];
                     }
                     msg = [NSString stringWithFormat: @"\nSD CID Register: "];
@@ -324,12 +333,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     }
                     for (size_t i = 0; i < cid.size(); ++i)
                     {
-                        /*
-                        sdinfo <<
-                            std::hex << std::setfill('0') << std::setw(2) <<
-                            static_cast<int>(cid[i]); */
                         [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(cid[i])]];
-
                     }
 
                     //NSLog(@" %@, %s", self, sdinfo.str());
@@ -357,9 +361,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::runtime_error& e)
     {
-        // std::cerr << e.what() << std::endl;
-        // mmLogStatus(e.what());
-        NSLog(@"%s", e.what());
+        [self logStringToPanel:[NSString stringWithFormat:@"%s", e.what()]];
     }
 
     [self evaluate];
@@ -752,9 +754,9 @@ out:
     [NSThread detachNewThreadSelector:@selector(loadFromDeviceThread:) toTarget:self withObject:self];
 }
 
-- (void) upgradeFirmwareThread: (NSOpenPanel *)panel
+- (void) upgradeFirmwareThread: (NSString *)filename
 {
-    NSString *filename = [panel filename];
+    [self stopTimer];
     if(filename != nil)
     {
         int prog = 0;
@@ -871,9 +873,9 @@ out:
             return;
         }
 
-        {
-            // [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
-        }
+        [self performSelectorOnMainThread:@selector(updateProgress:)
+                               withObject:[NSNumber numberWithDouble:(double)((double)prog / (double)totalFlashRows)]
+                            waitUntilDone:NO];
 
         NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
         [self performSelectorOnMainThread: @selector(logStringToPanel:)
@@ -886,13 +888,11 @@ out:
                                     withObject: @"Firmware update successful"
                                  waitUntilDone:YES];
             [self reset_hid];
-            // myBootloader = SCSI2SD::Bootloader::Open();
             [self reset_hid];
             [self reset_bootloader];
         }
         catch (std::exception& e)
         {
-            //TheProgressWrapper.clearProgressDialog();
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                    withObject: [NSString stringWithFormat:@"%s",e.what()]
                                 waitUntilDone: YES];
@@ -903,13 +903,17 @@ out:
                                 waitUntilDone: YES];
         }
     }
+    [self startTimer];
 }
 
 - (void) upgradeFirmwareEnd: (NSOpenPanel *)panel
 {
+    NSArray *paths = [panel filenames];
+    if([paths count] == 0)
+        return;
     [NSThread detachNewThreadSelector:@selector(upgradeFirmwareThread:)
                              toTarget:self
-                           withObject:panel];
+                           withObject:[paths objectAtIndex:0]];
 }
 
 - (IBAction)upgradeFirmware:(id)sender

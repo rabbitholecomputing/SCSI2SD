@@ -143,7 +143,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     try
     {
-        myHID = SCSI2SD::HID::Open();
+        myHID.reset(SCSI2SD::HID::Open());
     }
     catch (std::exception& e)
     {
@@ -155,7 +155,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     try
     {
-        myBootloader = SCSI2SD::Bootloader::Open();
+        myBootloader.reset(SCSI2SD::Bootloader::Open());
     }
     catch (std::exception& e)
     {
@@ -176,8 +176,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     
     try
     {
-        myHID = SCSI2SD::HID::Open();
-        myBootloader = SCSI2SD::Bootloader::Open();
+        myHID.reset(SCSI2SD::HID::Open());
+        myBootloader.reset(SCSI2SD::Bootloader::Open());
     }
     catch (std::exception& e)
     {
@@ -244,15 +244,16 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             // Verify the USB HID connection is valid
             if (!myBootloader->ping())
             {
-                myBootloader = SCSI2SD::Bootloader::Open();
+               //  myBootloader = SCSI2SD::Bootloader::Open();
                //  myBootloader.reset();
+                [self reset_bootloader];
             }
         }
 
         if (!myBootloader)
         {
-            myBootloader = SCSI2SD::Bootloader::Open();
-
+            // myBootloader = SCSI2SD::Bootloader::Open();
+            [self reset_bootloader];
             if (myBootloader)
             {
                 [self logStringToPanel:@"SCSI2SD Bootloader Ready"];
@@ -751,7 +752,7 @@ out:
     [NSThread detachNewThreadSelector:@selector(loadFromDeviceThread:) toTarget:self withObject:self];
 }
 
-- (void) upgradeFirmwareEnd: (NSOpenPanel *)panel
+- (void) upgradeFirmwareThread: (NSOpenPanel *)panel
 {
     NSString *filename = [panel filename];
     if(filename != nil)
@@ -777,7 +778,8 @@ out:
 
                 if (!myBootloader)
                 {
-                    myBootloader = SCSI2SD::Bootloader::Open();
+//                    myBootloader = SCSI2SD::Bootloader::Open();
+                    [self reset_bootloader];
                     if (myBootloader)
                     {
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
@@ -809,7 +811,8 @@ out:
             {
                 NSLog(@"%s",e.what());
                 [self reset_hid];
-                myBootloader = SCSI2SD::Bootloader::Open();
+                [self reset_bootloader];
+                // myBootloader = SCSI2SD::Bootloader::Open();
             }
             [NSThread sleepForTimeInterval:0.1];
         }
@@ -869,7 +872,7 @@ out:
         }
 
         {
-            [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
+            // [self.progress setDoubleValue: (double)((double)prog / (double)totalFlashRows)];
         }
 
         NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
@@ -883,7 +886,7 @@ out:
                                     withObject: @"Firmware update successful"
                                  waitUntilDone:YES];
             [self reset_hid];
-            myBootloader = SCSI2SD::Bootloader::Open();
+            // myBootloader = SCSI2SD::Bootloader::Open();
             [self reset_hid];
             [self reset_bootloader];
         }
@@ -902,16 +905,23 @@ out:
     }
 }
 
+- (void) upgradeFirmwareEnd: (NSOpenPanel *)panel
+{
+    [NSThread detachNewThreadSelector:@selector(upgradeFirmwareThread:)
+                             toTarget:self
+                           withObject:panel];
+}
+
 - (IBAction)upgradeFirmware:(id)sender
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
-
-    [panel beginForDirectory:NULL
-                        file:nil
-                       types:[NSArray arrayWithObject:@"scsi2sd"]
-            modelessDelegate:NULL
-              didEndSelector:@selector(upgradeFirmwareEnd:)
-                 contextInfo:NULL];
+    [panel beginSheetForDirectory:NULL
+                             file:NULL
+                            types:[NSArray arrayWithObject:@"scsi2sd"]
+                   modalForWindow:[self mainWindow]
+                    modalDelegate:self
+                   didEndSelector: @selector(upgradeFirmwareEnd:)
+                      contextInfo:NULL];
 }
 
 - (void)bootloaderUpdateThread: (NSString *)filename

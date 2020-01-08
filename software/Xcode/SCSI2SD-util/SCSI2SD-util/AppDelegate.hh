@@ -16,8 +16,8 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSComboBoxDataSource>
 {
-    SCSI2SD::HID *myHID;
-    SCSI2SD::Bootloader *myBootloader;
+    std::shared_ptr<SCSI2SD::HID> myHID;
+    std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
     
     bool myInitialConfig;
     //std::vector<TargetConfig *> myTargets;

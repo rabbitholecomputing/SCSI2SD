@@ -102,7 +102,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated"
-
+// Update progress...
+- (void) updateProgress: (NSNumber *)prog
+{
+    [self.progress setDoubleValue: [prog doubleValue]];
+}
 // Output to the debug info panel...
 - (void) logStringToPanel: (NSString *)logString
 {
@@ -147,6 +151,18 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
 }
 
+- (void) reset_bootloader
+{
+    try
+    {
+        myBootloader = SCSI2SD::Bootloader::Open();
+    }
+    catch (std::exception& e)
+    {
+        NSLog(@"Exception caught : %s\n", e.what());
+    }
+}
+
 // Initialize everything once we finish launching...
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -180,6 +196,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
      */
     
     [self.tabView selectTabViewItemAtIndex:0];
+    [self.progress setMinValue: 0.0];
+    [self.progress setMaxValue: 100.0];
     
     [self startTimer];
     [self loadDefaults: nil];
@@ -456,7 +474,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                                 withObject:ss
                              waitUntilDone:YES];
         currentProgress += 1;
-        [self.progress setDoubleValue:(double)currentProgress];
+        [self performSelectorOnMainThread:@selector(updateProgress:)
+                               withObject:[NSNumber numberWithDouble: (double)totalProgress]
+                            waitUntilDone:NO];
 
         std::vector<uint8_t> flashData =
         SCSI2SD::ConfigUtil::boardConfigToBytes([self.settings getConfig]);
@@ -497,7 +517,10 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             {
                 [self logStringToPanel:@"Save Complete."];
             }
-            [self.progress setDoubleValue:(double)currentProgress];
+            [self performSelectorOnMainThread:@selector(updateProgress:)
+                                   withObject:[NSNumber numberWithDouble: (double)totalProgress]
+                                waitUntilDone:NO];
+
             std::vector<uint8_t> flashData(SCSI_CONFIG_ROW_SIZE, 0);
             std::copy(
                 &raw[j * SCSI_CONFIG_ROW_SIZE],
@@ -525,7 +548,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     goto out;
 
 err:
-    // [self.progress setDoubleValue: 100.0];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble: (double)100.0]
+                        waitUntilDone:NO];
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                             withObject:@"Save Failed"
                          waitUntilDone:YES];
@@ -693,14 +718,14 @@ out:
                 if (!myHID)
                 {
                     [self reset_hid];
-    //                myHID = SCSI2SD::HID::Open();
                 }
                 if (myHID)
                 {
-                    NSLog(@"Resetting SCSI2SD into bootloader");
-
+                    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                            withObject: @"Resettiong SCSI2SD Into Bootloader"
+                                         waitUntilDone:YES];
                     myHID->enterBootloader();
-                    // myHID->reset();
+                    [self reset_hid];
                 }
 
 
@@ -709,23 +734,27 @@ out:
                     myBootloader = SCSI2SD::Bootloader::Open();
                     if (myBootloader)
                     {
-                        NSLog(@"Bootloader found");
+                        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                                withObject: @"Bootloader found"
+                                             waitUntilDone:YES];
                         break;
                     }
                 }
-
                 else if (myBootloader)
                 {
                     // Verify the USB HID connection is valid
                     if (!myBootloader->ping())
                     {
-                        NSLog(@"Bootloader ping failed");
-                        // myBootloader.reset();
-                        myBootloader = SCSI2SD::Bootloader::Open();
+                        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                                withObject: @"Bootloader ping failed"
+                                             waitUntilDone:YES];
+                        [self reset_bootloader];
                     }
                     else
                     {
-                        NSLog(@"Bootloader found");
+                        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                                withObject: @"Bootloader found"
+                                             waitUntilDone:YES];
                         break;
                     }
                 }
@@ -736,11 +765,7 @@ out:
                 [self reset_hid];
                 myBootloader = SCSI2SD::Bootloader::Open();
             }
-            // wxMilliSleep(100);
-            if (false) // !progress->Pulse())
-            {
-                return; // user cancelled.
-            }
+            [NSThread sleepForTimeInterval:0.1];
         }
 
         int totalFlashRows = 0;
@@ -754,18 +779,24 @@ out:
             {
                 if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
                 {
-                    NSString *ss = [NSString stringWithFormat: @"Found firmware entry %s within archive %@",
+                    NSString *ss = [NSString stringWithFormat:
+                                    @"\nFound firmware entry %s within archive %@\n",
                                     (*it)->getPath().c_str(), filename];
-                    [self logStringToPanel:ss];
+                    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                            withObject: ss
+                                         waitUntilDone:YES];
                     tmpFile = [NSTemporaryDirectory()
                                stringByAppendingPathComponent:
                                [NSString stringWithFormat:
-                                @"SCSI2SD_Firmware-%f.scsi2sd",
+                                @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
                                 [[NSDate date] timeIntervalSince1970]]];
                     zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
                     (*it)->decompress(out);
-                    NSString *msg = [NSString stringWithFormat: @"Firmware extracted to %@",tmpFile];
-                    [self logStringToPanel:msg];
+                    NSString *msg = [NSString stringWithFormat:
+                                     @"\nFirmware extracted to %@\n",tmpFile];
+                    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                            withObject: msg
+                                         waitUntilDone:YES];
                     break;
                 }
             }
@@ -773,7 +804,9 @@ out:
             if ([tmpFile isEqualToString:@""])
             {
                 // TODO allow "force" option
-                [self logStringToPanel:@"Wrong filename"];
+                [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                        withObject: @"\nWrong filename\n"
+                                     waitUntilDone:YES];
                 return;
             }
 
@@ -783,7 +816,9 @@ out:
         catch (std::exception& e)
         {
             NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s",e.what()];
-            [self logStringToPanel:msg];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject:msg
+                                 waitUntilDone:YES];
             return;
         }
 
@@ -792,32 +827,31 @@ out:
         }
 
         NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
-        [self logStringToPanel: msg2];
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                withObject:msg2
+                             waitUntilDone:YES];
         try
         {
             myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
-            //TheProgressWrapper.clearProgressDialog();
-            [self logStringToPanel: @"Firmware update successful"];
-
-        //        myHID = SCSI2SD::HID::Open();
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject: @"Firmware update successful"
+                                 waitUntilDone:YES];
             [self reset_hid];
             myBootloader = SCSI2SD::Bootloader::Open();
-            //myHID.reset();
-            //myBootloader.reset();
+            [self reset_hid];
+            [self reset_bootloader];
         }
         catch (std::exception& e)
         {
             //TheProgressWrapper.clearProgressDialog();
-            //mmLogStatus(e.what());
-            //myHID.reset();
-            //myBootloader.reset();
-
-            //wxMessageBox(
-            //    "Firmware Update Failed",
-            //    e.what(),
-            //    wxOK | wxICON_ERROR);
-
-            //wxRemoveFile(tmpFile);
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                   withObject: [NSString stringWithFormat:@"%s",e.what()]
+                                waitUntilDone: YES];
+            [self reset_hid];
+            [self reset_bootloader];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                   withObject: @"Firmware update failed!"
+                                waitUntilDone: YES];
         }
     }
 }
@@ -852,26 +886,33 @@ out:
     uint8_t* dataEnd = data + sizeof(data);
     if (std::search(data, dataEnd, magic, magic + sizeof(magic)) >= dataEnd)
     {
-        NSLog(@"Not a valid boot loader file");
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                               withObject: [NSString stringWithFormat:@"\nNot a valid bootloader file: %@\n", filename]
+                            waitUntilDone: YES];
         return;
     }
     
-    NSLog(@"Upgrading bootloader from file: %@", filename);
-    
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                           withObject: [NSString stringWithFormat:@"\nUpgrading bootloader from file: %@\n", filename]
+                        waitUntilDone: YES];
+
     int currentProgress = 0;
     int totalProgress = 36;
     
     for (size_t flashRow = 0; flashRow < 36; ++flashRow)
     {
-        // std::stringstream ss;
-        // ss << "Programming flash array 0 row " << (flashRow);
-        // mmLogStatus(ss.str());
+        [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                               withObject: [NSString stringWithFormat:
+                                @"\nProgramming bootloader flash array 0 row %zu",
+                                flashRow]
+                            waitUntilDone: YES];
         currentProgress += 1;
         
         if (currentProgress == totalProgress)
         {
-            // ss.str("Save Complete.");
-            // mmLogStatus("Save Complete.");
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                   withObject: @"Programming bootloader complete"
+                                waitUntilDone: YES];
         }
         
         uint8_t *rowData = data + (flashRow * 256);
@@ -882,7 +923,9 @@ out:
         }
         catch (std::runtime_error& e)
         {
-            NSLog(@"%s",e.what());
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                   withObject: [NSString stringWithFormat: @"%s", e.what()]
+                                waitUntilDone: YES];
             goto err;
         }
     }
@@ -890,8 +933,12 @@ out:
     goto out;
     
 err:
-    NSLog(@"Bootloader update failed");
-    // progress->Update(100, "Bootloader update failed");
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                           withObject: @"Programming bootloader failed"
+                        waitUntilDone: YES];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:100.0]
+                        waitUntilDone:NO];
     goto out;
     
 out:

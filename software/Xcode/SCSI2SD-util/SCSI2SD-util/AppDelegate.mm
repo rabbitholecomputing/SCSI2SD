@@ -225,9 +225,10 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     NSString *msg = @"";
     for (size_t i = 0; i < 32 && i < buf.size(); ++i)
     {
-        msg = [msg stringByAppendingFormat:@"%x ", static_cast<int>(buf[i])];
+        msg = [msg stringByAppendingFormat:@"%02x ", static_cast<int>(buf[i])];
     }
     [self logStringToPanel: msg];
+    [self logStringToPanel: @"\n"];
 }
 
 // Periodically check to see if Device is present...
@@ -1072,10 +1073,12 @@ out:
     if(item.state == NSControlStateValueOn)
     {
         item.state = NSControlStateValueOff;
+        [self logStringToPanel:@"END Logging SCSI info \n"];
     }
     else
     {
         item.state = NSControlStateValueOn;
+        [self logStringToPanel:@"START Logging SCSI info \n"];
     }
     shouldLogScsiData = (item.state == NSControlStateValueOn);
 }
@@ -1094,7 +1097,6 @@ out:
         if (myHID->readSCSIDebugInfo(info))
         {
             [self dumpScsiData: info];
-            // dumpSCSICommand(info);
         }
     }
     catch (std::exception& e)
@@ -1104,7 +1106,6 @@ out:
         // myHID = SCSI2SD::HID::Open();
         [self reset_hid]; // myHID->reset();
     }
-    [self logStringToPanel:@"Logging SCSI info \n"];
 }
 
 - (IBAction) autoButton: (id)sender

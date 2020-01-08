@@ -26,6 +26,9 @@
     time_t myLastPollTime;
     
     NSTimer *pollDeviceTimer;
+    
+    BOOL shouldLogScsiData;
+    BOOL doScsiSelfTest;
 }
 
 @end

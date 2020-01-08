@@ -51,7 +51,7 @@
     self.enableCache.toolTip = @"SD IO commands aren't completed when SCSI commands complete";
     self.enableDisconnect.toolTip = @"Release the SCSI bus while waiting for SD card writes to complete. Must also be enabled in host OS";
     self.respondToShortSCSISelection.toolTip = @"Respond to very short duration selection attempts. This supports non-standard hardware, but is generally safe to enable.  Required for Philips P2000C.";
-    self.mapLUNStoSCSIIDs.toolTip = @""Treat LUNS as IDs instead. Supports multiple drives on XEBEC S1410 SASI Bridge";
+    self.mapLUNStoSCSIIDs.toolTip = @"create LUNS as IDs instead. Supports multiple drives on XEBEC S1410 SASI Bridge";
     self.startupDelay.toolTip = @"Extra delay on power on, normally set to 0";
     self.speedLimit.toolTip = @"Limit SCSI interface speed";
     self.startupSelectionDelay.toolTip = @"Delay before responding to SCSI selection. SCSI1 hosts usually require 1ms delay, however some require no delay.";

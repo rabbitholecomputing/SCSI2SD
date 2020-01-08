@@ -133,6 +133,8 @@
                 <outlet property="progress" destination="Buk-nO-Jap" id="RvG-jV-7y1"/>
                 <outlet property="readMenu" destination="77j-QG-g8Z" id="uKl-nP-wSh"/>
                 <outlet property="saveMenu" destination="pxx-59-PXV" id="zpe-hJ-hpr"/>
+                <outlet property="scsiLogData" destination="Gi5-1S-RQB" id="c4b-R5-MbH"/>
+                <outlet property="scsiSelfTest" destination="Fal-I4-PZk" id="diy-4K-U7n"/>
                 <outlet property="settings" destination="eJ5-Xi-KA2" id="tRL-KS-k2Y"/>
                 <outlet property="tabView" destination="Pmn-E4-Otb" id="62F-DP-hrH"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
@@ -234,13 +236,13 @@
                             <menuItem title="Log SCSI Data" id="Gi5-1S-RQB">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="logScsiData:" target="Voe-Tx-rLC" id="p0q-oP-9z7"/>
+                                    <action selector="shouldLogScsiData:" target="Voe-Tx-rLC" id="2JS-Hy-ldT"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="SCSI Standalone Self-Test" id="Fal-I4-PZk">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="scsiSelfTest:" target="Voe-Tx-rLC" id="e2e-eF-BGy"/>
+                                    <action selector="scsiSelfTest:" target="Voe-Tx-rLC" id="BDp-ef-tUz"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -289,7 +291,7 @@
         <window title="SCSI2SD-util" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="723" height="448"/>
+            <rect key="contentRect" x="192" y="561" width="723" height="448"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1129"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="723" height="448"/>
@@ -1614,7 +1616,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Buk-nO-Jap">
+                    <progressIndicator hidden="YES" toolTip="Show progress of current task" wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Buk-nO-Jap">
                         <rect key="frame" x="499" y="3" width="204" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </progressIndicator>
@@ -1625,7 +1627,7 @@
         <window title="scsi-util debug log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="167" y="107" width="276" height="378"/>
+            <rect key="contentRect" x="1481" y="449" width="276" height="378"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1129"/>
             <view key="contentView" id="zVs-ES-bFT">
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
@@ -1636,7 +1638,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" copiesOnScroll="NO" id="3KJ-QQ-yLC">
                             <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="IUe-Fz-GvN">
                                     <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>

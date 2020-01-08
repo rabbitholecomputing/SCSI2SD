@@ -47,19 +47,6 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     return crc & 0x7F;
 }
 
-void dumpSCSICommand(std::vector<uint8_t> buf)
-{
-    /*
-    std::stringstream msg;
-    msg << std::hex;
-    for (size_t i = 0; i < 32 && i < buf.size(); ++i)
-    {
-        msg << std::setfill('0') << std::setw(2) <<
-        static_cast<int>(buf[i]) << ' ';
-    }
-    LogMessage(this, msg.str().c_str());
-     */
-}
 
 BOOL RangesIntersect(NSRange range1, NSRange range2) {
     if(range1.location > range2.location + range2.length) return NO;
@@ -91,11 +78,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
 @property (nonatomic) IBOutlet NSMenuItem *saveMenu;
 @property (nonatomic) IBOutlet NSMenuItem *openMenu;
-
 @property (nonatomic) IBOutlet NSMenuItem *readMenu;
 @property (nonatomic) IBOutlet NSMenuItem *writeMenu;
+@property (nonatomic) IBOutlet NSMenuItem *scsiSelfTest;
+@property (nonatomic) IBOutlet NSMenuItem *scsiLogData;
 
 @property (nonatomic) IBOutlet SettingsController *settings;
+
 @end
 
 @implementation AppDelegate
@@ -107,6 +96,17 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     [self.progress setDoubleValue: [prog doubleValue]];
 }
+
+- (void) showProgress: (id)sender
+{
+    [self.progress setHidden:NO];
+}
+
+- (void) hideProgress: (id)sender
+{
+    [self.progress setHidden:YES];
+}
+
 // Output to the debug info panel...
 - (void) logStringToPanel: (NSString *)logString
 {
@@ -199,6 +199,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [self.progress setMinValue: 0.0];
     [self.progress setMaxValue: 100.0];
     
+    doScsiSelfTest = NO;
+    shouldLogScsiData = NO;
+    
     [self startTimer];
     [self loadDefaults: nil];
 }
@@ -211,11 +214,23 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers removeAllObjects];
 }
 
+- (void) dumpScsiData: (std::vector<uint8_t>) buf
+{
+    NSString *msg = @"";
+    for (size_t i = 0; i < 32 && i < buf.size(); ++i)
+    {
+        msg = [msg stringByAppendingFormat:@"%x ", static_cast<int>(buf[i])];
+    }
+    [self logStringToPanel: msg];
+}
+
 // Periodically check to see if Device is present...
 - (void) doTimer
 {
-    // logSCSI();
-    [self logScsiData:self];
+    if(shouldLogScsiData == YES)
+    {
+        [self logScsiData];
+    }
     time_t now = time(NULL);
     if (now == myLastPollTime) return;
     myLastPollTime = now;
@@ -297,6 +312,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                         sdinfo <<
                             std::hex << std::setfill('0') << std::setw(2) <<
                             static_cast<int>(csd[i]); */
+                        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(csd[i])]];
                     }
                     msg = [NSString stringWithFormat: @"\nSD CID Register: "];
                     [self logStringToPanel:msg];
@@ -311,19 +327,18 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                         sdinfo <<
                             std::hex << std::setfill('0') << std::setw(2) <<
                             static_cast<int>(cid[i]); */
+                        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(cid[i])]];
+
                     }
 
                     //NSLog(@" %@, %s", self, sdinfo.str());
-
-                    /*
-                    if (mySelfTestChk->IsChecked())
+                    if(doScsiSelfTest)
                     {
-                        std::stringstream scsiInfo;
-                        scsiInfo << "SCSI Self-Test: " <<
-                            (myHID->scsiSelfTest() ? "Passed" : "FAIL");
-                        LogMessage(this, "%s", scsiInfo.str());
-                    }*/
-
+                        BOOL passed = myHID->scsiSelfTest();
+                        NSString *status = passed ? @"Passed" : @"FAIL";
+                        [self logStringToPanel:[NSString stringWithFormat: @"\nSCSI Self Test: %@", status]];
+                    }
+                    
                     if (!myInitialConfig)
                     {
                     }
@@ -357,7 +372,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         return;
     
      NSString *outputString = @"";
-     
      filename = [filename stringByAppendingPathExtension:@"xml"];
      outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
 
@@ -418,10 +432,10 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         NSArray *paths = [panel filenames];
         NSString *path = [paths objectAtIndex: 0];
         char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
-        NSLog(@
+        [self logStringToPanel:[NSString stringWithFormat: @
             "Cannot load settings from file '%s'.\n%s",
             sPath,
-            e.what());
+            e.what()]];
     }
 }
 
@@ -457,6 +471,12 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 - (void) saveToDeviceThread: (id)obj
 {
     [self stopTimer];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:0.0]
+                        waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(showProgress:)
+                           withObject:nil
+                        waitUntilDone:NO];
     if (!myHID) return;
 
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
@@ -501,7 +521,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             ? SCSI_CONFIG_0_ROW + ((int)i*SCSI_CONFIG_ROWS)
             : SCSI_CONFIG_4_ROW + ((int)(i-4)*SCSI_CONFIG_ROWS);
 
-        TargetConfig config([[deviceControllers objectAtIndex:i] getTargetConfig]);//myTargets[i]->getConfig());
+        TargetConfig config([[deviceControllers objectAtIndex:i] getTargetConfig]);
         std::vector<uint8_t> raw(SCSI2SD::ConfigUtil::toBytes(config));
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
@@ -515,7 +535,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
-                [self logStringToPanel:@"Save Complete."];
+                [self performSelectorOnMainThread:@selector(logStringToPanel:)
+                                       withObject:@"Save complete"
+                                    waitUntilDone:YES];
             }
             [self performSelectorOnMainThread:@selector(updateProgress:)
                                    withObject:[NSNumber numberWithDouble: (double)totalProgress]
@@ -557,6 +579,13 @@ err:
     goto out;
 
 out:
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble: (double)100.0]
+                        waitUntilDone:NO];
+    [NSThread sleepForTimeInterval:1.0];
+    [self performSelectorOnMainThread:@selector(hideProgress:)
+                           withObject:nil
+                        waitUntilDone:NO];
     [self startTimer];
     return;
 }
@@ -569,6 +598,12 @@ out:
 - (void) loadFromDeviceThread: (id)obj
 {
     [self stopTimer];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:0.0]
+                        waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(showProgress:)
+                           withObject:nil
+                        waitUntilDone:NO];
     if (!myHID) // goto out;
     {
         [self reset_hid];
@@ -650,8 +685,9 @@ out:
                                         withObject:@"\nRead Complete."
                                      waitUntilDone:YES];
             }
-            
-            // [self.progress setDoubleValue:(double)currentProgress];
+            [self performSelectorOnMainThread:@selector(updateProgress:)
+                                   withObject:[NSNumber numberWithDouble:(double)currentProgress]
+                                waitUntilDone:NO];
             
             std::vector<uint8_t> flashData;
             try
@@ -690,12 +726,22 @@ out:
     goto out;
 
 err:
-    NSLog(@"Load failed");
-    // [self.progress setDoubleValue: 100.0];
-    // [self.infoLabel setStringValue: @"Load Failed"];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:(double)100.0]
+                        waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(logStringToPanel:)
+                           withObject:@"Load failed"
+                        waitUntilDone:NO];
     goto out;
 
 out:
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:(double)100.0]
+                        waitUntilDone:NO];
+    [NSThread sleepForTimeInterval:1.0];
+    [self performSelectorOnMainThread:@selector(hideProgress:)
+                           withObject:nil
+                        waitUntilDone:NO];
     [self startTimer];
     return;
 }
@@ -974,13 +1020,36 @@ out:
 
 - (IBAction)scsiSelfTest:(id)sender
 {
-    
+    NSMenuItem *item = (NSMenuItem *)sender;
+    if(item.state == NSControlStateValueOn)
+    {
+        item.state = NSControlStateValueOff;
+    }
+    else
+    {
+        item.state = NSControlStateValueOn;
+    }
+    doScsiSelfTest = (item.state == NSControlStateValueOn);
 }
 
-- (IBAction)logScsiData:(id)sender
+- (IBAction) shouldLogScsiData: (id)sender
 {
-    BOOL checkSCSILog = YES;   // replce this with checking the menu status
-    if (checkSCSILog ||
+    NSMenuItem *item = (NSMenuItem *)sender;
+    if(item.state == NSControlStateValueOn)
+    {
+        item.state = NSControlStateValueOff;
+    }
+    else
+    {
+        item.state = NSControlStateValueOn;
+    }
+    shouldLogScsiData = (item.state == NSControlStateValueOn);
+}
+
+- (void)logScsiData
+{
+    BOOL checkSCSILog = shouldLogScsiData;   // replce this with checking the menu status
+    if (!checkSCSILog ||
         !myHID)
     {
         return;
@@ -990,7 +1059,8 @@ out:
         std::vector<uint8_t> info(SCSI2SD::HID::HID_PACKET_SIZE);
         if (myHID->readSCSIDebugInfo(info))
         {
-            dumpSCSICommand(info);
+            [self dumpScsiData: info];
+            // dumpSCSICommand(info);
         }
     }
     catch (std::exception& e)

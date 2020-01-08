@@ -145,6 +145,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     try
     {
         myHID.reset(SCSI2SD::HID::Open());
+        if(myHID)
+        {
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+            [self logStringToLabel:msg];
+        }
     }
     catch (std::exception& e)
     {
@@ -473,7 +478,10 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 // Save information to device on background thread....
 - (void) saveToDeviceThread: (id)obj
 {
-    [self stopTimer];
+    [self performSelectorOnMainThread:@selector(stopTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
+
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:0.0]
                         waitUntilDone:NO];
@@ -589,7 +597,10 @@ out:
     [self performSelectorOnMainThread:@selector(hideProgress:)
                            withObject:nil
                         waitUntilDone:NO];
-    [self startTimer];
+    [self performSelectorOnMainThread:@selector(startTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
+
     return;
 }
 
@@ -600,7 +611,9 @@ out:
 
 - (void) loadFromDeviceThread: (id)obj
 {
-    [self stopTimer];
+    [self performSelectorOnMainThread:@selector(stopTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:0.0]
                         waitUntilDone:NO];
@@ -745,7 +758,10 @@ out:
     [self performSelectorOnMainThread:@selector(hideProgress:)
                            withObject:nil
                         waitUntilDone:NO];
-    [self startTimer];
+    [self performSelectorOnMainThread:@selector(startTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
+
     return;
 }
 
@@ -756,7 +772,10 @@ out:
 
 - (void) upgradeFirmwareThread: (NSString *)filename
 {
-    [self stopTimer];
+    [self performSelectorOnMainThread:@selector(stopTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
+
     if(filename != nil)
     {
         int prog = 0;
@@ -771,7 +790,7 @@ out:
                 if (myHID)
                 {
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                            withObject: @"Resettiong SCSI2SD Into Bootloader"
+                                            withObject: @"Resetting SCSI2SD Into Bootloader"
                                          waitUntilDone:YES];
                     myHID->enterBootloader();
                     [self reset_hid];
@@ -814,7 +833,6 @@ out:
                 NSLog(@"%s",e.what());
                 [self reset_hid];
                 [self reset_bootloader];
-                // myBootloader = SCSI2SD::Bootloader::Open();
             }
             [NSThread sleepForTimeInterval:0.1];
         }
@@ -903,7 +921,9 @@ out:
                                 waitUntilDone: YES];
         }
     }
-    [self startTimer];
+    [self performSelectorOnMainThread:@selector(startTimer)
+                           withObject:NULL
+                        waitUntilDone:NO];
 }
 
 - (void) upgradeFirmwareEnd: (NSOpenPanel *)panel

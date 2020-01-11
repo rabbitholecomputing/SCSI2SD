@@ -19,6 +19,7 @@ int main(int argc, const char * argv[]) {
         
         if([info.arguments count] == 3) // arguments includes the command...
         {
+            puts("=== SCSI2SD-util-cli utility v1.0 ===");
             NSString *filename = [info.arguments objectAtIndex: 2];
             const char *f = (const char *)[filename cStringUsingEncoding:NSUTF8StringEncoding];
             if([[info.arguments objectAtIndex:1] isEqualToString:@"-s"])
@@ -40,6 +41,7 @@ int main(int argc, const char * argv[]) {
                 parseSuccessful = YES;
                 [task upgradeFirmwareDeviceFromFilename:filename];
             }
+            puts("=== Operation completed.");
         }
         
         if(parseSuccessful == NO)

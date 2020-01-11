@@ -50,12 +50,14 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 
 - (void) logStringToPanel: (NSString *)s
 {
-    NSLog(@"%@",s);
+    const char *string = [s cStringUsingEncoding:NSUTF8StringEncoding];
+    printf("%s",string);
 }
 
 - (void) updateProgress: (NSNumber *)n
 {
-    NSLog(@"%@",n);
+    const char *string = [[n stringValue] cStringUsingEncoding:NSUTF8StringEncoding];
+    printf("%s",string);
 }
 
 // Reset the HID...
@@ -206,7 +208,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     return;
 
     NSString *outputString = @"";
-    filename = [filename stringByAppendingPathExtension:@"xml"];
+    // filename = [filename stringByAppendingPathExtension:@"xml"];
     outputString = [outputString stringByAppendingString: @"<SCSI2SD>\n"];
     std::string s = SCSI2SD::ConfigUtil::toXML(configs.first);
     NSString *string = [NSString stringWithCString:s.c_str() encoding:NSUTF8StringEncoding];
@@ -237,6 +239,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
         NSLog(@"Couldn't initialize HID configuration");
     }
 
+    /*
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                            withObject:@"Loading configuration"
                         waitUntilDone:YES];
@@ -244,7 +247,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                            withObject:@"Load config settings"
                         waitUntilDone:YES];
-    
+    */
     std::pair<BoardConfig, std::vector<TargetConfig>> configs;
 
     int currentProgress = 0;
@@ -254,11 +257,12 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     std::vector<uint8_t> boardCfgFlashData;
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
+        /*
         NSString *ss = [NSString stringWithFormat:
-                        @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+                        @"\rReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                 withObject:ss
-                             waitUntilDone:YES];
+                             waitUntilDone:YES];*/
         currentProgress += 1;
         try
         {
@@ -289,11 +293,12 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
+            /*
             NSString *ss = [NSString stringWithFormat:
                             @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject:ss
-                                 waitUntilDone:YES];
+                                 waitUntilDone:YES]; */
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
@@ -342,11 +347,11 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     goto out;
 
 err:
-    NSLog(@"Load failed");
+    [self logStringToPanel: @"\nSave failed"];
     goto out;
 
 out:
-    NSLog(@"Load successful");
+    [self logStringToPanel: @"\nSave successful\n"];
     return;
 }
 
@@ -369,7 +374,7 @@ out:
     if (!myHID) return;
 
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                            withObject: @"Saving configuration"
+                            withObject: @"\nSaving configuration\n"
                          waitUntilDone:YES];
     int currentProgress = 0;
     int totalProgress = (int)configs.second.size() * SCSI_CONFIG_ROWS + 1;
@@ -377,11 +382,12 @@ out:
     // Write board config first.
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
+        /*
         NSString *ss = [NSString stringWithFormat:
                         @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                 withObject:ss
-                             waitUntilDone:YES];
+                             waitUntilDone:YES]; */
         currentProgress += 1;
         [self performSelectorOnMainThread:@selector(updateProgress:)
                                withObject:[NSNumber numberWithDouble: (double)totalProgress]
@@ -414,22 +420,24 @@ out:
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
+            /*
             NSString *ss = [NSString stringWithFormat:
                             @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject:ss
-                                 waitUntilDone:YES];
+                                 waitUntilDone:YES]; */
 
             currentProgress += 1;
             if (currentProgress == totalProgress)
             {
                 [self performSelectorOnMainThread:@selector(logStringToPanel:)
-                                       withObject:@"Save complete"
+                                       withObject:@"\nLoad complete\n"
                                     waitUntilDone:YES];
             }
+            /*
             [self performSelectorOnMainThread:@selector(updateProgress:)
                                    withObject:[NSNumber numberWithDouble: (double)totalProgress]
-                                waitUntilDone:NO];
+                                waitUntilDone:NO]; */
 
             std::vector<uint8_t> flashData(SCSI_CONFIG_ROW_SIZE, 0);
             std::copy(
@@ -458,18 +466,20 @@ out:
     goto out;
 
 err:
+    /*
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble: (double)100.0]
-                        waitUntilDone:NO];
+                        waitUntilDone:NO];*/
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                            withObject:@"Save Failed"
+                            withObject:@"\nSave Failed\n"
                          waitUntilDone:YES];
     goto out;
 
 out:
+    /*
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble: (double)100.0]
-                        waitUntilDone:NO];
+                        waitUntilDone:NO];*/
 
     return;
 }

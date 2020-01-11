@@ -46,8 +46,8 @@ int main(int argc, const char * argv[]) {
         {
             // insert code here...
             puts("scsi2sd-util-cli usage: ");
-            puts("\t-s save_file.xml -- save file to scsi2sd device");
-            puts("\t-l load_file.xml -- save file from scsi2sd device");
+            puts("\t-s save_file.xml -- save file from scsi2sd device");
+            puts("\t-l load_file.xml -- save file to scsi2sd device");
             puts("\t-f firmware-file.scsi2sd -- update firmware from file");
         }
     }

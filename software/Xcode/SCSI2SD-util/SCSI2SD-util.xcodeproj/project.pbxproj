@@ -90,6 +90,7 @@
 		14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		14F2F96323C94A4400169DD2 /* SCSI2SDTask.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SDTask.hh; sourceTree = "<group>"; };
 		14F2F96423C94A4400169DD2 /* SCSI2SDTask.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSI2SDTask.mm; sourceTree = "<group>"; };
+		14F2F96E23CA2E8B00169DD2 /* scsi2sd-util-cli.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "scsi2sd-util-cli.entitlements"; sourceTree = "<group>"; };
 		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
@@ -230,10 +231,10 @@
 				1482B1F8239748DB001BA513 /* ViewControllers */,
 				1482B1E723973F3E001BA513 /* AppDelegate.hh */,
 				1482B1E823973F3E001BA513 /* AppDelegate.mm */,
-				1482B1EA23973F42001BA513 /* Assets.xcassets */,
 				1482B1EC23973F42001BA513 /* MainMenu.xib */,
 				1482B1EF23973F42001BA513 /* Info.plist */,
 				1482B1F023973F42001BA513 /* main.m */,
+				1482B1EA23973F42001BA513 /* Assets.xcassets */,
 				1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */,
 			);
 			path = "SCSI2SD-util";
@@ -253,6 +254,7 @@
 		14D96BCD23C935330008E7B3 /* scsi2sd-util-cli */ = {
 			isa = PBXGroup;
 			children = (
+				14F2F96E23CA2E8B00169DD2 /* scsi2sd-util-cli.entitlements */,
 				14D96BCE23C935330008E7B3 /* main.mm */,
 				14F2F96323C94A4400169DD2 /* SCSI2SDTask.hh */,
 				14F2F96423C94A4400169DD2 /* SCSI2SDTask.mm */,
@@ -651,10 +653,11 @@
 		14D96BD023C935330008E7B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X34KG7M8TP;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/Pods/Headers/Public",
@@ -687,10 +690,11 @@
 		14D96BD123C935330008E7B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X34KG7M8TP;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"${PROJECT_DIR}/Pods/Headers/Public",

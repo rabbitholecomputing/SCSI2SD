@@ -74,7 +74,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        [self logStringToPanel: [NSString stringWithFormat: @"Exception caught: %s",e.what()]];
     }
 }
 
@@ -86,7 +86,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        [self logStringToPanel: [NSString stringWithFormat: @"Exception caught: %s",e.what()]];
     }
 }
 
@@ -236,7 +236,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     
     if(!myHID)
     {
-        NSLog(@"Couldn't initialize HID configuration");
+        [self logStringToPanel: @"Couldn't initialize HID configuration"];
     }
 
     /*
@@ -273,7 +273,6 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
         }
         catch (std::runtime_error& e)
         {
-            NSLog(@"%s",e.what());
             NSString *ss = [NSString stringWithFormat:
                             @"\n\nException: %s\n\n",e.what()];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
@@ -319,7 +318,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
             }
             catch (std::runtime_error& e)
             {
-                NSLog(@"%s",e.what());
+                [self logStringToPanel: [NSString stringWithFormat: @"Exception caught: %s",e.what()]];
                 goto err;
             }
 
@@ -401,7 +400,7 @@ out:
         }
         catch (std::runtime_error& e)
         {
-             NSLog(@"%s",e.what());
+             [self logStringToPanel: [NSString stringWithFormat: @"Exception caught: %s",e.what()]];
             goto err;
         }
     }
@@ -461,7 +460,7 @@ out:
         }
     }
 
-    [self reset_hid];
+    // [self reset_hid];
         //myHID = SCSI2SD::HID::Open();
     goto out;
 
@@ -487,7 +486,7 @@ out:
 - (void) upgradeFirmwareDeviceFromFilename: (NSString *)filename
 {
     [self getHid];
-    NSLog(@"Upgrade firmware to device");
+    [self logStringToPanel: @"Upgrade firmware to device"];
     if(filename != nil)
     {
         int prog = 0;
@@ -541,7 +540,7 @@ out:
             }
             catch (std::exception& e)
             {
-                NSLog(@"%s",e.what());
+                [self logStringToPanel: [NSString stringWithFormat: @"%s",e.what()]];
                 [self reset_hid];
                 [self reset_bootloader];
             }
@@ -616,9 +615,9 @@ out:
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful"
                                  waitUntilDone:YES];
-            [self reset_hid];
-            [self reset_hid];
-            [self reset_bootloader];
+            //[self reset_hid];
+            //[self reset_hid];
+            //[self reset_bootloader];
         }
         catch (std::exception& e)
         {

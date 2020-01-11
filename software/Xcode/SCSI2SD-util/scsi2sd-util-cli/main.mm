@@ -41,7 +41,7 @@ int main(int argc, const char * argv[]) {
                 parseSuccessful = YES;
                 [task upgradeFirmwareDeviceFromFilename:filename];
             }
-            puts("=== Operation completed.");
+            puts("\n=== Operation completed.");
         }
         
         if(parseSuccessful == NO)

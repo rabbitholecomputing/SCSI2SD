@@ -24,6 +24,7 @@ int main(int argc, const char * argv[]) {
             {
                 [arguments removeObjectAtIndex:indx];
                 repeatMode = YES;
+                task.repeatMode = YES;
             }
         }
         
@@ -56,8 +57,9 @@ int main(int argc, const char * argv[]) {
                 puts("\n=== Operation completed.");
                 if(repeatMode == YES)
                 {
-                    puts("\n**** Sleep for 5 seconds before next loop...");
+                    puts("\n**** Sleep for 5 seconds to allow disconnect...");
                     [NSThread sleepForTimeInterval:5.0];
+                    [task waitForHidConnection];
                 }
             } while (repeatMode);
         }

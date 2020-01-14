@@ -44,6 +44,10 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 - (instancetype) init
 {
     self = [super init];
+    if(self)
+    {
+        self.repeatMode = NO;
+    }
     return self;
 }
 
@@ -138,13 +142,13 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
                 gotHID = YES;
             }
         }
-
+        
         // Show that we got the HID acquired...
-        if(gotHID)
+        /*if(gotHID && self.repeatMode)
         {
             NSString *msg = [NSString stringWithFormat: @"\nSCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
             [self logStringToPanel:msg];
-        }
+        }*/
         
         if (!myHID)
         {
@@ -205,7 +209,16 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
         [self logStringToPanel:[NSString stringWithFormat:@"%s", e.what()]];
         return NO;
     }
-    return YES;
+    return gotHID;
+}
+
+- (void) waitForHidConnection
+{
+    puts("\nWaiting for HID connect...");
+    while(![self getHid])
+    {
+        // nothing to do...
+    }
 }
 
 - (void)saveConfigs: (std::pair<BoardConfig, std::vector<TargetConfig>>)configs

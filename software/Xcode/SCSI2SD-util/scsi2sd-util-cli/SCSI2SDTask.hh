@@ -23,8 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
     std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
 }
 
+@property (nonatomic, assign) BOOL repeatMode;
+
 + (instancetype) task;
 - (BOOL) getHid;
+- (void) waitForHidConnection;
 - (void) saveFromDeviceFromFilename: (NSString *)filename;
 - (void) saveToDeviceFromFilename: (NSString *)filename;
 - (void) upgradeFirmwareDeviceFromFilename: (NSString *)filename;

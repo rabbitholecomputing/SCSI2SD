@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
     std::shared_ptr<SCSI2SD::HID> myHID;
     std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
 }
+
 + (instancetype) task;
+- (BOOL) getHid;
 - (void) saveFromDeviceFromFilename: (NSString *)filename;
 - (void) saveToDeviceFromFilename: (NSString *)filename;
 - (void) upgradeFirmwareDeviceFromFilename: (NSString *)filename;

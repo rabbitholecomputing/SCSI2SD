@@ -51,6 +51,7 @@ int main(int argc, const char * argv[]) {
             puts("\t-s save_file.xml -- save file from scsi2sd device");
             puts("\t-l load_file.xml -- save file to scsi2sd device");
             puts("\t-f firmware-file.scsi2sd -- update firmware from file");
+            puts("\t-r repeat operation.  This will cause the tool to loop and search for a connection and repeat the operation.");
         }
     }
     return 0;

@@ -13,35 +13,53 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSProcessInfo *info = [NSProcessInfo processInfo];
         SCSI2SDTask *task = [SCSI2SDTask task];
-        
+        NSMutableArray *arguments = [NSMutableArray arrayWithArray:info.arguments];
         BOOL parseSuccessful = NO;
-        // NSLog(@"info.arguments = %@", info.arguments);
+        BOOL repeatMode = NO;
         
-        if([info.arguments count] == 3) // arguments includes the command...
+        if([arguments count] == 4)
+        {
+            NSUInteger indx = [arguments indexOfObject: @"-r"];
+            if(indx != NSNotFound)
+            {
+                [arguments removeObjectAtIndex:indx];
+                repeatMode = YES;
+            }
+        }
+        
+        if([arguments count] == 3) // arguments includes the command...
         {
             puts("=== SCSI2SD-util-cli utility v1.0 ===");
-            NSString *filename = [info.arguments objectAtIndex: 2];
-            const char *f = (const char *)[filename cStringUsingEncoding:NSUTF8StringEncoding];
-            if([[info.arguments objectAtIndex:1] isEqualToString:@"-s"])
+            do
             {
-                printf("Saving file to filesystem from device: %s\n", f);
-                parseSuccessful = YES;
-                [task saveFromDeviceFromFilename:filename];
-            }
-            else if([[info.arguments objectAtIndex:1] isEqualToString:@"-l"])
-            {
-                printf("Loading file from filesystem to device: %s\n", f);
-                parseSuccessful = YES;
-                [task saveToDeviceFromFilename:filename];
+                NSString *filename = [arguments objectAtIndex: 2];
+                const char *f = (const char *)[filename cStringUsingEncoding:NSUTF8StringEncoding];
+                if([[arguments objectAtIndex:1] isEqualToString:@"-s"])
+                {
+                    printf("Saving file to filesystem from device: %s\n", f);
+                    parseSuccessful = YES;
+                    [task saveFromDeviceFromFilename:filename];
+                }
+                else if([[arguments objectAtIndex:1] isEqualToString:@"-l"])
+                {
+                    printf("Loading file from filesystem to device: %s\n", f);
+                    parseSuccessful = YES;
+                    [task saveToDeviceFromFilename:filename];
 
-            }
-            else if([[info.arguments objectAtIndex:1] isEqualToString:@"-f"])
-            {
-                printf("Loading firmware from filesystem to device: %s\n", f);
-                parseSuccessful = YES;
-                [task upgradeFirmwareDeviceFromFilename:filename];
-            }
-            puts("\n=== Operation completed.");
+                }
+                else if([[arguments objectAtIndex:1] isEqualToString:@"-f"])
+                {
+                    printf("Loading firmware from filesystem to device: %s\n", f);
+                    parseSuccessful = YES;
+                    [task upgradeFirmwareDeviceFromFilename:filename];
+                }
+                puts("\n=== Operation completed.");
+                if(repeatMode == YES)
+                {
+                    puts("\n**** Sleep for 5 seconds before next loop...");
+                    [NSThread sleepForTimeInterval:5.0];
+                }
+            } while (repeatMode);
         }
         
         if(parseSuccessful == NO)

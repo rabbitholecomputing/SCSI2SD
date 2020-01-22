@@ -247,7 +247,13 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 #define NUM_DEVS 4
 - (void) saveFromDeviceFromFilename: (NSString *)filename
 {
-    [self getHid];
+    BOOL gotHID = [self getHid];
+    if(gotHID == NO)
+    {
+        [self logStringToPanel:@"Couldn't initialize HID configuration"];
+        return;
+    }
+    
     if (!myHID) // goto out;
     {
         [self reset_hid];

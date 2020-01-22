@@ -13,7 +13,7 @@ int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSProcessInfo *info = [NSProcessInfo processInfo];
         SCSI2SDTask *task = [SCSI2SDTask task];
-        NSMutableArray *arguments = [NSMutableArray arrayWithArray:info.arguments];
+        NSMutableArray *arguments = @[@"", @"-s", @"out.xml"]; //[NSMutableArray arrayWithArray:info.arguments];
         BOOL parseSuccessful = NO;
         BOOL repeatMode = NO;
         

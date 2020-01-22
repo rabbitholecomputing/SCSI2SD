@@ -37,7 +37,9 @@ class HID
 public:
 	static const uint16_t VENDOR_ID = 0x04B4; // Cypress
 	static const uint16_t PRODUCT_ID = 0x1337; // SCSI2SD application firmware
-
+    static const uint16_t VENDOR_ID6 = 0x16d0;
+    static const uint16_t PRODUCT_ID6 = 0x0bd4;
+    
 	static const int CONFIG_INTERFACE = 0;
 	static const int DEBUG_INTERFACE = 1;
 

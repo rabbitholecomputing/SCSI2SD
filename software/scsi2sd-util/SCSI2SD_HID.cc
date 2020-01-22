@@ -140,8 +140,16 @@ HID::Open()
 	}
 	else
 	{
-		return NULL;
-	}
+        dev = hid_enumerate(VENDOR_ID6, PRODUCT_ID6);
+        if (dev)
+        {
+            return new HID(dev);
+        }
+        else
+        {
+            return NULL;
+        }
+    }
 }
 
 void

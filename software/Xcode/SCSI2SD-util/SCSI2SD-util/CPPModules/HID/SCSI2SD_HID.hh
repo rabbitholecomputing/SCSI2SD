@@ -15,10 +15,8 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SCSI2SD_HID5_H
-#define SCSI2SD_HID5_H
-
-#include "SCSI2SD_HID.hh"
+#ifndef SCSI2SD_HID_H
+#define SCSI2SD_HID_H
 
 #include "hidapi.h"
 
@@ -34,25 +32,12 @@
 namespace SCSI2SD
 {
 
-class HID5
+class HID
 {
 public:
-	static const uint16_t VENDOR_ID = 0x04B4; // Cypress
-	static const uint16_t PRODUCT_ID = 0x1337; // SCSI2SD application firmware
+	static HID* Open();
 
-	static const int CONFIG_INTERFACE = 0;
-	static const int DEBUG_INTERFACE = 1;
-
-	static const size_t HID_PACKET_SIZE = 64;
-
-	// HID intervals for 4.0.3 firmware: <= 128ms
-	// > 4.0.3 = 32ms.
-	static const size_t HID_TIMEOUT_MS = 256; // 2x HID Interval.
-
-
-	static HID5* Open();
-
-	~HID5();
+	~HID();
 
 	uint16_t getFirmwareVersion() const { return myFirmwareVersion; }
 	std::string getFirmwareVersionStr() const;
@@ -60,19 +45,20 @@ public:
 	std::vector<uint8_t> getSD_CSD();
 	std::vector<uint8_t> getSD_CID();
 
-	bool scsiSelfTest();
+	bool scsiSelfTest(int& code);
 
 	void enterBootloader();
 
-	void readFlashRow(int array, int row, std::vector<uint8_t>& out);
-	void writeFlashRow(int array, int row, const std::vector<uint8_t>& in);
+	void readSector(uint32_t sector, std::vector<uint8_t>& out);
+	void writeSector(uint32_t sector, const std::vector<uint8_t>& in);
 	bool ping();
 
 	bool readSCSIDebugInfo(std::vector<uint8_t>& buf);
 
 private:
-	HID5(hid_device_info* hidInfo);
+	HID(hid_device_info* hidInfo);
 	void destroy();
+	void readNewDebugData();
 	void readDebugData();
 	void readHID(uint8_t* buffer, size_t len);
 	void sendHIDPacket(
@@ -83,7 +69,6 @@ private:
 
 	hid_device_info* myHidInfo;
 	hid_device* myConfigHandle;
-	hid_device* myDebugHandle;
 
 	// Read-only data from the debug interface.
 	uint16_t myFirmwareVersion;

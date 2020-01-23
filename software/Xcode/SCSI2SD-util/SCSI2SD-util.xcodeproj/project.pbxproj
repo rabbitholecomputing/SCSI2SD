@@ -20,6 +20,7 @@
 		1482B20F239748DB001BA513 /* DeviceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B203239748DB001BA513 /* DeviceController.mm */; };
 		1482B210239748DB001BA513 /* SettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.mm */; };
 		14A82DFD23D922EB00F82529 /* SCSI2SD_HID6.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */; };
+		14A82DFF23D926FD00F82529 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */; };
 		14D96BCF23C935330008E7B3 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14D96BCE23C935330008E7B3 /* main.mm */; };
 		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */; };
@@ -83,6 +84,8 @@
 		1482B204239748DB001BA513 /* SettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsController.mm; sourceTree = "<group>"; };
 		14A82DFB23D922EB00F82529 /* SCSI2SD_HID6.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID6.hh; sourceTree = "<group>"; };
 		14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SCSI2SD_HID6.cc; sourceTree = "<group>"; };
+		14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SCSI2SD_HID.cc; sourceTree = "<group>"; };
+		14A82E0023D9271100F82529 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
 		14D96BCC23C935320008E7B3 /* scsi2sd-util-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scsi2sd-util-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D96BCE23C935330008E7B3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		14DEC5E6239F456800ECD04A /* Functions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Functions.mm; sourceTree = "<group>"; };
@@ -256,8 +259,10 @@
 		14A82DFA23D922AD00F82529 /* HID */ = {
 			isa = PBXGroup;
 			children = (
-				14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */,
+				14A82E0023D9271100F82529 /* SCSI2SD_HID.hh */,
+				14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */,
 				14A82DFB23D922EB00F82529 /* SCSI2SD_HID6.hh */,
+				14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */,
 				1474C0F623996A15003C67D5 /* SCSI2SD_HID5.hh */,
 				14418B4223AAC07900C8EB09 /* SCSI2SD_HID5.cc */,
 			);
@@ -415,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A82DFD23D922EB00F82529 /* SCSI2SD_HID6.cc in Sources */,
+				14A82DFF23D926FD00F82529 /* SCSI2SD_HID.cc in Sources */,
 				146A538C23BBAC730000A06B /* Firmware.cc in Sources */,
 				14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */,
 				14418B4323AAC07900C8EB09 /* SCSI2SD_HID5.cc in Sources */,

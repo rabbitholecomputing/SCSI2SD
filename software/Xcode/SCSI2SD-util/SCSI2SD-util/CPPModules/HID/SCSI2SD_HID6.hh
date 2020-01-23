@@ -17,6 +17,7 @@
 
 #ifndef SCSI2SD_HID6_H
 #define SCSI2SD_HID6_H
+#include "SCSI2SD_HID.hh"
 
 #include "hidapi.h"
 
@@ -32,7 +33,7 @@
 namespace SCSI2SD
 {
 
-class HID6
+class HID6 : public HID
 {
 public:
 	static const uint16_t VENDOR_ID = 0x16D0; // MCS
@@ -48,9 +49,9 @@ public:
 	static const size_t HID_TIMEOUT_MS = 256; // 2x HID Interval.
 
 
-	static HID* Open();
+	static HID6* Open();
 
-	~HID();
+	~HID6();
 
 	uint16_t getFirmwareVersion() const { return myFirmwareVersion; }
 	std::string getFirmwareVersionStr() const;
@@ -69,7 +70,7 @@ public:
 	bool readSCSIDebugInfo(std::vector<uint8_t>& buf);
 
 private:
-	HID(hid_device_info* hidInfo);
+	HID6(hid_device_info* hidInfo);
 	void destroy();
 	void readNewDebugData();
 	void readDebugData();

@@ -15,7 +15,6 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 
-#include "SCSI2SD_HID.hh"
 #include "scsi2sd.h"
 #include "hidpacket.h"
 
@@ -28,7 +27,7 @@
 
 using namespace SCSI2SD;
 
-HID::HID(hid_device_info* hidInfo) :
+HID5::HID5(hid_device_info* hidInfo) :
 	myHidInfo(hidInfo),
 	myConfigHandle(NULL),
 	myDebugHandle(NULL),
@@ -108,7 +107,7 @@ HID::HID(hid_device_info* hidInfo) :
 }
 
 void
-HID::destroy()
+HID5::destroy()
 {
 	if (myConfigHandle)
 	{
@@ -125,18 +124,18 @@ HID::destroy()
 	myHidInfo = NULL;
 }
 
-HID::~HID()
+HID5::~HID5()
 {
 	destroy();
 }
 
-HID*
-HID::Open()
+HID5*
+HID5::Open()
 {
 	hid_device_info* dev = hid_enumerate(VENDOR_ID, PRODUCT_ID);
 	if (dev)
 	{
-		return new HID(dev);
+		return new HID5(dev);
 	}
 	else
 	{
@@ -153,7 +152,7 @@ HID::Open()
 }
 
 void
-HID::enterBootloader()
+HID5::enterBootloader()
 {
 	// Reboot commands added in firmware 3.5
 	if (!myDebugHandle)
@@ -189,7 +188,7 @@ HID::enterBootloader()
 }
 
 void
-HID::readFlashRow(int array, int row, std::vector<uint8_t>& out)
+HID5::readFlashRow(int array, int row, std::vector<uint8_t>& out)
 {
 	std::vector<uint8_t> cmd
 	{
@@ -201,7 +200,7 @@ HID::readFlashRow(int array, int row, std::vector<uint8_t>& out)
 }
 
 void
-HID::writeFlashRow(int array, int row, const std::vector<uint8_t>& in)
+HID5::writeFlashRow(int array, int row, const std::vector<uint8_t>& in)
 {
 	std::vector<uint8_t> cmd;
 	cmd.push_back(CONFIG_WRITEFLASH);
@@ -219,7 +218,7 @@ HID::writeFlashRow(int array, int row, const std::vector<uint8_t>& in)
 }
 
 bool
-HID::readSCSIDebugInfo(std::vector<uint8_t>& buf)
+HID5::readSCSIDebugInfo(std::vector<uint8_t>& buf)
 {
 	buf[0] = 0; // report id
 	hid_set_nonblocking(myDebugHandle, 1);
@@ -243,7 +242,7 @@ HID::readSCSIDebugInfo(std::vector<uint8_t>& buf)
 
 
 void
-HID::readHID(uint8_t* buffer, size_t len)
+HID5::readHID(uint8_t* buffer, size_t len)
 {
 	assert(len >= 0);
 	buffer[0] = 0; // report id
@@ -264,7 +263,7 @@ HID::readHID(uint8_t* buffer, size_t len)
 }
 
 void
-HID::readDebugData()
+HID5::readDebugData()
 {
 	uint8_t buf[HID_PACKET_SIZE];
 	buf[0] = 0; // report id
@@ -292,7 +291,7 @@ HID::readDebugData()
 }
 
 std::string
-HID::getFirmwareVersionStr() const
+HID5::getFirmwareVersionStr() const
 {
 	if (myFirmwareVersion == 0)
 	{
@@ -316,7 +315,7 @@ HID::getFirmwareVersionStr() const
 
 
 bool
-HID::ping()
+HID5::ping()
 {
 	std::vector<uint8_t> cmd { CONFIG_PING };
 	std::vector<uint8_t> out;
@@ -333,7 +332,7 @@ HID::ping()
 }
 
 std::vector<uint8_t>
-HID::getSD_CSD()
+HID5::getSD_CSD()
 {
 	std::vector<uint8_t> cmd { CONFIG_SDINFO };
 	std::vector<uint8_t> out;
@@ -351,7 +350,7 @@ HID::getSD_CSD()
 }
 
 std::vector<uint8_t>
-HID::getSD_CID()
+HID5::getSD_CID()
 {
 	std::vector<uint8_t> cmd { CONFIG_SDINFO };
 	std::vector<uint8_t> out;
@@ -370,7 +369,7 @@ HID::getSD_CID()
 }
 
 bool
-HID::scsiSelfTest()
+HID5::scsiSelfTest()
 {
 	std::vector<uint8_t> cmd { CONFIG_SCSITEST };
 	std::vector<uint8_t> out;
@@ -387,7 +386,7 @@ HID::scsiSelfTest()
 
 
 void
-HID::sendHIDPacket(
+HID5::sendHIDPacket(
 	const std::vector<uint8_t>& cmd,
 	std::vector<uint8_t>& out,
 	size_t responseLength)

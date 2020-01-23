@@ -55,7 +55,7 @@ public:
 
 	bool readSCSIDebugInfo(std::vector<uint8_t>& buf);
 
-private:
+protected:
 	HID(hid_device_info* hidInfo);
 	void destroy();
 	void readNewDebugData();

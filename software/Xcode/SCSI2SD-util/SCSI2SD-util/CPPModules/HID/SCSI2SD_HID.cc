@@ -14,7 +14,7 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#include "SCSI2SD_HID6.hh"
+#include "SCSI2SD_HID.hh"
 #include "scsi2sd.h"
 #include "hidpacket.h"
 
@@ -27,7 +27,7 @@
 
 using namespace SCSI2SD;
 
-HID6::HID6(hid_device_info* hidInfo) :
+HID::HID(hid_device_info* hidInfo) :
 	myHidInfo(hidInfo),
 	myConfigHandle(NULL),
 	myFirmwareVersion(0),
@@ -51,7 +51,7 @@ HID6::HID6(hid_device_info* hidInfo) :
 }
 
 void
-HID6::destroy()
+HID::destroy()
 {
 	if (myConfigHandle)
 	{
@@ -64,18 +64,18 @@ HID6::destroy()
 	myHidInfo = NULL;
 }
 
-HID6::~HID6()
+HID::~HID()
 {
 	destroy();
 }
 
-HID6*
-HID6::Open()
+HID*
+HID::Open()
 {
 	hid_device_info* dev = hid_enumerate(VENDOR_ID, PRODUCT_ID);
 	if (dev)
 	{
-		return new HID6(dev);
+		return new HID(dev);
 	}
 	else
 	{
@@ -84,7 +84,7 @@ HID6::Open()
 }
 
 void
-HID6::enterBootloader()
+HID::enterBootloader()
 {
 	std::vector<uint8_t> out;
 	std::vector<uint8_t> cmd { S2S_CMD_REBOOT };
@@ -92,7 +92,7 @@ HID6::enterBootloader()
 }
 
 void
-HID6::readSector(uint32_t sector, std::vector<uint8_t>& out)
+HID::readSector(uint32_t sector, std::vector<uint8_t>& out)
 {
 	std::vector<uint8_t> cmd
 	{
@@ -106,7 +106,7 @@ HID6::readSector(uint32_t sector, std::vector<uint8_t>& out)
 }
 
 void
-HID6::writeSector(uint32_t sector, const std::vector<uint8_t>& in)
+HID::writeSector(uint32_t sector, const std::vector<uint8_t>& in)
 {
 	std::vector<uint8_t> cmd
 	{
@@ -128,7 +128,7 @@ HID6::writeSector(uint32_t sector, const std::vector<uint8_t>& in)
 }
 
 bool
-HID6::readSCSIDebugInfo(std::vector<uint8_t>& buf)
+HID::readSCSIDebugInfo(std::vector<uint8_t>& buf)
 {
 	std::vector<uint8_t> cmd { S2S_CMD_DEBUG };
 	sendHIDPacket(cmd, buf, 1);
@@ -137,7 +137,7 @@ HID6::readSCSIDebugInfo(std::vector<uint8_t>& buf)
 
 
 void
-HID6::readHID(uint8_t* buffer, size_t len)
+HID::readHID(uint8_t* buffer, size_t len)
 {
 	assert(len >= 0);
 	buffer[0] = 0; // report id
@@ -158,7 +158,7 @@ HID6::readHID(uint8_t* buffer, size_t len)
 }
 
 void
-HID6::readNewDebugData()
+HID::readNewDebugData()
 {
 	// Newer devices only have a single HID interface, and present
 	// a command to obtain the data
@@ -185,7 +185,7 @@ HID6::readNewDebugData()
 }
 
 std::string
-HID6::getFirmwareVersionStr() const
+HID::getFirmwareVersionStr() const
 {
 	std::stringstream ver;
 	ver <<
@@ -202,7 +202,7 @@ HID6::getFirmwareVersionStr() const
 
 
 bool
-HID6::ping()
+HID::ping()
 {
 	std::vector<uint8_t> cmd { S2S_CMD_PING };
 	std::vector<uint8_t> out;
@@ -219,7 +219,7 @@ HID6::ping()
 }
 
 std::vector<uint8_t>
-HID6::getSD_CSD()
+HID::getSD_CSD()
 {
 	std::vector<uint8_t> cmd { S2S_CMD_SDINFO };
 	std::vector<uint8_t> out;
@@ -237,7 +237,7 @@ HID6::getSD_CSD()
 }
 
 std::vector<uint8_t>
-HID6::getSD_CID()
+HID::getSD_CID()
 {
 	std::vector<uint8_t> cmd { S2S_CMD_SDINFO };
 	std::vector<uint8_t> out;
@@ -256,7 +256,7 @@ HID6::getSD_CID()
 }
 
 bool
-HID6::scsiSelfTest(int& code)
+HID::scsiSelfTest(int& code)
 {
 	std::vector<uint8_t> cmd { S2S_CMD_SCSITEST };
 	std::vector<uint8_t> out;
@@ -274,7 +274,7 @@ HID6::scsiSelfTest(int& code)
 
 
 void
-HID6::sendHIDPacket(
+HID::sendHIDPacket(
 	const std::vector<uint8_t>& cmd,
 	std::vector<uint8_t>& out,
 	size_t responseLength)

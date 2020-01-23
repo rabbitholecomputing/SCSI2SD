@@ -48,11 +48,10 @@ public:
 	// > 4.0.3 = 32ms.
 	static const size_t HID_TIMEOUT_MS = 256; // 2x HID Interval.
 
-
 	static HID6* Open();
 
 	~HID6();
-
+    
 	uint16_t getFirmwareVersion() const { return myFirmwareVersion; }
 	std::string getFirmwareVersionStr() const;
 	uint32_t getSDCapacity() const { return mySDCapacity; }

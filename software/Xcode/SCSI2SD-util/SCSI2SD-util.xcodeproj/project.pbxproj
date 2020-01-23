@@ -20,7 +20,9 @@
 		1482B20F239748DB001BA513 /* DeviceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B203239748DB001BA513 /* DeviceController.mm */; };
 		1482B210239748DB001BA513 /* SettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.mm */; };
 		14A82DFD23D922EB00F82529 /* SCSI2SD_HID6.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */; };
-		14A82DFF23D926FD00F82529 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */; };
+		14A82E0123D93BB400F82529 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */; };
+		14A82E0223D93BB600F82529 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFE23D926FD00F82529 /* SCSI2SD_HID.cc */; };
+		14A82E0323D93BBD00F82529 /* SCSI2SD_HID6.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14A82DFC23D922EB00F82529 /* SCSI2SD_HID6.cc */; };
 		14D96BCF23C935330008E7B3 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14D96BCE23C935330008E7B3 /* main.mm */; };
 		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */; };
@@ -420,7 +422,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				14A82DFD23D922EB00F82529 /* SCSI2SD_HID6.cc in Sources */,
-				14A82DFF23D926FD00F82529 /* SCSI2SD_HID.cc in Sources */,
+				14A82E0123D93BB400F82529 /* SCSI2SD_HID.cc in Sources */,
 				146A538C23BBAC730000A06B /* Firmware.cc in Sources */,
 				14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */,
 				14418B4323AAC07900C8EB09 /* SCSI2SD_HID5.cc in Sources */,
@@ -444,12 +446,14 @@
 				14F2F96623CA23D200169DD2 /* SCSI2SD_Bootloader.cc in Sources */,
 				14F2F96723CA23D600169DD2 /* SCSI2SD_HID5.cc in Sources */,
 				14F2F96C23CA23F700169DD2 /* NSString+Extensions.m in Sources */,
+				14A82E0323D93BBD00F82529 /* SCSI2SD_HID6.cc in Sources */,
 				14F2F96923CA23E800169DD2 /* hid.c in Sources */,
 				14F2F96523C94A4400169DD2 /* SCSI2SDTask.mm in Sources */,
 				14F2F96D23CA23FA00169DD2 /* ConfigObject.mm in Sources */,
 				14F2F96B23CA23F000169DD2 /* Functions.mm in Sources */,
 				14F2F96A23CA23EC00169DD2 /* ConfigUtil.mm in Sources */,
 				14D96BCF23C935330008E7B3 /* main.mm in Sources */,
+				14A82E0223D93BB600F82529 /* SCSI2SD_HID.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

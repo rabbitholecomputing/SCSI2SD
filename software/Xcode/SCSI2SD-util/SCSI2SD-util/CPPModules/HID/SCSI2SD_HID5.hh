@@ -49,11 +49,10 @@ public:
 	// > 4.0.3 = 32ms.
 	static const size_t HID_TIMEOUT_MS = 256; // 2x HID Interval.
 
-
 	static HID5* Open();
 
 	~HID5();
-
+    
 	uint16_t getFirmwareVersion() const { return myFirmwareVersion; }
 	std::string getFirmwareVersionStr() const;
 	uint32_t getSDCapacity() const { return mySDCapacity; }
@@ -70,8 +69,9 @@ public:
 
 	bool readSCSIDebugInfo(std::vector<uint8_t>& buf);
 
-private:
+protected:
 	HID5(hid_device_info* hidInfo);
+    
 	void destroy();
 	void readDebugData();
 	void readHID(uint8_t* buffer, size_t len);

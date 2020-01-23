@@ -15,6 +15,7 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 #include "SCSI2SD_HID6.hh"
+
 #include "scsi2sd.h"
 #include "hidpacket.h"
 

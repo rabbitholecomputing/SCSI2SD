@@ -15,8 +15,8 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SCSI2SD_HID_H
-#define SCSI2SD_HID_H
+#ifndef SCSI2SD_HID5_H
+#define SCSI2SD_HID5_H
 
 #include "hidapi.h"
 
@@ -32,7 +32,7 @@
 namespace SCSI2SD
 {
 
-class HID
+class HID5
 {
 public:
 	static const uint16_t VENDOR_ID = 0x04B4; // Cypress

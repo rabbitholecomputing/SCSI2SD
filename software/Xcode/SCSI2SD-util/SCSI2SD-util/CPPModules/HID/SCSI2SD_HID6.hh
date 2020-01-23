@@ -15,8 +15,8 @@
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 
-#ifndef SCSI2SD_HID_H
-#define SCSI2SD_HID_H
+#ifndef SCSI2SD_HID6_H
+#define SCSI2SD_HID6_H
 
 #include "hidapi.h"
 
@@ -32,15 +32,12 @@
 namespace SCSI2SD
 {
 
-class HID
+class HID6
 {
 public:
-	static const uint16_t VENDOR_ID = 0x04B4; // Cypress
-	static const uint16_t PRODUCT_ID = 0x1337; // SCSI2SD application firmware
-    
-//   static const uint16_t VENDOR_ID6 = 0x16d0; // MCS
-//   static const uint16_t PRODUCT_ID6 = 0x0bd4; // Cypress/SCSI2SD
-    
+	static const uint16_t VENDOR_ID = 0x16D0; // MCS
+	static const uint16_t PRODUCT_ID = 0x0BD4; // SCSI2SD
+
 	static const int CONFIG_INTERFACE = 0;
 	static const int DEBUG_INTERFACE = 1;
 
@@ -61,12 +58,12 @@ public:
 	std::vector<uint8_t> getSD_CSD();
 	std::vector<uint8_t> getSD_CID();
 
-	bool scsiSelfTest();
+	bool scsiSelfTest(int& code);
 
 	void enterBootloader();
 
-	void readFlashRow(int array, int row, std::vector<uint8_t>& out);
-	void writeFlashRow(int array, int row, const std::vector<uint8_t>& in);
+	void readSector(uint32_t sector, std::vector<uint8_t>& out);
+	void writeSector(uint32_t sector, const std::vector<uint8_t>& in);
 	bool ping();
 
 	bool readSCSIDebugInfo(std::vector<uint8_t>& buf);
@@ -74,6 +71,7 @@ public:
 private:
 	HID(hid_device_info* hidInfo);
 	void destroy();
+	void readNewDebugData();
 	void readDebugData();
 	void readHID(uint8_t* buffer, size_t len);
 	void sendHIDPacket(
@@ -84,7 +82,6 @@ private:
 
 	hid_device_info* myHidInfo;
 	hid_device* myConfigHandle;
-	hid_device* myDebugHandle;
 
 	// Read-only data from the debug interface.
 	uint16_t myFirmwareVersion;

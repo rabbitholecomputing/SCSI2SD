@@ -155,6 +155,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
             [self reset_hid];
             if (myHID)
             {
+                gotHID = YES;
                 if (myHID->getFirmwareVersion() < MIN_FIRMWARE_VERSION)
                 {
                     if (!supressLog)

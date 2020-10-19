@@ -942,7 +942,7 @@ out:
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel beginSheetForDirectory:NULL
                              file:NULL
-                            types:[NSArray arrayWithObject:@"scsi2sd"]
+                            types:[NSArray arrayWithObjects:@"scsi2sd",@"cyacd",nil]
                    modalForWindow:[self mainWindow]
                     modalDelegate:self
                    didEndSelector: @selector(upgradeFirmwareEnd:)

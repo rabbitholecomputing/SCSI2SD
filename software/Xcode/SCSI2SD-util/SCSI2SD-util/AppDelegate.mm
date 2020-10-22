@@ -95,7 +95,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 // Update progress...
 - (NSString *) percentString: (NSNumber *)prog
 {
-    NSUInteger n = [prog unsignedIntegerValue];
+    NSUInteger n = [prog unsignedIntegerValue] / 65;
+    
     NSString *t1 = (n >= 10) ? @"X" :  @"-";
     NSString *t11 = (n >= 15) ? @"X" :  @"-";
     NSString *t2 = (n >= 20) ? @"X" :  @"-";
@@ -551,8 +552,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     // Write board config first.
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        NSString *ss = [NSString stringWithFormat:
-                        @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
+        //NSString *ss = [NSString stringWithFormat:
+        //                @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
         //[self performSelectorOnMainThread: @selector(logStringToPanel:)
         //                        withObject:ss
         //                     waitUntilDone:YES];

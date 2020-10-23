@@ -58,10 +58,60 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
     printf("%s",string);
 }
 
-- (void) updateProgress: (NSNumber *)n
+// Update progress...
+- (NSString *) percentString: (NSNumber *)prog
 {
-    const char *string = [[n stringValue] cStringUsingEncoding:NSUTF8StringEncoding];
-    printf("%s",string);
+    NSUInteger n = [prog unsignedIntegerValue];
+    
+    NSString *t1 = (n >= 10) ? @"X" :  @"-";
+    NSString *t11 = (n >= 15) ? @"X" :  @"-";
+    NSString *t2 = (n >= 20) ? @"X" :  @"-";
+    NSString *t21 = (n >= 25) ? @"X" :  @"-";
+    NSString *t3 = (n >= 30) ? @"X" :  @"-";
+    NSString *t31 = (n >= 35) ? @"X" :  @"-";
+    NSString *t4 = (n >= 40) ? @"X" :  @"-";
+    NSString *t41 = (n >= 45) ? @"X" :  @"-";
+    NSString *t5 = (n >= 50) ? @"X" :  @"-";
+    NSString *t51 = (n >= 55) ? @"X" :  @"-";
+    NSString *t6 = (n >= 60) ? @"X" :  @"-";
+    NSString *t61 = (n >= 65) ? @"X" :  @"-";
+    NSString *t7 = (n >= 70) ? @"X" :  @"-";
+    NSString *t71 = (n >= 75) ? @"X" :  @"-";
+    NSString *t8 = (n >= 80) ? @"X" :  @"-";
+    NSString *t81 = (n >= 85) ? @"X" :  @"-";
+    NSString *t9 = (n >= 90) ? @"X" :  @"-";
+    NSString *t91 = (n >= 95) ? @"X" :  @"-";
+    NSString *t10 = (n >= 100) ? @"X" :  @"-";
+    NSString *percString = [NSString stringWithFormat:
+                            @"[%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@%@] %3u%%\r",
+                            t1,
+                            t11,
+                            t2,
+                            t21,
+                            t3,
+                            t31,
+                            t4,
+                            t41,
+                            t5,
+                            t51,
+                            t6,
+                            t61,
+                            t7,
+                            t71,
+                            t8,
+                            t81,
+                            t9,
+                            t91,
+                            t10,
+                            (unsigned int)n];
+    return percString;
+}
+
+- (void) updateProgress: (NSNumber *)prog
+{
+    //self.logTextView.string =
+    //    [self.logTextView.string substringToIndex: [self.logTextView.string length] - 24];
+    [self logStringToPanel: [self percentString:prog]];
 }
 
 // Reset the HID...

@@ -95,7 +95,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 // Update progress...
 - (NSString *) percentString: (NSNumber *)prog
 {
-    NSUInteger n = [prog unsignedIntegerValue] / 65;
+    NSUInteger n = [prog unsignedIntegerValue];
     
     NSString *t1 = (n >= 10) ? @"X" :  @"-";
     NSString *t11 = (n >= 15) ? @"X" :  @"-";

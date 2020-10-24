@@ -108,12 +108,6 @@ These structures should allow any device to configure the device so long as it c
 
 ## Memory map:
 
-### Location in SD card
-
-This section will describe the memory locations on the device which are used to store the information described above.   The configuration is written to the last few sectors of the SD card.
-
-The information is written at whatever the SD card's capacity is minus 2 sectors.  For a 32GB SD card, this information is written at 0x1000000000 - 0x1000000002 as the information takes up a little more than 1024 bytes.   This information is then read into the device itself and used.
-
 ### Location in memory on device
 
 The information written above on the SD card is used on the device in the following way:

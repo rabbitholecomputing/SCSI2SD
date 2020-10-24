@@ -118,6 +118,47 @@ The information is written at whatever the SD card's capacity is minus 2 sectors
 
 The information written above on the SD card is used on the device in the following way:
 
-* 
+* The base address of the Cypress FLASH is defined in the code by CYDEV_FLASH_BASE.  This is where
+the configuration data resides and where the SCSI.c code which is running on the device reads it.  The main.c file in the PSoC creator project runs through the SCSI processes in an infinite loop and pulls information from this section as needed.
+
+```
+// CYDEF_FLASH_BASE starts at 0x00000000u.
+
+// Starting from this base, the adresses are as follows:
+0x00000000u - 0x00000003u -> 'BCFG' // board configuration data
+0x00000004u - 0x00000004u -> flags - as defined in the structure BoardCfg
+0x00000005u - 0x00000005u -> 0-255 - startupDelay
+0x00000006u - 0x00000006u -> 0-255 - selectionDelay
+0x00000007u - 0x00000007u -> 0-255 - flags6, not currently used for v5.x
+0x00000008u - 0x00000008u -> 0-255 - scsiSpeed
+0x00000009u - 0x00000100u -> 0 -- filler, nulls (247 of them)
+
+// Target configuration
+0x00000101u - 0x00000101u -> scsiId - 0-4
+0x00000102u - 0x00000102u -> deviceType
+0x00000103u - 0x00000103u -> flagsDEPRECATED
+0x00000104u - 0x00000104u -> deviceTypeModifier
+0x00000105u - 0x00000108u -> sdSectorStart // 32bit integer
+0x00000109u - 0x0000010cu -> scsiSectors // 32bit integer
+0x0000010du - 0x0000010eu -> bytesPerSector // 16 bits
+0x0000010fu - 0x00000110u -> sectorsPerTrack // 16 bits
+0x00000111u - 0x00000112u -> headsPerCylinder // 16 bits
+0x00000113u - 0x0000011eu -> vendor
+0x0000011fu - 0x0000012fu -> prodId
+0x0000012fu - 0x00000133u -> revision
+0x00000133u - 0x00000134u -> serial
+0x0000013fu - 0x00000140u -> quirks   // all of the above should add up to 64 bytes
+0x00000140u - 0x00000400u -> // pad out to 1024
+0x00000401u - 0x00000800u -> modePages
+0x00000801u - 0x00001000u -> vpd
+0x00001000u - 0x00001400u -> unused
+
+// Target config repeats 3 more times beginning at 1401... etc  Each TargetConfig block is 4K long precisely.
+```
+
+The board reads this information directly from the flash memory by applying the BoardConfig and TargetConfig structures.  This information is used in both the main.c and scsi.c/h code primarily to determine the behavior of the hardware.
+
+GC
+
 
 

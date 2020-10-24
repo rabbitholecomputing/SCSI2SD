@@ -110,7 +110,7 @@ These structures should allow any device to configure the device so long as it c
 
 ### Location in memory on device
 
-The information written above on the SD card is used on the device in the following way:
+The information written above on the flash on the device is used on the device in the following way:
 
 * The base address of the Cypress FLASH is defined in the code by CYDEV_FLASH_BASE.  This is where
 the configuration data resides and where the SCSI.c code which is running on the device reads it.  The main.c file in the PSoC creator project runs through the SCSI processes in an infinite loop and pulls information from this section as needed.

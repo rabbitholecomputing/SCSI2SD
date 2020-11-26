@@ -3,7 +3,7 @@
 //  scsi2sd-util-cli
 //
 //  Created by Gregory Casamento on 1/10/20.
-//  Copyright © 2020 RabbitHole Computing, LLC. All rights reserved.
+//  Copyright © 2020 Rabbit Hole Computing, LLC. All rights reserved.
 //
 
 #import "SCSI2SDTask.hh"

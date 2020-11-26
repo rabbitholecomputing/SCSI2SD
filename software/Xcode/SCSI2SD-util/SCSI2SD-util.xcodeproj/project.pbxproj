@@ -335,7 +335,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				ORGANIZATIONNAME = "RabbitHole Computing, LLC";
+				ORGANIZATIONNAME = "Rabbit Hole Computing LLC";
 				TargetAttributes = {
 					1482B1E323973F3E001BA513 = {
 						CreatedOnToolsVersion = 11.2.1;

@@ -963,8 +963,8 @@ out:
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful"
                                  waitUntilDone:YES];
-            [self reset_hid];
-            [self reset_hid];
+            //[self reset_hid];
+            //[self reset_hid];
             [self reset_bootloader];
         }
         catch (std::exception& e)

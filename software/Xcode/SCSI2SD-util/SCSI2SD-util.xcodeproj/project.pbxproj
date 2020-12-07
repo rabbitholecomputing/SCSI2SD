@@ -500,7 +500,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -555,7 +555,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -736,7 +736,7 @@
 				1482B1F423973F42001BA513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		1482B1F523973F42001BA513 /* Build configuration list for PBXNativeTarget "SCSI2SD-util" */ = {
 			isa = XCConfigurationList;
@@ -745,7 +745,7 @@
 				1482B1F723973F42001BA513 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		14D96BD223C935330008E7B3 /* Build configuration list for PBXNativeTarget "scsi2sd-util-cli" */ = {
 			isa = XCConfigurationList;
@@ -754,7 +754,7 @@
 				14D96BD123C935330008E7B3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

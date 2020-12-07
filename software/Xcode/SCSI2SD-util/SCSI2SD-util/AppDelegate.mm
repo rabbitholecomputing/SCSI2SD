@@ -961,11 +961,15 @@ out:
         {
             myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                    withObject: @"Firmware update successful"
+                                    withObject: @"Firmware update successful\n"
                                  waitUntilDone:YES];
-            [self reset_hid];
-            [self reset_hid];
-            [self reset_bootloader];
+            
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject: [NSString stringWithFormat: @"Rows written: %d\n", totalFlashRows]
+                                 waitUntilDone:YES];
+            //[self reset_hid];
+            //[self reset_hid];
+            //[self reset_bootloader];
         }
         catch (std::exception& e)
         {
@@ -979,6 +983,11 @@ out:
                                 waitUntilDone: YES];
         }
     }
+    
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:100.0]
+                        waitUntilDone:NO];
+    
     [self performSelectorOnMainThread:@selector(startTimer)
                            withObject:NULL
                         waitUntilDone:NO];

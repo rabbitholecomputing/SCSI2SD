@@ -320,8 +320,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         else
         {
             [self logStringToPanel:@"SCSI2SD Bootloader Ready"];
-            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
-            [self logStringToLabel:msg];
+            if (myHID)
+            {
+                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+                [self logStringToLabel:msg];
+            }
         }
 
         BOOL supressLog = NO;

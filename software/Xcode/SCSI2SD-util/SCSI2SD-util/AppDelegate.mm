@@ -976,8 +976,8 @@ out:
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                    withObject: [NSString stringWithFormat:@"%s",e.what()]
                                 waitUntilDone: YES];
-            [self reset_hid];
-            [self reset_bootloader];
+            //[self reset_hid];
+            //[self reset_bootloader];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                    withObject: @"Firmware update failed!"
                                 waitUntilDone: YES];

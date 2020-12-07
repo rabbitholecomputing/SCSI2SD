@@ -878,7 +878,7 @@ out:
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                                 withObject: @"Bootloader ping failed"
                                              waitUntilDone:YES];
-                        [self reset_bootloader];
+                        // [self reset_bootloader];
                     }
                     else
                     {

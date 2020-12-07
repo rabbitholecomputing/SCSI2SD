@@ -45,7 +45,7 @@ HID::HID(hid_device_info* hidInfo) :
 		while (hidInfo && !(myConfigHandle && myDebugHandle))
 		{
 			std::stringstream msg;
-			msg << "Error opening HID device " << hidInfo->path << std::endl;
+			// msg << "Error opening HID device " << hidInfo->path << std::endl;
 
 			if ((hidInfo->interface_number == CONFIG_INTERFACE) ||
 				(hidInfo->usage_page == 0xFF00))
@@ -182,7 +182,7 @@ HID::enterBootloader()
 		{
 			const wchar_t* err = hid_error(myDebugHandle);
 			std::stringstream ss;
-			ss << "USB HID write failure: " << err;
+			// ss << "USB HID write failure: " << err;
 			throw std::runtime_error(ss.str());
 		}
 	}
@@ -412,7 +412,7 @@ HID::sendHIDPacket(
 		{
 			const wchar_t* err = hid_error(myConfigHandle);
 			std::stringstream ss;
-			ss << "USB HID write failure: " << err;
+			// ss << "USB HID write failure: " << err;
 			throw std::runtime_error(ss.str());
 		}
 		chunk = hidPacket_getHIDBytes(hidBuf);

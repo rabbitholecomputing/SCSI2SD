@@ -4,6 +4,7 @@ software/build
 *~
 *.log
 *.xcuserstate
+heron.xcuserdatad/*
 software/Xcode/SCSI2SD-util/Pods/*
 software/Xcode/SCSI2SD-util/Pods
 software/Xcode/SCSI2SD-util/Podfile.lock

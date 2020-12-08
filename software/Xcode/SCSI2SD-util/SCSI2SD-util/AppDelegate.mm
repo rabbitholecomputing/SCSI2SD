@@ -385,7 +385,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     {
                         [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(csd[i])]];
                     }
-                    msg = [NSString stringWithFormat: @"\nSD CID Register: "];
+                    [self logStringToPanel:@"\n"];
+                    
+                    msg = [NSString stringWithFormat: @"SD CID Register: "];
                     [self logStringToPanel:msg];
                     if (sdCrc7(&cid[0], 15, 0) != (cid[15] >> 1))
                     {
@@ -396,13 +398,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     {
                         [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(cid[i])]];
                     }
-
-                    //NSLog(@" %@, %s", self, sdinfo.str());
+                    [self logStringToPanel:@"\n"];
+                    
                     if(doScsiSelfTest)
                     {
                         BOOL passed = myHID->scsiSelfTest();
                         NSString *status = passed ? @"Passed" : @"FAIL";
-                        [self logStringToPanel:[NSString stringWithFormat: @"\nSCSI Self Test: %@", status]];
+                        [self logStringToPanel:[NSString stringWithFormat: @"\nSCSI Self Test: %@\n", status]];
                     }
                     
                     if (!myInitialConfig)
@@ -422,7 +424,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::runtime_error& e)
     {
-        [self logStringToPanel:[NSString stringWithFormat:@"%s", e.what()]];
+        [self logStringToPanel:[NSString stringWithFormat:@"%s\n", e.what()]];
     }
 
     [self evaluate];
@@ -866,7 +868,6 @@ out:
             {
                 NSLog(@"%s",e.what());
                 [self reset_hid];
-                [self reset_bootloader];
             }
             [NSThread sleepForTimeInterval:0.1];
         }
@@ -918,7 +919,7 @@ out:
         }
         catch (std::exception& e)
         {
-            NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s",e.what()];
+            NSString *msg = [NSString stringWithFormat:@"Could not open firmware file: %s\n",e.what()];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject:msg
                                  waitUntilDone:YES];
@@ -929,7 +930,7 @@ out:
                                withObject:[NSNumber numberWithDouble:(double)((double)prog / (double)totalFlashRows)]
                             waitUntilDone:NO];
 
-        NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@", tmpFile];
+        NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@\n", tmpFile];
         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                 withObject:msg2
                              waitUntilDone:YES];
@@ -942,19 +943,14 @@ out:
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: [NSString stringWithFormat: @"Rows written: %d\n", totalFlashRows]
                                  waitUntilDone:YES];
-            //[self reset_hid];
-            //[self reset_hid];
-            //[self reset_bootloader];
         }
         catch (std::exception& e)
         {
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                   withObject: [NSString stringWithFormat:@"%s",e.what()]
+                                   withObject: [NSString stringWithFormat:@"%s\n",e.what()]
                                 waitUntilDone: YES];
-            //[self reset_hid];
-            //[self reset_bootloader];
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                   withObject: @"Firmware update failed!"
+                                   withObject: @"Firmware update failed!\n"
                                 waitUntilDone: YES];
         }
     }

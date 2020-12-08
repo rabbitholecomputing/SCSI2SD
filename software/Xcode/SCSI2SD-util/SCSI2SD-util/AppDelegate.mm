@@ -826,21 +826,19 @@ out:
                 if (myHID)
                 {
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                            withObject: @"Resetting SCSI2SD Into Bootloader"
+                                            withObject: @"Resetting SCSI2SD Into Bootloader\n"
                                          waitUntilDone:YES];
                     myHID->enterBootloader();
                     [self reset_hid];
                 }
 
-
                 if (!myBootloader)
                 {
-//                    myBootloader = SCSI2SD::Bootloader::Open();
                     [self reset_bootloader];
                     if (myBootloader)
                     {
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                                withObject: @"Bootloader found"
+                                                withObject: @"Bootloader found\n"
                                              waitUntilDone:YES];
                         break;
                     }
@@ -851,14 +849,14 @@ out:
                     if (!myBootloader->ping())
                     {
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                                withObject: @"Bootloader ping failed"
+                                                withObject: @"Bootloader ping failed\n"
                                              waitUntilDone:YES];
                         continue;
                     }
                     else
                     {
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                                withObject: @"Bootloader found"
+                                                withObject: @"Bootloader found\n"
                                              waitUntilDone:YES];
                         break;
                     }

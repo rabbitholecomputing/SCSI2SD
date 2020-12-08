@@ -639,9 +639,6 @@ err:
     goto out;
 
 out:
-    [self performSelectorOnMainThread:@selector(updateProgress:)
-                           withObject:[NSNumber numberWithDouble: (double)100.0]
-                        waitUntilDone:NO];
     [NSThread sleepForTimeInterval:1.0];
     [self performSelectorOnMainThread:@selector(hideProgress:)
                            withObject:nil
@@ -663,15 +660,11 @@ out:
     [self performSelectorOnMainThread:@selector(stopTimer)
                            withObject:NULL
                         waitUntilDone:NO];
-    [self performSelectorOnMainThread:@selector(updateProgress:)
-                           withObject:[NSNumber numberWithDouble:0.0]
-                        waitUntilDone:NO];
-    [self performSelectorOnMainThread:@selector(showProgress:)
-                           withObject:nil
-                        waitUntilDone:NO];
+    
     if (!myHID) // goto out;
     {
         [self reset_hid];
+        if (!myHID) return;
     }
     
     if(!myHID)
@@ -682,14 +675,20 @@ out:
         [self startTimer];
         return;
     }
-
+    
+    
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                            withObject:@"\nLoading configuration\n"
                         waitUntilDone:YES];
     
-    [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                           withObject:@"\nLoad config settings\n"
-                        waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(updateProgress:)
+                           withObject:[NSNumber numberWithDouble:0.0]
+                        waitUntilDone:NO];
+    
+    [self performSelectorOnMainThread:@selector(showProgress:)
+                           withObject:nil
+                        waitUntilDone:NO];
+
 
     int currentProgress = 0;
     int totalProgress = (int)([deviceControllers count] * (NSUInteger)SCSI_CONFIG_ROWS + (NSUInteger)1);
@@ -698,12 +697,7 @@ out:
     std::vector<uint8_t> boardCfgFlashData;
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        // NSString *ss = [NSString stringWithFormat:
-        //                @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-        //[self performSelectorOnMainThread: @selector(logStringToPanel:)
-        //                        withObject:ss
-        //                     waitUntilDone:YES];
-        currentProgress += 1;
+        currentProgress += 2;
         try
         {
             myHID->readFlashRow(
@@ -712,7 +706,7 @@ out:
             NSData *configBytes = [[NSData alloc] initWithBytes: &bConfig length:sizeof(BoardConfig)];
             [_settings performSelectorOnMainThread:@selector(setConfigData:)
                                         withObject:configBytes
-                                     waitUntilDone:YES]; //  setConfig: ];
+                                     waitUntilDone:YES];
         }
         catch (std::runtime_error& e)
         {
@@ -738,15 +732,9 @@ out:
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            //NSString *ss = [NSString stringWithFormat:
-            //                @"\nReading flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-            //[self performSelectorOnMainThread: @selector(logStringToPanel:)
-            //                        withObject:ss
-            //                     waitUntilDone:YES];
-            currentProgress += 1;
-            
+            double perc = ((double)currentProgress/(double)totalProgress) * 100.0;
             [self performSelectorOnMainThread:@selector(updateProgress:)
-                                   withObject:[NSNumber numberWithDouble:(double)currentProgress]
+                                   withObject:[NSNumber numberWithDouble: perc]
                                 waitUntilDone:NO];
             
             if (currentProgress == totalProgress)
@@ -756,15 +744,12 @@ out:
                                      waitUntilDone:YES];
             }
             
-
-
-            
             std::vector<uint8_t> flashData;
             try
             {
                 myHID->readFlashRow(
                     SCSI_CONFIG_ARRAY, flashRow + j, flashData);
-
+                currentProgress += 1;
             }
             catch (std::runtime_error& e)
             {
@@ -805,9 +790,6 @@ err:
     goto out;
 
 out:
-    [self performSelectorOnMainThread:@selector(updateProgress:)
-                           withObject:[NSNumber numberWithDouble:(double)100.0]
-                        waitUntilDone:NO];
     [NSThread sleepForTimeInterval:1.0];
     [self performSelectorOnMainThread:@selector(hideProgress:)
                            withObject:nil

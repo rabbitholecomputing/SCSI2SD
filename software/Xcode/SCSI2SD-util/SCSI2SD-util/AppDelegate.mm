@@ -872,12 +872,19 @@ out:
         }
 
         int totalFlashRows = 0;
-        NSString *tmpFile = nil;
+        NSString *tmpFile = [NSTemporaryDirectory()
+                             stringByAppendingPathComponent:
+                             [NSString stringWithFormat:
+                              @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
+                              [[NSDate date] timeIntervalSince1970]]];
+        std::string name = std::string([tmpFile cStringUsingEncoding:NSASCIIStringEncoding]);
+        
         try
         {
             zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSUTF8StringEncoding]));
             zipper::Decompressor decomp(reader);
             std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
+                        
             for (auto it(files.begin()); it != files.end(); it++)
             {
                 if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
@@ -888,11 +895,7 @@ out:
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                             withObject: ss
                                          waitUntilDone:YES];
-                    tmpFile = [NSTemporaryDirectory()
-                               stringByAppendingPathComponent:
-                               [NSString stringWithFormat:
-                                @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
-                                [[NSDate date] timeIntervalSince1970]]];
+                    
                     zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
                     (*it)->decompress(out);
                     NSString *msg = [NSString stringWithFormat:
@@ -906,14 +909,13 @@ out:
 
             if ([tmpFile isEqualToString:@""])
             {
-                // TODO allow "force" option
                 [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                         withObject: @"\nWrong filename\n"
                                      waitUntilDone:YES];
                 return;
             }
 
-            SCSI2SD::Firmware firmware([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
+            SCSI2SD::Firmware firmware(name);
             totalFlashRows = firmware.totalFlashRows();
         }
         catch (std::exception& e)
@@ -935,7 +937,7 @@ out:
                              waitUntilDone:YES];
         try
         {
-            myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
+            myBootloader->load(name, NULL);
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful\n"
                                  waitUntilDone:YES];            

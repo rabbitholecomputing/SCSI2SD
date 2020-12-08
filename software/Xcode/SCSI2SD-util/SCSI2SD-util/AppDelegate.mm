@@ -872,7 +872,7 @@ out:
         }
 
         int totalFlashRows = 0;
-        NSString *tmpFile = [NSTemporaryDirectory()
+        NSString *tmpFile = [NSHomeDirectory()
                              stringByAppendingPathComponent:
                              [NSString stringWithFormat:
                               @"\nSCSI2SD_Firmware-%f.scsi2sd\n",

@@ -965,8 +965,7 @@ out:
             myBootloader->load([tmpFile cStringUsingEncoding:NSUTF8StringEncoding], NULL);
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful\n"
-                                 waitUntilDone:YES];
-            
+                                 waitUntilDone:YES];            
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: [NSString stringWithFormat: @"Rows written: %d\n", totalFlashRows]
                                  waitUntilDone:YES];

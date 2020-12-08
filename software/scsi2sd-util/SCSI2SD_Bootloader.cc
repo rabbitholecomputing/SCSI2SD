@@ -117,7 +117,7 @@ Bootloader::Bootloader(hid_device_info* hidInfo) :
 	if (!myBootloaderHandle)
 	{
 		std::stringstream msg;
-		msg << "Error opening HID device " << hidInfo->path << std::endl;
+		// msg << "Error opening HID device " << hidInfo->path << std::endl;
 
 		hid_free_enumeration(myHidInfo);
 		myHidInfo = NULL;

@@ -538,31 +538,29 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                            withObject:NULL
                         waitUntilDone:NO];
 
+    if (!myHID) return;
+
+    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                            withObject: @"Saving configuration\n\n"
+                         waitUntilDone:YES];
+    
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:0.0]
                         waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(showProgress:)
                            withObject:nil
                         waitUntilDone:NO];
-    if (!myHID) return;
-
-    [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                            withObject: @"Saving configuration\n\n"
-                         waitUntilDone:YES];
+    
     int currentProgress = 0;
     int totalProgress = (int)[deviceControllers count] * SCSI_CONFIG_ROWS + 1;
 
     // Write board config first.
     int flashRow = SCSI_CONFIG_BOARD_ROW;
     {
-        //NSString *ss = [NSString stringWithFormat:
-        //                @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-        //[self performSelectorOnMainThread: @selector(logStringToPanel:)
-        //                        withObject:ss
-        //                     waitUntilDone:YES];
-        currentProgress += 1;
+        NSLog(@"currentProgress = %d", currentProgress);
+        double perc = ((double)currentProgress/(double)totalProgress) * 100.0;
         [self performSelectorOnMainThread:@selector(updateProgress:)
-                               withObject:[NSNumber numberWithDouble: (double)totalProgress]
+                               withObject:[NSNumber numberWithDouble: perc]
                             waitUntilDone:NO];
 
         std::vector<uint8_t> flashData =
@@ -571,10 +569,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             myHID->writeFlashRow(
                 SCSI_CONFIG_ARRAY, flashRow, flashData);
+            currentProgress += 1;
         }
         catch (std::runtime_error& e)
         {
-             NSLog(@"%s",e.what());
+            NSLog(@"%s",e.what());
             goto err;
         }
     }
@@ -593,22 +592,17 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
         for (size_t j = 0; j < SCSI_CONFIG_ROWS; ++j)
         {
-            // NSString *ss = [NSString stringWithFormat:
-            //                 @"Programming flash array %d row %d", SCSI_CONFIG_ARRAY, flashRow + 1];
-            //[self performSelectorOnMainThread: @selector(logStringToPanel:)
-            //                        withObject:ss
-            //                     waitUntilDone:YES];
-
             currentProgress += 1;
+            double perc = ((double)currentProgress/(double)totalProgress) * 100.0;
+            [self performSelectorOnMainThread:@selector(updateProgress:)
+                                   withObject:[NSNumber numberWithDouble: perc]
+                                waitUntilDone:NO];
             if (currentProgress == totalProgress)
             {
                 [self performSelectorOnMainThread:@selector(logStringToPanel:)
                                        withObject:@"\n\nSave complete"
                                     waitUntilDone:YES];
             }
-            [self performSelectorOnMainThread:@selector(updateProgress:)
-                                   withObject:[NSNumber numberWithDouble: (double)totalProgress]
-                                waitUntilDone:NO];
 
             std::vector<uint8_t> flashData(SCSI_CONFIG_ROW_SIZE, 0);
             std::copy(
@@ -633,7 +627,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
 
     [self reset_hid];
-        //myHID = SCSI2SD::HID::Open();
     goto out;
 
 err:

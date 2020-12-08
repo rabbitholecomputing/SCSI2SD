@@ -825,13 +825,13 @@ out:
                 {
                     [self reset_hid];
                 }
+                
                 if (myHID)
                 {
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                             withObject: @"Resetting SCSI2SD Into Bootloader\n"
                                          waitUntilDone:YES];
                     myHID->enterBootloader();
-                    [self reset_hid];
                 }
 
                 if (!myBootloader)
@@ -847,7 +847,6 @@ out:
                 }
                 else if (myBootloader)
                 {
-                    // Verify the USB HID connection is valid
                     if (!myBootloader->ping())
                     {
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
@@ -869,7 +868,7 @@ out:
                 NSLog(@"%s",e.what());
                 [self reset_hid];
             }
-            [NSThread sleepForTimeInterval:0.1];
+            [NSThread sleepForTimeInterval:0.25];
         }
 
         int totalFlashRows = 0;

@@ -852,7 +852,6 @@ out:
                         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                                 withObject: @"Bootloader ping failed\n"
                                              waitUntilDone:YES];
-                        continue;
                     }
                     else
                     {
@@ -881,11 +880,11 @@ out:
         
         try
         {
-            zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSUTF8StringEncoding]));
+            zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSASCIIStringEncoding]));
             zipper::Decompressor decomp(reader);
             std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
                         
-            for (auto it(files.begin()); it != files.end(); it++)
+            for (auto it(files.begin());it != files.end(); it++)
             {
                 if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
                 {
@@ -896,7 +895,7 @@ out:
                                             withObject: ss
                                          waitUntilDone:YES];
                     
-                    zipper::FileWriter out([tmpFile cStringUsingEncoding:NSUTF8StringEncoding]);
+                    zipper::FileWriter out(name);
                     (*it)->decompress(out);
                     NSString *msg = [NSString stringWithFormat:
                                      @"\nFirmware extracted to %@\n",tmpFile];

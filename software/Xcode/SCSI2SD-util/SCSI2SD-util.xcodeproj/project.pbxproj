@@ -19,6 +19,8 @@
 		1482B1F123973F42001BA513 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1F023973F42001BA513 /* main.m */; };
 		1482B20F239748DB001BA513 /* DeviceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B203239748DB001BA513 /* DeviceController.mm */; };
 		1482B210239748DB001BA513 /* SettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.mm */; };
+		14AF9E152582877D00EDB1FD /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */; };
+		14AF9E162582877D00EDB1FD /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */; };
 		14D96BCF23C935330008E7B3 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14D96BCE23C935330008E7B3 /* main.mm */; };
 		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */; };
@@ -32,7 +34,6 @@
 		14F2F96B23CA23F000169DD2 /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14F2F96C23CA23F700169DD2 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */; };
 		14F2F96D23CA23FA00169DD2 /* ConfigObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 146A539123BBEB800000A06B /* ConfigObject.mm */; };
-		90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,7 +49,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
 		142274FF23B4E0E800A7C0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_HID.cc; path = "../../../../scsi2sd-util/SCSI2SD_HID.cc"; sourceTree = "<group>"; };
 		14418B4423AAC6EB00C8EB09 /* hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hid.c; path = "../../../../scsi2sd-util/hidapi-mac/hid.c"; sourceTree = "<group>"; };
@@ -80,6 +80,8 @@
 		1482B1FA239748DB001BA513 /* DeviceController.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DeviceController.hh; sourceTree = "<group>"; };
 		1482B203239748DB001BA513 /* DeviceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DeviceController.mm; sourceTree = "<group>"; };
 		1482B204239748DB001BA513 /* SettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsController.mm; sourceTree = "<group>"; };
+		14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
+		14AF9E142582877D00EDB1FD /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
 		14D96BCC23C935320008E7B3 /* scsi2sd-util-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scsi2sd-util-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D96BCE23C935330008E7B3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		14DEC5E6239F456800ECD04A /* Functions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Functions.mm; sourceTree = "<group>"; };
@@ -91,10 +93,7 @@
 		14F2F96323C94A4400169DD2 /* SCSI2SDTask.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SDTask.hh; sourceTree = "<group>"; };
 		14F2F96423C94A4400169DD2 /* SCSI2SDTask.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSI2SDTask.mm; sourceTree = "<group>"; };
 		14F2F96E23CA2E8B00169DD2 /* scsi2sd-util-cli.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "scsi2sd-util-cli.entitlements"; sourceTree = "<group>"; };
-		80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.debug.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.debug.xcconfig"; sourceTree = "<group>"; };
 		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
-		FD4F7093A175B9A00AB5ACC0 /* Pods-SCSI2SD-util.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SCSI2SD-util.release.xcconfig"; path = "Pods/Target Support Files/Pods-SCSI2SD-util/Pods-SCSI2SD-util.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +102,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */,
-				90082EA9FB1632F308E8DE80 /* libPods-SCSI2SD-util.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +205,6 @@
 				1482B1E623973F3E001BA513 /* SCSI2SD-util */,
 				14D96BCD23C935330008E7B3 /* scsi2sd-util-cli */,
 				1482B1E523973F3E001BA513 /* Products */,
-				31BC21F99112F28CA817EF9E /* Pods */,
 				1474BFE223996564003C67D5 /* libs */,
 				CA52CD68CFE882DFB0712F77 /* Frameworks */,
 			);
@@ -265,21 +262,12 @@
 		14DEC5EC23A4C67A00ECD04A /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				14AF9E142582877D00EDB1FD /* MF_Base64Additions.h */,
+				14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */,
 				14DEC5ED23A4C76000ECD04A /* NSString+Extensions.h */,
 				14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		31BC21F99112F28CA817EF9E /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */,
-				C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */,
-				03245E2E41A614094EACB579 /* Pods-SCSI2SD-util.debug.xcconfig */,
-				FD4F7093A175B9A00AB5ACC0 /* Pods-SCSI2SD-util.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		CA52CD68CFE882DFB0712F77 /* Frameworks */ = {
@@ -297,7 +285,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1482B1F523973F42001BA513 /* Build configuration list for PBXNativeTarget "SCSI2SD-util" */;
 			buildPhases = (
-				11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */,
 				1482B1E023973F3E001BA513 /* Sources */,
 				1482B1E123973F3E001BA513 /* Frameworks */,
 				1482B1E223973F3E001BA513 /* Resources */,
@@ -375,27 +362,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		11ADFF7BE99FBC0F56B13A1B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SCSI2SD-util-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		1482B1E023973F3E001BA513 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -406,6 +372,7 @@
 				14418B4323AAC07900C8EB09 /* SCSI2SD_HID.cc in Sources */,
 				146A538E23BBACAF0000A06B /* SCSI2SD_Bootloader.cc in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.mm in Sources */,
+				14AF9E152582877D00EDB1FD /* MF_Base64Additions.m in Sources */,
 				14418B4523AAC6EB00C8EB09 /* hid.c in Sources */,
 				146A539223BBEB800000A06B /* ConfigObject.mm in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
@@ -428,6 +395,7 @@
 				14F2F96523C94A4400169DD2 /* SCSI2SDTask.mm in Sources */,
 				14F2F96D23CA23FA00169DD2 /* ConfigObject.mm in Sources */,
 				14F2F96B23CA23F000169DD2 /* Functions.mm in Sources */,
+				14AF9E162582877D00EDB1FD /* MF_Base64Additions.m in Sources */,
 				14F2F96A23CA23EC00169DD2 /* ConfigUtil.mm in Sources */,
 				14D96BCF23C935330008E7B3 /* main.mm in Sources */,
 			);
@@ -564,7 +532,6 @@
 		};
 		1482B1F623973F42001BA513 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 80B2DBC239F277A6AFA807C1 /* Pods-SCSI2SD-util.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
@@ -609,7 +576,6 @@
 		};
 		1482B1F723973F42001BA513 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C34401CBF433454F6C107C26 /* Pods-SCSI2SD-util.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";

@@ -871,10 +871,10 @@ out:
         }
 
         int totalFlashRows = 0;
-        NSString *tmpFile = [NSHomeDirectory()
+        NSString *tmpFile = [NSTemporaryDirectory()
                              stringByAppendingPathComponent:
                              [NSString stringWithFormat:
-                              @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
+                              @"SCSI2SD_Firmware-%f.scsi2sd",
                               [[NSDate date] timeIntervalSince1970]]];
         std::string name = std::string([tmpFile cStringUsingEncoding:NSASCIIStringEncoding]);
         

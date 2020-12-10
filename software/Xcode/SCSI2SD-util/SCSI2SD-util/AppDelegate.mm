@@ -14,6 +14,7 @@
 #include <string>
 #include "zipper.hh"
 #include <signal.h>
+#include "DataWriter.h"
 
 // #include "z.h"
 // #include "ConfigUtil.hh"
@@ -246,11 +247,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
-    /*
-    [deviceControllers addObject: _device5];
-    [deviceControllers addObject: _device6];
-    [deviceControllers addObject: _device7];
-     */
     
     [self.tabView selectTabViewItemAtIndex:0];
     [self.progress setMinValue: 0.0];
@@ -871,50 +867,57 @@ out:
         }
 
         int totalFlashRows = 0;
-        NSString *tmpFile = [NSHomeDirectory()
-                             stringByAppendingPathComponent:
-                             [NSString stringWithFormat:
-                              @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
-                              [[NSDate date] timeIntervalSince1970]]];
-        std::string name = std::string([tmpFile cStringUsingEncoding:NSASCIIStringEncoding]);
-        
+        NSData *data = nil;
+        //NSString *tmpFile = [NSHomeDirectory()
+        //                     stringByAppendingPathComponent:
+        //                     [NSString stringWithFormat:
+        //                      @"\nSCSI2SD_Firmware-%f.scsi2sd\n",
+        //                      [[NSDate date] timeIntervalSince1970]]];
+        //std::string name = std::string([tmpFile cStringUsingEncoding:NSASCIIStringEncoding]);
         try
         {
             zipper::ReaderPtr reader(new zipper::FileReader([filename cStringUsingEncoding:NSASCIIStringEncoding]));
             zipper::Decompressor decomp(reader);
             std::vector<zipper::CompressedFilePtr> files(decomp.getEntries());
                         
+            NSString *ss = [NSString stringWithFormat:@"Number of entries in compressed file: %lu", files.size()];
+            [self performSelectorOnMainThread: @selector(logStringToPanel:)
+                                    withObject: ss
+                                 waitUntilDone:YES];
             for (auto it(files.begin());it != files.end(); it++)
             {
-                if (myBootloader && myBootloader->isCorrectFirmware((*it)->getPath()))
+                if (myBootloader) //  && myBootloader->isCorrectFirmware((*it)->getPath()))
                 {
+                    //NSString *ss = [NSString stringWithFormat:
+                    //                @"\nFound firmware entry %s within archive %@\n",
+                    //                (*it)->getPath().c_str(), filename];
                     NSString *ss = [NSString stringWithFormat:
-                                    @"\nFound firmware entry %s within archive %@\n",
-                                    (*it)->getPath().c_str(), filename];
+                                    @"\nFound firmware entry within archive %@\n", filename];
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                             withObject: ss
                                          waitUntilDone:YES];
                     
-                    zipper::FileWriter out(name);
+                    DataWriter out;
                     (*it)->decompress(out);
                     NSString *msg = [NSString stringWithFormat:
-                                     @"\nFirmware extracted to %@\n",tmpFile];
+                                     @"\nFirmware extracted.\n"];
                     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                             withObject: msg
                                          waitUntilDone:YES];
+                    data = out.getData();
                     break;
                 }
             }
 
-            if ([tmpFile isEqualToString:@""])
-            {
-                [self performSelectorOnMainThread: @selector(logStringToPanel:)
-                                        withObject: @"\nWrong filename\n"
-                                     waitUntilDone:YES];
-                return;
-            }
+            //if ([tmpFile isEqualToString:@""])
+            //{
+            //    [self performSelectorOnMainThread: @selector(logStringToPanel:)
+            //                            withObject: @"\nWrong filename\n"
+            //                         waitUntilDone:YES];
+            //    return;
+            //}
 
-            SCSI2SD::Firmware firmware(name);
+            // SCSI2SD::Firmware firmware(name);
             totalFlashRows = firmware.totalFlashRows();
         }
         catch (std::exception& e)
@@ -930,13 +933,14 @@ out:
                                withObject:[NSNumber numberWithDouble:(double)((double)prog / (double)totalFlashRows)]
                             waitUntilDone:NO];
 
-        NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@\n", tmpFile];
+        NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware \n"];
         [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                 withObject:msg2
                              waitUntilDone:YES];
         try
         {
-            myBootloader->load(name, NULL);
+            myBootloader->load(data, NULL)
+            // myBootloader->load(name, NULL);
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful\n"
                                  waitUntilDone:YES];            
@@ -1241,17 +1245,6 @@ out:
         self.saveMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
         self.openMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
     }
-/*
-    mySaveButton->Enable(
-        valid &&
-        myHID &&
-        (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION));
-
-    myLoadButton->Enable(
-        myHID &&
-        (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION));
- */
-    
 }
 #pragma GCC diagnostic pop
 

@@ -540,10 +540,6 @@ out:
     goto out;
 
 err:
-    /*
-    [self performSelectorOnMainThread:@selector(updateProgress:)
-                           withObject:[NSNumber numberWithDouble: (double)100.0]
-                        waitUntilDone:NO];*/
     [self performSelectorOnMainThread: @selector(logStringToPanel:)
                             withObject:@"\nSave Failed\n"
                          waitUntilDone:YES];
@@ -703,10 +699,6 @@ out:
     
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:100.0]
-                        waitUntilDone:NO];
-    
-    [self performSelectorOnMainThread:@selector(startTimer)
-                           withObject:NULL
                         waitUntilDone:NO];
 
 }

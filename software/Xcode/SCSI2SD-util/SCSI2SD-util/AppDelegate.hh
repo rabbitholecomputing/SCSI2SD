@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 #include "SCSI2SD_Bootloader.hh"
+#include "DataBootloader.h"
 #include "SCSI2SD_HID.hh"
 #include "Firmware.hh"
 #include "scsi2sd.h"
@@ -17,7 +18,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate, NSComboBoxDataSource>
 {
     std::shared_ptr<SCSI2SD::HID> myHID;
-    std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
+    std::shared_ptr<DataBootloader> myBootloader;
     
     bool myInitialConfig;
     //std::vector<TargetConfig *> myTargets;

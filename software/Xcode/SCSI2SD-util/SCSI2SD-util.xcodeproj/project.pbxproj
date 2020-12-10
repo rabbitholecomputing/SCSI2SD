@@ -649,7 +649,6 @@
 					"-framework",
 					"\"CoreFoundation\"",
 					"-l\"scsi2sd-util\"",
-					"-l\"Base64\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -686,7 +685,6 @@
 					"-framework",
 					"\"CoreFoundation\"",
 					"-l\"scsi2sd-util\"",
-					"-l\"Base64\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

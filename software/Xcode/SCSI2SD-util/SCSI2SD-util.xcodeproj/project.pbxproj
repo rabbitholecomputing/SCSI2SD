@@ -7,12 +7,77 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		143F217C2582A6E500393107 /* hidpacket.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F217B2582A6E500393107 /* hidpacket.c */; };
+		143F217D2582A6E500393107 /* hidpacket.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F217B2582A6E500393107 /* hidpacket.c */; };
+		143F21862582A88300393107 /* cybtldr_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21822582A88200393107 /* cybtldr_parse.c */; };
+		143F21872582A88300393107 /* cybtldr_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21822582A88200393107 /* cybtldr_parse.c */; };
+		143F21882582A88300393107 /* cybtldr_api2.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21832582A88300393107 /* cybtldr_api2.c */; };
+		143F21892582A88300393107 /* cybtldr_api2.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21832582A88300393107 /* cybtldr_api2.c */; };
+		143F218A2582A88300393107 /* cybtldr_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21842582A88300393107 /* cybtldr_api.c */; };
+		143F218B2582A88300393107 /* cybtldr_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21842582A88300393107 /* cybtldr_api.c */; };
+		143F218C2582A88300393107 /* cybtldr_command.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21852582A88300393107 /* cybtldr_command.c */; };
+		143F218D2582A88300393107 /* cybtldr_command.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21852582A88300393107 /* cybtldr_command.c */; };
+		143F21A82582AA6500393107 /* gzip.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21942582AA6000393107 /* gzip.cc */; };
+		143F21A92582AA6500393107 /* gzip.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21942582AA6000393107 /* gzip.cc */; };
+		143F21AA2582AA6500393107 /* Decompressor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21952582AA6000393107 /* Decompressor.cc */; };
+		143F21AB2582AA6500393107 /* Decompressor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21952582AA6000393107 /* Decompressor.cc */; };
+		143F21AC2582AA6500393107 /* CompressedFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21962582AA6000393107 /* CompressedFile.cc */; };
+		143F21AD2582AA6500393107 /* CompressedFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21962582AA6000393107 /* CompressedFile.cc */; };
+		143F21AE2582AA6500393107 /* Compressor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21982582AA6100393107 /* Compressor.cc */; };
+		143F21AF2582AA6500393107 /* Compressor.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21982582AA6100393107 /* Compressor.cc */; };
+		143F21B02582AA6500393107 /* Reader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21992582AA6100393107 /* Reader.cc */; };
+		143F21B12582AA6500393107 /* Reader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21992582AA6100393107 /* Reader.cc */; };
+		143F21B22582AA6500393107 /* deflate.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219A2582AA6100393107 /* deflate.cc */; };
+		143F21B32582AA6500393107 /* deflate.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219A2582AA6100393107 /* deflate.cc */; };
+		143F21B42582AA6500393107 /* Exception.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219B2582AA6200393107 /* Exception.cc */; };
+		143F21B52582AA6500393107 /* Exception.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219B2582AA6200393107 /* Exception.cc */; };
+		143F21B62582AA6500393107 /* Container.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219C2582AA6200393107 /* Container.cc */; };
+		143F21B72582AA6500393107 /* Container.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219C2582AA6200393107 /* Container.cc */; };
+		143F21B82582AA6500393107 /* FileWriter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219D2582AA6200393107 /* FileWriter.cc */; };
+		143F21B92582AA6500393107 /* FileWriter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F219D2582AA6200393107 /* FileWriter.cc */; };
+		143F21BA2582AA6500393107 /* FileReader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A12582AA6300393107 /* FileReader.cc */; };
+		143F21BB2582AA6500393107 /* FileReader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A12582AA6300393107 /* FileReader.cc */; };
+		143F21BC2582AA6500393107 /* zip.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A22582AA6300393107 /* zip.cc */; };
+		143F21BD2582AA6500393107 /* zip.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A22582AA6300393107 /* zip.cc */; };
+		143F21BE2582AA6500393107 /* Writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A52582AA6400393107 /* Writer.cc */; };
+		143F21BF2582AA6500393107 /* Writer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F21A52582AA6400393107 /* Writer.cc */; };
+		143F21E12582B0CD00393107 /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21C72582B0C600393107 /* gzread.c */; };
+		143F21E22582B0CD00393107 /* gzread.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21C72582B0C600393107 /* gzread.c */; };
+		143F21E32582B0CD00393107 /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21C92582B0C700393107 /* inffast.c */; };
+		143F21E42582B0CD00393107 /* inffast.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21C92582B0C700393107 /* inffast.c */; };
+		143F21E52582B0CD00393107 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CA2582B0C700393107 /* inflate.c */; };
+		143F21E62582B0CD00393107 /* inflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CA2582B0C700393107 /* inflate.c */; };
+		143F21E72582B0CD00393107 /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CB2582B0C700393107 /* gzwrite.c */; };
+		143F21E82582B0CD00393107 /* gzwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CB2582B0C700393107 /* gzwrite.c */; };
+		143F21E92582B0CD00393107 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CD2582B0C800393107 /* crc32.c */; };
+		143F21EA2582B0CD00393107 /* crc32.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CD2582B0C800393107 /* crc32.c */; };
+		143F21EB2582B0CD00393107 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CE2582B0C800393107 /* zutil.c */; };
+		143F21EC2582B0CD00393107 /* zutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CE2582B0C800393107 /* zutil.c */; };
+		143F21ED2582B0CD00393107 /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CF2582B0C900393107 /* trees.c */; };
+		143F21EE2582B0CD00393107 /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21CF2582B0C900393107 /* trees.c */; };
+		143F21EF2582B0CD00393107 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D52582B0CA00393107 /* adler32.c */; };
+		143F21F02582B0CD00393107 /* adler32.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D52582B0CA00393107 /* adler32.c */; };
+		143F21F12582B0CD00393107 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D62582B0CA00393107 /* compress.c */; };
+		143F21F22582B0CD00393107 /* compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D62582B0CA00393107 /* compress.c */; };
+		143F21F32582B0CD00393107 /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D72582B0CB00393107 /* infback.c */; };
+		143F21F42582B0CD00393107 /* infback.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D72582B0CB00393107 /* infback.c */; };
+		143F21F52582B0CD00393107 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D92582B0CB00393107 /* uncompr.c */; };
+		143F21F62582B0CD00393107 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21D92582B0CB00393107 /* uncompr.c */; };
+		143F21F72582B0CD00393107 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DC2582B0CC00393107 /* inftrees.c */; };
+		143F21F82582B0CD00393107 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DC2582B0CC00393107 /* inftrees.c */; };
+		143F21F92582B0CD00393107 /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DD2582B0CC00393107 /* gzclose.c */; };
+		143F21FA2582B0CD00393107 /* gzclose.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DD2582B0CC00393107 /* gzclose.c */; };
+		143F21FB2582B0CD00393107 /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DE2582B0CC00393107 /* deflate.c */; };
+		143F21FC2582B0CD00393107 /* deflate.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21DE2582B0CC00393107 /* deflate.c */; };
+		143F21FD2582B0CD00393107 /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21E02582B0CD00393107 /* gzlib.c */; };
+		143F21FE2582B0CD00393107 /* gzlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 143F21E02582B0CD00393107 /* gzlib.c */; };
+		143F22082582B24900393107 /* strerror_posix.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F22072582B24900393107 /* strerror_posix.cc */; };
+		143F22092582B24900393107 /* strerror_posix.cc in Sources */ = {isa = PBXBuildFile; fileRef = 143F22072582B24900393107 /* strerror_posix.cc */; };
 		14418B4323AAC07900C8EB09 /* SCSI2SD_HID.cc in Sources */ = {isa = PBXBuildFile; fileRef = 14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */; };
 		14418B4523AAC6EB00C8EB09 /* hid.c in Sources */ = {isa = PBXBuildFile; fileRef = 14418B4423AAC6EB00C8EB09 /* hid.c */; };
 		146A538C23BBAC730000A06B /* Firmware.cc in Sources */ = {isa = PBXBuildFile; fileRef = 146A538B23BBAC730000A06B /* Firmware.cc */; };
 		146A538E23BBACAF0000A06B /* SCSI2SD_Bootloader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 146A538D23BBACAF0000A06B /* SCSI2SD_Bootloader.cc */; };
 		146A539223BBEB800000A06B /* ConfigObject.mm in Sources */ = {isa = PBXBuildFile; fileRef = 146A539123BBEB800000A06B /* ConfigObject.mm */; };
-		1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1474C0972399677F003C67D5 /* libscsi2sd-util.a */; };
 		1482B1E923973F3E001BA513 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B1E823973F3E001BA513 /* AppDelegate.mm */; };
 		1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EA23973F42001BA513 /* Assets.xcassets */; };
 		1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1482B1EC23973F42001BA513 /* MainMenu.xib */; };
@@ -50,6 +115,58 @@
 
 /* Begin PBXFileReference section */
 		142274FF23B4E0E800A7C0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		143F217B2582A6E500393107 /* hidpacket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hidpacket.c; sourceTree = "<group>"; };
+		143F21822582A88200393107 /* cybtldr_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_parse.c; sourceTree = "<group>"; };
+		143F21832582A88300393107 /* cybtldr_api2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_api2.c; sourceTree = "<group>"; };
+		143F21842582A88300393107 /* cybtldr_api.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_api.c; sourceTree = "<group>"; };
+		143F21852582A88300393107 /* cybtldr_command.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_command.c; sourceTree = "<group>"; };
+		143F21932582AA5F00393107 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		143F21942582AA6000393107 /* gzip.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gzip.cc; sourceTree = "<group>"; };
+		143F21952582AA6000393107 /* Decompressor.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Decompressor.cc; sourceTree = "<group>"; };
+		143F21962582AA6000393107 /* CompressedFile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CompressedFile.cc; sourceTree = "<group>"; };
+		143F21972582AA6000393107 /* gzip.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gzip.hh; sourceTree = "<group>"; };
+		143F21982582AA6100393107 /* Compressor.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Compressor.cc; sourceTree = "<group>"; };
+		143F21992582AA6100393107 /* Reader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Reader.cc; sourceTree = "<group>"; };
+		143F219A2582AA6100393107 /* deflate.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deflate.cc; sourceTree = "<group>"; };
+		143F219B2582AA6200393107 /* Exception.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Exception.cc; sourceTree = "<group>"; };
+		143F219C2582AA6200393107 /* Container.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Container.cc; sourceTree = "<group>"; };
+		143F219D2582AA6200393107 /* FileWriter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileWriter.cc; sourceTree = "<group>"; };
+		143F219E2582AA6200393107 /* split.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = split.hh; sourceTree = "<group>"; };
+		143F219F2582AA6300393107 /* strerror.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = strerror.hh; sourceTree = "<group>"; };
+		143F21A02582AA6300393107 /* util.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = util.hh; sourceTree = "<group>"; };
+		143F21A12582AA6300393107 /* FileReader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileReader.cc; sourceTree = "<group>"; };
+		143F21A22582AA6300393107 /* zip.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = zip.cc; sourceTree = "<group>"; };
+		143F21A32582AA6400393107 /* deflate.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = deflate.hh; sourceTree = "<group>"; };
+		143F21A42582AA6400393107 /* zip.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zip.hh; sourceTree = "<group>"; };
+		143F21A52582AA6400393107 /* Writer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Writer.cc; sourceTree = "<group>"; };
+		143F21A72582AA6500393107 /* zipper.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = zipper.hh; sourceTree = "<group>"; };
+		143F21C72582B0C600393107 /* gzread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzread.c; sourceTree = "<group>"; };
+		143F21C82582B0C700393107 /* inffast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffast.h; sourceTree = "<group>"; };
+		143F21C92582B0C700393107 /* inffast.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inffast.c; sourceTree = "<group>"; };
+		143F21CA2582B0C700393107 /* inflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inflate.c; sourceTree = "<group>"; };
+		143F21CB2582B0C700393107 /* gzwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzwrite.c; sourceTree = "<group>"; };
+		143F21CC2582B0C800393107 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
+		143F21CD2582B0C800393107 /* crc32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc32.c; sourceTree = "<group>"; };
+		143F21CE2582B0C800393107 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zutil.c; sourceTree = "<group>"; };
+		143F21CF2582B0C900393107 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
+		143F21D02582B0C900393107 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crc32.h; sourceTree = "<group>"; };
+		143F21D12582B0C900393107 /* deflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deflate.h; sourceTree = "<group>"; };
+		143F21D22582B0C900393107 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
+		143F21D32582B0CA00393107 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zconf.h; sourceTree = "<group>"; };
+		143F21D42582B0CA00393107 /* gzguts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gzguts.h; sourceTree = "<group>"; };
+		143F21D52582B0CA00393107 /* adler32.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = adler32.c; sourceTree = "<group>"; };
+		143F21D62582B0CA00393107 /* compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compress.c; sourceTree = "<group>"; };
+		143F21D72582B0CB00393107 /* infback.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = infback.c; sourceTree = "<group>"; };
+		143F21D82582B0CB00393107 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
+		143F21D92582B0CB00393107 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
+		143F21DA2582B0CB00393107 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
+		143F21DB2582B0CC00393107 /* inffixed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inffixed.h; sourceTree = "<group>"; };
+		143F21DC2582B0CC00393107 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inftrees.c; sourceTree = "<group>"; };
+		143F21DD2582B0CC00393107 /* gzclose.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzclose.c; sourceTree = "<group>"; };
+		143F21DE2582B0CC00393107 /* deflate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = deflate.c; sourceTree = "<group>"; };
+		143F21DF2582B0CD00393107 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
+		143F21E02582B0CD00393107 /* gzlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gzlib.c; sourceTree = "<group>"; };
+		143F22072582B24900393107 /* strerror_posix.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = strerror_posix.cc; sourceTree = "<group>"; };
 		14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_HID.cc; path = "../../../../scsi2sd-util/SCSI2SD_HID.cc"; sourceTree = "<group>"; };
 		14418B4423AAC6EB00C8EB09 /* hid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hid.c; path = "../../../../scsi2sd-util/hidapi-mac/hid.c"; sourceTree = "<group>"; };
 		14418B4623AAC77000C8EB09 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hidpacket.h; path = ../../../../include/hidpacket.h; sourceTree = "<group>"; };
@@ -58,7 +175,6 @@
 		146A538D23BBACAF0000A06B /* SCSI2SD_Bootloader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SCSI2SD_Bootloader.cc; path = "../../../../scsi2sd-util/SCSI2SD_Bootloader.cc"; sourceTree = "<group>"; };
 		146A539023BBEB800000A06B /* ConfigObject.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ConfigObject.hh; sourceTree = "<group>"; };
 		146A539123BBEB800000A06B /* ConfigObject.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ConfigObject.mm; sourceTree = "<group>"; };
-		1474BFE52399677E003C67D5 /* hidpacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hidpacket.h; sourceTree = "<group>"; };
 		1474BFE62399677E003C67D5 /* scsi2sd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scsi2sd.h; sourceTree = "<group>"; };
 		1474BFEB2399677E003C67D5 /* cybtldr_api.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api.h; sourceTree = "<group>"; };
 		1474BFEC2399677E003C67D5 /* cybtldr_api2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_api2.h; sourceTree = "<group>"; };
@@ -66,7 +182,6 @@
 		1474BFEE2399677E003C67D5 /* cybtldr_command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_command.h; sourceTree = "<group>"; };
 		1474BFEF2399677E003C67D5 /* cybtldr_utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cybtldr_utils.h; sourceTree = "<group>"; };
 		1474BFFB2399677E003C67D5 /* Firmware.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Firmware.hh; sourceTree = "<group>"; };
-		1474C0972399677F003C67D5 /* libscsi2sd-util.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libscsi2sd-util.a"; sourceTree = "<group>"; };
 		1474C0F623996A15003C67D5 /* SCSI2SD_HID.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_HID.hh; sourceTree = "<group>"; };
 		1474C0F723996A15003C67D5 /* SCSI2SD_Bootloader.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SD_Bootloader.hh; sourceTree = "<group>"; };
 		1482B1E423973F3E001BA513 /* SCSI2SD-util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SCSI2SD-util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +208,6 @@
 		14F2F96323C94A4400169DD2 /* SCSI2SDTask.hh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SCSI2SDTask.hh; sourceTree = "<group>"; };
 		14F2F96423C94A4400169DD2 /* SCSI2SDTask.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SCSI2SDTask.mm; sourceTree = "<group>"; };
 		14F2F96E23CA2E8B00169DD2 /* scsi2sd-util-cli.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "scsi2sd-util-cli.entitlements"; sourceTree = "<group>"; };
-		8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SCSI2SD-util.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +215,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1474C0F42399677F003C67D5 /* libscsi2sd-util.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +228,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		143F21922582A99D00393107 /* Zipper */ = {
+			isa = PBXGroup;
+			children = (
+				143F22072582B24900393107 /* strerror_posix.cc */,
+				143F21962582AA6000393107 /* CompressedFile.cc */,
+				143F21982582AA6100393107 /* Compressor.cc */,
+				143F21932582AA5F00393107 /* config.h */,
+				143F219C2582AA6200393107 /* Container.cc */,
+				143F21952582AA6000393107 /* Decompressor.cc */,
+				143F219A2582AA6100393107 /* deflate.cc */,
+				143F21A32582AA6400393107 /* deflate.hh */,
+				143F219B2582AA6200393107 /* Exception.cc */,
+				143F21A12582AA6300393107 /* FileReader.cc */,
+				143F219D2582AA6200393107 /* FileWriter.cc */,
+				143F21942582AA6000393107 /* gzip.cc */,
+				143F21972582AA6000393107 /* gzip.hh */,
+				143F21992582AA6100393107 /* Reader.cc */,
+				143F219E2582AA6200393107 /* split.hh */,
+				143F219F2582AA6300393107 /* strerror.hh */,
+				143F21A02582AA6300393107 /* util.hh */,
+				143F21A52582AA6400393107 /* Writer.cc */,
+				143F21A22582AA6300393107 /* zip.cc */,
+				143F21A42582AA6400393107 /* zip.hh */,
+				143F21A72582AA6500393107 /* zipper.hh */,
+			);
+			path = Zipper;
+			sourceTree = "<group>";
+		};
+		143F21C62582B0AF00393107 /* z */ = {
+			isa = PBXGroup;
+			children = (
+				143F21D52582B0CA00393107 /* adler32.c */,
+				143F21D62582B0CA00393107 /* compress.c */,
+				143F21CD2582B0C800393107 /* crc32.c */,
+				143F21D02582B0C900393107 /* crc32.h */,
+				143F21DE2582B0CC00393107 /* deflate.c */,
+				143F21D12582B0C900393107 /* deflate.h */,
+				143F21DD2582B0CC00393107 /* gzclose.c */,
+				143F21D42582B0CA00393107 /* gzguts.h */,
+				143F21E02582B0CD00393107 /* gzlib.c */,
+				143F21C72582B0C600393107 /* gzread.c */,
+				143F21CB2582B0C700393107 /* gzwrite.c */,
+				143F21D72582B0CB00393107 /* infback.c */,
+				143F21C92582B0C700393107 /* inffast.c */,
+				143F21C82582B0C700393107 /* inffast.h */,
+				143F21DB2582B0CC00393107 /* inffixed.h */,
+				143F21CA2582B0C700393107 /* inflate.c */,
+				143F21D82582B0CB00393107 /* inflate.h */,
+				143F21DC2582B0CC00393107 /* inftrees.c */,
+				143F21DA2582B0CB00393107 /* inftrees.h */,
+				143F21CF2582B0C900393107 /* trees.c */,
+				143F21DF2582B0CD00393107 /* trees.h */,
+				143F21D92582B0CB00393107 /* uncompr.c */,
+				143F21D32582B0CA00393107 /* zconf.h */,
+				143F21CC2582B0C800393107 /* zlib.h */,
+				143F21CE2582B0C800393107 /* zutil.c */,
+				143F21D22582B0C900393107 /* zutil.h */,
+			);
+			path = z;
+			sourceTree = "<group>";
+		};
 		146A538F23BBEB5B0000A06B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +302,6 @@
 			isa = PBXGroup;
 			children = (
 				1474BFE32399677E003C67D5 /* include */,
-				1474C0952399677F003C67D5 /* lib */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -145,7 +318,6 @@
 		1474BFE42399677E003C67D5 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				1474BFE52399677E003C67D5 /* hidpacket.h */,
 				1474BFE62399677E003C67D5 /* scsi2sd.h */,
 			);
 			path = include;
@@ -165,6 +337,10 @@
 		1474BFEA2399677E003C67D5 /* cybootloaderutils */ = {
 			isa = PBXGroup;
 			children = (
+				143F21842582A88300393107 /* cybtldr_api.c */,
+				143F21832582A88300393107 /* cybtldr_api2.c */,
+				143F21852582A88300393107 /* cybtldr_command.c */,
+				143F21822582A88200393107 /* cybtldr_parse.c */,
 				1474BFEB2399677E003C67D5 /* cybtldr_api.h */,
 				1474BFEC2399677E003C67D5 /* cybtldr_api2.h */,
 				1474BFED2399677E003C67D5 /* cybtldr_parse.h */,
@@ -174,22 +350,15 @@
 			path = cybootloaderutils;
 			sourceTree = "<group>";
 		};
-		1474C0952399677F003C67D5 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				1474C0972399677F003C67D5 /* libscsi2sd-util.a */,
-			);
-			path = lib;
-			sourceTree = "<group>";
-		};
 		1474C0FB23998F0D003C67D5 /* CPPModules */ = {
 			isa = PBXGroup;
 			children = (
 				146A538D23BBACAF0000A06B /* SCSI2SD_Bootloader.cc */,
 				14418B4223AAC07900C8EB09 /* SCSI2SD_HID.cc */,
 				146A538B23BBAC730000A06B /* Firmware.cc */,
-				14418B4723AAC7DC00C8EB09 /* hidapi.h */,
 				14418B4623AAC77000C8EB09 /* hidpacket.h */,
+				143F217B2582A6E500393107 /* hidpacket.c */,
+				14418B4723AAC7DC00C8EB09 /* hidapi.h */,
 				14418B4423AAC6EB00C8EB09 /* hid.c */,
 				14DEC5E923A2F06C00ECD04A /* ConfigUtil.hh */,
 				14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */,
@@ -206,7 +375,6 @@
 				14D96BCD23C935330008E7B3 /* scsi2sd-util-cli */,
 				1482B1E523973F3E001BA513 /* Products */,
 				1474BFE223996564003C67D5 /* libs */,
-				CA52CD68CFE882DFB0712F77 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,6 +390,8 @@
 		1482B1E623973F3E001BA513 /* SCSI2SD-util */ = {
 			isa = PBXGroup;
 			children = (
+				143F21C62582B0AF00393107 /* z */,
+				143F21922582A99D00393107 /* Zipper */,
 				146A538F23BBEB5B0000A06B /* Classes */,
 				14DEC5EC23A4C67A00ECD04A /* Categories */,
 				1474C0FB23998F0D003C67D5 /* CPPModules */,
@@ -268,14 +438,6 @@
 				14DEC5EE23A4C76000ECD04A /* NSString+Extensions.m */,
 			);
 			path = Categories;
-			sourceTree = "<group>";
-		};
-		CA52CD68CFE882DFB0712F77 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				8FD2DB69DC44A8AE547D783C /* libPods-SCSI2SD-util.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,19 +529,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				143F21B42582AA6500393107 /* Exception.cc in Sources */,
 				146A538C23BBAC730000A06B /* Firmware.cc in Sources */,
+				143F217C2582A6E500393107 /* hidpacket.c in Sources */,
+				143F21B62582AA6500393107 /* Container.cc in Sources */,
 				14DEC5EF23A4C76000ECD04A /* NSString+Extensions.m in Sources */,
+				143F21F92582B0CD00393107 /* gzclose.c in Sources */,
+				143F21A82582AA6500393107 /* gzip.cc in Sources */,
+				143F21B82582AA6500393107 /* FileWriter.cc in Sources */,
 				14418B4323AAC07900C8EB09 /* SCSI2SD_HID.cc in Sources */,
+				143F21BE2582AA6500393107 /* Writer.cc in Sources */,
+				143F21E72582B0CD00393107 /* gzwrite.c in Sources */,
+				143F21AA2582AA6500393107 /* Decompressor.cc in Sources */,
+				143F21B02582AA6500393107 /* Reader.cc in Sources */,
+				143F21AE2582AA6500393107 /* Compressor.cc in Sources */,
+				143F21FD2582B0CD00393107 /* gzlib.c in Sources */,
+				143F21BC2582AA6500393107 /* zip.cc in Sources */,
 				146A538E23BBACAF0000A06B /* SCSI2SD_Bootloader.cc in Sources */,
 				1482B20F239748DB001BA513 /* DeviceController.mm in Sources */,
 				14AF9E152582877D00EDB1FD /* MF_Base64Additions.m in Sources */,
+				143F21EF2582B0CD00393107 /* adler32.c in Sources */,
+				143F21ED2582B0CD00393107 /* trees.c in Sources */,
+				143F21B22582AA6500393107 /* deflate.cc in Sources */,
 				14418B4523AAC6EB00C8EB09 /* hid.c in Sources */,
+				143F21BA2582AA6500393107 /* FileReader.cc in Sources */,
 				146A539223BBEB800000A06B /* ConfigObject.mm in Sources */,
+				143F21E92582B0CD00393107 /* crc32.c in Sources */,
+				143F21FB2582B0CD00393107 /* deflate.c in Sources */,
+				143F21F52582B0CD00393107 /* uncompr.c in Sources */,
+				143F22082582B24900393107 /* strerror_posix.cc in Sources */,
+				143F21E32582B0CD00393107 /* inffast.c in Sources */,
 				1482B1F123973F42001BA513 /* main.m in Sources */,
 				14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */,
+				143F21E12582B0CD00393107 /* gzread.c in Sources */,
+				143F21EB2582B0CD00393107 /* zutil.c in Sources */,
+				143F21F32582B0CD00393107 /* infback.c in Sources */,
 				14DEC5E8239F456800ECD04A /* Functions.mm in Sources */,
+				143F218C2582A88300393107 /* cybtldr_command.c in Sources */,
+				143F21E52582B0CD00393107 /* inflate.c in Sources */,
+				143F218A2582A88300393107 /* cybtldr_api.c in Sources */,
+				143F21AC2582AA6500393107 /* CompressedFile.cc in Sources */,
+				143F21F72582B0CD00393107 /* inftrees.c in Sources */,
 				1482B210239748DB001BA513 /* SettingsController.mm in Sources */,
 				1482B1E923973F3E001BA513 /* AppDelegate.mm in Sources */,
+				143F21882582A88300393107 /* cybtldr_api2.c in Sources */,
+				143F21862582A88300393107 /* cybtldr_parse.c in Sources */,
+				143F21F12582B0CD00393107 /* compress.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,15 +584,48 @@
 			files = (
 				14F2F96823CA23E300169DD2 /* Firmware.cc in Sources */,
 				14F2F96623CA23D200169DD2 /* SCSI2SD_Bootloader.cc in Sources */,
+				143F21E42582B0CD00393107 /* inffast.c in Sources */,
+				143F21E22582B0CD00393107 /* gzread.c in Sources */,
+				143F21BB2582AA6500393107 /* FileReader.cc in Sources */,
 				14F2F96723CA23D600169DD2 /* SCSI2SD_HID.cc in Sources */,
 				14F2F96C23CA23F700169DD2 /* NSString+Extensions.m in Sources */,
+				143F218D2582A88300393107 /* cybtldr_command.c in Sources */,
+				143F21BF2582AA6500393107 /* Writer.cc in Sources */,
+				143F21EC2582B0CD00393107 /* zutil.c in Sources */,
+				143F21E82582B0CD00393107 /* gzwrite.c in Sources */,
+				143F21872582A88300393107 /* cybtldr_parse.c in Sources */,
 				14F2F96923CA23E800169DD2 /* hid.c in Sources */,
+				143F21892582A88300393107 /* cybtldr_api2.c in Sources */,
+				143F21B12582AA6500393107 /* Reader.cc in Sources */,
+				143F21EE2582B0CD00393107 /* trees.c in Sources */,
+				143F21A92582AA6500393107 /* gzip.cc in Sources */,
+				143F21FC2582B0CD00393107 /* deflate.c in Sources */,
 				14F2F96523C94A4400169DD2 /* SCSI2SDTask.mm in Sources */,
+				143F21B52582AA6500393107 /* Exception.cc in Sources */,
+				143F21AF2582AA6500393107 /* Compressor.cc in Sources */,
 				14F2F96D23CA23FA00169DD2 /* ConfigObject.mm in Sources */,
+				143F218B2582A88300393107 /* cybtldr_api.c in Sources */,
+				143F22092582B24900393107 /* strerror_posix.cc in Sources */,
+				143F21F62582B0CD00393107 /* uncompr.c in Sources */,
 				14F2F96B23CA23F000169DD2 /* Functions.mm in Sources */,
 				14AF9E162582877D00EDB1FD /* MF_Base64Additions.m in Sources */,
+				143F217D2582A6E500393107 /* hidpacket.c in Sources */,
+				143F21F22582B0CD00393107 /* compress.c in Sources */,
+				143F21FA2582B0CD00393107 /* gzclose.c in Sources */,
+				143F21F42582B0CD00393107 /* infback.c in Sources */,
 				14F2F96A23CA23EC00169DD2 /* ConfigUtil.mm in Sources */,
+				143F21BD2582AA6500393107 /* zip.cc in Sources */,
+				143F21B72582AA6500393107 /* Container.cc in Sources */,
+				143F21B92582AA6500393107 /* FileWriter.cc in Sources */,
+				143F21AD2582AA6500393107 /* CompressedFile.cc in Sources */,
 				14D96BCF23C935330008E7B3 /* main.mm in Sources */,
+				143F21F02582B0CD00393107 /* adler32.c in Sources */,
+				143F21E62582B0CD00393107 /* inflate.c in Sources */,
+				143F21EA2582B0CD00393107 /* crc32.c in Sources */,
+				143F21FE2582B0CD00393107 /* gzlib.c in Sources */,
+				143F21AB2582AA6500393107 /* Decompressor.cc in Sources */,
+				143F21B32582AA6500393107 /* deflate.cc in Sources */,
+				143F21F82582B0CD00393107 /* inftrees.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,9 +770,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
-					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
 					"\"${PROJECT_DIR}/libs/include/libz\"",
 					"\"${PROJECT_DIR}/libs/include/zipper\"",
 				);
@@ -561,13 +786,10 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"z\"",
 					"-framework",
 					"\"CoreFoundation\"",
 					"-framework",
 					"\"IOKit\"",
-					"-l\"scsi2sd-util\"",
-					"-l\"zipper\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -586,9 +808,6 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_ROOT}/Headers/Public\"",
-					"\"${PODS_ROOT}/Headers/Public/hidapi\"",
-					"\"${PROJECT_DIR}/libs/include/scsi2sd-util\"",
 					"\"${PROJECT_DIR}/libs/include/libz\"",
 					"\"${PROJECT_DIR}/libs/include/zipper\"",
 				);
@@ -605,13 +824,10 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-l\"z\"",
 					"-framework",
 					"\"CoreFoundation\"",
 					"-framework",
 					"\"IOKit\"",
-					"-l\"scsi2sd-util\"",
-					"-l\"zipper\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -648,7 +864,6 @@
 					"\"IOKit\"",
 					"-framework",
 					"\"CoreFoundation\"",
-					"-l\"scsi2sd-util\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -684,7 +899,6 @@
 					"\"IOKit\"",
 					"-framework",
 					"\"CoreFoundation\"",
-					"-l\"scsi2sd-util\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

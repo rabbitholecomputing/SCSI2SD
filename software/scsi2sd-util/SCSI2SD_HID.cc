@@ -182,7 +182,7 @@ HID::enterBootloader()
 		{
 			const wchar_t* err = hid_error(myDebugHandle);
 			std::stringstream ss;
-			// ss << "USB HID write failure: " << err;
+            ss << "USB HID write failure: " << err;
 			throw std::runtime_error(ss.str());
 		}
 	}
@@ -412,7 +412,7 @@ HID::sendHIDPacket(
 		{
 			const wchar_t* err = hid_error(myConfigHandle);
 			std::stringstream ss;
-			// ss << "USB HID write failure: " << err;
+			ss << "USB HID write failure: " << err;
 			throw std::runtime_error(ss.str());
 		}
 		chunk = hidPacket_getHIDBytes(hidBuf);

@@ -767,7 +767,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20201211;
+				CURRENT_PROJECT_VERSION = 2020121102;
 				DEVELOPMENT_TEAM = Q6H75D8GN6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -794,7 +794,7 @@
 					"-framework",
 					"\"IOKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-V5-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -807,7 +807,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 20201211;
+				CURRENT_PROJECT_VERSION = 2020121102;
 				DEVELOPMENT_TEAM = Q6H75D8GN6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
@@ -834,7 +834,7 @@
 					"-framework",
 					"\"IOKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-V5-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

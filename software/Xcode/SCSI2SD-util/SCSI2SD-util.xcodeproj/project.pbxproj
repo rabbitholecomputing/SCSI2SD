@@ -696,7 +696,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -751,7 +751,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IBC_NOTICES = NO;
 				IBC_WARNINGS = NO;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -783,6 +783,7 @@
 					"$(PROJECT_DIR)/libs/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -821,6 +822,7 @@
 					"$(PROJECT_DIR)/libs/lib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MARKETING_VERSION = 5.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -838,9 +840,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X34KG7M8TP;
+				DEVELOPMENT_TEAM = Q6H75D8GN6;
 				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -850,6 +852,7 @@
 					"${PROJECT_DIR}/libs/include/libz",
 					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/SCSI2SD-util/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${BUILD_DIR}/Debug/Base64",
@@ -865,6 +868,7 @@
 					"-framework",
 					"\"CoreFoundation\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -873,9 +877,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = X34KG7M8TP;
+				DEVELOPMENT_TEAM = Q6H75D8GN6;
 				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -885,6 +889,7 @@
 					"${PROJECT_DIR}/libs/include/libz",
 					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 				);
+				INFOPLIST_FILE = "$(SRCROOT)/SCSI2SD-util/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"${BUILD_DIR}Release/Base64",
@@ -900,6 +905,7 @@
 					"-framework",
 					"\"CoreFoundation\"",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

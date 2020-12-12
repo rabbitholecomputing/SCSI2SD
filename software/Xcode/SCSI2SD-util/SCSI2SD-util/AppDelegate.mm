@@ -50,8 +50,8 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 
 
 BOOL RangesIntersect(NSRange range1, NSRange range2) {
-    if(range1.location > range2.location + range2.length) return NO;
-    if(range2.location > range1.location + range1.length) return NO;
+    if(range1.location > range2.location + range2.length - 1) return NO;
+    if(range2.location > range1.location + range1.length - 1) return NO;
     return YES;
 }
 
@@ -1176,7 +1176,7 @@ out:
             DeviceController *dev = [deviceControllers objectAtIndex:j];
             NSRange sectorRange = [dev getSDSectorRange];
             NSUInteger len = sectorRange.length;
-            NSUInteger secStart = len + 1;
+            NSUInteger secStart = len; // Since we are zero based, this should work.
             DeviceController *devToUpdate = [deviceControllers objectAtIndex:index];
             [devToUpdate setAutoStartSectorValue:secStart];
         }

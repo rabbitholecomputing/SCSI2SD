@@ -59,6 +59,8 @@
     // Initial values
     self.autoErrorText.stringValue = @"";
     self.scsiIdErrorText.stringValue = @"";
+    
+    self.sdCardStartSector.formatter = nil;
 }
 
 - (void) setTargetConfig: (TargetConfig)config
@@ -160,6 +162,6 @@
 
 - (void) setAutoStartSectorValue: (NSUInteger)sector
 {
-    self.sdCardStartSector.integerValue = (NSInteger)sector;
+    self.sdCardStartSector.stringValue = [NSString stringWithFormat: @"%d", (unsigned int)sector];
 }
 @end

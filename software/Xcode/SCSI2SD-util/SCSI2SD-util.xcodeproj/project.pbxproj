@@ -114,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0BD4CB1725857166003FAA19 /* SCSI2SD-utilRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SCSI2SD-utilRelease.entitlements"; sourceTree = "<group>"; };
 		142274FF23B4E0E800A7C0E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		143F217B2582A6E500393107 /* hidpacket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hidpacket.c; sourceTree = "<group>"; };
 		143F21822582A88200393107 /* cybtldr_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cybtldr_parse.c; sourceTree = "<group>"; };
@@ -390,6 +391,7 @@
 		1482B1E623973F3E001BA513 /* SCSI2SD-util */ = {
 			isa = PBXGroup;
 			children = (
+				0BD4CB1725857166003FAA19 /* SCSI2SD-utilRelease.entitlements */,
 				143F21C62582B0AF00393107 /* z */,
 				143F21922582A99D00393107 /* Zipper */,
 				146A538F23BBEB5B0000A06B /* Classes */,
@@ -803,7 +805,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD_util.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SCSI2SD-util/SCSI2SD-utilRelease.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

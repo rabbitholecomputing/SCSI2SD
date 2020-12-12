@@ -484,14 +484,10 @@ static uint64_t parseInt(NSXMLNode* node, uint64_t limit)
 static TargetConfig
 parseTarget(NSXMLElement* node)
 {
-	int id;
-	{
-		std::stringstream s;
-        s << [node attributeForName:@"id"]; //    node->GetAttribute("id", "7");
-		s >> id;
-		if (!s) throw std::runtime_error("Could not parse SCSITarget id attr");
-	}
-	TargetConfig result = ConfigUtil::Default(id & 0x7);
+	int i = 0;
+    NSXMLNode *n = [node attributeForName: @"id"];
+    i = [[n stringValue] intValue];
+    TargetConfig result = ConfigUtil::Default(i & 0x7);
 
 	NSArray *children = [node children];
     NSEnumerator *en = [children objectEnumerator];

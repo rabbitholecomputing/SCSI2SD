@@ -283,7 +283,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     if (menuItem == self.writeMenu ||
         menuItem == self.readMenu ||
-        menuItem == self.upgradeFirmware ||
+        // menuItem == self.upgradeFirmware ||
         menuItem == self.scsiLogData ||
         menuItem == self.scsiSelfTest)
     {

@@ -83,6 +83,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 @property (nonatomic) IBOutlet NSMenuItem *writeMenu;
 @property (nonatomic) IBOutlet NSMenuItem *scsiSelfTest;
 @property (nonatomic) IBOutlet NSMenuItem *scsiLogData;
+@property (nonatomic) IBOutlet NSMenuItem *upgradeFirmware;
 
 @property (nonatomic) IBOutlet SettingsController *settings;
 
@@ -283,6 +284,15 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [self logStringToPanel: @"\n"];
 }
 
+- (BOOL) validateMenuItem:(NSMenuItem *)menuItem
+{
+    if (menuItem == self.writeMenu || menuItem == self.readMenu || menuItem == self.upgradeFirmware)
+    {
+        return myHID != nil;
+    }
+    return YES;
+}
+
 // Periodically check to see if Device is present...
 - (void) doTimer
 {
@@ -294,6 +304,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     if (now == myLastPollTime) return;
     myLastPollTime = now;
 
+    // update menu items...
+    self.writeMenu.enabled = NO;
+    self.readMenu.enabled = NO;
+    self.upgradeFirmware.enabled = NO;
+    
     // Check if we are connected to the HID device.
     // AND/or bootloader device.
     try
@@ -410,7 +425,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     if (!myInitialConfig)
                     {
                     }
-
+                    
+                    // update menu items...
+                    self.writeMenu.enabled = YES;
+                    self.readMenu.enabled = YES;
+                    self.upgradeFirmware.enabled = YES;
                 }
             }
             else

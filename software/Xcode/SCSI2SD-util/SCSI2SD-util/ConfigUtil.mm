@@ -127,7 +127,6 @@ ConfigUtil::DefaultBoardConfig()
 
 	memcpy(config.magic, "BCFG", 4);
 
-
 	// Default to maximum fail-safe options.
 	config.flags = 0;
 	config.flags6 = S2S_CFG_ENABLE_TERMINATOR;

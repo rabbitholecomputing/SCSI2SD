@@ -63,7 +63,7 @@
     self.enableParity.state = (config.flags & CONFIG_ENABLE_PARITY) ? NSOnState : NSOffState;
     self.enableUnitAttention.state = (config.flags & CONFIG_ENABLE_UNIT_ATTENTION) ? NSOnState : NSOffState;
     self.enableSCSI2Mode.state = (config.flags & CONFIG_ENABLE_SCSI2) ? NSOnState : NSOffState;
-    self.enableSCSITerminator.state = (config.flags & S2S_CFG_ENABLE_TERMINATOR) ? NSOnState : NSOffState;
+    self.enableSCSITerminator.state = (config.flags6 & S2S_CFG_ENABLE_TERMINATOR) ? NSOnState : NSOffState;
     self.enableGlitch.state = (config.flags & CONFIG_DISABLE_GLITCH) ? NSOnState : NSOffState;
     self.enableCache.state = (config.flags & CONFIG_ENABLE_CACHE) ? NSOnState : NSOffState;
     self.enableDisconnect.state = (config.flags & CONFIG_ENABLE_DISCONNECT) ? NSOnState : NSOffState;
@@ -86,9 +86,7 @@
 - (BoardConfig) getConfig
 {
     BoardConfig config;
-    // NSLog(@"getConfig");
     config.flags |= self.enableSCSITerminator.intValue;
-
     config.flags =
         (self.enableParity.state == NSOnState ? CONFIG_ENABLE_PARITY : 0) |
         (self.enableUnitAttention.state == NSOnState ? CONFIG_ENABLE_UNIT_ATTENTION : 0) |

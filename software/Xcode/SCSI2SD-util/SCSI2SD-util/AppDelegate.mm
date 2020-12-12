@@ -247,11 +247,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
-    /*
-    [deviceControllers addObject: _device5];
-    [deviceControllers addObject: _device6];
-    [deviceControllers addObject: _device7];
-     */
     
     [self.tabView selectTabViewItemAtIndex:0];
     [self.progress setMinValue: 0.0];
@@ -286,9 +281,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
 - (BOOL) validateMenuItem:(NSMenuItem *)menuItem
 {
-    if (menuItem == self.writeMenu || menuItem == self.readMenu || menuItem == self.upgradeFirmware)
+    if (menuItem == self.writeMenu ||
+        menuItem == self.readMenu ||
+        menuItem == self.upgradeFirmware ||
+        menuItem == self.scsiLogData ||
+        menuItem == self.scsiSelfTest)
     {
-        return myHID != nil;
+        return (myHID != nil); // [self evaluate];
     }
     return YES;
 }
@@ -1184,7 +1183,7 @@ out:
     }
 }
 
-- (void) evaluate
+- (BOOL) evaluate
 {
     BOOL valid = YES;
 
@@ -1260,17 +1259,8 @@ out:
         self.saveMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
         self.openMenu.enabled = valid && (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION);
     }
-/*
-    mySaveButton->Enable(
-        valid &&
-        myHID &&
-        (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION));
-
-    myLoadButton->Enable(
-        myHID &&
-        (myHID->getFirmwareVersion() >= MIN_FIRMWARE_VERSION));
- */
     
+    return valid;
 }
 #pragma GCC diagnostic pop
 

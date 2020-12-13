@@ -839,6 +839,19 @@ out:
     [NSThread detachNewThreadSelector:@selector(loadFromDeviceThread:) toTarget:self withObject:self];
 }
 
+- (void) fakeFirmwareProgress
+{
+    NSInteger i = 0;
+    for(i = 0; i <= 100; i++)
+    {
+        [self performSelectorOnMainThread:@selector(updateProgress:)
+                               withObject:[NSNumber numberWithInteger:i]
+                            waitUntilDone:YES];
+        // [self updateProgress:[NSNumber numberWithInteger:i]];
+        [NSThread sleepForTimeInterval:0.02];
+    }
+}
+
 - (void) upgradeFirmwareThread: (NSString *)filename
 {
     [self performSelectorOnMainThread:@selector(stopTimer)
@@ -957,8 +970,9 @@ out:
             return;
         }
 
+        [self performSelectorOnMainThread:@selector(showProgress:) withObject:nil waitUntilDone:YES];
         [self performSelectorOnMainThread:@selector(updateProgress:)
-                               withObject:[NSNumber numberWithDouble:(double)((double)prog / (double)totalFlashRows)]
+                               withObject:[NSNumber numberWithDouble:0] // (double)((double)prog / (double)totalFlashRows)]
                             waitUntilDone:NO];
 
         NSString *msg2 = [NSString stringWithFormat:@"Upgrading firmware from file: %@\n", tmpFile];
@@ -967,7 +981,9 @@ out:
                              waitUntilDone:YES];
         try
         {
+            [self fakeFirmwareProgress];
             myBootloader->load(name, NULL);
+
             [self performSelectorOnMainThread: @selector(logStringToPanel:)
                                     withObject: @"Firmware update successful\n"
                                  waitUntilDone:YES];            
@@ -989,7 +1005,8 @@ out:
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:100.0]
                         waitUntilDone:NO];
-    
+    [self performSelectorOnMainThread:@selector(hideProgress:) withObject:nil waitUntilDone:YES];
+
     [self performSelectorOnMainThread:@selector(startTimer)
                            withObject:NULL
                         waitUntilDone:NO];

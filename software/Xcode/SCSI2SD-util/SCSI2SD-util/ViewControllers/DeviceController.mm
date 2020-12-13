@@ -66,7 +66,9 @@
 
 - (void) setTargetConfig: (TargetConfig)config
 {
-    uint32_t deviceSize = (((config.scsiSectors * config.bytesPerSector) / (1024 * 1024)) + 1) / 1024;
+    NSInteger sectors = (NSInteger)(config.scsiSectors);
+    NSInteger bytesPerSector = (NSInteger)(config.bytesPerSector);
+    NSInteger deviceSize = (NSInteger)((sectors * bytesPerSector) / (1024 * 1024 * 1024));
     
     self.enableSCSITarget.state = (config.scsiId & 0x80) ? NSOnState : NSOffState;
     [self.SCSIID setStringValue:
@@ -76,7 +78,7 @@
     [self.sdCardStartSector setStringValue:[NSString stringWithFormat:@"%d", config.sdSectorStart]];
     [self.sectorSize setStringValue: [NSString stringWithFormat: @"%d", config.bytesPerSector]];
     [self.sectorCount setStringValue: [NSString stringWithFormat: @"%d", config.scsiSectors]];
-    [self.deviceSize setStringValue: [NSString stringWithFormat: @"%d", deviceSize]];
+    [self.deviceSize setStringValue: [NSString stringWithFormat: @"%lld", (long long)deviceSize]];
 
     // Sectors per track...
     [self.vendor setStringValue: [NSString stringWithCString:config.vendor length:8]];

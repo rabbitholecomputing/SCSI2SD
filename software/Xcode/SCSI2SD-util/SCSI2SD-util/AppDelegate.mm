@@ -292,9 +292,65 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     return YES;
 }
 
+- (void) connectionTests
+{
+    NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
+    [self logStringToLabel:msg];
+    [self logStringToPanel:[NSString stringWithFormat: @"%@: %@", [NSDate date], msg]];
+    
+    std::vector<uint8_t> csd(myHID->getSD_CSD());
+    std::vector<uint8_t> cid(myHID->getSD_CID());
+    msg = [NSString stringWithFormat: @"\nSD Capacity (512-byte sectors): %d",
+        myHID->getSDCapacity()];
+    [self logStringToPanel:msg];
+
+    msg = [NSString stringWithFormat: @"\nSD CSD Register: "];
+    [self logStringToPanel:msg];
+    if (sdCrc7(&csd[0], 15, 0) != (csd[15] >> 1))
+    {
+        msg = [NSString stringWithFormat: @"\nBADCRC"];
+        [self logStringToPanel:msg];
+    }
+    for (size_t i = 0; i < csd.size(); ++i)
+    {
+        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(csd[i])]];
+    }
+    [self logStringToPanel:@"\n"];
+    
+    msg = [NSString stringWithFormat: @"SD CID Register: "];
+    [self logStringToPanel:msg];
+    if (sdCrc7(&cid[0], 15, 0) != (cid[15] >> 1))
+    {
+        msg = [NSString stringWithFormat: @"BADCRC"];
+        [self logStringToPanel:msg];
+    }
+    for (size_t i = 0; i < cid.size(); ++i)
+    {
+        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(cid[i])]];
+    }
+    [self logStringToPanel:@"\n"];
+    
+    if(doScsiSelfTest)
+    {
+        BOOL passed = myHID->scsiSelfTest();
+        NSString *status = passed ? @"Passed" : @"FAIL";
+        [self logStringToPanel:[NSString stringWithFormat: @"\nSCSI Self Test: %@\n", status]];
+    }
+    
+    if (!myInitialConfig)
+    {
+    }
+    
+    // update menu items...
+    self.writeMenu.enabled = YES;
+    self.readMenu.enabled = YES;
+    self.upgradeFirmware.enabled = YES;
+}
+
 // Periodically check to see if Device is present...
 - (void) doTimer
 {
+    static BOOL checked = NO;
     if(shouldLogScsiData == YES)
     {
         [self logScsiData];
@@ -358,8 +414,14 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             if(myHID)
             {
-                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
-                [self logStringToLabel:msg];
+                //NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version //%s",myHID->getFirmwareVersionStr().c_str()];
+                //[self logStringToLabel:msg];
+                if (checked == NO)
+                {
+                    checked = YES;
+                    [self connectionTests];
+                }
+                // [self logStringToPanel:[NSString stringWithFormat: @"%@: %@", [NSDate date], msg]];
             }
         }
 
@@ -379,56 +441,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 }
                 else
                 {
-                    NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
-                    [self logStringToLabel:msg];
-
-                    std::vector<uint8_t> csd(myHID->getSD_CSD());
-                    std::vector<uint8_t> cid(myHID->getSD_CID());
-                    msg = [NSString stringWithFormat: @"\nSD Capacity (512-byte sectors): %d",
-                        myHID->getSDCapacity()];
-                    [self logStringToPanel:msg];
-
-                    msg = [NSString stringWithFormat: @"\nSD CSD Register: "];
-                    [self logStringToPanel:msg];
-                    if (sdCrc7(&csd[0], 15, 0) != (csd[15] >> 1))
-                    {
-                        msg = [NSString stringWithFormat: @"\nBADCRC"];
-                        [self logStringToPanel:msg];
-                    }
-                    for (size_t i = 0; i < csd.size(); ++i)
-                    {
-                        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(csd[i])]];
-                    }
-                    [self logStringToPanel:@"\n"];
-                    
-                    msg = [NSString stringWithFormat: @"SD CID Register: "];
-                    [self logStringToPanel:msg];
-                    if (sdCrc7(&cid[0], 15, 0) != (cid[15] >> 1))
-                    {
-                        msg = [NSString stringWithFormat: @"BADCRC"];
-                        [self logStringToPanel:msg];
-                    }
-                    for (size_t i = 0; i < cid.size(); ++i)
-                    {
-                        [self logStringToPanel:[NSString stringWithFormat: @"%x", static_cast<int>(cid[i])]];
-                    }
-                    [self logStringToPanel:@"\n"];
-                    
-                    if(doScsiSelfTest)
-                    {
-                        BOOL passed = myHID->scsiSelfTest();
-                        NSString *status = passed ? @"Passed" : @"FAIL";
-                        [self logStringToPanel:[NSString stringWithFormat: @"\nSCSI Self Test: %@\n", status]];
-                    }
-                    
-                    if (!myInitialConfig)
-                    {
-                    }
-                    
-                    // update menu items...
-                    self.writeMenu.enabled = YES;
-                    self.readMenu.enabled = YES;
-                    self.upgradeFirmware.enabled = YES;
+                    [self connectionTests];
                 }
             }
             else

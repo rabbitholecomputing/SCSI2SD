@@ -852,6 +852,11 @@ out:
     }
 }
 
+- (void) showAlertWithMessage: (NSString *)msg
+{
+    NSRunAlertPanel(@"Firmware Update", @"Success", @"Ok", nil, nil);
+}
+
 - (void) upgradeFirmwareThread: (NSString *)filename
 {
     [self performSelectorOnMainThread:@selector(stopTimer)
@@ -1005,8 +1010,8 @@ out:
     [self performSelectorOnMainThread:@selector(updateProgress:)
                            withObject:[NSNumber numberWithDouble:100.0]
                         waitUntilDone:NO];
-    [self performSelectorOnMainThread:@selector(hideProgress:) withObject:nil waitUntilDone:YES];
-
+    [self performSelectorOnMainThread:@selector(hideProgress:) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(showAlertWithMessage:) withObject: nil waitUntilDone:NO];
     [self performSelectorOnMainThread:@selector(startTimer)
                            withObject:NULL
                         waitUntilDone:NO];

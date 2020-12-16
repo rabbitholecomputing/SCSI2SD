@@ -922,7 +922,7 @@ out:
                 NSLog(@"%s",e.what());
                 [self reset_hid];
             }
-            [NSThread sleepForTimeInterval:0.25];
+            [NSThread sleepForTimeInterval:0.1];
         }
 
         int totalFlashRows = 0;

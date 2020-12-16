@@ -86,6 +86,7 @@
 		1482B210239748DB001BA513 /* SettingsController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1482B204239748DB001BA513 /* SettingsController.mm */; };
 		14AF9E152582877D00EDB1FD /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */; };
 		14AF9E162582877D00EDB1FD /* MF_Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */; };
+		14D621E225898D6C00572C88 /* SCSI2SD-v52-text-vector-transBG-1024x1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 14D621E125898D6C00572C88 /* SCSI2SD-v52-text-vector-transBG-1024x1024.png */; };
 		14D96BCF23C935330008E7B3 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14D96BCE23C935330008E7B3 /* main.mm */; };
 		14DEC5E8239F456800ECD04A /* Functions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5E6239F456800ECD04A /* Functions.mm */; };
 		14DEC5EB23A2F06D00ECD04A /* ConfigUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 14DEC5EA23A2F06C00ECD04A /* ConfigUtil.mm */; };
@@ -198,6 +199,7 @@
 		1482B204239748DB001BA513 /* SettingsController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingsController.mm; sourceTree = "<group>"; };
 		14AF9E132582877D00EDB1FD /* MF_Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_Base64Additions.m; sourceTree = "<group>"; };
 		14AF9E142582877D00EDB1FD /* MF_Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_Base64Additions.h; sourceTree = "<group>"; };
+		14D621E125898D6C00572C88 /* SCSI2SD-v52-text-vector-transBG-1024x1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SCSI2SD-v52-text-vector-transBG-1024x1024.png"; sourceTree = "<group>"; };
 		14D96BCC23C935320008E7B3 /* scsi2sd-util-cli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "scsi2sd-util-cli"; sourceTree = BUILT_PRODUCTS_DIR; };
 		14D96BCE23C935330008E7B3 /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		14DEC5E6239F456800ECD04A /* Functions.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Functions.mm; sourceTree = "<group>"; };
@@ -404,6 +406,7 @@
 				1482B1EF23973F42001BA513 /* Info.plist */,
 				1482B1F023973F42001BA513 /* main.m */,
 				1482B1EA23973F42001BA513 /* Assets.xcassets */,
+				14D621E125898D6C00572C88 /* SCSI2SD-v52-text-vector-transBG-1024x1024.png */,
 				1482B1F223973F42001BA513 /* SCSI2SD_util.entitlements */,
 			);
 			path = "SCSI2SD-util";
@@ -522,6 +525,7 @@
 			files = (
 				1482B1EB23973F42001BA513 /* Assets.xcassets in Resources */,
 				1482B1EE23973F42001BA513 /* MainMenu.xib in Resources */,
+				14D621E225898D6C00572C88 /* SCSI2SD-v52-text-vector-transBG-1024x1024.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

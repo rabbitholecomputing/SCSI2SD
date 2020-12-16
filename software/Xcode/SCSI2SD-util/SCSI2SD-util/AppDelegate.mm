@@ -86,6 +86,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 @property (nonatomic) IBOutlet NSMenuItem *upgradeFirmware;
 
 @property (nonatomic) IBOutlet SettingsController *settings;
+@property (nonatomic) IBOutlet NSWindow *customAboutWindow;
 
 @end
 
@@ -277,6 +278,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     [self logStringToPanel: msg];
     [self logStringToPanel: @"\n"];
+}
+
+- (IBAction)handleAboutPanel:(id)sender
+{
+    [self.customAboutWindow orderFrontRegardless];
 }
 
 - (BOOL) validateMenuItem:(NSMenuItem *)menuItem

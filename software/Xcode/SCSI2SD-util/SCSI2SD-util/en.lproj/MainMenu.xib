@@ -118,6 +118,7 @@
         <customObject id="1nV-fo-Qea" customClass="DeviceController"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="customAboutWindow" destination="cRK-tm-rff" id="hM1-mN-t87"/>
                 <outlet property="device1" destination="Rxt-kb-gYI" id="9EF-FJ-ZfG"/>
                 <outlet property="device2" destination="pNT-g4-Vd5" id="BYU-QX-Jg0"/>
                 <outlet property="device3" destination="YnD-md-VMP" id="p5V-jt-sNg"/>
@@ -152,7 +153,7 @@
                             <menuItem title="About SCSI2SD-Util V5" id="5kV-Vb-QxS">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="orderFrontStandardAboutPanel:" target="-1" id="Exp-CZ-Vem"/>
+                                    <action selector="handleAboutPanel:" target="Voe-Tx-rLC" id="4bg-qB-itn"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -1933,5 +1934,89 @@
             </view>
             <point key="canvasLocation" x="623" y="-393"/>
         </window>
+        <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="cRK-tm-rff">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
+            <rect key="contentRect" x="-1517" y="307" width="480" height="270"/>
+            <rect key="screenRect" x="-1680" y="102" width="1680" height="1050"/>
+            <view key="contentView" id="TJv-rO-SeO">
+                <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhK-Wq-sYl">
+                        <rect key="frame" x="20" y="95" width="168" height="155"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SCSI2SD-v52-text-vector-transBG-1024x1024" id="kNr-67-XX9"/>
+                    </imageView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJd-xy-E4r">
+                        <rect key="frame" x="222" y="230" width="195" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="SCSI2SD-util-V5" id="YFd-IK-7H0">
+                            <font key="font" metaFont="systemHeavy" size="17"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V93-ht-pD6">
+                        <rect key="frame" x="222" y="211" width="195" height="14"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" id="ebl-fj-FC1">
+                            <font key="font" metaFont="message" size="11"/>
+                            <color key="textColor" name="systemGrayColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ujJ-TO-JD6">
+                        <rect key="frame" x="222" y="181" width="195" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Cocoa Version" id="IUD-x2-qXt">
+                            <font key="font" metaFont="systemBold"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EJu-IS-wga">
+                        <rect key="frame" x="234" y="162" width="195" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Copyright Rabbit Hole Computing" id="bSl-bo-ran">
+                            <font key="font" metaFont="message" size="11"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vnx-7R-Fth">
+                        <rect key="frame" x="222" y="133" width="195" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Original Version" id="J6X-9W-dSw">
+                            <font key="font" metaFont="systemBold"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akJ-hb-NIY">
+                        <rect key="frame" x="234" y="114" width="195" height="22"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" lineBreakMode="clipping" title="Copyright Micheal McMaster" id="tzw-hg-IXy">
+                            <font key="font" metaFont="message" size="11"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j5P-jq-Dhb">
+                        <rect key="frame" x="224" y="20" width="238" height="86"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <textFieldCell key="cell" selectable="YES" id="Kuc-e5-xzf">
+                            <font key="font" metaFont="message" size="11"/>
+                            <string key="title">SCSI2SD-util-V5 is licensed under the GPL v3.0.  You should have received a copy of the license with the application.  If you did not, please visit https://www.gnu.org/licenses/</string>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+            </view>
+            <point key="canvasLocation" x="1405" y="108"/>
+        </window>
     </objects>
+    <resources>
+        <image name="SCSI2SD-v52-text-vector-transBG-1024x1024" width="245.75999450683594" height="245.75999450683594"/>
+    </resources>
 </document>

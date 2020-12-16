@@ -1945,7 +1945,7 @@
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vhK-Wq-sYl">
                         <rect key="frame" x="20" y="95" width="168" height="155"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SCSI2SD-v52-text-vector-transBG-1024x1024" id="kNr-67-XX9"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="SCSI2SD-util-V5-icon-1024x1024" id="kNr-67-XX9"/>
                     </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bJd-xy-E4r">
                         <rect key="frame" x="222" y="230" width="195" height="20"/>
@@ -2017,6 +2017,6 @@
         </window>
     </objects>
     <resources>
-        <image name="SCSI2SD-v52-text-vector-transBG-1024x1024" width="245.75999450683594" height="245.75999450683594"/>
+        <image name="SCSI2SD-util-V5-icon-1024x1024" width="828.40447998046875" height="828.40447998046875"/>
     </resources>
 </document>

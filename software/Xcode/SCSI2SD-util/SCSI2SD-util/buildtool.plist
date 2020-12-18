@@ -1,0 +1,11 @@
+{
+  "substitutions" = { "-l\"IOKit\"" = "" };
+  "additional" = ("-lusb-1.0", "-ludev");
+  "headerPaths" = ("../libs/include/scsi2sd-util/cybootloaderutils",
+                   "../libs/include/zipper",
+                   "../libs/include/zlib",
+                   "../libs/include/scsi2sd-util",
+                   "../libs/include/scsi2sd-util/hidapi",
+                   "../../../libs/include/scsi2sd-util/hidapi/hidapi",
+                   "../../libs/include/scsi2sd-util/hidapi/hidapi");
+}

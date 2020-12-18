@@ -26,6 +26,7 @@ zipper::strerror(int errnum)
 {
 	const char* message(NULL);
 
+#ifndef GNUSTEP
 #if (_POSIX_C_SOURCE >= 200112L || _XOPEN_SOURCE >= 600)
     char buf[1024];
 	int error(strerror_r(errnum, buf, sizeof(buf)));
@@ -36,6 +37,7 @@ zipper::strerror(int errnum)
 #else
 	// Thread-unsafe fallback
 	message = ::strerror(errnum);
+#endif
 #endif
 
 	return std::string(message);

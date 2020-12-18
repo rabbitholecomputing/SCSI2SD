@@ -14,10 +14,10 @@
 #include "scsi2sd.h"
 #include "Functions.hh"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, NSComboBoxDataSource>
+@interface AppDelegate : NSObject <NSApplicationDelegate> // , NSComboBoxDataSource>
 {
-    std::shared_ptr<SCSI2SD::HID> myHID;
-    std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
+    SCSI2SD::HID *myHID;
+    SCSI2SD::Bootloader *myBootloader;
     
     bool myInitialConfig;
     //std::vector<TargetConfig *> myTargets;

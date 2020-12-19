@@ -865,13 +865,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-l\"zipper\"",
 					"-ObjC",
 					"-framework",
 					"\"IOKit\"",
-					"-framework",
-					"\"CoreFoundation\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -902,13 +898,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-l\"zipper\"",
 					"-ObjC",
 					"-framework",
 					"\"IOKit\"",
-					"-framework",
-					"\"CoreFoundation\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -796,8 +796,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-framework",
-					"\"CoreFoundation\"",
-					"-framework",
 					"\"IOKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-V5-util";
@@ -835,8 +833,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-framework",
-					"\"CoreFoundation\"",
 					"-framework",
 					"\"IOKit\"",
 				);

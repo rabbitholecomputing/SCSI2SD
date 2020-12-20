@@ -1,0 +1,18 @@
+{
+    CFBundleDevelopmentRegion = "$(DEVELOPMENT_LANGUAGE)";
+    CFBundleExecutable = "SCSI2SD-util";
+    CFBundleIconFile = "";
+    CFBundleIdentifier = "com.rabbitholecomputing.SCSI2SD-V5-util";
+    CFBundleInfoDictionaryVersion = "6.0";
+    CFBundleName = "SCSI2SD-util";
+    CFBundlePackageType = "$(PRODUCT_BUNDLE_PACKAGE_TYPE)";
+    CFBundleShortVersionString = "5.2.2";
+    CFBundleVersion = 2020121302;
+    LSApplicationCategoryType = "public.app-category.utilities";
+    LSMinimumSystemVersion = "10.7";
+    NSHumanReadableCopyright = "Copyright \U00A9 2019 Rabbit Hole Computing, LLC. All rights reserved.";
+    NSMainNibFile = MainMenu;
+    NSPrincipalClass = NSApplication;
+    NSSupportsAutomaticTermination = <*BY>;
+    NSSupportsSuddenTermination = <*BY>;
+}

@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SCSI2SDTask : NSObject
 {
-    std::shared_ptr<SCSI2SD::HID> myHID;
-    std::shared_ptr<SCSI2SD::Bootloader> myBootloader;
+    SCSI2SD::HID *myHID;
+    SCSI2SD::Bootloader *myBootloader;
 }
 
 @property (nonatomic, assign) BOOL repeatMode;

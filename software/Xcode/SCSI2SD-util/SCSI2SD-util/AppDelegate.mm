@@ -206,7 +206,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"reset_hid: Exception caught : %s\n", e.what());
     }
 }
 
@@ -218,7 +218,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"reset_bootloader: Exception caught : %s\n", e.what());
     }
 }
 
@@ -240,7 +240,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"launch: Exception caught : %s\n", e.what());
     }
     
     deviceControllers = [[NSMutableArray alloc] initWithCapacity: 7];

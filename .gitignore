@@ -12,3 +12,4 @@ software/Xcode/SCSI2SD-util/build
 software/Xcode/SCSI2SD-util/build/*
 software/Xcode/SCSI2SD-util/SCSI2SD-util.xcworkspace/xcuserdata
 software/Xcode/SCSI2SD-util/SCSI2SD-util.xcworkspace/xcuserdata/*
+.DS_Store

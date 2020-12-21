@@ -1,5 +1,4 @@
 # Linux GNUstep build instructions
---
 
 Building the application
 --
@@ -7,6 +6,15 @@ Building the application
 * cd software/Xcode/SCSI2SD-util
 * run buildtool
 	* buildtool should comple both targets in the xcodeproj file
+
+Buildtool can be found here
+--
+You must build and install both of these to build the application...
+
+* [buildtool](https://github.com/gnustep/tools-buildtool) the buildtool front end..  this doesn't change much.  You will also need
+* [libs-xcode](https://github.com/gnustep/libs-xcode) the library which loads and interprets the xcodeproj
+
+The app and these tools requires you to install [GNUstep](http://www.gnustep.org) from [github](https://github.com/gnustep).
 
 Setup USB permissions
 --

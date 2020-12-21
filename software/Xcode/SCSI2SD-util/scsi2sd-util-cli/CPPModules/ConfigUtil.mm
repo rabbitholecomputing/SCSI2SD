@@ -131,7 +131,7 @@ ConfigUtil::DefaultBoardConfig()
 	config.flags = 0;
 	config.flags6 = S2S_CFG_ENABLE_TERMINATOR;
 	config.selectionDelay = 255; // auto
-
+        
 	return config;
 }
 
@@ -158,6 +158,7 @@ ConfigUtil::Default(size_t targetIdx)
 	config.scsiSectors = 4194303; // 2GB - 1 sector
 	config.bytesPerSector = 512;
 	config.sectorsPerTrack = 63;
+        NSLog(@"%d", config.sectorsPerTrack);
 	config.headsPerCylinder = 255;
 	memcpy(config.vendor, " codesrc", 8);
 	memcpy(config.prodId, "         SCSI2SD", 16);
@@ -182,7 +183,7 @@ ConfigUtil::fromBytes(const uint8_t* data)
 	result.sdSectorStart = toLE32(result.sdSectorStart);
 	result.scsiSectors = toLE32(result.scsiSectors);
 	result.bytesPerSector = toLE16(result.bytesPerSector);
-	result.sectorsPerTrack = toLE16(result.sectorsPerTrack);
+        result.sectorsPerTrack = toLE16(result.sectorsPerTrack);
 	result.headsPerCylinder = toLE16(result.headsPerCylinder);
 	return result;
 }
@@ -300,7 +301,7 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"\n"
 		"	<scsiSectors>" << std::dec << config.scsiSectors << "</scsiSectors>\n" <<
 		"	<bytesPerSector>" << std::dec << config.bytesPerSector << "</bytesPerSector>\n" <<
-		"	<sectorsPerTrack>" << std::dec << config.sectorsPerTrack<< "</sectorsPerTrack>\n" <<
+		"	<sectorsPerTrack>" << std::dec << config.sectorsPerTrack << "</sectorsPerTrack>\n" <<
 		"	<headsPerCylinder>" << std::dec << config.headsPerCylinder << "</headsPerCylinder>\n" <<
 		"\n\n" <<
 		"	<!-- ********************************************************\n" <<
@@ -474,8 +475,9 @@ static uint64_t parseInt(NSXMLNode* node, uint64_t limit)
 	if (result > limit)
 	{
 		std::stringstream msg;
-		msg << "Invalid value";
+		msg << "Invalid value, correcting to limit " << limit;
 		throw std::runtime_error(msg.str());
+                result = limit;
 	}
 	return result;
 }

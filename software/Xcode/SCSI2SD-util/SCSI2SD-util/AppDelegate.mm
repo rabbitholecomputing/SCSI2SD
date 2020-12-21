@@ -197,7 +197,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     try
     {
-        myHID.reset(SCSI2SD::HID::Open());
+        myHID = SCSI2SD::HID::Open();
         if(myHID)
         {
             NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
@@ -206,7 +206,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"reset_hid: Exception caught : %s\n", e.what());
     }
 }
 
@@ -214,11 +214,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     try
     {
-        myBootloader.reset(SCSI2SD::Bootloader::Open());
+        myBootloader = SCSI2SD::Bootloader::Open();
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"reset_bootloader: Exception caught : %s\n", e.what());
     }
 }
 
@@ -235,12 +235,12 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     
     try
     {
-        myHID.reset(SCSI2SD::HID::Open());
-        myBootloader.reset(SCSI2SD::Bootloader::Open());
+        myHID = SCSI2SD::HID::Open();
+        myBootloader = SCSI2SD::Bootloader::Open();
     }
     catch (std::exception& e)
     {
-        NSLog(@"Exception caught : %s\n", e.what());
+        NSLog(@"launch: Exception caught : %s\n", e.what());
     }
     
     deviceControllers = [[NSMutableArray alloc] initWithCapacity: 7];
@@ -293,7 +293,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         menuItem == self.scsiLogData ||
         menuItem == self.scsiSelfTest)
     {
-        return (myHID != nil); // [self evaluate];
+        return (myHID != NULL); // [self evaluate];
     }
     return YES;
 }
@@ -1047,6 +1047,7 @@ out:
 
 - (void)bootloaderUpdateThread: (NSString *)filename
 {
+#ifndef GNUSTEP
     NSData *fileData = [NSData dataWithContentsOfFile:filename];
     NSUInteger len = [fileData length];
     if (len != 0x2400)
@@ -1120,7 +1121,7 @@ err:
     
 out:
     return;
-
+#endif
 }
 
 - (void) bootLoaderUpdateEnd: (NSOpenPanel *)panel

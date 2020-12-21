@@ -774,7 +774,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020121302;
-				DEVELOPMENT_TEAM = Q6H75D8GN6;
+				DEVELOPMENT_TEAM = 768T4SN737;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -795,8 +795,6 @@
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
-					"-framework",
-					"\"CoreFoundation\"",
 					"-framework",
 					"\"IOKit\"",
 				);
@@ -814,7 +812,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2020121302;
-				DEVELOPMENT_TEAM = Q6H75D8GN6;
+				DEVELOPMENT_TEAM = 768T4SN737;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -836,8 +834,6 @@
 					"$(inherited)",
 					"-ObjC",
 					"-framework",
-					"\"CoreFoundation\"",
-					"-framework",
 					"\"IOKit\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-V5-util";
@@ -851,15 +847,13 @@
 				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6H75D8GN6;
+				DEVELOPMENT_TEAM = 768T4SN737;
 				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/Pods/Headers/Public",
-					"${PROJECT_DIR}/Pods/Headers/Public/Base64",
+					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 					"${PROJECT_DIR}/libs/include/zipper",
 					"${PROJECT_DIR}/libs/include/libz",
-					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SCSI2SD-util/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -869,13 +863,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-l\"zipper\"",
 					"-ObjC",
 					"-framework",
 					"\"IOKit\"",
-					"-framework",
-					"\"CoreFoundation\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -888,15 +878,13 @@
 				CODE_SIGN_ENTITLEMENTS = "scsi2sd-util-cli/scsi2sd-util-cli.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q6H75D8GN6;
+				DEVELOPMENT_TEAM = 768T4SN737;
 				ENABLE_HARDENED_RUNTIME = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					"${PROJECT_DIR}/Pods/Headers/Public",
-					"${PROJECT_DIR}/Pods/Headers/Public/Base64",
+					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 					"${PROJECT_DIR}/libs/include/zipper",
 					"${PROJECT_DIR}/libs/include/libz",
-					"${PROJECT_DIR}/libs/include/scsi2sd-util",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SCSI2SD-util/Info.plist";
 				LIBRARY_SEARCH_PATHS = (
@@ -906,13 +894,9 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-l\"zipper\"",
 					"-ObjC",
 					"-framework",
 					"\"IOKit\"",
-					"-framework",
-					"\"CoreFoundation\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.rabbitholecomputing.SCSI2SD-util";
 				PRODUCT_NAME = "$(TARGET_NAME)";

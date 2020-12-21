@@ -476,7 +476,7 @@ static uint64_t parseInt(NSXMLNode* node, uint64_t limit)
 	{
 		std::stringstream msg;
 		msg << "Invalid value, correcting to limit " << limit;
-		// throw std::runtime_error(msg.str());
+		throw std::runtime_error(msg.str());
                 result = limit;
 	}
 	return result;

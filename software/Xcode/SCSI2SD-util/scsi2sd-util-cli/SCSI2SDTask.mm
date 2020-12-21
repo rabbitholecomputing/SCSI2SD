@@ -119,7 +119,8 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
     try
     {
-        myHID.reset(SCSI2SD::HID::Open());
+        myHID = SCSI2SD::HID::Open();
+        // myHID.reset(SCSI2SD::HID::Open());
         if(myHID)
         {
             NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
@@ -136,7 +137,7 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
     try
     {
-        myBootloader.reset(SCSI2SD::Bootloader::Open());
+        myBootloader = SCSI2SD::Bootloader::Open();
     }
     catch (std::exception& e)
     {

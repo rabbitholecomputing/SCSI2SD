@@ -25,7 +25,9 @@ extern "C"
 #include "hidapi.h"
 }
 
+#ifndef GNUSTEP
 #import <IOKit/IOKitLib.h>
+#endif
 
 #if __cplusplus >= 201103L
 #include <cstdint>

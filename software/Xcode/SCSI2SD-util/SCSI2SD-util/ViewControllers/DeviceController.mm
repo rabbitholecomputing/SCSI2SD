@@ -12,24 +12,24 @@
 #include "ConfigUtil.hh"
 @interface DeviceController ()
 
-@property (weak, nonatomic) IBOutlet NSButton *enableSCSITarget;
-@property (weak, nonatomic) IBOutlet NSComboBox *SCSIID;
-@property (weak, nonatomic) IBOutlet NSPopUpButton *deviceType;
-@property (weak, nonatomic) IBOutlet NSTextField *sdCardStartSector;
-@property (weak, nonatomic) IBOutlet NSTextField *sectorSize;
-@property (weak, nonatomic) IBOutlet NSTextField *sectorCount;
-@property (weak, nonatomic) IBOutlet NSTextField *deviceSize;
-@property (weak, nonatomic) IBOutlet NSPopUpButton *deviceUnit;
-@property (weak, nonatomic) IBOutlet NSTextField *vendor;
-@property (weak, nonatomic) IBOutlet NSTextField *productId;
-@property (weak, nonatomic) IBOutlet NSTextField *revsion;
-@property (weak, nonatomic) IBOutlet NSTextField *serialNumber;
-@property (weak, nonatomic) IBOutlet NSButton *autoStartSector;
-@property (weak, nonatomic) IBOutlet NSTextField *sectorsPerTrack;
-@property (weak, nonatomic) IBOutlet NSTextField *headsPerCylinder;
+@property (nonatomic) IBOutlet NSButton *enableSCSITarget;
+@property (nonatomic) IBOutlet NSComboBox *SCSIID;
+@property (nonatomic) IBOutlet NSPopUpButton *deviceType;
+@property (nonatomic) IBOutlet NSTextField *sdCardStartSector;
+@property (nonatomic) IBOutlet NSTextField *sectorSize;
+@property (nonatomic) IBOutlet NSTextField *sectorCount;
+@property (nonatomic) IBOutlet NSTextField *deviceSize;
+@property (nonatomic) IBOutlet NSPopUpButton *deviceUnit;
+@property (nonatomic) IBOutlet NSTextField *vendor;
+@property (nonatomic) IBOutlet NSTextField *productId;
+@property (nonatomic) IBOutlet NSTextField *revsion;
+@property (nonatomic) IBOutlet NSTextField *serialNumber;
+@property (nonatomic) IBOutlet NSButton *autoStartSector;
+@property (nonatomic) IBOutlet NSTextField *sectorsPerTrack;
+@property (nonatomic) IBOutlet NSTextField *headsPerCylinder;
 
-@property (weak, nonatomic) IBOutlet NSTextField *autoErrorText;
-@property (weak, nonatomic) IBOutlet NSTextField *scsiIdErrorText;
+@property (nonatomic) IBOutlet NSTextField *autoErrorText;
+@property (nonatomic) IBOutlet NSTextField *scsiIdErrorText;
 
 @property BOOL duplicateId;
 @property BOOL sectorOverlap;

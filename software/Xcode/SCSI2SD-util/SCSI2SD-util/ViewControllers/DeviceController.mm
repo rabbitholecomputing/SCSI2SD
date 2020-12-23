@@ -61,6 +61,11 @@
     self.scsiIdErrorText.stringValue = @"";
     
     self.sdCardStartSector.formatter = nil;
+    
+    // Set delegate..
+    self.sectorCount.delegate = self;
+    self.sdCardStartSector.delegate = self;
+    self.deviceSize.delegate = self;
     [self evaluate];
 }
 

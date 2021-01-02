@@ -152,8 +152,8 @@ static void doReadTOC(int MSF, uint8_t track, uint16_t allocationLength)
 	if (track > 1)
 	{
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 	else
@@ -162,8 +162,9 @@ static void doReadTOC(int MSF, uint8_t track, uint16_t allocationLength)
 		memcpy(scsiDev.data, SimpleTOC, len);
 
 		uint32_t capacity = getScsiCapacity(
+			scsiDev.target->device,
 			scsiDev.target->cfg->sdSectorStart,
-			scsiDev.target->liveCfg.bytesPerSector,
+			scsiDev.target->state.bytesPerSector,
 			scsiDev.target->cfg->scsiSectors);
 
 		// Replace start of leadout track
@@ -213,8 +214,8 @@ static void doReadFullTOC(int convertBCD, uint8_t session, uint16_t allocationLe
 	if (session > 1)
 	{
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 	else
@@ -297,8 +298,8 @@ int scsiCDRomCommand()
 			default:
 			{
 				scsiDev.status = CHECK_CONDITION;
-				scsiDev.target->sense.code = ILLEGAL_REQUEST;
-				scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+				scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+				scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 				scsiDev.phase = STATUS;
 			}
 		}

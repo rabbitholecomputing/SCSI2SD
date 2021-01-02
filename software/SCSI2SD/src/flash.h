@@ -1,4 +1,4 @@
-//	Copyright (C) 2013 Michael McMaster <michael@codesrc.com>
+//	Copyright (C) 2020 Michael McMaster <michael@codesrc.com>
 //
 //	This file is part of SCSI2SD.
 //
@@ -14,9 +14,12 @@
 //
 //	You should have received a copy of the GNU General Public License
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
-#ifndef MODE_H
-#define MODE_H
+#ifndef S2S_FLASH_H
+#define S2S_FLASH_H
 
-int scsiModeCommand(S2S_Device* dev);
+#include "storedevice.h"
+
+extern S2S_Device* spiFlashDevice;
+
 
 #endif

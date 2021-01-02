@@ -20,8 +20,9 @@
 #include "device.h"
 
 #include "config.h"
+#include "storedevice.h"
 #include "sd.h"
-
+    
 typedef enum
 {
 	ADDRESS_BLOCK = 0,
@@ -35,6 +36,7 @@ static inline int SDSectorsPerSCSISector(uint16_t bytesPerSector)
 }
 
 uint32_t getScsiCapacity(
+	S2S_Device* device,
 	uint32_t sdSectorStart,
 	uint16_t bytesPerSector,
 	uint32_t scsiSectors);

@@ -141,6 +141,12 @@ typedef enum
 	CONFIG_SPEED_ASYNC_15
 } CONFIG_SPEED;
 
+typedef enum
+{
+	CONFIG_STOREDEVICE_SD,
+	CONFIG_STOREDEVICE_FLASH
+} CONFIG_STOREDEVICE;
+
 typedef struct __attribute__((packed))
 {
 	uint8_t deviceType;
@@ -178,13 +184,17 @@ typedef struct __attribute__((packed))
 	char serial[16];
 
 	uint16_t quirks; // CONFIG_QUIRKS
+    
+    // 0 == SD card
+    // 1 == SPI Flash
+    uint8_t storageDevice; // CONFIG_STOREDEVICE
 
-	uint8_t reserved[960]; // Pad out to 1024 bytes for main section.
+	uint8_t reserved[959]; // Pad out to 1024 bytes for main section.
 
 	uint8_t modePages[1024];
 	uint8_t vpd[1024];
 	uint8_t unused[1024]; // Total size is 4k.
-} TargetConfig;
+} S2S_TargetCfg;
 
 typedef struct __attribute__((packed))
 {
@@ -198,7 +208,7 @@ typedef struct __attribute__((packed))
 
 
 	uint8_t reserved[247]; // Pad out to 256 bytes
-} BoardConfig;
+} S2S_BoardConfig;
 
 typedef enum
 {
@@ -244,7 +254,87 @@ typedef enum
 	// Response:
 	// CONFIG_STATUS
 	// uint8_t result code (0 = passed)
-	CONFIG_SCSITEST
+	CONFIG_SCSITEST,
+    
+    // Not implemented, V6 only
+    // Command content:
+    // uint8_t S2S_CMD_DEVINFO
+    // Response:
+    // uint16_t protocol version (MSB)
+    // uint16_t firmware version (MSB)
+    // uint32_t SD capacity(MSB)
+    S2S_CMD_DEVINFO_OBSOLETE,
+
+    // Not implemented, V6 only
+    // Command content:
+    // uint8_t S2S_CMD_SD_WRITE
+    // uint32_t Sector Number (MSB)
+    // uint8_t[512] data
+    // Response:
+    // S2S_CMD_STATUS
+    S2S_CMD_SD_WRITE,
+
+    // Not implemented, V6 only
+    // Command content:
+    // uint8_t S2S_CMD_SD_READ
+    // uint32_t Sector Number (MSB)
+    // Response:
+    // 512 bytes of data
+    S2S_CMD_SD_READ,
+
+    // Not implemented, V6 only
+    // Command content:
+    // uint8_t S2S_CMD_DEBUG
+    // Response:
+    S2S_CMD_DEBUG,
+    
+    // Command content:
+    // uint8_t S2S_CMD_DEV_LIST
+    // Response:
+    // uint8_t Number of devices
+    // For each device:
+    // uint8_t device type
+    //  0 == SD card
+    //  1 == NOR FLASH
+    // uint32_t capacity(MSB)
+    S2S_CMD_DEV_LIST,
+    
+    // Command content:
+    // uint8_t S2S_CMD_DEV_INFO
+    // uint8_t Device Number
+    // Response:
+    //  SD card:
+    //    uint8_t[16] CSD
+	//    uint8_t[16] CID
+    //  NOR Flash: 
+    //    uint8_t[512] JEDEC CFI from RDID command
+    S2S_CMD_DEV_INFO,
+    
+    // Command content:
+    // uint8_t S2S_CMD_DEV_ERASE
+    // uint8_t Device Number
+    // uint32_t Sector Number (MSB)
+    // uint32_t Sector Count (MSB)
+    // Response:
+    // S2S_CMD_STATUS
+    S2S_CMD_DEV_ERASE,
+    
+    // Command content:
+    // uint8_t S2S_CMD_DEV_WRITE
+    // uint8_t Device Number (MSB)
+    // uint32_t Sector Number (MSB)
+    // uint8_t[512] data
+    // Response:
+    // S2S_CMD_STATUS
+    S2S_CMD_DEV_WRITE,
+
+    // Command content:
+    // uint8_t S2S_CMD_DEV_READ
+    // uint8_t Device Number (MSB)
+    // uint32_t Sector Number (MSB)
+    // Response:
+    // 512 bytes of data
+    S2S_CMD_DEV_READ,
 } CONFIG_COMMAND;
 
 typedef enum

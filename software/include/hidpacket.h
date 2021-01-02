@@ -24,9 +24,9 @@ extern "C" {
 
 #define USBHID_LEN 64
 
-// Maximum packet payload length. Must be large enough to support a flash row
-// + flash array index + flash row index
-#define HIDPACKET_MAX_LEN 260
+// Maximum packet payload length. Must be large enough to support a SD sector
+// + sector number + device number
+#define HIDPACKET_MAX_LEN 520
 
 #include <stddef.h>
 #include <stdint.h>

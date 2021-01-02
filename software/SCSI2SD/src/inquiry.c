@@ -116,8 +116,8 @@ static void useCustomVPD(const TargetConfig* cfg, int pageCode)
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 }
@@ -141,8 +141,8 @@ void scsiInquiry()
 		{
 			// error.
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = ILLEGAL_REQUEST;
-			scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+			scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+			scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 			scsiDev.phase = STATUS;
 		}
 		else
@@ -206,8 +206,8 @@ void scsiInquiry()
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 

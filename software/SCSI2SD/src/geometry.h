@@ -20,7 +20,7 @@
 #include "device.h"
 
 #include "config.h"
-#include "sd.h"
+#include "storedevice.h"
 
 typedef enum
 {
@@ -35,6 +35,7 @@ static inline int SDSectorsPerSCSISector(uint16_t bytesPerSector)
 }
 
 uint32_t getScsiCapacity(
+	S2S_Device* device,
 	uint32_t sdSectorStart,
 	uint16_t bytesPerSector,
 	uint32_t scsiSectors);

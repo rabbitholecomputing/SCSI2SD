@@ -29,6 +29,7 @@ int main()
 {
 	timeInit();
 	ledInit();
+	s2s_deviceEarlyInit();
 	traceInit();
 
 	// Enable global interrupts.
@@ -40,6 +41,7 @@ int main()
 
 	configInit(&scsiDev.boardCfg);
 	debugInit();
+
 
 	scsiPhyConfig();
 
@@ -60,7 +62,6 @@ int main()
 		++delaySeconds;
 	}
 
-	uint32_t lastSDPoll = getTime_ms();
 	sdCheckPresent();
 
 	while (1)
@@ -74,10 +75,10 @@ int main()
 
 		if (unlikely(scsiDev.phase == BUS_FREE))
 		{
-			if (unlikely(elapsedTime_ms(lastSDPoll) > 200))
+			if (s2s_pollMediaChange())
 			{
-				lastSDPoll = getTime_ms();
-				sdCheckPresent();
+				scsiPhyConfig();
+				scsiInit();
 			}
 			else
 			{
@@ -94,10 +95,11 @@ int main()
 				CyExitCriticalSection(interruptState);
 			}
 		}
-		else if ((scsiDev.phase >= 0) && (blockDev.state & DISK_PRESENT))
+		else if ((scsiDev.phase >= 0) &&
+			scsiDev.target &&
+			(scsiDev.target->device->mediaState & MEDIA_PRESENT))
 		{
-			// don't waste time scanning SD cards while we're doing disk IO
-			lastSDPoll = getTime_ms();
+			scsiDev.target->device->pollMediaBusy();
 		}
 	}
 	return 0;

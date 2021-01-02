@@ -269,7 +269,12 @@ static int useCustomPages(const TargetConfig* cfg, int pc, int pageCode, int* id
 }
 
 static void doModeSense(
-	int sixByteCmd, int dbd, int pc, int pageCode, int allocLength)
+	S2S_Device* dev,
+	int sixByteCmd,
+	int dbd,
+	int pc,
+	int pageCode,
+	int allocLength)
 {
 	////////////// Mode Parameter Header
 	////////////////////////////////////
@@ -288,14 +293,14 @@ static void doModeSense(
 		mediumType = 0; // We should support various floppy types here!
 		// Contains cache bits (0) and a Write-Protect bit.
 		deviceSpecificParam =
-			(blockDev.state & DISK_WP) ? 0x80 : 0;
+			(dev->mediaState & MEDIA_WP) ? 0x80 : 0;
 		density = 0; // reserved for direct access
 		break;
 
 	case CONFIG_FLOPPY_14MB:
 		mediumType = 0x1E; // 90mm/3.5"
 		deviceSpecificParam =
-			(blockDev.state & DISK_WP) ? 0x80 : 0;
+			(dev->mediaState & MEDIA_WP) ? 0x80 : 0;
 		density = 0; // reserved for direct access
 		break;
 
@@ -308,14 +313,14 @@ static void doModeSense(
 	case CONFIG_SEQUENTIAL:
 		mediumType = 0; // reserved
 		deviceSpecificParam =
-			(blockDev.state & DISK_WP) ? 0x80 : 0;
-		density = 0x13; // DAT Data Storage, X3B5/88-185A 
+			(dev->mediaState & MEDIA_WP) ? 0x80 : 0;
+		density = 0x13; // DAT Data Storage, X3B5/88-185A
 		break;
 
 	case CONFIG_MO:
-        mediumType = 0x03; // Optical reversible or erasable medium
+		mediumType = 0x03; // Optical reversible or erasable medium
 		deviceSpecificParam =
-			(blockDev.state & DISK_WP) ? 0x80 : 0;
+			(dev->mediaState & MEDIA_WP) ? 0x80 : 0;
 		density = 0x00; // Default
 		break;
 
@@ -368,7 +373,7 @@ static void doModeSense(
 		scsiDev.data[idx++] = 0; // reserved
 
 		// Block length
-		uint32_t bytesPerSector = scsiDev.target->liveCfg.bytesPerSector;
+		uint32_t bytesPerSector = scsiDev.target->state.bytesPerSector;
 		scsiDev.data[idx++] = bytesPerSector >> 16;
 		scsiDev.data[idx++] = bytesPerSector >> 8;
 		scsiDev.data[idx++] = bytesPerSector & 0xFF;
@@ -423,7 +428,7 @@ static void doModeSense(
 			scsiDev.data[idx+11] = sectorsPerTrack & 0xFF;
 
 			// Fill out the configured bytes-per-sector
-			uint32_t bytesPerSector = scsiDev.target->liveCfg.bytesPerSector;
+			uint32_t bytesPerSector = scsiDev.target->state.bytesPerSector;
 			scsiDev.data[idx+12] = bytesPerSector >> 8;
 			scsiDev.data[idx+13] = bytesPerSector & 0xFF;
 		}
@@ -457,8 +462,9 @@ static void doModeSense(
 			uint32 sector;
 			LBA2CHS(
 				getScsiCapacity(
+					scsiDev.target->device,
 					scsiDev.target->cfg->sdSectorStart,
-					scsiDev.target->liveCfg.bytesPerSector,
+					scsiDev.target->state.bytesPerSector,
 					scsiDev.target->cfg->scsiSectors),
 				&cyl,
 				&head,
@@ -557,8 +563,8 @@ static void doModeSense(
 		// Unknown Page Code
 		pageFound = 0;
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 	else
@@ -617,7 +623,7 @@ static void doModeSelect(void)
 			}
 			else
 			{
-				scsiDev.target->liveCfg.bytesPerSector = bytesPerSector;
+				scsiDev.target->state.bytesPerSector = bytesPerSector;
 				if (bytesPerSector != scsiDev.target->cfg->bytesPerSector)
 				{
 					configSave(scsiDev.target->targetId, bytesPerSector);
@@ -650,7 +656,7 @@ static void doModeSelect(void)
 					goto bad;
 				}
 
-				scsiDev.target->liveCfg.bytesPerSector = bytesPerSector;
+				scsiDev.target->state.bytesPerSector = bytesPerSector;
 				if (scsiDev.cdb[1] & 1) // SP Save Pages flag
 				{
 					configSave(scsiDev.target->targetId, bytesPerSector);
@@ -669,14 +675,14 @@ static void doModeSelect(void)
 	goto out;
 bad:
 	scsiDev.status = CHECK_CONDITION;
-	scsiDev.target->sense.code = ILLEGAL_REQUEST;
-	scsiDev.target->sense.asc = INVALID_FIELD_IN_PARAMETER_LIST;
+	scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+	scsiDev.target->state.sense.asc = INVALID_FIELD_IN_PARAMETER_LIST;
 
 out:
 	scsiDev.phase = STATUS;
 }
 
-int scsiModeCommand()
+int scsiModeCommand(S2S_Device* dev)
 {
 	int commandHandled = 1;
 
@@ -696,7 +702,7 @@ int scsiModeCommand()
 		// SCSI1 standard: (CCS X3T9.2/86-52)
 		// "An Allocation Length of zero indicates that no MODE SENSE data shall
 		// be transferred. This condition shall not be considered as an error."
-		doModeSense(1, dbd, pc, pageCode, allocLength);
+		doModeSense(dev, 1, dbd, pc, pageCode, allocLength);
 	}
 	else if (command == 0x5A)
 	{
@@ -707,7 +713,7 @@ int scsiModeCommand()
 		int allocLength =
 			(((uint16) scsiDev.cdb[7]) << 8) +
 			scsiDev.cdb[8];
-		doModeSense(0, dbd, pc, pageCode, allocLength);
+		doModeSense(dev, 0, dbd, pc, pageCode, allocLength);
 	}
 	else if (command == 0x15)
 	{

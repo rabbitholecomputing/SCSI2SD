@@ -50,8 +50,8 @@ void scsiSendDiagnostic()
 			// Nowhere to store this data!
 			// Shouldn't happen - our buffer should be many magnitudes larger
 			// than the required size for diagnostic parameters.
-			scsiDev.target->sense.code = ILLEGAL_REQUEST;
-			scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+			scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+			scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 			scsiDev.status = CHECK_CONDITION;
 			scsiDev.phase = STATUS;
 		}
@@ -95,14 +95,14 @@ void scsiReceiveDiagnostic()
 		// 64bit linear address, then convert back again.
 		uint64 fromByteAddr =
 			scsiByteAddress(
-				scsiDev.target->liveCfg.bytesPerSector,
+				scsiDev.target->state.bytesPerSector,
 				scsiDev.target->cfg->headsPerCylinder,
 				scsiDev.target->cfg->sectorsPerTrack,
 				suppliedFmt,
 				&scsiDev.data[6]);
 
 		scsiSaveByteAddress(
-			scsiDev.target->liveCfg.bytesPerSector,
+			scsiDev.target->state.bytesPerSector,
 			scsiDev.target->cfg->headsPerCylinder,
 			scsiDev.target->cfg->sectorsPerTrack,
 			translateFmt,
@@ -121,8 +121,8 @@ void scsiReceiveDiagnostic()
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 
@@ -169,8 +169,8 @@ void scsiReadBuffer()
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 }
@@ -208,8 +208,8 @@ void scsiWriteBuffer()
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 }
@@ -219,7 +219,7 @@ void scsiWriteBuffer()
 // Section 4.3.14
 void scsiWriteSectorBuffer()
 {
-	scsiDev.dataLen = scsiDev.target->liveCfg.bytesPerSector;
+	scsiDev.dataLen = scsiDev.target->state.bytesPerSector;
 	scsiDev.phase = DATA_OUT;
 	scsiDev.postDataOutHook = doWriteBuffer;
 }

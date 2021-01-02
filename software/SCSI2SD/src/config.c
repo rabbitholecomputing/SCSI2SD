@@ -31,7 +31,7 @@
 
 #include <string.h>
 
-static const uint16_t FIRMWARE_VERSION = 0x0484;
+static const uint16_t FIRMWARE_VERSION = 0x0485;
 
 // 1 flash row
 static const uint8_t DEFAULT_CONFIG[256] =
@@ -175,9 +175,9 @@ pingCommand()
 static void
 sdInfoCommand()
 {
-	uint8_t response[sizeof(sdDev.csd) + sizeof(sdDev.cid)];
-	memcpy(response, sdDev.csd, sizeof(sdDev.csd));
-	memcpy(response + sizeof(sdDev.csd), sdDev.cid, sizeof(sdDev.cid));
+	uint8_t response[sizeof(sdCard.csd) + sizeof(sdCard.cid)];
+	memcpy(response, sdCard.csd, sizeof(sdCard.csd));
+	memcpy(response + sizeof(sdCard.csd), sdCard.cid, sizeof(sdCard.cid));
 
 	hidPacket_send(response, sizeof(response));
 }
@@ -340,16 +340,16 @@ void debugPoll()
 		hidBuffer[23] = scsiDev.msgCount;
 		hidBuffer[24] = scsiDev.cmdCount;
 		hidBuffer[25] = scsiDev.watchdogTick;
-		hidBuffer[26] = blockDev.state;
+		hidBuffer[26] = 0; // OBSOLETE. Previously media state
 		hidBuffer[27] = scsiDev.lastSenseASC >> 8;
 		hidBuffer[28] = scsiDev.lastSenseASC;
 		hidBuffer[29] = scsiReadDBxPins();
 		hidBuffer[30] = LastTrace;
 
-		hidBuffer[58] = sdDev.capacity >> 24;
-		hidBuffer[59] = sdDev.capacity >> 16;
-		hidBuffer[60] = sdDev.capacity >> 8;
-		hidBuffer[61] = sdDev.capacity;
+		hidBuffer[58] = sdCard.capacity >> 24;
+		hidBuffer[59] = sdCard.capacity >> 16;
+		hidBuffer[60] = sdCard.capacity >> 8;
+		hidBuffer[61] = sdCard.capacity;
 
 		hidBuffer[62] = FIRMWARE_VERSION >> 8;
 		hidBuffer[63] = FIRMWARE_VERSION;

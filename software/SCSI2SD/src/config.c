@@ -63,7 +63,7 @@ static int usbInEpState;
 static int usbDebugEpState;
 static int usbReady;
 
-static void initBoardConfig(BoardConfig* config) {
+static void initBoardConfig(S2S_BoardConfig* config) {
 	memcpy(
 		config,
 		(
@@ -71,7 +71,7 @@ static void initBoardConfig(BoardConfig* config) {
 			(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
 			(CY_FLASH_SIZEOF_ROW * SCSI_CONFIG_BOARD_ROW)
 			),
-		sizeof(BoardConfig));
+		sizeof(S2S_BoardConfig));
 
 	if (memcmp(config->magic, "BCFG", 4)) {
 		// Set a default from the deprecated flags, or 0 if
@@ -83,7 +83,7 @@ static void initBoardConfig(BoardConfig* config) {
 	}
 }
 
-void configInit(BoardConfig* config)
+void configInit(S2S_BoardConfig* config)
 {
 	// The USB block will be powered by an internal 3.3V regulator.
 	// The PSoC must be operating between 4.6V and 5V for the regulator
@@ -93,7 +93,7 @@ void configInit(BoardConfig* config)
 	usbReady = 0; // We don't know if host is connected yet.
 
 	int invalid = 1;
-	uint8_t* rawConfig = getConfigByIndex(0);
+	uint8_t* rawConfig = (uint8_t*)getConfigByIndex(0);
 	int i;
 	for (i = 0; i < 64; ++i)
 	{
@@ -404,14 +404,14 @@ void configSave(int scsiId, uint16_t bytesPerSector)
 	int cfgIdx;
 	for (cfgIdx = 0; cfgIdx < MAX_SCSI_TARGETS; ++cfgIdx)
 	{
-		const TargetConfig* tgt = getConfigByIndex(cfgIdx);
+		const S2S_TargetCfg* tgt = getConfigByIndex(cfgIdx);
 		if ((tgt->scsiId & CONFIG_TARGET_ID_BITS) == scsiId)
 		{
 			// Save row to flash
 			// We only save the first row of the configuration
 			// this contains the parameters changeable by a MODE SELECT command
 			uint8_t rowData[CYDEV_FLS_ROW_SIZE];
-			TargetConfig* rowCfgData = (TargetConfig*)&rowData;
+			S2S_TargetCfg* rowCfgData = (S2S_TargetCfg*)&rowData;
 			memcpy(rowCfgData, tgt, sizeof(rowData));
 			rowCfgData->bytesPerSector = bytesPerSector;
 
@@ -426,12 +426,12 @@ void configSave(int scsiId, uint16_t bytesPerSector)
 }
 
 
-const TargetConfig* getConfigByIndex(int i)
+const S2S_TargetCfg* getConfigByIndex(int i)
 {
 	if (i <= 3)
 	{
 		size_t row = SCSI_CONFIG_0_ROW + (i * SCSI_CONFIG_ROWS);
-		return (const TargetConfig*)
+		return (const S2S_TargetCfg*)
 			(
 				CY_FLASH_BASE +
 				(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
@@ -439,7 +439,7 @@ const TargetConfig* getConfigByIndex(int i)
 				);
 	} else {
 		size_t row = SCSI_CONFIG_4_ROW + ((i-4) * SCSI_CONFIG_ROWS);
-		return (const TargetConfig*)
+		return (const S2S_TargetCfg*)
 			(
 				CY_FLASH_BASE +
 				(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
@@ -448,12 +448,12 @@ const TargetConfig* getConfigByIndex(int i)
 	}
 }
 
-const TargetConfig* getConfigById(int scsiId)
+const S2S_TargetCfg* getConfigById(int scsiId)
 {
 	int i;
 	for (i = 0; i < MAX_SCSI_TARGETS; ++i)
 	{
-		const TargetConfig* tgt = getConfigByIndex(i);
+		const S2S_TargetCfg* tgt = getConfigByIndex(i);
 		if ((tgt->scsiId & CONFIG_TARGET_ID_BITS) == scsiId)
 		{
 			return tgt;

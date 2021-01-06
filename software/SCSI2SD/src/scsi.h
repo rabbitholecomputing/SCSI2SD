@@ -76,6 +76,7 @@ typedef enum
 typedef struct
 {
 	S2S_Target* target;
+    S2S_BoardConfig boardCfg;
 
 	// Set to true (1) if the ATN flag was set, and we need to
 	// enter the MESSAGE_OUT phase.

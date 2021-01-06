@@ -21,7 +21,8 @@
 
 #include "config.h"
 #include "storedevice.h"
-
+#include "sd.h"
+    
 typedef enum
 {
 	ADDRESS_BLOCK = 0,

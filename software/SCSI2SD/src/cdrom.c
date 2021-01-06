@@ -162,7 +162,7 @@ static void doReadTOC(int MSF, uint8_t track, uint16_t allocationLength)
 		memcpy(scsiDev.data, SimpleTOC, len);
 
 		uint32_t capacity = getScsiCapacity(
-			scsoDev.target->device,
+			scsiDev.target->device,
 			scsiDev.target->cfg->sdSectorStart,
 			scsiDev.target->state.bytesPerSector,
 			scsiDev.target->cfg->scsiSectors);

@@ -184,7 +184,7 @@ typedef struct __attribute__((packed))
 	uint8_t modePages[1024];
 	uint8_t vpd[1024];
 	uint8_t unused[1024]; // Total size is 4k.
-} TargetConfig;
+} S2S_TargetCfg;
 
 typedef struct __attribute__((packed))
 {
@@ -198,7 +198,7 @@ typedef struct __attribute__((packed))
 
 
 	uint8_t reserved[247]; // Pad out to 256 bytes
-} BoardConfig;
+} S2S_BoardConfig;
 
 typedef enum
 {

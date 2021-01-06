@@ -42,7 +42,6 @@ int main()
 	configInit(&scsiDev.boardCfg);
 	debugInit();
 
-
 	scsiPhyConfig();
 
 	scsiInit();
@@ -99,7 +98,7 @@ int main()
 			scsiDev.target &&
 			(scsiDev.target->device->mediaState & MEDIA_PRESENT))
 		{
-			scsiDev.target->device->pollMediaBusy();
+			scsiDev.target->device->pollMediaBusy(scsiDev.target->device);
 		}
 	}
 	return 0;

@@ -33,8 +33,8 @@ S2S_Target* s2s_DeviceFindByScsiId(int scsiId)
 		{
 			S2S_Target* target = targets + targetIdx;
 			if (target &&
-				(target->cfg->scsiId & S2S_CFG_TARGET_ENABLED) &&
-				((target->cfg->scsiId & S2S_CFG_TARGET_ID_BITS) == scsiId))
+				(target->cfg->scsiId & CONFIG_TARGET_ENABLED) &&
+				((target->cfg->scsiId & CONFIG_TARGET_ID_BITS) == scsiId))
 			{
 				return target;
 			}

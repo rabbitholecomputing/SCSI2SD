@@ -76,7 +76,7 @@ static void doFormatUnitHeader(void)
 	{
 		// Save the "MODE SELECT savable parameters"
 		configSave(
-			scsiDev.target->targetId,
+			scsiDev.target->cfg->scsiId & CONFIG_TARGET_ID_BITS,
 			scsiDev.target->state.bytesPerSector);
 	}
 
@@ -108,7 +108,6 @@ static void doReadCapacity()
 
 	uint32_t capacity = getScsiCapacity(
 		scsiDev.target->device,
-		scsiDev.device,
 		scsiDev.target->cfg->sdSectorStart,
 		scsiDev.target->state.bytesPerSector,
 		scsiDev.target->cfg->scsiSectors);
@@ -172,7 +171,7 @@ static void doWrite(uint32 lba, uint32 blocks)
 	}
 	else if (unlikely(((uint64) lba) + blocks >
 		getScsiCapacity(
-			scsiDev->device,
+			scsiDev.target->device,
 			scsiDev.target->cfg->sdSectorStart,
 			bytesPerSector,
 			scsiDev.target->cfg->scsiSectors
@@ -218,6 +217,7 @@ static void doRead(uint32 lba, uint32 blocks)
 	}
 
 	uint32_t capacity = getScsiCapacity(
+        scsiDev.target->device,
 		scsiDev.target->cfg->sdSectorStart,
 		scsiDev.target->state.bytesPerSector,
 		scsiDev.target->cfg->scsiSectors);
@@ -271,6 +271,7 @@ static void doSeek(uint32 lba)
 {
 	if (lba >=
 		getScsiCapacity(
+            scsiDev.target->device,
 			scsiDev.target->cfg->sdSectorStart,
 			scsiDev.target->state.bytesPerSector,
 			scsiDev.target->cfg->scsiSectors)

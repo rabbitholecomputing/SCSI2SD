@@ -35,7 +35,7 @@ static int sd_pollMediaChange(S2S_Device* dev);
 static void sd_pollMediaBusy(S2S_Device* dev);
 
 // Global
-SdCard sdCard S2S_DMA_ALIGN = {
+SdCard sdCard = {
 	{
 		sd_earlyInit,
 		sd_getTargets,
@@ -1003,14 +1003,14 @@ void sdCheckPresent()
 				// LOGICAL_UNIT_NOT_READY_INITIALIZING_COMMAND_REQUIRED sense
 				// code, even if they stopped it first with
 				// START STOP UNIT command.
-				blockDev.state |= DISK_STARTED;
+				sdCard.dev.mediaState |= MEDIA_STARTED;
 
 				if (!firstInit)
 				{
 					int i;
 					for (i = 0; i < MAX_SCSI_TARGETS; ++i)
 					{
-						scsiDev.targets[i].unitAttention = PARAMETERS_CHANGED;
+						sdCard.targets[i].state.unitAttention = PARAMETERS_CHANGED;
 					}
 				}
 				firstInit = 0;
@@ -1035,12 +1035,12 @@ static void sd_earlyInit(S2S_Device* dev)
 {
 	SdCard* sdCardDevice = (SdCard*)dev;
 
-	for (int i = 0; i < MAX_TARGETS; ++i)
+	for (int i = 0; i < MAX_SCSI_TARGETS; ++i)
 	{
 		sdCardDevice->targets[i].device = dev;
 		sdCardDevice->targets[i].cfg = getConfigByIndex(i);
 	}
-	sdCardDevice->lastPollMediaTime = s2s_getTime_ms();
+	sdCardDevice->lastPollMediaTime = getTime_ms();
 
 	// Don't require the host to send us a START STOP UNIT command
 	sdCardDevice->dev.mediaState = MEDIA_STARTED;
@@ -1050,7 +1050,7 @@ static void sd_earlyInit(S2S_Device* dev)
 static S2S_Target* sd_getTargets(S2S_Device* dev, int* count)
 {
 	SdCard* sdCardDevice = (SdCard*)dev;
-	*count = MAX_TARGETS;
+	*count = MAX_SCSI_TARGETS;
 	return sdCardDevice->targets;
 }
 
@@ -1063,9 +1063,9 @@ static uint32_t sd_getCapacity(S2S_Device* dev)
 static int sd_pollMediaChange(S2S_Device* dev)
 {
 	SdCard* sdCardDevice = (SdCard*)dev;
-	if (s2s_elapsedTime_ms(sdCardDevice->lastPollMediaTime) > 200)
+	if (elapsedTime_ms(sdCardDevice->lastPollMediaTime) > 200)
 	{
-		sdCardDevice->lastPollMediaTime = s2s_getTime_ms();
+		sdCardDevice->lastPollMediaTime = getTime_ms();
 		sdCheckPresent();
 		return 0;
 	}
@@ -1078,6 +1078,6 @@ static int sd_pollMediaChange(S2S_Device* dev)
 static void sd_pollMediaBusy(S2S_Device* dev)
 {
 	SdCard* sdCardDevice = (SdCard*)dev;
-	sdCardDevice->lastPollMediaTime = s2s_getTime_ms();
+	sdCardDevice->lastPollMediaTime = getTime_ms();
 }
 

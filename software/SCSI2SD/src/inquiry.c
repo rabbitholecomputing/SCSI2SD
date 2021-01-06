@@ -91,7 +91,7 @@ static const uint8 AscImpOperatingDefinition[] =
 'S','C','S','I','-','2'
 };
 
-static void useCustomVPD(const TargetConfig* cfg, int pageCode)
+static void useCustomVPD(const S2S_TargetCfg* cfg, int pageCode)
 {
 	int cfgIdx = 0;
 	int found = 0;
@@ -147,7 +147,7 @@ void scsiInquiry()
 		}
 		else
 		{
-			const TargetConfig* config = scsiDev.target->cfg;
+			const S2S_TargetCfg* config = scsiDev.target->cfg;
 			memcpy(scsiDev.data, StandardResponse, sizeof(StandardResponse));
 			scsiDev.data[1] = scsiDev.target->cfg->deviceTypeModifier;
 
@@ -180,7 +180,7 @@ void scsiInquiry()
 	{
 		memcpy(scsiDev.data, UnitSerialNumber, sizeof(UnitSerialNumber));
 		scsiDev.dataLen = sizeof(UnitSerialNumber);
-		const TargetConfig* config = scsiDev.target->cfg;
+		const S2S_TargetCfg* config = scsiDev.target->cfg;
 		memcpy(&scsiDev.data[4], config->serial, sizeof(config->serial));
 		scsiDev.phase = DATA_IN;
 	}

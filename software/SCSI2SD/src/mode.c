@@ -241,7 +241,7 @@ static void pageIn(int pc, int dataIdx, const uint8* pageData, int pageLen)
 	}
 }
 
-static int useCustomPages(const TargetConfig* cfg, int pc, int pageCode, int* idx)
+static int useCustomPages(const S2S_TargetCfg* cfg, int pc, int pageCode, int* idx)
 {
 	int found = 0;
 	int cfgIdx = 0;
@@ -626,7 +626,7 @@ static void doModeSelect(void)
 				scsiDev.target->state.bytesPerSector = bytesPerSector;
 				if (bytesPerSector != scsiDev.target->cfg->bytesPerSector)
 				{
-					configSave(scsiDev.target->targetId, bytesPerSector);
+					configSave(scsiDev.target->cfg->scsiId & CONFIG_TARGET_ID_BITS, bytesPerSector);
 				}
 			}
 		}
@@ -659,7 +659,7 @@ static void doModeSelect(void)
 				scsiDev.target->state.bytesPerSector = bytesPerSector;
 				if (scsiDev.cdb[1] & 1) // SP Save Pages flag
 				{
-					configSave(scsiDev.target->targetId, bytesPerSector);
+					configSave(scsiDev.target->cfg->scsiId & CONFIG_TARGET_ID_BITS, bytesPerSector);
 				}
 			}
 			break;

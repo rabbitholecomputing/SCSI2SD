@@ -319,7 +319,7 @@ static void process_Command()
 	if ((scsiDev.lun > 0) && (scsiDev.boardCfg.flags & CONFIG_MAP_LUNS_TO_IDS))
 	{
 		S2S_Target* lunTarget = s2s_DeviceFindByScsiId(scsiDev.lun);
-		if (lunTarget! = NULL)
+		if (lunTarget != NULL)
 		{
 			scsiDev.target = lunTarget;
 			scsiDev.lun = 0;
@@ -330,7 +330,7 @@ static void process_Command()
 	control = scsiDev.cdb[scsiDev.cdbLen - 1];
 
 	scsiDev.cmdCount++;
-	const TargetConfig* cfg = scsiDev.target->cfg;
+	const S2S_TargetCfg* cfg = scsiDev.target->cfg;
 
 	if (unlikely(scsiDev.resetFlag))
 	{
@@ -663,7 +663,7 @@ static void process_SelectionPhase()
 	int atnFlag = SCSI_ReadFilt(SCSI_Filt_ATN);
 
 	S2S_Target* target = NULL;
-	for (int testIdx = 0; testtIndex < 8; ++testtIndex)
+	for (int testIdx = 0; testIdx < 8; ++testIdx)
 	{
 		target = s2s_DeviceFindByScsiId(1 << testIdx);
 		if (target)
@@ -725,7 +725,7 @@ static void process_SelectionPhase()
 		// SCSI1/SASI initiators may not set their own ID.
 		{
 			int i;
-			uint8_t initiatorMask = mask ^ (1 << target->targetId);
+			uint8_t initiatorMask = mask ^ (1 << (target->cfg->scsiId & CONFIG_TARGET_ID_BITS));
 			scsiDev.initiatorId = -1;
 			for (i = 0; i < 8; ++i)
 			{
@@ -1056,17 +1056,17 @@ void scsiInit()
 	for (int devIdx = 0; devIdx < deviceCount; ++devIdx)
 	{
 		int targetCount;
-		S2S_Target* targets = devices[deviceIdx].getTargets(devices + deviceIdx, &targetCount);
+		S2S_Target* targets = allDevices[devIdx].getTargets(allDevices + devIdx, &targetCount);
 
 		for (int i = 0; i < targetCount; ++i)
 		{
 			S2S_TargetState* state = &(targets[i].state);
 
-			scsiDev.targets[i].state.reservedId = -1;
-			scsiDev.targets[i].state.reserverId = -1;
-			scsiDev.targets[i].state.unitAttention = POWER_ON_RESET;
-			scsiDev.targets[i].state.sense.code = NO_SENSE;
-			scsiDev.targets[i].state.sense.asc = NO_ADDITIONAL_SENSE_INFORMATION;
+			state->reservedId = -1;
+			state->reserverId = -1;
+			state->unitAttention = POWER_ON_RESET;
+			state->sense.code = NO_SENSE;
+			state->sense.asc = NO_ADDITIONAL_SENSE_INFORMATION;
 
 			state->bytesPerSector = targets[i].cfg->bytesPerSector;
 		}
@@ -1105,7 +1105,7 @@ int scsiReconnect()
 	{
 		// Arbitrate.
 		ledOn();
-		uint8_t scsiIdMask = 1 << scsiDev.target->targetId;
+		uint8_t scsiIdMask = 1 << (scsiDev.target->cfg->scsiId & CONFIG_TARGET_ID_BITS);
 		SCSI_Out_Bits_Write(scsiIdMask);
 		SCSI_Out_Ctl_Write(1); // Write bits manually.
 		SCSI_SetPin(SCSI_Out_BSY);

@@ -20,12 +20,12 @@
 #include "device.h"
 #include "scsi2sd.h"
 
-void configInit(BoardConfig* config);
+void configInit(S2S_BoardConfig* config);
 void debugInit(void);
 void configPoll(void);
 void configSave(int scsiId, uint16_t byesPerSector);
 
-const TargetConfig* getConfigByIndex(int index);
-const TargetConfig* getConfigById(int scsiId);
+const S2S_TargetCfg* getConfigByIndex(int index);
+const S2S_TargetCfg* getConfigById(int scsiId);
 
 #endif

@@ -665,7 +665,7 @@ static void process_SelectionPhase()
 	S2S_Target* target = NULL;
 	for (int testIdx = 0; testIdx < 8; ++testIdx)
 	{
-		target = s2s_DeviceFindByScsiId(1 << testIdx);
+		target = s2s_DeviceFindByScsiId(testIdx);
 		if (target)
 		{
 			break;

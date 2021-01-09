@@ -29,6 +29,7 @@
 #include <string.h>
 
 static void sd_earlyInit(S2S_Device* dev);
+static void sd_deviceInit(S2S_Device* dev);
 static S2S_Target* sd_getTargets(S2S_Device* dev, int* count);
 static uint32_t sd_getCapacity(S2S_Device* dev);
 static int sd_pollMediaChange(S2S_Device* dev);
@@ -38,10 +39,13 @@ static void sd_pollMediaBusy(S2S_Device* dev);
 SdCard sdCard = {
 	{
 		sd_earlyInit,
+        sd_deviceInit,
 		sd_getTargets,
 		sd_getCapacity,
 		sd_pollMediaChange,
-		sd_pollMediaBusy
+		sd_pollMediaBusy,
+        0, // initial mediaState
+        CONFIG_STOREDEVICE_SD
 	}
 };
 S2S_Device* sdDevice = &(sdCard.dev);
@@ -1038,13 +1042,26 @@ static void sd_earlyInit(S2S_Device* dev)
 	for (int i = 0; i < MAX_SCSI_TARGETS; ++i)
 	{
 		sdCardDevice->targets[i].device = dev;
-		sdCardDevice->targets[i].cfg = getConfigByIndex(i);
+        
+        const S2S_TargetCfg* cfg = getConfigByIndex(i);
+        if (cfg->storageDevice == CONFIG_STOREDEVICE_SD)
+        {
+		    sdCardDevice->targets[i].cfg = (S2S_TargetCfg*)cfg;
+        }
+        else
+        {
+            sdCardDevice->targets[i].cfg = NULL;
+        }
 	}
 	sdCardDevice->lastPollMediaTime = getTime_ms();
 
 	// Don't require the host to send us a START STOP UNIT command
 	sdCardDevice->dev.mediaState = MEDIA_STARTED;
+}
 
+static void sd_deviceInit(S2S_Device* dev)
+{
+	sdCheckPresent();
 }
 
 static S2S_Target* sd_getTargets(S2S_Device* dev, int* count)

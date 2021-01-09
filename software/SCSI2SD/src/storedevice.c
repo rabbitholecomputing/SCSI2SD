@@ -16,6 +16,12 @@
 //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
 #include "storedevice.h"
 
+#include "device.h"
+
+#ifdef NOR_SPI_DATA_WIDTH
+#include "flash.h"
+#endif
+
 #include "sd.h"
 
 #include <stddef.h>
@@ -24,15 +30,16 @@
 S2S_Target* s2s_DeviceFindByScsiId(int scsiId)
 {
 	int deviceCount;
-	S2S_Device* devices = s2s_GetDevices(&deviceCount);
+	S2S_Device** devices = s2s_GetDevices(&deviceCount);
 	for (int deviceIdx = 0; deviceIdx < deviceCount; ++deviceIdx)
 	{
 		int targetCount;
-		S2S_Target* targets = devices[deviceIdx].getTargets(devices + deviceIdx, &targetCount);
+		S2S_Target* targets = devices[deviceIdx]->getTargets(devices[deviceIdx], &targetCount);
 		for (int targetIdx = 0; targetIdx < targetCount; ++targetIdx)
 		{
 			S2S_Target* target = targets + targetIdx;
 			if (target &&
+                target->cfg &&
 				(target->cfg->scsiId & CONFIG_TARGET_ENABLED) &&
 				((target->cfg->scsiId & CONFIG_TARGET_ID_BITS) == scsiId))
 			{
@@ -44,19 +51,38 @@ S2S_Target* s2s_DeviceFindByScsiId(int scsiId)
 	return NULL;
 }
 
-S2S_Device* s2s_GetDevices(int* count)
+S2S_Device** s2s_GetDevices(int* count)
 {
-	*count = 1;
-	return sdDevice;
+    static S2S_Device* allDevices[2];
+    
+    *count = 1;
+    allDevices[0] = sdDevice;
+    
+    #ifdef NOR_SPI_DATA_WIDTH
+	    *count = 2;
+        allDevices[0] = spiFlashDevice;
+    #endif
+    
+    return &allDevices;
 }
 
 void s2s_deviceEarlyInit()
 {
 	int count;
-	S2S_Device* devices = s2s_GetDevices(&count);
+	S2S_Device** devices = s2s_GetDevices(&count);
 	for (int i = 0; i < count; ++i)
 	{
-		devices[i].earlyInit(&(devices[i]));
+		devices[i]->earlyInit(devices[i]);
+	}
+}
+
+void s2s_deviceInit()
+{
+	int count;
+	S2S_Device** devices = s2s_GetDevices(&count);
+	for (int i = 0; i < count; ++i)
+	{
+		devices[i]->init(devices[i]);
 	}
 }
 
@@ -64,10 +90,10 @@ int s2s_pollMediaChange()
 {
 	int result = 0;
 	int count;
-	S2S_Device* devices = s2s_GetDevices(&count);
+	S2S_Device** devices = s2s_GetDevices(&count);
 	for (int i = 0; i < count; ++i)
 	{
-		int devResult = devices[i].pollMediaChange(&(devices[i]));
+		int devResult = devices[i]->pollMediaChange(devices[i]);
 		result = result || devResult;
 	}
 	return result;

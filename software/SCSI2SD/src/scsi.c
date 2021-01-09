@@ -665,11 +665,14 @@ static void process_SelectionPhase()
 	S2S_Target* target = NULL;
 	for (int testIdx = 0; testIdx < 8; ++testIdx)
 	{
-		target = s2s_DeviceFindByScsiId(testIdx);
-		if (target)
-		{
-			break;
-		}
+        if (mask & (1 << testIdx))
+        {
+		    target = s2s_DeviceFindByScsiId(testIdx);
+		    if (target)
+		    {
+			    break;
+		    }
+        }
 	}
 
 	sel &= (selLatchCfg && scsiDev.selFlag) || SCSI_ReadFilt(SCSI_Filt_SEL);
@@ -1052,11 +1055,11 @@ void scsiInit()
 	scsiDev.compatMode = COMPAT_UNKNOWN;
 
 	int deviceCount;
-	S2S_Device* allDevices = s2s_GetDevices(&deviceCount);
+	S2S_Device** allDevices = s2s_GetDevices(&deviceCount);
 	for (int devIdx = 0; devIdx < deviceCount; ++devIdx)
 	{
 		int targetCount;
-		S2S_Target* targets = allDevices[devIdx].getTargets(allDevices + devIdx, &targetCount);
+		S2S_Target* targets = allDevices[devIdx]->getTargets(allDevices[devIdx], &targetCount);
 
 		for (int i = 0; i < targetCount; ++i)
 		{
@@ -1068,7 +1071,10 @@ void scsiInit()
 			state->sense.code = NO_SENSE;
 			state->sense.asc = NO_ADDITIONAL_SENSE_INFORMATION;
 
-			state->bytesPerSector = targets[i].cfg->bytesPerSector;
+            if (targets[i].cfg)
+            {
+			    state->bytesPerSector = targets[i].cfg->bytesPerSector;
+            }
 		}
 	}
 }

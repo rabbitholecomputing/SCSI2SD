@@ -81,7 +81,6 @@
 #include "nNOR_HOLD.h"
 #include "NOR_SI_aliases.h"
 #include "NOR_SI.h"
-#include "NOR_CTL.h"
 #include "nNOR_CS_aliases.h"
 #include "nNOR_CS.h"
 #include "nNOR_WP_aliases.h"

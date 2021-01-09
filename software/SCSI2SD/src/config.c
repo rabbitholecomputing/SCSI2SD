@@ -196,6 +196,33 @@ scsiTestCommand()
 }
 
 static void
+deviceListCommand()
+{
+    int deviceCount;
+    S2S_Device** devices = s2s_GetDevices(&deviceCount);
+    
+    uint8_t response[16] = // Make larger if there can be more than 2 devices
+    {
+        deviceCount
+    };
+    
+    int pos = 1;
+    
+    for (int i = 0; i < deviceCount; ++i)
+    {
+        response[pos++] = devices[i]->deviceType;
+        
+        uint32_t capacity = devices[i]->getCapacity(devices[i]);
+        response[pos++] = capacity >> 24;
+        response[pos++] = capacity >> 16;
+        response[pos++] = capacity >> 8;
+        response[pos++] = capacity;
+    }
+    
+    hidPacket_send(response, pos);
+}
+
+static void
 processCommand(const uint8_t* cmd, size_t cmdSize)
 {
 	switch (cmd[0])
@@ -224,6 +251,10 @@ processCommand(const uint8_t* cmd, size_t cmdSize)
 		scsiTestCommand();
 		break;
 
+    case S2S_CMD_DEV_LIST:
+        deviceListCommand();
+        break;
+        
 	case CONFIG_NONE: // invalid
 	default:
 		break;

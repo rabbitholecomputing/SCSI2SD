@@ -61,7 +61,7 @@ int main()
 		++delaySeconds;
 	}
 
-	sdCheckPresent();
+    s2s_deviceInit();
 
 	while (1)
 	{

@@ -66,6 +66,7 @@ struct S2S_TargetStruct
 struct S2S_DeviceStruct
 {
 	void (*earlyInit)(S2S_Device* dev);
+    void (*init)(S2S_Device* dev);
 
 	S2S_Target* (*getTargets)(S2S_Device* dev, int* count);
 
@@ -76,13 +77,15 @@ struct S2S_DeviceStruct
 	void (*pollMediaBusy)(S2S_Device* dev);
 
 	MEDIA_STATE mediaState;
+    CONFIG_STOREDEVICE deviceType;
 };
 
 S2S_Target* s2s_DeviceFindByScsiId(int scsiId);
 
-S2S_Device* s2s_GetDevices(int* count);
+S2S_Device** s2s_GetDevices(int* count);
 
 void s2s_deviceEarlyInit();
+void s2s_deviceInit();
 int s2s_pollMediaChange();
 #endif
 

@@ -60,10 +60,10 @@ S2S_Device** s2s_GetDevices(int* count)
     
     #ifdef NOR_SPI_DATA_WIDTH
 	    *count = 2;
-        allDevices[0] = spiFlashDevice;
+        allDevices[1] = spiFlashDevice;
     #endif
     
-    return &allDevices;
+    return allDevices;
 }
 
 void s2s_deviceEarlyInit()

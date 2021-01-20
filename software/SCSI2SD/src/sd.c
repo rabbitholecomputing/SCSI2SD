@@ -34,6 +34,10 @@ static S2S_Target* sd_getTargets(S2S_Device* dev, int* count);
 static uint32_t sd_getCapacity(S2S_Device* dev);
 static int sd_pollMediaChange(S2S_Device* dev);
 static void sd_pollMediaBusy(S2S_Device* dev);
+static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
+static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+
 
 // Global
 SdCard sdCard = {
@@ -44,6 +48,9 @@ SdCard sdCard = {
 		sd_getCapacity,
 		sd_pollMediaChange,
 		sd_pollMediaBusy,
+        sd_erase,
+        sd_read,
+        sd_write,
         0, // initial mediaState
         CONFIG_STOREDEVICE_SD
 	}
@@ -1098,3 +1105,17 @@ static void sd_pollMediaBusy(S2S_Device* dev)
 	sdCardDevice->lastPollMediaTime = getTime_ms();
 }
 
+static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count)
+{
+    // TODO
+}
+
+static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // TODO
+}
+
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // TODO
+}

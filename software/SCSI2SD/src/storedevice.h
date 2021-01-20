@@ -76,6 +76,10 @@ struct S2S_DeviceStruct
 	int (*pollMediaChange)(S2S_Device* dev);
 	void (*pollMediaBusy)(S2S_Device* dev);
 
+    void (*erase)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
+    void (*read)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+    void (*write)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+
 	MEDIA_STATE mediaState;
     CONFIG_STOREDEVICE deviceType;
 };

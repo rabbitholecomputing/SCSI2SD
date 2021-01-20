@@ -223,6 +223,73 @@ deviceListCommand()
 }
 
 static void
+deviceEraseCommand(const uint8_t* cmd)
+{
+    int deviceCount;
+    S2S_Device** devices = s2s_GetDevices(&deviceCount);
+    
+    uint32_t sectorNum =
+        ((uint32_t)cmd[2]) << 24 |
+        ((uint32_t)cmd[3]) << 16 |
+        ((uint32_t)cmd[4]) << 8 |
+        ((uint32_t)cmd[5]);
+
+    uint32_t count =
+        ((uint32_t)cmd[6]) << 24 |
+        ((uint32_t)cmd[7]) << 16 |
+        ((uint32_t)cmd[8]) << 8 |
+        ((uint32_t)cmd[9]);
+
+    devices[cmd[1]]->erase(devices[cmd[1]], sectorNum, count);
+    
+	uint8_t response[] =
+	{
+		CONFIG_STATUS_GOOD
+	};
+    hidPacket_send(response, sizeof(response));
+}
+
+static void
+deviceWriteCommand(const uint8_t* cmd)
+{
+    int deviceCount;
+    S2S_Device** devices = s2s_GetDevices(&deviceCount);
+    
+    uint32_t sectorNum =
+        ((uint32_t)cmd[2]) << 24 |
+        ((uint32_t)cmd[3]) << 16 |
+        ((uint32_t)cmd[4]) << 8 |
+        ((uint32_t)cmd[5]);
+
+    devices[cmd[1]]->write(devices[cmd[1]], sectorNum, 1, &cmd[6]);
+    
+	uint8_t response[] =
+	{
+		CONFIG_STATUS_GOOD
+	};
+    hidPacket_send(response, sizeof(response));
+}
+
+
+static void
+deviceReadCommand(const uint8_t* cmd)
+{
+    int deviceCount;
+    S2S_Device** devices = s2s_GetDevices(&deviceCount);
+    
+    uint32_t sectorNum =
+        ((uint32_t)cmd[2]) << 24 |
+        ((uint32_t)cmd[3]) << 16 |
+        ((uint32_t)cmd[4]) << 8 |
+        ((uint32_t)cmd[5]);
+
+    uint32_t response[512];
+    devices[cmd[1]]->read(devices[cmd[1]], sectorNum, 1, &response[0]);
+    
+    hidPacket_send(&response[0], 512);
+}
+
+static void
 processCommand(const uint8_t* cmd, size_t cmdSize)
 {
 	switch (cmd[0])
@@ -253,6 +320,18 @@ processCommand(const uint8_t* cmd, size_t cmdSize)
 
     case S2S_CMD_DEV_LIST:
         deviceListCommand();
+        break;
+
+    case S2S_CMD_DEV_ERASE:
+        deviceEraseCommand(cmd);
+        break;
+
+    case S2S_CMD_DEV_WRITE:
+        deviceWriteCommand(cmd);
+        break;
+
+    case S2S_CMD_DEV_READ:
+        deviceReadCommand(cmd);
         break;
         
 	case CONFIG_NONE: // invalid

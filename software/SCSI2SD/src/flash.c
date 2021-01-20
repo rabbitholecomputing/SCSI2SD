@@ -102,6 +102,7 @@ static void spiFlash_init(S2S_Device* dev)
     CyDelayUs(1);
 
     nNOR_CS_Write(0); // Select
+    CyDelayCycles(4); // Tiny delay
     
     // JEDEC standard "Read Identification" command
     // returns CFI information

@@ -283,7 +283,7 @@ deviceReadCommand(const uint8_t* cmd)
         ((uint32_t)cmd[4]) << 8 |
         ((uint32_t)cmd[5]);
 
-    uint32_t response[512];
+    uint8_t response[512];
     devices[cmd[1]]->read(devices[cmd[1]], sectorNum, 1, &response[0]);
     
     hidPacket_send(&response[0], 512);

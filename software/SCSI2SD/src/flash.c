@@ -178,7 +178,7 @@ static void spiFlash_WaitForWIP()
 
 static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count)
 {
-    SpiFlash* spiFlash = (SpiFlash*)dev;
+    // SpiFlash* spiFlash = (SpiFlash*)dev;
 
     nNOR_CS_Write(0); // Select
 
@@ -209,12 +209,12 @@ static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
         spiFlashByte(linearAddress);
 
         // Initiate erase
-        nNOR_CS_Write(1)
+        nNOR_CS_Write(1);
 
         spiFlash_WaitForWIP();
     }
 
-    nNOR_CS_Write(0)
+    nNOR_CS_Write(0);
 
     // Send the WREN - Write Disable command
     spiFlashByte(0x04);
@@ -224,7 +224,7 @@ static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
 
 static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
 {
-    SpiFlash* spiFlash = (SpiFlash*)dev;
+    // SpiFlash* spiFlash = (SpiFlash*)dev;
 
     nNOR_CS_Write(0); // Select
 
@@ -235,7 +235,7 @@ static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
     nNOR_CS_Write(1);
     
     // We're assuming here that the page size is 512 bytes or more.
-    for (int i = 0; i < count; ++i)
+    for (unsigned int i = 0; i < count; ++i)
     {
         nNOR_CS_Write(0);
 
@@ -253,12 +253,12 @@ static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
         }
 
         // Initiate write 
-        nNOR_CS_Write(1)
+        nNOR_CS_Write(1);
 
         spiFlash_WaitForWIP();
     }
 
-    nNOR_CS_Write(0)
+    nNOR_CS_Write(0);
 
     // Send the WREN - Write Disable command
     spiFlashByte(0x04);
@@ -268,7 +268,7 @@ static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
 
 static void spiFlash_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
 {
-    SpiFlash* spiFlash = (SpiFlash*)dev;
+    // SpiFlash* spiFlash = (SpiFlash*)dev;
 
     nNOR_CS_Write(0); // Select
     spiFlashByte(0x13);

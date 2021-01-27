@@ -161,7 +161,8 @@ static void doWrite(uint32 lba, uint32 blocks)
 	MEDIA_STATE* mediaState = &(scsiDev.target->device->mediaState);
 
 	if (unlikely(*mediaState & MEDIA_WP) ||
-		unlikely(scsiDev.target->cfg->deviceType == CONFIG_OPTICAL))
+		unlikely(scsiDev.target->cfg->deviceType == CONFIG_OPTICAL) ||
+        (scsiDev.target->cfg->storageDevice != CONFIG_STOREDEVICE_SD))
 
 	{
 		scsiDev.status = CHECK_CONDITION;
@@ -245,7 +246,8 @@ static void doRead(uint32 lba, uint32 blocks)
 				(sdSectors == 1) &&
 				!(scsiDev.boardCfg.flags & CONFIG_ENABLE_CACHE)
 			) ||
-			unlikely(((uint64) lba) + blocks == capacity)
+			unlikely(((uint64) lba) + blocks == capacity) ||
+            (scsiDev.target->cfg->storageDevice != CONFIG_STOREDEVICE_SD)
 			)
 		{
 			// We get errors on reading the last sector using a multi-sector
@@ -599,16 +601,26 @@ void scsiDiskPoll()
 				(prep - i < buffers) &&
 				(prep < totalSDSectors))
 			{
-				// Start an SD transfer if we have space.
-				if (transfer.multiBlock)
-				{
-					sdReadMultiSectorDMA(&scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
-				}
-				else
-				{
-					sdReadSingleSectorDMA(sdLBA + prep, &scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
-				}
-				sdActive = 1;
+                if (scsiDev.target->cfg->storageDevice == CONFIG_STOREDEVICE_SD)
+                {
+				    // Start an SD transfer if we have space.
+				    if (transfer.multiBlock)
+				    {
+					    sdReadMultiSectorDMA(&scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
+				    }
+				    else
+				    {
+					    sdReadSingleSectorDMA(sdLBA + prep, &scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
+				    }
+				    sdActive = 1;
+                }
+                else
+                {
+                    // Sync Read onboard flash
+                    S2S_Device* device = scsiDev.target->device;
+                    device->read(device, sdLBA + prep, 1, &scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
+                    prep++;
+                }
 			}
 
 			if (scsiActive && !scsiBusy && scsiWriteDMAPoll())

@@ -134,6 +134,11 @@ static void spiFlash_init(S2S_Device* dev)
     //spiFlash->capacity = (1 << spiFlashByte(0xFF)) / 512;
     // Record value in 512-byte sectors.
     spiFlash->capacity = 1 << (spiFlashByte(0xFF) - 9);
+    
+    if (spiFlash->capacity > 0)
+    {
+        spiFlash->dev.mediaState |= MEDIA_PRESENT | MEDIA_INITIALISED;
+    }
 
     // Don't bother reading the rest. Deselecting will cancel the command.
     

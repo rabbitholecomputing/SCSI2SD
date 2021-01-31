@@ -78,6 +78,8 @@ struct S2S_DeviceStruct
 
     void (*erase)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
     void (*read)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+    void (*readAsync)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+    int  (*readAsyncPoll)(S2S_Device* dev);
     void (*write)(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 
 	MEDIA_STATE mediaState;

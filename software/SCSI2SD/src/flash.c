@@ -45,6 +45,8 @@ static int spiFlash_pollMediaChange(S2S_Device* dev);
 static void spiFlash_pollMediaBusy(S2S_Device* dev);
 static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
 static void spiFlash_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void spiFlash_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static int  spiFlash_readAsyncPoll(S2S_Device* dev);
 static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 
 SpiFlash spiFlash = {
@@ -57,6 +59,8 @@ SpiFlash spiFlash = {
         spiFlash_pollMediaBusy,
         spiFlash_erase,
         spiFlash_read,
+        spiFlash_readAsync,
+        spiFlash_readAsyncPoll,
         spiFlash_write,
         0, // initial mediaState
         CONFIG_STOREDEVICE_FLASH
@@ -64,6 +68,32 @@ SpiFlash spiFlash = {
 };
 
 S2S_Device* spiFlashDevice = &(spiFlash.dev);
+
+// Private DMA variables.
+static uint8 spiFlashDMARxChan = CY_DMA_INVALID_CHANNEL;
+static uint8 spiFlashDMATxChan = CY_DMA_INVALID_CHANNEL;
+static uint8_t spiFlashDmaRxTd[2] = { CY_DMA_INVALID_TD, CY_DMA_INVALID_TD };
+static uint8_t spiFlashDmaTxTd[2] = { CY_DMA_INVALID_TD, CY_DMA_INVALID_TD };
+
+// Source of dummy SPI bytes for DMA
+static uint8_t dummyBuffer[2]  __attribute__((aligned(4))) = {0xFF, 0xFF};
+// Dummy location for DMA to sink usless data to
+static uint8 discardBuffer[2] __attribute__((aligned(4)));
+
+
+volatile uint8_t spiFlashRxDMAComplete = 1;
+volatile uint8_t spiFlashTxDMAComplete = 1;
+
+CY_ISR_PROTO(spiFlashRxISR);
+CY_ISR(spiFlashRxISR)
+{
+	spiFlashRxDMAComplete = 1;
+}
+CY_ISR_PROTO(spiFlashTxISR);
+CY_ISR(spiFlashTxISR)
+{
+	spiFlashTxDMAComplete = 1;
+}
 
 // Read and write 1 byte.
 static uint8_t spiFlashByte(uint8_t value)
@@ -94,6 +124,35 @@ static void spiFlash_earlyInit(S2S_Device* dev)
 
     // Don't require the host to send us a START STOP UNIT command
     spiFlash->dev.mediaState = MEDIA_STARTED;
+    
+    // DMA stuff
+	spiFlashDMATxChan =
+		NOR_TX_DMA_DmaInitialize(
+			2, // Bytes per burst
+			1, // request per burst
+			HI16(CYDEV_SRAM_BASE),
+			HI16(CYDEV_PERIPH_BASE)
+			);
+
+	spiFlashDMARxChan =
+		NOR_RX_DMA_DmaInitialize(
+			1, // Bytes per burst
+			1, // request per burst
+			HI16(CYDEV_PERIPH_BASE),
+			HI16(CYDEV_SRAM_BASE)
+			);
+
+	CyDmaChDisable(spiFlashDMATxChan);
+	CyDmaChDisable(spiFlashDMARxChan);
+
+	NOR_RX_DMA_COMPLETE_StartEx(spiFlashRxISR);
+	NOR_TX_DMA_COMPLETE_StartEx(spiFlashTxISR);
+    
+    spiFlashDmaRxTd[0] = CyDmaTdAllocate();
+    spiFlashDmaRxTd[1] = CyDmaTdAllocate();
+    
+    spiFlashDmaTxTd[0] = CyDmaTdAllocate();
+    spiFlashDmaTxTd[1] = CyDmaTdAllocate();
 }
 
 static void spiFlash_init(S2S_Device* dev)
@@ -283,7 +342,7 @@ static void spiFlash_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count
     spiFlashByte(linearAddress >> 16);
     spiFlashByte(linearAddress >> 8);
     spiFlashByte(linearAddress);
-
+    
     // There's no harm in reading -extra- data, so keep the FIFO
     // one step ahead.
     NOR_SPI_WriteTxData(0xFF);
@@ -305,7 +364,90 @@ static void spiFlash_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count
         while (!(NOR_SPI_ReadRxStatus() & NOR_SPI_STS_RX_FIFO_NOT_EMPTY)) {}
         NOR_SPI_ReadRxData();
     }
-
+    
     nNOR_CS_Write(1); // Deselect
 }
 
+static void spiFlash_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // SpiFlash* spiFlash = (SpiFlash*)dev;
+
+    nNOR_CS_Write(0); // Select
+    spiFlashByte(0x13);
+
+    uint32_t linearAddress = sectorNumber * 512;
+    
+    // DMA implementation
+    // send is static as the address must remain consistent for the static
+	// DMA descriptors to work.
+	// Size must be divisible by 2 to suit 2-byte-burst TX DMA channel.
+	static uint8_t send[4] __attribute__((aligned(4)));
+    send[0] = linearAddress >> 24;
+    send[1] = linearAddress >> 16;
+    send[2] = linearAddress >> 8;
+    send[3] = linearAddress;
+    
+	// Prepare DMA transfer
+    CyDmaTdSetConfiguration(spiFlashDmaTxTd[0], sizeof(send), spiFlashDmaTxTd[1], TD_INC_SRC_ADR);
+    CyDmaTdSetAddress(spiFlashDmaTxTd[0], LO16((uint32)&send), LO16((uint32)NOR_SPI_TXDATA_PTR));
+        
+	CyDmaTdSetConfiguration(
+		spiFlashDmaTxTd[1],
+		count * 512,
+		CY_DMA_DISABLE_TD, // Disable the DMA channel when TD completes count bytes
+		NOR_TX_DMA__TD_TERMOUT_EN // Trigger interrupt when complete
+		);
+    CyDmaTdSetAddress(
+		spiFlashDmaTxTd[1],
+		LO16((uint32)&dummyBuffer),
+		LO16((uint32)NOR_SPI_TXDATA_PTR));
+    
+    CyDmaTdSetConfiguration(spiFlashDmaRxTd[0], sizeof(send), spiFlashDmaRxTd[1], 0);
+    CyDmaTdSetAddress(spiFlashDmaRxTd[0], LO16((uint32)NOR_SPI_RXDATA_PTR), LO16((uint32)&discardBuffer));
+        
+	CyDmaTdSetConfiguration(
+		spiFlashDmaRxTd[1],
+		count * 512,
+		CY_DMA_DISABLE_TD, // Disable the DMA channel when TD completes count bytes
+		TD_INC_DST_ADR |
+			NOR_RX_DMA__TD_TERMOUT_EN // Trigger interrupt when complete
+		);
+	
+	CyDmaTdSetAddress(
+		spiFlashDmaRxTd[1],
+		LO16((uint32)NOR_SPI_RXDATA_PTR),
+		LO16((uint32)buffer)
+		);
+
+	CyDmaChSetInitialTd(spiFlashDMATxChan, spiFlashDmaTxTd[0]);
+	CyDmaChSetInitialTd(spiFlashDMARxChan, spiFlashDmaRxTd[0]);
+
+	// The DMA controller is a bit trigger-happy. It will retain
+	// a drq request that was triggered while the channel was
+	// disabled.
+	CyDmaChSetRequest(spiFlashDMATxChan, CY_DMA_CPU_REQ);
+	CyDmaClearPendingDrq(spiFlashDMARxChan);
+
+	spiFlashTxDMAComplete = 0;
+	spiFlashRxDMAComplete = 0;
+
+	CyDmaChEnable(spiFlashDMARxChan, 1);
+	CyDmaChEnable(spiFlashDMATxChan, 1);
+}
+
+static int spiFlash_readAsyncPoll(S2S_Device* dev)
+{
+    // SpiFlash* spiFlash = (SpiFlash*)dev;
+
+    int allComplete = 0;
+    uint8_t intr = CyEnterCriticalSection();
+	allComplete = spiFlashTxDMAComplete && spiFlashRxDMAComplete;
+	CyExitCriticalSection(intr);
+
+    if (allComplete)
+    {
+        nNOR_CS_Write(1); // Deselect
+    }
+    
+    return allComplete;
+}

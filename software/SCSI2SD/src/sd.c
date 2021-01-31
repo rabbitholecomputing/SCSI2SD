@@ -36,6 +36,8 @@ static int sd_pollMediaChange(S2S_Device* dev);
 static void sd_pollMediaBusy(S2S_Device* dev);
 static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
 static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void sd_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static int  sd_readAsyncPoll(S2S_Device* dev);
 static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 
 
@@ -50,6 +52,8 @@ SdCard sdCard = {
 		sd_pollMediaBusy,
         sd_erase,
         sd_read,
+        sd_readAsync,
+        sd_readAsyncPoll,
         sd_write,
         0, // initial mediaState
         CONFIG_STOREDEVICE_SD
@@ -1114,6 +1118,18 @@ static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint
 {
     // TODO
 }
+
+static void sd_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // TODO
+}
+
+
+static int sd_readAsyncPoll(S2S_Device* dev)
+{
+    return 1;
+}
+
 
 static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
 {

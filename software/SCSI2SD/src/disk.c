@@ -566,6 +566,9 @@ void scsiDiskPoll()
 		int i = 0;
 		int scsiActive = 0;
 		int sdActive = 0;
+        
+        int isSDDevice = scsiDev.target->cfg->storageDevice == CONFIG_STOREDEVICE_SD;
+        
 		while ((i < totalSDSectors) &&
 			likely(scsiDev.phase == DATA_IN) &&
 			likely(!scsiDev.resetFlag))
@@ -587,11 +590,23 @@ void scsiDiskPoll()
 				CyExitCriticalSection(intr);
 			}
 
-			if (sdActive && !sdBusy && sdReadSectorDMAPoll())
-			{
-				sdActive = 0;
-				prep++;
-			}
+            if (isSDDevice)
+            {
+			    if (sdActive && !sdBusy && sdReadSectorDMAPoll())
+			    {
+				    sdActive = 0;
+			    	prep++;
+			    }
+            }
+            else
+            {
+                S2S_Device* device = scsiDev.target->device;
+                if (sdActive && device->readAsyncPoll(device))
+			    {
+				    sdActive = 0;
+			    	prep++;
+			    }
+            }
 
 			// Usually SD is slower than the SCSI interface.
 			// Prioritise starting the read of the next sector over starting a
@@ -601,7 +616,7 @@ void scsiDiskPoll()
 				(prep - i < buffers) &&
 				(prep < totalSDSectors))
 			{
-                if (scsiDev.target->cfg->storageDevice == CONFIG_STOREDEVICE_SD)
+                if (isSDDevice)
                 {
 				    // Start an SD transfer if we have space.
 				    if (transfer.multiBlock)
@@ -618,8 +633,8 @@ void scsiDiskPoll()
                 {
                     // Sync Read onboard flash
                     S2S_Device* device = scsiDev.target->device;
-                    device->read(device, sdLBA + prep, 1, &scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
-                    prep++;
+                    device->readAsync(device, sdLBA + prep, 1, &scsiDev.data[SD_SECTOR_SIZE * (prep % buffers)]);
+                    sdActive = 1;
                 }
 			}
 
@@ -645,6 +660,15 @@ void scsiDiskPoll()
 			scsiDev.phase = STATUS;
 		}
 		scsiDiskReset();
+        
+        // Wait for current DMA transfer done then deselect (if reset encountered)
+        if (!isSDDevice)
+        {
+            S2S_Device* device = scsiDev.target->device;
+            while (!device->readAsyncPoll(device))
+		    {
+		    }
+        }
 	}
 	else if (scsiDev.phase == DATA_OUT &&
 		transfer.currentBlock != transfer.blocks)

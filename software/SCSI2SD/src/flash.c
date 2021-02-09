@@ -164,11 +164,23 @@ static void spiFlash_init(S2S_Device* dev)
     nNOR_CS_Write(1); // Deselect
     
     NOR_SPI_Start();
-    CyDelayUs(1);
+    CyDelayUs(50); // tRPH is 35 uS. Wait a bit longer
 
+    // Mode-bit-reset (go back to normal from high performance mode)
     nNOR_CS_Write(0); // Select
     CyDelayCycles(4); // Tiny delay
-    
+    spiFlashByte(0xFF);
+    nNOR_CS_Write(1); // Deselect
+    CyDelayCycles(4); // Tiny delay
+
+    // Software-reset
+    nNOR_CS_Write(0); // Select
+    CyDelayCycles(4); // Tiny delay
+    spiFlashByte(0xF0);
+    nNOR_CS_Write(1); // Deselect - reset is triggered on the deselect
+    CyDelayUs(50); // tRPH is 35 uS. Wait a bit longer
+
+    nNOR_CS_Write(0); // Select
     // JEDEC standard "Read Identification" command
     // returns CFI information
     spiFlashByte(0x9F);

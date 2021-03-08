@@ -993,10 +993,10 @@ void sdCheckPresent()
 		SD_CS_Write(0);
 		SD_CS_SetDriveMode(SD_CS_DM_DIG_HIZ);
 
-		// Delay extended to work with 60cm cables running cards at 2.85V
-		CyDelayCycles(128);
+		// Delay reduced for v5.2 board, no support for extension cables.
+		CyDelayCycles(32);
 		uint8_t cs = SD_CS_Read();
-		SD_CS_SetDriveMode(SD_CS_DM_STRONG)	;
+		SD_CS_SetDriveMode(SD_CS_DM_STRONG);
 
 		if (cs && !(sdCard.dev.mediaState & MEDIA_PRESENT))
 		{

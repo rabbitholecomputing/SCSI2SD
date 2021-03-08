@@ -18,6 +18,7 @@
 #include "scsi.h"
 #include "scsiPhy.h"
 #include "config.h"
+#include "debug.h"
 #include "disk.h"
 #include "led.h"
 #include "time.h"
@@ -79,7 +80,11 @@ int main()
 				scsiPhyConfig();
 				scsiInit();
 			}
-			else
+            
+            // If USB is connected we could be busy transferring data
+            // Note: The same flag is used for the config USB interface and
+            // therefore SPI flash writes
+			else if (!isDebugEnabled())
 			{
 				// Wait for our 1ms timer to save some power.
 				// There's an interrupt on the SEL signal to ensure we respond

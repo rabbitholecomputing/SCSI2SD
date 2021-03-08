@@ -58,6 +58,7 @@ enum USB_STATE
 };
 
 static uint8_t hidBuffer[USBHID_LEN];
+static uint8_t dbgHidBuffer[USBHID_LEN];
 
 static int usbInEpState;
 static int usbDebugEpState;
@@ -356,6 +357,7 @@ void configPoll()
 
 	if (reset)
 	{
+        hidPacket_reset();
 		USBFS_EnableOutEP(USB_EP_OUT);
 		USBFS_EnableOutEP(USB_EP_COMMAND);
 		usbInEpState = usbDebugEpState = USB_IDLE;
@@ -363,24 +365,32 @@ void configPoll()
 
 	if(USBFS_GetEPState(USB_EP_OUT) == USBFS_OUT_BUFFER_FULL)
 	{
-		ledOn();
-
 		// The host sent us some data!
 		int byteCount = USBFS_GetEPCount(USB_EP_OUT);
 		USBFS_ReadOutEP(USB_EP_OUT, hidBuffer, sizeof(hidBuffer));
 		hidPacket_recv(hidBuffer, byteCount);
-
+        
+        size_t cmdSize;
+        if (hidPacket_peekPacket(&cmdSize) == NULL)
+        {
+            // Allow the host to send us another updated config.
+		    USBFS_EnableOutEP(USB_EP_OUT);
+        }
+    }
+    
+    if (hidPacket_getHIDBytesReady() == 0) // Nothing queued to send
+    {
 		size_t cmdSize;
 		const uint8_t* cmd = hidPacket_getPacket(&cmdSize);
 		if (cmd && (cmdSize > 0))
 		{
+            ledOn();
 			processCommand(cmd, cmdSize);
+            ledOff();
+            
+            // Allow the host to send us another updated config.
+		    USBFS_EnableOutEP(USB_EP_OUT);
 		}
-
-		// Allow the host to send us another updated config.
-		USBFS_EnableOutEP(USB_EP_OUT);
-
-		ledOff();
 	}
 
 	switch (usbInEpState)
@@ -418,10 +428,10 @@ void debugPoll()
 	{
 		// The host sent us some data!
 		int byteCount = USBFS_GetEPCount(USB_EP_COMMAND);
-		USBFS_ReadOutEP(USB_EP_COMMAND, (uint8 *)&hidBuffer, byteCount);
+		USBFS_ReadOutEP(USB_EP_COMMAND, (uint8 *)&dbgHidBuffer, byteCount);
 
 		if (byteCount >= 1 &&
-			hidBuffer[0] == 0x01)
+			dbgHidBuffer[0] == 0x01)
 		{
 			// Reboot command.
 			Bootloadable_1_Load();
@@ -435,36 +445,36 @@ void debugPoll()
 	switch (usbDebugEpState)
 	{
 	case USB_IDLE:
-		memcpy(&hidBuffer, &scsiDev.cdb, 12);
-		hidBuffer[12] = scsiDev.msgIn;
-		hidBuffer[13] = scsiDev.msgOut;
-		hidBuffer[14] = scsiDev.lastStatus;
-		hidBuffer[15] = scsiDev.lastSense;
-		hidBuffer[16] = scsiDev.phase;
-		hidBuffer[17] = SCSI_ReadFilt(SCSI_Filt_BSY);
-		hidBuffer[18] = SCSI_ReadFilt(SCSI_Filt_SEL);
-		hidBuffer[19] = SCSI_ReadFilt(SCSI_Filt_ATN);
-		hidBuffer[20] = SCSI_ReadFilt(SCSI_Filt_RST);
-		hidBuffer[21] = scsiDev.rstCount;
-		hidBuffer[22] = scsiDev.selCount;
-		hidBuffer[23] = scsiDev.msgCount;
-		hidBuffer[24] = scsiDev.cmdCount;
-		hidBuffer[25] = scsiDev.watchdogTick;
-		hidBuffer[26] = 0; // OBSOLETE. Previously media state
-		hidBuffer[27] = scsiDev.lastSenseASC >> 8;
-		hidBuffer[28] = scsiDev.lastSenseASC;
-		hidBuffer[29] = scsiReadDBxPins();
-		hidBuffer[30] = LastTrace;
+		memcpy(&dbgHidBuffer, &scsiDev.cdb, 12);
+		dbgHidBuffer[12] = scsiDev.msgIn;
+		dbgHidBuffer[13] = scsiDev.msgOut;
+		dbgHidBuffer[14] = scsiDev.lastStatus;
+		dbgHidBuffer[15] = scsiDev.lastSense;
+		dbgHidBuffer[16] = scsiDev.phase;
+		dbgHidBuffer[17] = SCSI_ReadFilt(SCSI_Filt_BSY);
+		dbgHidBuffer[18] = SCSI_ReadFilt(SCSI_Filt_SEL);
+		dbgHidBuffer[19] = SCSI_ReadFilt(SCSI_Filt_ATN);
+		dbgHidBuffer[20] = SCSI_ReadFilt(SCSI_Filt_RST);
+		dbgHidBuffer[21] = scsiDev.rstCount;
+		dbgHidBuffer[22] = scsiDev.selCount;
+		dbgHidBuffer[23] = scsiDev.msgCount;
+		dbgHidBuffer[24] = scsiDev.cmdCount;
+		dbgHidBuffer[25] = scsiDev.watchdogTick;
+		dbgHidBuffer[26] = 0; // OBSOLETE. Previously media state
+		dbgHidBuffer[27] = scsiDev.lastSenseASC >> 8;
+		dbgHidBuffer[28] = scsiDev.lastSenseASC;
+		dbgHidBuffer[29] = scsiReadDBxPins();
+		dbgHidBuffer[30] = LastTrace;
 
-		hidBuffer[58] = sdCard.capacity >> 24;
-		hidBuffer[59] = sdCard.capacity >> 16;
-		hidBuffer[60] = sdCard.capacity >> 8;
-		hidBuffer[61] = sdCard.capacity;
+		dbgHidBuffer[58] = sdCard.capacity >> 24;
+		dbgHidBuffer[59] = sdCard.capacity >> 16;
+		dbgHidBuffer[60] = sdCard.capacity >> 8;
+		dbgHidBuffer[61] = sdCard.capacity;
 
-		hidBuffer[62] = FIRMWARE_VERSION >> 8;
-		hidBuffer[63] = FIRMWARE_VERSION;
+		dbgHidBuffer[62] = FIRMWARE_VERSION >> 8;
+		dbgHidBuffer[63] = FIRMWARE_VERSION;
 
-		USBFS_LoadInEP(USB_EP_DEBUG, (uint8 *)&hidBuffer, sizeof(hidBuffer));
+		USBFS_LoadInEP(USB_EP_DEBUG, (uint8 *)&dbgHidBuffer, sizeof(dbgHidBuffer));
 		usbDebugEpState = USB_DATA_SENT;
 		break;
 

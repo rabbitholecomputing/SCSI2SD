@@ -977,6 +977,24 @@ void sdPoll()
 	}
 }
 
+static int
+sdIsCardPresent()
+{
+	// The CS line is pulled high by the SD card.
+	// De-assert the line, and check if it's high.
+	// This isn't foolproof as it'll be left floating without
+	// an SD card. We can't use the built-in pull-down resistor as it will
+	// overpower the SD pullup resistor.
+	SD_CS_Write(0);
+	SD_CS_SetDriveMode(SD_CS_DM_DIG_HIZ);
+
+	// Delay extended to work with 60cm cables running cards at 2.85V
+	CyDelayCycles(128);
+	int cs = SD_CS_Read();
+	SD_CS_SetDriveMode(SD_CS_DM_STRONG);
+	return cs;
+}
+
 void sdCheckPresent()
 {
 	static int firstCheck = 1;
@@ -985,31 +1003,21 @@ void sdCheckPresent()
 		(sdIOState == SD_IDLE) &&
 		(sdCmdState == CMD_STATE_IDLE))
 	{
-		// The CS line is pulled high by the SD card.
-		// De-assert the line, and check if it's high.
-		// This isn't foolproof as it'll be left floating without
-		// an SD card. We can't use the built-in pull-down resistor as it will
-		// overpower the SD pullup resistor.
-		SD_CS_Write(0);
-		SD_CS_SetDriveMode(SD_CS_DM_DIG_HIZ);
-
-		// Delay reduced for v5.2 board, no support for extension cables.
-		CyDelayCycles(32);
-		uint8_t cs = SD_CS_Read();
-		SD_CS_SetDriveMode(SD_CS_DM_STRONG);
+		int cs = sdIsCardPresent();
 
 		if (cs && !(sdCard.dev.mediaState & MEDIA_PRESENT))
 		{
 			static int firstInit = 1;
 
-			// Debounce, except on startup if the card is present at
+			// Debounce. Quicker if the card is present at
 			// power on
-			if (!firstCheck)
+			for (int i = 0; cs && (i < firstCheck ? 2 : 50); ++i)
 			{
-				CyDelay(250);
+				cs = sdIsCardPresent();
+				CyDelay(5);
 			}
 
-			if (sdInit())
+			if (cs && sdInit())
 			{
 				sdCard.dev.mediaState |= MEDIA_PRESENT | MEDIA_INITIALISED;
 
@@ -1093,8 +1101,8 @@ static int sd_pollMediaChange(S2S_Device* dev)
 	SdCard* sdCardDevice = (SdCard*)dev;
 	if (elapsedTime_ms(sdCardDevice->lastPollMediaTime) > 200)
 	{
-		sdCardDevice->lastPollMediaTime = getTime_ms();
 		sdCheckPresent();
+		sdCardDevice->lastPollMediaTime = getTime_ms();
 		return 0;
 	}
 	else

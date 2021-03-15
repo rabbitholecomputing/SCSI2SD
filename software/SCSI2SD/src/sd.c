@@ -1011,7 +1011,7 @@ void sdCheckPresent()
 
 			// Debounce. Quicker if the card is present at
 			// power on
-			for (int i = 0; cs && (i < firstCheck ? 2 : 50); ++i)
+			for (int i = 0; cs && (i < (firstCheck ? 2 : 50)); ++i)
 			{
 				cs = sdIsCardPresent();
 				CyDelay(5);

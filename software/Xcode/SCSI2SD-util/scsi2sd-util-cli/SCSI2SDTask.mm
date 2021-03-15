@@ -292,7 +292,17 @@ static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
         outputString = [outputString stringByAppendingString:string];
     }
     outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
-    [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    NSError *err = nil;
+    [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&err];
+    if (err != nil)
+    {
+        NSString *error = [err localizedDescription];
+        puts([error cStringUsingEncoding:NSUTF8StringEncoding]);
+    }
+    else
+    {
+        puts("Save complete");
+    }
 }
 
 #define NUM_DEVS 4

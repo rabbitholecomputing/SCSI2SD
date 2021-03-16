@@ -505,7 +505,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 - (IBAction)saveFile:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
-    [panel beginSheetForDirectory:NSHomeDirectory()
+    NSString *defaultPath = [@"~/Downloads" stringByExpandingTildeInPath];
+    [panel setDirectoryURL:[NSURL fileURLWithPath:defaultPath isDirectory:YES]];
+    [panel beginSheetForDirectory:nil
                              file:nil
                    modalForWindow:[self mainWindow]
                     modalDelegate:self
@@ -559,6 +561,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles: YES];
+    NSString *defaultPath = [@"~/Downloads" stringByExpandingTildeInPath];
+    [panel setDirectoryURL:[NSURL fileURLWithPath:defaultPath isDirectory:YES]];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
     [panel beginSheetForDirectory:nil
                              file:nil

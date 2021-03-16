@@ -123,7 +123,7 @@ static void spiFlash_earlyInit(S2S_Device* dev)
     }
 
     // Don't require the host to send us a START STOP UNIT command
-    spiFlash->dev.mediaState = MEDIA_STARTED;
+    spiFlash->dev.mediaState = MEDIA_STARTED | MEDIA_WP;
     
     // DMA stuff
 	spiFlashDMATxChan =

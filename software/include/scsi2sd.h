@@ -345,16 +345,18 @@ typedef enum
 
 
 
+#define TargetConfig S2S_TargetCfg
+#define BoardConfig S2S_BoardConfig
 
 #ifdef __cplusplus
 } // extern "C"
 
 	#include <type_traits>
 	static_assert(
-		std::is_pod<TargetConfig>::value, "Misuse of TargetConfig struct"
+		std::is_pod<S2S_TargetCfg>::value, "Misuse of TargetConfig struct"
 		);
 	static_assert(
-		sizeof(TargetConfig) == 4096,
+		sizeof(S2S_TargetCfg) == 4096,
 		"TargetConfig struct size mismatch"
 		);
 

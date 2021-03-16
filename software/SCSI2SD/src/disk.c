@@ -578,7 +578,7 @@ void scsiDiskPoll()
 			// work with.
 			int scsiBusy = 1;
 			int sdBusy = 1;
-			while (scsiBusy && sdBusy)
+			while (scsiBusy && sdBusy && isSDDevice)
 			{
 				uint8_t intr = CyEnterCriticalSection();
 				scsiBusy = scsiDMABusy();

@@ -109,7 +109,10 @@
     TargetConfig targetConfig;
     
     NSLog(@"getTargetConfig");
-    targetConfig.scsiId = self.SCSIID.intValue + self.enableSCSITarget.state == NSOnState ? 0x80 : 0x0;
+    // targetConfig.scsiId = (self.SCSIID.indexOfSelectedItem) + self.enableSCSITarget.state == NSOnState ? 0x80:0x0;
+    NSLog(@"%d", self.SCSIID.intValue);
+    targetConfig.scsiId = self.SCSIID.intValue + (self.enableSCSITarget.state == NSOnState ? 0x80 : 0x0);
+    NSLog(@"%d",  targetConfig.scsiId );
     targetConfig.deviceType = self.deviceType.indexOfSelectedItem;
     targetConfig.sdSectorStart = self.sdCardStartSector.intValue;
     targetConfig.bytesPerSector = self.sectorSize.intValue;

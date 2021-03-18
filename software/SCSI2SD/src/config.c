@@ -567,18 +567,3 @@ const S2S_TargetCfg* getConfigByIndex(int i)
 				);
 	}
 }
-
-const S2S_TargetCfg* getConfigById(int scsiId)
-{
-	int i;
-	for (i = 0; i < MAX_SCSI_TARGETS; ++i)
-	{
-		const S2S_TargetCfg* tgt = getConfigByIndex(i);
-		if ((tgt->scsiId & CONFIG_TARGET_ID_BITS) == scsiId)
-		{
-			return tgt;
-		}
-	}
-	return NULL;
-
-}

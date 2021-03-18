@@ -26,6 +26,5 @@ void configPoll(void);
 void configSave(int scsiId, uint16_t byesPerSector);
 
 const S2S_TargetCfg* getConfigByIndex(int index);
-const S2S_TargetCfg* getConfigById(int scsiId);
 
 #endif

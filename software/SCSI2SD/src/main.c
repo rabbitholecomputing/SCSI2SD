@@ -24,7 +24,7 @@
 #include "time.h"
 #include "trace.h"
 
-const char* Notice = "Copyright (C) 2015-2018 Michael McMaster <michael@codesrc.com>";
+const char* Notice = "Copyright (C) 2015-2021 Michael McMaster <michael@codesrc.com>";
 
 int main()
 {

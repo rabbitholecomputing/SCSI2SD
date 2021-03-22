@@ -309,11 +309,11 @@ doTxSingleDMA(const uint8* data, uint32 count)
 }
 
 void
-scsiWriteDMA(const uint8* data, uint32 count)
+scsiWriteDMA(const uint8_t* data, uint32 count)
 {
 	dmaSentCount = 0;
 	dmaTotalCount = count;
-	dmaBuffer = data;
+	dmaBuffer = (uint8_t*) data;
 
 	uint32_t singleCount = (count > MAX_DMA_BYTES) ? MAX_DMA_BYTES : count;
 	doTxSingleDMA(data, singleCount);

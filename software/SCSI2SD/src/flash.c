@@ -47,7 +47,7 @@ static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
 static void spiFlash_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 static void spiFlash_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 static int  spiFlash_readAsyncPoll(S2S_Device* dev);
-static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer);
 
 SpiFlash spiFlash = {
     {
@@ -298,7 +298,7 @@ static void spiFlash_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t coun
     nNOR_CS_Write(1); // Deselect
 }
 
-static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+static void spiFlash_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer)
 {
     // SpiFlash* spiFlash = (SpiFlash*)dev;
 

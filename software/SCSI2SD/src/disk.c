@@ -576,8 +576,14 @@ void scsiDiskPoll()
 			// Wait for the next DMA interrupt. It's beneficial to halt the
 			// processor to give the DMA controller more memory bandwidth to
 			// work with.
-			int scsiBusy = 1;
-			int sdBusy = 1;
+			int scsiBusy;
+			int sdBusy;
+			{
+				uint8_t intr = CyEnterCriticalSection();
+				scsiBusy = scsiDMABusy();
+				sdBusy = isSDDevice && sdDMABusy();
+				CyExitCriticalSection(intr);
+			}
 			while (scsiBusy && sdBusy && isSDDevice)
 			{
 				uint8_t intr = CyEnterCriticalSection();

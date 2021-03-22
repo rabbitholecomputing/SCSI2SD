@@ -38,7 +38,7 @@ static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
 static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 static void sd_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
 static int  sd_readAsyncPoll(S2S_Device* dev);
-static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer);
 
 
 // Global
@@ -1139,7 +1139,7 @@ static int sd_readAsyncPoll(S2S_Device* dev)
 }
 
 
-static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer)
 {
     // TODO
 }

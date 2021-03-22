@@ -67,7 +67,7 @@ static int usbReady;
 static void initBoardConfig(S2S_BoardConfig* config) {
 	memcpy(
 		config,
-		(
+		(const void*)(
 			CY_FLASH_BASE +
 			(CY_FLASH_SIZEOF_ARRAY * (size_t) SCSI_CONFIG_ARRAY) +
 			(CY_FLASH_SIZEOF_ROW * SCSI_CONFIG_BOARD_ROW)
@@ -472,7 +472,7 @@ void debugPoll()
 		dbgHidBuffer[61] = sdCard.capacity;
 
 		dbgHidBuffer[62] = FIRMWARE_VERSION >> 8;
-		dbgHidBuffer[63] = FIRMWARE_VERSION;
+		dbgHidBuffer[63] = FIRMWARE_VERSION & 0xFF;
 
 		USBFS_LoadInEP(USB_EP_DEBUG, (uint8 *)&dbgHidBuffer, sizeof(dbgHidBuffer));
 		usbDebugEpState = USB_DATA_SENT;

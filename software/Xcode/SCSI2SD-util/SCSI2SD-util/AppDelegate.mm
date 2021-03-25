@@ -486,14 +486,28 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
          outputString = [outputString stringByAppendingString: [dc toXml]];
      }
      outputString = [outputString stringByAppendingString: @"</SCSI2SD>\n"];
-     [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:NULL];
+    
+     NSError *err = nil;
+     [outputString writeToFile:filename atomically:YES encoding:NSUTF8StringEncoding error:&err];
+     if (err != nil)
+     {
+         NSAlert *alert = [NSAlert alertWithError:err];
+         [alert runModal];
+     }
+     else
+     {
+         NSAlert *alert = [NSAlert alertWithMessageText:@"Save complete" defaultButton:@"Ok" alternateButton:nil otherButton:nil informativeTextWithFormat:@"Saved XML file successfully"];
+         [alert runModal];
+     }
 }
 
 // Save XML file....
 - (IBAction)saveFile:(id)sender
 {
     NSSavePanel *panel = [NSSavePanel savePanel];
-    [panel beginSheetForDirectory:NSHomeDirectory()
+    NSString *defaultPath = [@"~/Downloads" stringByExpandingTildeInPath];
+    [panel setDirectoryURL:[NSURL fileURLWithPath:defaultPath isDirectory:YES]];
+    [panel beginSheetForDirectory:nil
                              file:nil
                    modalForWindow:[self mainWindow]
                     modalDelegate:self
@@ -547,6 +561,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setCanChooseFiles: YES];
+    NSString *defaultPath = [@"~/Downloads" stringByExpandingTildeInPath];
+    [panel setDirectoryURL:[NSURL fileURLWithPath:defaultPath isDirectory:YES]];
     [panel setAllowedFileTypes:[NSArray arrayWithObject:@"xml"]];
     [panel beginSheetForDirectory:nil
                              file:nil

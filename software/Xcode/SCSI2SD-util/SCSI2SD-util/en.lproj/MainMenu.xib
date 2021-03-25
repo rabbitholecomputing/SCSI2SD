@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17156" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17156"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,7 +37,7 @@
                 <outlet property="deviceSize" destination="mf7-2L-91G" id="A8a-e2-UGd"/>
                 <outlet property="deviceType" destination="EbT-lY-RTW" id="bUI-fh-sfD"/>
                 <outlet property="deviceUnit" destination="WuS-Tz-H4h" id="1cu-eh-LBX"/>
-                <outlet property="enableSCSITarget" destination="EvT-5c-g2M" id="Vvw-KV-gkH"/>
+                <outlet property="enableSCSITarget" destination="6wM-D2-KLl" id="oAh-TH-CBJ"/>
                 <outlet property="headsPerCylinder" destination="XKi-sB-NTx" id="pG2-uS-tgf"/>
                 <outlet property="productId" destination="J70-FD-mTc" id="Ox3-Xm-tvY"/>
                 <outlet property="revsion" destination="rrQ-oQ-gU1" id="pPh-Jr-Y2z"/>
@@ -58,7 +58,7 @@
                 <outlet property="deviceSize" destination="S2Y-mB-PTe" id="9fF-Px-PYD"/>
                 <outlet property="deviceType" destination="loe-6h-swv" id="qJB-qL-CqC"/>
                 <outlet property="deviceUnit" destination="DOj-du-NZ6" id="olc-u9-WcX"/>
-                <outlet property="enableSCSITarget" destination="EvT-5c-g2M" id="BkP-VY-VNb"/>
+                <outlet property="enableSCSITarget" destination="EvT-5c-g2M" id="RYj-aO-b8x"/>
                 <outlet property="headsPerCylinder" destination="zvw-hy-UEM" id="ERd-Pc-jur"/>
                 <outlet property="productId" destination="9ZP-zD-RIF" id="zB8-2L-5Tx"/>
                 <outlet property="revsion" destination="OaI-Dl-7rw" id="Sdf-SE-6Hv"/>
@@ -525,7 +525,7 @@
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="192" y="561" width="723" height="448"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1129"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1127"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="723" height="448"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1891,13 +1891,13 @@
                     </progressIndicator>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="56.5" y="-358"/>
+            <point key="canvasLocation" x="72" y="-358"/>
         </window>
         <window title="Activity Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1481" y="449" width="276" height="378"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1129"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1127"/>
             <view key="contentView" id="zVs-ES-bFT">
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
                 <autoresizingMask key="autoresizingMask"/>

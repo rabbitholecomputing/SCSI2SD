@@ -86,7 +86,7 @@
 - (BoardConfig) getConfig
 {
     BoardConfig config;
-    config.flags |= self.enableSCSITerminator.intValue;
+    config.flags6 |= self.enableSCSITerminator.intValue;
     config.flags =
         (self.enableParity.state == NSOnState ? CONFIG_ENABLE_PARITY : 0) |
         (self.enableUnitAttention.state == NSOnState ? CONFIG_ENABLE_UNIT_ATTENTION : 0) |
@@ -95,8 +95,8 @@
         (self.enableCache.state == NSOnState ? CONFIG_ENABLE_CACHE: 0) |
         (self.enableDisconnect.state == NSOnState ? CONFIG_ENABLE_DISCONNECT: 0) |
         (self.respondToShortSCSISelection.state == NSOnState ? CONFIG_ENABLE_SEL_LATCH : 0) |
-        (self.mapLUNStoSCSIIDs.state == NSOnState ? CONFIG_MAP_LUNS_TO_IDS : 0) |
-        (self.enableSCSITerminator.state == NSOnState ? S2S_CFG_ENABLE_TERMINATOR : 0);
+        (self.mapLUNStoSCSIIDs.state == NSOnState ? CONFIG_MAP_LUNS_TO_IDS : 0); //|
+//        (self.enableSCSITerminator.state == NSOnState ? S2S_CFG_ENABLE_TERMINATOR : 0);
     config.startupDelay = self.startupDelay.intValue;
     config.selectionDelay = self.startupSelectionDelay.intValue;
     config.scsiSpeed = self.speedLimit.indexOfSelectedItem;

@@ -15,8 +15,6 @@
 #include "zipper.hh"
 #include <signal.h>
 
-// #include "z.h"
-// #include "ConfigUtil.hh"
 #define TIMER_INTERVAL 0.1
 
 void clean_exit_on_sig(int sig_num)
@@ -408,8 +406,31 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             // No method to check connection is still valid.
             [self reset_hid];
-            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %s",myHID->getFirmwareVersionStr().c_str()];
-            [self logStringToLabel:msg];
+            
+            NSString *version = [NSString stringWithCString: myHID->getFirmwareVersionStr().c_str()
+                                                 encoding: NSUTF8StringEncoding];
+            NSString *msg = nil;
+            if ([version rangeOfString: @"Unknown"].location != NSNotFound)
+              {
+                // Put into the panel...
+                msg = @"SCSI2SD NOT Ready, Firmware invalid.  Check that board version is 5.x.";
+                [self logStringToLabel:msg];
+                
+                // Show alert...
+                NSAlert *alert = [NSAlert alertWithMessageText: @"SCSI2SD NOT Ready"
+                                                 defaultButton: @"Ok"
+                                               alternateButton: nil
+                                                   otherButton: nil
+                                     informativeTextWithFormat: @"Firmware invalid.  Check that board version is 5.x."];
+                [alert runModal];
+                [self reset_hid];
+                [self reset_bootloader];
+              }
+           else
+             {
+               msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+               [self logStringToLabel:msg];
+             }
         }
         else if (myHID && !myHID->ping())
         {

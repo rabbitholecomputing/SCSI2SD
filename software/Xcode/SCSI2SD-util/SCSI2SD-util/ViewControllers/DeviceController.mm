@@ -18,6 +18,12 @@
 
 @implementation DeviceController
 
+- (IBAction) enableSCSITarget: (id)sender
+{
+    NSButton *btn = (NSButton *)sender;
+    self.autoStartSector.enabled = (btn.state == NSOnState);
+}
+
 - (void) awakeFromNib
 {
     self.enableSCSITarget.toolTip = @"Enable this device";

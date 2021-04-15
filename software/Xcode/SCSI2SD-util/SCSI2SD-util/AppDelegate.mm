@@ -605,11 +605,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 {
     // myBoardPanel->setConfig(ConfigUtil::DefaultBoardConfig());
     [self.settings setConfig: SCSI2SD::ConfigUtil::DefaultBoardConfig()];
+
     for (size_t i = 0; i < [deviceControllers count]; ++i)
     {
         // myTargets[i]->setConfig(ConfigUtil::Default(i));
         DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
         [devCon setTargetConfig: SCSI2SD::ConfigUtil::Default(i)];
+        [devCon autoStartSector].enabled = ([devCon enableSCSITarget].state == NSOnState);
     }
 }
 

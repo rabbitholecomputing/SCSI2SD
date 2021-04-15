@@ -969,10 +969,10 @@
                                             <buttonCell key="cell" type="check" title="Enable SCSI Target" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="qdT-X0-TWP">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
-                                                <connections>
-                                                    <action selector="enableTarget:" target="Voe-Tx-rLC" id="trx-FQ-QJq"/>
-                                                </connections>
                                             </buttonCell>
+                                            <connections>
+                                                <action selector="enableSCSITarget:" target="Rxt-kb-gYI" id="UuL-Re-8mX"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -1274,7 +1274,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="enableTarget:" target="Voe-Tx-rLC" id="omq-zx-zfK"/>
+                                                <action selector="enableSCSITarget:" target="pNT-g4-Vd5" id="5Ar-1w-GOv"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1577,7 +1577,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="enableTarget:" target="Voe-Tx-rLC" id="Hfy-2S-TcO"/>
+                                                <action selector="enableSCSITarget:" target="YnD-md-VMP" id="1XF-Mx-7R8"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -1880,7 +1880,7 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="enableTarget:" target="Voe-Tx-rLC" id="LgM-yn-nUc"/>
+                                                <action selector="enableSCSITarget:" target="eDc-Zj-phF" id="BfE-8q-cMS"/>
                                             </connections>
                                         </button>
                                     </subviews>

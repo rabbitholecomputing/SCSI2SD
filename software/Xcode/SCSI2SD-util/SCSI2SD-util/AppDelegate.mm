@@ -1248,6 +1248,11 @@ out:
     }
 }
 
+- (IBAction) enableTarget: (id)sender
+{
+    [self autoButton:sender];
+}
+
 - (IBAction) autoButton: (id)sender
 {
     // recalculate...
@@ -1267,7 +1272,7 @@ out:
             if (index < [deviceControllers count])
             {
                 DeviceController *devToUpdate = [deviceControllers objectAtIndex:index];
-                if ([devToUpdate isEnabled] && dev.autoStartSector.state == NSOnState)
+                if ([devToUpdate isEnabled] && devToUpdate.autoStartSector.state == NSOnState)
                 {
                     [devToUpdate setAutoStartSectorValue:secStart];
                 }

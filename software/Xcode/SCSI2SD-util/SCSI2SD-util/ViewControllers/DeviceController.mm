@@ -12,27 +12,7 @@
 #include "ConfigUtil.hh"
 @interface DeviceController ()
 
-@property (nonatomic) IBOutlet NSButton *enableSCSITarget;
-@property (nonatomic) IBOutlet NSComboBox *SCSIID;
-@property (nonatomic) IBOutlet NSPopUpButton *deviceType;
-@property (nonatomic) IBOutlet NSTextField *sdCardStartSector;
-@property (nonatomic) IBOutlet NSTextField *sectorSize;
-@property (nonatomic) IBOutlet NSTextField *sectorCount;
-@property (nonatomic) IBOutlet NSTextField *deviceSize;
-@property (nonatomic) IBOutlet NSPopUpButton *deviceUnit;
-@property (nonatomic) IBOutlet NSTextField *vendor;
-@property (nonatomic) IBOutlet NSTextField *productId;
-@property (nonatomic) IBOutlet NSTextField *revsion;
-@property (nonatomic) IBOutlet NSTextField *serialNumber;
-@property (nonatomic) IBOutlet NSButton *autoStartSector;
-@property (nonatomic) IBOutlet NSTextField *sectorsPerTrack;
-@property (nonatomic) IBOutlet NSTextField *headsPerCylinder;
 
-@property (nonatomic) IBOutlet NSTextField *autoErrorText;
-@property (nonatomic) IBOutlet NSTextField *scsiIdErrorText;
-
-@property BOOL duplicateId;
-@property BOOL sectorOverlap;
 
 @end
 

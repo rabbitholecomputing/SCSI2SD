@@ -1251,9 +1251,30 @@ out:
 - (IBAction) autoButton: (id)sender
 {
     // recalculate...
-    NSButton *but = sender;
-    if(but.state == NSOnState)
+    // NSButton *but = sender;
+    // if(but.state == NSOnState)
     {
+        NSUInteger secStart = 0;
+        NSUInteger index = 0;
+        NSEnumerator *en = [deviceControllers objectEnumerator];
+        DeviceController *dev = nil;
+        while ((dev = [en nextObject]) != nil)
+        {
+            if ([dev isEnabled] && dev.autoStartSector.state == NSOnState)
+            {
+                NSRange sectorRange = [dev getSDSectorRange];
+                NSUInteger len = sectorRange.length;
+                secStart += len + 1;
+                index++; // update next one...
+                
+                if (dev != [deviceControllers lastObject])
+                {
+                    DeviceController *devToUpdate = [deviceControllers objectAtIndex:index];
+                    [devToUpdate setAutoStartSectorValue:secStart];
+                }
+            }
+        }
+        /*
         NSUInteger index = [sender tag]; // [deviceControllers indexOfObject:sender];
         if(index > 0)
         {
@@ -1261,10 +1282,11 @@ out:
             DeviceController *dev = [deviceControllers objectAtIndex:j];
             NSRange sectorRange = [dev getSDSectorRange];
             NSUInteger len = sectorRange.length;
-            NSUInteger secStart = len; // Since we are zero based, this should work.
+            NSUInteger secStart = len + 1; // Since we are zero based, this should work.
             DeviceController *devToUpdate = [deviceControllers objectAtIndex:index];
             [devToUpdate setAutoStartSectorValue:secStart];
         }
+         */
     }
 }
 

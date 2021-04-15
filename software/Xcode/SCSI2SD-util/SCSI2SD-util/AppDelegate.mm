@@ -406,12 +406,18 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             // No method to check connection is still valid.
             [self reset_hid];
-            
-            NSString *version = [NSString stringWithCString: myHID->getFirmwareVersionStr().c_str()
-                                                 encoding: NSUTF8StringEncoding];
+            if (myHID == NULL)
+               return;
+          
+            std::string vers = myHID->getFirmwareVersionStr();
+            NSString *version = [NSString stringWithCString: vers.c_str()
+                                                   encoding: NSUTF8StringEncoding];
             NSString *msg = nil;
             if ([version rangeOfString: @"Unknown"].location != NSNotFound)
               {
+                [self reset_hid];
+                [self reset_bootloader];
+                /*
                 // Put into the panel...
                 msg = @"SCSI2SD NOT Ready, Firmware invalid.  Check that board version is 5.x.";
                 [self logStringToLabel:msg];
@@ -423,8 +429,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                                                    otherButton: nil
                                      informativeTextWithFormat: @"Firmware invalid.  Check that board version is 5.x."];
                 [alert runModal];
-                [self reset_hid];
-                [self reset_bootloader];
+                 */
               }
            else
              {
@@ -452,6 +457,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             }
         }
 
+        char ticks[] = {'/', '-', '\\', '|'};
         if (!myHID)
         {
             [self reset_hid];
@@ -462,8 +468,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     if (!supressLog)
                     {
                         // Oh dear, old firmware
-                        NSString *log = [NSString stringWithFormat: @"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str()];
-                        [self logStringToLabel: log];
+                        //NSString *log = [NSString stringWithFormat: @"Firmware update required.  Version %s",myHID->getFirmwareVersionStr().c_str()];
+                        //[self logStringToLabel: log];
+                      myTickCounter++;
+                      NSString *ss = [NSString stringWithFormat:@"Searching for SCSI2SD device %c", ticks[myTickCounter % sizeof(ticks)]];
+                      [self logStringToLabel: ss];
                     }
                 }
                 else
@@ -471,13 +480,10 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                     [self connectionTests];
                 }
             }
-            else
-            {
-                char ticks[] = {'/', '-', '\\', '|'};
-                myTickCounter++;
-                NSString *ss = [NSString stringWithFormat:@"Searching for SCSI2SD device %c", ticks[myTickCounter % sizeof(ticks)]];
-                [self logStringToLabel: ss];
-            }
+              
+            myTickCounter++;
+            NSString *ss = [NSString stringWithFormat:@"Searching for SCSI2SD device %c", ticks[myTickCounter % sizeof(ticks)]];
+            [self logStringToLabel: ss];
         }
     }
     catch (std::runtime_error& e)

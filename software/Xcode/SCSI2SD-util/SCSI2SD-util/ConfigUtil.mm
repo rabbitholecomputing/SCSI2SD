@@ -746,9 +746,25 @@ std::pair<BoardConfig, std::vector<TargetConfig>>
 ConfigUtil::fromXML(const std::string& filename)
 {
     NSData *data = [NSData dataWithContentsOfFile: [NSString stringWithUTF8String:filename.c_str()]];
+    NSError *error = nil;
 	NSXMLDocument *doc = [[NSXMLDocument alloc] initWithData: data
                                                      options: NSXMLNodeOptionsNone
-                                                       error: NULL];
+                                                       error: &error];
+    if (error != nil)
+    {
+        NSDictionary *userInfo = [error userInfo];
+        NSString *description = [userInfo objectForKey: NSLocalizedDescriptionKey];
+        if (description != nil)
+        {
+            const char *err = [description cStringUsingEncoding:NSUTF8StringEncoding];
+            throw std::runtime_error(err);
+        }
+        else
+        {
+            throw std::runtime_error("Could not parse XML file");
+        }
+    }
+    
 	if (doc == nil)
 	{
 		throw std::runtime_error("Could not load XML file");
@@ -764,7 +780,7 @@ ConfigUtil::fromXML(const std::string& filename)
 	int boardConfigFound = 0;
 
 	std::vector<TargetConfig> targets;
-    NSArray *children = [[doc rootElement] children]; // doc.GetRoot()->GetChildren();
+    NSArray *children = [[doc rootElement] children]; 
     NSEnumerator *en = [children objectEnumerator];
     NSXMLElement *child = [en nextObject];
 	while (child)

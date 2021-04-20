@@ -255,6 +255,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     doScsiSelfTest = NO;
     shouldLogScsiData = NO;
     
+    [[self window] makeKeyAndOrderFront:self];
     [self startTimer];
     [self loadDefaults: nil];
 }
@@ -531,15 +532,36 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 // Save XML file....
 - (IBAction)saveFile:(id)sender
 {
+#ifdef GNUSTEP
+    // Do the save..
     NSSavePanel *panel = [NSSavePanel savePanel];
     NSString *defaultPath = [@"~/Downloads" stringByExpandingTildeInPath];
-    [panel setDirectoryURL:[NSURL fileURLWithPath:defaultPath isDirectory:YES]];
-    [panel beginSheetForDirectory:nil
+    [panel beginSheetForDirectory:defaultPath
                              file:nil
                    modalForWindow:[self mainWindow]
                     modalDelegate:self
                    didEndSelector:@selector(saveFileEnd:)
                       contextInfo:nil];
+#else
+    // Authorize the dir
+    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
+    [openPanel setMessage: @"Authorize the folder where you want to save (necessary for security)"];
+    [openPanel setPrompt: @"Select"];
+    [openPanel setCanChooseFiles: NO];
+    [openPanel setCanChooseDirectories: YES];
+    [openPanel setCanCreateDirectories: YES];
+    [openPanel beginWithCompletionHandler:^(NSModalResponse result) {
+        // Do the save..
+        NSSavePanel *panel = [NSSavePanel savePanel];
+        [panel setDirectoryURL: openPanel.URL];
+        [panel beginSheetForDirectory:[[openPanel URL] path]
+                                 file:nil
+                       modalForWindow:[self mainWindow]
+                        modalDelegate:self
+                       didEndSelector:@selector(saveFileEnd:)
+                          contextInfo:nil];
+    }];
+#endif
 }
 
 // Open XML file...
@@ -561,25 +583,38 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         size_t i;
         for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
         {
+            if (i == 4)
+            {
+                continue;
+            }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
         }
 
         for (; i < [self->deviceControllers count]; ++i)
         {
+            if (i == 4)
+            {
+                continue;
+            }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
         }
+    }
+    catch (std::runtime_error& e)
+    {
+        NSString *msg = [NSString stringWithFormat: @"%s", e.what()];
+        NSRunAlertPanel(@"Error while loading XML", msg, @"Ok", nil, nil);
     }
     catch (std::exception& e)
     {
         NSArray *paths = [panel filenames];
         NSString *path = [paths objectAtIndex: 0];
         char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
-        [self logStringToPanel:[NSString stringWithFormat: @
-            "Cannot load settings from file '%s'.\n%s",
-            sPath,
-            e.what()]];
+        [self logStringToPanel:[NSString stringWithFormat:
+                                @"Cannot load settings from file '%s'.\n%s",
+                                sPath,
+                                e.what()]];
     }
 }
 

@@ -583,9 +583,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         size_t i;
         for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
         {
-            if (i == 4)
+            if (i >= 4)
             {
-                continue;
+                break;
             }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
@@ -593,28 +593,25 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
         for (; i < [self->deviceControllers count]; ++i)
         {
-            if (i == 4)
+            if (i >= 4)
             {
-                continue;
+                break;
             }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
         }
-    }
-    catch (std::runtime_error& e)
-    {
-        NSString *msg = [NSString stringWithFormat: @"%s", e.what()];
-        NSRunAlertPanel(@"Error while loading XML", msg, @"Ok", nil, nil);
     }
     catch (std::exception& e)
     {
         NSArray *paths = [panel filenames];
         NSString *path = [paths objectAtIndex: 0];
         char *sPath = (char *)[path cStringUsingEncoding:NSUTF8StringEncoding];
-        [self logStringToPanel:[NSString stringWithFormat:
-                                @"Cannot load settings from file '%s'.\n%s",
-                                sPath,
-                                e.what()]];
+        NSString *msg = [NSString stringWithFormat:
+                         @"Cannot load settings from file '%s'.\n%s",
+                         sPath,
+                         e.what()];
+        NSRunAlertPanel(@"Error while loading XML", msg, @"Ok", nil, nil);
+        [self logStringToPanel:msg];
     }
 }
 

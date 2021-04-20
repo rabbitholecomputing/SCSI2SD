@@ -158,7 +158,7 @@ ConfigUtil::Default(size_t targetIdx)
 	config.scsiSectors = 4194303; // 2GB - 1 sector
 	config.bytesPerSector = 512;
 	config.sectorsPerTrack = 63;
-        NSLog(@"%d", config.sectorsPerTrack);
+        // NSLog(@"%d", config.sectorsPerTrack);
 	config.headsPerCylinder = 255;
 	memcpy(config.vendor, " codesrc", 8);
 	memcpy(config.prodId, "         SCSI2SD", 16);

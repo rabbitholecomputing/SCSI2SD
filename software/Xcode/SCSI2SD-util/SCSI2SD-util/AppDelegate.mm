@@ -583,14 +583,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         size_t i;
         for (i = 0; i < configs.second.size() && i < [self->deviceControllers count]; ++i)
         {
-            if (i >= 4)
-            {
-                break;
-            }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
         }
 
+        /*
         for (; i < [self->deviceControllers count]; ++i)
         {
             if (i >= 4)
@@ -599,7 +596,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             }
             DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
             [devCon setTargetConfig: configs.second[i]];
-        }
+        } */
     }
     catch (std::exception& e)
     {

@@ -93,6 +93,8 @@
     [self.sectorsPerTrack setStringValue: [NSString stringWithFormat: @"%d", config.sectorsPerTrack]];
     [self.headsPerCylinder setStringValue: [NSString stringWithFormat: @"%d", config.headsPerCylinder]];
     // [self.autoStartSector setState:]
+    
+    [self evaluateSize];
 }
 
 - (void) setTargetConfigData: (NSData *)data

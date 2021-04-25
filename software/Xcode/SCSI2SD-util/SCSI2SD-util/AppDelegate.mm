@@ -641,6 +641,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         DeviceController *devCon = [self->deviceControllers objectAtIndex:i];
         [devCon setTargetConfig: SCSI2SD::ConfigUtil::Default(i)];
         [devCon autoStartSector].enabled = ([devCon enableSCSITarget].state == NSOnState);
+        [devCon evaluateSize];
     }
 }
 

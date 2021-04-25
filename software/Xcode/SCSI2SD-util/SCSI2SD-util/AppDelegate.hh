@@ -31,5 +31,7 @@
     BOOL doScsiSelfTest;
 }
 
+- (void) evaluate;
+
 @end
 

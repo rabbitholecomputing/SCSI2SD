@@ -8,12 +8,11 @@
 
 #import "DeviceController.hh"
 #import "NSString+Extensions.h"
+#import "AppDelegate.hh"
 
 #include "ConfigUtil.hh"
+
 @interface DeviceController ()
-
-
-
 @end
 
 @implementation DeviceController
@@ -52,7 +51,46 @@
     self.sectorCount.delegate = self;
     self.sdCardStartSector.delegate = self;
     self.deviceSize.delegate = self;
+    
+    // Set target action for some controls...
+    [self.deviceUnit setTarget: self];
+    [self.deviceUnit setAction: @selector(selectDeviceUnit:)];
+
     [self evaluate];
+}
+
+- (IBAction) selectDeviceUnit: (id)sender
+{
+    AppDelegate *delegate = (AppDelegate *)[NSApp delegate];
+    NSUInteger index = [self.deviceUnit indexOfSelectedItem];
+    NSUInteger gb_size = 1024 * 1024 * 1024,
+        mb_size = 1024 * 1024,
+        kb_size = 1024;
+    NSUInteger size = (NSUInteger)[[self.deviceSize stringValue] integerValue];
+    NSUInteger sectorSize = (NSUInteger)[[self.sectorSize stringValue] integerValue];
+    NSUInteger num_sectors = 0;
+    NSUInteger size_factor = 0;
+    
+    switch (index)
+    {
+        case 0: // GB
+            size_factor = gb_size;
+            break;
+        case 1: // MB
+            size_factor = mb_size;
+            break;
+        case 2: // KB
+            size_factor = kb_size;
+            break;
+        default:
+            [NSException raise:NSInternalInconsistencyException format:@"Unexpected size selection"];
+            break;
+    }
+    
+    num_sectors = ((size * size_factor) / sectorSize) - 1;
+    self.sectorCount.stringValue = [NSString stringWithFormat:@"%lld",(long long)num_sectors];
+
+    [delegate evaluate];
 }
 
 - (void) setTargetConfig: (TargetConfig)config
@@ -256,7 +294,8 @@
     {
         // myNumSectorMsg->SetLabelMarkup("");
     }
-    // [self evaluateSize];
+    
+    [self evaluateSize];
 
     return valid || !enabled;
 }
@@ -284,7 +323,7 @@ TargetPanel::onSizeInput(wxCommandEvent& event)
 
 - (void) evaluateSize
 {
-    NSInteger numSectors = self.sectorCount.integerValue;
+    NSInteger numSectors = self.sectorCount.integerValue + 1;
 
     if (numSectors > 0)
     {
@@ -292,20 +331,20 @@ TargetPanel::onSizeInput(wxCommandEvent& event)
         NSInteger bytes = numSectors * self.sectorSize.integerValue;
         if (bytes >= 1024 * 1024 * 1024)
         {
-            size = (bytes / (1024.0 * 1024 * 1024));
+            size = (bytes / (1024 * 1024 * 1024));
             NSMenuItem *item = [self.deviceUnit itemAtIndex:0]; // GB
             [self.deviceUnit selectItem:item];
         }
         else if (bytes >= 1024 * 1024)
         {
-            size = (bytes / (1024.0 * 1024));
+            size = (bytes / (1024 * 1024));
             NSMenuItem *item = [self.deviceUnit itemAtIndex:1]; // MB
             [self.deviceUnit selectItem:item];
         }
         else
         {
             size = (bytes / (1024));
-            NSMenuItem *item = [self.deviceUnit itemAtIndex:1]; // KB
+            NSMenuItem *item = [self.deviceUnit itemAtIndex:2]; // KB
             [self.deviceUnit selectItem:item];
         }
         

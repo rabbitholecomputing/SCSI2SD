@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (TargetConfig) getTargetConfig;
 - (NSString *) toXml;
 - (BOOL) evaluate;
+- (void) evaluateSize;
 
 // Getters and setters for properties of the GUI...
 - (BOOL) isEnabled;

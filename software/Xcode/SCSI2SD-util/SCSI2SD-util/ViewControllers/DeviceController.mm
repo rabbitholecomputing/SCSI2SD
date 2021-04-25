@@ -62,32 +62,8 @@
 - (IBAction) selectDeviceUnit: (id)sender
 {
     AppDelegate *delegate = (AppDelegate *)[NSApp delegate];
-    NSUInteger index = [self.deviceUnit indexOfSelectedItem];
-    NSUInteger gb_size = 1024 * 1024 * 1024,
-        mb_size = 1024 * 1024,
-        kb_size = 1024;
-    NSUInteger size = (NSUInteger)[[self.deviceSize stringValue] integerValue];
-    NSUInteger sectorSize = (NSUInteger)[[self.sectorSize stringValue] integerValue];
-    NSUInteger num_sectors = 0;
-    NSUInteger size_factor = 0;
-    
-    switch (index)
-    {
-        case 0: // GB
-            size_factor = gb_size;
-            break;
-        case 1: // MB
-            size_factor = mb_size;
-            break;
-        case 2: // KB
-            size_factor = kb_size;
-            break;
-        default:
-            [NSException raise:NSInternalInconsistencyException format:@"Unexpected size selection"];
-            break;
-    }
-    
-    num_sectors = ((size * size_factor) / sectorSize) - 1;
+    NSUInteger num_sectors = [self convertUnitsToSectors];
+
     self.sectorCount.stringValue = [NSString stringWithFormat:@"%lld",(long long)num_sectors];
 
     [delegate evaluate];
@@ -295,7 +271,7 @@
         // myNumSectorMsg->SetLabelMarkup("");
     }
     
-    [self evaluateSize];
+    // [self evaluateSize];
 
     return valid || !enabled;
 }
@@ -352,34 +328,35 @@ TargetPanel::onSizeInput(wxCommandEvent& event)
     }
 }
 
-- (NSInteger) convertUnitsToSectors
+- (NSUInteger) convertUnitsToSectors
 {
-    NSUInteger multiplier = 0;
-    switch (self.deviceUnit.indexOfSelectedItem)
+    NSUInteger index = [self.deviceUnit indexOfSelectedItem];
+    NSUInteger gb_size = 1024 * 1024 * 1024,
+    mb_size = 1024 * 1024,
+    kb_size = 1024;
+    NSUInteger size = (NSUInteger)[[self.deviceSize stringValue] integerValue];
+    NSUInteger sectorSize = (NSUInteger)[[self.sectorSize stringValue] integerValue];
+    NSUInteger num_sectors = 0;
+    NSUInteger size_factor = 0;
+    
+    switch (index)
     {
-        case 2:
-            multiplier = 1024;
+        case 0: // GB
+            size_factor = gb_size;
             break;
-        case 1:
-            multiplier = 1024 * 1024;
+        case 1: // MB
+            size_factor = mb_size;
             break;
-        case 0:
-            multiplier = 1024 * 1024 * 1024;
+        case 2: // KB
+            size_factor = kb_size;
+            break;
+        default:
+            [NSException raise:NSInternalInconsistencyException format:@"Unexpected size selection"];
             break;
     }
-
-    NSInteger size;
-    size = self.deviceSize.integerValue;
-
-    NSInteger sectorSize = self.sectorSize.integerValue; //  CtrlGetValue<uint16_t>(mySectorSizeCtrl).first;
-    NSInteger sectors = ceil(multiplier * size / sectorSize);
-
-    if (sectors > INT_MAX)
-    {
-        sectors = INT_MAX;
-    }
-
-    return sectors;
+    
+    num_sectors = ((size * size_factor) / sectorSize) - 1;
+    return num_sectors;
 }
 
 @end

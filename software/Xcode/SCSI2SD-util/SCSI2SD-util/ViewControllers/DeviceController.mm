@@ -55,7 +55,13 @@
     // Set target action for some controls...
     [self.deviceUnit setTarget: self];
     [self.deviceUnit setAction: @selector(selectDeviceUnit:)];
-
+    self.sdCardStartSector.delegate = self;
+    self.sectorSize.delegate = self;
+    self.sectorCount.delegate = self;
+    self.deviceSize.delegate = self;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlTextDidChange:) name:NSControlTextDidChangeNotification object:nil];
+    
     [self evaluate];
 }
 
@@ -174,6 +180,20 @@
     self.sdCardStartSector.stringValue = [NSString stringWithFormat: @"%d", (unsigned int)sector];
 }
 
+- (void) _recalcOnTextChange: (NSControl *)control
+{
+    if (control == self.sectorSize || control == self.sectorCount)
+    {
+        [self recalculate];
+        [self evaluateSize];
+    }
+    else if (control == self.deviceSize)
+    {
+        NSInteger sc = [self convertUnitsToSectors];
+        self.sectorCount.stringValue = [NSString stringWithFormat:@"%lld", (long long)sc];
+    }
+}
+
 - (void)controlTextDidChange:(NSNotification *)notification
 {
     NSTextField *textfield = [notification object];
@@ -195,6 +215,8 @@
     stringResult[cpt]='\0';
     textfield.stringValue = [NSString stringWithUTF8String:stringResult];
     free(stringResult);
+    
+    [self _recalcOnTextChange: textfield];
 }
 
 - (void) recalculate
@@ -204,17 +226,7 @@
 
 - (BOOL)control:(NSControl *)control textShouldEndEditing:(NSText *)fieldEditor
 {
-    if (control == self.sectorSize || control == self.sectorCount)
-    {
-        [self recalculate];
-        [self evaluateSize];
-    }
-    else if (control == self.deviceSize)
-    {
-        NSInteger sc = [self convertUnitsToSectors];
-        self.sectorCount.stringValue = [NSString stringWithFormat:@"%lld", (long long)sc];
-    }
-
+    [self _recalcOnTextChange: control];
     return YES;
 }
 

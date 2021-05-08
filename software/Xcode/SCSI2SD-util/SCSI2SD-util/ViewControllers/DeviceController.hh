@@ -14,25 +14,27 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DeviceController : NSObject <NSTextFieldDelegate>
+{
+}
 
-@property (nonatomic) IBOutlet NSButton *enableSCSITarget;
-@property (nonatomic) IBOutlet NSComboBox *SCSIID;
-@property (nonatomic) IBOutlet NSPopUpButton *deviceType;
-@property (nonatomic) IBOutlet NSTextField *sdCardStartSector;
-@property (nonatomic) IBOutlet NSTextField *sectorSize;
-@property (nonatomic) IBOutlet NSTextField *sectorCount;
-@property (nonatomic) IBOutlet NSTextField *deviceSize;
-@property (nonatomic) IBOutlet NSPopUpButton *deviceUnit;
-@property (nonatomic) IBOutlet NSTextField *vendor;
-@property (nonatomic) IBOutlet NSTextField *productId;
-@property (nonatomic) IBOutlet NSTextField *revsion;
-@property (nonatomic) IBOutlet NSTextField *serialNumber;
-@property (nonatomic) IBOutlet NSButton *autoStartSector;
-@property (nonatomic) IBOutlet NSTextField *sectorsPerTrack;
-@property (nonatomic) IBOutlet NSTextField *headsPerCylinder;
+@property (readonly) IBOutlet NSButton *enableSCSITarget;
+@property (readonly) IBOutlet NSComboBox *SCSIID;
+@property (readonly) IBOutlet NSPopUpButton *deviceType;
+@property (readonly) IBOutlet NSTextField *sdCardStartSector;
+@property (readonly) IBOutlet NSTextField *sectorSize;
+@property (readonly) IBOutlet NSTextField *sectorCount;
+@property (readonly) IBOutlet NSTextField *deviceSize;
+@property (readonly) IBOutlet NSPopUpButton *deviceUnit;
+@property (readonly) IBOutlet NSTextField *vendor;
+@property (readonly) IBOutlet NSTextField *productId;
+@property (readonly) IBOutlet NSTextField *revsion;
+@property (readonly) IBOutlet NSTextField *serialNumber;
+@property (readonly) IBOutlet NSButton *autoStartSector;
+@property (readonly) IBOutlet NSTextField *sectorsPerTrack;
+@property (readonly) IBOutlet NSTextField *headsPerCylinder;
 
-@property (nonatomic) IBOutlet NSTextField *autoErrorText;
-@property (nonatomic) IBOutlet NSTextField *scsiIdErrorText;
+@property (readonly) IBOutlet NSTextField *autoErrorText;
+@property (readonly) IBOutlet NSTextField *scsiIdErrorText;
 
 @property BOOL duplicateId;
 @property BOOL sectorOverlap;

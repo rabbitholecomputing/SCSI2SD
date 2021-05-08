@@ -13,6 +13,26 @@
 #include "ConfigUtil.hh"
 
 @interface DeviceController ()
+
+@property (readwrite) IBOutlet NSButton *enableSCSITarget;
+@property (readwrite) IBOutlet NSComboBox *SCSIID;
+@property (readwrite) IBOutlet NSPopUpButton *deviceType;
+@property (readwrite) IBOutlet NSTextField *sdCardStartSector;
+@property (readwrite) IBOutlet NSTextField *sectorSize;
+@property (readwrite) IBOutlet NSTextField *sectorCount;
+@property (readwrite) IBOutlet NSTextField *deviceSize;
+@property (readwrite) IBOutlet NSPopUpButton *deviceUnit;
+@property (readwrite) IBOutlet NSTextField *vendor;
+@property (readwrite) IBOutlet NSTextField *productId;
+@property (readwrite) IBOutlet NSTextField *revsion;
+@property (readwrite) IBOutlet NSTextField *serialNumber;
+@property (readwrite) IBOutlet NSButton *autoStartSector;
+@property (readwrite) IBOutlet NSTextField *sectorsPerTrack;
+@property (readwrite) IBOutlet NSTextField *headsPerCylinder;
+
+@property (readwrite) IBOutlet NSTextField *autoErrorText;
+@property (readwrite) IBOutlet NSTextField *scsiIdErrorText;
+
 @end
 
 @implementation DeviceController

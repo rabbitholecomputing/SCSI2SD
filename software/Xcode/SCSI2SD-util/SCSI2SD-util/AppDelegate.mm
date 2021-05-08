@@ -25,6 +25,7 @@ void clean_exit_on_sig(int sig_num)
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
+#define FIRMWARE_NEW_TABS 0x0500
 
 static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
@@ -86,6 +87,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 @property (nonatomic) IBOutlet SettingsController *settings;
 @property (nonatomic) IBOutlet NSWindow *customAboutWindow;
 
+@property (nonatomic) NSTabViewItem *holderForDevice5;
+@property (nonatomic) NSTabViewItem *holderForDevice6;
 @end
 
 @implementation AppDelegate
@@ -246,7 +249,12 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
+    [deviceControllers addObject: _device5];
+    [deviceControllers addObject: _device6];
     
+    self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+    self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+
     [self.tabView selectTabViewItemAtIndex:0];
     [self.progress setMinValue: 0.0];
     [self.progress setMaxValue: 100.0];
@@ -257,7 +265,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     
     [[self window] makeKeyAndOrderFront:self];
     [self startTimer];
-    [self loadDefaults: nil];
+    [self loadDefaults: self];
 }
 
 // Shutdown everything when termination happens...
@@ -457,7 +465,35 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 // [self logStringToPanel:[NSString stringWithFormat: @"%@: %@", [NSDate date], msg]];
             }
         }
+        
+        if (myHID && myHID->getFirmwareVersion() < FIRMWARE_NEW_TABS)
+        {
+            if ([[self.tabView tabViewItems] count] > 5)
+            {
+                self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+                self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+                [self.tabView removeTabViewItem:self.holderForDevice6];
+                [self.tabView removeTabViewItem:self.holderForDevice5];
+            }
 
+        }
+        else if (myHID && myHID->getFirmwareVersion() >= FIRMWARE_NEW_TABS)
+        {
+            if ([[self.tabView tabViewItems] count] < 7)
+            {
+                [self.tabView addTabViewItem: self.holderForDevice5]; // = [self.tabView tabViewItemAtIndex:5];
+                [self.tabView addTabViewItem: self.holderForDevice6]; // = [self.tabView tabViewItemAtIndex:6];
+            }
+        }
+        else if (myHID == NULL)
+        {
+            if ([[self.tabView tabViewItems] count] < 7)
+            {
+                [self.tabView addTabViewItem: self.holderForDevice5]; // = [self.tabView tabViewItemAtIndex:5];
+                [self.tabView addTabViewItem: self.holderForDevice6]; // = [self.tabView tabViewItemAtIndex:6];
+            }
+        }
+        
         char ticks[] = {'/', '-', '\\', '|'};
         if (!myHID)
         {

@@ -25,7 +25,7 @@ void clean_exit_on_sig(int sig_num)
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
-#define FIRMWARE_NEW_TABS 0x0500
+#define FIRMWARE_NEW_TABS 0x0520
 
 static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
@@ -426,19 +426,6 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
               {
                 [self reset_hid];
                 [self reset_bootloader];
-                /*
-                // Put into the panel...
-                msg = @"SCSI2SD NOT Ready, Firmware invalid.  Check that board version is 5.x.";
-                [self logStringToLabel:msg];
-                
-                // Show alert...
-                NSAlert *alert = [NSAlert alertWithMessageText: @"SCSI2SD NOT Ready"
-                                                 defaultButton: @"Ok"
-                                               alternateButton: nil
-                                                   otherButton: nil
-                                     informativeTextWithFormat: @"Firmware invalid.  Check that board version is 5.x."];
-                [alert runModal];
-                 */
               }
            else
              {
@@ -455,14 +442,11 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             if(myHID)
             {
-                //NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version //%s",myHID->getFirmwareVersionStr().c_str()];
-                //[self logStringToLabel:msg];
                 if (checked == NO)
                 {
                     checked = YES;
                     [self connectionTests];
                 }
-                // [self logStringToPanel:[NSString stringWithFormat: @"%@: %@", [NSDate date], msg]];
             }
         }
         
@@ -487,10 +471,14 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         }
         else if (myHID == NULL)
         {
-            if ([[self.tabView tabViewItems] count] < 7)
+            if ([[self.tabView tabViewItems] count] > 5)
             {
-                [self.tabView addTabViewItem: self.holderForDevice5]; // = [self.tabView tabViewItemAtIndex:5];
-                [self.tabView addTabViewItem: self.holderForDevice6]; // = [self.tabView tabViewItemAtIndex:6];
+                self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+                self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+                [self.tabView removeTabViewItem:self.holderForDevice6];
+                [self.tabView removeTabViewItem:self.holderForDevice5];
+               // [self.tabView addTabViewItem: self.holderForDevice5]; // = [self.tabView tabViewItemAtIndex:5];
+               // [self.tabView addTabViewItem: self.holderForDevice6]; // = [self.tabView tabViewItemAtIndex:6];
             }
         }
         

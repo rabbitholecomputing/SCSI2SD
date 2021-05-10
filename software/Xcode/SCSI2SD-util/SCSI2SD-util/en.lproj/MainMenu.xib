@@ -818,7 +818,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="rey-yB-xfJ"/>
+                                                <outlet property="dataSource" destination="Rxt-kb-gYI" id="3n9-a9-3mt"/>
+                                                <outlet property="delegate" destination="Rxt-kb-gYI" id="w1d-AC-snv"/>
                                             </connections>
                                         </comboBox>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EbT-lY-RTW">
@@ -1121,7 +1122,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="3yc-9t-QlY"/>
+                                                <outlet property="dataSource" destination="pNT-g4-Vd5" id="QQp-hP-h46"/>
+                                                <outlet property="delegate" destination="pNT-g4-Vd5" id="lt7-cP-cy9"/>
                                             </connections>
                                         </comboBox>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="loe-6h-swv">
@@ -1424,7 +1426,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="YEq-N0-sC8"/>
+                                                <outlet property="dataSource" destination="YnD-md-VMP" id="NgJ-vG-XvX"/>
+                                                <outlet property="delegate" destination="YnD-md-VMP" id="4F6-vb-bmB"/>
                                             </connections>
                                         </comboBox>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rel-6e-ufZ">
@@ -1727,7 +1730,8 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="Xq9-ZI-m2X"/>
+                                                <outlet property="dataSource" destination="eDc-Zj-phF" id="3VT-Pe-KbA"/>
+                                                <outlet property="delegate" destination="eDc-Zj-phF" id="Hlb-gv-LCr"/>
                                             </connections>
                                         </comboBox>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-el-4rn">
@@ -2030,7 +2034,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="UY1-ux-jhc"/>
+                                                <outlet property="dataSource" destination="i9u-bG-GAU" id="YP8-1i-qTd"/>
                                                 <outlet property="delegate" destination="i9u-bG-GAU" id="6Tw-vF-NJP"/>
                                             </connections>
                                         </comboBox>
@@ -2340,7 +2344,7 @@
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             </comboBoxCell>
                                             <connections>
-                                                <outlet property="dataSource" destination="Voe-Tx-rLC" id="UZ0-gm-cPi"/>
+                                                <outlet property="dataSource" destination="RDl-9l-zXo" id="UOk-Gx-ect"/>
                                                 <outlet property="delegate" destination="RDl-9l-zXo" id="Xva-Sf-FTo"/>
                                             </connections>
                                         </comboBox>

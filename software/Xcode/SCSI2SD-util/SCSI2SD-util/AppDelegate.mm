@@ -253,6 +253,16 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
+    [deviceControllers addObject: _device5];
+    [deviceControllers addObject: _device6];
+    
+    NSEnumerator *en = [deviceControllers objectEnumerator];
+    DeviceController *dc = nil;
+    while ((dc = [en nextObject]) != nil)
+    {
+        [dc updateSCSIIDsTo: [NSNumber numberWithLong:[deviceControllers count]]];
+    }
+    [self loadDefaults: self];
     
     self.holderForController5 = self.device5;
     self.holderForController6 = self.device6;
@@ -269,7 +279,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     
     [[self window] makeKeyAndOrderFront:self];
     [self startTimer];
-    [self loadDefaults: self];
+
 }
 
 // Shutdown everything when termination happens...
@@ -467,6 +477,20 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 self.holderForController6 = self.device6;
                 [deviceControllers removeObject: self.device5];
                 [deviceControllers removeObject: self.device6];
+                
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:4]];
+                }
+
+                std::string vers = myHID->getFirmwareVersionStr();
+                NSString *version = [NSString stringWithCString: vers.c_str()
+                                                       encoding: NSUTF8StringEncoding];
+                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+                [self logStringToLabel:msg];
             }
         }
         else if (myHID && myHID->getFirmwareVersion() >= FIRMWARE_NEW_TABS)
@@ -478,6 +502,20 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 
                 [deviceControllers addObject: self.device5];
                 [deviceControllers addObject: self.device6];
+                
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:7]];
+                }
+
+                std::string vers = myHID->getFirmwareVersionStr();
+                NSString *version = [NSString stringWithCString: vers.c_str()
+                                                       encoding: NSUTF8StringEncoding];
+                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+                [self logStringToLabel:msg];
             }
         }
         else if (myHID == NULL)
@@ -493,6 +531,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 self.holderForController6 = self.device6;
                 [deviceControllers removeObject: self.device5];
                 [deviceControllers removeObject: self.device6];
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:4]];
+                }
             }
         }
         

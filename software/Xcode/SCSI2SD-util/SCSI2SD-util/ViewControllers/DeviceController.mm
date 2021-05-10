@@ -80,9 +80,33 @@
     self.sectorCount.delegate = self;
     self.deviceSize.delegate = self;
     
+    self.SCSIID.dataSource = self;
+    self.SCSIID.usesDataSource = YES;
+    // numDevs = 10;
+    [self.SCSIID reloadData];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlTextDidChange:) name:NSControlTextDidChangeNotification object:nil];
     
     [self evaluate];
+}
+
+// Data source for combobox
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
+{
+    return numDevs;
+}
+
+- (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    return [NSNumber numberWithLong:index];
+}
+// end data source
+
+- (void) updateSCSIIDsTo: (NSNumber *)num
+{
+    NSUInteger n = [num longValue];
+    numDevs = n + 1;
+    [self.SCSIID reloadData];
 }
 
 - (IBAction) selectDeviceUnit: (id)sender

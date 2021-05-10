@@ -13,8 +13,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DeviceController : NSObject <NSTextFieldDelegate>
+@interface DeviceController : NSObject <NSTextFieldDelegate, NSComboBoxDataSource>
 {
+    NSUInteger numDevs;
 }
 
 @property (readonly) IBOutlet NSButton *enableSCSITarget;
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) evaluate;
 - (void) evaluateSize;
 - (NSUInteger) convertUnitsToSectors;
+- (void) updateSCSIIDsTo: (NSNumber *)num;
 
 // Getters and setters for properties of the GUI...
 - (BOOL) isEnabled;

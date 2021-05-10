@@ -211,7 +211,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"reset_hid: Exception caught : %s\n", e.what());
+        // NSLog(@"reset_hid: Exception caught : %s\n", e.what());
     }
 }
 
@@ -432,6 +432,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             if (myHID == NULL)
                return;
           
+            /*
             std::string vers = myHID->getFirmwareVersionStr();
             NSString *version = [NSString stringWithCString: vers.c_str()
                                                    encoding: NSUTF8StringEncoding];
@@ -445,7 +446,9 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
              {
                msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
                [self logStringToLabel:msg];
-             }
+             } */
+            myTickCounter++;
+            goto tick;
         }
         else if (myHID && !myHID->ping())
         {
@@ -485,13 +488,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 {
                     [dc updateSCSIIDsTo: [NSNumber numberWithLong:4]];
                 }
-
-                std::string vers = myHID->getFirmwareVersionStr();
-                NSString *version = [NSString stringWithCString: vers.c_str()
-                                                       encoding: NSUTF8StringEncoding];
-                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
-                [self logStringToLabel:msg];
             }
+            
+            std::string vers = myHID->getFirmwareVersionStr();
+            NSString *version = [NSString stringWithCString: vers.c_str()
+                                                   encoding: NSUTF8StringEncoding];
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+            [self logStringToLabel:msg];
         }
         else if (myHID && myHID->getFirmwareVersion() >= FIRMWARE_NEW_TABS)
         {
@@ -510,13 +513,13 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 {
                     [dc updateSCSIIDsTo: [NSNumber numberWithLong:7]];
                 }
-
-                std::string vers = myHID->getFirmwareVersionStr();
-                NSString *version = [NSString stringWithCString: vers.c_str()
-                                                       encoding: NSUTF8StringEncoding];
-                NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
-                [self logStringToLabel:msg];
             }
+            
+            std::string vers = myHID->getFirmwareVersionStr();
+            NSString *version = [NSString stringWithCString: vers.c_str()
+                                                   encoding: NSUTF8StringEncoding];
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+            [self logStringToLabel:msg];
         }
         else if (myHID == NULL)
         {
@@ -540,7 +543,8 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
                 }
             }
         }
-        
+            
+    tick:
         char ticks[] = {'/', '-', '\\', '|'};
         if (!myHID)
         {

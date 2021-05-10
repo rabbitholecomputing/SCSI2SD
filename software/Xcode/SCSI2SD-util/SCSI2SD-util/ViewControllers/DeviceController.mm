@@ -105,7 +105,8 @@
 - (void) updateSCSIIDsTo: (NSNumber *)num
 {
     NSUInteger n = [num longValue];
-    numDevs = n + 1;
+    numDevs = n;
+    [self.SCSIID setNumberOfVisibleItems: numDevs];
     [self.SCSIID reloadData];
 }
 

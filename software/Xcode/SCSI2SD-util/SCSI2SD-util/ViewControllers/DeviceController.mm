@@ -135,15 +135,12 @@
     [self.sectorSize setStringValue: [NSString stringWithFormat: @"%d", config.bytesPerSector]];
     [self.sectorCount setStringValue: [NSString stringWithFormat: @"%d", config.scsiSectors]];
     [self.deviceSize setStringValue: [NSString stringWithFormat: @"%lld", (long long)deviceSize]];
-
-    // Sectors per track...
     [self.vendor setStringValue: [NSString stringWithCString:config.vendor length:8]];
     [self.productId setStringValue: [NSString stringWithCString:config.prodId length:16]];
     [self.revsion setStringValue: [NSString stringWithCString:config.revision length:4]];
     [self.serialNumber setStringValue: [NSString stringWithCString:config.serial length:16]];
     [self.sectorsPerTrack setStringValue: [NSString stringWithFormat: @"%d", config.sectorsPerTrack]];
     [self.headsPerCylinder setStringValue: [NSString stringWithFormat: @"%d", config.headsPerCylinder]];
-    // [self.autoStartSector setState:]
     
     [self evaluateSize];
 }
@@ -174,6 +171,8 @@
     strncpy(targetConfig.prodId, [self.productId.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 16);
     strncpy(targetConfig.revision, [self.revsion.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 4);
     strncpy(targetConfig.serial, [self.serialNumber.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 16);
+    targetConfig.headsPerCylinder = self.headsPerCylinder.intValue;
+    targetConfig.sectorsPerTrack = self.sectorsPerTrack.intValue;
 
     return targetConfig;
 }

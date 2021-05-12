@@ -25,6 +25,7 @@ void clean_exit_on_sig(int sig_num)
 
 #define MIN_FIRMWARE_VERSION 0x0400
 #define MIN_FIRMWARE_VERSION 0x0400
+#define FIRMWARE_NEW_TABS 0x0520
 
 static uint8_t sdCrc7(uint8_t* chr, uint8_t cnt, uint8_t crc)
 {
@@ -85,6 +86,12 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
 
 @property (nonatomic) IBOutlet SettingsController *settings;
 @property (nonatomic) IBOutlet NSWindow *customAboutWindow;
+
+@property (nonatomic) NSTabViewItem *holderForDevice5;
+@property (nonatomic) NSTabViewItem *holderForDevice6;
+
+@property (nonatomic) DeviceController *holderForController5;
+@property (nonatomic) DeviceController *holderForController6;
 
 @end
 
@@ -204,7 +211,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     }
     catch (std::exception& e)
     {
-        NSLog(@"reset_hid: Exception caught : %s\n", e.what());
+        // NSLog(@"reset_hid: Exception caught : %s\n", e.what());
     }
 }
 
@@ -246,7 +253,22 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     [deviceControllers addObject: _device2];
     [deviceControllers addObject: _device3];
     [deviceControllers addObject: _device4];
+    [deviceControllers addObject: _device5];
+    [deviceControllers addObject: _device6];
     
+    NSEnumerator *en = [deviceControllers objectEnumerator];
+    DeviceController *dc = nil;
+    while ((dc = [en nextObject]) != nil)
+    {
+        [dc updateSCSIIDsTo: [NSNumber numberWithLong:[deviceControllers count]]];
+    }
+    [self loadDefaults: self];
+    
+    self.holderForController5 = self.device5;
+    self.holderForController6 = self.device6;
+    self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+    self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+
     [self.tabView selectTabViewItemAtIndex:0];
     [self.progress setMinValue: 0.0];
     [self.progress setMaxValue: 100.0];
@@ -257,7 +279,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
     
     [[self window] makeKeyAndOrderFront:self];
     [self startTimer];
-    [self loadDefaults: nil];
+
 }
 
 // Shutdown everything when termination happens...
@@ -410,6 +432,7 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
             if (myHID == NULL)
                return;
           
+            /*
             std::string vers = myHID->getFirmwareVersionStr();
             NSString *version = [NSString stringWithCString: vers.c_str()
                                                    encoding: NSUTF8StringEncoding];
@@ -418,25 +441,14 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
               {
                 [self reset_hid];
                 [self reset_bootloader];
-                /*
-                // Put into the panel...
-                msg = @"SCSI2SD NOT Ready, Firmware invalid.  Check that board version is 5.x.";
-                [self logStringToLabel:msg];
-                
-                // Show alert...
-                NSAlert *alert = [NSAlert alertWithMessageText: @"SCSI2SD NOT Ready"
-                                                 defaultButton: @"Ok"
-                                               alternateButton: nil
-                                                   otherButton: nil
-                                     informativeTextWithFormat: @"Firmware invalid.  Check that board version is 5.x."];
-                [alert runModal];
-                 */
               }
            else
              {
                msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
                [self logStringToLabel:msg];
-             }
+             } */
+            myTickCounter++;
+            goto tick;
         }
         else if (myHID && !myHID->ping())
         {
@@ -447,17 +459,92 @@ BOOL RangesIntersect(NSRange range1, NSRange range2) {
         {
             if(myHID)
             {
-                //NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version //%s",myHID->getFirmwareVersionStr().c_str()];
-                //[self logStringToLabel:msg];
                 if (checked == NO)
                 {
                     checked = YES;
                     [self connectionTests];
                 }
-                // [self logStringToPanel:[NSString stringWithFormat: @"%@: %@", [NSDate date], msg]];
             }
         }
+        
+        if (myHID && myHID->getFirmwareVersion() < FIRMWARE_NEW_TABS)
+        {
+            if ([[self.tabView tabViewItems] count] > 5)
+            {
+                self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+                self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+                [self.tabView removeTabViewItem:self.holderForDevice6];
+                [self.tabView removeTabViewItem:self.holderForDevice5];
+                
+                self.holderForController5 = self.device5;
+                self.holderForController6 = self.device6;
+                [deviceControllers removeObject: self.device5];
+                [deviceControllers removeObject: self.device6];
+                
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:4]];
+                }
+            }
+            
+            std::string vers = myHID->getFirmwareVersionStr();
+            NSString *version = [NSString stringWithCString: vers.c_str()
+                                                   encoding: NSUTF8StringEncoding];
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+            [self logStringToLabel:msg];
+        }
+        else if (myHID && myHID->getFirmwareVersion() >= FIRMWARE_NEW_TABS)
+        {
+            if ([[self.tabView tabViewItems] count] < 7)
+            {
+                [self.tabView addTabViewItem: self.holderForDevice5]; // = [self.tabView tabViewItemAtIndex:5];
+                [self.tabView addTabViewItem: self.holderForDevice6]; // = [self.tabView tabViewItemAtIndex:6];
+                
+                [deviceControllers addObject: self.device5];
+                [deviceControllers addObject: self.device6];
+                
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:7]];
+                }
+            }
+            
+            std::string vers = myHID->getFirmwareVersionStr();
+            NSString *version = [NSString stringWithCString: vers.c_str()
+                                                   encoding: NSUTF8StringEncoding];
+            NSString *msg = [NSString stringWithFormat: @"SCSI2SD Ready, firmware version %@",version];
+            [self logStringToLabel:msg];
+        }
+        else if (myHID == NULL)
+        {
+            if ([[self.tabView tabViewItems] count] > 5)
+            {
+                self.holderForDevice5 = [self.tabView tabViewItemAtIndex:5];
+                self.holderForDevice6 = [self.tabView tabViewItemAtIndex:6];
+                [self.tabView removeTabViewItem:self.holderForDevice6];
+                [self.tabView removeTabViewItem:self.holderForDevice5];
 
+                self.holderForController5 = self.device5;
+                self.holderForController6 = self.device6;
+                [deviceControllers removeObject: self.device5];
+                [deviceControllers removeObject: self.device6];
+                
+                NSEnumerator *en = [deviceControllers objectEnumerator];
+                DeviceController *dc = nil;
+                while ((dc = [en nextObject]) != nil)
+                {
+                    [dc updateSCSIIDsTo: [NSNumber numberWithLong:4]];
+                }
+            }
+        }
+            
+    tick:
         char ticks[] = {'/', '-', '\\', '|'};
         if (!myHID)
         {

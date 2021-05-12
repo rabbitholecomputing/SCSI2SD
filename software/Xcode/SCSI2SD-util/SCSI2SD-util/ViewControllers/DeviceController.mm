@@ -13,6 +13,26 @@
 #include "ConfigUtil.hh"
 
 @interface DeviceController ()
+
+@property (readwrite) IBOutlet NSButton *enableSCSITarget;
+@property (readwrite) IBOutlet NSComboBox *SCSIID;
+@property (readwrite) IBOutlet NSPopUpButton *deviceType;
+@property (readwrite) IBOutlet NSTextField *sdCardStartSector;
+@property (readwrite) IBOutlet NSTextField *sectorSize;
+@property (readwrite) IBOutlet NSTextField *sectorCount;
+@property (readwrite) IBOutlet NSTextField *deviceSize;
+@property (readwrite) IBOutlet NSPopUpButton *deviceUnit;
+@property (readwrite) IBOutlet NSTextField *vendor;
+@property (readwrite) IBOutlet NSTextField *productId;
+@property (readwrite) IBOutlet NSTextField *revsion;
+@property (readwrite) IBOutlet NSTextField *serialNumber;
+@property (readwrite) IBOutlet NSButton *autoStartSector;
+@property (readwrite) IBOutlet NSTextField *sectorsPerTrack;
+@property (readwrite) IBOutlet NSTextField *headsPerCylinder;
+
+@property (readwrite) IBOutlet NSTextField *autoErrorText;
+@property (readwrite) IBOutlet NSTextField *scsiIdErrorText;
+
 @end
 
 @implementation DeviceController
@@ -60,9 +80,34 @@
     self.sectorCount.delegate = self;
     self.deviceSize.delegate = self;
     
+    self.SCSIID.dataSource = self;
+    self.SCSIID.usesDataSource = YES;
+    // numDevs = 10;
+    [self.SCSIID reloadData];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(controlTextDidChange:) name:NSControlTextDidChangeNotification object:nil];
     
     [self evaluate];
+}
+
+// Data source for combobox
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)comboBox
+{
+    return numDevs;
+}
+
+- (nullable id)comboBox:(NSComboBox *)comboBox objectValueForItemAtIndex:(NSInteger)index
+{
+    return [NSNumber numberWithLong:index];
+}
+// end data source
+
+- (void) updateSCSIIDsTo: (NSNumber *)num
+{
+    NSUInteger n = [num longValue];
+    numDevs = n;
+    [self.SCSIID setNumberOfVisibleItems: numDevs];
+    [self.SCSIID reloadData];
 }
 
 - (IBAction) selectDeviceUnit: (id)sender
@@ -90,15 +135,12 @@
     [self.sectorSize setStringValue: [NSString stringWithFormat: @"%d", config.bytesPerSector]];
     [self.sectorCount setStringValue: [NSString stringWithFormat: @"%d", config.scsiSectors]];
     [self.deviceSize setStringValue: [NSString stringWithFormat: @"%lld", (long long)deviceSize]];
-
-    // Sectors per track...
     [self.vendor setStringValue: [NSString stringWithCString:config.vendor length:8]];
     [self.productId setStringValue: [NSString stringWithCString:config.prodId length:16]];
     [self.revsion setStringValue: [NSString stringWithCString:config.revision length:4]];
     [self.serialNumber setStringValue: [NSString stringWithCString:config.serial length:16]];
     [self.sectorsPerTrack setStringValue: [NSString stringWithFormat: @"%d", config.sectorsPerTrack]];
     [self.headsPerCylinder setStringValue: [NSString stringWithFormat: @"%d", config.headsPerCylinder]];
-    // [self.autoStartSector setState:]
     
     [self evaluateSize];
 }
@@ -129,6 +171,8 @@
     strncpy(targetConfig.prodId, [self.productId.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 16);
     strncpy(targetConfig.revision, [self.revsion.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 4);
     strncpy(targetConfig.serial, [self.serialNumber.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 16);
+    targetConfig.headsPerCylinder = self.headsPerCylinder.intValue;
+    targetConfig.sectorsPerTrack = self.sectorsPerTrack.intValue;
 
     return targetConfig;
 }

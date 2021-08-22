@@ -140,6 +140,12 @@ typedef enum
 	CONFIG_SPEED_ASYNC_15
 } CONFIG_SPEED;
 
+typedef enum
+{
+    CONFIG_SD = 0,
+    CONFIG_FLASH = 1
+} CONFIG_STORAGE;
+
 typedef struct __attribute__((packed))
 {
 	uint8_t deviceType;
@@ -177,8 +183,10 @@ typedef struct __attribute__((packed))
 	char serial[16];
 
 	uint16_t quirks; // CONFIG_QUIRKS
-
-	uint8_t reserved[960]; // Pad out to 1024 bytes for main section.
+    
+    uint8_t storageDevice;  // CONFIG_STORAGE
+    
+	uint8_t reserved[959]; // Pad out to 1024 bytes for main section.
 
 	uint8_t modePages[1024];
 	uint8_t vpd[1024];

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) IBOutlet NSButton *autoStartSector;
 @property (readonly) IBOutlet NSTextField *sectorsPerTrack;
 @property (readonly) IBOutlet NSTextField *headsPerCylinder;
+@property (readonly) IBOutlet NSPopUpButton *storageDevice;
 
 @property (readonly) IBOutlet NSTextField *autoErrorText;
 @property (readonly) IBOutlet NSTextField *scsiIdErrorText;

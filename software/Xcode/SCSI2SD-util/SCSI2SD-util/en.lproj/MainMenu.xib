@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -47,6 +47,7 @@
                 <outlet property="sectorSize" destination="RKS-LT-Dud" id="yYO-bX-HfI"/>
                 <outlet property="sectorsPerTrack" destination="b0O-EQ-GJq" id="Pie-hF-cRW"/>
                 <outlet property="serialNumber" destination="Eyb-KC-2Di" id="KCD-mV-s3J"/>
+                <outlet property="storageDevice" destination="9zy-Us-lwj" id="CCw-uQ-wC3"/>
                 <outlet property="vendor" destination="EFJ-SR-zlf" id="h6Y-Yt-nLQ"/>
             </connections>
         </customObject>
@@ -68,6 +69,7 @@
                 <outlet property="sectorSize" destination="woc-d9-jgn" id="P6x-ZK-UDM"/>
                 <outlet property="sectorsPerTrack" destination="yB5-Ox-6WT" id="aD0-kw-ury"/>
                 <outlet property="serialNumber" destination="hTP-Ic-caa" id="IY6-8D-dDs"/>
+                <outlet property="storageDevice" destination="P3O-DI-rYp" id="iq9-zY-2Re"/>
                 <outlet property="vendor" destination="nJi-u8-xIi" id="J8C-Cp-yBY"/>
             </connections>
         </customObject>
@@ -89,6 +91,7 @@
                 <outlet property="sectorSize" destination="cde-B9-Gzi" id="or5-YR-frk"/>
                 <outlet property="sectorsPerTrack" destination="g0U-cB-EZz" id="3Gx-3W-OLI"/>
                 <outlet property="serialNumber" destination="cSH-ui-Tc5" id="V45-j9-gJB"/>
+                <outlet property="storageDevice" destination="shi-gc-vMy" id="J8n-Cg-Lmz"/>
                 <outlet property="vendor" destination="wrg-Be-HxH" id="4Gm-Xc-cx9"/>
             </connections>
         </customObject>
@@ -110,6 +113,7 @@
                 <outlet property="sectorSize" destination="KBA-qQ-Hqf" id="uNU-2u-Ykm"/>
                 <outlet property="sectorsPerTrack" destination="ts3-Aw-fni" id="yvH-h2-hFr"/>
                 <outlet property="serialNumber" destination="ACE-HD-Zpt" id="ZNT-gV-HnO"/>
+                <outlet property="storageDevice" destination="6Qf-Of-3DJ" id="Esw-7K-Qpa"/>
                 <outlet property="vendor" destination="MaA-yu-GBr" id="mRQ-gs-6FA"/>
             </connections>
         </customObject>
@@ -131,6 +135,7 @@
                 <outlet property="sectorSize" destination="Tf9-WK-PxG" id="5sU-aK-Vdz"/>
                 <outlet property="sectorsPerTrack" destination="e38-zO-mUz" id="hYd-a8-oqI"/>
                 <outlet property="serialNumber" destination="B8Q-8u-x1O" id="5a8-Kn-0op"/>
+                <outlet property="storageDevice" destination="RIP-Ad-Bam" id="Tw1-kt-GYF"/>
                 <outlet property="vendor" destination="vV5-oM-W5f" id="bq7-4Q-mfC"/>
             </connections>
         </customObject>
@@ -152,6 +157,7 @@
                 <outlet property="sectorSize" destination="bxX-tb-8hs" id="ZQn-Yj-okA"/>
                 <outlet property="sectorsPerTrack" destination="hFu-Zc-xRr" id="u0d-z6-qIe"/>
                 <outlet property="serialNumber" destination="nSD-Jl-aHN" id="RPR-DE-3rJ"/>
+                <outlet property="storageDevice" destination="gZ9-us-gSg" id="od1-JR-nju"/>
                 <outlet property="vendor" destination="wvY-IL-tZi" id="Il3-w6-Wbb"/>
             </connections>
         </customObject>
@@ -565,7 +571,7 @@
             <windowStyleMask key="styleMask" titled="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="192" y="561" width="723" height="448"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1127"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="723" height="448"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -1015,6 +1021,29 @@
                                                 <action selector="enableSCSITarget:" target="Rxt-kb-gYI" id="UuL-Re-8mX"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lor-A3-0nM">
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="hEp-z7-VqO">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zy-Us-lwj">
+                                            <rect key="frame" x="359" y="4" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="tNC-qR-kOJ" id="Qja-LB-Wha">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="gLW-GW-twR">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="tNC-qR-kOJ"/>
+                                                        <menuItem title="Flash" id="jul-JX-bsf"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1319,6 +1348,29 @@
                                                 <action selector="enableSCSITarget:" target="pNT-g4-Vd5" id="5Ar-1w-GOv"/>
                                             </connections>
                                         </button>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P3O-DI-rYp">
+                                            <rect key="frame" x="359" y="5" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="JOn-2J-Q9o" id="f2L-qX-h1T">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="CdU-6c-Mbk">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="JOn-2J-Q9o"/>
+                                                        <menuItem title="Flash" id="4M0-Aj-MiU"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsZ-lc-SyQ">
+                                            <rect key="frame" x="137" y="12" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="KJE-Mb-dOq">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1623,6 +1675,29 @@
                                                 <action selector="enableSCSITarget:" target="YnD-md-VMP" id="1XF-Mx-7R8"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trk-Lw-VgS">
+                                            <rect key="frame" x="137" y="13" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="c0N-um-SJ7">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shi-gc-vMy">
+                                            <rect key="frame" x="359" y="6" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1Rp-Pg-ooJ" id="4hm-4S-ITW">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="KBS-s2-xEc">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="1Rp-Pg-ooJ"/>
+                                                        <menuItem title="Flash" id="WRb-Q3-mkI"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1927,6 +2002,29 @@
                                                 <action selector="enableSCSITarget:" target="eDc-Zj-phF" id="BfE-8q-cMS"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3g6-BS-UI0">
+                                            <rect key="frame" x="137" y="12" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="Cra-Gc-bIm">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Qf-Of-3DJ">
+                                            <rect key="frame" x="359" y="5" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="69g-it-WhM" id="ipo-sY-V8R">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="RiD-FL-x9z">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="69g-it-WhM"/>
+                                                        <menuItem title="Flash" id="Lfa-OE-7O8"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -2237,6 +2335,29 @@
                                                 <action selector="enableSCSITarget:" target="i9u-bG-GAU" id="R3i-xJ-1cC"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jNb-2h-D3J">
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="VOY-Rk-jmL">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RIP-Ad-Bam">
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="TZV-hp-q2N" id="055-YF-hrh">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="QF0-Yc-KBj">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="TZV-hp-q2N"/>
+                                                        <menuItem title="Flash" id="n1m-oq-IQC"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -2547,6 +2668,29 @@
                                                 <action selector="enableSCSITarget:" target="RDl-9l-zXo" id="ScN-jF-Kcc"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YLn-D3-07K">
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="53t-P4-fRm">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gZ9-us-gSg">
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="VO9-BD-j6J" id="Vgw-N4-yWb">
+                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="menu"/>
+                                                <menu key="menu" id="Fsa-ul-zvs">
+                                                    <items>
+                                                        <menuItem title="SD" state="on" id="VO9-BD-j6J"/>
+                                                        <menuItem title="Flash" id="0ph-gw-OEB"/>
+                                                    </items>
+                                                </menu>
+                                            </popUpButtonCell>
+                                        </popUpButton>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -2567,13 +2711,13 @@
                     </progressIndicator>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="71.5" y="-358"/>
+            <point key="canvasLocation" x="-643" y="-380"/>
         </window>
         <window title="Activity Log" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" frameAutosaveName="" animationBehavior="default" id="H9u-55-H3N" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" utility="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="1481" y="449" width="276" height="378"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2048" height="1127"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" id="zVs-ES-bFT">
                 <rect key="frame" x="0.0" y="0.0" width="276" height="378"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -2613,7 +2757,7 @@
         <window allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="cRK-tm-rff">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <rect key="contentRect" x="-1517" y="307" width="480" height="270"/>
-            <rect key="screenRect" x="-1680" y="102" width="1680" height="1050"/>
+            <rect key="screenRect" x="-1680" y="30" width="1680" height="1050"/>
             <view key="contentView" id="TJv-rO-SeO">
                 <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
                 <autoresizingMask key="autoresizingMask"/>

@@ -1031,7 +1031,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zy-Us-lwj">
-                                            <rect key="frame" x="359" y="4" width="153" height="25"/>
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="tNC-qR-kOJ" id="Qja-LB-Wha">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1349,7 +1349,7 @@
                                             </connections>
                                         </button>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P3O-DI-rYp">
-                                            <rect key="frame" x="359" y="5" width="153" height="25"/>
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="JOn-2J-Q9o" id="f2L-qX-h1T">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1363,7 +1363,7 @@
                                             </popUpButtonCell>
                                         </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dsZ-lc-SyQ">
-                                            <rect key="frame" x="137" y="12" width="97" height="17"/>
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="KJE-Mb-dOq">
                                                 <font key="font" metaFont="system"/>
@@ -1676,7 +1676,7 @@
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="trk-Lw-VgS">
-                                            <rect key="frame" x="137" y="13" width="97" height="17"/>
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="c0N-um-SJ7">
                                                 <font key="font" metaFont="system"/>
@@ -1685,7 +1685,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="shi-gc-vMy">
-                                            <rect key="frame" x="359" y="6" width="153" height="25"/>
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="1Rp-Pg-ooJ" id="4hm-4S-ITW">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -2003,7 +2003,7 @@
                                             </connections>
                                         </button>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3g6-BS-UI0">
-                                            <rect key="frame" x="137" y="12" width="97" height="17"/>
+                                            <rect key="frame" x="137" y="11" width="97" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <textFieldCell key="cell" lineBreakMode="clipping" title="Storage Device" id="Cra-Gc-bIm">
                                                 <font key="font" metaFont="system"/>
@@ -2012,7 +2012,7 @@
                                             </textFieldCell>
                                         </textField>
                                         <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Qf-Of-3DJ">
-                                            <rect key="frame" x="359" y="5" width="153" height="25"/>
+                                            <rect key="frame" x="360" y="4" width="153" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <popUpButtonCell key="cell" type="push" title="SD" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="69g-it-WhM" id="ipo-sY-V8R">
                                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -2727,7 +2727,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="3KJ-QQ-yLC">
                             <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="IUe-Fz-GvN">
                                     <rect key="frame" x="0.0" y="0.0" width="261" height="378"/>

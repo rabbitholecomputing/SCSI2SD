@@ -29,6 +29,7 @@
 @property (readwrite) IBOutlet NSButton *autoStartSector;
 @property (readwrite) IBOutlet NSTextField *sectorsPerTrack;
 @property (readwrite) IBOutlet NSTextField *headsPerCylinder;
+@property (readwrite) IBOutlet NSPopUpButton *storageDevice;
 
 @property (readwrite) IBOutlet NSTextField *autoErrorText;
 @property (readwrite) IBOutlet NSTextField *scsiIdErrorText;
@@ -141,6 +142,7 @@
     [self.serialNumber setStringValue: [NSString stringWithCString:config.serial length:16]];
     [self.sectorsPerTrack setStringValue: [NSString stringWithFormat: @"%d", config.sectorsPerTrack]];
     [self.headsPerCylinder setStringValue: [NSString stringWithFormat: @"%d", config.headsPerCylinder]];
+    [self.storageDevice selectItemAtIndex: config.storageDevice];
     
     [self evaluateSize];
 }
@@ -173,7 +175,8 @@
     strncpy(targetConfig.serial, [self.serialNumber.stringValue cStringUsingEncoding:NSUTF8StringEncoding], 16);
     targetConfig.headsPerCylinder = self.headsPerCylinder.intValue;
     targetConfig.sectorsPerTrack = self.sectorsPerTrack.intValue;
-
+    targetConfig.storageDevice = self.storageDevice.indexOfSelectedItem;
+    
     return targetConfig;
 }
 

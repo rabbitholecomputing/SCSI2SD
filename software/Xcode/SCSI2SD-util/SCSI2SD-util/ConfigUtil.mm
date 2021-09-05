@@ -164,6 +164,8 @@ ConfigUtil::Default(size_t targetIdx)
 	memcpy(config.prodId, "         SCSI2SD", 16);
 	memcpy(config.revision, " 4.2", 4);
 	memcpy(config.serial, "1234567812345678", 16);
+    
+    config.storageDevice = 0;
 
 	// Reserved fields, already set to 0
 	// config.reserved
@@ -288,8 +290,13 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	<deviceTypeModifier>0x" <<
 				std::hex << static_cast<int>(config.deviceTypeModifier) <<
 			"</deviceTypeModifier>\n" <<
-
 		"\n\n" <<
+        "    <!-- ********************************************************\n" <<
+        "    0    SD.\n"  <<
+        "    1    Flash.\n" <<
+        "    ********************************************************* -->\n" <<
+        "    <storageDevice>" << std::dec << static_cast<int>(config.storageDevice) << "</storageDevice>\n" <<
+        "\n\n" <<
 		"	<!-- ********************************************************\n" <<
 		"	SD card offset, as a sector number (always 512 bytes).\n" <<
 		"	********************************************************* -->\n" <<
@@ -533,6 +540,10 @@ parseTarget(NSXMLElement* node)
 		{
 			result.deviceType = parseInt(child, 0xFF);
 		}
+        else if ([[child name] isEqualToString: @"storageDevice"])
+        {
+            result.storageDevice = parseInt(child, 0xFF);
+        }
 		else if ([[child name] isEqualToString: @"deviceTypeModifier"])
 		{
 			result.deviceTypeModifier = parseInt(child, 0xFF);

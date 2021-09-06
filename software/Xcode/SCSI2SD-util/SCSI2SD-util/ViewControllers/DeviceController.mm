@@ -54,9 +54,9 @@
     self.sectorCount.toolTip = @"Number of sectors (device size)";
     self.deviceSize.toolTip = @"Device size";
     self.deviceUnit.toolTip = @"Units for device: GB, MB, etc";
-    self.vendor.toolTip = @"SCSI Vendor string. eg. ' codesrc'";
+    self.vendor.toolTip = @"SCSI Vendor string. eg. ' rhcomp'";
     self.productId.toolTip = @"SCSI Product ID string. eg. 'SCSI2SD";
-    self.revsion.toolTip = @"SCSI device revision string. eg. '3.5a'";
+    self.revsion.toolTip = @"SCSI device revision string. eg. '5.0'";
     self.serialNumber.toolTip = @"SCSI serial number. eg. '13eab5632a'";
     self.autoStartSector.toolTip = @"Auto start sector based on other targets";
     self.sectorsPerTrack.toolTip = @"Number of sectors in each track";

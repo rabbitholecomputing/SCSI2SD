@@ -2,7 +2,6 @@ VPATH=cybootloaderutils ../SCSI2SD/src
 
 VERSION=4.4.0
 NAME=scsi2sd-util
-TARGET ?= $(shell uname -s)
 
 ifeq ($(USE_SYSTEM), Yes)
 USE_SYSTEM_HIDAPI = Yes
@@ -35,8 +34,8 @@ LDFLAGS_WX=$(shell $(BUILD)/wx/wx-config --libs)
 endif
 
 CPPFLAGS = -I cybootloaderutils $(CPPFLAGS_HIDAPI) -I. -I ../include -Ilibzipper-1.0.4 $(CPPFLAGS_ZLIB)
-CFLAGS += -Wno-pointer-sign -O2 -g
-CXXFLAGS += -O2 -g -std=c++0x
+CFLAGS += -Wall -Wno-pointer-sign -O2 -g
+CXXFLAGS += -Wall -O2 -g -std=c++0x
 
 LDFLAGS += -L$(BUILD)/libzipper/.libs -lzipper $(LDFLAGS_ZLIB) $(LDFLAGS_HIDAPI)
 
@@ -48,12 +47,13 @@ WX_CONFIG=--disable-webkit --disable-webviewwebkit  --disable-mediactrl \
 	--without-libtiff --without-libjbig --without-liblzma --without-opengl \
 	--enable-monolithic --enable-stl --disable-shared
 
-ifeq ($(TARGET),MINGW32_NT-6.2)
+TARGET ?= $(shell uname -s)
+ifeq ($(TARGET),Win32)
 	VPATH += hidapi/windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/32bit
-	CC=gcc
-	CXX=g++
+	CC=i686-w64-mingw32-gcc
+	CXX=i686-w64-mingw32-g++
 	LIBZIPPER_CONFIG+=--host=i686-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=i686-w64-mingw32
@@ -63,8 +63,8 @@ ifeq ($(TARGET),Win64)
 	VPATH += hidapi-windows
 	LDFLAGS += -static -mconsole -mwindows -lsetupapi
 	BUILD := $(PWD)/build/windows/64bit
-	CC=gcc
-	CXX=g++
+	CC=x86_64-w64-mingw32-gcc
+	CXX=x86_64-w64-mingw32-g++
 	LIBZIPPER_CONFIG+=--host=x86_64-w64-mingw32
 	EXE=.exe
 	WX_CONFIG+=--host=x86_64-w64-mingw32
@@ -76,12 +76,13 @@ ifeq ($(TARGET),Linux)
 	BUILD := $(PWD)/build/linux
 endif
 ifeq ($(TARGET),Darwin)
-# Should match OSX
+	# Should match OSX
 	VPATH += hidapi-mac
 	LDFLAGS += -framework IOKit -framework CoreFoundation -lexpat
-	CC=gcc -mmacosx-version-min=10.7 
-	CXX=g++ -stdlib=libc++ -mmacosx-version-min=10.7 
+	CC=clang -mmacosx-version-min=10.7
+	CXX=clang++ -stdlib=libc++ -mmacosx-version-min=10.7
 	WX_CONFIG += --with-macosx-version-min=10.7
+	CPPFLAGS_WXBUILD += -D__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES=1
 	BUILD := $(PWD)/build/mac
 all: $(BUILD)/scsi2sd-util.dmg
 
@@ -90,6 +91,7 @@ $(BUILD)/scsi2sd-util.dmg: $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor
 	mkdir -p $(dir $@)/dmg
 	cp $(BUILD)/scsi2sd-util $(BUILD)/scsi2sd-monitor $(dir $@)/dmg
 	chmod a+rx $(dir $@)/dmg/*
+	hdiutil create -srcfolder $(dir $@)/dmg $@
 endif
 
 export CC CXX
@@ -129,21 +131,7 @@ EXEOBJ = \
 	$(BUILD)/scsi2sd-monitor.o \
 
 
-ifeq ($(TARGET),MINGW32_NT-6.2)
-ifneq ($(USE_SYSTEM_ZLIB),Yes)
-$(OBJ): $(BUILD)/zlib/buildstamp
-$(EXEOBJ): $(BUILD)/zlib/buildstamp
-$(BUILD)/zlib/buildstamp:
-	mkdir -p $(dir $@)
-	( \
-		cd $(dir $@) && \
-		cp -a $(CURDIR)/zlib-1.2.8/* . && \
-		make win32/Makefile.gcc && \
-		$(MAKE) \
-	) && \
-	touch $@
-endif
-else
+
 ifneq ($(USE_SYSTEM_ZLIB),Yes)
 $(OBJ): $(BUILD)/zlib/buildstamp
 $(EXEOBJ): $(BUILD)/zlib/buildstamp
@@ -157,7 +145,6 @@ $(BUILD)/zlib/buildstamp:
 	) && \
 	touch $@
 endif
-endif
 
 ifneq ($(USE_SYSTEM_WX),Yes)
 $(OBJ): $(BUILD)/wx/buildstamp
@@ -170,7 +157,7 @@ endif
 	mkdir -p $(dir $@)
 	( \
 		cd $(dir $@) && \
-		$(CURDIR)/wxWidgets/configure $(WX_CONFIG) CPPFLAGS="$(CPPFLAGS_ZLIB)" LDFLAGS="$(LDFLAGS_ZLIB)" && \
+		$(CURDIR)/wxWidgets/configure $(WX_CONFIG) CPPFLAGS="$(CPPFLAGS_ZLIB) $(CPPFLAGS_WXBUILD)" LDFLAGS="$(LDFLAGS_ZLIB)" && \
 		$(MAKE) \
 	) && \
 	touch $@

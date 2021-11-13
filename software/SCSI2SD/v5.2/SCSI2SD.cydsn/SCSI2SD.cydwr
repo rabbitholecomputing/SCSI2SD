@@ -529,26 +529,31 @@
       <Data key="1cbdffd4-eb85-452b-a8d5-fc63f832ad14" value="SCSI_RST" />
       <Data key="4c15b41e-e284-4978-99e7-5aaee19bd0ce" value="SCSI_In_DBx" />
       <Data key="5c1decb5-69e3-4a8d-bb0c-281221d15217" value="EXTLED" />
-      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="SPI_Pullups" />
+      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="NOR_SO" />
       <Data key="11f071e8-9c92-47e0-872a-3f48765a75b8" value="SCSI_Out" />
       <Data key="017bcc29-b1c3-4236-8d12-9482d3052409" value="SD_DAT2" />
       <Data key="32f0aa9d-67c0-4e16-af15-f38ab16ecd75" value="SD_SCK" />
       <Data key="52b56294-36b1-4f21-a98a-a7ce3de7f759" value="LED1" />
       <Data key="52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="SCSI_Out_DBx" />
       <Data key="0953ba78-d08c-41cc-a5ba-a28ac6cf9ee6" value="SCSI_Noise" />
+      <Data key="1030e8e7-8e88-44ed-a03e-e5d56d4d7cfa" value="nNOR_CS" />
       <Data key="159485ba-54a3-4125-8cfd-7e9d322656f5" value="EXTLED" />
       <Data key="791071b3-a348-49c4-b578-64e66d701d0f/8b77a6c4-10a0-4390-971c-672353e2a49c" value="USBFS_Dm" />
       <Data key="791071b3-a348-49c4-b578-64e66d701d0f/618a72fc-5ddd-4df5-958f-a3d55102db42" value="USBFS_Dp" />
       <Data key="46848116-0f25-4b2a-8a9b-0d82783567cf" value="SPI_Pullups_1" />
+      <Data key="58466791-1a1b-4bf3-b8be-6107fa736756" value="NOR_SCK" />
       <Data key="b5c06f19-4f88-40c3-af2b-cc20274db75a" value="SCSI_ID" />
       <Data key="b09bcec5-301d-4f99-8875-4a704887e5b5" value="SD_WP" />
       <Data key="b5255b72-3857-4b85-b455-d625a7fbd978" value="SD_MOSI" />
       <Data key="b5324e10-5947-4eb7-9e5c-75dae671b6dc" value="SD_CD" />
+      <Data key="b8883755-657f-4f1f-9738-05dd936fb235" value="NOR_SI" />
       <Data key="ba1e380f-c607-4906-96ae-bbe0f65227f0" value="SD_CS" />
       <Data key="bc0102aa-f4d9-4793-b77a-8c3463edcafa" value="SCSI_In" />
       <Data key="d222211b-a7f8-4948-bad6-d454b04ae84d" value="SD_DAT1" />
+      <Data key="d0457095-d736-4233-a1cd-0a3e62241836" value="nNOR_WP" />
       <Data key="dd079500-ec14-46f6-83ef-ae112d8e7382" value="SCSI_ATN" />
       <Data key="dfd0c8d1-a94a-4944-ad7d-8d06060d1de8" value="PARITY_EN" />
+      <Data key="e7d70154-7612-45c2-a360-1b255f3e9e11" value="nNOR_HOLD" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="TERM_EN" />
     </Group>
   </Group>
@@ -3688,7 +3693,7 @@
     </Group>
     <Group key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba">
       <Group key="0">
-        <Data key="Port Format" value="3,4" />
+        <Data key="Port Format" value="15,2" />
       </Group>
       <Group key="1">
         <Data key="Port Format" value="3,5" />
@@ -3793,6 +3798,11 @@
         <Data key="Port Format" value="4,3" />
       </Group>
     </Group>
+    <Group key="1030e8e7-8e88-44ed-a03e-e5d56d4d7cfa">
+      <Group key="0">
+        <Data key="Port Format" value="3,4" />
+      </Group>
+    </Group>
     <Group key="159485ba-54a3-4125-8cfd-7e9d322656f5">
       <Group key="0">
         <Data key="Port Format" value="0,0" />
@@ -3816,6 +3826,11 @@
         <Data key="Port Format" value="12,1" />
       </Group>
     </Group>
+    <Group key="58466791-1a1b-4bf3-b8be-6107fa736756">
+      <Group key="0">
+        <Data key="Port Format" value="3,7" />
+      </Group>
+    </Group>
     <Group key="b5c06f19-4f88-40c3-af2b-cc20274db75a">
       <Group key="0">
         <Data key="Port Format" value="5,7" />
@@ -3835,6 +3850,11 @@
     <Group key="b5255b72-3857-4b85-b455-d625a7fbd978">
       <Group key="0">
         <Data key="Port Format" value="3,2" />
+      </Group>
+    </Group>
+    <Group key="b8883755-657f-4f1f-9738-05dd936fb235">
+      <Group key="0">
+        <Data key="Port Format" value="3,6" />
       </Group>
     </Group>
     <Group key="ba1e380f-c607-4906-96ae-bbe0f65227f0">
@@ -3879,6 +3899,11 @@
         <Data key="Port Format" value="3,0" />
       </Group>
     </Group>
+    <Group key="d0457095-d736-4233-a1cd-0a3e62241836">
+      <Group key="0">
+        <Data key="Port Format" value="3,5" />
+      </Group>
+    </Group>
     <Group key="dd079500-ec14-46f6-83ef-ae112d8e7382">
       <Group key="0">
         <Data key="Port Format" value="2,0" />
@@ -3887,6 +3912,11 @@
     <Group key="dfd0c8d1-a94a-4944-ad7d-8d06060d1de8">
       <Group key="0">
         <Data key="Port Format" value="5,4" />
+      </Group>
+    </Group>
+    <Group key="e7d70154-7612-45c2-a360-1b255f3e9e11">
+      <Group key="0">
+        <Data key="Port Format" value="12,1" />
       </Group>
     </Group>
     <Group key="e851a3b9-efb8-48be-bbb8-b303b216c393">

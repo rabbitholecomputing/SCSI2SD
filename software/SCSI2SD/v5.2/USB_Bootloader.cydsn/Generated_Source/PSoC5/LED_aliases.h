@@ -1,14 +1,15 @@
 /*******************************************************************************
 * File Name: LED.h  
-* Version 2.10
+* Version 2.20
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
@@ -21,13 +22,18 @@
 #include "cyfitter.h"
 
 
-
 /***************************************
 *              Constants        
 ***************************************/
-#define LED_0		(LED__0__PC)
-#define LED_1		(LED__1__PC)
+#define LED_0			(LED__0__PC)
+#define LED_0_INTR	((uint16)((uint16)0x0001u << LED__0__SHIFT))
+
+#define LED_1			(LED__1__PC)
+#define LED_1_INTR	((uint16)((uint16)0x0001u << LED__1__SHIFT))
+
+#define LED_INTR_ALL	 ((uint16)(LED_0_INTR| LED_1_INTR))
 
 #endif /* End Pins LED_ALIASES_H */
+
 
 /* [] END OF FILE */

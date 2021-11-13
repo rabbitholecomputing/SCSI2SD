@@ -169,8 +169,8 @@ typedef enum
 
 typedef struct
 {
-	uint8 code;
-	uint16 asc;
+	uint8_t code;
+	uint16_t asc;
 } ScsiSense;
 
 #endif

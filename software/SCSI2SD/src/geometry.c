@@ -21,19 +21,22 @@
 #include <string.h>
 
 uint32_t getScsiCapacity(
+    S2S_Device* device,
 	uint32_t sdSectorStart,
 	uint16_t bytesPerSector,
 	uint32_t scsiSectors)
 {
+    uint32_t devCapacity = device->getCapacity(device);
+    
 	uint32_t capacity =
-		(sdDev.capacity - sdSectorStart) /
+		(devCapacity - sdSectorStart) /
 			SDSectorsPerSCSISector(bytesPerSector);
 
-	if (sdDev.capacity == 0)
+	if (devCapacity == 0)
 	{
 		capacity = 0;
 	}
-	else if (sdSectorStart >= sdDev.capacity)
+	else if (sdSectorStart >= devCapacity)
 	{
 		capacity = 0;
 	}

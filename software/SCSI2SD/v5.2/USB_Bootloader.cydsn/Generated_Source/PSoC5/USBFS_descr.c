@@ -45,7 +45,7 @@ const uint8 CYCODE USBFS_DEVICE0_DESCR[18u] = {
 /* bMaxPacketSize0                         */ 0x08u,
 /* idVendor                                */ 0xB4u, 0x04u,
 /* idProduct                               */ 0x1Du, 0xB7u,
-/* bcdDevice                               */ 0x03u, 0x30u,
+/* bcdDevice                               */ 0x04u, 0x30u,
 /* iManufacturer                           */ 0x01u,
 /* iProduct                                */ 0x02u,
 /* iSerialNumber                           */ 0x80u,

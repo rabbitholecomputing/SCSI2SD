@@ -24,9 +24,9 @@ extern "C" {
 
 #define USBHID_LEN 64
 
-// Maximum packet payload length. Must be large enough to support a flash row
-// + flash array index + flash row index
-#define HIDPACKET_MAX_LEN 260
+// Maximum packet payload length. Must be large enough to support a SD sector
+// + sector number + device number
+#define HIDPACKET_MAX_LEN 520
 
 #include <stddef.h>
 #include <stdint.h>
@@ -42,6 +42,10 @@ void hidPacket_recv(const uint8_t* bytes, size_t len);
 // available.
 const uint8_t* hidPacket_getPacket(size_t* len);
 
+// Returns the received packet contents, or NULL if a complete packet isn't
+// available. Does not modify state
+const uint8_t* hidPacket_peekPacket(size_t* len);
+
 // Call this with packet data to send. len <= USBHID_LEN
 // Overwrites any packet currently being sent.
 void hidPacket_send(const uint8_t* bytes, size_t len);
@@ -49,6 +53,11 @@ void hidPacket_send(const uint8_t* bytes, size_t len);
 // Returns USBHID_LEN bytes to send in the next HID packet, or
 // NULL if there's nothing to send.
 const uint8_t* hidPacket_getHIDBytes(uint8_t* hidBuffer);
+
+// Returns 1 if hidPacket_getHIDBytes will return non-null
+int hidPacket_getHIDBytesReady();
+
+void hidPacket_reset();
 
 #ifdef __cplusplus
 } // extern "C"

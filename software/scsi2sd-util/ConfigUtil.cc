@@ -251,6 +251,7 @@ ConfigUtil::toXML(const TargetConfig& config)
 		"	apple\t\tReturns Apple-specific mode pages\n" <<
 		"	omti\t\tOMTI host non-standard link control\n" <<
 		"	xebec\t\tXEBEC ignore step options in control byte\n" <<
+		"	vms\t\tVMS output max 254 bytes inquiry data\n" <<
 		"	********************************************************* -->\n" <<
 		"	<quirks>";
 	if (config.quirks == CONFIG_QUIRKS_APPLE)
@@ -264,6 +265,10 @@ ConfigUtil::toXML(const TargetConfig& config)
 	else if (config.quirks == CONFIG_QUIRKS_XEBEC)
 	{
 		s << "xebec";
+	}
+	else if (config.quirks == CONFIG_QUIRKS_VMS)
+	{
+		s << "vms";
 	}
 
 	s <<
@@ -526,6 +531,10 @@ parseTarget(wxXmlNode* node)
 				else if (quirk == "xebec")
 				{
 					result.quirks |= CONFIG_QUIRKS_XEBEC;
+				}
+				else if (quirk == "vms")
+				{
+					result.quirks |= CONFIG_QUIRKS_VMS;
 				}
 			}
 		}

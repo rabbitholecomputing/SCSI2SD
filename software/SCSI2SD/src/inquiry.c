@@ -1,4 +1,5 @@
 //	Copyright (C) 2013 Michael McMaster <michael@codesrc.com>
+//     Copyright (C) 2019 Landon Rodgers  <g.landon.rodgers@gmail.com>
 //
 //	This file is part of SCSI2SD.
 //
@@ -90,7 +91,7 @@ static const uint8 AscImpOperatingDefinition[] =
 'S','C','S','I','-','2'
 };
 
-static void useCustomVPD(const TargetConfig* cfg, int pageCode)
+static void useCustomVPD(const S2S_TargetCfg* cfg, int pageCode)
 {
 	int cfgIdx = 0;
 	int found = 0;
@@ -115,8 +116,8 @@ static void useCustomVPD(const TargetConfig* cfg, int pageCode)
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 }
@@ -140,13 +141,13 @@ void scsiInquiry()
 		{
 			// error.
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = ILLEGAL_REQUEST;
-			scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+			scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+			scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 			scsiDev.phase = STATUS;
 		}
 		else
 		{
-			const TargetConfig* config = scsiDev.target->cfg;
+			const S2S_TargetCfg* config = scsiDev.target->cfg;
 			memcpy(scsiDev.data, StandardResponse, sizeof(StandardResponse));
 			scsiDev.data[1] = scsiDev.target->cfg->deviceTypeModifier;
 
@@ -179,7 +180,7 @@ void scsiInquiry()
 	{
 		memcpy(scsiDev.data, UnitSerialNumber, sizeof(UnitSerialNumber));
 		scsiDev.dataLen = sizeof(UnitSerialNumber);
-		const TargetConfig* config = scsiDev.target->cfg;
+		const S2S_TargetCfg* config = scsiDev.target->cfg;
 		memcpy(&scsiDev.data[4], config->serial, sizeof(config->serial));
 		scsiDev.phase = DATA_IN;
 	}
@@ -205,14 +206,21 @@ void scsiInquiry()
 	{
 		// error.
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = ILLEGAL_REQUEST;
-		scsiDev.target->sense.asc = INVALID_FIELD_IN_CDB;
+		scsiDev.target->state.sense.code = ILLEGAL_REQUEST;
+		scsiDev.target->state.sense.asc = INVALID_FIELD_IN_CDB;
 		scsiDev.phase = STATUS;
 	}
 
 
 	if (scsiDev.phase == DATA_IN)
 	{
+		// VAX workaround
+		if (allocationLength == 255 &&
+			(scsiDev.target->cfg->quirks & CONFIG_QUIRKS_VMS))
+		{
+			allocationLength = 254;
+		}
+
 		// "real" hard drives send back exactly allocationLenth bytes, padded
 		// with zeroes. This only seems to happen for Inquiry responses, and not
 		// other commands that also supply an allocation length such as Mode Sense or

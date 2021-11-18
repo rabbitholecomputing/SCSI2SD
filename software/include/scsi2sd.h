@@ -75,8 +75,7 @@ extern "C" {
 
 #include "stdint.h"
 
-//#define MAX_SCSI_TARGETS 7
-#define MAX_SCSI_TARGETS 4
+#define MAX_SCSI_TARGETS 7
 #define SCSI_CONFIG_ARRAY 1
 #define SCSI_CONFIG_ROWS 16
 

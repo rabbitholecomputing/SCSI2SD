@@ -1,0 +1,1834 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_boot.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.USBFS_CyBtldrCommStart,"ax",%progbits
+  20              		.align	1
+  21              		.global	USBFS_CyBtldrCommStart
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	USBFS_CyBtldrCommStart, %function
+  25              	USBFS_CyBtldrCommStart:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\USBFS_boot.c"
+   1:Generated_Source\PSoC5/USBFS_boot.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC5/USBFS_boot.c **** * \file USBFS_boot.c
+   3:Generated_Source\PSoC5/USBFS_boot.c **** * \version 3.20
+   4:Generated_Source\PSoC5/USBFS_boot.c **** *
+   5:Generated_Source\PSoC5/USBFS_boot.c **** * \brief
+   6:Generated_Source\PSoC5/USBFS_boot.c **** *  This file contains the Bootloader API for USBFS Component.
+   7:Generated_Source\PSoC5/USBFS_boot.c **** *
+   8:Generated_Source\PSoC5/USBFS_boot.c **** ********************************************************************************
+   9:Generated_Source\PSoC5/USBFS_boot.c **** * \copyright
+  10:Generated_Source\PSoC5/USBFS_boot.c **** * Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  11:Generated_Source\PSoC5/USBFS_boot.c **** * You may use this file only in accordance with the license, terms, conditions,
+  12:Generated_Source\PSoC5/USBFS_boot.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  13:Generated_Source\PSoC5/USBFS_boot.c **** * the software package with which this file was provided.
+  14:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+  15:Generated_Source\PSoC5/USBFS_boot.c **** 
+  16:Generated_Source\PSoC5/USBFS_boot.c **** #include "USBFS_pvt.h"
+  17:Generated_Source\PSoC5/USBFS_boot.c **** 
+  18:Generated_Source\PSoC5/USBFS_boot.c **** #if defined(CYDEV_BOOTLOADER_IO_COMP) && ((CYDEV_BOOTLOADER_IO_COMP == CyBtldr_USBFS) || \
+  19:Generated_Source\PSoC5/USBFS_boot.c ****                                           (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface))  
+  20:Generated_Source\PSoC5/USBFS_boot.c **** 
+  21:Generated_Source\PSoC5/USBFS_boot.c **** /***************************************
+  22:Generated_Source\PSoC5/USBFS_boot.c **** *    Bootloader Variables
+  23:Generated_Source\PSoC5/USBFS_boot.c **** ***************************************/
+  24:Generated_Source\PSoC5/USBFS_boot.c ****     
+  25:Generated_Source\PSoC5/USBFS_boot.c **** 
+  26:Generated_Source\PSoC5/USBFS_boot.c **** static uint8  USBFS_started = 0u;
+  27:Generated_Source\PSoC5/USBFS_boot.c **** 
+  28:Generated_Source\PSoC5/USBFS_boot.c **** 
+  29:Generated_Source\PSoC5/USBFS_boot.c **** /*******************************************************************************
+  30:Generated_Source\PSoC5/USBFS_boot.c **** * Function Name: USBFS_CyBtldrCommStart
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 2
+
+
+  31:Generated_Source\PSoC5/USBFS_boot.c **** ****************************************************************************//**
+  32:Generated_Source\PSoC5/USBFS_boot.c **** *
+  33:Generated_Source\PSoC5/USBFS_boot.c **** *  This function performs all required initialization for the USBFS component, 
+  34:Generated_Source\PSoC5/USBFS_boot.c **** *  waits on enumeration, and enables communication.
+  35:Generated_Source\PSoC5/USBFS_boot.c **** *
+  36:Generated_Source\PSoC5/USBFS_boot.c **** * \sideeffect
+  37:Generated_Source\PSoC5/USBFS_boot.c **** *  This function starts the USB with 3V or 5V operation.
+  38:Generated_Source\PSoC5/USBFS_boot.c **** *
+  39:Generated_Source\PSoC5/USBFS_boot.c **** * \reentrant
+  40:Generated_Source\PSoC5/USBFS_boot.c **** *  No.
+  41:Generated_Source\PSoC5/USBFS_boot.c **** *
+  42:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+  43:Generated_Source\PSoC5/USBFS_boot.c **** void USBFS_CyBtldrCommStart(void) 
+  44:Generated_Source\PSoC5/USBFS_boot.c **** {
+  28              		.loc 1 44 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 08B5     		push	{r3, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  45:Generated_Source\PSoC5/USBFS_boot.c ****     /* Enable Global Interrupts. Interrupts are mandatory for USBFS component operation. */
+  46:Generated_Source\PSoC5/USBFS_boot.c ****     CyGlobalIntEnable;
+  36              		.loc 1 46 0
+  37              		.syntax unified
+  38              	@ 46 "Generated_Source\PSoC5\USBFS_boot.c" 1
+  39 0002 62B6     		CPSIE   i
+  40              	@ 0 "" 2
+  47:Generated_Source\PSoC5/USBFS_boot.c **** 
+  48:Generated_Source\PSoC5/USBFS_boot.c ****     /* Start USBFS Operation: device 0 and with 5V or 3V operation depend on Voltage Configuration 
+  49:Generated_Source\PSoC5/USBFS_boot.c ****     USBFS_Start(0u, USBFS_DWR_POWER_OPERATION);
+  41              		.loc 1 49 0
+  42              		.thumb
+  43              		.syntax unified
+  44 0004 0221     		movs	r1, #2
+  45 0006 0020     		movs	r0, #0
+  46 0008 FFF7FEFF 		bl	USBFS_Start
+  47              	.LVL0:
+  50:Generated_Source\PSoC5/USBFS_boot.c **** 
+  51:Generated_Source\PSoC5/USBFS_boot.c ****     /* USB component started, the correct enumeration will be checked in the first Read operation. 
+  52:Generated_Source\PSoC5/USBFS_boot.c ****     USBFS_started = 1u;
+  48              		.loc 1 52 0
+  49 000c 014B     		ldr	r3, .L2
+  50 000e 0122     		movs	r2, #1
+  51 0010 1A70     		strb	r2, [r3]
+  52 0012 08BD     		pop	{r3, pc}
+  53              	.L3:
+  54              		.align	2
+  55              	.L2:
+  56 0014 00000000 		.word	.LANCHOR0
+  57              		.cfi_endproc
+  58              	.LFE0:
+  59              		.size	USBFS_CyBtldrCommStart, .-USBFS_CyBtldrCommStart
+  60              		.section	.text.USBFS_CyBtldrCommStop,"ax",%progbits
+  61              		.align	1
+  62              		.global	USBFS_CyBtldrCommStop
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 3
+
+
+  63              		.thumb
+  64              		.thumb_func
+  65              		.type	USBFS_CyBtldrCommStop, %function
+  66              	USBFS_CyBtldrCommStop:
+  67              	.LFB1:
+  53:Generated_Source\PSoC5/USBFS_boot.c **** }
+  54:Generated_Source\PSoC5/USBFS_boot.c **** 
+  55:Generated_Source\PSoC5/USBFS_boot.c **** 
+  56:Generated_Source\PSoC5/USBFS_boot.c **** /*******************************************************************************
+  57:Generated_Source\PSoC5/USBFS_boot.c **** * Function Name: USBFS_CyBtldrCommStop.
+  58:Generated_Source\PSoC5/USBFS_boot.c **** ****************************************************************************//**
+  59:Generated_Source\PSoC5/USBFS_boot.c **** *
+  60:Generated_Source\PSoC5/USBFS_boot.c **** *  This function performs all necessary shutdown tasks required for the USBFS 
+  61:Generated_Source\PSoC5/USBFS_boot.c **** *  component.
+  62:Generated_Source\PSoC5/USBFS_boot.c **** *  
+  63:Generated_Source\PSoC5/USBFS_boot.c **** *  \sideeffect
+  64:Generated_Source\PSoC5/USBFS_boot.c **** *   Calls the USBFS_Stop() function.
+  65:Generated_Source\PSoC5/USBFS_boot.c **** *
+  66:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+  67:Generated_Source\PSoC5/USBFS_boot.c **** void USBFS_CyBtldrCommStop(void) 
+  68:Generated_Source\PSoC5/USBFS_boot.c **** {
+  68              		.loc 1 68 0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72              		@ link register save eliminated.
+  69:Generated_Source\PSoC5/USBFS_boot.c ****     USBFS_Stop();
+  73              		.loc 1 69 0
+  74 0000 FFF7FEBF 		b	USBFS_Stop
+  75              	.LVL1:
+  76              		.cfi_endproc
+  77              	.LFE1:
+  78              		.size	USBFS_CyBtldrCommStop, .-USBFS_CyBtldrCommStop
+  79              		.section	.text.USBFS_CyBtldrCommReset,"ax",%progbits
+  80              		.align	1
+  81              		.global	USBFS_CyBtldrCommReset
+  82              		.thumb
+  83              		.thumb_func
+  84              		.type	USBFS_CyBtldrCommReset, %function
+  85              	USBFS_CyBtldrCommReset:
+  86              	.LFB2:
+  70:Generated_Source\PSoC5/USBFS_boot.c **** }
+  71:Generated_Source\PSoC5/USBFS_boot.c **** 
+  72:Generated_Source\PSoC5/USBFS_boot.c **** 
+  73:Generated_Source\PSoC5/USBFS_boot.c **** /*******************************************************************************
+  74:Generated_Source\PSoC5/USBFS_boot.c **** * Function Name: USBFS_CyBtldrCommReset.
+  75:Generated_Source\PSoC5/USBFS_boot.c **** ****************************************************************************//**
+  76:Generated_Source\PSoC5/USBFS_boot.c **** *
+  77:Generated_Source\PSoC5/USBFS_boot.c **** *  This function resets receive and transmit communication buffers.
+  78:Generated_Source\PSoC5/USBFS_boot.c **** *
+  79:Generated_Source\PSoC5/USBFS_boot.c **** * \reentrant
+  80:Generated_Source\PSoC5/USBFS_boot.c **** *  No
+  81:Generated_Source\PSoC5/USBFS_boot.c **** *
+  82:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+  83:Generated_Source\PSoC5/USBFS_boot.c **** void USBFS_CyBtldrCommReset(void) 
+  84:Generated_Source\PSoC5/USBFS_boot.c **** {
+  87              		.loc 1 84 0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 4
+
+
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  85:Generated_Source\PSoC5/USBFS_boot.c ****     USBFS_EnableOutEP(USBFS_BTLDR_OUT_EP); 
+  92              		.loc 1 85 0
+  93 0000 0120     		movs	r0, #1
+  94 0002 FFF7FEBF 		b	USBFS_EnableOutEP
+  95              	.LVL2:
+  96              		.cfi_endproc
+  97              	.LFE2:
+  98              		.size	USBFS_CyBtldrCommReset, .-USBFS_CyBtldrCommReset
+  99              		.section	.text.USBFS_CyBtldrCommWrite,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	USBFS_CyBtldrCommWrite
+ 102              		.thumb
+ 103              		.thumb_func
+ 104              		.type	USBFS_CyBtldrCommWrite, %function
+ 105              	USBFS_CyBtldrCommWrite:
+ 106              	.LFB3:
+  86:Generated_Source\PSoC5/USBFS_boot.c **** }
+  87:Generated_Source\PSoC5/USBFS_boot.c **** 
+  88:Generated_Source\PSoC5/USBFS_boot.c **** 
+  89:Generated_Source\PSoC5/USBFS_boot.c **** /*******************************************************************************
+  90:Generated_Source\PSoC5/USBFS_boot.c **** * Function Name: USBFS_CyBtldrCommWrite.
+  91:Generated_Source\PSoC5/USBFS_boot.c **** ****************************************************************************//**
+  92:Generated_Source\PSoC5/USBFS_boot.c **** *
+  93:Generated_Source\PSoC5/USBFS_boot.c **** *  This function allows the caller to write data to the bootloader host. It 
+  94:Generated_Source\PSoC5/USBFS_boot.c **** *  handles polling to allow a block of data to be completely sent to the host 
+  95:Generated_Source\PSoC5/USBFS_boot.c **** *  device.
+  96:Generated_Source\PSoC5/USBFS_boot.c **** *
+  97:Generated_Source\PSoC5/USBFS_boot.c **** *  \param pData    A pointer to the block of data to send to the device
+  98:Generated_Source\PSoC5/USBFS_boot.c **** *  \param size     The number of bytes to write.
+  99:Generated_Source\PSoC5/USBFS_boot.c **** *  \param count    Pointer to an unsigned short variable to write the number of
+ 100:Generated_Source\PSoC5/USBFS_boot.c **** *                  bytes actually written.
+ 101:Generated_Source\PSoC5/USBFS_boot.c **** *  \param timeOut  Number of units to wait before returning because of a timeout.
+ 102:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 103:Generated_Source\PSoC5/USBFS_boot.c **** * \return
+ 104:Generated_Source\PSoC5/USBFS_boot.c **** *  Returns CYRET_SUCCESS if no problem was encountered or returns the value that 
+ 105:Generated_Source\PSoC5/USBFS_boot.c **** *  best describes the problem. For more information, see the “Return Codes” 
+ 106:Generated_Source\PSoC5/USBFS_boot.c **** *  section of the System Reference Guide.
+ 107:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 108:Generated_Source\PSoC5/USBFS_boot.c **** * \reentrant
+ 109:Generated_Source\PSoC5/USBFS_boot.c **** *  No
+ 110:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 111:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+ 112:Generated_Source\PSoC5/USBFS_boot.c **** cystatus USBFS_CyBtldrCommWrite(const uint8 pData[], uint16 size, uint16 *count, uint8 timeOut) CYS
+ 113:Generated_Source\PSoC5/USBFS_boot.c ****                                                             
+ 114:Generated_Source\PSoC5/USBFS_boot.c **** {
+ 107              		.loc 1 114 0
+ 108              		.cfi_startproc
+ 109              		@ args = 0, pretend = 0, frame = 0
+ 110              		@ frame_needed = 0, uses_anonymous_args = 0
+ 111              	.LVL3:
+ 112 0000 70B5     		push	{r4, r5, r6, lr}
+ 113              		.cfi_def_cfa_offset 16
+ 114              		.cfi_offset 4, -16
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 5
+
+
+ 115              		.cfi_offset 5, -12
+ 116              		.cfi_offset 6, -8
+ 117              		.cfi_offset 14, -4
+ 115:Generated_Source\PSoC5/USBFS_boot.c ****     cystatus retCode;
+ 116:Generated_Source\PSoC5/USBFS_boot.c ****     uint16 timeoutMs;
+ 117:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 118:Generated_Source\PSoC5/USBFS_boot.c ****     /* Convert 10mS checks into 1mS checks. */
+ 119:Generated_Source\PSoC5/USBFS_boot.c ****     timeoutMs = ((uint16) 10u * timeOut);
+ 118              		.loc 1 119 0
+ 119 0002 03EB8303 		add	r3, r3, r3, lsl #2
+ 120              	.LVL4:
+ 114:Generated_Source\PSoC5/USBFS_boot.c ****     cystatus retCode;
+ 121              		.loc 1 114 0
+ 122 0006 0E46     		mov	r6, r1
+ 123 0008 1546     		mov	r5, r2
+ 120:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 121:Generated_Source\PSoC5/USBFS_boot.c ****     /* Load data into IN endpoint to be read by host. */
+ 122:Generated_Source\PSoC5/USBFS_boot.c ****     USBFS_LoadInEP(USBFS_BTLDR_IN_EP, pData, USBFS_BTLDR_SIZEOF_READ_BUFFER);
+ 124              		.loc 1 122 0
+ 125 000a 0146     		mov	r1, r0
+ 126              	.LVL5:
+ 127 000c 4022     		movs	r2, #64
+ 128              	.LVL6:
+ 129 000e 0220     		movs	r0, #2
+ 130              	.LVL7:
+ 119:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 131              		.loc 1 119 0
+ 132 0010 5C00     		lsls	r4, r3, #1
+ 133              	.LVL8:
+ 134              		.loc 1 122 0
+ 135 0012 FFF7FEFF 		bl	USBFS_LoadInEP
+ 136              	.LVL9:
+ 137              	.L7:
+ 123:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 124:Generated_Source\PSoC5/USBFS_boot.c ****     /* Wait unitl host reads data from IN endpoint. */
+ 125:Generated_Source\PSoC5/USBFS_boot.c ****     while ((USBFS_GetEPState(USBFS_BTLDR_IN_EP) == USBFS_IN_BUFFER_FULL) &&
+ 138              		.loc 1 125 0
+ 139 0016 0220     		movs	r0, #2
+ 140 0018 FFF7FEFF 		bl	USBFS_GetEPState
+ 141              	.LVL10:
+ 142 001c 30B9     		cbnz	r0, .L8
+ 143              		.loc 1 125 0 is_stmt 0 discriminator 1
+ 144 001e 2CB1     		cbz	r4, .L8
+ 126:Generated_Source\PSoC5/USBFS_boot.c ****            (0u != timeoutMs))
+ 127:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 128:Generated_Source\PSoC5/USBFS_boot.c ****         CyDelay(USBFS_BTLDR_WAIT_1_MS);
+ 145              		.loc 1 128 0 is_stmt 1
+ 146 0020 0120     		movs	r0, #1
+ 129:Generated_Source\PSoC5/USBFS_boot.c ****         timeoutMs--;
+ 147              		.loc 1 129 0
+ 148 0022 013C     		subs	r4, r4, #1
+ 149              	.LVL11:
+ 128:Generated_Source\PSoC5/USBFS_boot.c ****         timeoutMs--;
+ 150              		.loc 1 128 0
+ 151 0024 FFF7FEFF 		bl	CyDelay
+ 152              	.LVL12:
+ 153              		.loc 1 129 0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 6
+
+
+ 154 0028 A4B2     		uxth	r4, r4
+ 155              	.LVL13:
+ 156 002a F4E7     		b	.L7
+ 157              	.L8:
+ 130:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 131:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 132:Generated_Source\PSoC5/USBFS_boot.c ****     if (USBFS_GetEPState(USBFS_BTLDR_IN_EP) == USBFS_IN_BUFFER_FULL)
+ 158              		.loc 1 132 0
+ 159 002c 0220     		movs	r0, #2
+ 160 002e FFF7FEFF 		bl	USBFS_GetEPState
+ 161              	.LVL14:
+ 162 0032 10B1     		cbz	r0, .L11
+ 133:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 134:Generated_Source\PSoC5/USBFS_boot.c ****         retCode = CYRET_TIMEOUT;
+ 135:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 136:Generated_Source\PSoC5/USBFS_boot.c ****     else
+ 137:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 138:Generated_Source\PSoC5/USBFS_boot.c ****         *count = size;
+ 163              		.loc 1 138 0
+ 164 0034 2E80     		strh	r6, [r5]	@ movhi
+ 165              	.LVL15:
+ 139:Generated_Source\PSoC5/USBFS_boot.c ****         retCode = CYRET_SUCCESS;
+ 166              		.loc 1 139 0
+ 167 0036 0020     		movs	r0, #0
+ 168 0038 70BD     		pop	{r4, r5, r6, pc}
+ 169              	.LVL16:
+ 170              	.L11:
+ 134:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 171              		.loc 1 134 0
+ 172 003a 1020     		movs	r0, #16
+ 173              	.LVL17:
+ 140:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 141:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 142:Generated_Source\PSoC5/USBFS_boot.c ****     return (retCode);
+ 143:Generated_Source\PSoC5/USBFS_boot.c **** }
+ 174              		.loc 1 143 0
+ 175 003c 70BD     		pop	{r4, r5, r6, pc}
+ 176              		.cfi_endproc
+ 177              	.LFE3:
+ 178              		.size	USBFS_CyBtldrCommWrite, .-USBFS_CyBtldrCommWrite
+ 179              		.section	.text.USBFS_CyBtldrCommRead,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	USBFS_CyBtldrCommRead
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.type	USBFS_CyBtldrCommRead, %function
+ 185              	USBFS_CyBtldrCommRead:
+ 186              	.LFB4:
+ 144:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 145:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 146:Generated_Source\PSoC5/USBFS_boot.c **** /*******************************************************************************
+ 147:Generated_Source\PSoC5/USBFS_boot.c **** * Function Name: USBFS_CyBtldrCommRead.
+ 148:Generated_Source\PSoC5/USBFS_boot.c **** ****************************************************************************//**
+ 149:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 150:Generated_Source\PSoC5/USBFS_boot.c **** *  This function allows the caller to read data from the bootloader host. It 
+ 151:Generated_Source\PSoC5/USBFS_boot.c **** *  handles polling to allow a block of data to be completely received from the 
+ 152:Generated_Source\PSoC5/USBFS_boot.c **** *  host device.
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 7
+
+
+ 153:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 154:Generated_Source\PSoC5/USBFS_boot.c **** *  \param pData    A pointer to the area to store the block of data received
+ 155:Generated_Source\PSoC5/USBFS_boot.c **** *                  from the device.
+ 156:Generated_Source\PSoC5/USBFS_boot.c **** *  \param size     The number of bytes to read.
+ 157:Generated_Source\PSoC5/USBFS_boot.c **** *  \param count    Pointer to an unsigned short variable to write the number
+ 158:Generated_Source\PSoC5/USBFS_boot.c **** *                  of bytes actually read.
+ 159:Generated_Source\PSoC5/USBFS_boot.c **** *  \param timeOut  Number of units to wait before returning because of a timeOut.
+ 160:Generated_Source\PSoC5/USBFS_boot.c **** *                  Timeout is measured in 10s of ms.
+ 161:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 162:Generated_Source\PSoC5/USBFS_boot.c **** * \return
+ 163:Generated_Source\PSoC5/USBFS_boot.c **** *  Returns CYRET_SUCCESS if no problem was encountered or returns the value that 
+ 164:Generated_Source\PSoC5/USBFS_boot.c **** *  best describes the problem. For more information, see the “Return Codes” 
+ 165:Generated_Source\PSoC5/USBFS_boot.c **** *  section of the System Reference Guide.
+ 166:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 167:Generated_Source\PSoC5/USBFS_boot.c **** * \reentrant
+ 168:Generated_Source\PSoC5/USBFS_boot.c **** *  No
+ 169:Generated_Source\PSoC5/USBFS_boot.c **** *
+ 170:Generated_Source\PSoC5/USBFS_boot.c **** *******************************************************************************/
+ 171:Generated_Source\PSoC5/USBFS_boot.c **** cystatus USBFS_CyBtldrCommRead(uint8 pData[], uint16 size, uint16 *count, uint8 timeOut) CYSMALL
+ 172:Generated_Source\PSoC5/USBFS_boot.c ****                                                             
+ 173:Generated_Source\PSoC5/USBFS_boot.c **** {
+ 187              		.loc 1 173 0
+ 188              		.cfi_startproc
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 0, uses_anonymous_args = 0
+ 191              	.LVL18:
+ 192 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 193              		.cfi_def_cfa_offset 32
+ 194              		.cfi_offset 3, -32
+ 195              		.cfi_offset 4, -28
+ 196              		.cfi_offset 5, -24
+ 197              		.cfi_offset 6, -20
+ 198              		.cfi_offset 7, -16
+ 199              		.cfi_offset 8, -12
+ 200              		.cfi_offset 9, -8
+ 201              		.cfi_offset 14, -4
+ 174:Generated_Source\PSoC5/USBFS_boot.c ****     cystatus retCode;
+ 175:Generated_Source\PSoC5/USBFS_boot.c ****     uint16 timeoutMs;
+ 176:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 177:Generated_Source\PSoC5/USBFS_boot.c ****     /* Convert 10mS checks into 1mS checks. */
+ 178:Generated_Source\PSoC5/USBFS_boot.c ****     timeoutMs = ((uint16) 10u * timeOut);
+ 202              		.loc 1 178 0
+ 203 0004 03EB8303 		add	r3, r3, r3, lsl #2
+ 204              	.LVL19:
+ 205 0008 5C00     		lsls	r4, r3, #1
+ 206              	.LVL20:
+ 179:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 180:Generated_Source\PSoC5/USBFS_boot.c ****     if (size > USBFS_BTLDR_SIZEOF_WRITE_BUFFER)
+ 181:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 182:Generated_Source\PSoC5/USBFS_boot.c ****         size = USBFS_BTLDR_SIZEOF_WRITE_BUFFER;
+ 183:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 184:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 185:Generated_Source\PSoC5/USBFS_boot.c ****     /* Wait for enumeration first time. */
+ 186:Generated_Source\PSoC5/USBFS_boot.c ****     if (0u != USBFS_started)
+ 207              		.loc 1 186 0
+ 208 000a 224B     		ldr	r3, .L36
+ 173:Generated_Source\PSoC5/USBFS_boot.c ****     cystatus retCode;
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 8
+
+
+ 209              		.loc 1 173 0
+ 210 000c 1746     		mov	r7, r2
+ 211              		.loc 1 186 0
+ 212 000e 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 213              	.LVL21:
+ 173:Generated_Source\PSoC5/USBFS_boot.c ****     cystatus retCode;
+ 214              		.loc 1 173 0
+ 215 0010 8046     		mov	r8, r0
+ 216 0012 8946     		mov	r9, r1
+ 217              	.LVL22:
+ 218 0014 1E46     		mov	r6, r3
+ 219              		.loc 1 186 0
+ 220 0016 A2B1     		cbz	r2, .L14
+ 221 0018 2546     		mov	r5, r4
+ 222              	.LVL23:
+ 223              	.L15:
+ 187:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 188:Generated_Source\PSoC5/USBFS_boot.c ****         /* Wait for device enumeration. */
+ 189:Generated_Source\PSoC5/USBFS_boot.c ****         while ((0u == USBFS_GetConfiguration()) && (0u != timeoutMs))
+ 224              		.loc 1 189 0
+ 225 001a FFF7FEFF 		bl	USBFS_GetConfiguration
+ 226              	.LVL24:
+ 227 001e 30B9     		cbnz	r0, .L16
+ 228              		.loc 1 189 0 is_stmt 0 discriminator 1
+ 229 0020 2DB1     		cbz	r5, .L16
+ 190:Generated_Source\PSoC5/USBFS_boot.c ****         {
+ 191:Generated_Source\PSoC5/USBFS_boot.c ****             CyDelay(USBFS_BTLDR_WAIT_1_MS);
+ 230              		.loc 1 191 0 is_stmt 1
+ 231 0022 0120     		movs	r0, #1
+ 192:Generated_Source\PSoC5/USBFS_boot.c ****             timeoutMs--;
+ 232              		.loc 1 192 0
+ 233 0024 013D     		subs	r5, r5, #1
+ 234              	.LVL25:
+ 191:Generated_Source\PSoC5/USBFS_boot.c ****             timeoutMs--;
+ 235              		.loc 1 191 0
+ 236 0026 FFF7FEFF 		bl	CyDelay
+ 237              	.LVL26:
+ 238              		.loc 1 192 0
+ 239 002a ADB2     		uxth	r5, r5
+ 240              	.LVL27:
+ 241 002c F5E7     		b	.L15
+ 242              	.L16:
+ 193:Generated_Source\PSoC5/USBFS_boot.c ****         }
+ 194:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 195:Generated_Source\PSoC5/USBFS_boot.c ****         /* Enable OUT after enumeration. */
+ 196:Generated_Source\PSoC5/USBFS_boot.c ****         if (0u != USBFS_GetConfiguration())
+ 243              		.loc 1 196 0
+ 244 002e FFF7FEFF 		bl	USBFS_GetConfiguration
+ 245              	.LVL28:
+ 246 0032 A0B1     		cbz	r0, .L20
+ 197:Generated_Source\PSoC5/USBFS_boot.c ****         {
+ 198:Generated_Source\PSoC5/USBFS_boot.c ****             (void) USBFS_IsConfigurationChanged();  /* Clear configuration changes state status. */
+ 247              		.loc 1 198 0
+ 248 0034 FFF7FEFF 		bl	USBFS_IsConfigurationChanged
+ 249              	.LVL29:
+ 199:Generated_Source\PSoC5/USBFS_boot.c ****             USBFS_CyBtldrCommReset();
+ 250              		.loc 1 199 0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 9
+
+
+ 251 0038 FFF7FEFF 		bl	USBFS_CyBtldrCommReset
+ 252              	.LVL30:
+ 200:Generated_Source\PSoC5/USBFS_boot.c ****             
+ 201:Generated_Source\PSoC5/USBFS_boot.c ****             USBFS_started = 0u;
+ 253              		.loc 1 201 0
+ 254 003c 0023     		movs	r3, #0
+ 255 003e 3370     		strb	r3, [r6]
+ 256 0040 0DE0     		b	.L20
+ 257              	.LVL31:
+ 258              	.L14:
+ 202:Generated_Source\PSoC5/USBFS_boot.c ****         }
+ 203:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 204:Generated_Source\PSoC5/USBFS_boot.c ****     else /* Check for configuration changes, has been done by Host. */
+ 205:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 206:Generated_Source\PSoC5/USBFS_boot.c ****         if (0u != USBFS_IsConfigurationChanged()) /* Host could send double SET_INTERFACE request o
+ 259              		.loc 1 206 0
+ 260 0042 FFF7FEFF 		bl	USBFS_IsConfigurationChanged
+ 261              	.LVL32:
+ 262 0046 50B1     		cbz	r0, .L20
+ 207:Generated_Source\PSoC5/USBFS_boot.c ****         {
+ 208:Generated_Source\PSoC5/USBFS_boot.c ****             if (0u != USBFS_GetConfiguration())   /* Init OUT endpoints when device reconfigured. *
+ 263              		.loc 1 208 0
+ 264 0048 FFF7FEFF 		bl	USBFS_GetConfiguration
+ 265              	.LVL33:
+ 266 004c 38B1     		cbz	r0, .L20
+ 209:Generated_Source\PSoC5/USBFS_boot.c ****             {
+ 210:Generated_Source\PSoC5/USBFS_boot.c ****                 USBFS_CyBtldrCommReset();
+ 267              		.loc 1 210 0
+ 268 004e FFF7FEFF 		bl	USBFS_CyBtldrCommReset
+ 269              	.LVL34:
+ 270 0052 04E0     		b	.L20
+ 271              	.L35:
+ 211:Generated_Source\PSoC5/USBFS_boot.c ****             }
+ 212:Generated_Source\PSoC5/USBFS_boot.c ****         }
+ 213:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 214:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 215:Generated_Source\PSoC5/USBFS_boot.c ****     timeoutMs = ((uint16) 10u * timeOut); /* Re-arm timeout */
+ 216:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 217:Generated_Source\PSoC5/USBFS_boot.c ****     /* Wait unitl host writes data into OUT endpoint. */
+ 218:Generated_Source\PSoC5/USBFS_boot.c ****     while ((USBFS_GetEPState(USBFS_BTLDR_OUT_EP) != USBFS_OUT_BUFFER_FULL) && \
+ 272              		.loc 1 218 0 discriminator 1
+ 273 0054 54B1     		cbz	r4, .L22
+ 219:Generated_Source\PSoC5/USBFS_boot.c ****            (0u != timeoutMs))
+ 220:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 221:Generated_Source\PSoC5/USBFS_boot.c ****         CyDelay(USBFS_BTLDR_WAIT_1_MS);
+ 274              		.loc 1 221 0
+ 275 0056 FFF7FEFF 		bl	CyDelay
+ 276              	.LVL35:
+ 222:Generated_Source\PSoC5/USBFS_boot.c ****         timeoutMs--;
+ 277              		.loc 1 222 0
+ 278 005a 013C     		subs	r4, r4, #1
+ 279              	.LVL36:
+ 280 005c A4B2     		uxth	r4, r4
+ 281              	.LVL37:
+ 282              	.L20:
+ 218:Generated_Source\PSoC5/USBFS_boot.c ****            (0u != timeoutMs))
+ 283              		.loc 1 218 0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 10
+
+
+ 284 005e 0120     		movs	r0, #1
+ 285 0060 FFF7FEFF 		bl	USBFS_GetEPState
+ 286              	.LVL38:
+ 287 0064 0128     		cmp	r0, #1
+ 221:Generated_Source\PSoC5/USBFS_boot.c ****         timeoutMs--;
+ 288              		.loc 1 221 0
+ 289 0066 4FF00100 		mov	r0, #1
+ 218:Generated_Source\PSoC5/USBFS_boot.c ****            (0u != timeoutMs))
+ 290              		.loc 1 218 0
+ 291 006a F3D1     		bne	.L35
+ 292              	.L22:
+ 223:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 224:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 225:Generated_Source\PSoC5/USBFS_boot.c ****     /* Read data from OUT endpoint if host wrote data into it. */
+ 226:Generated_Source\PSoC5/USBFS_boot.c ****     if (USBFS_GetEPState(USBFS_BTLDR_OUT_EP) == USBFS_OUT_BUFFER_FULL)
+ 293              		.loc 1 226 0
+ 294 006c FFF7FEFF 		bl	USBFS_GetEPState
+ 295              	.LVL39:
+ 296 0070 0128     		cmp	r0, #1
+ 297 0072 0AD1     		bne	.L24
+ 227:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 228:Generated_Source\PSoC5/USBFS_boot.c ****         *count = USBFS_ReadOutEP(USBFS_BTLDR_OUT_EP, pData, size);
+ 298              		.loc 1 228 0
+ 299 0074 4A46     		mov	r2, r9
+ 300 0076 402A     		cmp	r2, #64
+ 301 0078 28BF     		it	cs
+ 302 007a 4022     		movcs	r2, #64
+ 303 007c 4146     		mov	r1, r8
+ 304 007e FFF7FEFF 		bl	USBFS_ReadOutEP
+ 305              	.LVL40:
+ 306 0082 3880     		strh	r0, [r7]	@ movhi
+ 307              	.LVL41:
+ 229:Generated_Source\PSoC5/USBFS_boot.c ****         retCode = CYRET_SUCCESS;
+ 308              		.loc 1 229 0
+ 309 0084 0020     		movs	r0, #0
+ 310 0086 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 311              	.LVL42:
+ 312              	.L24:
+ 230:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 231:Generated_Source\PSoC5/USBFS_boot.c ****     else
+ 232:Generated_Source\PSoC5/USBFS_boot.c ****     {
+ 233:Generated_Source\PSoC5/USBFS_boot.c ****         *count = 0u;
+ 313              		.loc 1 233 0
+ 314 008a 0023     		movs	r3, #0
+ 315 008c 3B80     		strh	r3, [r7]	@ movhi
+ 316              	.LVL43:
+ 234:Generated_Source\PSoC5/USBFS_boot.c ****         retCode = CYRET_TIMEOUT;
+ 317              		.loc 1 234 0
+ 318 008e 1020     		movs	r0, #16
+ 319              	.LVL44:
+ 235:Generated_Source\PSoC5/USBFS_boot.c ****     }
+ 236:Generated_Source\PSoC5/USBFS_boot.c **** 
+ 237:Generated_Source\PSoC5/USBFS_boot.c ****     return (retCode);
+ 238:Generated_Source\PSoC5/USBFS_boot.c **** }
+ 320              		.loc 1 238 0
+ 321 0090 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 322              	.LVL45:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 11
+
+
+ 323              	.L37:
+ 324              		.align	2
+ 325              	.L36:
+ 326 0094 00000000 		.word	.LANCHOR0
+ 327              		.cfi_endproc
+ 328              	.LFE4:
+ 329              		.size	USBFS_CyBtldrCommRead, .-USBFS_CyBtldrCommRead
+ 330              		.bss
+ 331              		.set	.LANCHOR0,. + 0
+ 332              		.type	USBFS_started, %object
+ 333              		.size	USBFS_started, 1
+ 334              	USBFS_started:
+ 335 0000 00       		.space	1
+ 336              		.text
+ 337              	.Letext0:
+ 338              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 339              		.file 3 "Generated_Source\\PSoC5\\USBFS.h"
+ 340              		.file 4 "Generated_Source\\PSoC5\\CyLib.h"
+ 341              		.section	.debug_info,"",%progbits
+ 342              	.Ldebug_info0:
+ 343 0000 8D030000 		.4byte	0x38d
+ 344 0004 0400     		.2byte	0x4
+ 345 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 346 000a 04       		.byte	0x4
+ 347 000b 01       		.uleb128 0x1
+ 348 000c 82000000 		.4byte	.LASF38
+ 349 0010 0C       		.byte	0xc
+ 350 0011 C0010000 		.4byte	.LASF39
+ 351 0015 21020000 		.4byte	.LASF40
+ 352 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 353 001d 00000000 		.4byte	0
+ 354 0021 00000000 		.4byte	.Ldebug_line0
+ 355 0025 02       		.uleb128 0x2
+ 356 0026 01       		.byte	0x1
+ 357 0027 06       		.byte	0x6
+ 358 0028 B0020000 		.4byte	.LASF0
+ 359 002c 02       		.uleb128 0x2
+ 360 002d 01       		.byte	0x1
+ 361 002e 08       		.byte	0x8
+ 362 002f 16010000 		.4byte	.LASF1
+ 363 0033 02       		.uleb128 0x2
+ 364 0034 02       		.byte	0x2
+ 365 0035 05       		.byte	0x5
+ 366 0036 0F020000 		.4byte	.LASF2
+ 367 003a 02       		.uleb128 0x2
+ 368 003b 02       		.byte	0x2
+ 369 003c 07       		.byte	0x7
+ 370 003d 19000000 		.4byte	.LASF3
+ 371 0041 02       		.uleb128 0x2
+ 372 0042 04       		.byte	0x4
+ 373 0043 05       		.byte	0x5
+ 374 0044 85020000 		.4byte	.LASF4
+ 375 0048 02       		.uleb128 0x2
+ 376 0049 04       		.byte	0x4
+ 377 004a 07       		.byte	0x7
+ 378 004b AE010000 		.4byte	.LASF5
+ 379 004f 02       		.uleb128 0x2
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 12
+
+
+ 380 0050 08       		.byte	0x8
+ 381 0051 05       		.byte	0x5
+ 382 0052 ED010000 		.4byte	.LASF6
+ 383 0056 02       		.uleb128 0x2
+ 384 0057 08       		.byte	0x8
+ 385 0058 07       		.byte	0x7
+ 386 0059 7D010000 		.4byte	.LASF7
+ 387 005d 03       		.uleb128 0x3
+ 388 005e 04       		.byte	0x4
+ 389 005f 05       		.byte	0x5
+ 390 0060 696E7400 		.ascii	"int\000"
+ 391 0064 02       		.uleb128 0x2
+ 392 0065 04       		.byte	0x4
+ 393 0066 07       		.byte	0x7
+ 394 0067 70010000 		.4byte	.LASF8
+ 395 006b 04       		.uleb128 0x4
+ 396 006c 10010000 		.4byte	.LASF9
+ 397 0070 02       		.byte	0x2
+ 398 0071 E901     		.2byte	0x1e9
+ 399 0073 2C000000 		.4byte	0x2c
+ 400 0077 04       		.uleb128 0x4
+ 401 0078 52010000 		.4byte	.LASF10
+ 402 007c 02       		.byte	0x2
+ 403 007d EA01     		.2byte	0x1ea
+ 404 007f 3A000000 		.4byte	0x3a
+ 405 0083 02       		.uleb128 0x2
+ 406 0084 04       		.byte	0x4
+ 407 0085 04       		.byte	0x4
+ 408 0086 6C000000 		.4byte	.LASF11
+ 409 008a 02       		.uleb128 0x2
+ 410 008b 08       		.byte	0x8
+ 411 008c 04       		.byte	0x4
+ 412 008d 24010000 		.4byte	.LASF12
+ 413 0091 02       		.uleb128 0x2
+ 414 0092 01       		.byte	0x1
+ 415 0093 08       		.byte	0x8
+ 416 0094 FB010000 		.4byte	.LASF13
+ 417 0098 04       		.uleb128 0x4
+ 418 0099 0A000000 		.4byte	.LASF14
+ 419 009d 02       		.byte	0x2
+ 420 009e 8B02     		.2byte	0x28b
+ 421 00a0 48000000 		.4byte	0x48
+ 422 00a4 02       		.uleb128 0x2
+ 423 00a5 08       		.byte	0x8
+ 424 00a6 04       		.byte	0x4
+ 425 00a7 8E020000 		.4byte	.LASF15
+ 426 00ab 02       		.uleb128 0x2
+ 427 00ac 04       		.byte	0x4
+ 428 00ad 07       		.byte	0x7
+ 429 00ae E4010000 		.4byte	.LASF16
+ 430 00b2 05       		.uleb128 0x5
+ 431 00b3 55000000 		.4byte	.LASF17
+ 432 00b7 01       		.byte	0x1
+ 433 00b8 2B       		.byte	0x2b
+ 434 00b9 00000000 		.4byte	.LFB0
+ 435 00bd 18000000 		.4byte	.LFE0-.LFB0
+ 436 00c1 01       		.uleb128 0x1
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 13
+
+
+ 437 00c2 9C       		.byte	0x9c
+ 438 00c3 DC000000 		.4byte	0xdc
+ 439 00c7 06       		.uleb128 0x6
+ 440 00c8 0C000000 		.4byte	.LVL0
+ 441 00cc 25030000 		.4byte	0x325
+ 442 00d0 07       		.uleb128 0x7
+ 443 00d1 01       		.uleb128 0x1
+ 444 00d2 50       		.byte	0x50
+ 445 00d3 01       		.uleb128 0x1
+ 446 00d4 30       		.byte	0x30
+ 447 00d5 07       		.uleb128 0x7
+ 448 00d6 01       		.uleb128 0x1
+ 449 00d7 51       		.byte	0x51
+ 450 00d8 01       		.uleb128 0x1
+ 451 00d9 32       		.byte	0x32
+ 452 00da 00       		.byte	0
+ 453 00db 00       		.byte	0
+ 454 00dc 05       		.uleb128 0x5
+ 455 00dd 9A020000 		.4byte	.LASF18
+ 456 00e1 01       		.byte	0x1
+ 457 00e2 43       		.byte	0x43
+ 458 00e3 00000000 		.4byte	.LFB1
+ 459 00e7 04000000 		.4byte	.LFE1-.LFB1
+ 460 00eb 01       		.uleb128 0x1
+ 461 00ec 9C       		.byte	0x9c
+ 462 00ed FB000000 		.4byte	0xfb
+ 463 00f1 08       		.uleb128 0x8
+ 464 00f2 04000000 		.4byte	.LVL1
+ 465 00f6 31030000 		.4byte	0x331
+ 466 00fa 00       		.byte	0
+ 467 00fb 05       		.uleb128 0x5
+ 468 00fc 2C000000 		.4byte	.LASF19
+ 469 0100 01       		.byte	0x1
+ 470 0101 53       		.byte	0x53
+ 471 0102 00000000 		.4byte	.LFB2
+ 472 0106 06000000 		.4byte	.LFE2-.LFB2
+ 473 010a 01       		.uleb128 0x1
+ 474 010b 9C       		.byte	0x9c
+ 475 010c 20010000 		.4byte	0x120
+ 476 0110 09       		.uleb128 0x9
+ 477 0111 06000000 		.4byte	.LVL2
+ 478 0115 3D030000 		.4byte	0x33d
+ 479 0119 07       		.uleb128 0x7
+ 480 011a 01       		.uleb128 0x1
+ 481 011b 50       		.byte	0x50
+ 482 011c 01       		.uleb128 0x1
+ 483 011d 31       		.byte	0x31
+ 484 011e 00       		.byte	0
+ 485 011f 00       		.byte	0
+ 486 0120 0A       		.uleb128 0xa
+ 487 0121 3B010000 		.4byte	.LASF26
+ 488 0125 01       		.byte	0x1
+ 489 0126 70       		.byte	0x70
+ 490 0127 98000000 		.4byte	0x98
+ 491 012b 00000000 		.4byte	.LFB3
+ 492 012f 3E000000 		.4byte	.LFE3-.LFB3
+ 493 0133 01       		.uleb128 0x1
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 14
+
+
+ 494 0134 9C       		.byte	0x9c
+ 495 0135 E9010000 		.4byte	0x1e9
+ 496 0139 0B       		.uleb128 0xb
+ 497 013a 4F000000 		.4byte	.LASF20
+ 498 013e 01       		.byte	0x1
+ 499 013f 70       		.byte	0x70
+ 500 0140 E9010000 		.4byte	0x1e9
+ 501 0144 00000000 		.4byte	.LLST0
+ 502 0148 0B       		.uleb128 0xb
+ 503 0149 7D000000 		.4byte	.LASF21
+ 504 014d 01       		.byte	0x1
+ 505 014e 70       		.byte	0x70
+ 506 014f 77000000 		.4byte	0x77
+ 507 0153 2C000000 		.4byte	.LLST1
+ 508 0157 0B       		.uleb128 0xb
+ 509 0158 13000000 		.4byte	.LASF22
+ 510 015c 01       		.byte	0x1
+ 511 015d 70       		.byte	0x70
+ 512 015e F4010000 		.4byte	0x1f4
+ 513 0162 4D000000 		.4byte	.LLST2
+ 514 0166 0B       		.uleb128 0xb
+ 515 0167 19020000 		.4byte	.LASF23
+ 516 016b 01       		.byte	0x1
+ 517 016c 70       		.byte	0x70
+ 518 016d 6B000000 		.4byte	0x6b
+ 519 0171 6B000000 		.4byte	.LLST3
+ 520 0175 0C       		.uleb128 0xc
+ 521 0176 A6010000 		.4byte	.LASF24
+ 522 017a 01       		.byte	0x1
+ 523 017b 73       		.byte	0x73
+ 524 017c 98000000 		.4byte	0x98
+ 525 0180 8C000000 		.4byte	.LLST4
+ 526 0184 0C       		.uleb128 0xc
+ 527 0185 00000000 		.4byte	.LASF25
+ 528 0189 01       		.byte	0x1
+ 529 018a 74       		.byte	0x74
+ 530 018b 77000000 		.4byte	0x77
+ 531 018f AB000000 		.4byte	.LLST5
+ 532 0193 0D       		.uleb128 0xd
+ 533 0194 16000000 		.4byte	.LVL9
+ 534 0198 49030000 		.4byte	0x349
+ 535 019c B3010000 		.4byte	0x1b3
+ 536 01a0 07       		.uleb128 0x7
+ 537 01a1 01       		.uleb128 0x1
+ 538 01a2 50       		.byte	0x50
+ 539 01a3 01       		.uleb128 0x1
+ 540 01a4 32       		.byte	0x32
+ 541 01a5 07       		.uleb128 0x7
+ 542 01a6 01       		.uleb128 0x1
+ 543 01a7 51       		.byte	0x51
+ 544 01a8 03       		.uleb128 0x3
+ 545 01a9 F3       		.byte	0xf3
+ 546 01aa 01       		.uleb128 0x1
+ 547 01ab 50       		.byte	0x50
+ 548 01ac 07       		.uleb128 0x7
+ 549 01ad 01       		.uleb128 0x1
+ 550 01ae 52       		.byte	0x52
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 15
+
+
+ 551 01af 02       		.uleb128 0x2
+ 552 01b0 08       		.byte	0x8
+ 553 01b1 40       		.byte	0x40
+ 554 01b2 00       		.byte	0
+ 555 01b3 0D       		.uleb128 0xd
+ 556 01b4 1C000000 		.4byte	.LVL10
+ 557 01b8 55030000 		.4byte	0x355
+ 558 01bc C6010000 		.4byte	0x1c6
+ 559 01c0 07       		.uleb128 0x7
+ 560 01c1 01       		.uleb128 0x1
+ 561 01c2 50       		.byte	0x50
+ 562 01c3 01       		.uleb128 0x1
+ 563 01c4 32       		.byte	0x32
+ 564 01c5 00       		.byte	0
+ 565 01c6 0D       		.uleb128 0xd
+ 566 01c7 28000000 		.4byte	.LVL12
+ 567 01cb 61030000 		.4byte	0x361
+ 568 01cf D9010000 		.4byte	0x1d9
+ 569 01d3 07       		.uleb128 0x7
+ 570 01d4 01       		.uleb128 0x1
+ 571 01d5 50       		.byte	0x50
+ 572 01d6 01       		.uleb128 0x1
+ 573 01d7 31       		.byte	0x31
+ 574 01d8 00       		.byte	0
+ 575 01d9 06       		.uleb128 0x6
+ 576 01da 32000000 		.4byte	.LVL14
+ 577 01de 55030000 		.4byte	0x355
+ 578 01e2 07       		.uleb128 0x7
+ 579 01e3 01       		.uleb128 0x1
+ 580 01e4 50       		.byte	0x50
+ 581 01e5 01       		.uleb128 0x1
+ 582 01e6 32       		.byte	0x32
+ 583 01e7 00       		.byte	0
+ 584 01e8 00       		.byte	0
+ 585 01e9 0E       		.uleb128 0xe
+ 586 01ea 04       		.byte	0x4
+ 587 01eb EF010000 		.4byte	0x1ef
+ 588 01ef 0F       		.uleb128 0xf
+ 589 01f0 6B000000 		.4byte	0x6b
+ 590 01f4 0E       		.uleb128 0xe
+ 591 01f5 04       		.byte	0x4
+ 592 01f6 77000000 		.4byte	0x77
+ 593 01fa 0A       		.uleb128 0xa
+ 594 01fb D2020000 		.4byte	.LASF27
+ 595 01ff 01       		.byte	0x1
+ 596 0200 AB       		.byte	0xab
+ 597 0201 98000000 		.4byte	0x98
+ 598 0205 00000000 		.4byte	.LFB4
+ 599 0209 98000000 		.4byte	.LFE4-.LFB4
+ 600 020d 01       		.uleb128 0x1
+ 601 020e 9C       		.byte	0x9c
+ 602 020f 0E030000 		.4byte	0x30e
+ 603 0213 0B       		.uleb128 0xb
+ 604 0214 4F000000 		.4byte	.LASF20
+ 605 0218 01       		.byte	0x1
+ 606 0219 AB       		.byte	0xab
+ 607 021a 0E030000 		.4byte	0x30e
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 16
+
+
+ 608 021e C9000000 		.4byte	.LLST6
+ 609 0222 0B       		.uleb128 0xb
+ 610 0223 7D000000 		.4byte	.LASF21
+ 611 0227 01       		.byte	0x1
+ 612 0228 AB       		.byte	0xab
+ 613 0229 77000000 		.4byte	0x77
+ 614 022d 0B010000 		.4byte	.LLST7
+ 615 0231 0B       		.uleb128 0xb
+ 616 0232 13000000 		.4byte	.LASF22
+ 617 0236 01       		.byte	0x1
+ 618 0237 AB       		.byte	0xab
+ 619 0238 F4010000 		.4byte	0x1f4
+ 620 023c 3E010000 		.4byte	.LLST8
+ 621 0240 0B       		.uleb128 0xb
+ 622 0241 19020000 		.4byte	.LASF23
+ 623 0245 01       		.byte	0x1
+ 624 0246 AB       		.byte	0xab
+ 625 0247 6B000000 		.4byte	0x6b
+ 626 024b 6A010000 		.4byte	.LLST9
+ 627 024f 0C       		.uleb128 0xc
+ 628 0250 A6010000 		.4byte	.LASF24
+ 629 0254 01       		.byte	0x1
+ 630 0255 AE       		.byte	0xae
+ 631 0256 98000000 		.4byte	0x98
+ 632 025a 8B010000 		.4byte	.LLST10
+ 633 025e 0C       		.uleb128 0xc
+ 634 025f 00000000 		.4byte	.LASF25
+ 635 0263 01       		.byte	0x1
+ 636 0264 AF       		.byte	0xaf
+ 637 0265 77000000 		.4byte	0x77
+ 638 0269 B6010000 		.4byte	.LLST11
+ 639 026d 10       		.uleb128 0x10
+ 640 026e 1E000000 		.4byte	.LVL24
+ 641 0272 6C030000 		.4byte	0x36c
+ 642 0276 0D       		.uleb128 0xd
+ 643 0277 2A000000 		.4byte	.LVL26
+ 644 027b 61030000 		.4byte	0x361
+ 645 027f 89020000 		.4byte	0x289
+ 646 0283 07       		.uleb128 0x7
+ 647 0284 01       		.uleb128 0x1
+ 648 0285 50       		.byte	0x50
+ 649 0286 01       		.uleb128 0x1
+ 650 0287 31       		.byte	0x31
+ 651 0288 00       		.byte	0
+ 652 0289 10       		.uleb128 0x10
+ 653 028a 32000000 		.4byte	.LVL28
+ 654 028e 6C030000 		.4byte	0x36c
+ 655 0292 10       		.uleb128 0x10
+ 656 0293 38000000 		.4byte	.LVL29
+ 657 0297 78030000 		.4byte	0x378
+ 658 029b 10       		.uleb128 0x10
+ 659 029c 3C000000 		.4byte	.LVL30
+ 660 02a0 FB000000 		.4byte	0xfb
+ 661 02a4 10       		.uleb128 0x10
+ 662 02a5 46000000 		.4byte	.LVL32
+ 663 02a9 78030000 		.4byte	0x378
+ 664 02ad 10       		.uleb128 0x10
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 17
+
+
+ 665 02ae 4C000000 		.4byte	.LVL33
+ 666 02b2 6C030000 		.4byte	0x36c
+ 667 02b6 10       		.uleb128 0x10
+ 668 02b7 52000000 		.4byte	.LVL34
+ 669 02bb FB000000 		.4byte	0xfb
+ 670 02bf 10       		.uleb128 0x10
+ 671 02c0 5A000000 		.4byte	.LVL35
+ 672 02c4 61030000 		.4byte	0x361
+ 673 02c8 0D       		.uleb128 0xd
+ 674 02c9 64000000 		.4byte	.LVL38
+ 675 02cd 55030000 		.4byte	0x355
+ 676 02d1 DB020000 		.4byte	0x2db
+ 677 02d5 07       		.uleb128 0x7
+ 678 02d6 01       		.uleb128 0x1
+ 679 02d7 50       		.byte	0x50
+ 680 02d8 01       		.uleb128 0x1
+ 681 02d9 31       		.byte	0x31
+ 682 02da 00       		.byte	0
+ 683 02db 10       		.uleb128 0x10
+ 684 02dc 70000000 		.4byte	.LVL39
+ 685 02e0 55030000 		.4byte	0x355
+ 686 02e4 06       		.uleb128 0x6
+ 687 02e5 82000000 		.4byte	.LVL40
+ 688 02e9 84030000 		.4byte	0x384
+ 689 02ed 07       		.uleb128 0x7
+ 690 02ee 01       		.uleb128 0x1
+ 691 02ef 51       		.byte	0x51
+ 692 02f0 02       		.uleb128 0x2
+ 693 02f1 78       		.byte	0x78
+ 694 02f2 00       		.sleb128 0
+ 695 02f3 07       		.uleb128 0x7
+ 696 02f4 01       		.uleb128 0x1
+ 697 02f5 52       		.byte	0x52
+ 698 02f6 15       		.uleb128 0x15
+ 699 02f7 08       		.byte	0x8
+ 700 02f8 40       		.byte	0x40
+ 701 02f9 79       		.byte	0x79
+ 702 02fa 00       		.sleb128 0
+ 703 02fb 79       		.byte	0x79
+ 704 02fc 00       		.sleb128 0
+ 705 02fd 40       		.byte	0x40
+ 706 02fe 4B       		.byte	0x4b
+ 707 02ff 24       		.byte	0x24
+ 708 0300 22       		.byte	0x22
+ 709 0301 0C       		.byte	0xc
+ 710 0302 40000080 		.4byte	0x80000040
+ 711 0306 2A       		.byte	0x2a
+ 712 0307 28       		.byte	0x28
+ 713 0308 0100     		.2byte	0x1
+ 714 030a 16       		.byte	0x16
+ 715 030b 13       		.byte	0x13
+ 716 030c 00       		.byte	0
+ 717 030d 00       		.byte	0
+ 718 030e 0E       		.uleb128 0xe
+ 719 030f 04       		.byte	0x4
+ 720 0310 6B000000 		.4byte	0x6b
+ 721 0314 11       		.uleb128 0x11
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 18
+
+
+ 722 0315 BC020000 		.4byte	.LASF28
+ 723 0319 01       		.byte	0x1
+ 724 031a 1A       		.byte	0x1a
+ 725 031b 6B000000 		.4byte	0x6b
+ 726 031f 05       		.uleb128 0x5
+ 727 0320 03       		.byte	0x3
+ 728 0321 00000000 		.4byte	USBFS_started
+ 729 0325 12       		.uleb128 0x12
+ 730 0326 43000000 		.4byte	.LASF29
+ 731 032a 43000000 		.4byte	.LASF29
+ 732 032e 03       		.byte	0x3
+ 733 032f 3001     		.2byte	0x130
+ 734 0331 12       		.uleb128 0x12
+ 735 0332 72000000 		.4byte	.LASF30
+ 736 0336 72000000 		.4byte	.LASF30
+ 737 033a 03       		.byte	0x3
+ 738 033b 3201     		.2byte	0x132
+ 739 033d 12       		.uleb128 0x12
+ 740 033e 94010000 		.4byte	.LASF31
+ 741 0342 94010000 		.4byte	.LASF31
+ 742 0346 03       		.byte	0x3
+ 743 0347 3C01     		.2byte	0x13c
+ 744 0349 12       		.uleb128 0x12
+ 745 034a 00020000 		.4byte	.LASF32
+ 746 034e 00020000 		.4byte	.LASF32
+ 747 0352 03       		.byte	0x3
+ 748 0353 3801     		.2byte	0x138
+ 749 0355 12       		.uleb128 0x12
+ 750 0356 74020000 		.4byte	.LASF33
+ 751 035a 74020000 		.4byte	.LASF33
+ 752 035e 03       		.byte	0x3
+ 753 035f 3601     		.2byte	0x136
+ 754 0361 13       		.uleb128 0x13
+ 755 0362 CA020000 		.4byte	.LASF34
+ 756 0366 CA020000 		.4byte	.LASF34
+ 757 036a 04       		.byte	0x4
+ 758 036b 76       		.byte	0x76
+ 759 036c 12       		.uleb128 0x12
+ 760 036d 59010000 		.4byte	.LASF35
+ 761 0371 59010000 		.4byte	.LASF35
+ 762 0375 03       		.byte	0x3
+ 763 0376 3301     		.2byte	0x133
+ 764 0378 12       		.uleb128 0x12
+ 765 0379 E8020000 		.4byte	.LASF36
+ 766 037d E8020000 		.4byte	.LASF36
+ 767 0381 03       		.byte	0x3
+ 768 0382 3401     		.2byte	0x134
+ 769 0384 12       		.uleb128 0x12
+ 770 0385 2B010000 		.4byte	.LASF37
+ 771 0389 2B010000 		.4byte	.LASF37
+ 772 038d 03       		.byte	0x3
+ 773 038e 3A01     		.2byte	0x13a
+ 774 0390 00       		.byte	0
+ 775              		.section	.debug_abbrev,"",%progbits
+ 776              	.Ldebug_abbrev0:
+ 777 0000 01       		.uleb128 0x1
+ 778 0001 11       		.uleb128 0x11
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 19
+
+
+ 779 0002 01       		.byte	0x1
+ 780 0003 25       		.uleb128 0x25
+ 781 0004 0E       		.uleb128 0xe
+ 782 0005 13       		.uleb128 0x13
+ 783 0006 0B       		.uleb128 0xb
+ 784 0007 03       		.uleb128 0x3
+ 785 0008 0E       		.uleb128 0xe
+ 786 0009 1B       		.uleb128 0x1b
+ 787 000a 0E       		.uleb128 0xe
+ 788 000b 55       		.uleb128 0x55
+ 789 000c 17       		.uleb128 0x17
+ 790 000d 11       		.uleb128 0x11
+ 791 000e 01       		.uleb128 0x1
+ 792 000f 10       		.uleb128 0x10
+ 793 0010 17       		.uleb128 0x17
+ 794 0011 00       		.byte	0
+ 795 0012 00       		.byte	0
+ 796 0013 02       		.uleb128 0x2
+ 797 0014 24       		.uleb128 0x24
+ 798 0015 00       		.byte	0
+ 799 0016 0B       		.uleb128 0xb
+ 800 0017 0B       		.uleb128 0xb
+ 801 0018 3E       		.uleb128 0x3e
+ 802 0019 0B       		.uleb128 0xb
+ 803 001a 03       		.uleb128 0x3
+ 804 001b 0E       		.uleb128 0xe
+ 805 001c 00       		.byte	0
+ 806 001d 00       		.byte	0
+ 807 001e 03       		.uleb128 0x3
+ 808 001f 24       		.uleb128 0x24
+ 809 0020 00       		.byte	0
+ 810 0021 0B       		.uleb128 0xb
+ 811 0022 0B       		.uleb128 0xb
+ 812 0023 3E       		.uleb128 0x3e
+ 813 0024 0B       		.uleb128 0xb
+ 814 0025 03       		.uleb128 0x3
+ 815 0026 08       		.uleb128 0x8
+ 816 0027 00       		.byte	0
+ 817 0028 00       		.byte	0
+ 818 0029 04       		.uleb128 0x4
+ 819 002a 16       		.uleb128 0x16
+ 820 002b 00       		.byte	0
+ 821 002c 03       		.uleb128 0x3
+ 822 002d 0E       		.uleb128 0xe
+ 823 002e 3A       		.uleb128 0x3a
+ 824 002f 0B       		.uleb128 0xb
+ 825 0030 3B       		.uleb128 0x3b
+ 826 0031 05       		.uleb128 0x5
+ 827 0032 49       		.uleb128 0x49
+ 828 0033 13       		.uleb128 0x13
+ 829 0034 00       		.byte	0
+ 830 0035 00       		.byte	0
+ 831 0036 05       		.uleb128 0x5
+ 832 0037 2E       		.uleb128 0x2e
+ 833 0038 01       		.byte	0x1
+ 834 0039 3F       		.uleb128 0x3f
+ 835 003a 19       		.uleb128 0x19
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 20
+
+
+ 836 003b 03       		.uleb128 0x3
+ 837 003c 0E       		.uleb128 0xe
+ 838 003d 3A       		.uleb128 0x3a
+ 839 003e 0B       		.uleb128 0xb
+ 840 003f 3B       		.uleb128 0x3b
+ 841 0040 0B       		.uleb128 0xb
+ 842 0041 27       		.uleb128 0x27
+ 843 0042 19       		.uleb128 0x19
+ 844 0043 11       		.uleb128 0x11
+ 845 0044 01       		.uleb128 0x1
+ 846 0045 12       		.uleb128 0x12
+ 847 0046 06       		.uleb128 0x6
+ 848 0047 40       		.uleb128 0x40
+ 849 0048 18       		.uleb128 0x18
+ 850 0049 9742     		.uleb128 0x2117
+ 851 004b 19       		.uleb128 0x19
+ 852 004c 01       		.uleb128 0x1
+ 853 004d 13       		.uleb128 0x13
+ 854 004e 00       		.byte	0
+ 855 004f 00       		.byte	0
+ 856 0050 06       		.uleb128 0x6
+ 857 0051 898201   		.uleb128 0x4109
+ 858 0054 01       		.byte	0x1
+ 859 0055 11       		.uleb128 0x11
+ 860 0056 01       		.uleb128 0x1
+ 861 0057 31       		.uleb128 0x31
+ 862 0058 13       		.uleb128 0x13
+ 863 0059 00       		.byte	0
+ 864 005a 00       		.byte	0
+ 865 005b 07       		.uleb128 0x7
+ 866 005c 8A8201   		.uleb128 0x410a
+ 867 005f 00       		.byte	0
+ 868 0060 02       		.uleb128 0x2
+ 869 0061 18       		.uleb128 0x18
+ 870 0062 9142     		.uleb128 0x2111
+ 871 0064 18       		.uleb128 0x18
+ 872 0065 00       		.byte	0
+ 873 0066 00       		.byte	0
+ 874 0067 08       		.uleb128 0x8
+ 875 0068 898201   		.uleb128 0x4109
+ 876 006b 00       		.byte	0
+ 877 006c 11       		.uleb128 0x11
+ 878 006d 01       		.uleb128 0x1
+ 879 006e 9542     		.uleb128 0x2115
+ 880 0070 19       		.uleb128 0x19
+ 881 0071 31       		.uleb128 0x31
+ 882 0072 13       		.uleb128 0x13
+ 883 0073 00       		.byte	0
+ 884 0074 00       		.byte	0
+ 885 0075 09       		.uleb128 0x9
+ 886 0076 898201   		.uleb128 0x4109
+ 887 0079 01       		.byte	0x1
+ 888 007a 11       		.uleb128 0x11
+ 889 007b 01       		.uleb128 0x1
+ 890 007c 9542     		.uleb128 0x2115
+ 891 007e 19       		.uleb128 0x19
+ 892 007f 31       		.uleb128 0x31
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 21
+
+
+ 893 0080 13       		.uleb128 0x13
+ 894 0081 00       		.byte	0
+ 895 0082 00       		.byte	0
+ 896 0083 0A       		.uleb128 0xa
+ 897 0084 2E       		.uleb128 0x2e
+ 898 0085 01       		.byte	0x1
+ 899 0086 3F       		.uleb128 0x3f
+ 900 0087 19       		.uleb128 0x19
+ 901 0088 03       		.uleb128 0x3
+ 902 0089 0E       		.uleb128 0xe
+ 903 008a 3A       		.uleb128 0x3a
+ 904 008b 0B       		.uleb128 0xb
+ 905 008c 3B       		.uleb128 0x3b
+ 906 008d 0B       		.uleb128 0xb
+ 907 008e 27       		.uleb128 0x27
+ 908 008f 19       		.uleb128 0x19
+ 909 0090 49       		.uleb128 0x49
+ 910 0091 13       		.uleb128 0x13
+ 911 0092 11       		.uleb128 0x11
+ 912 0093 01       		.uleb128 0x1
+ 913 0094 12       		.uleb128 0x12
+ 914 0095 06       		.uleb128 0x6
+ 915 0096 40       		.uleb128 0x40
+ 916 0097 18       		.uleb128 0x18
+ 917 0098 9742     		.uleb128 0x2117
+ 918 009a 19       		.uleb128 0x19
+ 919 009b 01       		.uleb128 0x1
+ 920 009c 13       		.uleb128 0x13
+ 921 009d 00       		.byte	0
+ 922 009e 00       		.byte	0
+ 923 009f 0B       		.uleb128 0xb
+ 924 00a0 05       		.uleb128 0x5
+ 925 00a1 00       		.byte	0
+ 926 00a2 03       		.uleb128 0x3
+ 927 00a3 0E       		.uleb128 0xe
+ 928 00a4 3A       		.uleb128 0x3a
+ 929 00a5 0B       		.uleb128 0xb
+ 930 00a6 3B       		.uleb128 0x3b
+ 931 00a7 0B       		.uleb128 0xb
+ 932 00a8 49       		.uleb128 0x49
+ 933 00a9 13       		.uleb128 0x13
+ 934 00aa 02       		.uleb128 0x2
+ 935 00ab 17       		.uleb128 0x17
+ 936 00ac 00       		.byte	0
+ 937 00ad 00       		.byte	0
+ 938 00ae 0C       		.uleb128 0xc
+ 939 00af 34       		.uleb128 0x34
+ 940 00b0 00       		.byte	0
+ 941 00b1 03       		.uleb128 0x3
+ 942 00b2 0E       		.uleb128 0xe
+ 943 00b3 3A       		.uleb128 0x3a
+ 944 00b4 0B       		.uleb128 0xb
+ 945 00b5 3B       		.uleb128 0x3b
+ 946 00b6 0B       		.uleb128 0xb
+ 947 00b7 49       		.uleb128 0x49
+ 948 00b8 13       		.uleb128 0x13
+ 949 00b9 02       		.uleb128 0x2
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 22
+
+
+ 950 00ba 17       		.uleb128 0x17
+ 951 00bb 00       		.byte	0
+ 952 00bc 00       		.byte	0
+ 953 00bd 0D       		.uleb128 0xd
+ 954 00be 898201   		.uleb128 0x4109
+ 955 00c1 01       		.byte	0x1
+ 956 00c2 11       		.uleb128 0x11
+ 957 00c3 01       		.uleb128 0x1
+ 958 00c4 31       		.uleb128 0x31
+ 959 00c5 13       		.uleb128 0x13
+ 960 00c6 01       		.uleb128 0x1
+ 961 00c7 13       		.uleb128 0x13
+ 962 00c8 00       		.byte	0
+ 963 00c9 00       		.byte	0
+ 964 00ca 0E       		.uleb128 0xe
+ 965 00cb 0F       		.uleb128 0xf
+ 966 00cc 00       		.byte	0
+ 967 00cd 0B       		.uleb128 0xb
+ 968 00ce 0B       		.uleb128 0xb
+ 969 00cf 49       		.uleb128 0x49
+ 970 00d0 13       		.uleb128 0x13
+ 971 00d1 00       		.byte	0
+ 972 00d2 00       		.byte	0
+ 973 00d3 0F       		.uleb128 0xf
+ 974 00d4 26       		.uleb128 0x26
+ 975 00d5 00       		.byte	0
+ 976 00d6 49       		.uleb128 0x49
+ 977 00d7 13       		.uleb128 0x13
+ 978 00d8 00       		.byte	0
+ 979 00d9 00       		.byte	0
+ 980 00da 10       		.uleb128 0x10
+ 981 00db 898201   		.uleb128 0x4109
+ 982 00de 00       		.byte	0
+ 983 00df 11       		.uleb128 0x11
+ 984 00e0 01       		.uleb128 0x1
+ 985 00e1 31       		.uleb128 0x31
+ 986 00e2 13       		.uleb128 0x13
+ 987 00e3 00       		.byte	0
+ 988 00e4 00       		.byte	0
+ 989 00e5 11       		.uleb128 0x11
+ 990 00e6 34       		.uleb128 0x34
+ 991 00e7 00       		.byte	0
+ 992 00e8 03       		.uleb128 0x3
+ 993 00e9 0E       		.uleb128 0xe
+ 994 00ea 3A       		.uleb128 0x3a
+ 995 00eb 0B       		.uleb128 0xb
+ 996 00ec 3B       		.uleb128 0x3b
+ 997 00ed 0B       		.uleb128 0xb
+ 998 00ee 49       		.uleb128 0x49
+ 999 00ef 13       		.uleb128 0x13
+ 1000 00f0 02       		.uleb128 0x2
+ 1001 00f1 18       		.uleb128 0x18
+ 1002 00f2 00       		.byte	0
+ 1003 00f3 00       		.byte	0
+ 1004 00f4 12       		.uleb128 0x12
+ 1005 00f5 2E       		.uleb128 0x2e
+ 1006 00f6 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 23
+
+
+ 1007 00f7 3F       		.uleb128 0x3f
+ 1008 00f8 19       		.uleb128 0x19
+ 1009 00f9 3C       		.uleb128 0x3c
+ 1010 00fa 19       		.uleb128 0x19
+ 1011 00fb 6E       		.uleb128 0x6e
+ 1012 00fc 0E       		.uleb128 0xe
+ 1013 00fd 03       		.uleb128 0x3
+ 1014 00fe 0E       		.uleb128 0xe
+ 1015 00ff 3A       		.uleb128 0x3a
+ 1016 0100 0B       		.uleb128 0xb
+ 1017 0101 3B       		.uleb128 0x3b
+ 1018 0102 05       		.uleb128 0x5
+ 1019 0103 00       		.byte	0
+ 1020 0104 00       		.byte	0
+ 1021 0105 13       		.uleb128 0x13
+ 1022 0106 2E       		.uleb128 0x2e
+ 1023 0107 00       		.byte	0
+ 1024 0108 3F       		.uleb128 0x3f
+ 1025 0109 19       		.uleb128 0x19
+ 1026 010a 3C       		.uleb128 0x3c
+ 1027 010b 19       		.uleb128 0x19
+ 1028 010c 6E       		.uleb128 0x6e
+ 1029 010d 0E       		.uleb128 0xe
+ 1030 010e 03       		.uleb128 0x3
+ 1031 010f 0E       		.uleb128 0xe
+ 1032 0110 3A       		.uleb128 0x3a
+ 1033 0111 0B       		.uleb128 0xb
+ 1034 0112 3B       		.uleb128 0x3b
+ 1035 0113 0B       		.uleb128 0xb
+ 1036 0114 00       		.byte	0
+ 1037 0115 00       		.byte	0
+ 1038 0116 00       		.byte	0
+ 1039              		.section	.debug_loc,"",%progbits
+ 1040              	.Ldebug_loc0:
+ 1041              	.LLST0:
+ 1042 0000 00000000 		.4byte	.LVL3
+ 1043 0004 10000000 		.4byte	.LVL7
+ 1044 0008 0100     		.2byte	0x1
+ 1045 000a 50       		.byte	0x50
+ 1046 000b 10000000 		.4byte	.LVL7
+ 1047 000f 15000000 		.4byte	.LVL9-1
+ 1048 0013 0100     		.2byte	0x1
+ 1049 0015 51       		.byte	0x51
+ 1050 0016 15000000 		.4byte	.LVL9-1
+ 1051 001a 3E000000 		.4byte	.LFE3
+ 1052 001e 0400     		.2byte	0x4
+ 1053 0020 F3       		.byte	0xf3
+ 1054 0021 01       		.uleb128 0x1
+ 1055 0022 50       		.byte	0x50
+ 1056 0023 9F       		.byte	0x9f
+ 1057 0024 00000000 		.4byte	0
+ 1058 0028 00000000 		.4byte	0
+ 1059              	.LLST1:
+ 1060 002c 00000000 		.4byte	.LVL3
+ 1061 0030 0C000000 		.4byte	.LVL5
+ 1062 0034 0100     		.2byte	0x1
+ 1063 0036 51       		.byte	0x51
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 24
+
+
+ 1064 0037 0C000000 		.4byte	.LVL5
+ 1065 003b 3E000000 		.4byte	.LFE3
+ 1066 003f 0400     		.2byte	0x4
+ 1067 0041 F3       		.byte	0xf3
+ 1068 0042 01       		.uleb128 0x1
+ 1069 0043 51       		.byte	0x51
+ 1070 0044 9F       		.byte	0x9f
+ 1071 0045 00000000 		.4byte	0
+ 1072 0049 00000000 		.4byte	0
+ 1073              	.LLST2:
+ 1074 004d 00000000 		.4byte	.LVL3
+ 1075 0051 0E000000 		.4byte	.LVL6
+ 1076 0055 0100     		.2byte	0x1
+ 1077 0057 52       		.byte	0x52
+ 1078 0058 0E000000 		.4byte	.LVL6
+ 1079 005c 3E000000 		.4byte	.LFE3
+ 1080 0060 0100     		.2byte	0x1
+ 1081 0062 55       		.byte	0x55
+ 1082 0063 00000000 		.4byte	0
+ 1083 0067 00000000 		.4byte	0
+ 1084              	.LLST3:
+ 1085 006b 00000000 		.4byte	.LVL3
+ 1086 006f 06000000 		.4byte	.LVL4
+ 1087 0073 0100     		.2byte	0x1
+ 1088 0075 53       		.byte	0x53
+ 1089 0076 06000000 		.4byte	.LVL4
+ 1090 007a 3E000000 		.4byte	.LFE3
+ 1091 007e 0400     		.2byte	0x4
+ 1092 0080 F3       		.byte	0xf3
+ 1093 0081 01       		.uleb128 0x1
+ 1094 0082 53       		.byte	0x53
+ 1095 0083 9F       		.byte	0x9f
+ 1096 0084 00000000 		.4byte	0
+ 1097 0088 00000000 		.4byte	0
+ 1098              	.LLST4:
+ 1099 008c 36000000 		.4byte	.LVL15
+ 1100 0090 3A000000 		.4byte	.LVL16
+ 1101 0094 0200     		.2byte	0x2
+ 1102 0096 30       		.byte	0x30
+ 1103 0097 9F       		.byte	0x9f
+ 1104 0098 3C000000 		.4byte	.LVL17
+ 1105 009c 3E000000 		.4byte	.LFE3
+ 1106 00a0 0100     		.2byte	0x1
+ 1107 00a2 50       		.byte	0x50
+ 1108 00a3 00000000 		.4byte	0
+ 1109 00a7 00000000 		.4byte	0
+ 1110              	.LLST5:
+ 1111 00ab 12000000 		.4byte	.LVL8
+ 1112 00af 24000000 		.4byte	.LVL11
+ 1113 00b3 0100     		.2byte	0x1
+ 1114 00b5 54       		.byte	0x54
+ 1115 00b6 2A000000 		.4byte	.LVL13
+ 1116 00ba 3E000000 		.4byte	.LFE3
+ 1117 00be 0100     		.2byte	0x1
+ 1118 00c0 54       		.byte	0x54
+ 1119 00c1 00000000 		.4byte	0
+ 1120 00c5 00000000 		.4byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 25
+
+
+ 1121              	.LLST6:
+ 1122 00c9 00000000 		.4byte	.LVL18
+ 1123 00cd 1A000000 		.4byte	.LVL23
+ 1124 00d1 0100     		.2byte	0x1
+ 1125 00d3 50       		.byte	0x50
+ 1126 00d4 1A000000 		.4byte	.LVL23
+ 1127 00d8 42000000 		.4byte	.LVL31
+ 1128 00dc 0100     		.2byte	0x1
+ 1129 00de 58       		.byte	0x58
+ 1130 00df 42000000 		.4byte	.LVL31
+ 1131 00e3 45000000 		.4byte	.LVL32-1
+ 1132 00e7 0100     		.2byte	0x1
+ 1133 00e9 50       		.byte	0x50
+ 1134 00ea 45000000 		.4byte	.LVL32-1
+ 1135 00ee 94000000 		.4byte	.LVL45
+ 1136 00f2 0100     		.2byte	0x1
+ 1137 00f4 58       		.byte	0x58
+ 1138 00f5 94000000 		.4byte	.LVL45
+ 1139 00f9 98000000 		.4byte	.LFE4
+ 1140 00fd 0400     		.2byte	0x4
+ 1141 00ff F3       		.byte	0xf3
+ 1142 0100 01       		.uleb128 0x1
+ 1143 0101 50       		.byte	0x50
+ 1144 0102 9F       		.byte	0x9f
+ 1145 0103 00000000 		.4byte	0
+ 1146 0107 00000000 		.4byte	0
+ 1147              	.LLST7:
+ 1148 010b 00000000 		.4byte	.LVL18
+ 1149 010f 14000000 		.4byte	.LVL22
+ 1150 0113 0100     		.2byte	0x1
+ 1151 0115 51       		.byte	0x51
+ 1152 0116 14000000 		.4byte	.LVL22
+ 1153 011a 94000000 		.4byte	.LVL45
+ 1154 011e 1600     		.2byte	0x16
+ 1155 0120 79       		.byte	0x79
+ 1156 0121 00       		.sleb128 0
+ 1157 0122 12       		.byte	0x12
+ 1158 0123 0A       		.byte	0xa
+ 1159 0124 FFFF     		.2byte	0xffff
+ 1160 0126 1A       		.byte	0x1a
+ 1161 0127 08       		.byte	0x8
+ 1162 0128 40       		.byte	0x40
+ 1163 0129 16       		.byte	0x16
+ 1164 012a 14       		.byte	0x14
+ 1165 012b 0A       		.byte	0xa
+ 1166 012c FFFF     		.2byte	0xffff
+ 1167 012e 1A       		.byte	0x1a
+ 1168 012f 2D       		.byte	0x2d
+ 1169 0130 28       		.byte	0x28
+ 1170 0131 0100     		.2byte	0x1
+ 1171 0133 16       		.byte	0x16
+ 1172 0134 13       		.byte	0x13
+ 1173 0135 9F       		.byte	0x9f
+ 1174 0136 00000000 		.4byte	0
+ 1175 013a 00000000 		.4byte	0
+ 1176              	.LLST8:
+ 1177 013e 00000000 		.4byte	.LVL18
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 26
+
+
+ 1178 0142 10000000 		.4byte	.LVL21
+ 1179 0146 0100     		.2byte	0x1
+ 1180 0148 52       		.byte	0x52
+ 1181 0149 10000000 		.4byte	.LVL21
+ 1182 014d 94000000 		.4byte	.LVL45
+ 1183 0151 0100     		.2byte	0x1
+ 1184 0153 57       		.byte	0x57
+ 1185 0154 94000000 		.4byte	.LVL45
+ 1186 0158 98000000 		.4byte	.LFE4
+ 1187 015c 0400     		.2byte	0x4
+ 1188 015e F3       		.byte	0xf3
+ 1189 015f 01       		.uleb128 0x1
+ 1190 0160 52       		.byte	0x52
+ 1191 0161 9F       		.byte	0x9f
+ 1192 0162 00000000 		.4byte	0
+ 1193 0166 00000000 		.4byte	0
+ 1194              	.LLST9:
+ 1195 016a 00000000 		.4byte	.LVL18
+ 1196 016e 08000000 		.4byte	.LVL19
+ 1197 0172 0100     		.2byte	0x1
+ 1198 0174 53       		.byte	0x53
+ 1199 0175 08000000 		.4byte	.LVL19
+ 1200 0179 98000000 		.4byte	.LFE4
+ 1201 017d 0400     		.2byte	0x4
+ 1202 017f F3       		.byte	0xf3
+ 1203 0180 01       		.uleb128 0x1
+ 1204 0181 53       		.byte	0x53
+ 1205 0182 9F       		.byte	0x9f
+ 1206 0183 00000000 		.4byte	0
+ 1207 0187 00000000 		.4byte	0
+ 1208              	.LLST10:
+ 1209 018b 84000000 		.4byte	.LVL41
+ 1210 018f 8A000000 		.4byte	.LVL42
+ 1211 0193 0200     		.2byte	0x2
+ 1212 0195 30       		.byte	0x30
+ 1213 0196 9F       		.byte	0x9f
+ 1214 0197 8E000000 		.4byte	.LVL43
+ 1215 019b 90000000 		.4byte	.LVL44
+ 1216 019f 0200     		.2byte	0x2
+ 1217 01a1 40       		.byte	0x40
+ 1218 01a2 9F       		.byte	0x9f
+ 1219 01a3 90000000 		.4byte	.LVL44
+ 1220 01a7 98000000 		.4byte	.LFE4
+ 1221 01ab 0100     		.2byte	0x1
+ 1222 01ad 50       		.byte	0x50
+ 1223 01ae 00000000 		.4byte	0
+ 1224 01b2 00000000 		.4byte	0
+ 1225              	.LLST11:
+ 1226 01b6 0A000000 		.4byte	.LVL20
+ 1227 01ba 1A000000 		.4byte	.LVL23
+ 1228 01be 0100     		.2byte	0x1
+ 1229 01c0 54       		.byte	0x54
+ 1230 01c1 1A000000 		.4byte	.LVL23
+ 1231 01c5 26000000 		.4byte	.LVL25
+ 1232 01c9 0100     		.2byte	0x1
+ 1233 01cb 55       		.byte	0x55
+ 1234 01cc 2C000000 		.4byte	.LVL27
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 27
+
+
+ 1235 01d0 42000000 		.4byte	.LVL31
+ 1236 01d4 0100     		.2byte	0x1
+ 1237 01d6 55       		.byte	0x55
+ 1238 01d7 42000000 		.4byte	.LVL31
+ 1239 01db 5C000000 		.4byte	.LVL36
+ 1240 01df 0100     		.2byte	0x1
+ 1241 01e1 54       		.byte	0x54
+ 1242 01e2 5E000000 		.4byte	.LVL37
+ 1243 01e6 94000000 		.4byte	.LVL45
+ 1244 01ea 0100     		.2byte	0x1
+ 1245 01ec 54       		.byte	0x54
+ 1246 01ed 00000000 		.4byte	0
+ 1247 01f1 00000000 		.4byte	0
+ 1248              		.section	.debug_aranges,"",%progbits
+ 1249 0000 3C000000 		.4byte	0x3c
+ 1250 0004 0200     		.2byte	0x2
+ 1251 0006 00000000 		.4byte	.Ldebug_info0
+ 1252 000a 04       		.byte	0x4
+ 1253 000b 00       		.byte	0
+ 1254 000c 0000     		.2byte	0
+ 1255 000e 0000     		.2byte	0
+ 1256 0010 00000000 		.4byte	.LFB0
+ 1257 0014 18000000 		.4byte	.LFE0-.LFB0
+ 1258 0018 00000000 		.4byte	.LFB1
+ 1259 001c 04000000 		.4byte	.LFE1-.LFB1
+ 1260 0020 00000000 		.4byte	.LFB2
+ 1261 0024 06000000 		.4byte	.LFE2-.LFB2
+ 1262 0028 00000000 		.4byte	.LFB3
+ 1263 002c 3E000000 		.4byte	.LFE3-.LFB3
+ 1264 0030 00000000 		.4byte	.LFB4
+ 1265 0034 98000000 		.4byte	.LFE4-.LFB4
+ 1266 0038 00000000 		.4byte	0
+ 1267 003c 00000000 		.4byte	0
+ 1268              		.section	.debug_ranges,"",%progbits
+ 1269              	.Ldebug_ranges0:
+ 1270 0000 00000000 		.4byte	.LFB0
+ 1271 0004 18000000 		.4byte	.LFE0
+ 1272 0008 00000000 		.4byte	.LFB1
+ 1273 000c 04000000 		.4byte	.LFE1
+ 1274 0010 00000000 		.4byte	.LFB2
+ 1275 0014 06000000 		.4byte	.LFE2
+ 1276 0018 00000000 		.4byte	.LFB3
+ 1277 001c 3E000000 		.4byte	.LFE3
+ 1278 0020 00000000 		.4byte	.LFB4
+ 1279 0024 98000000 		.4byte	.LFE4
+ 1280 0028 00000000 		.4byte	0
+ 1281 002c 00000000 		.4byte	0
+ 1282              		.section	.debug_line,"",%progbits
+ 1283              	.Ldebug_line0:
+ 1284 0000 00010000 		.section	.debug_str,"MS",%progbits,1
+ 1284      02005D00 
+ 1284      00000201 
+ 1284      FB0E0D00 
+ 1284      01010101 
+ 1285              	.LASF25:
+ 1286 0000 74696D65 		.ascii	"timeoutMs\000"
+ 1286      6F75744D 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 28
+
+
+ 1286      7300
+ 1287              	.LASF14:
+ 1288 000a 63797374 		.ascii	"cystatus\000"
+ 1288      61747573 
+ 1288      00
+ 1289              	.LASF22:
+ 1290 0013 636F756E 		.ascii	"count\000"
+ 1290      7400
+ 1291              	.LASF3:
+ 1292 0019 73686F72 		.ascii	"short unsigned int\000"
+ 1292      7420756E 
+ 1292      7369676E 
+ 1292      65642069 
+ 1292      6E7400
+ 1293              	.LASF19:
+ 1294 002c 55534246 		.ascii	"USBFS_CyBtldrCommReset\000"
+ 1294      535F4379 
+ 1294      42746C64 
+ 1294      72436F6D 
+ 1294      6D526573 
+ 1295              	.LASF29:
+ 1296 0043 55534246 		.ascii	"USBFS_Start\000"
+ 1296      535F5374 
+ 1296      61727400 
+ 1297              	.LASF20:
+ 1298 004f 70446174 		.ascii	"pData\000"
+ 1298      6100
+ 1299              	.LASF17:
+ 1300 0055 55534246 		.ascii	"USBFS_CyBtldrCommStart\000"
+ 1300      535F4379 
+ 1300      42746C64 
+ 1300      72436F6D 
+ 1300      6D537461 
+ 1301              	.LASF11:
+ 1302 006c 666C6F61 		.ascii	"float\000"
+ 1302      7400
+ 1303              	.LASF30:
+ 1304 0072 55534246 		.ascii	"USBFS_Stop\000"
+ 1304      535F5374 
+ 1304      6F7000
+ 1305              	.LASF21:
+ 1306 007d 73697A65 		.ascii	"size\000"
+ 1306      00
+ 1307              	.LASF38:
+ 1308 0082 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1308      43313120 
+ 1308      352E342E 
+ 1308      31203230 
+ 1308      31363036 
+ 1309 00b5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1309      20726576 
+ 1309      6973696F 
+ 1309      6E203233 
+ 1309      37373135 
+ 1310 00e8 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 1310      66756E63 
+ 1310      74696F6E 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 29
+
+
+ 1310      2D736563 
+ 1310      74696F6E 
+ 1311              	.LASF9:
+ 1312 0110 75696E74 		.ascii	"uint8\000"
+ 1312      3800
+ 1313              	.LASF1:
+ 1314 0116 756E7369 		.ascii	"unsigned char\000"
+ 1314      676E6564 
+ 1314      20636861 
+ 1314      7200
+ 1315              	.LASF12:
+ 1316 0124 646F7562 		.ascii	"double\000"
+ 1316      6C6500
+ 1317              	.LASF37:
+ 1318 012b 55534246 		.ascii	"USBFS_ReadOutEP\000"
+ 1318      535F5265 
+ 1318      61644F75 
+ 1318      74455000 
+ 1319              	.LASF26:
+ 1320 013b 55534246 		.ascii	"USBFS_CyBtldrCommWrite\000"
+ 1320      535F4379 
+ 1320      42746C64 
+ 1320      72436F6D 
+ 1320      6D577269 
+ 1321              	.LASF10:
+ 1322 0152 75696E74 		.ascii	"uint16\000"
+ 1322      313600
+ 1323              	.LASF35:
+ 1324 0159 55534246 		.ascii	"USBFS_GetConfiguration\000"
+ 1324      535F4765 
+ 1324      74436F6E 
+ 1324      66696775 
+ 1324      72617469 
+ 1325              	.LASF8:
+ 1326 0170 756E7369 		.ascii	"unsigned int\000"
+ 1326      676E6564 
+ 1326      20696E74 
+ 1326      00
+ 1327              	.LASF7:
+ 1328 017d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1328      206C6F6E 
+ 1328      6720756E 
+ 1328      7369676E 
+ 1328      65642069 
+ 1329              	.LASF31:
+ 1330 0194 55534246 		.ascii	"USBFS_EnableOutEP\000"
+ 1330      535F456E 
+ 1330      61626C65 
+ 1330      4F757445 
+ 1330      5000
+ 1331              	.LASF24:
+ 1332 01a6 72657443 		.ascii	"retCode\000"
+ 1332      6F646500 
+ 1333              	.LASF5:
+ 1334 01ae 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1334      20756E73 
+ 1334      69676E65 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 30
+
+
+ 1334      6420696E 
+ 1334      7400
+ 1335              	.LASF39:
+ 1336 01c0 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_boot.c\000"
+ 1336      72617465 
+ 1336      645F536F 
+ 1336      75726365 
+ 1336      5C50536F 
+ 1337              	.LASF16:
+ 1338 01e4 73697A65 		.ascii	"sizetype\000"
+ 1338      74797065 
+ 1338      00
+ 1339              	.LASF6:
+ 1340 01ed 6C6F6E67 		.ascii	"long long int\000"
+ 1340      206C6F6E 
+ 1340      6720696E 
+ 1340      7400
+ 1341              	.LASF13:
+ 1342 01fb 63686172 		.ascii	"char\000"
+ 1342      00
+ 1343              	.LASF32:
+ 1344 0200 55534246 		.ascii	"USBFS_LoadInEP\000"
+ 1344      535F4C6F 
+ 1344      6164496E 
+ 1344      455000
+ 1345              	.LASF2:
+ 1346 020f 73686F72 		.ascii	"short int\000"
+ 1346      7420696E 
+ 1346      7400
+ 1347              	.LASF23:
+ 1348 0219 74696D65 		.ascii	"timeOut\000"
+ 1348      4F757400 
+ 1349              	.LASF40:
+ 1350 0221 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 1350      73657273 
+ 1350      5C726162 
+ 1350      6269745C 
+ 1350      446F6375 
+ 1351 024e 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 1351      53435349 
+ 1351      3253445C 
+ 1351      76352E30 
+ 1351      5C555342 
+ 1352              	.LASF33:
+ 1353 0274 55534246 		.ascii	"USBFS_GetEPState\000"
+ 1353      535F4765 
+ 1353      74455053 
+ 1353      74617465 
+ 1353      00
+ 1354              	.LASF4:
+ 1355 0285 6C6F6E67 		.ascii	"long int\000"
+ 1355      20696E74 
+ 1355      00
+ 1356              	.LASF15:
+ 1357 028e 6C6F6E67 		.ascii	"long double\000"
+ 1357      20646F75 
+ 1357      626C6500 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccjPAEJr.s 			page 31
+
+
+ 1358              	.LASF18:
+ 1359 029a 55534246 		.ascii	"USBFS_CyBtldrCommStop\000"
+ 1359      535F4379 
+ 1359      42746C64 
+ 1359      72436F6D 
+ 1359      6D53746F 
+ 1360              	.LASF0:
+ 1361 02b0 7369676E 		.ascii	"signed char\000"
+ 1361      65642063 
+ 1361      68617200 
+ 1362              	.LASF28:
+ 1363 02bc 55534246 		.ascii	"USBFS_started\000"
+ 1363      535F7374 
+ 1363      61727465 
+ 1363      6400
+ 1364              	.LASF34:
+ 1365 02ca 43794465 		.ascii	"CyDelay\000"
+ 1365      6C617900 
+ 1366              	.LASF27:
+ 1367 02d2 55534246 		.ascii	"USBFS_CyBtldrCommRead\000"
+ 1367      535F4379 
+ 1367      42746C64 
+ 1367      72436F6D 
+ 1367      6D526561 
+ 1368              	.LASF36:
+ 1369 02e8 55534246 		.ascii	"USBFS_IsConfigurationChanged\000"
+ 1369      535F4973 
+ 1369      436F6E66 
+ 1369      69677572 
+ 1369      6174696F 
+ 1370              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

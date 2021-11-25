@@ -17,6 +17,6 @@
 #ifndef MODE_H
 #define MODE_H
 
-int scsiModeCommand(void);
+int scsiModeCommand(S2S_Device* dev);
 
 #endif

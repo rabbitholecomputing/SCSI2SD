@@ -1,0 +1,819 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"SPI_PULLUP_3.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SPI_PULLUP_3_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	SPI_PULLUP_3_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	SPI_PULLUP_3_Write, %function
+  25              	SPI_PULLUP_3_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\SPI_PULLUP_3.c"
+   1:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * File Name: SPI_PULLUP_3.c  
+   3:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Version 2.20
+   4:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+   5:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Description:
+   6:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+   8:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Note:
+   9:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  10:Generated_Source\PSoC5/SPI_PULLUP_3.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  17:Generated_Source\PSoC5/SPI_PULLUP_3.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/SPI_PULLUP_3.c **** #include "SPI_PULLUP_3.h"
+  19:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  20:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/SPI_PULLUP_3.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 	 SPI_PULLUP_3__PORT == 15 && ((SPI_PULLUP_3__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  24:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  25:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Function Name: SPI_PULLUP_3_Write
+  27:Generated_Source\PSoC5/SPI_PULLUP_3.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  29:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 2
+
+
+  31:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  32:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * bit banding).
+  36:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  37:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  40:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \param value
+  41:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  43:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \return 
+  44:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  None 
+  45:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  46:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \sideeffect
+  47:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  this function.
+  53:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  54:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \funcusage
+  55:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  \snippet SPI_PULLUP_3_SUT.c usage_SPI_PULLUP_3_Write
+  56:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/SPI_PULLUP_3.c **** void SPI_PULLUP_3_Write(uint8 value)
+  58:Generated_Source\PSoC5/SPI_PULLUP_3.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/SPI_PULLUP_3.c ****     uint8 staticBits = (SPI_PULLUP_3_DR & (uint8)(~SPI_PULLUP_3_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/SPI_PULLUP_3.c ****     SPI_PULLUP_3_DR = staticBits | ((uint8)(value << SPI_PULLUP_3_SHIFT) & SPI_PULLUP_3_MASK);
+  36              		.loc 1 60 0
+  37 0002 8000     		lsls	r0, r0, #2
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/SPI_PULLUP_3.c ****     uint8 staticBits = (SPI_PULLUP_3_DR & (uint8)(~SPI_PULLUP_3_MASK));
+  39              		.loc 1 59 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0006 00F00C00 		and	r0, r0, #12
+  44 000a 03F0F303 		and	r3, r3, #243
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 F0510040 		.word	1073762800
+  53              		.cfi_endproc
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 3
+
+
+  54              	.LFE0:
+  55              		.size	SPI_PULLUP_3_Write, .-SPI_PULLUP_3_Write
+  56              		.section	.text.SPI_PULLUP_3_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	SPI_PULLUP_3_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	SPI_PULLUP_3_SetDriveMode, %function
+  62              	SPI_PULLUP_3_SetDriveMode:
+  63              	.LFB1:
+  61:Generated_Source\PSoC5/SPI_PULLUP_3.c **** }
+  62:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  63:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  64:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Function Name: SPI_PULLUP_3_SetDriveMode
+  66:Generated_Source\PSoC5/SPI_PULLUP_3.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  68:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * 
+  70:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  73:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \param mode
+  74:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  77:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \return
+  78:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  None
+  79:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  80:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \sideeffect
+  81:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+  87:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \funcusage
+  88:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  \snippet SPI_PULLUP_3_SUT.c usage_SPI_PULLUP_3_SetDriveMode
+  89:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/SPI_PULLUP_3.c **** void SPI_PULLUP_3_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/SPI_PULLUP_3.c **** {
+  64              		.loc 1 91 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  92:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 	CyPins_SetPinDriveMode(SPI_PULLUP_3_0, mode);
+  70              		.loc 1 92 0
+  71 0000 064A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 0343     		orrs	r3, r3, r0
+  77 000e 1370     		strb	r3, [r2]
+  93:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 	CyPins_SetPinDriveMode(SPI_PULLUP_3_1, mode);
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 4
+
+
+  78              		.loc 1 93 0
+  79 0010 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+  80 0012 03F0F103 		and	r3, r3, #241
+  81 0016 1843     		orrs	r0, r0, r3
+  82 0018 5070     		strb	r0, [r2, #1]
+  83 001a 7047     		bx	lr
+  84              	.L6:
+  85              		.align	2
+  86              	.L5:
+  87 001c 7A500040 		.word	1073762426
+  88              		.cfi_endproc
+  89              	.LFE1:
+  90              		.size	SPI_PULLUP_3_SetDriveMode, .-SPI_PULLUP_3_SetDriveMode
+  91              		.section	.text.SPI_PULLUP_3_Read,"ax",%progbits
+  92              		.align	1
+  93              		.global	SPI_PULLUP_3_Read
+  94              		.thumb
+  95              		.thumb_func
+  96              		.type	SPI_PULLUP_3_Read, %function
+  97              	SPI_PULLUP_3_Read:
+  98              	.LFB2:
+  94:Generated_Source\PSoC5/SPI_PULLUP_3.c **** }
+  95:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  96:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+  97:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /*******************************************************************************
+  98:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Function Name: SPI_PULLUP_3_Read
+  99:Generated_Source\PSoC5/SPI_PULLUP_3.c **** ****************************************************************************//**
+ 100:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 101:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 102:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  the required bits according to the width and bit position of the component
+ 103:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  instance. 
+ 104:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 105:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * The pin's status register returns the current logic level present on the 
+ 106:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * physical pin.
+ 107:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 108:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \return 
+ 109:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  The current value for the pins in the component as a right justified number.
+ 110:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 111:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \funcusage
+ 112:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  \snippet SPI_PULLUP_3_SUT.c usage_SPI_PULLUP_3_Read  
+ 113:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *******************************************************************************/
+ 114:Generated_Source\PSoC5/SPI_PULLUP_3.c **** uint8 SPI_PULLUP_3_Read(void)
+ 115:Generated_Source\PSoC5/SPI_PULLUP_3.c **** {
+  99              		.loc 1 115 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 116:Generated_Source\PSoC5/SPI_PULLUP_3.c ****     return (SPI_PULLUP_3_PS & SPI_PULLUP_3_MASK) >> SPI_PULLUP_3_SHIFT;
+ 104              		.loc 1 116 0
+ 105 0000 024B     		ldr	r3, .L8
+ 106 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 117:Generated_Source\PSoC5/SPI_PULLUP_3.c **** }
+ 107              		.loc 1 117 0
+ 108 0004 C0F38100 		ubfx	r0, r0, #2, #2
+ 109 0008 7047     		bx	lr
+ 110              	.L9:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 5
+
+
+ 111 000a 00BF     		.align	2
+ 112              	.L8:
+ 113 000c F1510040 		.word	1073762801
+ 114              		.cfi_endproc
+ 115              	.LFE2:
+ 116              		.size	SPI_PULLUP_3_Read, .-SPI_PULLUP_3_Read
+ 117              		.section	.text.SPI_PULLUP_3_ReadDataReg,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	SPI_PULLUP_3_ReadDataReg
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.type	SPI_PULLUP_3_ReadDataReg, %function
+ 123              	SPI_PULLUP_3_ReadDataReg:
+ 124              	.LFB3:
+ 118:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+ 119:Generated_Source\PSoC5/SPI_PULLUP_3.c **** 
+ 120:Generated_Source\PSoC5/SPI_PULLUP_3.c **** /*******************************************************************************
+ 121:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * Function Name: SPI_PULLUP_3_ReadDataReg
+ 122:Generated_Source\PSoC5/SPI_PULLUP_3.c **** ****************************************************************************//**
+ 123:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 124:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \brief Reads the associated physical port's data output register and masks 
+ 125:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  the correct bits according to the width and bit position of the component 
+ 126:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  instance. 
+ 127:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 128:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * The data output register controls the signal applied to the physical pin in 
+ 129:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 130:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * preferred SPI_PULLUP_3_Read() API because the 
+ 131:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * SPI_PULLUP_3_ReadDataReg() reads the data register instead of the status 
+ 132:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * register. For output pins this is a useful function to determine the value 
+ 133:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * just written to the pin.
+ 134:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 135:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \return 
+ 136:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  The current value of the data register masked and shifted into a right 
+ 137:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  justified number for the component instance.
+ 138:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *
+ 139:Generated_Source\PSoC5/SPI_PULLUP_3.c **** * \funcusage
+ 140:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *  \snippet SPI_PULLUP_3_SUT.c usage_SPI_PULLUP_3_ReadDataReg 
+ 141:Generated_Source\PSoC5/SPI_PULLUP_3.c **** *******************************************************************************/
+ 142:Generated_Source\PSoC5/SPI_PULLUP_3.c **** uint8 SPI_PULLUP_3_ReadDataReg(void)
+ 143:Generated_Source\PSoC5/SPI_PULLUP_3.c **** {
+ 125              		.loc 1 143 0
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 0, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 144:Generated_Source\PSoC5/SPI_PULLUP_3.c ****     return (SPI_PULLUP_3_DR & SPI_PULLUP_3_MASK) >> SPI_PULLUP_3_SHIFT;
+ 130              		.loc 1 144 0
+ 131 0000 024B     		ldr	r3, .L11
+ 132 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 145:Generated_Source\PSoC5/SPI_PULLUP_3.c **** }
+ 133              		.loc 1 145 0
+ 134 0004 C0F38100 		ubfx	r0, r0, #2, #2
+ 135 0008 7047     		bx	lr
+ 136              	.L12:
+ 137 000a 00BF     		.align	2
+ 138              	.L11:
+ 139 000c F0510040 		.word	1073762800
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 6
+
+
+ 140              		.cfi_endproc
+ 141              	.LFE3:
+ 142              		.size	SPI_PULLUP_3_ReadDataReg, .-SPI_PULLUP_3_ReadDataReg
+ 143              		.text
+ 144              	.Letext0:
+ 145              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 146              		.section	.debug_info,"",%progbits
+ 147              	.Ldebug_info0:
+ 148 0000 1D010000 		.4byte	0x11d
+ 149 0004 0400     		.2byte	0x4
+ 150 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 151 000a 04       		.byte	0x4
+ 152 000b 01       		.uleb128 0x1
+ 153 000c DE000000 		.4byte	.LASF20
+ 154 0010 0C       		.byte	0xc
+ 155 0011 12000000 		.4byte	.LASF21
+ 156 0015 94010000 		.4byte	.LASF22
+ 157 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 158 001d 00000000 		.4byte	0
+ 159 0021 00000000 		.4byte	.Ldebug_line0
+ 160 0025 02       		.uleb128 0x2
+ 161 0026 01       		.byte	0x1
+ 162 0027 06       		.byte	0x6
+ 163 0028 0A020000 		.4byte	.LASF0
+ 164 002c 02       		.uleb128 0x2
+ 165 002d 01       		.byte	0x1
+ 166 002e 08       		.byte	0x8
+ 167 002f 7F000000 		.4byte	.LASF1
+ 168 0033 02       		.uleb128 0x2
+ 169 0034 02       		.byte	0x2
+ 170 0035 05       		.byte	0x5
+ 171 0036 84010000 		.4byte	.LASF2
+ 172 003a 02       		.uleb128 0x2
+ 173 003b 02       		.byte	0x2
+ 174 003c 07       		.byte	0x7
+ 175 003d B7000000 		.4byte	.LASF3
+ 176 0041 02       		.uleb128 0x2
+ 177 0042 04       		.byte	0x4
+ 178 0043 05       		.byte	0x5
+ 179 0044 01020000 		.4byte	.LASF4
+ 180 0048 02       		.uleb128 0x2
+ 181 0049 04       		.byte	0x4
+ 182 004a 07       		.byte	0x7
+ 183 004b A5000000 		.4byte	.LASF5
+ 184 004f 02       		.uleb128 0x2
+ 185 0050 08       		.byte	0x8
+ 186 0051 05       		.byte	0x5
+ 187 0052 71010000 		.4byte	.LASF6
+ 188 0056 02       		.uleb128 0x2
+ 189 0057 08       		.byte	0x8
+ 190 0058 07       		.byte	0x7
+ 191 0059 68000000 		.4byte	.LASF7
+ 192 005d 03       		.uleb128 0x3
+ 193 005e 04       		.byte	0x4
+ 194 005f 05       		.byte	0x5
+ 195 0060 696E7400 		.ascii	"int\000"
+ 196 0064 02       		.uleb128 0x2
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 7
+
+
+ 197 0065 04       		.byte	0x4
+ 198 0066 07       		.byte	0x7
+ 199 0067 D1000000 		.4byte	.LASF8
+ 200 006b 04       		.uleb128 0x4
+ 201 006c 8E010000 		.4byte	.LASF12
+ 202 0070 02       		.byte	0x2
+ 203 0071 E901     		.2byte	0x1e9
+ 204 0073 2C000000 		.4byte	0x2c
+ 205 0077 02       		.uleb128 0x2
+ 206 0078 04       		.byte	0x4
+ 207 0079 04       		.byte	0x4
+ 208 007a 62000000 		.4byte	.LASF9
+ 209 007e 02       		.uleb128 0x2
+ 210 007f 08       		.byte	0x8
+ 211 0080 04       		.byte	0x4
+ 212 0081 CA000000 		.4byte	.LASF10
+ 213 0085 02       		.uleb128 0x2
+ 214 0086 01       		.byte	0x1
+ 215 0087 08       		.byte	0x8
+ 216 0088 7F010000 		.4byte	.LASF11
+ 217 008c 04       		.uleb128 0x4
+ 218 008d 8D000000 		.4byte	.LASF13
+ 219 0091 02       		.byte	0x2
+ 220 0092 9302     		.2byte	0x293
+ 221 0094 98000000 		.4byte	0x98
+ 222 0098 05       		.uleb128 0x5
+ 223 0099 6B000000 		.4byte	0x6b
+ 224 009d 06       		.uleb128 0x6
+ 225 009e 92000000 		.4byte	.LASF14
+ 226 00a2 01       		.byte	0x1
+ 227 00a3 39       		.byte	0x39
+ 228 00a4 00000000 		.4byte	.LFB0
+ 229 00a8 18000000 		.4byte	.LFE0-.LFB0
+ 230 00ac 01       		.uleb128 0x1
+ 231 00ad 9C       		.byte	0x9c
+ 232 00ae D1000000 		.4byte	0xd1
+ 233 00b2 07       		.uleb128 0x7
+ 234 00b3 38000000 		.4byte	.LASF16
+ 235 00b7 01       		.byte	0x1
+ 236 00b8 39       		.byte	0x39
+ 237 00b9 6B000000 		.4byte	0x6b
+ 238 00bd 00000000 		.4byte	.LLST0
+ 239 00c1 08       		.uleb128 0x8
+ 240 00c2 3E000000 		.4byte	.LASF23
+ 241 00c6 01       		.byte	0x1
+ 242 00c7 3B       		.byte	0x3b
+ 243 00c8 6B000000 		.4byte	0x6b
+ 244 00cc 21000000 		.4byte	.LLST1
+ 245 00d0 00       		.byte	0
+ 246 00d1 06       		.uleb128 0x6
+ 247 00d2 E7010000 		.4byte	.LASF15
+ 248 00d6 01       		.byte	0x1
+ 249 00d7 5A       		.byte	0x5a
+ 250 00d8 00000000 		.4byte	.LFB1
+ 251 00dc 20000000 		.4byte	.LFE1-.LFB1
+ 252 00e0 01       		.uleb128 0x1
+ 253 00e1 9C       		.byte	0x9c
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 8
+
+
+ 254 00e2 F6000000 		.4byte	0xf6
+ 255 00e6 07       		.uleb128 0x7
+ 256 00e7 6C010000 		.4byte	.LASF17
+ 257 00eb 01       		.byte	0x1
+ 258 00ec 5A       		.byte	0x5a
+ 259 00ed 6B000000 		.4byte	0x6b
+ 260 00f1 39000000 		.4byte	.LLST2
+ 261 00f5 00       		.byte	0
+ 262 00f6 09       		.uleb128 0x9
+ 263 00f7 00000000 		.4byte	.LASF18
+ 264 00fb 01       		.byte	0x1
+ 265 00fc 72       		.byte	0x72
+ 266 00fd 6B000000 		.4byte	0x6b
+ 267 0101 00000000 		.4byte	.LFB2
+ 268 0105 10000000 		.4byte	.LFE2-.LFB2
+ 269 0109 01       		.uleb128 0x1
+ 270 010a 9C       		.byte	0x9c
+ 271 010b 09       		.uleb128 0x9
+ 272 010c 49000000 		.4byte	.LASF19
+ 273 0110 01       		.byte	0x1
+ 274 0111 8E       		.byte	0x8e
+ 275 0112 6B000000 		.4byte	0x6b
+ 276 0116 00000000 		.4byte	.LFB3
+ 277 011a 10000000 		.4byte	.LFE3-.LFB3
+ 278 011e 01       		.uleb128 0x1
+ 279 011f 9C       		.byte	0x9c
+ 280 0120 00       		.byte	0
+ 281              		.section	.debug_abbrev,"",%progbits
+ 282              	.Ldebug_abbrev0:
+ 283 0000 01       		.uleb128 0x1
+ 284 0001 11       		.uleb128 0x11
+ 285 0002 01       		.byte	0x1
+ 286 0003 25       		.uleb128 0x25
+ 287 0004 0E       		.uleb128 0xe
+ 288 0005 13       		.uleb128 0x13
+ 289 0006 0B       		.uleb128 0xb
+ 290 0007 03       		.uleb128 0x3
+ 291 0008 0E       		.uleb128 0xe
+ 292 0009 1B       		.uleb128 0x1b
+ 293 000a 0E       		.uleb128 0xe
+ 294 000b 55       		.uleb128 0x55
+ 295 000c 17       		.uleb128 0x17
+ 296 000d 11       		.uleb128 0x11
+ 297 000e 01       		.uleb128 0x1
+ 298 000f 10       		.uleb128 0x10
+ 299 0010 17       		.uleb128 0x17
+ 300 0011 00       		.byte	0
+ 301 0012 00       		.byte	0
+ 302 0013 02       		.uleb128 0x2
+ 303 0014 24       		.uleb128 0x24
+ 304 0015 00       		.byte	0
+ 305 0016 0B       		.uleb128 0xb
+ 306 0017 0B       		.uleb128 0xb
+ 307 0018 3E       		.uleb128 0x3e
+ 308 0019 0B       		.uleb128 0xb
+ 309 001a 03       		.uleb128 0x3
+ 310 001b 0E       		.uleb128 0xe
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 9
+
+
+ 311 001c 00       		.byte	0
+ 312 001d 00       		.byte	0
+ 313 001e 03       		.uleb128 0x3
+ 314 001f 24       		.uleb128 0x24
+ 315 0020 00       		.byte	0
+ 316 0021 0B       		.uleb128 0xb
+ 317 0022 0B       		.uleb128 0xb
+ 318 0023 3E       		.uleb128 0x3e
+ 319 0024 0B       		.uleb128 0xb
+ 320 0025 03       		.uleb128 0x3
+ 321 0026 08       		.uleb128 0x8
+ 322 0027 00       		.byte	0
+ 323 0028 00       		.byte	0
+ 324 0029 04       		.uleb128 0x4
+ 325 002a 16       		.uleb128 0x16
+ 326 002b 00       		.byte	0
+ 327 002c 03       		.uleb128 0x3
+ 328 002d 0E       		.uleb128 0xe
+ 329 002e 3A       		.uleb128 0x3a
+ 330 002f 0B       		.uleb128 0xb
+ 331 0030 3B       		.uleb128 0x3b
+ 332 0031 05       		.uleb128 0x5
+ 333 0032 49       		.uleb128 0x49
+ 334 0033 13       		.uleb128 0x13
+ 335 0034 00       		.byte	0
+ 336 0035 00       		.byte	0
+ 337 0036 05       		.uleb128 0x5
+ 338 0037 35       		.uleb128 0x35
+ 339 0038 00       		.byte	0
+ 340 0039 49       		.uleb128 0x49
+ 341 003a 13       		.uleb128 0x13
+ 342 003b 00       		.byte	0
+ 343 003c 00       		.byte	0
+ 344 003d 06       		.uleb128 0x6
+ 345 003e 2E       		.uleb128 0x2e
+ 346 003f 01       		.byte	0x1
+ 347 0040 3F       		.uleb128 0x3f
+ 348 0041 19       		.uleb128 0x19
+ 349 0042 03       		.uleb128 0x3
+ 350 0043 0E       		.uleb128 0xe
+ 351 0044 3A       		.uleb128 0x3a
+ 352 0045 0B       		.uleb128 0xb
+ 353 0046 3B       		.uleb128 0x3b
+ 354 0047 0B       		.uleb128 0xb
+ 355 0048 27       		.uleb128 0x27
+ 356 0049 19       		.uleb128 0x19
+ 357 004a 11       		.uleb128 0x11
+ 358 004b 01       		.uleb128 0x1
+ 359 004c 12       		.uleb128 0x12
+ 360 004d 06       		.uleb128 0x6
+ 361 004e 40       		.uleb128 0x40
+ 362 004f 18       		.uleb128 0x18
+ 363 0050 9742     		.uleb128 0x2117
+ 364 0052 19       		.uleb128 0x19
+ 365 0053 01       		.uleb128 0x1
+ 366 0054 13       		.uleb128 0x13
+ 367 0055 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 10
+
+
+ 368 0056 00       		.byte	0
+ 369 0057 07       		.uleb128 0x7
+ 370 0058 05       		.uleb128 0x5
+ 371 0059 00       		.byte	0
+ 372 005a 03       		.uleb128 0x3
+ 373 005b 0E       		.uleb128 0xe
+ 374 005c 3A       		.uleb128 0x3a
+ 375 005d 0B       		.uleb128 0xb
+ 376 005e 3B       		.uleb128 0x3b
+ 377 005f 0B       		.uleb128 0xb
+ 378 0060 49       		.uleb128 0x49
+ 379 0061 13       		.uleb128 0x13
+ 380 0062 02       		.uleb128 0x2
+ 381 0063 17       		.uleb128 0x17
+ 382 0064 00       		.byte	0
+ 383 0065 00       		.byte	0
+ 384 0066 08       		.uleb128 0x8
+ 385 0067 34       		.uleb128 0x34
+ 386 0068 00       		.byte	0
+ 387 0069 03       		.uleb128 0x3
+ 388 006a 0E       		.uleb128 0xe
+ 389 006b 3A       		.uleb128 0x3a
+ 390 006c 0B       		.uleb128 0xb
+ 391 006d 3B       		.uleb128 0x3b
+ 392 006e 0B       		.uleb128 0xb
+ 393 006f 49       		.uleb128 0x49
+ 394 0070 13       		.uleb128 0x13
+ 395 0071 02       		.uleb128 0x2
+ 396 0072 17       		.uleb128 0x17
+ 397 0073 00       		.byte	0
+ 398 0074 00       		.byte	0
+ 399 0075 09       		.uleb128 0x9
+ 400 0076 2E       		.uleb128 0x2e
+ 401 0077 00       		.byte	0
+ 402 0078 3F       		.uleb128 0x3f
+ 403 0079 19       		.uleb128 0x19
+ 404 007a 03       		.uleb128 0x3
+ 405 007b 0E       		.uleb128 0xe
+ 406 007c 3A       		.uleb128 0x3a
+ 407 007d 0B       		.uleb128 0xb
+ 408 007e 3B       		.uleb128 0x3b
+ 409 007f 0B       		.uleb128 0xb
+ 410 0080 27       		.uleb128 0x27
+ 411 0081 19       		.uleb128 0x19
+ 412 0082 49       		.uleb128 0x49
+ 413 0083 13       		.uleb128 0x13
+ 414 0084 11       		.uleb128 0x11
+ 415 0085 01       		.uleb128 0x1
+ 416 0086 12       		.uleb128 0x12
+ 417 0087 06       		.uleb128 0x6
+ 418 0088 40       		.uleb128 0x40
+ 419 0089 18       		.uleb128 0x18
+ 420 008a 9742     		.uleb128 0x2117
+ 421 008c 19       		.uleb128 0x19
+ 422 008d 00       		.byte	0
+ 423 008e 00       		.byte	0
+ 424 008f 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 11
+
+
+ 425              		.section	.debug_loc,"",%progbits
+ 426              	.Ldebug_loc0:
+ 427              	.LLST0:
+ 428 0000 00000000 		.4byte	.LVL0
+ 429 0004 04000000 		.4byte	.LVL1
+ 430 0008 0100     		.2byte	0x1
+ 431 000a 50       		.byte	0x50
+ 432 000b 04000000 		.4byte	.LVL1
+ 433 000f 18000000 		.4byte	.LFE0
+ 434 0013 0400     		.2byte	0x4
+ 435 0015 F3       		.byte	0xf3
+ 436 0016 01       		.uleb128 0x1
+ 437 0017 50       		.byte	0x50
+ 438 0018 9F       		.byte	0x9f
+ 439 0019 00000000 		.4byte	0
+ 440 001d 00000000 		.4byte	0
+ 441              	.LLST1:
+ 442 0021 06000000 		.4byte	.LVL2
+ 443 0025 0E000000 		.4byte	.LVL3
+ 444 0029 0600     		.2byte	0x6
+ 445 002b 73       		.byte	0x73
+ 446 002c 00       		.sleb128 0
+ 447 002d 09       		.byte	0x9
+ 448 002e F3       		.byte	0xf3
+ 449 002f 1A       		.byte	0x1a
+ 450 0030 9F       		.byte	0x9f
+ 451 0031 00000000 		.4byte	0
+ 452 0035 00000000 		.4byte	0
+ 453              	.LLST2:
+ 454 0039 00000000 		.4byte	.LVL4
+ 455 003d 06000000 		.4byte	.LVL5
+ 456 0041 0100     		.2byte	0x1
+ 457 0043 50       		.byte	0x50
+ 458 0044 06000000 		.4byte	.LVL5
+ 459 0048 20000000 		.4byte	.LFE1
+ 460 004c 0400     		.2byte	0x4
+ 461 004e F3       		.byte	0xf3
+ 462 004f 01       		.uleb128 0x1
+ 463 0050 50       		.byte	0x50
+ 464 0051 9F       		.byte	0x9f
+ 465 0052 00000000 		.4byte	0
+ 466 0056 00000000 		.4byte	0
+ 467              		.section	.debug_aranges,"",%progbits
+ 468 0000 34000000 		.4byte	0x34
+ 469 0004 0200     		.2byte	0x2
+ 470 0006 00000000 		.4byte	.Ldebug_info0
+ 471 000a 04       		.byte	0x4
+ 472 000b 00       		.byte	0
+ 473 000c 0000     		.2byte	0
+ 474 000e 0000     		.2byte	0
+ 475 0010 00000000 		.4byte	.LFB0
+ 476 0014 18000000 		.4byte	.LFE0-.LFB0
+ 477 0018 00000000 		.4byte	.LFB1
+ 478 001c 20000000 		.4byte	.LFE1-.LFB1
+ 479 0020 00000000 		.4byte	.LFB2
+ 480 0024 10000000 		.4byte	.LFE2-.LFB2
+ 481 0028 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 12
+
+
+ 482 002c 10000000 		.4byte	.LFE3-.LFB3
+ 483 0030 00000000 		.4byte	0
+ 484 0034 00000000 		.4byte	0
+ 485              		.section	.debug_ranges,"",%progbits
+ 486              	.Ldebug_ranges0:
+ 487 0000 00000000 		.4byte	.LFB0
+ 488 0004 18000000 		.4byte	.LFE0
+ 489 0008 00000000 		.4byte	.LFB1
+ 490 000c 20000000 		.4byte	.LFE1
+ 491 0010 00000000 		.4byte	.LFB2
+ 492 0014 10000000 		.4byte	.LFE2
+ 493 0018 00000000 		.4byte	.LFB3
+ 494 001c 10000000 		.4byte	.LFE3
+ 495 0020 00000000 		.4byte	0
+ 496 0024 00000000 		.4byte	0
+ 497              		.section	.debug_line,"",%progbits
+ 498              	.Ldebug_line0:
+ 499 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ 499      02004900 
+ 499      00000201 
+ 499      FB0E0D00 
+ 499      01010101 
+ 500              	.LASF18:
+ 501 0000 5350495F 		.ascii	"SPI_PULLUP_3_Read\000"
+ 501      50554C4C 
+ 501      55505F33 
+ 501      5F526561 
+ 501      6400
+ 502              	.LASF21:
+ 503 0012 47656E65 		.ascii	"Generated_Source\\PSoC5\\SPI_PULLUP_3.c\000"
+ 503      72617465 
+ 503      645F536F 
+ 503      75726365 
+ 503      5C50536F 
+ 504              	.LASF16:
+ 505 0038 76616C75 		.ascii	"value\000"
+ 505      6500
+ 506              	.LASF23:
+ 507 003e 73746174 		.ascii	"staticBits\000"
+ 507      69634269 
+ 507      747300
+ 508              	.LASF19:
+ 509 0049 5350495F 		.ascii	"SPI_PULLUP_3_ReadDataReg\000"
+ 509      50554C4C 
+ 509      55505F33 
+ 509      5F526561 
+ 509      64446174 
+ 510              	.LASF9:
+ 511 0062 666C6F61 		.ascii	"float\000"
+ 511      7400
+ 512              	.LASF7:
+ 513 0068 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 513      206C6F6E 
+ 513      6720756E 
+ 513      7369676E 
+ 513      65642069 
+ 514              	.LASF1:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 13
+
+
+ 515 007f 756E7369 		.ascii	"unsigned char\000"
+ 515      676E6564 
+ 515      20636861 
+ 515      7200
+ 516              	.LASF13:
+ 517 008d 72656738 		.ascii	"reg8\000"
+ 517      00
+ 518              	.LASF14:
+ 519 0092 5350495F 		.ascii	"SPI_PULLUP_3_Write\000"
+ 519      50554C4C 
+ 519      55505F33 
+ 519      5F577269 
+ 519      746500
+ 520              	.LASF5:
+ 521 00a5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 521      20756E73 
+ 521      69676E65 
+ 521      6420696E 
+ 521      7400
+ 522              	.LASF3:
+ 523 00b7 73686F72 		.ascii	"short unsigned int\000"
+ 523      7420756E 
+ 523      7369676E 
+ 523      65642069 
+ 523      6E7400
+ 524              	.LASF10:
+ 525 00ca 646F7562 		.ascii	"double\000"
+ 525      6C6500
+ 526              	.LASF8:
+ 527 00d1 756E7369 		.ascii	"unsigned int\000"
+ 527      676E6564 
+ 527      20696E74 
+ 527      00
+ 528              	.LASF20:
+ 529 00de 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 529      43313120 
+ 529      352E342E 
+ 529      31203230 
+ 529      31363036 
+ 530 0111 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 530      20726576 
+ 530      6973696F 
+ 530      6E203233 
+ 530      37373135 
+ 531 0144 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 531      66756E63 
+ 531      74696F6E 
+ 531      2D736563 
+ 531      74696F6E 
+ 532              	.LASF17:
+ 533 016c 6D6F6465 		.ascii	"mode\000"
+ 533      00
+ 534              	.LASF6:
+ 535 0171 6C6F6E67 		.ascii	"long long int\000"
+ 535      206C6F6E 
+ 535      6720696E 
+ 535      7400
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccpSu9WQ.s 			page 14
+
+
+ 536              	.LASF11:
+ 537 017f 63686172 		.ascii	"char\000"
+ 537      00
+ 538              	.LASF2:
+ 539 0184 73686F72 		.ascii	"short int\000"
+ 539      7420696E 
+ 539      7400
+ 540              	.LASF12:
+ 541 018e 75696E74 		.ascii	"uint8\000"
+ 541      3800
+ 542              	.LASF22:
+ 543 0194 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 543      73657273 
+ 543      5C726162 
+ 543      6269745C 
+ 543      446F6375 
+ 544 01c1 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 544      53435349 
+ 544      3253445C 
+ 544      76352E30 
+ 544      5C555342 
+ 545              	.LASF15:
+ 546 01e7 5350495F 		.ascii	"SPI_PULLUP_3_SetDriveMode\000"
+ 546      50554C4C 
+ 546      55505F33 
+ 546      5F536574 
+ 546      44726976 
+ 547              	.LASF4:
+ 548 0201 6C6F6E67 		.ascii	"long int\000"
+ 548      20696E74 
+ 548      00
+ 549              	.LASF0:
+ 550 020a 7369676E 		.ascii	"signed char\000"
+ 550      65642063 
+ 550      68617200 
+ 551              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

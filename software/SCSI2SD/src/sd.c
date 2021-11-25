@@ -28,8 +28,38 @@
 
 #include <string.h>
 
+static void sd_earlyInit(S2S_Device* dev);
+static void sd_deviceInit(S2S_Device* dev);
+static S2S_Target* sd_getTargets(S2S_Device* dev, int* count);
+static uint32_t sd_getCapacity(S2S_Device* dev);
+static int sd_pollMediaChange(S2S_Device* dev);
+static void sd_pollMediaBusy(S2S_Device* dev);
+static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count);
+static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static void sd_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer);
+static int  sd_readAsyncPoll(S2S_Device* dev);
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer);
+
+
 // Global
-SdDevice sdDev;
+SdCard sdCard = {
+	{
+		sd_earlyInit,
+        sd_deviceInit,
+		sd_getTargets,
+		sd_getCapacity,
+		sd_pollMediaChange,
+		sd_pollMediaBusy,
+        sd_erase,
+        sd_read,
+        sd_readAsync,
+        sd_readAsyncPoll,
+        sd_write,
+        0, // initial mediaState
+        CONFIG_STOREDEVICE_SD
+	}
+};
+S2S_Device* sdDevice = &(sdCard.dev);
 
 enum SD_CMD_STATE { CMD_STATE_IDLE, CMD_STATE_READ, CMD_STATE_WRITE };
 static int sdCmdState = CMD_STATE_IDLE;
@@ -268,7 +298,7 @@ sdReadMultiSectorPrep(uint32_t sdLBA, uint32_t sdSectors)
 {
 	uint32_t tmpNextLBA = sdLBA + sdSectors;
 
-	if (!sdDev.ccs)
+	if (!sdCard.ccs)
 	{
 		sdLBA = sdLBA * SD_SECTOR_SIZE;
 		tmpNextLBA = tmpNextLBA * SD_SECTOR_SIZE;
@@ -291,8 +321,8 @@ sdReadMultiSectorPrep(uint32_t sdLBA, uint32_t sdSectors)
 			sdClearStatus();
 
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = HARDWARE_ERROR;
-			scsiDev.target->sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
+			scsiDev.target->state.sense.code = HARDWARE_ERROR;
+			scsiDev.target->state.sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
 			scsiDev.phase = STATUS;
 		}
 		else
@@ -330,8 +360,8 @@ dmaReadSector(uint8_t* outputBuffer)
 		if (scsiDev.status != CHECK_CONDITION)
 		{
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = HARDWARE_ERROR;
-			scsiDev.target->sense.asc = UNRECOVERED_READ_ERROR;
+			scsiDev.target->state.sense.code = HARDWARE_ERROR;
+			scsiDev.target->state.sense.asc = UNRECOVERED_READ_ERROR;
 			scsiDev.phase = STATUS;
 		}
 		sdClearStatus();
@@ -399,7 +429,7 @@ void sdReadSingleSectorDMA(uint32_t lba, uint8_t* outputBuffer)
 	sdPreCmdState(CMD_STATE_READ);
 
 	uint8 v;
-	if (!sdDev.ccs)
+	if (!sdCard.ccs)
 	{
 		lba = lba * SD_SECTOR_SIZE;
 	}
@@ -410,8 +440,8 @@ void sdReadSingleSectorDMA(uint32_t lba, uint8_t* outputBuffer)
 		sdClearStatus();
 
 		scsiDev.status = CHECK_CONDITION;
-		scsiDev.target->sense.code = HARDWARE_ERROR;
-		scsiDev.target->sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
+		scsiDev.target->state.sense.code = HARDWARE_ERROR;
+		scsiDev.target->state.sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
 		scsiDev.phase = STATUS;
 	}
 	else
@@ -446,8 +476,8 @@ static void sdCompleteRead()
 		if (unlikely(r1b) && (scsiDev.phase == DATA_IN))
 		{
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = HARDWARE_ERROR;
-			scsiDev.target->sense.asc = UNRECOVERED_READ_ERROR;
+			scsiDev.target->state.sense.code = HARDWARE_ERROR;
+			scsiDev.target->state.sense.asc = UNRECOVERED_READ_ERROR;
 			scsiDev.phase = STATUS;
 		}
 	}
@@ -544,8 +574,8 @@ sdWriteSectorDMAPoll()
 				sdClearStatus();
 
 				scsiDev.status = CHECK_CONDITION;
-				scsiDev.target->sense.code = HARDWARE_ERROR;
-				scsiDev.target->sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
+				scsiDev.target->state.sense.code = HARDWARE_ERROR;
+				scsiDev.target->state.sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
 				scsiDev.phase = STATUS;
 			}
 			else
@@ -599,8 +629,8 @@ static void sdCompleteWrite()
 		{
 			sdClearStatus();
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = HARDWARE_ERROR;
-			scsiDev.target->sense.asc = WRITE_ERROR_AUTO_REALLOCATION_FAILED;
+			scsiDev.target->state.sense.code = HARDWARE_ERROR;
+			scsiDev.target->state.sense.asc = WRITE_ERROR_AUTO_REALLOCATION_FAILED;
 			scsiDev.phase = STATUS;
 		}
 	}
@@ -627,7 +657,7 @@ static int sendIfCond()
 		if (status == SD_R1_IDLE)
 		{
 			// Version 2 card.
-			sdDev.version = 2;
+			sdCard.version = 2;
 			// Read 32bit response. Should contain the same bytes that
 			// we sent in the command parameter.
 			sdSpiByte(0xFF);
@@ -639,7 +669,7 @@ static int sendIfCond()
 		else if (status & SD_R1_ILLEGAL)
 		{
 			// Version 1 card.
-			sdDev.version = 1;
+			sdCard.version = 1;
 			sdClearStatus();
 			break;
 		}
@@ -688,7 +718,7 @@ static int sdReadOCR()
 			buf[i] = sdSpiByte(0xFF);
 		}
 
-		sdDev.ccs = (buf[0] & 0x40) ? 1 : 0;
+		sdCard.ccs = (buf[0] & 0x40) ? 1 : 0;
 		complete = (buf[0] & 0x80);
 
 	} while (!status &&
@@ -715,7 +745,7 @@ static void sdReadCID()
 
 	for (i = 0; i < 16; ++i)
 	{
-		sdDev.cid[i] = sdSpiByte(0xFF);
+		sdCard.cid[i] = sdSpiByte(0xFF);
 	}
 	sdSpiByte(0xFF); // CRC
 	sdSpiByte(0xFF); // CRC
@@ -738,30 +768,30 @@ static int sdReadCSD()
 
 	for (i = 0; i < 16; ++i)
 	{
-		sdDev.csd[i] = sdSpiByte(0xFF);
+		sdCard.csd[i] = sdSpiByte(0xFF);
 	}
 	sdSpiByte(0xFF); // CRC
 	sdSpiByte(0xFF); // CRC
 
-	if ((sdDev.csd[0] >> 6) == 0x00)
+	if ((sdCard.csd[0] >> 6) == 0x00)
 	{
 		// CSD version 1
 		// C_SIZE in bits [73:62]
-		uint32 c_size = (((((uint32)sdDev.csd[6]) & 0x3) << 16) | (((uint32)sdDev.csd[7]) << 8) | sdDev.csd[8]) >> 6;
-		uint32 c_mult = (((((uint32)sdDev.csd[9]) & 0x3) << 8) | ((uint32)sdDev.csd[0xa])) >> 7;
-		uint32 sectorSize = sdDev.csd[5] & 0x0F;
-		sdDev.capacity = ((c_size+1) * ((uint64)1 << (c_mult+2)) * ((uint64)1 << sectorSize)) / SD_SECTOR_SIZE;
+		uint32 c_size = (((((uint32)sdCard.csd[6]) & 0x3) << 16) | (((uint32)sdCard.csd[7]) << 8) | sdCard.csd[8]) >> 6;
+		uint32 c_mult = (((((uint32)sdCard.csd[9]) & 0x3) << 8) | ((uint32)sdCard.csd[0xa])) >> 7;
+		uint32 sectorSize = sdCard.csd[5] & 0x0F;
+		sdCard.capacity = ((c_size+1) * ((uint64)1 << (c_mult+2)) * ((uint64)1 << sectorSize)) / SD_SECTOR_SIZE;
 	}
-	else if ((sdDev.csd[0] >> 6) == 0x01)
+	else if ((sdCard.csd[0] >> 6) == 0x01)
 	{
 		// CSD version 2
 		// C_SIZE in bits [69:48]
 
 		uint32 c_size =
-			((((uint32)sdDev.csd[7]) & 0x3F) << 16) |
-			(((uint32)sdDev.csd[8]) << 8) |
-			((uint32)sdDev.csd[7]);
-		sdDev.capacity = (c_size + 1) * 1024;
+			((((uint32)sdCard.csd[7]) & 0x3F) << 16) |
+			(((uint32)sdCard.csd[8]) << 8) |
+			((uint32)sdCard.csd[7]);
+		sdCard.capacity = (c_size + 1) * 1024;
 	}
 	else
 	{
@@ -809,11 +839,11 @@ int sdInit()
 	uint8 v;
 
 	sdCmdState = CMD_STATE_IDLE;
-	sdDev.version = 0;
-	sdDev.ccs = 0;
-	sdDev.capacity = 0;
-	memset(sdDev.csd, 0, sizeof(sdDev.csd));
-	memset(sdDev.cid, 0, sizeof(sdDev.cid));
+	sdCard.version = 0;
+	sdCard.ccs = 0;
+	sdCard.capacity = 0;
+	memset(sdCard.csd, 0, sizeof(sdCard.csd));
+	memset(sdCard.cid, 0, sizeof(sdCard.cid));
 
 	sdInitDMA();
 
@@ -848,7 +878,7 @@ int sdInit()
 	if (!sdOpCond()) goto bad; // ACMD41. Wait for init completes.
 	if (!sdReadOCR()) goto bad; // CMD58. Get CCS flag. Only valid after init.
 
-	// This command will be ignored if sdDev.ccs is set.
+	// This command will be ignored if sdCard.ccs is set.
 	// SDHC and SDXC are always 512bytes.
 	v = sdCRCCommandAndResponse(SD_SET_BLOCKLEN, SD_SECTOR_SIZE); //Force sector size
 	if(v){goto bad;}
@@ -882,7 +912,7 @@ int sdInit()
 
 bad:
 	SD_Data_Clk_SetDivider(clkDiv25MHz); // Restore the clock for our next retry
-	sdDev.capacity = 0;
+	sdCard.capacity = 0;
 
 out:
 	sdClearStatus();
@@ -895,7 +925,7 @@ void sdWriteMultiSectorPrep(uint32_t sdLBA, uint32_t sdSectors)
 {
 	uint32_t tmpNextLBA = sdLBA + sdSectors;
 
-	if (!sdDev.ccs)
+	if (!sdCard.ccs)
 	{
 		sdLBA = sdLBA * SD_SECTOR_SIZE;
 		tmpNextLBA = tmpNextLBA * SD_SECTOR_SIZE;
@@ -924,8 +954,8 @@ void sdWriteMultiSectorPrep(uint32_t sdLBA, uint32_t sdSectors)
 			scsiDiskReset();
 			sdClearStatus();
 			scsiDev.status = CHECK_CONDITION;
-			scsiDev.target->sense.code = HARDWARE_ERROR;
-			scsiDev.target->sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
+			scsiDev.target->state.sense.code = HARDWARE_ERROR;
+			scsiDev.target->state.sense.asc = LOGICAL_UNIT_COMMUNICATION_FAILURE;
 			scsiDev.phase = STATUS;
 		}
 		else
@@ -947,6 +977,24 @@ void sdPoll()
 	}
 }
 
+static int
+sdIsCardPresent()
+{
+	// The CS line is pulled high by the SD card.
+	// De-assert the line, and check if it's high.
+	// This isn't foolproof as it'll be left floating without
+	// an SD card. We can't use the built-in pull-down resistor as it will
+	// overpower the SD pullup resistor.
+	SD_CS_Write(0);
+	SD_CS_SetDriveMode(SD_CS_DM_DIG_HIZ);
+
+	// Delay extended to work with 60cm cables running cards at 2.85V
+	CyDelayCycles(128);
+	int cs = SD_CS_Read();
+	SD_CS_SetDriveMode(SD_CS_DM_STRONG);
+	return cs;
+}
+
 void sdCheckPresent()
 {
 	static int firstCheck = 1;
@@ -955,64 +1003,143 @@ void sdCheckPresent()
 		(sdIOState == SD_IDLE) &&
 		(sdCmdState == CMD_STATE_IDLE))
 	{
-		// The CS line is pulled high by the SD card.
-		// De-assert the line, and check if it's high.
-		// This isn't foolproof as it'll be left floating without
-		// an SD card. We can't use the built-in pull-down resistor as it will
-		// overpower the SD pullup resistor.
-		SD_CS_Write(0);
-		SD_CS_SetDriveMode(SD_CS_DM_DIG_HIZ);
+		int cs = sdIsCardPresent();
 
-		// Delay extended to work with 60cm cables running cards at 2.85V
-		CyDelayCycles(128);
-		uint8_t cs = SD_CS_Read();
-		SD_CS_SetDriveMode(SD_CS_DM_STRONG)	;
-
-		if (cs && !(blockDev.state & DISK_PRESENT))
+		if (cs && !(sdCard.dev.mediaState & MEDIA_PRESENT))
 		{
 			static int firstInit = 1;
 
-			// Debounce, except on startup if the card is present at
+			// Debounce. Quicker if the card is present at
 			// power on
-			if (!firstCheck)
+			for (int i = 0; cs && (i < (firstCheck ? 2 : 50)); ++i)
 			{
-				CyDelay(250);
+				cs = sdIsCardPresent();
+				CyDelay(5);
 			}
 
-			if (sdInit())
+			if (cs && sdInit())
 			{
-				blockDev.state |= DISK_PRESENT | DISK_INITIALISED;
+				sdCard.dev.mediaState |= MEDIA_PRESENT | MEDIA_INITIALISED;
 
 				// Always "start" the device. Many systems (eg. Apple System 7)
 				// won't respond properly to
 				// LOGICAL_UNIT_NOT_READY_INITIALIZING_COMMAND_REQUIRED sense
 				// code, even if they stopped it first with
 				// START STOP UNIT command.
-				blockDev.state |= DISK_STARTED;
+				sdCard.dev.mediaState |= MEDIA_STARTED;
 
 				if (!firstInit)
 				{
 					int i;
 					for (i = 0; i < MAX_SCSI_TARGETS; ++i)
 					{
-						scsiDev.targets[i].unitAttention = PARAMETERS_CHANGED;
+						sdCard.targets[i].state.unitAttention = PARAMETERS_CHANGED;
 					}
 				}
 				firstInit = 0;
 			}
 		}
-		else if (!cs && (blockDev.state & DISK_PRESENT))
+		else if (!cs && (sdCard.dev.mediaState & MEDIA_PRESENT))
 		{
-			sdDev.capacity = 0;
-			blockDev.state &= ~DISK_PRESENT;
-			blockDev.state &= ~DISK_INITIALISED;
+			sdCard.capacity = 0;
+			sdCard.dev.mediaState &= ~MEDIA_PRESENT;
+			sdCard.dev.mediaState &= ~MEDIA_INITIALISED;
 			int i;
 			for (i = 0; i < MAX_SCSI_TARGETS; ++i)
 			{
-				scsiDev.targets[i].unitAttention = PARAMETERS_CHANGED;
+				sdCard.targets[i].state.unitAttention = PARAMETERS_CHANGED;
 			}
 		}
 	}
 	firstCheck = 0;
 }
 
+static void sd_earlyInit(S2S_Device* dev)
+{
+	SdCard* sdCardDevice = (SdCard*)dev;
+
+	for (int i = 0; i < MAX_SCSI_TARGETS; ++i)
+	{
+		sdCardDevice->targets[i].device = dev;
+        
+        const S2S_TargetCfg* cfg = getConfigByIndex(i);
+        if (cfg->storageDevice == CONFIG_STOREDEVICE_SD)
+        {
+		    sdCardDevice->targets[i].cfg = (S2S_TargetCfg*)cfg;
+        }
+        else
+        {
+            sdCardDevice->targets[i].cfg = NULL;
+        }
+	}
+	sdCardDevice->lastPollMediaTime = getTime_ms();
+
+	// Don't require the host to send us a START STOP UNIT command
+	sdCardDevice->dev.mediaState = MEDIA_STARTED;
+}
+
+static void sd_deviceInit(S2S_Device* dev)
+{
+	sdCheckPresent();
+}
+
+static S2S_Target* sd_getTargets(S2S_Device* dev, int* count)
+{
+	SdCard* sdCardDevice = (SdCard*)dev;
+	*count = MAX_SCSI_TARGETS;
+	return sdCardDevice->targets;
+}
+
+static uint32_t sd_getCapacity(S2S_Device* dev)
+{
+	SdCard* sdCardDevice = (SdCard*)dev;
+	return sdCardDevice->capacity;
+}
+
+static int sd_pollMediaChange(S2S_Device* dev)
+{
+	SdCard* sdCardDevice = (SdCard*)dev;
+	if (elapsedTime_ms(sdCardDevice->lastPollMediaTime) > 200)
+	{
+		sdCheckPresent();
+		sdCardDevice->lastPollMediaTime = getTime_ms();
+		return 0;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+static void sd_pollMediaBusy(S2S_Device* dev)
+{
+	SdCard* sdCardDevice = (SdCard*)dev;
+	sdCardDevice->lastPollMediaTime = getTime_ms();
+}
+
+static void sd_erase(S2S_Device* dev, uint32_t sectorNumber, uint32_t count)
+{
+    // TODO
+}
+
+static void sd_read(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // TODO
+}
+
+static void sd_readAsync(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, uint8_t* buffer)
+{
+    // TODO
+}
+
+
+static int sd_readAsyncPoll(S2S_Device* dev)
+{
+    return 1;
+}
+
+
+static void sd_write(S2S_Device* dev, uint32_t sectorNumber, uint32_t count, const uint8_t* buffer)
+{
+    // TODO
+}

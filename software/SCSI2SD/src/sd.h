@@ -17,6 +17,8 @@
 #ifndef SD_H
 #define SD_H
 
+#include "storedevice.h"
+
 #define SD_SECTOR_SIZE 512
 
 typedef enum
@@ -52,15 +54,23 @@ typedef enum
 
 typedef struct
 {
+	S2S_Device dev;
+
+	S2S_Target targets[MAX_SCSI_TARGETS];
+
 	int version; // SDHC = version 2.
 	int ccs; // Card Capacity Status. 1 = SDHC or SDXC
-	uint32 capacity; // in 512 byte blocks
+	uint32_t capacity; // in 512 byte blocks
 
 	uint8_t csd[16]; // Unparsed CSD
 	uint8_t cid[16]; // Unparsed CID
-} SdDevice;
 
-extern SdDevice sdDev;
+	uint32_t lastPollMediaTime;
+} SdCard;
+
+extern SdCard sdCard;
+extern S2S_Device* sdDevice;
+
 extern volatile uint8_t sdRxDMAComplete;
 extern volatile uint8_t sdTxDMAComplete;
 

@@ -1,0 +1,691 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.startup.main,"ax",%progbits
+  20              		.align	1
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB64:
+  27              		.file 1 "main.c"
+   1:main.c        **** //	Copyright (C) 2013 Michael McMaster <michael@codesrc.com>
+   2:main.c        **** //
+   3:main.c        **** //	This file is part of SCSI2SD.
+   4:main.c        **** //
+   5:main.c        **** //	SCSI2SD is free software: you can redistribute it and/or modify
+   6:main.c        **** //	it under the terms of the GNU General Public License as published by
+   7:main.c        **** //	the Free Software Foundation, either version 3 of the License, or
+   8:main.c        **** //	(at your option) any later version.
+   9:main.c        **** //
+  10:main.c        **** //	SCSI2SD is distributed in the hope that it will be useful,
+  11:main.c        **** //	but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:main.c        **** //	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  13:main.c        **** //	GNU General Public License for more details.
+  14:main.c        **** //
+  15:main.c        **** //	You should have received a copy of the GNU General Public License
+  16:main.c        **** //	along with SCSI2SD.  If not, see <http://www.gnu.org/licenses/>.
+  17:main.c        **** #include <project.h>
+  18:main.c        **** 
+  19:main.c        **** static void resetSCSI()
+  20:main.c        **** {
+  21:main.c        **** 	CyPins_ClearPin(SCSI_Out_IO_raw);	
+  22:main.c        **** 	CyPins_ClearPin(SCSI_Out_ATN);
+  23:main.c        **** 	CyPins_ClearPin(SCSI_Out_BSY);
+  24:main.c        **** 	CyPins_ClearPin(SCSI_Out_ACK);
+  25:main.c        **** 	CyPins_ClearPin(SCSI_Out_RST);
+  26:main.c        **** 	CyPins_ClearPin(SCSI_Out_SEL);
+  27:main.c        **** 	CyPins_ClearPin(SCSI_Out_REQ);
+  28:main.c        **** 	CyPins_ClearPin(SCSI_Out_MSG);
+  29:main.c        **** 	CyPins_ClearPin(SCSI_Out_CD);
+  30:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB0);
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 2
+
+
+  31:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB1);
+  32:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB2);
+  33:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB3);
+  34:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB4);
+  35:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB5);
+  36:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB6);
+  37:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB7);
+  38:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBP_raw);
+  39:main.c        **** }
+  40:main.c        **** 
+  41:main.c        **** void main()
+  42:main.c        **** {
+  28              		.loc 1 42 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  37              	.LBB4:
+  38              	.LBB5:
+  21:main.c        **** 	CyPins_ClearPin(SCSI_Out_ATN);
+  39              		.loc 1 21 0
+  40 0002 344A     		ldr	r2, .L4
+  41 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  23:main.c        **** 	CyPins_ClearPin(SCSI_Out_ACK);
+  42              		.loc 1 23 0
+  43 0006 2F32     		adds	r2, r2, #47
+  21:main.c        **** 	CyPins_ClearPin(SCSI_Out_ATN);
+  44              		.loc 1 21 0
+  45 0008 03F0FE03 		and	r3, r3, #254
+  46 000c 02F82F3C 		strb	r3, [r2, #-47]
+  22:main.c        **** 	CyPins_ClearPin(SCSI_Out_BSY);
+  47              		.loc 1 22 0
+  48 0010 92F84B30 		ldrb	r3, [r2, #75]	@ zero_extendqisi2
+  49 0014 03F0FE03 		and	r3, r3, #254
+  50 0018 82F84B30 		strb	r3, [r2, #75]
+  23:main.c        **** 	CyPins_ClearPin(SCSI_Out_ACK);
+  51              		.loc 1 23 0
+  52 001c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  53 001e 03F0FE03 		and	r3, r3, #254
+  54 0022 1370     		strb	r3, [r2]
+  24:main.c        **** 	CyPins_ClearPin(SCSI_Out_RST);
+  55              		.loc 1 24 0
+  56 0024 12F8013C 		ldrb	r3, [r2, #-1]	@ zero_extendqisi2
+  57 0028 03F0FE03 		and	r3, r3, #254
+  58 002c 02F8013C 		strb	r3, [r2, #-1]
+  25:main.c        **** 	CyPins_ClearPin(SCSI_Out_SEL);
+  59              		.loc 1 25 0
+  60 0030 12F80C3C 		ldrb	r3, [r2, #-12]	@ zero_extendqisi2
+  61 0034 03F0FE03 		and	r3, r3, #254
+  62 0038 02F80C3C 		strb	r3, [r2, #-12]
+  26:main.c        **** 	CyPins_ClearPin(SCSI_Out_REQ);
+  63              		.loc 1 26 0
+  64 003c 12F82A3C 		ldrb	r3, [r2, #-42]	@ zero_extendqisi2
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 3
+
+
+  65 0040 03F0FE03 		and	r3, r3, #254
+  66 0044 02F82A3C 		strb	r3, [r2, #-42]
+  27:main.c        **** 	CyPins_ClearPin(SCSI_Out_MSG);
+  67              		.loc 1 27 0
+  68 0048 12F82E3C 		ldrb	r3, [r2, #-46]	@ zero_extendqisi2
+  69 004c 03F0FE03 		and	r3, r3, #254
+  70 0050 02F82E3C 		strb	r3, [r2, #-46]
+  28:main.c        **** 	CyPins_ClearPin(SCSI_Out_CD);
+  71              		.loc 1 28 0
+  72 0054 12F80D3C 		ldrb	r3, [r2, #-13]	@ zero_extendqisi2
+  73 0058 03F0FE03 		and	r3, r3, #254
+  74 005c 02F80D3C 		strb	r3, [r2, #-13]
+  29:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB0);
+  75              		.loc 1 29 0
+  76 0060 12F82B3C 		ldrb	r3, [r2, #-43]	@ zero_extendqisi2
+  77 0064 03F0FE03 		and	r3, r3, #254
+  78 0068 02F82B3C 		strb	r3, [r2, #-43]
+  30:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB1);
+  79              		.loc 1 30 0
+  80 006c 12F8083C 		ldrb	r3, [r2, #-8]	@ zero_extendqisi2
+  81 0070 03F0FE03 		and	r3, r3, #254
+  82 0074 02F8083C 		strb	r3, [r2, #-8]
+  31:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB2);
+  83              		.loc 1 31 0
+  84 0078 093A     		subs	r2, r2, #9
+  85 007a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  86 007c 03F0FE03 		and	r3, r3, #254
+  87 0080 1370     		strb	r3, [r2]
+  32:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB3);
+  88              		.loc 1 32 0
+  89 0082 537B     		ldrb	r3, [r2, #13]	@ zero_extendqisi2
+  90 0084 03F0FE03 		and	r3, r3, #254
+  91 0088 5373     		strb	r3, [r2, #13]
+  33:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB4);
+  92              		.loc 1 33 0
+  93 008a 137B     		ldrb	r3, [r2, #12]	@ zero_extendqisi2
+  94 008c 03F0FE03 		and	r3, r3, #254
+  95 0090 1373     		strb	r3, [r2, #12]
+  34:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB5);
+  96              		.loc 1 34 0
+  97 0092 12F8113C 		ldrb	r3, [r2, #-17]	@ zero_extendqisi2
+  98 0096 03F0FE03 		and	r3, r3, #254
+  99 009a 02F8113C 		strb	r3, [r2, #-17]
+  35:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB6);
+ 100              		.loc 1 35 0
+ 101 009e 12F8123C 		ldrb	r3, [r2, #-18]	@ zero_extendqisi2
+ 102 00a2 03F0FE03 		and	r3, r3, #254
+ 103 00a6 02F8123C 		strb	r3, [r2, #-18]
+  36:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBx_DB7);
+ 104              		.loc 1 36 0
+ 105 00aa 12F8153C 		ldrb	r3, [r2, #-21]	@ zero_extendqisi2
+ 106 00ae 03F0FE03 		and	r3, r3, #254
+ 107 00b2 02F8153C 		strb	r3, [r2, #-21]
+  37:main.c        **** 	CyPins_ClearPin(SCSI_Out_DBP_raw);
+ 108              		.loc 1 37 0
+ 109 00b6 12F8163C 		ldrb	r3, [r2, #-22]	@ zero_extendqisi2
+ 110 00ba 03F0FE03 		and	r3, r3, #254
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 4
+
+
+ 111 00be 02F8163C 		strb	r3, [r2, #-22]
+  38:main.c        **** }
+ 112              		.loc 1 38 0
+ 113 00c2 92F85530 		ldrb	r3, [r2, #85]	@ zero_extendqisi2
+ 114 00c6 03F0FE03 		and	r3, r3, #254
+ 115 00ca 82F85530 		strb	r3, [r2, #85]
+ 116              	.LBE5:
+ 117              	.LBE4:
+  43:main.c        ****     resetSCSI();
+  44:main.c        **** 	
+  45:main.c        **** 	// The call to the bootloader should not return
+  46:main.c        ****     CyBtldr_Start();
+ 118              		.loc 1 46 0
+ 119 00ce FFF7FEFF 		bl	BL_Start
+ 120              	.LVL0:
+ 121              	.L2:
+ 122 00d2 FEE7     		b	.L2
+ 123              	.L5:
+ 124              		.align	2
+ 125              	.L4:
+ 126 00d4 02500040 		.word	1073762306
+ 127              		.cfi_endproc
+ 128              	.LFE64:
+ 129              		.size	main, .-main
+ 130              		.text
+ 131              	.Letext0:
+ 132              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 133              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 134              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 135              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 136              		.file 6 "Generated_Source\\PSoC5/BL.h"
+ 137              		.section	.debug_info,"",%progbits
+ 138              	.Ldebug_info0:
+ 139 0000 10010000 		.4byte	0x110
+ 140 0004 0400     		.2byte	0x4
+ 141 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 142 000a 04       		.byte	0x4
+ 143 000b 01       		.uleb128 0x1
+ 144 000c DB000000 		.4byte	.LASF18
+ 145 0010 0C       		.byte	0xc
+ 146 0011 73000000 		.4byte	.LASF19
+ 147 0015 00000000 		.4byte	.LASF20
+ 148 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 149 001d 00000000 		.4byte	0
+ 150 0021 00000000 		.4byte	.Ldebug_line0
+ 151 0025 02       		.uleb128 0x2
+ 152 0026 01       		.byte	0x1
+ 153 0027 06       		.byte	0x6
+ 154 0028 76010000 		.4byte	.LASF0
+ 155 002c 02       		.uleb128 0x2
+ 156 002d 01       		.byte	0x1
+ 157 002e 08       		.byte	0x8
+ 158 002f AE000000 		.4byte	.LASF1
+ 159 0033 02       		.uleb128 0x2
+ 160 0034 02       		.byte	0x2
+ 161 0035 05       		.byte	0x5
+ 162 0036 B1010000 		.4byte	.LASF2
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 5
+
+
+ 163 003a 02       		.uleb128 0x2
+ 164 003b 02       		.byte	0x2
+ 165 003c 07       		.byte	0x7
+ 166 003d 53000000 		.4byte	.LASF3
+ 167 0041 03       		.uleb128 0x3
+ 168 0042 8E010000 		.4byte	.LASF9
+ 169 0046 02       		.byte	0x2
+ 170 0047 3F       		.byte	0x3f
+ 171 0048 4C000000 		.4byte	0x4c
+ 172 004c 02       		.uleb128 0x2
+ 173 004d 04       		.byte	0x4
+ 174 004e 05       		.byte	0x5
+ 175 004f A8010000 		.4byte	.LASF4
+ 176 0053 02       		.uleb128 0x2
+ 177 0054 04       		.byte	0x4
+ 178 0055 07       		.byte	0x7
+ 179 0056 85000000 		.4byte	.LASF5
+ 180 005a 02       		.uleb128 0x2
+ 181 005b 08       		.byte	0x8
+ 182 005c 05       		.byte	0x5
+ 183 005d CD000000 		.4byte	.LASF6
+ 184 0061 02       		.uleb128 0x2
+ 185 0062 08       		.byte	0x8
+ 186 0063 07       		.byte	0x7
+ 187 0064 97000000 		.4byte	.LASF7
+ 188 0068 04       		.uleb128 0x4
+ 189 0069 04       		.byte	0x4
+ 190 006a 05       		.byte	0x5
+ 191 006b 696E7400 		.ascii	"int\000"
+ 192 006f 02       		.uleb128 0x2
+ 193 0070 04       		.byte	0x4
+ 194 0071 07       		.byte	0x7
+ 195 0072 66000000 		.4byte	.LASF8
+ 196 0076 03       		.uleb128 0x3
+ 197 0077 BB010000 		.4byte	.LASF10
+ 198 007b 03       		.byte	0x3
+ 199 007c 2C       		.byte	0x2c
+ 200 007d 41000000 		.4byte	0x41
+ 201 0081 05       		.uleb128 0x5
+ 202 0082 7F000000 		.4byte	.LASF11
+ 203 0086 04       		.byte	0x4
+ 204 0087 E901     		.2byte	0x1e9
+ 205 0089 2C000000 		.4byte	0x2c
+ 206 008d 02       		.uleb128 0x2
+ 207 008e 04       		.byte	0x4
+ 208 008f 04       		.byte	0x4
+ 209 0090 A2010000 		.4byte	.LASF12
+ 210 0094 02       		.uleb128 0x2
+ 211 0095 08       		.byte	0x8
+ 212 0096 04       		.byte	0x4
+ 213 0097 C6000000 		.4byte	.LASF13
+ 214 009b 02       		.uleb128 0x2
+ 215 009c 01       		.byte	0x1
+ 216 009d 08       		.byte	0x8
+ 217 009e BC000000 		.4byte	.LASF14
+ 218 00a2 05       		.uleb128 0x5
+ 219 00a3 C1000000 		.4byte	.LASF15
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 6
+
+
+ 220 00a7 04       		.byte	0x4
+ 221 00a8 9302     		.2byte	0x293
+ 222 00aa AE000000 		.4byte	0xae
+ 223 00ae 06       		.uleb128 0x6
+ 224 00af 81000000 		.4byte	0x81
+ 225 00b3 02       		.uleb128 0x2
+ 226 00b4 08       		.byte	0x8
+ 227 00b5 04       		.byte	0x4
+ 228 00b6 82010000 		.4byte	.LASF16
+ 229 00ba 02       		.uleb128 0x2
+ 230 00bb 04       		.byte	0x4
+ 231 00bc 07       		.byte	0x7
+ 232 00bd CC010000 		.4byte	.LASF17
+ 233 00c1 07       		.uleb128 0x7
+ 234 00c2 98010000 		.4byte	.LASF21
+ 235 00c6 01       		.byte	0x1
+ 236 00c7 13       		.byte	0x13
+ 237 00c8 01       		.byte	0x1
+ 238 00c9 08       		.uleb128 0x8
+ 239 00ca 7A000000 		.4byte	.LASF22
+ 240 00ce 01       		.byte	0x1
+ 241 00cf 29       		.byte	0x29
+ 242 00d0 00000000 		.4byte	.LFB64
+ 243 00d4 D8000000 		.4byte	.LFE64-.LFB64
+ 244 00d8 01       		.uleb128 0x1
+ 245 00d9 9C       		.byte	0x9c
+ 246 00da F7000000 		.4byte	0xf7
+ 247 00de 09       		.uleb128 0x9
+ 248 00df C1000000 		.4byte	0xc1
+ 249 00e3 02000000 		.4byte	.LBB4
+ 250 00e7 CC000000 		.4byte	.LBE4-.LBB4
+ 251 00eb 01       		.byte	0x1
+ 252 00ec 2B       		.byte	0x2b
+ 253 00ed 0A       		.uleb128 0xa
+ 254 00ee D2000000 		.4byte	.LVL0
+ 255 00f2 08010000 		.4byte	0x108
+ 256 00f6 00       		.byte	0
+ 257 00f7 0B       		.uleb128 0xb
+ 258 00f8 69010000 		.4byte	.LASF23
+ 259 00fc 05       		.byte	0x5
+ 260 00fd 1207     		.2byte	0x712
+ 261 00ff 03010000 		.4byte	0x103
+ 262 0103 06       		.uleb128 0x6
+ 263 0104 76000000 		.4byte	0x76
+ 264 0108 0C       		.uleb128 0xc
+ 265 0109 C3010000 		.4byte	.LASF24
+ 266 010d C3010000 		.4byte	.LASF24
+ 267 0111 06       		.byte	0x6
+ 268 0112 E6       		.byte	0xe6
+ 269 0113 00       		.byte	0
+ 270              		.section	.debug_abbrev,"",%progbits
+ 271              	.Ldebug_abbrev0:
+ 272 0000 01       		.uleb128 0x1
+ 273 0001 11       		.uleb128 0x11
+ 274 0002 01       		.byte	0x1
+ 275 0003 25       		.uleb128 0x25
+ 276 0004 0E       		.uleb128 0xe
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 7
+
+
+ 277 0005 13       		.uleb128 0x13
+ 278 0006 0B       		.uleb128 0xb
+ 279 0007 03       		.uleb128 0x3
+ 280 0008 0E       		.uleb128 0xe
+ 281 0009 1B       		.uleb128 0x1b
+ 282 000a 0E       		.uleb128 0xe
+ 283 000b 55       		.uleb128 0x55
+ 284 000c 17       		.uleb128 0x17
+ 285 000d 11       		.uleb128 0x11
+ 286 000e 01       		.uleb128 0x1
+ 287 000f 10       		.uleb128 0x10
+ 288 0010 17       		.uleb128 0x17
+ 289 0011 00       		.byte	0
+ 290 0012 00       		.byte	0
+ 291 0013 02       		.uleb128 0x2
+ 292 0014 24       		.uleb128 0x24
+ 293 0015 00       		.byte	0
+ 294 0016 0B       		.uleb128 0xb
+ 295 0017 0B       		.uleb128 0xb
+ 296 0018 3E       		.uleb128 0x3e
+ 297 0019 0B       		.uleb128 0xb
+ 298 001a 03       		.uleb128 0x3
+ 299 001b 0E       		.uleb128 0xe
+ 300 001c 00       		.byte	0
+ 301 001d 00       		.byte	0
+ 302 001e 03       		.uleb128 0x3
+ 303 001f 16       		.uleb128 0x16
+ 304 0020 00       		.byte	0
+ 305 0021 03       		.uleb128 0x3
+ 306 0022 0E       		.uleb128 0xe
+ 307 0023 3A       		.uleb128 0x3a
+ 308 0024 0B       		.uleb128 0xb
+ 309 0025 3B       		.uleb128 0x3b
+ 310 0026 0B       		.uleb128 0xb
+ 311 0027 49       		.uleb128 0x49
+ 312 0028 13       		.uleb128 0x13
+ 313 0029 00       		.byte	0
+ 314 002a 00       		.byte	0
+ 315 002b 04       		.uleb128 0x4
+ 316 002c 24       		.uleb128 0x24
+ 317 002d 00       		.byte	0
+ 318 002e 0B       		.uleb128 0xb
+ 319 002f 0B       		.uleb128 0xb
+ 320 0030 3E       		.uleb128 0x3e
+ 321 0031 0B       		.uleb128 0xb
+ 322 0032 03       		.uleb128 0x3
+ 323 0033 08       		.uleb128 0x8
+ 324 0034 00       		.byte	0
+ 325 0035 00       		.byte	0
+ 326 0036 05       		.uleb128 0x5
+ 327 0037 16       		.uleb128 0x16
+ 328 0038 00       		.byte	0
+ 329 0039 03       		.uleb128 0x3
+ 330 003a 0E       		.uleb128 0xe
+ 331 003b 3A       		.uleb128 0x3a
+ 332 003c 0B       		.uleb128 0xb
+ 333 003d 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 8
+
+
+ 334 003e 05       		.uleb128 0x5
+ 335 003f 49       		.uleb128 0x49
+ 336 0040 13       		.uleb128 0x13
+ 337 0041 00       		.byte	0
+ 338 0042 00       		.byte	0
+ 339 0043 06       		.uleb128 0x6
+ 340 0044 35       		.uleb128 0x35
+ 341 0045 00       		.byte	0
+ 342 0046 49       		.uleb128 0x49
+ 343 0047 13       		.uleb128 0x13
+ 344 0048 00       		.byte	0
+ 345 0049 00       		.byte	0
+ 346 004a 07       		.uleb128 0x7
+ 347 004b 2E       		.uleb128 0x2e
+ 348 004c 00       		.byte	0
+ 349 004d 03       		.uleb128 0x3
+ 350 004e 0E       		.uleb128 0xe
+ 351 004f 3A       		.uleb128 0x3a
+ 352 0050 0B       		.uleb128 0xb
+ 353 0051 3B       		.uleb128 0x3b
+ 354 0052 0B       		.uleb128 0xb
+ 355 0053 20       		.uleb128 0x20
+ 356 0054 0B       		.uleb128 0xb
+ 357 0055 00       		.byte	0
+ 358 0056 00       		.byte	0
+ 359 0057 08       		.uleb128 0x8
+ 360 0058 2E       		.uleb128 0x2e
+ 361 0059 01       		.byte	0x1
+ 362 005a 3F       		.uleb128 0x3f
+ 363 005b 19       		.uleb128 0x19
+ 364 005c 03       		.uleb128 0x3
+ 365 005d 0E       		.uleb128 0xe
+ 366 005e 3A       		.uleb128 0x3a
+ 367 005f 0B       		.uleb128 0xb
+ 368 0060 3B       		.uleb128 0x3b
+ 369 0061 0B       		.uleb128 0xb
+ 370 0062 8701     		.uleb128 0x87
+ 371 0064 19       		.uleb128 0x19
+ 372 0065 11       		.uleb128 0x11
+ 373 0066 01       		.uleb128 0x1
+ 374 0067 12       		.uleb128 0x12
+ 375 0068 06       		.uleb128 0x6
+ 376 0069 40       		.uleb128 0x40
+ 377 006a 18       		.uleb128 0x18
+ 378 006b 9742     		.uleb128 0x2117
+ 379 006d 19       		.uleb128 0x19
+ 380 006e 01       		.uleb128 0x1
+ 381 006f 13       		.uleb128 0x13
+ 382 0070 00       		.byte	0
+ 383 0071 00       		.byte	0
+ 384 0072 09       		.uleb128 0x9
+ 385 0073 1D       		.uleb128 0x1d
+ 386 0074 00       		.byte	0
+ 387 0075 31       		.uleb128 0x31
+ 388 0076 13       		.uleb128 0x13
+ 389 0077 11       		.uleb128 0x11
+ 390 0078 01       		.uleb128 0x1
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 9
+
+
+ 391 0079 12       		.uleb128 0x12
+ 392 007a 06       		.uleb128 0x6
+ 393 007b 58       		.uleb128 0x58
+ 394 007c 0B       		.uleb128 0xb
+ 395 007d 59       		.uleb128 0x59
+ 396 007e 0B       		.uleb128 0xb
+ 397 007f 00       		.byte	0
+ 398 0080 00       		.byte	0
+ 399 0081 0A       		.uleb128 0xa
+ 400 0082 898201   		.uleb128 0x4109
+ 401 0085 00       		.byte	0
+ 402 0086 11       		.uleb128 0x11
+ 403 0087 01       		.uleb128 0x1
+ 404 0088 31       		.uleb128 0x31
+ 405 0089 13       		.uleb128 0x13
+ 406 008a 00       		.byte	0
+ 407 008b 00       		.byte	0
+ 408 008c 0B       		.uleb128 0xb
+ 409 008d 34       		.uleb128 0x34
+ 410 008e 00       		.byte	0
+ 411 008f 03       		.uleb128 0x3
+ 412 0090 0E       		.uleb128 0xe
+ 413 0091 3A       		.uleb128 0x3a
+ 414 0092 0B       		.uleb128 0xb
+ 415 0093 3B       		.uleb128 0x3b
+ 416 0094 05       		.uleb128 0x5
+ 417 0095 49       		.uleb128 0x49
+ 418 0096 13       		.uleb128 0x13
+ 419 0097 3F       		.uleb128 0x3f
+ 420 0098 19       		.uleb128 0x19
+ 421 0099 3C       		.uleb128 0x3c
+ 422 009a 19       		.uleb128 0x19
+ 423 009b 00       		.byte	0
+ 424 009c 00       		.byte	0
+ 425 009d 0C       		.uleb128 0xc
+ 426 009e 2E       		.uleb128 0x2e
+ 427 009f 00       		.byte	0
+ 428 00a0 3F       		.uleb128 0x3f
+ 429 00a1 19       		.uleb128 0x19
+ 430 00a2 3C       		.uleb128 0x3c
+ 431 00a3 19       		.uleb128 0x19
+ 432 00a4 6E       		.uleb128 0x6e
+ 433 00a5 0E       		.uleb128 0xe
+ 434 00a6 03       		.uleb128 0x3
+ 435 00a7 0E       		.uleb128 0xe
+ 436 00a8 3A       		.uleb128 0x3a
+ 437 00a9 0B       		.uleb128 0xb
+ 438 00aa 3B       		.uleb128 0x3b
+ 439 00ab 0B       		.uleb128 0xb
+ 440 00ac 00       		.byte	0
+ 441 00ad 00       		.byte	0
+ 442 00ae 00       		.byte	0
+ 443              		.section	.debug_aranges,"",%progbits
+ 444 0000 1C000000 		.4byte	0x1c
+ 445 0004 0200     		.2byte	0x2
+ 446 0006 00000000 		.4byte	.Ldebug_info0
+ 447 000a 04       		.byte	0x4
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 10
+
+
+ 448 000b 00       		.byte	0
+ 449 000c 0000     		.2byte	0
+ 450 000e 0000     		.2byte	0
+ 451 0010 00000000 		.4byte	.LFB64
+ 452 0014 D8000000 		.4byte	.LFE64-.LFB64
+ 453 0018 00000000 		.4byte	0
+ 454 001c 00000000 		.4byte	0
+ 455              		.section	.debug_ranges,"",%progbits
+ 456              	.Ldebug_ranges0:
+ 457 0000 00000000 		.4byte	.LFB64
+ 458 0004 D8000000 		.4byte	.LFE64
+ 459 0008 00000000 		.4byte	0
+ 460 000c 00000000 		.4byte	0
+ 461              		.section	.debug_line,"",%progbits
+ 462              	.Ldebug_line0:
+ 463 0000 80010000 		.section	.debug_str,"MS",%progbits,1
+ 463      02005401 
+ 463      00000201 
+ 463      FB0E0D00 
+ 463      01010101 
+ 464              	.LASF20:
+ 465 0000 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 465      73657273 
+ 465      5C726162 
+ 465      6269745C 
+ 465      446F6375 
+ 466 002d 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 466      53435349 
+ 466      3253445C 
+ 466      76352E30 
+ 466      5C555342 
+ 467              	.LASF3:
+ 468 0053 73686F72 		.ascii	"short unsigned int\000"
+ 468      7420756E 
+ 468      7369676E 
+ 468      65642069 
+ 468      6E7400
+ 469              	.LASF8:
+ 470 0066 756E7369 		.ascii	"unsigned int\000"
+ 470      676E6564 
+ 470      20696E74 
+ 470      00
+ 471              	.LASF19:
+ 472 0073 6D61696E 		.ascii	"main.c\000"
+ 472      2E6300
+ 473              	.LASF22:
+ 474 007a 6D61696E 		.ascii	"main\000"
+ 474      00
+ 475              	.LASF11:
+ 476 007f 75696E74 		.ascii	"uint8\000"
+ 476      3800
+ 477              	.LASF5:
+ 478 0085 6C6F6E67 		.ascii	"long unsigned int\000"
+ 478      20756E73 
+ 478      69676E65 
+ 478      6420696E 
+ 478      7400
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 11
+
+
+ 479              	.LASF7:
+ 480 0097 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 480      206C6F6E 
+ 480      6720756E 
+ 480      7369676E 
+ 480      65642069 
+ 481              	.LASF1:
+ 482 00ae 756E7369 		.ascii	"unsigned char\000"
+ 482      676E6564 
+ 482      20636861 
+ 482      7200
+ 483              	.LASF14:
+ 484 00bc 63686172 		.ascii	"char\000"
+ 484      00
+ 485              	.LASF15:
+ 486 00c1 72656738 		.ascii	"reg8\000"
+ 486      00
+ 487              	.LASF13:
+ 488 00c6 646F7562 		.ascii	"double\000"
+ 488      6C6500
+ 489              	.LASF6:
+ 490 00cd 6C6F6E67 		.ascii	"long long int\000"
+ 490      206C6F6E 
+ 490      6720696E 
+ 490      7400
+ 491              	.LASF18:
+ 492 00db 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 492      43313120 
+ 492      352E342E 
+ 492      31203230 
+ 492      31363036 
+ 493 010e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 493      20726576 
+ 493      6973696F 
+ 493      6E203233 
+ 493      37373135 
+ 494 0141 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 494      66756E63 
+ 494      74696F6E 
+ 494      2D736563 
+ 494      74696F6E 
+ 495              	.LASF23:
+ 496 0169 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 496      52784275 
+ 496      66666572 
+ 496      00
+ 497              	.LASF0:
+ 498 0176 7369676E 		.ascii	"signed char\000"
+ 498      65642063 
+ 498      68617200 
+ 499              	.LASF16:
+ 500 0182 6C6F6E67 		.ascii	"long double\000"
+ 500      20646F75 
+ 500      626C6500 
+ 501              	.LASF9:
+ 502 018e 5F5F696E 		.ascii	"__int32_t\000"
+ 502      7433325F 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccbQltgt.s 			page 12
+
+
+ 502      7400
+ 503              	.LASF21:
+ 504 0198 72657365 		.ascii	"resetSCSI\000"
+ 504      74534353 
+ 504      4900
+ 505              	.LASF12:
+ 506 01a2 666C6F61 		.ascii	"float\000"
+ 506      7400
+ 507              	.LASF4:
+ 508 01a8 6C6F6E67 		.ascii	"long int\000"
+ 508      20696E74 
+ 508      00
+ 509              	.LASF2:
+ 510 01b1 73686F72 		.ascii	"short int\000"
+ 510      7420696E 
+ 510      7400
+ 511              	.LASF10:
+ 512 01bb 696E7433 		.ascii	"int32_t\000"
+ 512      325F7400 
+ 513              	.LASF24:
+ 514 01c3 424C5F53 		.ascii	"BL_Start\000"
+ 514      74617274 
+ 514      00
+ 515              	.LASF17:
+ 516 01cc 73697A65 		.ascii	"sizetype\000"
+ 516      74797065 
+ 516      00
+ 517              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

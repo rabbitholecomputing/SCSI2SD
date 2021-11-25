@@ -18,17 +18,19 @@
 #include "scsi.h"
 #include "scsiPhy.h"
 #include "config.h"
+#include "debug.h"
 #include "disk.h"
 #include "led.h"
 #include "time.h"
 #include "trace.h"
 
-const char* Notice = "Copyright (C) 2015-2018 Michael McMaster <michael@codesrc.com>";
+const char* Notice = "Copyright (C) 2015-2021 Michael McMaster <michael@codesrc.com>";
 
 int main()
 {
 	timeInit();
 	ledInit();
+	s2s_deviceEarlyInit();
 	traceInit();
 
 	// Enable global interrupts.
@@ -60,8 +62,7 @@ int main()
 		++delaySeconds;
 	}
 
-	uint32_t lastSDPoll = getTime_ms();
-	sdCheckPresent();
+    s2s_deviceInit();
 
 	while (1)
 	{
@@ -74,12 +75,16 @@ int main()
 
 		if (unlikely(scsiDev.phase == BUS_FREE))
 		{
-			if (unlikely(elapsedTime_ms(lastSDPoll) > 200))
+			if (s2s_pollMediaChange())
 			{
-				lastSDPoll = getTime_ms();
-				sdCheckPresent();
+				scsiPhyConfig();
+				scsiInit();
 			}
-			else
+            
+            // If USB is connected we could be busy transferring data
+            // Note: The same flag is used for the config USB interface and
+            // therefore SPI flash writes
+			else if (!isDebugEnabled())
 			{
 				// Wait for our 1ms timer to save some power.
 				// There's an interrupt on the SEL signal to ensure we respond
@@ -94,10 +99,11 @@ int main()
 				CyExitCriticalSection(interruptState);
 			}
 		}
-		else if ((scsiDev.phase >= 0) && (blockDev.state & DISK_PRESENT))
+		else if ((scsiDev.phase >= 0) &&
+			scsiDev.target &&
+			(scsiDev.target->device->mediaState & MEDIA_PRESENT))
 		{
-			// don't waste time scanning SD cards while we're doing disk IO
-			lastSDPoll = getTime_ms();
+			scsiDev.target->device->pollMediaBusy(scsiDev.target->device);
 		}
 	}
 	return 0;

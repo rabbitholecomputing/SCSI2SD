@@ -1,0 +1,835 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"SD_PULLUP.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SD_PULLUP_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	SD_PULLUP_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	SD_PULLUP_Write, %function
+  25              	SD_PULLUP_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\SD_PULLUP.c"
+   1:Generated_Source\PSoC5/SD_PULLUP.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/SD_PULLUP.c **** * File Name: SD_PULLUP.c  
+   3:Generated_Source\PSoC5/SD_PULLUP.c **** * Version 2.20
+   4:Generated_Source\PSoC5/SD_PULLUP.c **** *
+   5:Generated_Source\PSoC5/SD_PULLUP.c **** * Description:
+   6:Generated_Source\PSoC5/SD_PULLUP.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/SD_PULLUP.c **** *
+   8:Generated_Source\PSoC5/SD_PULLUP.c **** * Note:
+   9:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  10:Generated_Source\PSoC5/SD_PULLUP.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/SD_PULLUP.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/SD_PULLUP.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/SD_PULLUP.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/SD_PULLUP.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/SD_PULLUP.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  17:Generated_Source\PSoC5/SD_PULLUP.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/SD_PULLUP.c **** #include "SD_PULLUP.h"
+  19:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  20:Generated_Source\PSoC5/SD_PULLUP.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/SD_PULLUP.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/SD_PULLUP.c **** 	 SD_PULLUP__PORT == 15 && ((SD_PULLUP__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  24:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  25:Generated_Source\PSoC5/SD_PULLUP.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/SD_PULLUP.c **** * Function Name: SD_PULLUP_Write
+  27:Generated_Source\PSoC5/SD_PULLUP.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  29:Generated_Source\PSoC5/SD_PULLUP.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/SD_PULLUP.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 2
+
+
+  31:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  32:Generated_Source\PSoC5/SD_PULLUP.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/SD_PULLUP.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/SD_PULLUP.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/SD_PULLUP.c **** * bit banding).
+  36:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  37:Generated_Source\PSoC5/SD_PULLUP.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/SD_PULLUP.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  40:Generated_Source\PSoC5/SD_PULLUP.c **** * \param value
+  41:Generated_Source\PSoC5/SD_PULLUP.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  43:Generated_Source\PSoC5/SD_PULLUP.c **** * \return 
+  44:Generated_Source\PSoC5/SD_PULLUP.c **** *  None 
+  45:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  46:Generated_Source\PSoC5/SD_PULLUP.c **** * \sideeffect
+  47:Generated_Source\PSoC5/SD_PULLUP.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/SD_PULLUP.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/SD_PULLUP.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/SD_PULLUP.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/SD_PULLUP.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/SD_PULLUP.c **** *  this function.
+  53:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  54:Generated_Source\PSoC5/SD_PULLUP.c **** * \funcusage
+  55:Generated_Source\PSoC5/SD_PULLUP.c **** *  \snippet SD_PULLUP_SUT.c usage_SD_PULLUP_Write
+  56:Generated_Source\PSoC5/SD_PULLUP.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/SD_PULLUP.c **** void SD_PULLUP_Write(uint8 value)
+  58:Generated_Source\PSoC5/SD_PULLUP.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/SD_PULLUP.c ****     uint8 staticBits = (SD_PULLUP_DR & (uint8)(~SD_PULLUP_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/SD_PULLUP.c ****     SD_PULLUP_DR = staticBits | ((uint8)(value << SD_PULLUP_SHIFT) & SD_PULLUP_MASK);
+  36              		.loc 1 60 0
+  37 0002 4000     		lsls	r0, r0, #1
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/SD_PULLUP.c ****     uint8 staticBits = (SD_PULLUP_DR & (uint8)(~SD_PULLUP_MASK));
+  39              		.loc 1 59 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0006 00F03E00 		and	r0, r0, #62
+  44 000a 03F0C103 		and	r3, r3, #193
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 30510040 		.word	1073762608
+  53              		.cfi_endproc
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 3
+
+
+  54              	.LFE0:
+  55              		.size	SD_PULLUP_Write, .-SD_PULLUP_Write
+  56              		.section	.text.SD_PULLUP_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	SD_PULLUP_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	SD_PULLUP_SetDriveMode, %function
+  62              	SD_PULLUP_SetDriveMode:
+  63              	.LFB1:
+  61:Generated_Source\PSoC5/SD_PULLUP.c **** }
+  62:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  63:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  64:Generated_Source\PSoC5/SD_PULLUP.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/SD_PULLUP.c **** * Function Name: SD_PULLUP_SetDriveMode
+  66:Generated_Source\PSoC5/SD_PULLUP.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  68:Generated_Source\PSoC5/SD_PULLUP.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/SD_PULLUP.c **** * 
+  70:Generated_Source\PSoC5/SD_PULLUP.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/SD_PULLUP.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  73:Generated_Source\PSoC5/SD_PULLUP.c **** * \param mode
+  74:Generated_Source\PSoC5/SD_PULLUP.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/SD_PULLUP.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  77:Generated_Source\PSoC5/SD_PULLUP.c **** * \return
+  78:Generated_Source\PSoC5/SD_PULLUP.c **** *  None
+  79:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  80:Generated_Source\PSoC5/SD_PULLUP.c **** * \sideeffect
+  81:Generated_Source\PSoC5/SD_PULLUP.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/SD_PULLUP.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/SD_PULLUP.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/SD_PULLUP.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/SD_PULLUP.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/SD_PULLUP.c **** *
+  87:Generated_Source\PSoC5/SD_PULLUP.c **** * \funcusage
+  88:Generated_Source\PSoC5/SD_PULLUP.c **** *  \snippet SD_PULLUP_SUT.c usage_SD_PULLUP_SetDriveMode
+  89:Generated_Source\PSoC5/SD_PULLUP.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/SD_PULLUP.c **** void SD_PULLUP_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/SD_PULLUP.c **** {
+  64              		.loc 1 91 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  92:Generated_Source\PSoC5/SD_PULLUP.c **** 	CyPins_SetPinDriveMode(SD_PULLUP_0, mode);
+  70              		.loc 1 92 0
+  71 0000 0E4A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 0343     		orrs	r3, r3, r0
+  77 000e 1370     		strb	r3, [r2]
+  93:Generated_Source\PSoC5/SD_PULLUP.c **** 	CyPins_SetPinDriveMode(SD_PULLUP_1, mode);
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 4
+
+
+  78              		.loc 1 93 0
+  79 0010 5378     		ldrb	r3, [r2, #1]	@ zero_extendqisi2
+  80 0012 03F0F103 		and	r3, r3, #241
+  81 0016 0343     		orrs	r3, r3, r0
+  82 0018 5370     		strb	r3, [r2, #1]
+  94:Generated_Source\PSoC5/SD_PULLUP.c **** 	CyPins_SetPinDriveMode(SD_PULLUP_2, mode);
+  83              		.loc 1 94 0
+  84 001a 9378     		ldrb	r3, [r2, #2]	@ zero_extendqisi2
+  85 001c 03F0F103 		and	r3, r3, #241
+  86 0020 0343     		orrs	r3, r3, r0
+  87 0022 9370     		strb	r3, [r2, #2]
+  95:Generated_Source\PSoC5/SD_PULLUP.c **** 	CyPins_SetPinDriveMode(SD_PULLUP_3, mode);
+  88              		.loc 1 95 0
+  89 0024 D378     		ldrb	r3, [r2, #3]	@ zero_extendqisi2
+  90 0026 03F0F103 		and	r3, r3, #241
+  91 002a 0343     		orrs	r3, r3, r0
+  92 002c D370     		strb	r3, [r2, #3]
+  96:Generated_Source\PSoC5/SD_PULLUP.c **** 	CyPins_SetPinDriveMode(SD_PULLUP_4, mode);
+  93              		.loc 1 96 0
+  94 002e 1379     		ldrb	r3, [r2, #4]	@ zero_extendqisi2
+  95 0030 03F0F103 		and	r3, r3, #241
+  96 0034 1843     		orrs	r0, r0, r3
+  97 0036 1071     		strb	r0, [r2, #4]
+  98 0038 7047     		bx	lr
+  99              	.L6:
+ 100 003a 00BF     		.align	2
+ 101              	.L5:
+ 102 003c 19500040 		.word	1073762329
+ 103              		.cfi_endproc
+ 104              	.LFE1:
+ 105              		.size	SD_PULLUP_SetDriveMode, .-SD_PULLUP_SetDriveMode
+ 106              		.section	.text.SD_PULLUP_Read,"ax",%progbits
+ 107              		.align	1
+ 108              		.global	SD_PULLUP_Read
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.type	SD_PULLUP_Read, %function
+ 112              	SD_PULLUP_Read:
+ 113              	.LFB2:
+  97:Generated_Source\PSoC5/SD_PULLUP.c **** }
+  98:Generated_Source\PSoC5/SD_PULLUP.c **** 
+  99:Generated_Source\PSoC5/SD_PULLUP.c **** 
+ 100:Generated_Source\PSoC5/SD_PULLUP.c **** /*******************************************************************************
+ 101:Generated_Source\PSoC5/SD_PULLUP.c **** * Function Name: SD_PULLUP_Read
+ 102:Generated_Source\PSoC5/SD_PULLUP.c **** ****************************************************************************//**
+ 103:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 104:Generated_Source\PSoC5/SD_PULLUP.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 105:Generated_Source\PSoC5/SD_PULLUP.c **** *  the required bits according to the width and bit position of the component
+ 106:Generated_Source\PSoC5/SD_PULLUP.c **** *  instance. 
+ 107:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 108:Generated_Source\PSoC5/SD_PULLUP.c **** * The pin's status register returns the current logic level present on the 
+ 109:Generated_Source\PSoC5/SD_PULLUP.c **** * physical pin.
+ 110:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 111:Generated_Source\PSoC5/SD_PULLUP.c **** * \return 
+ 112:Generated_Source\PSoC5/SD_PULLUP.c **** *  The current value for the pins in the component as a right justified number.
+ 113:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 114:Generated_Source\PSoC5/SD_PULLUP.c **** * \funcusage
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 5
+
+
+ 115:Generated_Source\PSoC5/SD_PULLUP.c **** *  \snippet SD_PULLUP_SUT.c usage_SD_PULLUP_Read  
+ 116:Generated_Source\PSoC5/SD_PULLUP.c **** *******************************************************************************/
+ 117:Generated_Source\PSoC5/SD_PULLUP.c **** uint8 SD_PULLUP_Read(void)
+ 118:Generated_Source\PSoC5/SD_PULLUP.c **** {
+ 114              		.loc 1 118 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118              		@ link register save eliminated.
+ 119:Generated_Source\PSoC5/SD_PULLUP.c ****     return (SD_PULLUP_PS & SD_PULLUP_MASK) >> SD_PULLUP_SHIFT;
+ 119              		.loc 1 119 0
+ 120 0000 024B     		ldr	r3, .L8
+ 121 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 120:Generated_Source\PSoC5/SD_PULLUP.c **** }
+ 122              		.loc 1 120 0
+ 123 0004 C0F34400 		ubfx	r0, r0, #1, #5
+ 124 0008 7047     		bx	lr
+ 125              	.L9:
+ 126 000a 00BF     		.align	2
+ 127              	.L8:
+ 128 000c 31510040 		.word	1073762609
+ 129              		.cfi_endproc
+ 130              	.LFE2:
+ 131              		.size	SD_PULLUP_Read, .-SD_PULLUP_Read
+ 132              		.section	.text.SD_PULLUP_ReadDataReg,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	SD_PULLUP_ReadDataReg
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.type	SD_PULLUP_ReadDataReg, %function
+ 138              	SD_PULLUP_ReadDataReg:
+ 139              	.LFB3:
+ 121:Generated_Source\PSoC5/SD_PULLUP.c **** 
+ 122:Generated_Source\PSoC5/SD_PULLUP.c **** 
+ 123:Generated_Source\PSoC5/SD_PULLUP.c **** /*******************************************************************************
+ 124:Generated_Source\PSoC5/SD_PULLUP.c **** * Function Name: SD_PULLUP_ReadDataReg
+ 125:Generated_Source\PSoC5/SD_PULLUP.c **** ****************************************************************************//**
+ 126:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 127:Generated_Source\PSoC5/SD_PULLUP.c **** * \brief Reads the associated physical port's data output register and masks 
+ 128:Generated_Source\PSoC5/SD_PULLUP.c **** *  the correct bits according to the width and bit position of the component 
+ 129:Generated_Source\PSoC5/SD_PULLUP.c **** *  instance. 
+ 130:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 131:Generated_Source\PSoC5/SD_PULLUP.c **** * The data output register controls the signal applied to the physical pin in 
+ 132:Generated_Source\PSoC5/SD_PULLUP.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 133:Generated_Source\PSoC5/SD_PULLUP.c **** * preferred SD_PULLUP_Read() API because the 
+ 134:Generated_Source\PSoC5/SD_PULLUP.c **** * SD_PULLUP_ReadDataReg() reads the data register instead of the status 
+ 135:Generated_Source\PSoC5/SD_PULLUP.c **** * register. For output pins this is a useful function to determine the value 
+ 136:Generated_Source\PSoC5/SD_PULLUP.c **** * just written to the pin.
+ 137:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 138:Generated_Source\PSoC5/SD_PULLUP.c **** * \return 
+ 139:Generated_Source\PSoC5/SD_PULLUP.c **** *  The current value of the data register masked and shifted into a right 
+ 140:Generated_Source\PSoC5/SD_PULLUP.c **** *  justified number for the component instance.
+ 141:Generated_Source\PSoC5/SD_PULLUP.c **** *
+ 142:Generated_Source\PSoC5/SD_PULLUP.c **** * \funcusage
+ 143:Generated_Source\PSoC5/SD_PULLUP.c **** *  \snippet SD_PULLUP_SUT.c usage_SD_PULLUP_ReadDataReg 
+ 144:Generated_Source\PSoC5/SD_PULLUP.c **** *******************************************************************************/
+ 145:Generated_Source\PSoC5/SD_PULLUP.c **** uint8 SD_PULLUP_ReadDataReg(void)
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 6
+
+
+ 146:Generated_Source\PSoC5/SD_PULLUP.c **** {
+ 140              		.loc 1 146 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 147:Generated_Source\PSoC5/SD_PULLUP.c ****     return (SD_PULLUP_DR & SD_PULLUP_MASK) >> SD_PULLUP_SHIFT;
+ 145              		.loc 1 147 0
+ 146 0000 024B     		ldr	r3, .L11
+ 147 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 148:Generated_Source\PSoC5/SD_PULLUP.c **** }
+ 148              		.loc 1 148 0
+ 149 0004 C0F34400 		ubfx	r0, r0, #1, #5
+ 150 0008 7047     		bx	lr
+ 151              	.L12:
+ 152 000a 00BF     		.align	2
+ 153              	.L11:
+ 154 000c 30510040 		.word	1073762608
+ 155              		.cfi_endproc
+ 156              	.LFE3:
+ 157              		.size	SD_PULLUP_ReadDataReg, .-SD_PULLUP_ReadDataReg
+ 158              		.text
+ 159              	.Letext0:
+ 160              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 161              		.section	.debug_info,"",%progbits
+ 162              	.Ldebug_info0:
+ 163 0000 1D010000 		.4byte	0x11d
+ 164 0004 0400     		.2byte	0x4
+ 165 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 166 000a 04       		.byte	0x4
+ 167 000b 01       		.uleb128 0x1
+ 168 000c 99000000 		.4byte	.LASF20
+ 169 0010 0C       		.byte	0xc
+ 170 0011 CF010000 		.4byte	.LASF21
+ 171 0015 7C010000 		.4byte	.LASF22
+ 172 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 173 001d 00000000 		.4byte	0
+ 174 0021 00000000 		.4byte	.Ldebug_line0
+ 175 0025 02       		.uleb128 0x2
+ 176 0026 01       		.byte	0x1
+ 177 0027 06       		.byte	0x6
+ 178 0028 FB010000 		.4byte	.LASF0
+ 179 002c 02       		.uleb128 0x2
+ 180 002d 01       		.byte	0x1
+ 181 002e 08       		.byte	0x8
+ 182 002f 3E000000 		.4byte	.LASF1
+ 183 0033 02       		.uleb128 0x2
+ 184 0034 02       		.byte	0x2
+ 185 0035 05       		.byte	0x5
+ 186 0036 6C010000 		.4byte	.LASF2
+ 187 003a 02       		.uleb128 0x2
+ 188 003b 02       		.byte	0x2
+ 189 003c 07       		.byte	0x7
+ 190 003d 63000000 		.4byte	.LASF3
+ 191 0041 02       		.uleb128 0x2
+ 192 0042 04       		.byte	0x4
+ 193 0043 05       		.byte	0x5
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 7
+
+
+ 194 0044 F2010000 		.4byte	.LASF4
+ 195 0048 02       		.uleb128 0x2
+ 196 0049 04       		.byte	0x4
+ 197 004a 07       		.byte	0x7
+ 198 004b 51000000 		.4byte	.LASF5
+ 199 004f 02       		.uleb128 0x2
+ 200 0050 08       		.byte	0x8
+ 201 0051 05       		.byte	0x5
+ 202 0052 43010000 		.4byte	.LASF6
+ 203 0056 02       		.uleb128 0x2
+ 204 0057 08       		.byte	0x8
+ 205 0058 07       		.byte	0x7
+ 206 0059 27000000 		.4byte	.LASF7
+ 207 005d 03       		.uleb128 0x3
+ 208 005e 04       		.byte	0x4
+ 209 005f 05       		.byte	0x5
+ 210 0060 696E7400 		.ascii	"int\000"
+ 211 0064 02       		.uleb128 0x2
+ 212 0065 04       		.byte	0x4
+ 213 0066 07       		.byte	0x7
+ 214 0067 7D000000 		.4byte	.LASF8
+ 215 006b 04       		.uleb128 0x4
+ 216 006c 76010000 		.4byte	.LASF12
+ 217 0070 02       		.byte	0x2
+ 218 0071 E901     		.2byte	0x1e9
+ 219 0073 2C000000 		.4byte	0x2c
+ 220 0077 02       		.uleb128 0x2
+ 221 0078 04       		.byte	0x4
+ 222 0079 04       		.byte	0x4
+ 223 007a 21000000 		.4byte	.LASF9
+ 224 007e 02       		.uleb128 0x2
+ 225 007f 08       		.byte	0x8
+ 226 0080 04       		.byte	0x4
+ 227 0081 76000000 		.4byte	.LASF10
+ 228 0085 02       		.uleb128 0x2
+ 229 0086 01       		.byte	0x1
+ 230 0087 08       		.byte	0x8
+ 231 0088 51010000 		.4byte	.LASF11
+ 232 008c 04       		.uleb128 0x4
+ 233 008d 4C000000 		.4byte	.LASF13
+ 234 0091 02       		.byte	0x2
+ 235 0092 9302     		.2byte	0x293
+ 236 0094 98000000 		.4byte	0x98
+ 237 0098 05       		.uleb128 0x5
+ 238 0099 6B000000 		.4byte	0x6b
+ 239 009d 06       		.uleb128 0x6
+ 240 009e 00000000 		.4byte	.LASF14
+ 241 00a2 01       		.byte	0x1
+ 242 00a3 39       		.byte	0x39
+ 243 00a4 00000000 		.4byte	.LFB0
+ 244 00a8 18000000 		.4byte	.LFE0-.LFB0
+ 245 00ac 01       		.uleb128 0x1
+ 246 00ad 9C       		.byte	0x9c
+ 247 00ae D1000000 		.4byte	0xd1
+ 248 00b2 07       		.uleb128 0x7
+ 249 00b3 10000000 		.4byte	.LASF16
+ 250 00b7 01       		.byte	0x1
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 8
+
+
+ 251 00b8 39       		.byte	0x39
+ 252 00b9 6B000000 		.4byte	0x6b
+ 253 00bd 00000000 		.4byte	.LLST0
+ 254 00c1 08       		.uleb128 0x8
+ 255 00c2 16000000 		.4byte	.LASF23
+ 256 00c6 01       		.byte	0x1
+ 257 00c7 3B       		.byte	0x3b
+ 258 00c8 6B000000 		.4byte	0x6b
+ 259 00cc 21000000 		.4byte	.LLST1
+ 260 00d0 00       		.byte	0
+ 261 00d1 06       		.uleb128 0x6
+ 262 00d2 2C010000 		.4byte	.LASF15
+ 263 00d6 01       		.byte	0x1
+ 264 00d7 5A       		.byte	0x5a
+ 265 00d8 00000000 		.4byte	.LFB1
+ 266 00dc 40000000 		.4byte	.LFE1-.LFB1
+ 267 00e0 01       		.uleb128 0x1
+ 268 00e1 9C       		.byte	0x9c
+ 269 00e2 F6000000 		.4byte	0xf6
+ 270 00e6 07       		.uleb128 0x7
+ 271 00e7 27010000 		.4byte	.LASF17
+ 272 00eb 01       		.byte	0x1
+ 273 00ec 5A       		.byte	0x5a
+ 274 00ed 6B000000 		.4byte	0x6b
+ 275 00f1 39000000 		.4byte	.LLST2
+ 276 00f5 00       		.byte	0
+ 277 00f6 09       		.uleb128 0x9
+ 278 00f7 8A000000 		.4byte	.LASF18
+ 279 00fb 01       		.byte	0x1
+ 280 00fc 75       		.byte	0x75
+ 281 00fd 6B000000 		.4byte	0x6b
+ 282 0101 00000000 		.4byte	.LFB2
+ 283 0105 10000000 		.4byte	.LFE2-.LFB2
+ 284 0109 01       		.uleb128 0x1
+ 285 010a 9C       		.byte	0x9c
+ 286 010b 09       		.uleb128 0x9
+ 287 010c 56010000 		.4byte	.LASF19
+ 288 0110 01       		.byte	0x1
+ 289 0111 91       		.byte	0x91
+ 290 0112 6B000000 		.4byte	0x6b
+ 291 0116 00000000 		.4byte	.LFB3
+ 292 011a 10000000 		.4byte	.LFE3-.LFB3
+ 293 011e 01       		.uleb128 0x1
+ 294 011f 9C       		.byte	0x9c
+ 295 0120 00       		.byte	0
+ 296              		.section	.debug_abbrev,"",%progbits
+ 297              	.Ldebug_abbrev0:
+ 298 0000 01       		.uleb128 0x1
+ 299 0001 11       		.uleb128 0x11
+ 300 0002 01       		.byte	0x1
+ 301 0003 25       		.uleb128 0x25
+ 302 0004 0E       		.uleb128 0xe
+ 303 0005 13       		.uleb128 0x13
+ 304 0006 0B       		.uleb128 0xb
+ 305 0007 03       		.uleb128 0x3
+ 306 0008 0E       		.uleb128 0xe
+ 307 0009 1B       		.uleb128 0x1b
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 9
+
+
+ 308 000a 0E       		.uleb128 0xe
+ 309 000b 55       		.uleb128 0x55
+ 310 000c 17       		.uleb128 0x17
+ 311 000d 11       		.uleb128 0x11
+ 312 000e 01       		.uleb128 0x1
+ 313 000f 10       		.uleb128 0x10
+ 314 0010 17       		.uleb128 0x17
+ 315 0011 00       		.byte	0
+ 316 0012 00       		.byte	0
+ 317 0013 02       		.uleb128 0x2
+ 318 0014 24       		.uleb128 0x24
+ 319 0015 00       		.byte	0
+ 320 0016 0B       		.uleb128 0xb
+ 321 0017 0B       		.uleb128 0xb
+ 322 0018 3E       		.uleb128 0x3e
+ 323 0019 0B       		.uleb128 0xb
+ 324 001a 03       		.uleb128 0x3
+ 325 001b 0E       		.uleb128 0xe
+ 326 001c 00       		.byte	0
+ 327 001d 00       		.byte	0
+ 328 001e 03       		.uleb128 0x3
+ 329 001f 24       		.uleb128 0x24
+ 330 0020 00       		.byte	0
+ 331 0021 0B       		.uleb128 0xb
+ 332 0022 0B       		.uleb128 0xb
+ 333 0023 3E       		.uleb128 0x3e
+ 334 0024 0B       		.uleb128 0xb
+ 335 0025 03       		.uleb128 0x3
+ 336 0026 08       		.uleb128 0x8
+ 337 0027 00       		.byte	0
+ 338 0028 00       		.byte	0
+ 339 0029 04       		.uleb128 0x4
+ 340 002a 16       		.uleb128 0x16
+ 341 002b 00       		.byte	0
+ 342 002c 03       		.uleb128 0x3
+ 343 002d 0E       		.uleb128 0xe
+ 344 002e 3A       		.uleb128 0x3a
+ 345 002f 0B       		.uleb128 0xb
+ 346 0030 3B       		.uleb128 0x3b
+ 347 0031 05       		.uleb128 0x5
+ 348 0032 49       		.uleb128 0x49
+ 349 0033 13       		.uleb128 0x13
+ 350 0034 00       		.byte	0
+ 351 0035 00       		.byte	0
+ 352 0036 05       		.uleb128 0x5
+ 353 0037 35       		.uleb128 0x35
+ 354 0038 00       		.byte	0
+ 355 0039 49       		.uleb128 0x49
+ 356 003a 13       		.uleb128 0x13
+ 357 003b 00       		.byte	0
+ 358 003c 00       		.byte	0
+ 359 003d 06       		.uleb128 0x6
+ 360 003e 2E       		.uleb128 0x2e
+ 361 003f 01       		.byte	0x1
+ 362 0040 3F       		.uleb128 0x3f
+ 363 0041 19       		.uleb128 0x19
+ 364 0042 03       		.uleb128 0x3
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 10
+
+
+ 365 0043 0E       		.uleb128 0xe
+ 366 0044 3A       		.uleb128 0x3a
+ 367 0045 0B       		.uleb128 0xb
+ 368 0046 3B       		.uleb128 0x3b
+ 369 0047 0B       		.uleb128 0xb
+ 370 0048 27       		.uleb128 0x27
+ 371 0049 19       		.uleb128 0x19
+ 372 004a 11       		.uleb128 0x11
+ 373 004b 01       		.uleb128 0x1
+ 374 004c 12       		.uleb128 0x12
+ 375 004d 06       		.uleb128 0x6
+ 376 004e 40       		.uleb128 0x40
+ 377 004f 18       		.uleb128 0x18
+ 378 0050 9742     		.uleb128 0x2117
+ 379 0052 19       		.uleb128 0x19
+ 380 0053 01       		.uleb128 0x1
+ 381 0054 13       		.uleb128 0x13
+ 382 0055 00       		.byte	0
+ 383 0056 00       		.byte	0
+ 384 0057 07       		.uleb128 0x7
+ 385 0058 05       		.uleb128 0x5
+ 386 0059 00       		.byte	0
+ 387 005a 03       		.uleb128 0x3
+ 388 005b 0E       		.uleb128 0xe
+ 389 005c 3A       		.uleb128 0x3a
+ 390 005d 0B       		.uleb128 0xb
+ 391 005e 3B       		.uleb128 0x3b
+ 392 005f 0B       		.uleb128 0xb
+ 393 0060 49       		.uleb128 0x49
+ 394 0061 13       		.uleb128 0x13
+ 395 0062 02       		.uleb128 0x2
+ 396 0063 17       		.uleb128 0x17
+ 397 0064 00       		.byte	0
+ 398 0065 00       		.byte	0
+ 399 0066 08       		.uleb128 0x8
+ 400 0067 34       		.uleb128 0x34
+ 401 0068 00       		.byte	0
+ 402 0069 03       		.uleb128 0x3
+ 403 006a 0E       		.uleb128 0xe
+ 404 006b 3A       		.uleb128 0x3a
+ 405 006c 0B       		.uleb128 0xb
+ 406 006d 3B       		.uleb128 0x3b
+ 407 006e 0B       		.uleb128 0xb
+ 408 006f 49       		.uleb128 0x49
+ 409 0070 13       		.uleb128 0x13
+ 410 0071 02       		.uleb128 0x2
+ 411 0072 17       		.uleb128 0x17
+ 412 0073 00       		.byte	0
+ 413 0074 00       		.byte	0
+ 414 0075 09       		.uleb128 0x9
+ 415 0076 2E       		.uleb128 0x2e
+ 416 0077 00       		.byte	0
+ 417 0078 3F       		.uleb128 0x3f
+ 418 0079 19       		.uleb128 0x19
+ 419 007a 03       		.uleb128 0x3
+ 420 007b 0E       		.uleb128 0xe
+ 421 007c 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 11
+
+
+ 422 007d 0B       		.uleb128 0xb
+ 423 007e 3B       		.uleb128 0x3b
+ 424 007f 0B       		.uleb128 0xb
+ 425 0080 27       		.uleb128 0x27
+ 426 0081 19       		.uleb128 0x19
+ 427 0082 49       		.uleb128 0x49
+ 428 0083 13       		.uleb128 0x13
+ 429 0084 11       		.uleb128 0x11
+ 430 0085 01       		.uleb128 0x1
+ 431 0086 12       		.uleb128 0x12
+ 432 0087 06       		.uleb128 0x6
+ 433 0088 40       		.uleb128 0x40
+ 434 0089 18       		.uleb128 0x18
+ 435 008a 9742     		.uleb128 0x2117
+ 436 008c 19       		.uleb128 0x19
+ 437 008d 00       		.byte	0
+ 438 008e 00       		.byte	0
+ 439 008f 00       		.byte	0
+ 440              		.section	.debug_loc,"",%progbits
+ 441              	.Ldebug_loc0:
+ 442              	.LLST0:
+ 443 0000 00000000 		.4byte	.LVL0
+ 444 0004 04000000 		.4byte	.LVL1
+ 445 0008 0100     		.2byte	0x1
+ 446 000a 50       		.byte	0x50
+ 447 000b 04000000 		.4byte	.LVL1
+ 448 000f 18000000 		.4byte	.LFE0
+ 449 0013 0400     		.2byte	0x4
+ 450 0015 F3       		.byte	0xf3
+ 451 0016 01       		.uleb128 0x1
+ 452 0017 50       		.byte	0x50
+ 453 0018 9F       		.byte	0x9f
+ 454 0019 00000000 		.4byte	0
+ 455 001d 00000000 		.4byte	0
+ 456              	.LLST1:
+ 457 0021 06000000 		.4byte	.LVL2
+ 458 0025 0E000000 		.4byte	.LVL3
+ 459 0029 0600     		.2byte	0x6
+ 460 002b 73       		.byte	0x73
+ 461 002c 00       		.sleb128 0
+ 462 002d 09       		.byte	0x9
+ 463 002e C1       		.byte	0xc1
+ 464 002f 1A       		.byte	0x1a
+ 465 0030 9F       		.byte	0x9f
+ 466 0031 00000000 		.4byte	0
+ 467 0035 00000000 		.4byte	0
+ 468              	.LLST2:
+ 469 0039 00000000 		.4byte	.LVL4
+ 470 003d 06000000 		.4byte	.LVL5
+ 471 0041 0100     		.2byte	0x1
+ 472 0043 50       		.byte	0x50
+ 473 0044 06000000 		.4byte	.LVL5
+ 474 0048 40000000 		.4byte	.LFE1
+ 475 004c 0400     		.2byte	0x4
+ 476 004e F3       		.byte	0xf3
+ 477 004f 01       		.uleb128 0x1
+ 478 0050 50       		.byte	0x50
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 12
+
+
+ 479 0051 9F       		.byte	0x9f
+ 480 0052 00000000 		.4byte	0
+ 481 0056 00000000 		.4byte	0
+ 482              		.section	.debug_aranges,"",%progbits
+ 483 0000 34000000 		.4byte	0x34
+ 484 0004 0200     		.2byte	0x2
+ 485 0006 00000000 		.4byte	.Ldebug_info0
+ 486 000a 04       		.byte	0x4
+ 487 000b 00       		.byte	0
+ 488 000c 0000     		.2byte	0
+ 489 000e 0000     		.2byte	0
+ 490 0010 00000000 		.4byte	.LFB0
+ 491 0014 18000000 		.4byte	.LFE0-.LFB0
+ 492 0018 00000000 		.4byte	.LFB1
+ 493 001c 40000000 		.4byte	.LFE1-.LFB1
+ 494 0020 00000000 		.4byte	.LFB2
+ 495 0024 10000000 		.4byte	.LFE2-.LFB2
+ 496 0028 00000000 		.4byte	.LFB3
+ 497 002c 10000000 		.4byte	.LFE3-.LFB3
+ 498 0030 00000000 		.4byte	0
+ 499 0034 00000000 		.4byte	0
+ 500              		.section	.debug_ranges,"",%progbits
+ 501              	.Ldebug_ranges0:
+ 502 0000 00000000 		.4byte	.LFB0
+ 503 0004 18000000 		.4byte	.LFE0
+ 504 0008 00000000 		.4byte	.LFB1
+ 505 000c 40000000 		.4byte	.LFE1
+ 506 0010 00000000 		.4byte	.LFB2
+ 507 0014 10000000 		.4byte	.LFE2
+ 508 0018 00000000 		.4byte	.LFB3
+ 509 001c 10000000 		.4byte	.LFE3
+ 510 0020 00000000 		.4byte	0
+ 511 0024 00000000 		.4byte	0
+ 512              		.section	.debug_line,"",%progbits
+ 513              	.Ldebug_line0:
+ 514 0000 98000000 		.section	.debug_str,"MS",%progbits,1
+ 514      02004600 
+ 514      00000201 
+ 514      FB0E0D00 
+ 514      01010101 
+ 515              	.LASF14:
+ 516 0000 53445F50 		.ascii	"SD_PULLUP_Write\000"
+ 516      554C4C55 
+ 516      505F5772 
+ 516      69746500 
+ 517              	.LASF16:
+ 518 0010 76616C75 		.ascii	"value\000"
+ 518      6500
+ 519              	.LASF23:
+ 520 0016 73746174 		.ascii	"staticBits\000"
+ 520      69634269 
+ 520      747300
+ 521              	.LASF9:
+ 522 0021 666C6F61 		.ascii	"float\000"
+ 522      7400
+ 523              	.LASF7:
+ 524 0027 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 13
+
+
+ 524      206C6F6E 
+ 524      6720756E 
+ 524      7369676E 
+ 524      65642069 
+ 525              	.LASF1:
+ 526 003e 756E7369 		.ascii	"unsigned char\000"
+ 526      676E6564 
+ 526      20636861 
+ 526      7200
+ 527              	.LASF13:
+ 528 004c 72656738 		.ascii	"reg8\000"
+ 528      00
+ 529              	.LASF5:
+ 530 0051 6C6F6E67 		.ascii	"long unsigned int\000"
+ 530      20756E73 
+ 530      69676E65 
+ 530      6420696E 
+ 530      7400
+ 531              	.LASF3:
+ 532 0063 73686F72 		.ascii	"short unsigned int\000"
+ 532      7420756E 
+ 532      7369676E 
+ 532      65642069 
+ 532      6E7400
+ 533              	.LASF10:
+ 534 0076 646F7562 		.ascii	"double\000"
+ 534      6C6500
+ 535              	.LASF8:
+ 536 007d 756E7369 		.ascii	"unsigned int\000"
+ 536      676E6564 
+ 536      20696E74 
+ 536      00
+ 537              	.LASF18:
+ 538 008a 53445F50 		.ascii	"SD_PULLUP_Read\000"
+ 538      554C4C55 
+ 538      505F5265 
+ 538      616400
+ 539              	.LASF20:
+ 540 0099 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 540      43313120 
+ 540      352E342E 
+ 540      31203230 
+ 540      31363036 
+ 541 00cc 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 541      20726576 
+ 541      6973696F 
+ 541      6E203233 
+ 541      37373135 
+ 542 00ff 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 542      66756E63 
+ 542      74696F6E 
+ 542      2D736563 
+ 542      74696F6E 
+ 543              	.LASF17:
+ 544 0127 6D6F6465 		.ascii	"mode\000"
+ 544      00
+ 545              	.LASF15:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccp2Ql9D.s 			page 14
+
+
+ 546 012c 53445F50 		.ascii	"SD_PULLUP_SetDriveMode\000"
+ 546      554C4C55 
+ 546      505F5365 
+ 546      74447269 
+ 546      76654D6F 
+ 547              	.LASF6:
+ 548 0143 6C6F6E67 		.ascii	"long long int\000"
+ 548      206C6F6E 
+ 548      6720696E 
+ 548      7400
+ 549              	.LASF11:
+ 550 0151 63686172 		.ascii	"char\000"
+ 550      00
+ 551              	.LASF19:
+ 552 0156 53445F50 		.ascii	"SD_PULLUP_ReadDataReg\000"
+ 552      554C4C55 
+ 552      505F5265 
+ 552      61644461 
+ 552      74615265 
+ 553              	.LASF2:
+ 554 016c 73686F72 		.ascii	"short int\000"
+ 554      7420696E 
+ 554      7400
+ 555              	.LASF12:
+ 556 0176 75696E74 		.ascii	"uint8\000"
+ 556      3800
+ 557              	.LASF22:
+ 558 017c 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 558      73657273 
+ 558      5C726162 
+ 558      6269745C 
+ 558      446F6375 
+ 559 01a9 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 559      53435349 
+ 559      3253445C 
+ 559      76352E30 
+ 559      5C555342 
+ 560              	.LASF21:
+ 561 01cf 47656E65 		.ascii	"Generated_Source\\PSoC5\\SD_PULLUP.c\000"
+ 561      72617465 
+ 561      645F536F 
+ 561      75726365 
+ 561      5C50536F 
+ 562              	.LASF4:
+ 563 01f2 6C6F6E67 		.ascii	"long int\000"
+ 563      20696E74 
+ 563      00
+ 564              	.LASF0:
+ 565 01fb 7369676E 		.ascii	"signed char\000"
+ 565      65642063 
+ 565      68617200 
+ 566              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

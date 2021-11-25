@@ -1,0 +1,570 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cymetadata.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	cy_metadata
+  20              		.global	cy_meta_flashprotect
+  21              		.global	cy_meta_wonvl
+  22              		.global	cy_meta_custnvl
+  23              		.global	cy_meta_configecc
+  24              		.global	cy_meta_loader
+  25              		.section	.cyconfigecc,"a",%progbits
+  26              		.type	cy_meta_configecc, %object
+  27              		.size	cy_meta_configecc, 1
+  28              	cy_meta_configecc:
+  29 0000 00       		.space	1
+  30              		.section	.cywolatch,"a",%progbits
+  31              		.type	cy_meta_wonvl, %object
+  32              		.size	cy_meta_wonvl, 4
+  33              	cy_meta_wonvl:
+  34 0000 BC       		.byte	-68
+  35 0001 90       		.byte	-112
+  36 0002 AC       		.byte	-84
+  37 0003 AF       		.byte	-81
+  38              		.section	.cyloadermeta,"a",%progbits
+  39              		.type	cy_meta_loader, %object
+  40              		.size	cy_meta_loader, 64
+  41              	cy_meta_loader:
+  42 0000 00       		.byte	0
+  43 0001 00       		.byte	0
+  44 0002 00       		.byte	0
+  45 0003 00       		.byte	0
+  46 0004 00       		.byte	0
+  47 0005 00       		.byte	0
+  48 0006 00       		.byte	0
+  49 0007 00       		.byte	0
+  50 0008 00       		.byte	0
+  51 0009 00       		.byte	0
+  52 000a 00       		.byte	0
+  53 000b 00       		.byte	0
+  54 000c 00       		.byte	0
+  55 000d 00       		.byte	0
+  56 000e 00       		.byte	0
+  57 000f 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 2
+
+
+  58 0010 00       		.byte	0
+  59 0011 00       		.byte	0
+  60 0012 00       		.byte	0
+  61 0013 00       		.byte	0
+  62 0014 01       		.byte	1
+  63 0015 00       		.byte	0
+  64 0016 01       		.byte	1
+  65 0017 00       		.byte	0
+  66 0018 00       		.byte	0
+  67 0019 00       		.byte	0
+  68 001a 00       		.byte	0
+  69 001b 00       		.byte	0
+  70 001c 00       		.byte	0
+  71 001d 00       		.byte	0
+  72 001e 00       		.byte	0
+  73 001f 00       		.byte	0
+  74 0020 00       		.byte	0
+  75 0021 00       		.byte	0
+  76 0022 00       		.byte	0
+  77 0023 00       		.byte	0
+  78 0024 00       		.byte	0
+  79 0025 00       		.byte	0
+  80 0026 00       		.byte	0
+  81 0027 00       		.byte	0
+  82 0028 00       		.byte	0
+  83 0029 00       		.byte	0
+  84 002a 00       		.byte	0
+  85 002b 00       		.byte	0
+  86 002c 00       		.byte	0
+  87 002d 00       		.byte	0
+  88 002e 00       		.byte	0
+  89 002f 00       		.byte	0
+  90 0030 00       		.byte	0
+  91 0031 00       		.byte	0
+  92 0032 00       		.byte	0
+  93 0033 00       		.byte	0
+  94 0034 00       		.byte	0
+  95 0035 00       		.byte	0
+  96 0036 00       		.byte	0
+  97 0037 00       		.byte	0
+  98 0038 00       		.byte	0
+  99 0039 00       		.byte	0
+ 100 003a 00       		.byte	0
+ 101 003b 00       		.byte	0
+ 102 003c 00       		.byte	0
+ 103 003d 00       		.byte	0
+ 104 003e 00       		.byte	0
+ 105 003f 00       		.byte	0
+ 106              		.section	.cycustnvl,"a",%progbits
+ 107              		.type	cy_meta_custnvl, %object
+ 108              		.size	cy_meta_custnvl, 4
+ 109              	cy_meta_custnvl:
+ 110 0000 80       		.byte	-128
+ 111 0001 80       		.byte	-128
+ 112 0002 42       		.byte	66
+ 113 0003 05       		.byte	5
+ 114              		.section	.cymeta,"a",%progbits
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 3
+
+
+ 115              		.type	cy_metadata, %object
+ 116              		.size	cy_metadata, 12
+ 117              	cy_metadata:
+ 118 0000 00       		.byte	0
+ 119 0001 01       		.byte	1
+ 120 0002 2E       		.byte	46
+ 121 0003 13       		.byte	19
+ 122 0004 30       		.byte	48
+ 123 0005 69       		.byte	105
+ 124 0006 00       		.byte	0
+ 125 0007 01       		.byte	1
+ 126 0008 00       		.byte	0
+ 127 0009 00       		.byte	0
+ 128 000a 00       		.byte	0
+ 129 000b 00       		.byte	0
+ 130              		.section	.cyflashprotect,"a",%progbits
+ 131              		.type	cy_meta_flashprotect, %object
+ 132              		.size	cy_meta_flashprotect, 128
+ 133              	cy_meta_flashprotect:
+ 134 0000 00000000 		.space	128
+ 134      00000000 
+ 134      00000000 
+ 134      00000000 
+ 134      00000000 
+ 135              		.text
+ 136              	.Letext0:
+ 137              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 138              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 139              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
+ 140              		.section	.debug_info,"",%progbits
+ 141              	.Ldebug_info0:
+ 142 0000 56010000 		.4byte	0x156
+ 143 0004 0400     		.2byte	0x4
+ 144 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 145 000a 04       		.byte	0x4
+ 146 000b 01       		.uleb128 0x1
+ 147 000c 9E000000 		.4byte	.LASF18
+ 148 0010 0C       		.byte	0xc
+ 149 0011 E0010000 		.4byte	.LASF19
+ 150 0015 78010000 		.4byte	.LASF20
+ 151 0019 00000000 		.4byte	.Ldebug_line0
+ 152 001d 02       		.uleb128 0x2
+ 153 001e 01       		.byte	0x1
+ 154 001f 06       		.byte	0x6
+ 155 0020 D4010000 		.4byte	.LASF0
+ 156 0024 03       		.uleb128 0x3
+ 157 0025 00000000 		.4byte	.LASF9
+ 158 0029 01       		.byte	0x1
+ 159 002a 1D       		.byte	0x1d
+ 160 002b 2F000000 		.4byte	0x2f
+ 161 002f 02       		.uleb128 0x2
+ 162 0030 01       		.byte	0x1
+ 163 0031 08       		.byte	0x8
+ 164 0032 3C000000 		.4byte	.LASF1
+ 165 0036 02       		.uleb128 0x2
+ 166 0037 02       		.byte	0x2
+ 167 0038 05       		.byte	0x5
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 4
+
+
+ 168 0039 6E010000 		.4byte	.LASF2
+ 169 003d 02       		.uleb128 0x2
+ 170 003e 02       		.byte	0x2
+ 171 003f 07       		.byte	0x7
+ 172 0040 5C000000 		.4byte	.LASF3
+ 173 0044 02       		.uleb128 0x2
+ 174 0045 04       		.byte	0x4
+ 175 0046 05       		.byte	0x5
+ 176 0047 CB010000 		.4byte	.LASF4
+ 177 004b 02       		.uleb128 0x2
+ 178 004c 04       		.byte	0x4
+ 179 004d 07       		.byte	0x7
+ 180 004e 4A000000 		.4byte	.LASF5
+ 181 0052 02       		.uleb128 0x2
+ 182 0053 08       		.byte	0x8
+ 183 0054 05       		.byte	0x5
+ 184 0055 60010000 		.4byte	.LASF6
+ 185 0059 02       		.uleb128 0x2
+ 186 005a 08       		.byte	0x8
+ 187 005b 07       		.byte	0x7
+ 188 005c 25000000 		.4byte	.LASF7
+ 189 0060 04       		.uleb128 0x4
+ 190 0061 04       		.byte	0x4
+ 191 0062 05       		.byte	0x5
+ 192 0063 696E7400 		.ascii	"int\000"
+ 193 0067 02       		.uleb128 0x2
+ 194 0068 04       		.byte	0x4
+ 195 0069 07       		.byte	0x7
+ 196 006a 91000000 		.4byte	.LASF8
+ 197 006e 03       		.uleb128 0x3
+ 198 006f 2C010000 		.4byte	.LASF10
+ 199 0073 02       		.byte	0x2
+ 200 0074 18       		.byte	0x18
+ 201 0075 24000000 		.4byte	0x24
+ 202 0079 05       		.uleb128 0x5
+ 203 007a 90000000 		.4byte	0x90
+ 204 007e 89000000 		.4byte	0x89
+ 205 0082 06       		.uleb128 0x6
+ 206 0083 89000000 		.4byte	0x89
+ 207 0087 3F       		.byte	0x3f
+ 208 0088 00       		.byte	0
+ 209 0089 02       		.uleb128 0x2
+ 210 008a 04       		.byte	0x4
+ 211 008b 07       		.byte	0x7
+ 212 008c 57010000 		.4byte	.LASF11
+ 213 0090 07       		.uleb128 0x7
+ 214 0091 6E000000 		.4byte	0x6e
+ 215 0095 08       		.uleb128 0x8
+ 216 0096 0A000000 		.4byte	.LASF12
+ 217 009a 03       		.byte	0x3
+ 218 009b 1F       		.byte	0x1f
+ 219 009c A6000000 		.4byte	0xa6
+ 220 00a0 05       		.uleb128 0x5
+ 221 00a1 03       		.byte	0x3
+ 222 00a2 00000000 		.4byte	cy_meta_loader
+ 223 00a6 07       		.uleb128 0x7
+ 224 00a7 79000000 		.4byte	0x79
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 5
+
+
+ 225 00ab 05       		.uleb128 0x5
+ 226 00ac 90000000 		.4byte	0x90
+ 227 00b0 BB000000 		.4byte	0xbb
+ 228 00b4 06       		.uleb128 0x6
+ 229 00b5 89000000 		.4byte	0x89
+ 230 00b9 00       		.byte	0
+ 231 00ba 00       		.byte	0
+ 232 00bb 08       		.uleb128 0x8
+ 233 00bc 7F000000 		.4byte	.LASF13
+ 234 00c0 03       		.byte	0x3
+ 235 00c1 34       		.byte	0x34
+ 236 00c2 CC000000 		.4byte	0xcc
+ 237 00c6 05       		.uleb128 0x5
+ 238 00c7 03       		.byte	0x3
+ 239 00c8 00000000 		.4byte	cy_meta_configecc
+ 240 00cc 07       		.uleb128 0x7
+ 241 00cd AB000000 		.4byte	0xab
+ 242 00d1 05       		.uleb128 0x5
+ 243 00d2 90000000 		.4byte	0x90
+ 244 00d6 E1000000 		.4byte	0xe1
+ 245 00da 06       		.uleb128 0x6
+ 246 00db 89000000 		.4byte	0x89
+ 247 00df 03       		.byte	0x3
+ 248 00e0 00       		.byte	0
+ 249 00e1 08       		.uleb128 0x8
+ 250 00e2 6F000000 		.4byte	.LASF14
+ 251 00e6 03       		.byte	0x3
+ 252 00e7 42       		.byte	0x42
+ 253 00e8 F2000000 		.4byte	0xf2
+ 254 00ec 05       		.uleb128 0x5
+ 255 00ed 03       		.byte	0x3
+ 256 00ee 00000000 		.4byte	cy_meta_custnvl
+ 257 00f2 07       		.uleb128 0x7
+ 258 00f3 D1000000 		.4byte	0xd1
+ 259 00f7 08       		.uleb128 0x8
+ 260 00f8 49010000 		.4byte	.LASF15
+ 261 00fc 03       		.byte	0x3
+ 262 00fd 50       		.byte	0x50
+ 263 00fe 08010000 		.4byte	0x108
+ 264 0102 05       		.uleb128 0x5
+ 265 0103 03       		.byte	0x3
+ 266 0104 00000000 		.4byte	cy_meta_wonvl
+ 267 0108 07       		.uleb128 0x7
+ 268 0109 D1000000 		.4byte	0xd1
+ 269 010d 05       		.uleb128 0x5
+ 270 010e 90000000 		.4byte	0x90
+ 271 0112 1D010000 		.4byte	0x11d
+ 272 0116 06       		.uleb128 0x6
+ 273 0117 89000000 		.4byte	0x89
+ 274 011b 7F       		.byte	0x7f
+ 275 011c 00       		.byte	0
+ 276 011d 08       		.uleb128 0x8
+ 277 011e 34010000 		.4byte	.LASF16
+ 278 0122 03       		.byte	0x3
+ 279 0123 5E       		.byte	0x5e
+ 280 0124 2E010000 		.4byte	0x12e
+ 281 0128 05       		.uleb128 0x5
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 6
+
+
+ 282 0129 03       		.byte	0x3
+ 283 012a 00000000 		.4byte	cy_meta_flashprotect
+ 284 012e 07       		.uleb128 0x7
+ 285 012f 0D010000 		.4byte	0x10d
+ 286 0133 05       		.uleb128 0x5
+ 287 0134 90000000 		.4byte	0x90
+ 288 0138 43010000 		.4byte	0x143
+ 289 013c 06       		.uleb128 0x6
+ 290 013d 89000000 		.4byte	0x89
+ 291 0141 0B       		.byte	0xb
+ 292 0142 00       		.byte	0
+ 293 0143 08       		.uleb128 0x8
+ 294 0144 19000000 		.4byte	.LASF17
+ 295 0148 03       		.byte	0x3
+ 296 0149 7B       		.byte	0x7b
+ 297 014a 54010000 		.4byte	0x154
+ 298 014e 05       		.uleb128 0x5
+ 299 014f 03       		.byte	0x3
+ 300 0150 00000000 		.4byte	cy_metadata
+ 301 0154 07       		.uleb128 0x7
+ 302 0155 33010000 		.4byte	0x133
+ 303 0159 00       		.byte	0
+ 304              		.section	.debug_abbrev,"",%progbits
+ 305              	.Ldebug_abbrev0:
+ 306 0000 01       		.uleb128 0x1
+ 307 0001 11       		.uleb128 0x11
+ 308 0002 01       		.byte	0x1
+ 309 0003 25       		.uleb128 0x25
+ 310 0004 0E       		.uleb128 0xe
+ 311 0005 13       		.uleb128 0x13
+ 312 0006 0B       		.uleb128 0xb
+ 313 0007 03       		.uleb128 0x3
+ 314 0008 0E       		.uleb128 0xe
+ 315 0009 1B       		.uleb128 0x1b
+ 316 000a 0E       		.uleb128 0xe
+ 317 000b 10       		.uleb128 0x10
+ 318 000c 17       		.uleb128 0x17
+ 319 000d 00       		.byte	0
+ 320 000e 00       		.byte	0
+ 321 000f 02       		.uleb128 0x2
+ 322 0010 24       		.uleb128 0x24
+ 323 0011 00       		.byte	0
+ 324 0012 0B       		.uleb128 0xb
+ 325 0013 0B       		.uleb128 0xb
+ 326 0014 3E       		.uleb128 0x3e
+ 327 0015 0B       		.uleb128 0xb
+ 328 0016 03       		.uleb128 0x3
+ 329 0017 0E       		.uleb128 0xe
+ 330 0018 00       		.byte	0
+ 331 0019 00       		.byte	0
+ 332 001a 03       		.uleb128 0x3
+ 333 001b 16       		.uleb128 0x16
+ 334 001c 00       		.byte	0
+ 335 001d 03       		.uleb128 0x3
+ 336 001e 0E       		.uleb128 0xe
+ 337 001f 3A       		.uleb128 0x3a
+ 338 0020 0B       		.uleb128 0xb
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 7
+
+
+ 339 0021 3B       		.uleb128 0x3b
+ 340 0022 0B       		.uleb128 0xb
+ 341 0023 49       		.uleb128 0x49
+ 342 0024 13       		.uleb128 0x13
+ 343 0025 00       		.byte	0
+ 344 0026 00       		.byte	0
+ 345 0027 04       		.uleb128 0x4
+ 346 0028 24       		.uleb128 0x24
+ 347 0029 00       		.byte	0
+ 348 002a 0B       		.uleb128 0xb
+ 349 002b 0B       		.uleb128 0xb
+ 350 002c 3E       		.uleb128 0x3e
+ 351 002d 0B       		.uleb128 0xb
+ 352 002e 03       		.uleb128 0x3
+ 353 002f 08       		.uleb128 0x8
+ 354 0030 00       		.byte	0
+ 355 0031 00       		.byte	0
+ 356 0032 05       		.uleb128 0x5
+ 357 0033 01       		.uleb128 0x1
+ 358 0034 01       		.byte	0x1
+ 359 0035 49       		.uleb128 0x49
+ 360 0036 13       		.uleb128 0x13
+ 361 0037 01       		.uleb128 0x1
+ 362 0038 13       		.uleb128 0x13
+ 363 0039 00       		.byte	0
+ 364 003a 00       		.byte	0
+ 365 003b 06       		.uleb128 0x6
+ 366 003c 21       		.uleb128 0x21
+ 367 003d 00       		.byte	0
+ 368 003e 49       		.uleb128 0x49
+ 369 003f 13       		.uleb128 0x13
+ 370 0040 2F       		.uleb128 0x2f
+ 371 0041 0B       		.uleb128 0xb
+ 372 0042 00       		.byte	0
+ 373 0043 00       		.byte	0
+ 374 0044 07       		.uleb128 0x7
+ 375 0045 26       		.uleb128 0x26
+ 376 0046 00       		.byte	0
+ 377 0047 49       		.uleb128 0x49
+ 378 0048 13       		.uleb128 0x13
+ 379 0049 00       		.byte	0
+ 380 004a 00       		.byte	0
+ 381 004b 08       		.uleb128 0x8
+ 382 004c 34       		.uleb128 0x34
+ 383 004d 00       		.byte	0
+ 384 004e 03       		.uleb128 0x3
+ 385 004f 0E       		.uleb128 0xe
+ 386 0050 3A       		.uleb128 0x3a
+ 387 0051 0B       		.uleb128 0xb
+ 388 0052 3B       		.uleb128 0x3b
+ 389 0053 0B       		.uleb128 0xb
+ 390 0054 49       		.uleb128 0x49
+ 391 0055 13       		.uleb128 0x13
+ 392 0056 3F       		.uleb128 0x3f
+ 393 0057 19       		.uleb128 0x19
+ 394 0058 02       		.uleb128 0x2
+ 395 0059 18       		.uleb128 0x18
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 8
+
+
+ 396 005a 00       		.byte	0
+ 397 005b 00       		.byte	0
+ 398 005c 00       		.byte	0
+ 399              		.section	.debug_aranges,"",%progbits
+ 400 0000 14000000 		.4byte	0x14
+ 401 0004 0200     		.2byte	0x2
+ 402 0006 00000000 		.4byte	.Ldebug_info0
+ 403 000a 04       		.byte	0x4
+ 404 000b 00       		.byte	0
+ 405 000c 0000     		.2byte	0
+ 406 000e 0000     		.2byte	0
+ 407 0010 00000000 		.4byte	0
+ 408 0014 00000000 		.4byte	0
+ 409              		.section	.debug_line,"",%progbits
+ 410              	.Ldebug_line0:
+ 411 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
+ 411      02003701 
+ 411      00000201 
+ 411      FB0E0D00 
+ 411      01010101 
+ 412              	.LASF9:
+ 413 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 413      6E74385F 
+ 413      7400
+ 414              	.LASF12:
+ 415 000a 63795F6D 		.ascii	"cy_meta_loader\000"
+ 415      6574615F 
+ 415      6C6F6164 
+ 415      657200
+ 416              	.LASF17:
+ 417 0019 63795F6D 		.ascii	"cy_metadata\000"
+ 417      65746164 
+ 417      61746100 
+ 418              	.LASF7:
+ 419 0025 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 419      206C6F6E 
+ 419      6720756E 
+ 419      7369676E 
+ 419      65642069 
+ 420              	.LASF1:
+ 421 003c 756E7369 		.ascii	"unsigned char\000"
+ 421      676E6564 
+ 421      20636861 
+ 421      7200
+ 422              	.LASF5:
+ 423 004a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 423      20756E73 
+ 423      69676E65 
+ 423      6420696E 
+ 423      7400
+ 424              	.LASF3:
+ 425 005c 73686F72 		.ascii	"short unsigned int\000"
+ 425      7420756E 
+ 425      7369676E 
+ 425      65642069 
+ 425      6E7400
+ 426              	.LASF14:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 9
+
+
+ 427 006f 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 427      6574615F 
+ 427      63757374 
+ 427      6E766C00 
+ 428              	.LASF13:
+ 429 007f 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 429      6574615F 
+ 429      636F6E66 
+ 429      69676563 
+ 429      6300
+ 430              	.LASF8:
+ 431 0091 756E7369 		.ascii	"unsigned int\000"
+ 431      676E6564 
+ 431      20696E74 
+ 431      00
+ 432              	.LASF18:
+ 433 009e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 433      43313120 
+ 433      352E342E 
+ 433      31203230 
+ 433      31363036 
+ 434 00d1 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 434      20726576 
+ 434      6973696F 
+ 434      6E203233 
+ 434      37373135 
+ 435 0104 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 435      66756E63 
+ 435      74696F6E 
+ 435      2D736563 
+ 435      74696F6E 
+ 436              	.LASF10:
+ 437 012c 75696E74 		.ascii	"uint8_t\000"
+ 437      385F7400 
+ 438              	.LASF16:
+ 439 0134 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 439      6574615F 
+ 439      666C6173 
+ 439      6870726F 
+ 439      74656374 
+ 440              	.LASF15:
+ 441 0149 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 441      6574615F 
+ 441      776F6E76 
+ 441      6C00
+ 442              	.LASF11:
+ 443 0157 73697A65 		.ascii	"sizetype\000"
+ 443      74797065 
+ 443      00
+ 444              	.LASF6:
+ 445 0160 6C6F6E67 		.ascii	"long long int\000"
+ 445      206C6F6E 
+ 445      6720696E 
+ 445      7400
+ 446              	.LASF2:
+ 447 016e 73686F72 		.ascii	"short int\000"
+ 447      7420696E 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccuPsI5a.s 			page 10
+
+
+ 447      7400
+ 448              	.LASF20:
+ 449 0178 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 449      73657273 
+ 449      5C726162 
+ 449      6269745C 
+ 449      446F6375 
+ 450 01a5 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 450      53435349 
+ 450      3253445C 
+ 450      76352E30 
+ 450      5C555342 
+ 451              	.LASF4:
+ 452 01cb 6C6F6E67 		.ascii	"long int\000"
+ 452      20696E74 
+ 452      00
+ 453              	.LASF0:
+ 454 01d4 7369676E 		.ascii	"signed char\000"
+ 454      65642063 
+ 454      68617200 
+ 455              	.LASF19:
+ 456 01e0 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
+ 456      72617465 
+ 456      645F536F 
+ 456      75726365 
+ 456      5C50536F 
+ 457              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

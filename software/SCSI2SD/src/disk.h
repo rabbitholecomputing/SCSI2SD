@@ -19,22 +19,9 @@
 
 typedef enum
 {
-	DISK_STARTED = 1,     // Controlled via START STOP UNIT
-	DISK_PRESENT = 2,     // SD card is physically present
-	DISK_INITIALISED = 4, // SD card responded to init sequence
-	DISK_WP = 8           // Write-protect.
-} DISK_STATE;
-
-typedef enum
-{
 	TRANSFER_READ,
 	TRANSFER_WRITE
 } TRANSFER_DIR;
-
-typedef struct
-{
-	int state;
-} BlockDevice;
 
 typedef struct
 {
@@ -45,7 +32,6 @@ typedef struct
 	uint32 currentBlock;
 } Transfer;
 
-extern BlockDevice blockDev;
 extern Transfer transfer;
 
 void scsiDiskInit(void);

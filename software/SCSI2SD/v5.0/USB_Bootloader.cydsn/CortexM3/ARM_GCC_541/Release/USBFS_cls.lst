@@ -1,0 +1,965 @@
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBFS_cls.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.USBFS_DispatchClassRqst,"ax",%progbits
+  20              		.align	1
+  21              		.global	USBFS_DispatchClassRqst
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	USBFS_DispatchClassRqst, %function
+  25              	USBFS_DispatchClassRqst:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\USBFS_cls.c"
+   1:Generated_Source\PSoC5/USBFS_cls.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC5/USBFS_cls.c **** * \file USBFS_cls.c
+   3:Generated_Source\PSoC5/USBFS_cls.c **** * \version 3.20
+   4:Generated_Source\PSoC5/USBFS_cls.c **** *
+   5:Generated_Source\PSoC5/USBFS_cls.c **** * \brief
+   6:Generated_Source\PSoC5/USBFS_cls.c **** *  This file contains the USB Class request handler.
+   7:Generated_Source\PSoC5/USBFS_cls.c **** *
+   8:Generated_Source\PSoC5/USBFS_cls.c **** ********************************************************************************
+   9:Generated_Source\PSoC5/USBFS_cls.c **** * \copyright
+  10:Generated_Source\PSoC5/USBFS_cls.c **** * Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  11:Generated_Source\PSoC5/USBFS_cls.c **** * You may use this file only in accordance with the license, terms, conditions,
+  12:Generated_Source\PSoC5/USBFS_cls.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  13:Generated_Source\PSoC5/USBFS_cls.c **** * the software package with which this file was provided.
+  14:Generated_Source\PSoC5/USBFS_cls.c **** *******************************************************************************/
+  15:Generated_Source\PSoC5/USBFS_cls.c **** 
+  16:Generated_Source\PSoC5/USBFS_cls.c **** #include "USBFS_pvt.h"
+  17:Generated_Source\PSoC5/USBFS_cls.c **** 
+  18:Generated_Source\PSoC5/USBFS_cls.c **** 
+  19:Generated_Source\PSoC5/USBFS_cls.c **** #if(USBFS_EXTERN_CLS == USBFS_FALSE)
+  20:Generated_Source\PSoC5/USBFS_cls.c **** 
+  21:Generated_Source\PSoC5/USBFS_cls.c **** /***************************************
+  22:Generated_Source\PSoC5/USBFS_cls.c **** * User Implemented Class Driver Declarations.
+  23:Generated_Source\PSoC5/USBFS_cls.c **** ***************************************/
+  24:Generated_Source\PSoC5/USBFS_cls.c **** /* `#START USER_DEFINED_CLASS_DECLARATIONS` Place your declaration here */
+  25:Generated_Source\PSoC5/USBFS_cls.c **** 
+  26:Generated_Source\PSoC5/USBFS_cls.c **** /* `#END` */
+  27:Generated_Source\PSoC5/USBFS_cls.c **** 
+  28:Generated_Source\PSoC5/USBFS_cls.c **** 
+  29:Generated_Source\PSoC5/USBFS_cls.c **** /*******************************************************************************
+  30:Generated_Source\PSoC5/USBFS_cls.c **** * Function Name: USBFS_DispatchClassRqst
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 2
+
+
+  31:Generated_Source\PSoC5/USBFS_cls.c **** ****************************************************************************//**
+  32:Generated_Source\PSoC5/USBFS_cls.c **** *  This routine dispatches class specific requests depend on interface class.
+  33:Generated_Source\PSoC5/USBFS_cls.c **** *
+  34:Generated_Source\PSoC5/USBFS_cls.c **** * \return
+  35:Generated_Source\PSoC5/USBFS_cls.c **** *  requestHandled.
+  36:Generated_Source\PSoC5/USBFS_cls.c **** *
+  37:Generated_Source\PSoC5/USBFS_cls.c **** * \reentrant
+  38:Generated_Source\PSoC5/USBFS_cls.c **** *  No.
+  39:Generated_Source\PSoC5/USBFS_cls.c **** *
+  40:Generated_Source\PSoC5/USBFS_cls.c **** *******************************************************************************/
+  41:Generated_Source\PSoC5/USBFS_cls.c **** uint8 USBFS_DispatchClassRqst(void) 
+  42:Generated_Source\PSoC5/USBFS_cls.c **** {
+  28              		.loc 1 42 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  43:Generated_Source\PSoC5/USBFS_cls.c ****     uint8 interfaceNumber;
+  44:Generated_Source\PSoC5/USBFS_cls.c ****     uint8 requestHandled = USBFS_FALSE;
+  45:Generated_Source\PSoC5/USBFS_cls.c **** 
+  46:Generated_Source\PSoC5/USBFS_cls.c ****     /* Get interface to which request is intended. */
+  47:Generated_Source\PSoC5/USBFS_cls.c ****     switch (USBFS_bmRequestTypeReg & USBFS_RQST_RCPT_MASK)
+  34              		.loc 1 47 0
+  35 0000 0F4A     		ldr	r2, .L15
+  36 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  37 0004 03F00303 		and	r3, r3, #3
+  38 0008 012B     		cmp	r3, #1
+  39 000a 0AD0     		beq	.L3
+  40 000c 022B     		cmp	r3, #2
+  41 000e 0DD1     		bne	.L14
+  48:Generated_Source\PSoC5/USBFS_cls.c ****     {
+  49:Generated_Source\PSoC5/USBFS_cls.c ****         case USBFS_RQST_RCPT_IFC:
+  50:Generated_Source\PSoC5/USBFS_cls.c ****             /* Class-specific request directed to interface: wIndexLoReg 
+  51:Generated_Source\PSoC5/USBFS_cls.c ****             * contains interface number.
+  52:Generated_Source\PSoC5/USBFS_cls.c ****             */
+  53:Generated_Source\PSoC5/USBFS_cls.c ****             interfaceNumber = (uint8) USBFS_wIndexLoReg;
+  54:Generated_Source\PSoC5/USBFS_cls.c ****             break;
+  55:Generated_Source\PSoC5/USBFS_cls.c ****         
+  56:Generated_Source\PSoC5/USBFS_cls.c ****         case USBFS_RQST_RCPT_EP:
+  57:Generated_Source\PSoC5/USBFS_cls.c ****             /* Class-specific request directed to endpoint: wIndexLoReg contains 
+  58:Generated_Source\PSoC5/USBFS_cls.c ****             * endpoint number. Find interface related to endpoint. 
+  59:Generated_Source\PSoC5/USBFS_cls.c ****             */
+  60:Generated_Source\PSoC5/USBFS_cls.c ****             interfaceNumber = USBFS_EP[USBFS_wIndexLoReg & USBFS_DIR_UNUSED].interface;
+  42              		.loc 1 60 0
+  43 0010 1379     		ldrb	r3, [r2, #4]	@ zero_extendqisi2
+  44 0012 0C21     		movs	r1, #12
+  45 0014 03F07F02 		and	r2, r3, #127
+  46 0018 0A4B     		ldr	r3, .L15+4
+  47 001a 01FB0233 		mla	r3, r1, r2, r3
+  48 001e 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+  49 0020 00E0     		b	.L12
+  50              	.L3:
+  53:Generated_Source\PSoC5/USBFS_cls.c ****             break;
+  51              		.loc 1 53 0
+  52 0022 1379     		ldrb	r3, [r2, #4]	@ zero_extendqisi2
+  53              	.L12:
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 3
+
+
+  54              		.loc 1 60 0
+  55 0024 DBB2     		uxtb	r3, r3
+  56              	.LVL1:
+  61:Generated_Source\PSoC5/USBFS_cls.c ****             break;
+  62:Generated_Source\PSoC5/USBFS_cls.c ****             
+  63:Generated_Source\PSoC5/USBFS_cls.c ****         default:
+  64:Generated_Source\PSoC5/USBFS_cls.c ****             /* Default interface is zero. */
+  65:Generated_Source\PSoC5/USBFS_cls.c ****             interfaceNumber = 0u;
+  66:Generated_Source\PSoC5/USBFS_cls.c ****             break;
+  67:Generated_Source\PSoC5/USBFS_cls.c ****     }
+  68:Generated_Source\PSoC5/USBFS_cls.c ****     
+  69:Generated_Source\PSoC5/USBFS_cls.c ****     /* Check that interface is within acceptable range */
+  70:Generated_Source\PSoC5/USBFS_cls.c ****     if (interfaceNumber <= USBFS_MAX_INTERFACES_NUMBER)
+  57              		.loc 1 70 0
+  58 0026 012B     		cmp	r3, #1
+  59 0028 08D8     		bhi	.L6
+  60 002a 00E0     		b	.L2
+  61              	.LVL2:
+  62              	.L14:
+  65:Generated_Source\PSoC5/USBFS_cls.c ****             break;
+  63              		.loc 1 65 0
+  64 002c 0023     		movs	r3, #0
+  65              	.L2:
+  66              	.LVL3:
+  71:Generated_Source\PSoC5/USBFS_cls.c ****     {
+  72:Generated_Source\PSoC5/USBFS_cls.c ****     #if (defined(USBFS_ENABLE_HID_CLASS)   || \
+  73:Generated_Source\PSoC5/USBFS_cls.c ****          defined(USBFS_ENABLE_AUDIO_CLASS) || \
+  74:Generated_Source\PSoC5/USBFS_cls.c ****          defined(USBFS_ENABLE_CDC_CLASS)   || \
+  75:Generated_Source\PSoC5/USBFS_cls.c ****          USBFS_ENABLE_MSC_CLASS)
+  76:Generated_Source\PSoC5/USBFS_cls.c **** 
+  77:Generated_Source\PSoC5/USBFS_cls.c ****         /* Handle class request depends on interface type. */
+  78:Generated_Source\PSoC5/USBFS_cls.c ****         switch (USBFS_interfaceClass[interfaceNumber])
+  67              		.loc 1 78 0
+  68 002e 064A     		ldr	r2, .L15+8
+  69 0030 1268     		ldr	r2, [r2]
+  70 0032 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+  71              	.LVL4:
+  72 0034 032B     		cmp	r3, #3
+  73 0036 01D1     		bne	.L6
+  79:Generated_Source\PSoC5/USBFS_cls.c ****         {
+  80:Generated_Source\PSoC5/USBFS_cls.c ****         #if defined(USBFS_ENABLE_HID_CLASS)
+  81:Generated_Source\PSoC5/USBFS_cls.c ****             case USBFS_CLASS_HID:
+  82:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_DispatchHIDClassRqst();
+  74              		.loc 1 82 0
+  75 0038 FFF7FEBF 		b	USBFS_DispatchHIDClassRqst
+  76              	.LVL5:
+  77              	.L6:
+  83:Generated_Source\PSoC5/USBFS_cls.c ****                 break;
+  84:Generated_Source\PSoC5/USBFS_cls.c ****         #endif /* (USBFS_ENABLE_HID_CLASS) */
+  85:Generated_Source\PSoC5/USBFS_cls.c ****                 
+  86:Generated_Source\PSoC5/USBFS_cls.c ****         #if defined(USBFS_ENABLE_AUDIO_CLASS)
+  87:Generated_Source\PSoC5/USBFS_cls.c ****             case USBFS_CLASS_AUDIO:
+  88:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_DispatchAUDIOClassRqst();
+  89:Generated_Source\PSoC5/USBFS_cls.c ****                 break;
+  90:Generated_Source\PSoC5/USBFS_cls.c ****         #endif /* (USBFS_CLASS_AUDIO) */
+  91:Generated_Source\PSoC5/USBFS_cls.c ****                 
+  92:Generated_Source\PSoC5/USBFS_cls.c ****         #if defined(USBFS_ENABLE_CDC_CLASS)
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 4
+
+
+  93:Generated_Source\PSoC5/USBFS_cls.c ****             case USBFS_CLASS_CDC:
+  94:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_DispatchCDCClassRqst();
+  95:Generated_Source\PSoC5/USBFS_cls.c ****                 break;
+  96:Generated_Source\PSoC5/USBFS_cls.c ****         #endif /* (USBFS_ENABLE_CDC_CLASS) */
+  97:Generated_Source\PSoC5/USBFS_cls.c ****             
+  98:Generated_Source\PSoC5/USBFS_cls.c ****         #if (USBFS_ENABLE_MSC_CLASS)
+  99:Generated_Source\PSoC5/USBFS_cls.c ****             case USBFS_CLASS_MSD:
+ 100:Generated_Source\PSoC5/USBFS_cls.c ****             #if (USBFS_HANDLE_MSC_REQUESTS)
+ 101:Generated_Source\PSoC5/USBFS_cls.c ****                 /* MSC requests are handled by the component. */
+ 102:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_DispatchMSCClassRqst();
+ 103:Generated_Source\PSoC5/USBFS_cls.c ****             #elif defined(USBFS_DISPATCH_MSC_CLASS_RQST_CALLBACK)
+ 104:Generated_Source\PSoC5/USBFS_cls.c ****                 /* MSC requests are handled by user defined callbcak. */
+ 105:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_DispatchMSCClassRqst_Callback();
+ 106:Generated_Source\PSoC5/USBFS_cls.c ****             #else
+ 107:Generated_Source\PSoC5/USBFS_cls.c ****                 /* MSC requests are not handled. */
+ 108:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_FALSE;
+ 109:Generated_Source\PSoC5/USBFS_cls.c ****             #endif /* (USBFS_HANDLE_MSC_REQUESTS) */
+ 110:Generated_Source\PSoC5/USBFS_cls.c ****                 break;
+ 111:Generated_Source\PSoC5/USBFS_cls.c ****         #endif /* (USBFS_ENABLE_MSC_CLASS) */
+ 112:Generated_Source\PSoC5/USBFS_cls.c ****             
+ 113:Generated_Source\PSoC5/USBFS_cls.c ****             default:
+ 114:Generated_Source\PSoC5/USBFS_cls.c ****                 /* Request is not handled: unknown class request type. */
+ 115:Generated_Source\PSoC5/USBFS_cls.c ****                 requestHandled = USBFS_FALSE;
+ 116:Generated_Source\PSoC5/USBFS_cls.c ****                 break;
+ 117:Generated_Source\PSoC5/USBFS_cls.c ****         }
+ 118:Generated_Source\PSoC5/USBFS_cls.c ****     #endif /* Class support is enabled */
+ 119:Generated_Source\PSoC5/USBFS_cls.c ****     }
+ 120:Generated_Source\PSoC5/USBFS_cls.c ****     
+ 121:Generated_Source\PSoC5/USBFS_cls.c ****     /* `#START USER_DEFINED_CLASS_CODE` Place your Class request here */
+ 122:Generated_Source\PSoC5/USBFS_cls.c **** 
+ 123:Generated_Source\PSoC5/USBFS_cls.c ****     /* `#END` */
+ 124:Generated_Source\PSoC5/USBFS_cls.c **** 
+ 125:Generated_Source\PSoC5/USBFS_cls.c **** #ifdef USBFS_DISPATCH_CLASS_RQST_CALLBACK
+ 126:Generated_Source\PSoC5/USBFS_cls.c ****     if (USBFS_FALSE == requestHandled)
+ 127:Generated_Source\PSoC5/USBFS_cls.c ****     {
+ 128:Generated_Source\PSoC5/USBFS_cls.c ****         requestHandled = USBFS_DispatchClassRqst_Callback(interfaceNumber);
+ 129:Generated_Source\PSoC5/USBFS_cls.c ****     }
+ 130:Generated_Source\PSoC5/USBFS_cls.c **** #endif /* (USBFS_DISPATCH_CLASS_RQST_CALLBACK) */
+ 131:Generated_Source\PSoC5/USBFS_cls.c **** 
+ 132:Generated_Source\PSoC5/USBFS_cls.c ****     return (requestHandled);
+ 133:Generated_Source\PSoC5/USBFS_cls.c **** }
+  78              		.loc 1 133 0
+  79 003c 0020     		movs	r0, #0
+  80 003e 7047     		bx	lr
+  81              	.L16:
+  82              		.align	2
+  83              	.L15:
+  84 0040 00600040 		.word	1073766400
+  85 0044 00000000 		.word	USBFS_EP
+  86 0048 00000000 		.word	USBFS_interfaceClass
+  87              		.cfi_endproc
+  88              	.LFE0:
+  89              		.size	USBFS_DispatchClassRqst, .-USBFS_DispatchClassRqst
+  90              		.text
+  91              	.Letext0:
+  92              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+  93              		.file 3 "Generated_Source\\PSoC5\\USBFS.h"
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 5
+
+
+  94              		.file 4 "Generated_Source\\PSoC5\\USBFS_pvt.h"
+  95              		.section	.debug_info,"",%progbits
+  96              	.Ldebug_info0:
+  97 0000 DA010000 		.4byte	0x1da
+  98 0004 0400     		.2byte	0x4
+  99 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 100 000a 04       		.byte	0x4
+ 101 000b 01       		.uleb128 0x1
+ 102 000c B8000000 		.4byte	.LASF32
+ 103 0010 0C       		.byte	0xc
+ 104 0011 68000000 		.4byte	.LASF33
+ 105 0015 F3010000 		.4byte	.LASF34
+ 106 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 107 001d 00000000 		.4byte	0
+ 108 0021 00000000 		.4byte	.Ldebug_line0
+ 109 0025 02       		.uleb128 0x2
+ 110 0026 01       		.byte	0x1
+ 111 0027 06       		.byte	0x6
+ 112 0028 A3020000 		.4byte	.LASF0
+ 113 002c 02       		.uleb128 0x2
+ 114 002d 01       		.byte	0x1
+ 115 002e 08       		.byte	0x8
+ 116 002f 64010000 		.4byte	.LASF1
+ 117 0033 02       		.uleb128 0x2
+ 118 0034 02       		.byte	0x2
+ 119 0035 05       		.byte	0x5
+ 120 0036 74020000 		.4byte	.LASF2
+ 121 003a 02       		.uleb128 0x2
+ 122 003b 02       		.byte	0x2
+ 123 003c 07       		.byte	0x7
+ 124 003d 00000000 		.4byte	.LASF3
+ 125 0041 02       		.uleb128 0x2
+ 126 0042 04       		.byte	0x4
+ 127 0043 05       		.byte	0x5
+ 128 0044 8E020000 		.4byte	.LASF4
+ 129 0048 02       		.uleb128 0x2
+ 130 0049 04       		.byte	0x4
+ 131 004a 07       		.byte	0x7
+ 132 004b B3010000 		.4byte	.LASF5
+ 133 004f 02       		.uleb128 0x2
+ 134 0050 08       		.byte	0x8
+ 135 0051 05       		.byte	0x5
+ 136 0052 56020000 		.4byte	.LASF6
+ 137 0056 02       		.uleb128 0x2
+ 138 0057 08       		.byte	0x8
+ 139 0058 07       		.byte	0x7
+ 140 0059 D2010000 		.4byte	.LASF7
+ 141 005d 03       		.uleb128 0x3
+ 142 005e 04       		.byte	0x4
+ 143 005f 05       		.byte	0x5
+ 144 0060 696E7400 		.ascii	"int\000"
+ 145 0064 02       		.uleb128 0x2
+ 146 0065 04       		.byte	0x4
+ 147 0066 07       		.byte	0x7
+ 148 0067 C5010000 		.4byte	.LASF8
+ 149 006b 04       		.uleb128 0x4
+ 150 006c 7E020000 		.4byte	.LASF9
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 6
+
+
+ 151 0070 02       		.byte	0x2
+ 152 0071 E901     		.2byte	0x1e9
+ 153 0073 2C000000 		.4byte	0x2c
+ 154 0077 04       		.uleb128 0x4
+ 155 0078 A1010000 		.4byte	.LASF10
+ 156 007c 02       		.byte	0x2
+ 157 007d EA01     		.2byte	0x1ea
+ 158 007f 3A000000 		.4byte	0x3a
+ 159 0083 02       		.uleb128 0x2
+ 160 0084 04       		.byte	0x4
+ 161 0085 04       		.byte	0x4
+ 162 0086 59000000 		.4byte	.LASF11
+ 163 008a 02       		.uleb128 0x2
+ 164 008b 08       		.byte	0x8
+ 165 008c 04       		.byte	0x4
+ 166 008d 88010000 		.4byte	.LASF12
+ 167 0091 02       		.uleb128 0x2
+ 168 0092 01       		.byte	0x1
+ 169 0093 08       		.byte	0x8
+ 170 0094 64020000 		.4byte	.LASF13
+ 171 0098 02       		.uleb128 0x2
+ 172 0099 08       		.byte	0x8
+ 173 009a 04       		.byte	0x4
+ 174 009b 97020000 		.4byte	.LASF14
+ 175 009f 02       		.uleb128 0x2
+ 176 00a0 04       		.byte	0x4
+ 177 00a1 07       		.byte	0x7
+ 178 00a2 46020000 		.4byte	.LASF15
+ 179 00a6 05       		.uleb128 0x5
+ 180 00a7 0C       		.byte	0xc
+ 181 00a8 03       		.byte	0x3
+ 182 00a9 93       		.byte	0x93
+ 183 00aa 1B010000 		.4byte	0x11b
+ 184 00ae 06       		.uleb128 0x6
+ 185 00af 8F010000 		.4byte	.LASF16
+ 186 00b3 03       		.byte	0x3
+ 187 00b4 95       		.byte	0x95
+ 188 00b5 6B000000 		.4byte	0x6b
+ 189 00b9 00       		.byte	0
+ 190 00ba 06       		.uleb128 0x6
+ 191 00bb A8010000 		.4byte	.LASF17
+ 192 00bf 03       		.byte	0x3
+ 193 00c0 96       		.byte	0x96
+ 194 00c1 6B000000 		.4byte	0x6b
+ 195 00c5 01       		.byte	0x1
+ 196 00c6 06       		.uleb128 0x6
+ 197 00c7 E9010000 		.4byte	.LASF18
+ 198 00cb 03       		.byte	0x3
+ 199 00cc 97       		.byte	0x97
+ 200 00cd 6B000000 		.4byte	0x6b
+ 201 00d1 02       		.byte	0x2
+ 202 00d2 06       		.uleb128 0x6
+ 203 00d3 5F000000 		.4byte	.LASF19
+ 204 00d7 03       		.byte	0x3
+ 205 00d8 98       		.byte	0x98
+ 206 00d9 6B000000 		.4byte	0x6b
+ 207 00dd 03       		.byte	0x3
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 7
+
+
+ 208 00de 06       		.uleb128 0x6
+ 209 00df 46010000 		.4byte	.LASF20
+ 210 00e3 03       		.byte	0x3
+ 211 00e4 99       		.byte	0x99
+ 212 00e5 6B000000 		.4byte	0x6b
+ 213 00e9 04       		.byte	0x4
+ 214 00ea 06       		.uleb128 0x6
+ 215 00eb 4F020000 		.4byte	.LASF21
+ 216 00ef 03       		.byte	0x3
+ 217 00f0 9A       		.byte	0x9a
+ 218 00f1 6B000000 		.4byte	0x6b
+ 219 00f5 05       		.byte	0x5
+ 220 00f6 06       		.uleb128 0x6
+ 221 00f7 96010000 		.4byte	.LASF22
+ 222 00fb 03       		.byte	0x3
+ 223 00fc 9B       		.byte	0x9b
+ 224 00fd 77000000 		.4byte	0x77
+ 225 0101 06       		.byte	0x6
+ 226 0102 06       		.uleb128 0x6
+ 227 0103 69020000 		.4byte	.LASF23
+ 228 0107 03       		.byte	0x3
+ 229 0108 9C       		.byte	0x9c
+ 230 0109 77000000 		.4byte	0x77
+ 231 010d 08       		.byte	0x8
+ 232 010e 06       		.uleb128 0x6
+ 233 010f 84020000 		.4byte	.LASF24
+ 234 0113 03       		.byte	0x3
+ 235 0114 9D       		.byte	0x9d
+ 236 0115 6B000000 		.4byte	0x6b
+ 237 0119 0A       		.byte	0xa
+ 238 011a 00       		.byte	0
+ 239 011b 07       		.uleb128 0x7
+ 240 011c 13000000 		.4byte	.LASF25
+ 241 0120 03       		.byte	0x3
+ 242 0121 9E       		.byte	0x9e
+ 243 0122 A6000000 		.4byte	0xa6
+ 244 0126 05       		.uleb128 0x5
+ 245 0127 08       		.byte	0x8
+ 246 0128 03       		.byte	0x3
+ 247 0129 CB       		.byte	0xcb
+ 248 012a 3B010000 		.4byte	0x13b
+ 249 012e 06       		.uleb128 0x6
+ 250 012f 28000000 		.4byte	.LASF26
+ 251 0133 03       		.byte	0x3
+ 252 0134 CD       		.byte	0xcd
+ 253 0135 3B010000 		.4byte	0x13b
+ 254 0139 00       		.byte	0
+ 255 013a 00       		.byte	0
+ 256 013b 08       		.uleb128 0x8
+ 257 013c 6B000000 		.4byte	0x6b
+ 258 0140 4B010000 		.4byte	0x14b
+ 259 0144 09       		.uleb128 0x9
+ 260 0145 9F000000 		.4byte	0x9f
+ 261 0149 07       		.byte	0x7
+ 262 014a 00       		.byte	0
+ 263 014b 07       		.uleb128 0x7
+ 264 014c 72010000 		.4byte	.LASF27
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 8
+
+
+ 265 0150 03       		.byte	0x3
+ 266 0151 CE       		.byte	0xce
+ 267 0152 26010000 		.4byte	0x126
+ 268 0156 0A       		.uleb128 0xa
+ 269 0157 A0000000 		.4byte	.LASF35
+ 270 015b 01       		.byte	0x1
+ 271 015c 29       		.byte	0x29
+ 272 015d 6B000000 		.4byte	0x6b
+ 273 0161 00000000 		.4byte	.LFB0
+ 274 0165 4C000000 		.4byte	.LFE0-.LFB0
+ 275 0169 01       		.uleb128 0x1
+ 276 016a 9C       		.byte	0x9c
+ 277 016b 97010000 		.4byte	0x197
+ 278 016f 0B       		.uleb128 0xb
+ 279 0170 4B010000 		.4byte	.LASF28
+ 280 0174 01       		.byte	0x1
+ 281 0175 2B       		.byte	0x2b
+ 282 0176 6B000000 		.4byte	0x6b
+ 283 017a 00000000 		.4byte	.LLST0
+ 284 017e 0B       		.uleb128 0xb
+ 285 017f 4A000000 		.4byte	.LASF29
+ 286 0183 01       		.byte	0x1
+ 287 0184 2C       		.byte	0x2c
+ 288 0185 6B000000 		.4byte	0x6b
+ 289 0189 1E000000 		.4byte	.LLST1
+ 290 018d 0C       		.uleb128 0xc
+ 291 018e 3C000000 		.4byte	.LVL5
+ 292 0192 D2010000 		.4byte	0x1d2
+ 293 0196 00       		.byte	0
+ 294 0197 0D       		.uleb128 0xd
+ 295 0198 8B000000 		.4byte	.LASF30
+ 296 019c 04       		.byte	0x4
+ 297 019d 82       		.byte	0x82
+ 298 019e A2010000 		.4byte	0x1a2
+ 299 01a2 0E       		.uleb128 0xe
+ 300 01a3 04       		.byte	0x4
+ 301 01a4 A8010000 		.4byte	0x1a8
+ 302 01a8 0F       		.uleb128 0xf
+ 303 01a9 6B000000 		.4byte	0x6b
+ 304 01ad 08       		.uleb128 0x8
+ 305 01ae BD010000 		.4byte	0x1bd
+ 306 01b2 BD010000 		.4byte	0x1bd
+ 307 01b6 09       		.uleb128 0x9
+ 308 01b7 9F000000 		.4byte	0x9f
+ 309 01bb 08       		.byte	0x8
+ 310 01bc 00       		.byte	0
+ 311 01bd 10       		.uleb128 0x10
+ 312 01be 1B010000 		.4byte	0x11b
+ 313 01c2 0D       		.uleb128 0xd
+ 314 01c3 5B010000 		.4byte	.LASF31
+ 315 01c7 04       		.byte	0x4
+ 316 01c8 84       		.byte	0x84
+ 317 01c9 CD010000 		.4byte	0x1cd
+ 318 01cd 10       		.uleb128 0x10
+ 319 01ce AD010000 		.4byte	0x1ad
+ 320 01d2 11       		.uleb128 0x11
+ 321 01d3 2F000000 		.4byte	.LASF36
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 9
+
+
+ 322 01d7 2F000000 		.4byte	.LASF36
+ 323 01db 04       		.byte	0x4
+ 324 01dc E2       		.byte	0xe2
+ 325 01dd 00       		.byte	0
+ 326              		.section	.debug_abbrev,"",%progbits
+ 327              	.Ldebug_abbrev0:
+ 328 0000 01       		.uleb128 0x1
+ 329 0001 11       		.uleb128 0x11
+ 330 0002 01       		.byte	0x1
+ 331 0003 25       		.uleb128 0x25
+ 332 0004 0E       		.uleb128 0xe
+ 333 0005 13       		.uleb128 0x13
+ 334 0006 0B       		.uleb128 0xb
+ 335 0007 03       		.uleb128 0x3
+ 336 0008 0E       		.uleb128 0xe
+ 337 0009 1B       		.uleb128 0x1b
+ 338 000a 0E       		.uleb128 0xe
+ 339 000b 55       		.uleb128 0x55
+ 340 000c 17       		.uleb128 0x17
+ 341 000d 11       		.uleb128 0x11
+ 342 000e 01       		.uleb128 0x1
+ 343 000f 10       		.uleb128 0x10
+ 344 0010 17       		.uleb128 0x17
+ 345 0011 00       		.byte	0
+ 346 0012 00       		.byte	0
+ 347 0013 02       		.uleb128 0x2
+ 348 0014 24       		.uleb128 0x24
+ 349 0015 00       		.byte	0
+ 350 0016 0B       		.uleb128 0xb
+ 351 0017 0B       		.uleb128 0xb
+ 352 0018 3E       		.uleb128 0x3e
+ 353 0019 0B       		.uleb128 0xb
+ 354 001a 03       		.uleb128 0x3
+ 355 001b 0E       		.uleb128 0xe
+ 356 001c 00       		.byte	0
+ 357 001d 00       		.byte	0
+ 358 001e 03       		.uleb128 0x3
+ 359 001f 24       		.uleb128 0x24
+ 360 0020 00       		.byte	0
+ 361 0021 0B       		.uleb128 0xb
+ 362 0022 0B       		.uleb128 0xb
+ 363 0023 3E       		.uleb128 0x3e
+ 364 0024 0B       		.uleb128 0xb
+ 365 0025 03       		.uleb128 0x3
+ 366 0026 08       		.uleb128 0x8
+ 367 0027 00       		.byte	0
+ 368 0028 00       		.byte	0
+ 369 0029 04       		.uleb128 0x4
+ 370 002a 16       		.uleb128 0x16
+ 371 002b 00       		.byte	0
+ 372 002c 03       		.uleb128 0x3
+ 373 002d 0E       		.uleb128 0xe
+ 374 002e 3A       		.uleb128 0x3a
+ 375 002f 0B       		.uleb128 0xb
+ 376 0030 3B       		.uleb128 0x3b
+ 377 0031 05       		.uleb128 0x5
+ 378 0032 49       		.uleb128 0x49
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 10
+
+
+ 379 0033 13       		.uleb128 0x13
+ 380 0034 00       		.byte	0
+ 381 0035 00       		.byte	0
+ 382 0036 05       		.uleb128 0x5
+ 383 0037 13       		.uleb128 0x13
+ 384 0038 01       		.byte	0x1
+ 385 0039 0B       		.uleb128 0xb
+ 386 003a 0B       		.uleb128 0xb
+ 387 003b 3A       		.uleb128 0x3a
+ 388 003c 0B       		.uleb128 0xb
+ 389 003d 3B       		.uleb128 0x3b
+ 390 003e 0B       		.uleb128 0xb
+ 391 003f 01       		.uleb128 0x1
+ 392 0040 13       		.uleb128 0x13
+ 393 0041 00       		.byte	0
+ 394 0042 00       		.byte	0
+ 395 0043 06       		.uleb128 0x6
+ 396 0044 0D       		.uleb128 0xd
+ 397 0045 00       		.byte	0
+ 398 0046 03       		.uleb128 0x3
+ 399 0047 0E       		.uleb128 0xe
+ 400 0048 3A       		.uleb128 0x3a
+ 401 0049 0B       		.uleb128 0xb
+ 402 004a 3B       		.uleb128 0x3b
+ 403 004b 0B       		.uleb128 0xb
+ 404 004c 49       		.uleb128 0x49
+ 405 004d 13       		.uleb128 0x13
+ 406 004e 38       		.uleb128 0x38
+ 407 004f 0B       		.uleb128 0xb
+ 408 0050 00       		.byte	0
+ 409 0051 00       		.byte	0
+ 410 0052 07       		.uleb128 0x7
+ 411 0053 16       		.uleb128 0x16
+ 412 0054 00       		.byte	0
+ 413 0055 03       		.uleb128 0x3
+ 414 0056 0E       		.uleb128 0xe
+ 415 0057 3A       		.uleb128 0x3a
+ 416 0058 0B       		.uleb128 0xb
+ 417 0059 3B       		.uleb128 0x3b
+ 418 005a 0B       		.uleb128 0xb
+ 419 005b 49       		.uleb128 0x49
+ 420 005c 13       		.uleb128 0x13
+ 421 005d 00       		.byte	0
+ 422 005e 00       		.byte	0
+ 423 005f 08       		.uleb128 0x8
+ 424 0060 01       		.uleb128 0x1
+ 425 0061 01       		.byte	0x1
+ 426 0062 49       		.uleb128 0x49
+ 427 0063 13       		.uleb128 0x13
+ 428 0064 01       		.uleb128 0x1
+ 429 0065 13       		.uleb128 0x13
+ 430 0066 00       		.byte	0
+ 431 0067 00       		.byte	0
+ 432 0068 09       		.uleb128 0x9
+ 433 0069 21       		.uleb128 0x21
+ 434 006a 00       		.byte	0
+ 435 006b 49       		.uleb128 0x49
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 11
+
+
+ 436 006c 13       		.uleb128 0x13
+ 437 006d 2F       		.uleb128 0x2f
+ 438 006e 0B       		.uleb128 0xb
+ 439 006f 00       		.byte	0
+ 440 0070 00       		.byte	0
+ 441 0071 0A       		.uleb128 0xa
+ 442 0072 2E       		.uleb128 0x2e
+ 443 0073 01       		.byte	0x1
+ 444 0074 3F       		.uleb128 0x3f
+ 445 0075 19       		.uleb128 0x19
+ 446 0076 03       		.uleb128 0x3
+ 447 0077 0E       		.uleb128 0xe
+ 448 0078 3A       		.uleb128 0x3a
+ 449 0079 0B       		.uleb128 0xb
+ 450 007a 3B       		.uleb128 0x3b
+ 451 007b 0B       		.uleb128 0xb
+ 452 007c 27       		.uleb128 0x27
+ 453 007d 19       		.uleb128 0x19
+ 454 007e 49       		.uleb128 0x49
+ 455 007f 13       		.uleb128 0x13
+ 456 0080 11       		.uleb128 0x11
+ 457 0081 01       		.uleb128 0x1
+ 458 0082 12       		.uleb128 0x12
+ 459 0083 06       		.uleb128 0x6
+ 460 0084 40       		.uleb128 0x40
+ 461 0085 18       		.uleb128 0x18
+ 462 0086 9742     		.uleb128 0x2117
+ 463 0088 19       		.uleb128 0x19
+ 464 0089 01       		.uleb128 0x1
+ 465 008a 13       		.uleb128 0x13
+ 466 008b 00       		.byte	0
+ 467 008c 00       		.byte	0
+ 468 008d 0B       		.uleb128 0xb
+ 469 008e 34       		.uleb128 0x34
+ 470 008f 00       		.byte	0
+ 471 0090 03       		.uleb128 0x3
+ 472 0091 0E       		.uleb128 0xe
+ 473 0092 3A       		.uleb128 0x3a
+ 474 0093 0B       		.uleb128 0xb
+ 475 0094 3B       		.uleb128 0x3b
+ 476 0095 0B       		.uleb128 0xb
+ 477 0096 49       		.uleb128 0x49
+ 478 0097 13       		.uleb128 0x13
+ 479 0098 02       		.uleb128 0x2
+ 480 0099 17       		.uleb128 0x17
+ 481 009a 00       		.byte	0
+ 482 009b 00       		.byte	0
+ 483 009c 0C       		.uleb128 0xc
+ 484 009d 898201   		.uleb128 0x4109
+ 485 00a0 00       		.byte	0
+ 486 00a1 11       		.uleb128 0x11
+ 487 00a2 01       		.uleb128 0x1
+ 488 00a3 9542     		.uleb128 0x2115
+ 489 00a5 19       		.uleb128 0x19
+ 490 00a6 31       		.uleb128 0x31
+ 491 00a7 13       		.uleb128 0x13
+ 492 00a8 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 12
+
+
+ 493 00a9 00       		.byte	0
+ 494 00aa 0D       		.uleb128 0xd
+ 495 00ab 34       		.uleb128 0x34
+ 496 00ac 00       		.byte	0
+ 497 00ad 03       		.uleb128 0x3
+ 498 00ae 0E       		.uleb128 0xe
+ 499 00af 3A       		.uleb128 0x3a
+ 500 00b0 0B       		.uleb128 0xb
+ 501 00b1 3B       		.uleb128 0x3b
+ 502 00b2 0B       		.uleb128 0xb
+ 503 00b3 49       		.uleb128 0x49
+ 504 00b4 13       		.uleb128 0x13
+ 505 00b5 3F       		.uleb128 0x3f
+ 506 00b6 19       		.uleb128 0x19
+ 507 00b7 3C       		.uleb128 0x3c
+ 508 00b8 19       		.uleb128 0x19
+ 509 00b9 00       		.byte	0
+ 510 00ba 00       		.byte	0
+ 511 00bb 0E       		.uleb128 0xe
+ 512 00bc 0F       		.uleb128 0xf
+ 513 00bd 00       		.byte	0
+ 514 00be 0B       		.uleb128 0xb
+ 515 00bf 0B       		.uleb128 0xb
+ 516 00c0 49       		.uleb128 0x49
+ 517 00c1 13       		.uleb128 0x13
+ 518 00c2 00       		.byte	0
+ 519 00c3 00       		.byte	0
+ 520 00c4 0F       		.uleb128 0xf
+ 521 00c5 26       		.uleb128 0x26
+ 522 00c6 00       		.byte	0
+ 523 00c7 49       		.uleb128 0x49
+ 524 00c8 13       		.uleb128 0x13
+ 525 00c9 00       		.byte	0
+ 526 00ca 00       		.byte	0
+ 527 00cb 10       		.uleb128 0x10
+ 528 00cc 35       		.uleb128 0x35
+ 529 00cd 00       		.byte	0
+ 530 00ce 49       		.uleb128 0x49
+ 531 00cf 13       		.uleb128 0x13
+ 532 00d0 00       		.byte	0
+ 533 00d1 00       		.byte	0
+ 534 00d2 11       		.uleb128 0x11
+ 535 00d3 2E       		.uleb128 0x2e
+ 536 00d4 00       		.byte	0
+ 537 00d5 3F       		.uleb128 0x3f
+ 538 00d6 19       		.uleb128 0x19
+ 539 00d7 3C       		.uleb128 0x3c
+ 540 00d8 19       		.uleb128 0x19
+ 541 00d9 6E       		.uleb128 0x6e
+ 542 00da 0E       		.uleb128 0xe
+ 543 00db 03       		.uleb128 0x3
+ 544 00dc 0E       		.uleb128 0xe
+ 545 00dd 3A       		.uleb128 0x3a
+ 546 00de 0B       		.uleb128 0xb
+ 547 00df 3B       		.uleb128 0x3b
+ 548 00e0 0B       		.uleb128 0xb
+ 549 00e1 00       		.byte	0
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 13
+
+
+ 550 00e2 00       		.byte	0
+ 551 00e3 00       		.byte	0
+ 552              		.section	.debug_loc,"",%progbits
+ 553              	.Ldebug_loc0:
+ 554              	.LLST0:
+ 555 0000 26000000 		.4byte	.LVL1
+ 556 0004 2C000000 		.4byte	.LVL2
+ 557 0008 0100     		.2byte	0x1
+ 558 000a 53       		.byte	0x53
+ 559 000b 2E000000 		.4byte	.LVL3
+ 560 000f 34000000 		.4byte	.LVL4
+ 561 0013 0100     		.2byte	0x1
+ 562 0015 53       		.byte	0x53
+ 563 0016 00000000 		.4byte	0
+ 564 001a 00000000 		.4byte	0
+ 565              	.LLST1:
+ 566 001e 00000000 		.4byte	.LVL0
+ 567 0022 3C000000 		.4byte	.LVL5
+ 568 0026 0200     		.2byte	0x2
+ 569 0028 30       		.byte	0x30
+ 570 0029 9F       		.byte	0x9f
+ 571 002a 00000000 		.4byte	0
+ 572 002e 00000000 		.4byte	0
+ 573              		.section	.debug_aranges,"",%progbits
+ 574 0000 1C000000 		.4byte	0x1c
+ 575 0004 0200     		.2byte	0x2
+ 576 0006 00000000 		.4byte	.Ldebug_info0
+ 577 000a 04       		.byte	0x4
+ 578 000b 00       		.byte	0
+ 579 000c 0000     		.2byte	0
+ 580 000e 0000     		.2byte	0
+ 581 0010 00000000 		.4byte	.LFB0
+ 582 0014 4C000000 		.4byte	.LFE0-.LFB0
+ 583 0018 00000000 		.4byte	0
+ 584 001c 00000000 		.4byte	0
+ 585              		.section	.debug_ranges,"",%progbits
+ 586              	.Ldebug_ranges0:
+ 587 0000 00000000 		.4byte	.LFB0
+ 588 0004 4C000000 		.4byte	.LFE0
+ 589 0008 00000000 		.4byte	0
+ 590 000c 00000000 		.4byte	0
+ 591              		.section	.debug_line,"",%progbits
+ 592              	.Ldebug_line0:
+ 593 0000 88000000 		.section	.debug_str,"MS",%progbits,1
+ 593      02006000 
+ 593      00000201 
+ 593      FB0E0D00 
+ 593      01010101 
+ 594              	.LASF3:
+ 595 0000 73686F72 		.ascii	"short unsigned int\000"
+ 595      7420756E 
+ 595      7369676E 
+ 595      65642069 
+ 595      6E7400
+ 596              	.LASF25:
+ 597 0013 545F5553 		.ascii	"T_USBFS_EP_CTL_BLOCK\000"
+ 597      4246535F 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 14
+
+
+ 597      45505F43 
+ 597      544C5F42 
+ 597      4C4F434B 
+ 598              	.LASF26:
+ 599 0028 65704461 		.ascii	"epData\000"
+ 599      746100
+ 600              	.LASF36:
+ 601 002f 55534246 		.ascii	"USBFS_DispatchHIDClassRqst\000"
+ 601      535F4469 
+ 601      73706174 
+ 601      63684849 
+ 601      44436C61 
+ 602              	.LASF29:
+ 603 004a 72657175 		.ascii	"requestHandled\000"
+ 603      65737448 
+ 603      616E646C 
+ 603      656400
+ 604              	.LASF11:
+ 605 0059 666C6F61 		.ascii	"float\000"
+ 605      7400
+ 606              	.LASF19:
+ 607 005f 6570546F 		.ascii	"epToggle\000"
+ 607      67676C65 
+ 607      00
+ 608              	.LASF33:
+ 609 0068 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBFS_cls.c\000"
+ 609      72617465 
+ 609      645F536F 
+ 609      75726365 
+ 609      5C50536F 
+ 610              	.LASF30:
+ 611 008b 55534246 		.ascii	"USBFS_interfaceClass\000"
+ 611      535F696E 
+ 611      74657266 
+ 611      61636543 
+ 611      6C617373 
+ 612              	.LASF35:
+ 613 00a0 55534246 		.ascii	"USBFS_DispatchClassRqst\000"
+ 613      535F4469 
+ 613      73706174 
+ 613      6368436C 
+ 613      61737352 
+ 614              	.LASF32:
+ 615 00b8 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 615      43313120 
+ 615      352E342E 
+ 615      31203230 
+ 615      31363036 
+ 616 00eb 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 616      20726576 
+ 616      6973696F 
+ 616      6E203233 
+ 616      37373135 
+ 617 011e 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 617      66756E63 
+ 617      74696F6E 
+ 617      2D736563 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 15
+
+
+ 617      74696F6E 
+ 618              	.LASF20:
+ 619 0146 61646472 		.ascii	"addr\000"
+ 619      00
+ 620              	.LASF28:
+ 621 014b 696E7465 		.ascii	"interfaceNumber\000"
+ 621      72666163 
+ 621      654E756D 
+ 621      62657200 
+ 622              	.LASF31:
+ 623 015b 55534246 		.ascii	"USBFS_EP\000"
+ 623      535F4550 
+ 623      00
+ 624              	.LASF1:
+ 625 0164 756E7369 		.ascii	"unsigned char\000"
+ 625      676E6564 
+ 625      20636861 
+ 625      7200
+ 626              	.LASF27:
+ 627 0172 55534246 		.ascii	"USBFS_ep0_data_struct\000"
+ 627      535F6570 
+ 627      305F6461 
+ 627      74615F73 
+ 627      74727563 
+ 628              	.LASF12:
+ 629 0188 646F7562 		.ascii	"double\000"
+ 629      6C6500
+ 630              	.LASF16:
+ 631 018f 61747472 		.ascii	"attrib\000"
+ 631      696200
+ 632              	.LASF22:
+ 633 0196 62756666 		.ascii	"buffOffset\000"
+ 633      4F666673 
+ 633      657400
+ 634              	.LASF10:
+ 635 01a1 75696E74 		.ascii	"uint16\000"
+ 635      313600
+ 636              	.LASF17:
+ 637 01a8 61706945 		.ascii	"apiEpState\000"
+ 637      70537461 
+ 637      746500
+ 638              	.LASF5:
+ 639 01b3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 639      20756E73 
+ 639      69676E65 
+ 639      6420696E 
+ 639      7400
+ 640              	.LASF8:
+ 641 01c5 756E7369 		.ascii	"unsigned int\000"
+ 641      676E6564 
+ 641      20696E74 
+ 641      00
+ 642              	.LASF7:
+ 643 01d2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 643      206C6F6E 
+ 643      6720756E 
+ 643      7369676E 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 16
+
+
+ 643      65642069 
+ 644              	.LASF18:
+ 645 01e9 68774570 		.ascii	"hwEpState\000"
+ 645      53746174 
+ 645      6500
+ 646              	.LASF34:
+ 647 01f3 433A5C55 		.ascii	"C:\\Users\\rabbit\\Documents\\v5.0c\\SCSI2SD\\softw"
+ 647      73657273 
+ 647      5C726162 
+ 647      6269745C 
+ 647      446F6375 
+ 648 0220 6172655C 		.ascii	"are\\SCSI2SD\\v5.0\\USB_Bootloader.cydsn\000"
+ 648      53435349 
+ 648      3253445C 
+ 648      76352E30 
+ 648      5C555342 
+ 649              	.LASF15:
+ 650 0246 73697A65 		.ascii	"sizetype\000"
+ 650      74797065 
+ 650      00
+ 651              	.LASF21:
+ 652 024f 65704D6F 		.ascii	"epMode\000"
+ 652      646500
+ 653              	.LASF6:
+ 654 0256 6C6F6E67 		.ascii	"long long int\000"
+ 654      206C6F6E 
+ 654      6720696E 
+ 654      7400
+ 655              	.LASF13:
+ 656 0264 63686172 		.ascii	"char\000"
+ 656      00
+ 657              	.LASF23:
+ 658 0269 62756666 		.ascii	"bufferSize\000"
+ 658      65725369 
+ 658      7A6500
+ 659              	.LASF2:
+ 660 0274 73686F72 		.ascii	"short int\000"
+ 660      7420696E 
+ 660      7400
+ 661              	.LASF9:
+ 662 027e 75696E74 		.ascii	"uint8\000"
+ 662      3800
+ 663              	.LASF24:
+ 664 0284 696E7465 		.ascii	"interface\000"
+ 664      72666163 
+ 664      6500
+ 665              	.LASF4:
+ 666 028e 6C6F6E67 		.ascii	"long int\000"
+ 666      20696E74 
+ 666      00
+ 667              	.LASF14:
+ 668 0297 6C6F6E67 		.ascii	"long double\000"
+ 668      20646F75 
+ 668      626C6500 
+ 669              	.LASF0:
+ 670 02a3 7369676E 		.ascii	"signed char\000"
+ 670      65642063 
+ARM GAS  C:\Users\rabbit\AppData\Local\Temp\ccDZPhoH.s 			page 17
+
+
+ 670      68617200 
+ 671              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

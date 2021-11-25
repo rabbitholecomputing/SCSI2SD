@@ -1,0 +1,6 @@
+C:\Users\rabbit\Documents\v5.0c\SCSI2SD\software\SCSI2SD\v5.0\USB_Bootloader.cydsn\USB_Bootloader.cyprj|a8c233ef-4dce-4ce6-8253-650a83689c64
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|49129ff0-e36e-460f-84aa-c689abad5d51
+C:\Users\rabbit\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|d0fc942c-5387-4aa7-a95a-0a8910127a3f
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2007f93e-7c6e-446f-95c4-a64737f2bbab
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|cb0f0b88-41dc-46c9-abc9-4d87964b8a3e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|9846159f-e84a-4b49-a44c-0aac57a21dc6
